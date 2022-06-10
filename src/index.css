@@ -11,3 +11,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.mt-1 {
+  margin-top: 2rem !important;
+}
+
+.mt-2 {
+  margin-top: 5rem !important;
+}
+
+.ghost-btn{
+  background: transparent;
+  color: white;
+  padding: 10px 40px;
+}
