@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Col, Collapse, Container, Row } from 'react-bootstrap'
 import '../../../index.css'
+import Header from '../Generic/Header';
 import Form from './Form';
 
 const Homepage = () => {
@@ -9,11 +10,7 @@ const Homepage = () => {
 
     return (
         <Container fluid style={{background: 'black'}} >
-            <Row className="justify-content-md-center">
-                <Col xs={1} style={{background: 'gray'}}>
-                    Beckett Logo
-                </Col>
-            </Row>
+            <Header />
             <Row className="justify-content-md-center mt-2">
                 <Collapse in ={open} timeout={3000}>
                     <Col xs={5} style={{fontSize: 33, color: '#C0C0C0', fontWeight:'bolder'}}>
