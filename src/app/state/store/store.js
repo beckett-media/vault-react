@@ -1,11 +1,11 @@
 import { initialState, rootReducer } from "./rootReducer";
 import { configureStore } from "@reduxjs/toolkit";
-import { formReducers } from "../reducers";
+import { interestFormReducers } from "../reducers";
 
 export const store = configureStore({
     reducer: {
-       form: formReducers
+       interestForm: interestFormReducers
     },
-    preloadedState: {form: initialState.form}
+    preloadedState: {interestForm: initialState.interestForm}
     
 });

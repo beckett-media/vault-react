@@ -1,11 +1,17 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import { formReducers } from "../reducers";
+import { interestFormReducers } from "../reducers";
 
 export const initialState = {
-        form: {title: 'Static'}
+        interestForm: {
+            first: '', last: '', phone: '', 
+            email:'', beckettId:'', checkbox1: false, 
+            checkbox2: false, checkbox3: false, 
+            checkbox4: false, checkbox5: false, 
+            checkbox6: false
+        }
     }
 
 
 export const rootReducer = combineReducers({
-    title: formReducers
+    interestForm: interestFormReducers,
 })

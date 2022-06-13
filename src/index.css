@@ -25,3 +25,41 @@ code {
   color: white;
   padding: 10px 40px;
 }
+
+.fill-btn{
+  background: linear-gradient(to right, rgb(177, 228, 228) 30%, rgb(2, 165, 165));
+  color: black;
+  padding: 10px 40px;
+}
+
+.transparent-text-input{
+  background: rgb(58, 43, 77);
+  color: white;
+  padding: 10px 20px;
+  margin: 10px;
+  width: 100%;
+}
+.transparent-text-input::placeholder {
+  color: white;
+  opacity: 1; /* Firefox */
+}
+
+.form-check-label {
+  color: white;
+  background: rgb(58, 43, 77);
+}
+
+.form-check-input:checked {
+  width: 20px;
+  height: 20px;
+  background-color: #198754;
+  border: solid 1px #198754;
+}
+.form-check{
+  margin: 10px;
+}
+.form-check-input {
+  width: 20px;
+  height: 20px;
+  background-color: #198754;
+}

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Col, Collapse, Container, Row } from 'react-bootstrap'
 import '../../../index.css'
+import Footer from '../Generic/Footer';
 import Header from '../Generic/Header';
-import Form from './Form';
+import InterestForm from './InterestForm';
 
 const Homepage = () => {
     const [open, setOpen] = useState(false);
@@ -21,8 +22,14 @@ const Homepage = () => {
                     {'Pioneer the Frontier of Digital & Physical Collectibles'}
                 </Col>
             </Row>
-            <Row className="justify-content-md-center mt-1"><input type="button" className='border border-info rounded-pill ghost-btn' value='Begin your Journey'/></Row>
-            <Form /> 
+            <Row className="justify-content-md-center mt-1">
+                <input type="button" 
+                    className='border border-info rounded-pill ghost-btn' 
+                    value='Begin your Journey'
+                />
+            </Row>
+            <InterestForm /> 
+            <Footer />
       </Container>
   )
 }
