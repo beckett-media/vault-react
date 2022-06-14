@@ -3,7 +3,8 @@ import {
 	SET_FIRST, SET_LAST, SET_PHONE, SET_EMAIL, 
 	SET_BECKETT_ID, SET_CHECKBOX_6, SET_CHECKBOX_5, 
 	SET_CHECKBOX_4, SET_CHECKBOX_3, SET_CHECKBOX_2, 
-	SET_CHECKBOX_1 } from './types';
+	SET_CHECKBOX_1, 
+	RESET_FORM} from './types';
 
 export const interestFormReducers = (state = {initialState}, action) => {
 	console.log('reducer returns ',action.payload)
@@ -41,7 +42,10 @@ export const interestFormReducers = (state = {initialState}, action) => {
 		case SET_CHECKBOX_6: 
         console.log(action)
         return { ...state, checkbox6: action.payload.interestForm.checkbox6}
-		
+		case RESET_FORM: 
+        console.log(action)
+        return { ...state, checkbox6: action.payload.interestForm}
+
 		default: return state
 	}
 }

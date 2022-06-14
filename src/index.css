@@ -50,16 +50,23 @@ code {
 }
 
 .form-check-input:checked {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   background-color: #198754;
   border: solid 1px #198754;
 }
-.form-check{
+.form-check {
   margin: 10px;
 }
 .form-check-input {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   background-color: #198754;
+}
+
+.checkbox-array {
+  background: rgb(58, 43, 77);
+}
+.rounded-custom {
+  border-radius: 24px;
 }

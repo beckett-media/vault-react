@@ -12,6 +12,14 @@ export const initialState = {
     }
 
 
-export const rootReducer = combineReducers({
+export const appReducer = combineReducers({
     interestForm: interestFormReducers,
-})
+  })
+  
+export const rootReducer = (state, action) => {
+    if (action.type === 'LOGOUT') {
+        return appReducer(undefined, action)
+    }
+
+    return appReducer(state, action)
+}

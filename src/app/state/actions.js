@@ -2,7 +2,8 @@ import {
 	SET_FIRST, SET_LAST, SET_PHONE, SET_EMAIL, 
 	SET_BECKETT_ID, SET_CHECKBOX_6, SET_CHECKBOX_5, 
 	SET_CHECKBOX_4, SET_CHECKBOX_3, SET_CHECKBOX_2, 
-	SET_CHECKBOX_1 } from "./types";
+	SET_CHECKBOX_1, 
+	RESET_FORM} from "./types";
 
 export const setFirst = (payload) => {
 	console.log('payload is', payload.interestForm)
@@ -78,6 +79,14 @@ export const setCheckbox6 = (payload) => {
 	console.log('payload is', payload.interestForm)
 	return {
 		type: SET_CHECKBOX_6,
+        payload: payload
+	}
+}
+
+export const resetForm = (payload) => {
+	console.log('payload is', payload.interestForm)
+	return {
+		type: RESET_FORM,
         payload: payload
 	}
 }

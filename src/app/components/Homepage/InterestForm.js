@@ -1,47 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { interestFormSelector } from '../../state/selectors'
-import { setFirst, setLast, setPhone, setEmail, setBeckettId, setCheckbox1, setCheckbox2, setCheckbox3, setCheckbox4, setCheckbox5, setCheckbox6 } from '../../state/actions'
+import { setFirst, setLast, setPhone, setEmail, setBeckettId, setCheckbox1, setCheckbox2, setCheckbox3, setCheckbox4, setCheckbox5, setCheckbox6, resetForm } from '../../state/actions'
 import { Col, Container, InputGroup, Row, Form } from 'react-bootstrap'
-import { validEmail } from '../Validation/regex'
+import { validEmail, validPhone } from '../Validation/regex'
+import { initialState } from '../../state/store/rootReducer'
 
-const InterestForm = () => {
+const InterestForm = (props) => {
     const interestForm = useSelector(interestFormSelector)
     const dispatch = useDispatch()
 
     const [tempText, updateTempText] = useState('')
     const [currentField, setCurrentField] = useState('')
     const [lastField, setLastField] = useState('')
-    const [formValidated, setFormValidated] = useState(false)
-
-    useEffect(() => {
-        if(!formValidated){
-            validateForm()
-        }
-    }, [formValidated])
-
-    const validateForm = () => {
-        validEmail.test(interestForm.email)
-        && console.log('emailValidated')
-    } 
-    const formSubmission = async () => {
-        // formSubmission toggle should be replaced by async logic
-        console.log(formValidated)
-        if(!formValidated){
-            return setFormValidated(true)
-        }
-        setFormValidated(false)
-        // here we need to use an async function with a
-        // thunk to wait for the last redux action to
-        // finish, before firing off the post request
-        console.log(interestForm)
-    }
 
     const onFieldChange = (e) => {
         if(lastField === ''){
             setLastField(e.target.id)
         }
-        console.log(tempText)
         setCurrentField(e.target.id)
         if(e.target.id.substr(0,8) === 'checkbox'){
             switch(e.target.id){
@@ -92,14 +68,14 @@ const InterestForm = () => {
     }
     return (
         <Container fluid>
-            <Form>
+            <Form >
                 <Row className="justify-content-md-center">
-                    <Col md={4} align='center' style={{color: 'white'}}>
+                    <Col align='center' style={{color: 'white'}}>
                         Fill out the form below to launch. {interestForm.first}
                     </Col>
                 </Row>
-                <InputGroup className="justify-content-md-center">
-                    <Col md={11}>
+                <InputGroup md={{ span: 2, offset: 2 }}  className="justify-content-md-center">
+                    <Col md='5'>
                         <input 
                             id='first'
                             type='text' 
@@ -111,8 +87,8 @@ const InterestForm = () => {
                         />
                     </Col>
                 </InputGroup>
-                <InputGroup className="justify-content-md-center">
-                    <Col md={11}>
+                <InputGroup md={{ span: 2, offset: 2 }} className="justify-content-md-center">
+                    <Col md='5'>
                         <input 
                             id='last'
                             type='text' 
@@ -124,8 +100,8 @@ const InterestForm = () => {
                         />
                     </Col>
                 </InputGroup>
-                <InputGroup className="justify-content-md-center">
-                    <Col md={11}>
+                <InputGroup md={{ span: 2, offset: 2 }} className="justify-content-md-center">
+                    <Col md='5'>
                         <input 
                             id='email'
                             type='text' 
@@ -137,8 +113,8 @@ const InterestForm = () => {
                         />
                     </Col>
                 </InputGroup>
-                <InputGroup className="justify-content-md-center">
-                    <Col md={11}>
+                <InputGroup md={{ span: 2, offset: 2 }} className="justify-content-md-center">
+                    <Col md='5'>
                         <input 
                             id='phone'
                             type='text' 
@@ -150,8 +126,8 @@ const InterestForm = () => {
                         />
                     </Col>
                 </InputGroup>
-                <InputGroup className="justify-content-md-center">
-                    <Col md={11}>
+                <InputGroup md={{ span: 2, offset: 2 }} className="justify-content-md-center">
+                    <Col md='5'>
                         <input 
                             id='beckettId'
                             type='text' 
@@ -163,74 +139,67 @@ const InterestForm = () => {
                         />
                     </Col>
                 </InputGroup>
-                <InputGroup align='center' className="justify-content-md-center">
-                    <Col>
-                        <Row>
-                            <Form.Check type='checkbox' >
-                                <Form.Check.Input 
-                                    type='checkbox' 
-                                    id='checkbox1'
-                                    onChange={(e)=> onFieldChange(e)}
-                                />
-                                <Form.Check.Label>{`I have collectibles I’d like to securely store`}</Form.Check.Label>
-                                <Form.Control.Feedback type="valid"></Form.Control.Feedback>
-                            </Form.Check>
-                        </Row>
-                        <Row>
-                            <Form.Check type='checkbox' >
-                                <Form.Check.Input 
-                                    type='checkbox' 
-                                    id='checkbox2'
-                                    onChange={(e)=> onFieldChange(e)}
-                                />
-                                <Form.Check.Label>{`I am just exploring storage options`}</Form.Check.Label>
-                                <Form.Control.Feedback type="valid"></Form.Control.Feedback>
-                            </Form.Check>
-                        </Row>
-                        <Row>
-                            <Form.Check type='checkbox' >
-                                <Form.Check.Input 
-                                    type='checkbox' 
-                                    id='checkbox3'
-                                    onChange={(e)=> onFieldChange(e)}
-                                />
-                                <Form.Check.Label>{'I am interested in insuring my collectible(s)'}</Form.Check.Label>
-                                <Form.Control.Feedback type="valid"></Form.Control.Feedback>
-                            </Form.Check>
-                        </Row>
-                        <Row>
-                            <Form.Check type='checkbox' >
-                                <Form.Check.Input 
-                                    type='checkbox' 
-                                    id='checkbox4'
-                                    onChange={(e)=> onFieldChange(e)}
-                                />
-                                <Form.Check.Label>{'I would like to establish documented ownership of my collectible(s)'}</Form.Check.Label>
-                                <Form.Control.Feedback type="valid"></Form.Control.Feedback>
-                            </Form.Check>
-                        </Row>
-                        <Row>
+                <InputGroup align='center' md={{ span: 2, offset: 2 }} sm={10} className="justify-content-md-center">
+                    <Col md='5' align='left' className='checkbox-array rounded-custom'>
+                        <Form.Check type='checkbox' align='left' >
+                            <Form.Check.Input 
+                                type='checkbox' 
+                                id='checkbox1'
+                                onChange={(e)=> onFieldChange(e)}
+                            />
+                            <Form.Check.Label>{`I have collectibles I’d like to securely store`}</Form.Check.Label>
+                            <Form.Control.Feedback type="valid"></Form.Control.Feedback>
+                        </Form.Check>
+                    
                         <Form.Check type='checkbox' >
-                                <Form.Check.Input 
-                                    type='checkbox' 
-                                    id='checkbox5'
-                                    onChange={(e)=> onFieldChange(e)}
-                                />
-                                <Form.Check.Label>{'I am interested in instantly trading my collectible(s) with others'}</Form.Check.Label>
-                                <Form.Control.Feedback type="valid"></Form.Control.Feedback>
-                            </Form.Check>
-                        </Row>
-                        <Row>
+                            <Form.Check.Input 
+                                type='checkbox' 
+                                id='checkbox2'
+                                onChange={(e)=> onFieldChange(e)}
+                            />
+                            <Form.Check.Label>{`I am just exploring storage options`}</Form.Check.Label>
+                            <Form.Control.Feedback type="valid"></Form.Control.Feedback>
+                        </Form.Check>
+                    
                         <Form.Check type='checkbox' >
-                                <Form.Check.Input 
-                                    type='checkbox' 
-                                    id='checkbox6'
-                                    onChange={(e)=> onFieldChange(e)}
-                                />
-                                <Form.Check.Label>{"I would like access to Beckett Vault's exclusive investors"}</Form.Check.Label>
-                                <Form.Control.Feedback type="valid"></Form.Control.Feedback>
-                            </Form.Check>
-                        </Row>
+                            <Form.Check.Input 
+                                type='checkbox' 
+                                id='checkbox3'
+                                onChange={(e)=> onFieldChange(e)}
+                            />
+                            <Form.Check.Label>{'I am interested in insuring my collectible(s)'}</Form.Check.Label>
+                            <Form.Control.Feedback type="valid"></Form.Control.Feedback>
+                        </Form.Check>
+                    
+                        <Form.Check type='checkbox' >
+                            <Form.Check.Input 
+                                type='checkbox' 
+                                id='checkbox4'
+                                onChange={(e)=> onFieldChange(e)}
+                            />
+                            <Form.Check.Label>{'I would like to establish documented ownership of my collectible(s)'}</Form.Check.Label>
+                            <Form.Control.Feedback type="valid"></Form.Control.Feedback>
+                        </Form.Check>
+                        
+                        <Form.Check type='checkbox' >
+                            <Form.Check.Input 
+                                type='checkbox' 
+                                id='checkbox5'
+                                onChange={(e)=> onFieldChange(e)}
+                            />
+                            <Form.Check.Label>{'I am interested in instantly trading my collectible(s) with others'}</Form.Check.Label>
+                            <Form.Control.Feedback type="valid"></Form.Control.Feedback>
+                        </Form.Check>
+                        
+                        <Form.Check type='checkbox' >
+                            <Form.Check.Input 
+                                type='checkbox' 
+                                id='checkbox6'
+                                onChange={(e)=> onFieldChange(e)}
+                            />
+                            <Form.Check.Label>{"I would like access to Beckett Vault's exclusive investors"}</Form.Check.Label>
+                            <Form.Control.Feedback type="valid"></Form.Control.Feedback>
+                        </Form.Check>
                     </Col>
                 </InputGroup>
                 <InputGroup align='center' className="justify-content-md-center">
@@ -242,7 +211,7 @@ const InterestForm = () => {
                             value='Get Early Access' 
                             className='border border-info rounded-pill fill-btn'
                             onMouseOver={(e)=> onFieldChange(e)}
-                            onClick={(e)=> formSubmission(e)}
+                            onClick={()=> props.formSubmission(interestForm)}
                         />
                     </Col>
                 </InputGroup>
