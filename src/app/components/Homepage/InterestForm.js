@@ -13,6 +13,8 @@ const InterestForm = (props) => {
     const [tempText, updateTempText] = useState('')
     const [currentField, setCurrentField] = useState('')
     const [lastField, setLastField] = useState('')
+    const [invalidEmail, setInvalidEmail] = useState(false)
+    const [invalidPhone, setInvalidPhone] = useState(false)
 
     const onFieldChange = (e) => {
         if(lastField === ''){
@@ -66,6 +68,16 @@ const InterestForm = (props) => {
         }
         setLastField(e.target.id)
     }
+    const validateEmail = (email) => {
+        updateTempText(email)
+        const isValid = validEmail.test(email)
+        isValid ? setInvalidEmail(false) : setInvalidEmail(true)
+    }
+    const validatePhone = (phone) => {
+        updateTempText(phone)
+        const isValid = validPhone.test(phone)
+        isValid ? setInvalidPhone(false) : setInvalidPhone(true)
+    }
     return (
         <Container fluid>
             <Form >
@@ -107,9 +119,10 @@ const InterestForm = (props) => {
                             type='text' 
                             value={currentField === 'email' ? tempText : interestForm.email}
                             className='transparent-text-input border border-dark rounded-pill'
+                            style={{background: invalidEmail ? 'red' : "rgb(58, 43, 77)" }}
                             placeholder={'Email*'}
                             onSelect={(e)=> e.target.id !== currentField && onFieldChange(e)}
-                            onChange={(e)=>updateTempText(e.target.value)}
+                            onChange={(e)=>validateEmail(e.target.value)}
                         />
                     </Col>
                 </InputGroup>
@@ -120,9 +133,10 @@ const InterestForm = (props) => {
                             type='text' 
                             value={currentField === 'phone' ? tempText : interestForm.phone}
                             className='transparent-text-input border border-dark rounded-pill'
+                            style={{background: invalidPhone ? 'red' : "rgb(58, 43, 77)" }}
                             placeholder={'Phone Number*'}
                             onSelect={(e)=> e.target.id !== currentField && onFieldChange(e)}
-                            onChange={(e)=>updateTempText(e.target.value)}
+                            onChange={(e)=>validatePhone(e.target.value)}
                         />
                     </Col>
                 </InputGroup>
