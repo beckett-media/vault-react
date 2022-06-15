@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { interestFormSelector } from '../../state/selectors'
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { interestFormSelector } from '../../state/selectors';
 import {
   setFirst,
   setLast,
@@ -14,26 +14,26 @@ import {
   setCheckbox5,
   setCheckbox6,
   resetForm,
-} from '../../state/actions'
-import { Col, Container, InputGroup, Row, Form } from 'react-bootstrap'
-import { validEmail, validPhone } from '../Validation/regex'
-import { initialState } from '../../state/store/rootReducer'
+} from '../../state/actions';
+import { Col, Container, InputGroup, Row, Form } from 'react-bootstrap';
+import { validEmail, validPhone } from '../Validation/regex';
+import { initialState } from '../../state/store/rootReducer';
 
 const InterestForm = props => {
-  const interestForm = useSelector(interestFormSelector)
-  const dispatch = useDispatch()
+  const interestForm = useSelector(interestFormSelector);
+  const dispatch = useDispatch();
 
-  const [tempText, updateTempText] = useState('')
-  const [currentField, setCurrentField] = useState('')
-  const [lastField, setLastField] = useState('')
-  const [invalidEmail, setInvalidEmail] = useState(false)
-  const [invalidPhone, setInvalidPhone] = useState(false)
+  const [tempText, updateTempText] = useState('');
+  const [currentField, setCurrentField] = useState('');
+  const [lastField, setLastField] = useState('');
+  const [invalidEmail, setInvalidEmail] = useState(false);
+  const [invalidPhone, setInvalidPhone] = useState(false);
 
   const onFieldChange = e => {
     if (lastField === '') {
-      setLastField(e.target.id)
+      setLastField(e.target.id);
     }
-    setCurrentField(e.target.id)
+    setCurrentField(e.target.id);
     if (e.target.id.substr(0, 8) === 'checkbox') {
       switch (e.target.id) {
         case 'checkbox1':
@@ -44,8 +44,8 @@ const InterestForm = props => {
                 checkbox1: !interestForm.checkbox1,
               },
             }),
-          )
-          break
+          );
+          break;
         case 'checkbox2':
           dispatch(
             setCheckbox2({
@@ -54,8 +54,8 @@ const InterestForm = props => {
                 checkbox2: !interestForm.checkbox1,
               },
             }),
-          )
-          break
+          );
+          break;
         case 'checkbox3':
           dispatch(
             setCheckbox3({
@@ -64,8 +64,8 @@ const InterestForm = props => {
                 checkbox3: !interestForm.checkbox3,
               },
             }),
-          )
-          break
+          );
+          break;
         case 'checkbox4':
           dispatch(
             setCheckbox4({
@@ -74,8 +74,8 @@ const InterestForm = props => {
                 checkbox4: !interestForm.checkbox4,
               },
             }),
-          )
-          break
+          );
+          break;
         case 'checkbox5':
           dispatch(
             setCheckbox5({
@@ -84,8 +84,8 @@ const InterestForm = props => {
                 checkbox5: !interestForm.checkbox5,
               },
             }),
-          )
-          break
+          );
+          break;
         case 'checkbox6':
           dispatch(
             setCheckbox6({
@@ -94,12 +94,12 @@ const InterestForm = props => {
                 checkbox6: !interestForm.checkbox6,
               },
             }),
-          )
-          break
+          );
+          break;
       }
     }
     if (e.target.id !== currentField) {
-      console.log('ran')
+      console.log('ran');
       switch (lastField) {
         case 'first':
           dispatch(
@@ -107,57 +107,57 @@ const InterestForm = props => {
               type: 'SET_FIRST',
               interestForm: { first: tempText },
             }),
-          )
-          break
+          );
+          break;
         case 'last':
           dispatch(
             setLast({
               type: 'SET_LAST',
               interestForm: { last: tempText },
             }),
-          )
-          break
+          );
+          break;
         case 'phone':
           dispatch(
             setPhone({
               type: 'SET_PHONE',
               interestForm: { phone: tempText },
             }),
-          )
-          break
+          );
+          break;
         case 'email':
           dispatch(
             setEmail({
               type: 'SET_EMAIL',
               interestForm: { email: tempText },
             }),
-          )
-          break
+          );
+          break;
         case 'beckettId':
           dispatch(
             setBeckettId({
               type: 'SET_BECKETT_ID',
               interestForm: { beckettId: tempText },
             }),
-          )
-          break
+          );
+          break;
       }
     }
     if (e.target.id.substr(0, 8) !== 'checkbox') {
-      updateTempText(interestForm[e.target.id])
+      updateTempText(interestForm[e.target.id]);
     }
-    setLastField(e.target.id)
-  }
+    setLastField(e.target.id);
+  };
   const validateEmail = email => {
-    updateTempText(email)
-    const isValid = validEmail.test(email)
-    isValid ? setInvalidEmail(false) : setInvalidEmail(true)
-  }
+    updateTempText(email);
+    const isValid = validEmail.test(email);
+    isValid ? setInvalidEmail(false) : setInvalidEmail(true);
+  };
   const validatePhone = phone => {
-    updateTempText(phone)
-    const isValid = validPhone.test(phone)
-    isValid ? setInvalidPhone(false) : setInvalidPhone(true)
-  }
+    updateTempText(phone);
+    const isValid = validPhone.test(phone);
+    isValid ? setInvalidPhone(false) : setInvalidPhone(true);
+  };
   return (
     <Container fluid>
       <Form>
@@ -349,7 +349,7 @@ const InterestForm = props => {
         </InputGroup>
       </Form>
     </Container>
-  )
-}
+  );
+};
 
-export default InterestForm
+export default InterestForm;

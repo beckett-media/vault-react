@@ -1,5 +1,5 @@
-import { combineReducers } from '@reduxjs/toolkit'
-import { interestFormReducers } from '../reducers'
+import { combineReducers } from '@reduxjs/toolkit';
+import { interestFormReducers } from '../reducers';
 
 export const initialState = {
   interestForm: {
@@ -15,16 +15,16 @@ export const initialState = {
     checkbox5: false,
     checkbox6: false,
   },
-}
+};
 
 export const appReducer = combineReducers({
   interestForm: interestFormReducers,
-})
+});
 
 export const rootReducer = (state, action) => {
   if (action.type === 'LOGOUT') {
-    return appReducer(undefined, action)
+    return appReducer(undefined, action);
   }
 
-  return appReducer(state, action)
-}
+  return appReducer(state, action);
+};

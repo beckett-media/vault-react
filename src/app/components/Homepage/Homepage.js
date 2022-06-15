@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from 'react'
-import { Col, Collapse, Container, Row } from 'react-bootstrap'
-import { useDispatch } from 'react-redux'
-import '../../../index.css'
-import { resetForm } from '../../state/actions'
-import { initialState } from '../../state/store/rootReducer'
-import Footer from '../Generic/Footer'
-import Header from '../Generic/Header'
-import { validEmail, validPhone } from '../Validation/regex'
-import InterestForm from './InterestForm'
+import React, { useEffect, useState } from 'react';
+import { Col, Collapse, Container, Row } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import '../../../index.css';
+import { resetForm } from '../../state/actions';
+import { initialState } from '../../state/store/rootReducer';
+import Footer from '../Generic/Footer';
+import Header from '../Generic/Header';
+import { validEmail, validPhone } from '../Validation/regex';
+import InterestForm from './InterestForm';
 
 const Homepage = () => {
-  const [open, setOpen] = useState(false)
-  const [formSubmitted, updateFormSubmitted] = useState(false)
-  useEffect(() => setOpen(true), [])
-  const dispatch = useDispatch()
+  const [open, setOpen] = useState(false);
+  const [formSubmitted, updateFormSubmitted] = useState(false);
+  useEffect(() => setOpen(true), []);
+  const dispatch = useDispatch();
 
   const validateForm = (email, phone) => {
-    const isValidEmail = validEmail.test(email) && email.length >= 8
-    const isValidPhone = validPhone.test(phone) && phone.length >= 10
+    const isValidEmail = validEmail.test(email) && email.length >= 8;
+    const isValidPhone = validPhone.test(phone) && phone.length >= 10;
 
     // Validation to ensure that phone and emails are properly formatted.
     return !isValidEmail && !isValidPhone
@@ -26,8 +26,8 @@ const Homepage = () => {
       ? console.log('Invalid phone.')
       : !isValidEmail
       ? console.log('Invalid email.')
-      : true
-  }
+      : true;
+  };
   const formSubmission = async ({
     email,
     phone,
@@ -38,22 +38,22 @@ const Homepage = () => {
     checkbox5,
     checkbox6,
   }) => {
-    const validated = await validateForm(email, phone)
+    const validated = await validateForm(email, phone);
     if (!validated) {
-      return
+      return;
     }
     // TODO: This is to emulate an API call
-    updateFormSubmitted(!formSubmitted)
-    alert('success!')
+    updateFormSubmitted(!formSubmitted);
+    alert('success!');
     //This code is stand-in example for the user flow that will exist.
     if (!checkbox1) {
       // dispatch(resetForm({type:'RESET_FORM',interestForm: initialState}))
-      window.location.href = 'https://beckett.com'
-    } else window.location.reload()
+      window.location.href = 'https://beckett.com';
+    } else window.location.reload();
     // here we need to use an async function with a
     // thunk to wait for the last redux action to
     // finish, before firing off the post request
-  }
+  };
   return (
     <Container fluid style={{ background: 'black' }}>
       <Header />
@@ -94,7 +94,7 @@ const Homepage = () => {
       />
       <Footer />
     </Container>
-  )
-}
+  );
+};
 
-export default Homepage
+export default Homepage;

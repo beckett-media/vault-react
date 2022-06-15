@@ -1,5 +1,5 @@
-import React from 'react'
-import { Col, Row } from 'react-bootstrap'
+import React from 'react';
+import { Col, Row } from 'react-bootstrap';
 
 const Header = () => {
   return (
@@ -8,7 +8,7 @@ const Header = () => {
         Beckett Logo
       </Col>
     </Row>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
