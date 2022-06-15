@@ -8,7 +8,7 @@ test('renders learn react link', () => {
   const { getByText } = render(
     <Provider store={store}>
       <Homepage />
-    </Provider>
+    </Provider>,
   );
 
   expect(getByText(/collectibles/i)).toBeInTheDocument();

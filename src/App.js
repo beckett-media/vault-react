@@ -4,7 +4,7 @@ import Submission from './app/components/Submission/Submission';
 
 function App() {
   const page = 'submission'
-  return(
+  return (
       <>
           { page === 'homepage' && <Homepage /> }
           { page === 'submission' && <Submission /> }
