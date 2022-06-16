@@ -3,10 +3,11 @@ import Homepage from './app/components/Homepage/Homepage';
 import Submission from './app/components/Submission/Submission';
 
 const App = () => {
+  const page = 'submission';
   return (
     <>
-      <Homepage />
-      <Submission />
+      {page === 'homepage' && <Homepage />}
+      {page === 'submission' && <Submission />}
     </>
   );
 };

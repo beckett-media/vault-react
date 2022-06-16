@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 
 const SubmissionAdd = () => {
   return (
     <div>SubmissionAdd</div>
-  )
-}
+  );
+};
 
-export default SubmissionAdd
+export default SubmissionAdd;

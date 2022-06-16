@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 
 const SubmissionSuccess = () => {
   return (
-    <div>SubmissionSuccess</div>
-  )
-}
+    <div style = {{color: 'white'}}>SubmissionSuccess</div>
+  );
+};
 
-export default SubmissionSuccess
+export default SubmissionSuccess;

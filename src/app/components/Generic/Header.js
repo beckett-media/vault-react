@@ -1,10 +1,11 @@
 import React from 'react';
-import { Col, Row } from 'react-bootstrap';
+import {Col, Row} from 'react-bootstrap';
 
 const Header = () => {
   return (
     <Row className="justify-content-md-center">
-      <Col xs={1} style={{ background: 'gray' }}>
+      <Col>Menu Here</Col>
+      <Col xs={1} style={{background: 'gray'}}>
         Beckett Logo
       </Col>
     </Row>

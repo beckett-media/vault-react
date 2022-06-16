@@ -5,6 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: black;
+  color: white;
 }
 
 code {
@@ -22,7 +24,6 @@ code {
 
 .ghost-btn {
   background: transparent;
-  color: white;
   padding: 10px 40px;
 }
 
@@ -38,18 +39,15 @@ code {
 
 .transparent-text-input {
   background: rgb(58, 43, 77);
-  color: white;
   padding: 10px 20px;
   margin: 10px;
   width: 100%;
 }
 .transparent-text-input::placeholder {
-  color: white;
   opacity: 1; /* Firefox */
 }
 
 .form-check-label {
-  color: white;
   background: rgb(58, 43, 77);
 }
 

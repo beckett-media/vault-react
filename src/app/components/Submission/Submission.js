@@ -1,35 +1,31 @@
-import React from 'react';
-import {Button, Container, Modal} from 'react-bootstrap';
+import React, {useState} from 'react';
+import {Button, Container} from 'react-bootstrap';
 import SubmissionSuccess from '../Response/SubmissionSuccess';
 import SubmissionAdd from './SubmissionAdd';
 import SubmissionForm from './SubmissionForm';
 
 const Submission = () => {
   const [add, setAdd] = useState(false);
-  const [formSubmitted, toggleFormSubmitted] = useState(false);
+  const [confirmed, setConfirmed] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
   // const dispatch = useDispatch();
-  const confirmationModal = () => {
-    return (
-      <Modal />
-    );
-  };
-  const formSubmission = async ({}) => {
-    const confirmed = await confirmationModal();
-    if (!confirmed) {
-      return;
-    }
-    // TODO: This is to emulate an API call
-    toggleFormSubmitted(!formSubmitted);
-    alert('success!');
-  };
+
+  const cancelSubmission = () => setFormSubmitted(false);
+  const submissionConfirmed = () => setConfirmed(true);
+
   return (
+
     <Container fluid style={{background: 'black'}} >
-      {!formSubmitted && !add && <SubmissionForm />}
-      {formSubmitted && <SubmissionSuccess />}
+      {
+        !confirmed && !add && <SubmissionForm
+          formSubmitted={formSubmitted}
+          cancelSubmission={cancelSubmission}
+          setConfirm={submissionConfirmed}
+        />
+      }
+      {confirmed && <SubmissionSuccess />}
       {add && <SubmissionAdd />}
-      <Button title='TEST' onClick={() => !add ?
-        setAdd(!add) :
-        formSubmission(!formSubmitted)}/>
+      <Button onClick={() => setFormSubmitted(true)}>Submit</Button>
     </Container>
   );
 };
