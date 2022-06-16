@@ -64,6 +64,15 @@
       "__DEV__": true
     },
     "testRegex": "./test/.*.js",
-    "rootDir": "."
+    "rootDir": ".",
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "./src/**"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "lines": 80
+      }
+    }
   }
 }
