@@ -26,7 +26,7 @@
     "prettier": "prettier src -w",
     "lint-staged": "lint-staged --config lint-staged.js",
     "husky-install": "husky install",
-    "jest": "jest"
+    "jest": "jest --coverage"
   },
   "eslintConfig": {
     "extends": [
