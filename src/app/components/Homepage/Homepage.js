@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Collapse, Container, Row } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import '../../../index.css';
-import { resetForm } from '../../state/actions';
-import { initialState } from '../../state/store/rootReducer';
-import Footer from '../Generic/Footer';
-import Header from '../Generic/Header';
+// import { resetForm } from '../../state/actions';
+// import { initialState } from '../../state/store/rootReducer';
 import { validEmail, validPhone } from '../Validation/regex';
 import InterestForm from './InterestForm';
+import './homepage.scss';
 
 const Homepage = () => {
   const [open, setOpen] = useState(false);
   const [formSubmitted, updateFormSubmitted] = useState(false);
   useEffect(() => setOpen(true), []);
   const dispatch = useDispatch();
+  console.log(dispatch);
 
   const validateForm = (email, phone) => {
     const isValidEmail = validEmail.test(email) && email.length >= 8;
@@ -45,7 +44,7 @@ const Homepage = () => {
     // TODO: This is to emulate an API call
     updateFormSubmitted(!formSubmitted);
     alert('success!');
-    //This code is stand-in example for the user flow that will exist.
+    // This code is stand-in example for the user flow that will exist.
     if (!checkbox1) {
       // dispatch(resetForm({type:'RESET_FORM',interestForm: initialState}))
       window.location.href = 'https://beckett.com';
@@ -55,29 +54,14 @@ const Homepage = () => {
     // finish, before firing off the post request
   };
   return (
-    <Container fluid style={{ background: 'black' }}>
-      <Header />
+    <Container fluid>
       <Row className="justify-content-md-center mt-2">
         <Collapse in={open} timeout={3000}>
-          <Col
-            xs={5}
-            style={{
-              fontSize: 33,
-              color: '#C0C0C0',
-              fontWeight: 'bolder',
-            }}
-          >
+          <Col xs={5} className="title">
             {'Pioneer the Frontier of Digital & Physical Collectibles'}
           </Col>
         </Collapse>
-        <Col
-          xs={5}
-          style={{
-            fontSize: 33,
-            color: '#C0C0C0',
-            fontWeight: 'bolder',
-          }}
-        >
+        <Col xs={5} className="title">
           {'Pioneer the Frontier of Digital & Physical Collectibles'}
         </Col>
       </Row>
@@ -92,7 +76,6 @@ const Homepage = () => {
         formSubmission={formSubmission}
         formSubmitted={formSubmitted}
       />
-      <Footer />
     </Container>
   );
 };
