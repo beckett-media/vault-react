@@ -14,7 +14,7 @@ jobs:
         BUILD_DIR: 'build/'
         AWS_REGION: 'us-west-1'
         DEV_AWS_BUCKET_NAME: dev-vulcan-beckettvaulting-assets-548281136650
-        DEV_DEV_DISTRIBUTION_ID: E35C28BRGBVHX7
+        DEV_DISTRIBUTION_ID: E35C28BRGBVHX7
 
     steps:
       - uses: actions/checkout@v3
@@ -42,6 +42,6 @@ jobs:
       - name: Create Cloudfront Invalidation
         run: |
           
-          aws cloudfront create-invalidation --distribution-id ${{ env.DEV_DEV_DISTRIBUTION_ID }} --paths /*
-        working-directory: build-artifact
+          aws cloudfront create-invalidation --distribution-id ${{ env.DEV_DISTRIBUTION_ID }} --paths /*
+        working-directory: ${{ env.BUILD_DIR }}
       
