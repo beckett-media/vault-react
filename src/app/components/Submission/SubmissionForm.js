@@ -1,41 +1,43 @@
 import React from 'react';
 import {Button, Col, Container, Form, Row} from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import '../../../index.css';
+import '../../../index.scss'
 import { submissionFormSelector } from '../../state/selectors';
-import Footer from '../Generic/Footer';
-import Header from '../Generic/Header';
 import SubmissionConfirmModal from './SubmissionConfirmModal';
 
 const SubmissionForm = (props) => {
-  const {formSubmitted, setConfirm, cancelSubmission, onAdd} = props;
+  const {formSubmitted, setConfirm, cancelSubmission, onAdd, items} = props;
   const submissionForm = useSelector(submissionFormSelector)
-  console.log(submissionForm)
+
   return (
-    <Container fluid style={{background: 'black'}}>
-      <h1>Submission Form</h1>
-      <div>Items to Vault</div>
+    <Container fluid>
+      <Row className="justify-content-md-center">
+        <h1>Submission Form</h1>
+      </Row>
+      <Row className="justify-content-md-center">
+        <div>{items.length ? 'Items to Vault' : 'Add Items to Vault'}</div>
+      </Row>
+      <Row className="justify-content-md-center">
       <SubmissionConfirmModal 
         show={formSubmitted} 
         setConfirm={setConfirm} 
         onHide={cancelSubmission}
       />
-      <Form>
-        <Row>
-          <Col>
-            {submissionForm.items.map((obj,i) => {
-              return (
-                <p>{i}. : {obj.title}</p>
-              );
-            })}
-          </Col>
-        </Row>
-        <Row>
+      </Row>
+      <Form >
+          {submissionForm.items.map((obj,i) => {
+            return (
+              <Row className="justify-content-md-center">
+                <p>{i+1}. {obj.serialNumber} - {obj.description}</p>
+              </Row>
+            );
+          })}
+        <Row className="justify-content-md-center">
           <Button onClick={() => onAdd(true)}>+</Button>
         </Row>
-
-        <div>User Info</div>
-        <Row>
+        <Row className="justify-content-md-center" m={2}>
+          <div>User Info</div>
+          
         </Row>
       </Form>
     </Container>

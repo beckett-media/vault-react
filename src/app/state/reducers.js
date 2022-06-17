@@ -99,13 +99,13 @@ export const submissionFormReducers = (state = { initialState }, action) => {
       console.log(action);
       return {
         ...state,
-        formSubmission: [...state.submissionForm, action.payload.itemObject.itemObject]
+        items: [...state.items, action.payload]
       };
     case REMOVE_ITEM:
       console.log(action);
       return {
         ...state,
-        formSubmission: state.submissionForm
+        items: state.items
           .filter(obj => obj.serialNumber === action.payload.itemObject.serialNumber),
       };
     default:
