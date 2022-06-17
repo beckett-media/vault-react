@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 //import { initialState } from '../../state/store/rootReducer';
 import { validEmail, validPhone } from '../Validation/regex';
 import InterestForm from './InterestForm';
+import "./homepage.scss";
 
 const Homepage = () => {
   const [open, setOpen] = useState(false);
@@ -58,22 +59,14 @@ const Homepage = () => {
         <Collapse in={open} timeout={3000}>
           <Col
             xs={5}
-            style={{
-              fontSize: 33,
-              color: '#C0C0C0',
-              fontWeight: 'bolder',
-            }}
+            className="title"
           >
             {'Pioneer the Frontier of Digital & Physical Collectibles'}
           </Col>
         </Collapse>
         <Col
           xs={5}
-          style={{
-            fontSize: 33,
-            color: '#C0C0C0',
-            fontWeight: 'bolder',
-          }}
+          className="title"
         >
           {'Pioneer the Frontier of Digital & Physical Collectibles'}
         </Col>
