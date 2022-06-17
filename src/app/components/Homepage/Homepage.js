@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Collapse, Container, Row } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { resetForm } from '../../state/actions';
-import { initialState } from '../../state/store/rootReducer';
-import Footer from '../Generic/Footer';
-import Header from '../Generic/Header';
+//import { resetForm } from '../../state/actions';
+//import { initialState } from '../../state/store/rootReducer';
 import { validEmail, validPhone } from '../Validation/regex';
 import InterestForm from './InterestForm';
-import '../index.scss';
 
 const Homepage = () => {
   const [open, setOpen] = useState(false);
   const [formSubmitted, updateFormSubmitted] = useState(false);
   useEffect(() => setOpen(true), []);
   const dispatch = useDispatch();
-
+  console.log(dispatch);
+  
   const validateForm = (email, phone) => {
     const isValidEmail = validEmail.test(email) && email.length >= 8;
     const isValidPhone = validPhone.test(phone) && phone.length >= 10;
@@ -56,7 +54,6 @@ const Homepage = () => {
   };
   return (
     <Container fluid style={{ background: 'black' }}>
-      <Header />
       <Row className="justify-content-md-center mt-2">
         <Collapse in={open} timeout={3000}>
           <Col
@@ -92,7 +89,6 @@ const Homepage = () => {
         formSubmission={formSubmission}
         formSubmitted={formSubmitted}
       />
-      <Footer />
     </Container>
   );
 };
