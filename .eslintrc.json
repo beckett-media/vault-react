@@ -18,6 +18,6 @@
         "react"
     ],
     "rules": {
-        "object-curly-spacing": 1
+        "object-curly-spacing": 0
     }
 }
