@@ -1,0 +1,47 @@
+name: Continuous Deployment
+
+on:
+  push:
+    branches:
+      - dev
+    
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    env:
+        BUILD_DIR: 'build/'
+        AWS_REGION: 'us-west-1'
+        DEV_AWS_BUCKET_NAME: dev-vulcan-beckettvaulting-assets-548281136650
+        DEV_DEV_DISTRIBUTION_ID: E35C28BRGBVHX7
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: DISABLE_ESLINT_PLUGIN=true  npm run build
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+
+      - name: Deploy to S3
+        run: |
+          S3_BUCKET=s3://${{ env.DEV_AWS_BUCKET_NAME }}
+          aws s3 sync . $S3_BUCKET --acl private
+        working-directory: ${{ env.BUILD_DIR }}
+
+      - name: Create Cloudfront Invalidation
+        run: |
+          
+          aws cloudfront create-invalidation --distribution-id ${{ env.DEV_DEV_DISTRIBUTION_ID }} --paths /*
+        working-directory: build-artifact
+      
