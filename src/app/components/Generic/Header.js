@@ -4,12 +4,11 @@ import Nav from './Nav';
 
 const Header = () => {
   return (
-    <Row className="justify-content-md-center">
-      <Col xs={1} style={{ background: 'gray' }}>
-        Beckett Logo
-      </Col>
-      <Nav />
-    </Row>
+    <Col>
+      <Row className="justify-content-md-center">
+        <Nav />
+      </Row>
+    </Col>
   );
 };
 

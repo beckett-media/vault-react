@@ -7,7 +7,9 @@ const Nav = () => {
     <nav>
       <ul>
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/">
+            <img src="/images/beckett-logo.svg" />
+          </Link>
         </li>
         <li>
           <Link to="/submission">Submission</Link>
