@@ -11,6 +11,21 @@ import {
   SET_CHECKBOX_2,
   SET_CHECKBOX_1,
   RESET_FORM,
+  ADD_ITEM,
+  REMOVE_ITEM,
+  SET_CATEGORY,
+  SET_GRADING_COMPANY,
+  SET_SERIAL_NUMBER,
+  SET_DESCRIPTION,
+  SET_TITLE,
+  SET_GENRE,
+  SET_MANUFACTURER,
+  SET_YEAR,
+  SET_OVERALL_GRADE,
+  SET_AUTOGRAPH_GRADE,
+  SET_SUB_GRADES,
+  SET_SUBJECT,
+  SET_IMAGE,
 } from './types';
 
 export const setFirst = payload => {
@@ -91,6 +106,104 @@ export const setCheckbox6 = payload => {
   };
 };
 
+// submission form
+export const addItem = payload => {
+  console.log('payload is', payload.itemObject);
+  return {
+    type: ADD_ITEM,
+    payload: payload,
+  };
+};
+
+export const removeItem = payload => {
+  console.log('payload is', payload.submissionForm);
+  return {
+    type: REMOVE_ITEM,
+    payload: payload,
+  };
+};
+
+// itemObject actions
+export const setCategory = payload => {
+  return {
+    type: SET_CATEGORY,
+    payload: payload
+  }
+}
+export const setGradingCompany = payload => {
+  return {
+    type: SET_GRADING_COMPANY,
+    payload:payload
+  }
+}
+export const setSerialNumber = payload => {
+  return {
+    type: SET_SERIAL_NUMBER,
+    payload: payload
+  }
+}
+export const setDescription = payload => {
+  return {
+    type: SET_DESCRIPTION,
+    payload: payload
+  }
+}
+export const setTitle = payload => {
+  return {
+    type: SET_TITLE,
+    payload:payload
+  }
+}
+export const setGenre = payload => {
+  return {
+    type: SET_GENRE,
+    payload: payload
+  }
+}
+export const setManufacturer = payload => {
+  return {
+    type: SET_MANUFACTURER,
+    payload: payload
+  }
+}
+export const setYear = payload => {
+  return {
+    type: SET_YEAR,
+    payload: payload
+  }
+}
+export const setOverallGrade = payload => {
+  return {
+    type: SET_OVERALL_GRADE,
+    payload: payload
+  }
+}
+export const setAutographGrade = payload => {
+  return {
+    type: SET_AUTOGRAPH_GRADE,
+    payload: payload
+  }
+}     
+export const setSubGrades = payload => {
+  return {
+    type: SET_SUB_GRADES,
+    payload: payload
+  }
+}
+export const setSubject = payload => {
+  return {
+    type: SET_SUBJECT,
+    payload: payload
+  }
+}
+export const setImage = payload => {
+  return {
+    type: SET_IMAGE,
+    payload: payload
+  }
+}
+
+// on Logout action
 export const resetForm = payload => {
   console.log('payload is', payload.interestForm);
   return {
@@ -98,3 +211,4 @@ export const resetForm = payload => {
     payload: payload,
   };
 };
+

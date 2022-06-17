@@ -1,10 +1,11 @@
 import React from 'react'
-import { Button, Modal } from 'react-bootstrap';
+import { Button, CloseButton, Modal } from 'react-bootstrap';
+import SubmitButton from '../Generic/SubmitButton';
 
 const SubmissionConfirmModal = (props) => {
-  const {show, setConfirm, cancelSubmission} = props;
+  const {show, setConfirm, onHide} = props;
   return (
-    <Modal show={show} onHide={() => cancelSubmission()} centered style={{background: 'black'}}>
+    <Modal show={show} onHide={onHide} centered >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
           Modal heading

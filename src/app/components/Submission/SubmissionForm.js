@@ -1,17 +1,20 @@
 import React from 'react';
-import {Button, Col, Form, Row} from 'react-bootstrap';
+import {Button, Col, Container, Form, Row} from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 import '../../../index.css';
+import { submissionFormSelector } from '../../state/selectors';
 import Footer from '../Generic/Footer';
 import Header from '../Generic/Header';
 import SubmissionConfirmModal from './SubmissionConfirmModal';
 
 const SubmissionForm = (props) => {
-  const {formSubmitted, setConfirm, cancelSubmission} = props;
+  const {formSubmitted, setConfirm, cancelSubmission, onAdd} = props;
+  const submissionForm = useSelector(submissionFormSelector)
+  console.log(submissionForm)
   return (
-    <>
-      <Header />
+    <Container fluid style={{background: 'black'}}>
       <h1>Submission Form</h1>
-      <div>Items to Add</div>
+      <div>Items to Vault</div>
       <SubmissionConfirmModal 
         show={formSubmitted} 
         setConfirm={setConfirm} 
@@ -20,24 +23,22 @@ const SubmissionForm = (props) => {
       <Form>
         <Row>
           <Col>
-            {[{a:'1.', b: 'title b'}, {a:'2.', b: 'title d'}].map(obj => {
+            {submissionForm.items.map((obj,i) => {
               return (
-                <p>{obj.a}  {obj.b}</p>
+                <p>{i}. : {obj.title}</p>
               );
             })}
           </Col>
         </Row>
         <Row>
-          <Button>+ BGS</Button>
-          <Button>+ Other</Button>
+          <Button onClick={() => onAdd(true)}>+</Button>
         </Row>
 
         <div>User Info</div>
         <Row>
         </Row>
       </Form>
-      <Footer />
-    </>
+    </Container>
   );
 };
 
