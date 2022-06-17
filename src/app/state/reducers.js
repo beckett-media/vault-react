@@ -12,6 +12,21 @@ import {
   SET_CHECKBOX_2,
   SET_CHECKBOX_1,
   RESET_FORM,
+  SET_GRADING_COMPANY,
+  SET_MANUFACTURER,
+  SET_IMAGE,
+  SET_SUBJECT,
+  SET_SUB_GRADES,
+  SET_AUTOGRAPH_GRADE,
+  SET_OVERALL_GRADE,
+  SET_YEAR,
+  SET_GENRE,
+  SET_TITLE,
+  SET_DESCRIPTION,
+  SET_SERIAL_NUMBER,
+  SET_CATEGORY,
+  ADD_ITEM,
+  REMOVE_ITEM,
 } from './types';
 
 export const interestFormReducers = (state = { initialState }, action) => {
@@ -71,11 +86,126 @@ export const interestFormReducers = (state = { initialState }, action) => {
         ...state,
         checkbox6: action.payload.interestForm.checkbox6,
       };
-    case RESET_FORM:
-      console.log(action);
-      return { ...state, checkbox6: action.payload.interestForm };
-
+    
     default:
       return state;
+  };
+};
+
+export const submissionFormReducers = (state = { initialState }, action) => {
+  console.log('reducer returns ', action.payload);
+  switch (action.type) {
+    case ADD_ITEM:
+      console.log(action);
+      return {
+        ...state,
+        items: [...state.items, action.payload]
+      };
+    case REMOVE_ITEM:
+      console.log(action);
+      return {
+        ...state,
+        items: state.items
+          .filter(obj => obj.serialNumber === action.payload.itemObject.serialNumber),
+      };
+    default:
+      return state;
+  };
+};
+// Item object reducers
+export const itemObjectReducers = (state = { initialState }, action) => {
+  console.log('reducer returns ', action.payload);
+  switch (action.type) {
+    case SET_CATEGORY:
+      console.log(action);
+      return {
+        ...state,
+        category: action.payload.itemObject.cateogory,
+      };
+    case SET_GRADING_COMPANY:
+      console.log(action);
+      return {
+        ...state,
+        gradingCompany: action.payload.itemObject.gradingCompany,
+      };
+    case SET_SERIAL_NUMBER:
+      console.log(action);
+      return {
+        ...state,
+        serialNumber: action.payload.itemObject.serialNumber,
+      };
+    case SET_DESCRIPTION:
+      console.log(action);
+      return {
+        ...state,
+        description: action.payload.itemObject.description,
+      };
+    case SET_TITLE:
+      console.log(action);
+      return {
+        ...state,
+        title: action.payload.itemObject.title,
+      };
+    case SET_GENRE:
+      console.log(action);
+      return {
+        ...state,
+        genre: action.payload.itemObject.genre,
+      };
+    case SET_MANUFACTURER:
+      console.log(action);
+      return {
+        ...state,
+        manufacturer: action.payload.itemObject.manufacturer,
+      };
+    case SET_YEAR:
+      console.log(action);
+      return {
+        ...state,
+        year: action.payload.itemObject.year,
+      };
+    case SET_OVERALL_GRADE:
+      console.log(action);
+      return {
+        ...state,
+        overallGrade: action.payload.itemObject.overallGrade,
+      };
+    case SET_AUTOGRAPH_GRADE:
+      console.log(action);
+      return {
+        ...state,
+        autographGrade: action.payload.itemObject.autographGrade,
+      };
+    case SET_SUB_GRADES:
+      console.log(action);
+      return {
+        ...state,
+        subGrade: action.payload.itemObject.subGrade,
+      };
+    case SET_SUBJECT:
+      console.log(action);
+      return {
+        ...state,
+        subject: action.payload.itemObject.subject,
+      };
+    case SET_IMAGE:
+      console.log(action);
+      return {
+        ...state,
+        image: action.payload.itemObject.image,
+      };
+
+    default:
+    return state;
   }
 };
+
+// On logout
+  //   case RESET_FORM:
+  //     console.log(action);
+  //     return { ...state, initialState };
+
+  //   default:
+  //     return state;
+  // }
+// };

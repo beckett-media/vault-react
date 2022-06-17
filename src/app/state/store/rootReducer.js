@@ -1,5 +1,5 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import { interestFormReducers } from '../reducers';
+import { interestFormReducers, itemObjectReducers, submissionFormReducers } from '../reducers';
 
 export const initialState = {
   interestForm: {
@@ -15,10 +15,30 @@ export const initialState = {
     checkbox5: false,
     checkbox6: false,
   },
+  itemObject: {
+    category: '',
+    gradingCompany: '',
+    serialNumber: '',
+    description: '',
+    title: '',
+    genre: '',
+    manufacturer: '',
+    year: '',
+    overallGrade: '',
+    subGrades: '',
+    autographGrade: '',
+    subject: '',
+    image: '',
+  },
+  submissionForm: {
+    items: []
+  }
 };
 
 export const appReducer = combineReducers({
   interestForm: interestFormReducers,
+  itemObject: itemObjectReducers,
+  submissionForm: submissionFormReducers
 });
 
 export const rootReducer = (state, action) => {

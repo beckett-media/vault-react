@@ -12,7 +12,6 @@ const Homepage = () => {
   const [formSubmitted, updateFormSubmitted] = useState(false);
   useEffect(() => setOpen(true), []);
   const dispatch = useDispatch();
-  console.log(dispatch);
 
   const validateForm = (email, phone) => {
     const isValidEmail = validEmail.test(email) && email.length >= 8;
