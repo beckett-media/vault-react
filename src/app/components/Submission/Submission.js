@@ -3,7 +3,7 @@ import { Container } from 'react-bootstrap';
 
 const Submission = () => {
   return (
-    <Container fluid style={{ background: 'black' }}>
+    <Container fluid>
       <div>submission</div>
     </Container>
   );

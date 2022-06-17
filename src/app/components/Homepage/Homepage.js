@@ -19,13 +19,13 @@ const Homepage = () => {
     const isValidPhone = validPhone.test(phone) && phone.length >= 10;
 
     // Validation to ensure that phone and emails are properly formatted.
-    return !isValidEmail && !isValidPhone ?
-      console.log('Invalid phone and email.') :
-      !isValidPhone ?
-      console.log('Invalid phone.') :
-      !isValidEmail ?
-      console.log('Invalid email.') :
-      true;
+    return !isValidEmail && !isValidPhone
+      ? console.log('Invalid phone and email.')
+      : !isValidPhone
+      ? console.log('Invalid phone.')
+      : !isValidEmail
+      ? console.log('Invalid email.')
+      : true;
   };
   const formSubmission = async ({
     email,
@@ -54,7 +54,7 @@ const Homepage = () => {
     // finish, before firing off the post request
   };
   return (
-    <Container fluid style={{ background: 'black' }}>
+    <Container fluid>
       <Row className="justify-content-md-center mt-2">
         <Collapse in={open} timeout={3000}>
           <Col xs={5} className="title">

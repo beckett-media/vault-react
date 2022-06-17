@@ -19,6 +19,7 @@
     ],
     "rules": {
         "object-curly-spacing": 0,
+        "operator-linebreak": 0,
         "require-jsdoc": [2, {
             "require": {
                 "FunctionDeclaration": false,
