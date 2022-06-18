@@ -1,5 +1,9 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import { interestFormReducers, itemObjectReducers, submissionFormReducers } from '../reducers';
+import {
+  interestFormReducers,
+  itemObjectReducers,
+  submissionFormReducers,
+} from '../reducers';
 
 export const initialState = {
   interestForm: {
@@ -31,14 +35,14 @@ export const initialState = {
     image: '',
   },
   submissionForm: {
-    items: []
-  }
+    items: [],
+  },
 };
 
 export const appReducer = combineReducers({
   interestForm: interestFormReducers,
   itemObject: itemObjectReducers,
-  submissionForm: submissionFormReducers
+  submissionForm: submissionFormReducers,
 });
 
 export const rootReducer = (state, action) => {

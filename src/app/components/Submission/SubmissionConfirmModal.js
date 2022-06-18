@@ -1,6 +1,5 @@
-import React from 'react'
-import { Button, CloseButton, Modal } from 'react-bootstrap';
-import SubmitButton from '../Generic/SubmitButton';
+import React from 'react';
+import { Button, Modal } from 'react-bootstrap';
 
 const SubmissionConfirmModal = (props) => {
   const {show, setConfirm, onHide} = props;
@@ -14,7 +13,7 @@ const SubmissionConfirmModal = (props) => {
       <p >TEST Modal</p>
       <Button onClick = {() => setConfirm(true)}>Button</Button>
     </Modal>
-  )
-}
+  );
+};
 
-export default SubmissionConfirmModal
+export default SubmissionConfirmModal;

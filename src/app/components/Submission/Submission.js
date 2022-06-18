@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Button, Container, Form, Row } from 'react-bootstrap';
+import { Button, Container, Row } from 'react-bootstrap';
 import SubmissionSuccess from '../Response/SubmissionSuccess';
 import SubmissionAdd from './SubmissionAdd';
 import SubmissionForm from './SubmissionForm';
@@ -9,39 +9,38 @@ import { submissionFormSelector } from '../../state/selectors';
 import { addItem } from '../../state/actions';
 
 const Submission = () => {
-  const items = useSelector(submissionFormSelector).items
-  const dispatch = useDispatch()
+  const items = useSelector(submissionFormSelector).items;
+  const dispatch = useDispatch();
   const [add, onAdd] = useState(false);
-  const [completeAdd, toggleCompleteAdd] = useState(false)
+  const [completeAdd, toggleCompleteAdd] = useState(false);
   const [confirmedSubmission, setConfirmedSubmission] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
 
   const cancelSubmission = () => setFormSubmitted(false);
   const updateFormSubmitted = () => setFormSubmitted(true);
   const submissionConfirmed = () => setConfirmedSubmission(true);
-  const confirmAdd = () => onAdd(false)
+  const confirmAdd = () => onAdd(false);
   const submitAddedItem = () => {
-    confirmAdd()
-    toggleCompleteAdd(!completeAdd)
-    dispatch(addItem(values))
-    Object.values(stateSetters).forEach(setter => setter(''))
-
-  }
+    confirmAdd();
+    toggleCompleteAdd(!completeAdd);
+    dispatch(addItem(values));
+    Object.values(stateSetters).forEach((setter) => setter(''));
+  };
   // Sorry for many state variables, they are strictly local.
-  const [gradingCompany, setGradingCompany] = useState('')
-  const [category, setCategory] = useState('')
-  const [serialNumber, setSerialNumber] = useState('')
-  const [description, setDescription] = useState('')
+  const [gradingCompany, setGradingCompany] = useState('');
+  const [category, setCategory] = useState('');
+  const [serialNumber, setSerialNumber] = useState('');
+  const [description, setDescription] = useState('');
   // Below are optional
-  const [title, setTitle] = useState('')
-  const [genre, setGenre] = useState('')
-  const [manufacturer, setManufacturer] = useState('')
-  const [year, setYear] = useState('')
-  const [overallGrade, setOverallGrade] = useState('')
-  const [subGrades, setSubGrades] = useState('')
-  const [autographGrade, setAutographGrade] = useState('')
-  const [subject, setSubject] = useState('')
-  const [image, setImage] = useState('')
+  const [title, setTitle] = useState('');
+  const [genre, setGenre] = useState('');
+  const [manufacturer, setManufacturer] = useState('');
+  const [year, setYear] = useState('');
+  const [overallGrade, setOverallGrade] = useState('');
+  const [subGrades, setSubGrades] = useState('');
+  const [autographGrade, setAutographGrade] = useState('');
+  const [subject, setSubject] = useState('');
+  const [image, setImage] = useState('');
   const values = {
     gradingCompany,
     category,
@@ -56,7 +55,7 @@ const Submission = () => {
     autographGrade,
     subject,
     image,
-  }
+  };
   const stateSetters = {
     setGradingCompany,
     setCategory,
@@ -70,14 +69,14 @@ const Submission = () => {
     setSubGrades,
     setAutographGrade,
     setSubject,
-    setImage
-  }
-  
+    setImage,
+  };
+
   return (
     <>
       <Container style={{background: 'black'}} >
         {
-          !confirmedSubmission && !add && 
+          !confirmedSubmission && !add &&
           <Row className="justify-content-md-center">
             <SubmissionForm
               items={items}
@@ -90,11 +89,11 @@ const Submission = () => {
           </Row>
         }
         {confirmedSubmission && <SubmissionSuccess />}
-        {add && 
+        {add &&
         <>
 
           <Row className="justify-content-md-center">
-            <SubmissionAdd 
+            <SubmissionAdd
               values={values}
               stateSetters = {stateSetters}/>
           </Row>

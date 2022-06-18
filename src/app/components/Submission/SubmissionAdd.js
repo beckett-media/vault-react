@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Container, Form, Row } from 'react-bootstrap';
 
 const AddBeckettItem = (props) => {
-  const { 
+  const {
     setCategory,
     setSeialNumber,
     setDescription,
@@ -14,19 +14,19 @@ const AddBeckettItem = (props) => {
     setSubGrades,
     setAutographGrade,
     setSubject,
-    setImage
+    setImage,
   } = props.stateSetters;
 
-  return(
+  return (
     <Form.Group className='md-5'>
-        <Form.Label>Serial Number</Form.Label>
-        <Form.Control type="text" placeholder="Enter Serial Number" />
+      <Form.Label>Serial Number</Form.Label>
+      <Form.Control type="text" placeholder="Enter Serial Number" />
     </Form.Group>
-  )
-}
+  );
+};
 
 const AddOtherItem = (props) => {
-  const { 
+  const {
     gradingCompany,
     category,
     serialNumber,
@@ -40,8 +40,8 @@ const AddOtherItem = (props) => {
     autographGrade,
     subject,
     image,
-  } = props.values
-  const { 
+  } = props.values;
+  const {
     setGradingCompany,
     setCategory,
     setSerialNumber,
@@ -54,27 +54,39 @@ const AddOtherItem = (props) => {
     setSubGrades,
     setAutographGrade,
     setSubject,
-    setImage
+    setImage,
   } = props.stateSetters;
   const onCategoryChange = (evt) => {
-    setCategory(evt.target.value)
-    props.setCategorySelected(true)
-  }
-  return(
+    setCategory(evt.target.value);
+    props.setCategorySelected(true);
+  };
+  return (
     <>
       <Form.Group>
         <Form.Label>Grading Company</Form.Label>
-        <Form.Control type='text' value={gradingCompany} onChange={(e) => setGradingCompany(e.target.value)}/>
+        <Form.Control
+          type='text'
+          value={gradingCompany}
+          onChange={(e) => setGradingCompany(e.target.value)}
+        />
       </Form.Group>
       <Form.Group>
         <Form.Label>Serial Number</Form.Label>
-        <Form.Control type='text' value={serialNumber} onChange={(e) => setSerialNumber(e.target.value)}/>
+        <Form.Control
+          type='text'
+          value={serialNumber}
+          onChange={(e) => setSerialNumber(e.target.value)}
+        />
       </Form.Group>
       {!props.categorySelected && <Form.Group>
         <Form.Label>Description</Form.Label>
-        <Form.Control type='text' value={description} onChange={(e) => setDescription(e.target.value)}/>
+        <Form.Control
+          type='text'
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
       </Form.Group>}
-      <div>Use the fields below if you cannot find the 
+      <div>Use the fields below if you cannot find the
         item in the description above.</div>
       <Form.Group>
         <Form.Select onChange={(e) => onCategoryChange(e)}>
@@ -98,42 +110,64 @@ const AddOtherItem = (props) => {
           </Form.Group>
           <Form.Group>
             <Form.Label>Title</Form.Label>
-            <Form.Control type='text' value={title} onChange={(e) => setTitle(e.target.value)} />
+            <Form.Control
+              type='text'
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
           </Form.Group>
           <Form.Group>
             <Form.Label>Description</Form.Label>
-            <Form.Control type='text' value={description} onChange={(e) => setDescription(e.target.value)}/>
+            <Form.Control
+              type='text'
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
           </Form.Group>
         </>
       }
       { props.categorySelected && category !== 'sport-card' &&
         <>
           <Form.Group>
-            <Form.Label>{category === 'other-card' ? 'Card Type' : 'Genre'}</Form.Label>
-            <Form.Control type='text' value={genre} onChange={(e) => setGenre(e.target.value)} />
+            <Form.Label>
+              {category === 'other-card' ? 'Card Type' : 'Genre'}
+            </Form.Label>
+            <Form.Control
+              type='text'
+              value={genre}
+              onChange={(e) => setGenre(e.target.value)}
+            />
           </Form.Group>
           <Form.Group>
             <Form.Label>Title</Form.Label>
-            <Form.Control type='text' value={title} onChange={(e) => setTitle(e.target.value)} />
+            <Form.Control
+              type='text'
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
           </Form.Group>
           <Form.Group>
             <Form.Label>Description</Form.Label>
-            <Form.Control type='text' value={description} onChange={(e) => setDescription(e.target.value)}/>
+            <Form.Control
+              type='text'
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
           </Form.Group>
         </>
       }
     </>
-  )
-}
+  );
+};
 const SubmissionAdd = (props) => {
   const gradingCompany = props.values.gradingCompany;
-  const [gradingCompanySelected, setGradingCompanySelected] = useState(false)
-  const [categorySelected, setCategorySelected] = useState(false)
+  const [gradingCompanySelected, setGradingCompanySelected] = useState(false);
+  const [categorySelected, setCategorySelected] = useState(false);
   const onChange = (evt) => {
-    props.stateSetters.setGradingCompany(evt.target.value)
-    setGradingCompanySelected(true)
-  }
-  
+    props.stateSetters.setGradingCompany(evt.target.value);
+    setGradingCompanySelected(true);
+  };
+
   return (
     <Container>
       <Row className="justify-content-md-center">
@@ -149,11 +183,12 @@ const SubmissionAdd = (props) => {
           </Form.Select>
         </Form.Group>
       </Row>
-      {(gradingCompany === 'BGS' || gradingCompany === 'CBCS') ? <AddBeckettItem stateSetters = {props.stateSetters}/> :
-        gradingCompanySelected ? 
-          <AddOtherItem 
-            stateSetters = {props.stateSetters} 
-            values={props.values} 
+      {(gradingCompany === 'BGS' || gradingCompany === 'CBCS') ?
+        <AddBeckettItem stateSetters = {props.stateSetters}/> :
+        gradingCompanySelected ?
+          <AddOtherItem
+            stateSetters = {props.stateSetters}
+            values={props.values}
             categorySelected={categorySelected}
             setCategorySelected={setCategorySelected}
           />: <></>}
