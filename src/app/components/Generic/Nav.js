@@ -23,6 +23,7 @@ const Nav = () => {
         <li>
           <Link to="/profile">Profile</Link>
         </li>
+        <li><i className="fa-solid fa-cart-shopping"></i></li>
       </ul>
     </nav>
   );
