@@ -15,13 +15,14 @@ function App() {
     <>
       <Header />
       <Routes>
-        <Route path="/" element={<Homepage />} />
+        
         <Route path="/submission" element={<Submission />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/item/:id" element={<Item />} />
         <Route path="/market" element={<Market />} />
         {/* PrivateRoute */}
         <Route path="/profile" element={<Profile />} />
+        <Route path="*" element={<Homepage />} />
       </Routes>
       <Footer />
     </>

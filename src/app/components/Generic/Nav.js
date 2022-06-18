@@ -21,9 +21,15 @@ const Nav = () => {
           <Link to="/market">Market</Link>
         </li>
         <li>
-          <Link to="/profile">Profile</Link>
+          <Link to="/profile">
+            <i className="fa-solid fa-user"></i>
+          </Link>
         </li>
-        <li><i className="fa-solid fa-cart-shopping"></i></li>
+        <li>
+          <Link to="/cart">
+            <i className="fa-solid fa-cart-shopping"></i>
+          </Link>
+        </li>
       </ul>
     </nav>
   );
