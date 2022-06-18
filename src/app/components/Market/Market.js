@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
-import './market.scss';
 import { getMarketItems } from '../../services/items';
 import { Link } from 'react-router-dom';
 import Filter from '../Generic/Filter';
 import CardActions from '../Generic/CardActions';
+import './Market.scss';
 
 const Market = () => {
   const [items, setItems] = useState([]);
