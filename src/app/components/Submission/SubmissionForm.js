@@ -1,13 +1,13 @@
 import React from 'react';
-import {Button, Col, Container, Form, Row} from 'react-bootstrap';
+import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import '../../../index.scss'
+import '../../../index.scss';
 import { submissionFormSelector } from '../../state/selectors';
 import SubmissionConfirmModal from './SubmissionConfirmModal';
 
-const SubmissionForm = (props) => {
-  const {formSubmitted, setConfirm, cancelSubmission, onAdd, items} = props;
-  const submissionForm = useSelector(submissionFormSelector)
+const SubmissionForm = props => {
+  const { formSubmitted, setConfirm, cancelSubmission, onAdd, items } = props;
+  const submissionForm = useSelector(submissionFormSelector);
 
   return (
     <Container fluid>
@@ -18,26 +18,27 @@ const SubmissionForm = (props) => {
         <div>{items.length ? 'Items to Vault' : 'Add Items to Vault'}</div>
       </Row>
       <Row className="justify-content-md-center">
-      <SubmissionConfirmModal 
-        show={formSubmitted} 
-        setConfirm={setConfirm} 
-        onHide={cancelSubmission}
-      />
+        <SubmissionConfirmModal
+          show={formSubmitted}
+          setConfirm={setConfirm}
+          onHide={cancelSubmission}
+        />
       </Row>
-      <Form >
-          {submissionForm.items.map((obj,i) => {
-            return (
-              <Row className="justify-content-md-center">
-                <p>{i+1}. {obj.serialNumber} - {obj.description}</p>
-              </Row>
-            );
-          })}
+      <Form>
+        {submissionForm.items.map((obj, i) => {
+          return (
+            <Row className="justify-content-md-center">
+              <p>
+                {i + 1}. {obj.serialNumber} - {obj.description}
+              </p>
+            </Row>
+          );
+        })}
         <Row className="justify-content-md-center">
           <Button onClick={() => onAdd(true)}>+</Button>
         </Row>
         <Row className="justify-content-md-center" m={2}>
           <div>User Info</div>
-          
         </Row>
       </Form>
     </Container>

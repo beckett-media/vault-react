@@ -127,81 +127,81 @@ export const removeItem = payload => {
 export const setCategory = payload => {
   return {
     type: SET_CATEGORY,
-    payload: payload
-  }
-}
+    payload: payload,
+  };
+};
 export const setGradingCompany = payload => {
   return {
     type: SET_GRADING_COMPANY,
-    payload:payload
-  }
-}
+    payload: payload,
+  };
+};
 export const setSerialNumber = payload => {
   return {
     type: SET_SERIAL_NUMBER,
-    payload: payload
-  }
-}
+    payload: payload,
+  };
+};
 export const setDescription = payload => {
   return {
     type: SET_DESCRIPTION,
-    payload: payload
-  }
-}
+    payload: payload,
+  };
+};
 export const setTitle = payload => {
   return {
     type: SET_TITLE,
-    payload:payload
-  }
-}
+    payload: payload,
+  };
+};
 export const setGenre = payload => {
   return {
     type: SET_GENRE,
-    payload: payload
-  }
-}
+    payload: payload,
+  };
+};
 export const setManufacturer = payload => {
   return {
     type: SET_MANUFACTURER,
-    payload: payload
-  }
-}
+    payload: payload,
+  };
+};
 export const setYear = payload => {
   return {
     type: SET_YEAR,
-    payload: payload
-  }
-}
+    payload: payload,
+  };
+};
 export const setOverallGrade = payload => {
   return {
     type: SET_OVERALL_GRADE,
-    payload: payload
-  }
-}
+    payload: payload,
+  };
+};
 export const setAutographGrade = payload => {
   return {
     type: SET_AUTOGRAPH_GRADE,
-    payload: payload
-  }
-}     
+    payload: payload,
+  };
+};
 export const setSubGrades = payload => {
   return {
     type: SET_SUB_GRADES,
-    payload: payload
-  }
-}
+    payload: payload,
+  };
+};
 export const setSubject = payload => {
   return {
     type: SET_SUBJECT,
-    payload: payload
-  }
-}
+    payload: payload,
+  };
+};
 export const setImage = payload => {
   return {
     type: SET_IMAGE,
-    payload: payload
-  }
-}
+    payload: payload,
+  };
+};
 
 // on Logout action
 export const resetForm = payload => {
@@ -211,4 +211,3 @@ export const resetForm = payload => {
     payload: payload,
   };
 };
-

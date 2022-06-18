@@ -4,6 +4,9 @@ import Footer from './app/components/Generic/Footer';
 import Homepage from './app/components/Homepage/Homepage';
 import Submission from './app/components/Submission/Submission';
 import Gallery from './app/components/Gallery/Gallery';
+import Item from './app/components/Item/Item';
+import Market from './app/components/Market/Market';
+import Profile from './app/components/Profile/Profile';
 import { Routes, Route } from 'react-router-dom';
 import './index.scss';
 
@@ -15,6 +18,9 @@ function App() {
         <Route path="/" element={<Homepage />} />
         <Route path="/submission" element={<Submission />} />
         <Route path="/gallery" element={<Gallery />} />
+        <Route path="/item" element={<Item />} />
+        <Route path="/market" element={<Market />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
       <Footer />
     </>

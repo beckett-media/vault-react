@@ -86,10 +86,10 @@ export const interestFormReducers = (state = { initialState }, action) => {
         ...state,
         checkbox6: action.payload.interestForm.checkbox6,
       };
-    
+
     default:
       return state;
-  };
+  }
 };
 
 export const submissionFormReducers = (state = { initialState }, action) => {
@@ -99,18 +99,19 @@ export const submissionFormReducers = (state = { initialState }, action) => {
       console.log(action);
       return {
         ...state,
-        items: [...state.items, action.payload]
+        items: [...state.items, action.payload],
       };
     case REMOVE_ITEM:
       console.log(action);
       return {
         ...state,
-        items: state.items
-          .filter(obj => obj.serialNumber === action.payload.itemObject.serialNumber),
+        items: state.items.filter(
+          obj => obj.serialNumber === action.payload.itemObject.serialNumber,
+        ),
       };
     default:
       return state;
-  };
+  }
 };
 // Item object reducers
 export const itemObjectReducers = (state = { initialState }, action) => {
@@ -196,16 +197,16 @@ export const itemObjectReducers = (state = { initialState }, action) => {
       };
 
     default:
-    return state;
+      return state;
   }
 };
 
 // On logout
-  //   case RESET_FORM:
-  //     console.log(action);
-  //     return { ...state, initialState };
+//   case RESET_FORM:
+//     console.log(action);
+//     return { ...state, initialState };
 
-  //   default:
-  //     return state;
-  // }
+//   default:
+//     return state;
+// }
 // };

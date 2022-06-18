@@ -17,6 +17,12 @@ const Nav = () => {
         <li>
           <Link to="/gallery">Gallery</Link>
         </li>
+        <li>
+          <Link to="/market">Market</Link>
+        </li>
+        <li>
+          <Link to="/profile">Profile</Link>
+        </li>
       </ul>
     </nav>
   );
