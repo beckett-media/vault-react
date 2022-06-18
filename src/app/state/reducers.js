@@ -106,7 +106,7 @@ export const submissionFormReducers = (state = { initialState }, action) => {
       return {
         ...state,
         items: state.items.filter(
-          obj => obj.serialNumber === action.payload.itemObject.serialNumber,
+          (obj) => obj.serialNumber === action.payload.itemObject.serialNumber,
         ),
       };
     default:

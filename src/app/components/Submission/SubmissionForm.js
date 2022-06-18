@@ -5,7 +5,7 @@ import '../../../index.scss';
 import { submissionFormSelector } from '../../state/selectors';
 import SubmissionConfirmModal from './SubmissionConfirmModal';
 
-const SubmissionForm = props => {
+const SubmissionForm = (props) => {
   const { formSubmitted, setConfirm, cancelSubmission, onAdd, items } = props;
   const submissionForm = useSelector(submissionFormSelector);
 

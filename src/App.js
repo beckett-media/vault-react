@@ -18,8 +18,9 @@ function App() {
         <Route path="/" element={<Homepage />} />
         <Route path="/submission" element={<Submission />} />
         <Route path="/gallery" element={<Gallery />} />
-        <Route path="/item" element={<Item />} />
+        <Route path="/item/:id" element={<Item />} />
         <Route path="/market" element={<Market />} />
+        {/* PrivateRoute */}
         <Route path="/profile" element={<Profile />} />
       </Routes>
       <Footer />

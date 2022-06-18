@@ -24,7 +24,7 @@ const Submission = () => {
     confirmAdd();
     toggleCompleteAdd(!completeAdd);
     dispatch(addItem(values));
-    Object.values(stateSetters).forEach(setter => setter(''));
+    Object.values(stateSetters).forEach((setter) => setter(''));
   };
   // Sorry for many state variables, they are strictly local.
   const [gradingCompany, setGradingCompany] = useState('');
