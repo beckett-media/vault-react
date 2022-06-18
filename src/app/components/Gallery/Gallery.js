@@ -3,7 +3,7 @@ import { Container } from 'react-bootstrap';
 import './gallery.scss';
 import { getItems } from '../../services/items';
 import { Link } from 'react-router-dom';
-
+import Filter from '../Generic/Filter';
 const Gallery = () => {
   const [items, setItems] = useState([]);
   useEffect(() => {
@@ -12,6 +12,7 @@ const Gallery = () => {
 
   return (
     <Container fluid>
+      <Filter />
       <div className="row">
         {items.map((item) => (
           <div className="col-lg-4 col-md-12 mb-4 mb-lg-0" key={item.id}>
