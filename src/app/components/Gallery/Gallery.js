@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import './gallery.scss';
 import { getItems } from '../../services/items';
+import { Link } from 'react-router-dom';
 
 const Gallery = () => {
   const [items, setItems] = useState([]);
@@ -21,7 +22,9 @@ const Gallery = () => {
                 alt={item.title}
               />
             </div>
-            <div>{item.title}</div>
+            <div>
+              <Link to={`/item/${item.id}`}>{item.title}</Link>
+            </div>
           </div>
         ))}
       </div>

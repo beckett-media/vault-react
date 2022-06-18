@@ -6,10 +6,10 @@ import { useParams } from 'react-router-dom';
 
 const Item = () => {
   const { id } = useParams();
-  const [item, setItem] = useState([]);
-  useEffect(async () => {
-    const data = await getItem(id);
-    setItem(data);
+  console.log('ID', id);
+  const [item, setItem] = useState({});
+  useEffect(() => {
+    getItem(id).then((data) => setItem(data));
   }, []);
 
   return (
@@ -24,6 +24,7 @@ const Item = () => {
             />
           </div>
           <div>{item.title}</div>
+          <div>{item.description}</div>
         </div>
       </div>
     </Container>
