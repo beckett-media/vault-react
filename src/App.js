@@ -15,7 +15,6 @@ function App() {
     <>
       <Header />
       <Routes>
-        
         <Route path="/submission" element={<Submission />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/item/:id" element={<Item />} />

@@ -37,16 +37,12 @@ const mockItems = [
   },
 ];
 
-export const getItems = () => {
+export const getItems = async () => {
   // const data = axios.post(url, {userId: user.id})
-  return new Promise((res, rej) => {
-    res(mockItems);
-  });
+  return mockItems;
 };
 
-export const getItem = (id) => {
+export const getItem = async (id) => {
   // const data = axios.post(url, {userId: user.id, itemId: id})
-  return new Promise((res, rej) => {
-    res(mockItems.filter((item) => item.id == id)[0]);
-  });
+  return mockItems.filter((item) => item.id == id)[0];
 };
