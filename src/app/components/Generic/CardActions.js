@@ -5,7 +5,7 @@ const CardActions = () => {
   // others are if you don't
   return (
     <div className="row justify-content-center card-actions">
-      <select class="form-select form-select-sm mr-3 rounded-pill">
+      <select className="form-select form-select-sm mr-3 rounded-pill">
         <option selected>Actions</option>
         <option>Add to Cart</option>
         <option>Make Offer</option>
