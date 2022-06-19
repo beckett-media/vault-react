@@ -7,6 +7,7 @@ import Gallery from './app/components/Gallery/Gallery';
 import Item from './app/components/Item/Item';
 import Market from './app/components/Market/Market';
 import Profile from './app/components/Profile/Profile';
+import Cart from './app/components/Cart/Cart';
 import { Routes, Route } from 'react-router-dom';
 import './index.scss';
 
@@ -21,6 +22,7 @@ function App() {
         <Route path="/market" element={<Market />} />
         {/* PrivateRoute */}
         <Route path="/profile" element={<Profile />} />
+        <Route path="/cart" element={<Cart />} />
         <Route path="*" element={<Homepage />} />
       </Routes>
       <Footer />
