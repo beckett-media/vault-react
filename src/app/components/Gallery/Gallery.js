@@ -4,6 +4,8 @@ import './gallery.scss';
 import { getItems } from '../../services/items';
 import { Link } from 'react-router-dom';
 import Filter from '../Generic/Filter';
+import CardActions from '../Generic/CardActions';
+
 const Gallery = () => {
   const [items, setItems] = useState([]);
   useEffect(() => {
@@ -13,9 +15,9 @@ const Gallery = () => {
   return (
     <Container fluid>
       <Filter />
-      <div className="row">
+      <div className="row m-4">
         {items.map((item) => (
-          <div className="col-lg-4 col-md-12 mb-4 mb-lg-0" key={item.id}>
+          <div className="col-lg-4 col-md-12 p-4 mb-lg-0" key={item.id}>
             <div className="slab">
               <img
                 src={item.img}
@@ -25,6 +27,9 @@ const Gallery = () => {
             </div>
             <div>
               <Link to={`/item/${item.id}`}>{item.title}</Link>
+            </div>
+            <div>
+              <CardActions />
             </div>
           </div>
         ))}
