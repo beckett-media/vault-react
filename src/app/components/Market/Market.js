@@ -25,10 +25,10 @@ const Market = () => {
                 alt={item.title}
               />
             </div>
-            <div>
+            <div className="d-flex justify-content-center">
               <Link to={`/item/${item.id}`}>{item.title}</Link>
             </div>
-            <div>
+            <div className="d-flex justify-content-center">
               <CardActions />
             </div>
           </div>
