@@ -1,5 +1,15 @@
 import React, { useState } from 'react';
 import { Container, Form, Row } from 'react-bootstrap';
+import PropTypes from 'prop-types'
+
+AddBeckettItem.propTypes = {
+  stateSetters: PropTypes.object
+}
+
+AddOtherItem.propTypes = {
+  stateSetters: PropTypes.object,
+  values: PropTypes.object
+}
 
 const AddBeckettItem = (props) => {
   const {
@@ -60,6 +70,7 @@ const AddOtherItem = (props) => {
     setCategory(evt.target.value);
     props.setCategorySelected(true);
   };
+  
   return (
     <>
       <Form.Group>

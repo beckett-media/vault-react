@@ -71,7 +71,7 @@ const Submission = () => {
     setSubject,
     setImage,
   };
-
+  
   return (
     <>
       <Container style={{background: 'black'}} >
