@@ -15,11 +15,11 @@ const Item = () => {
   return (
     <Container fluid>
       <div className="row">
-        <div className="col">
+        <div className="col ">
           <div className="slab d-flex justify-content-center">
             <img
               src={item.img}
-              className="h-100 shadow-1-strong rounded mb-4 img-responsive"
+              className="shadow-1-strong rounded mb-4 img-fluid"
               alt={item.title}
             />
           </div>
