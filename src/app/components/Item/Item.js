@@ -6,9 +6,9 @@ import { useParams } from 'react-router-dom';
 
 const Item = () => {
   const { id } = useParams();
-  console.log('ID', id);
   const [item, setItem] = useState({});
   useEffect(() => {
+    // Todo: throw an error / redirect if we can't find the item?
     getItem(id).then((data) => setItem(data));
   }, []);
 
