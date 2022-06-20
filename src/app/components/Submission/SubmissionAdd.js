@@ -1,31 +1,22 @@
 import React, { useState } from 'react';
 import { Container, Form, Row } from 'react-bootstrap';
-import PropTypes from 'prop-types'
-
-AddBeckettItem.propTypes = {
-  stateSetters: PropTypes.object
-}
-
-AddOtherItem.propTypes = {
-  stateSetters: PropTypes.object,
-  values: PropTypes.object
-}
+import PropTypes from 'prop-types';
 
 const AddBeckettItem = (props) => {
-  const {
-    setCategory,
-    setSeialNumber,
-    setDescription,
-    setTitle,
-    setGenre,
-    setManufacturer,
-    setYear,
-    setOverallGrade,
-    setSubGrades,
-    setAutographGrade,
-    setSubject,
-    setImage,
-  } = props.stateSetters;
+// const {
+//   setCategory,
+//   setSeialNumber,
+//   setDescription,
+//   setTitle,
+//   setGenre,
+//   setManufacturer,
+//   setYear,
+//   setOverallGrade,
+//   setSubGrades,
+//   setAutographGrade,
+//   setSubject,
+//   setImage,
+// } = props.stateSetters;
 
   return (
     <Form.Group className='md-5'>
@@ -43,13 +34,13 @@ const AddOtherItem = (props) => {
     description,
     title,
     genre,
-    manufacturer,
-    year,
-    overallGrade,
-    subGrades,
-    autographGrade,
-    subject,
-    image,
+    // manufacturer,
+    // year,
+    // overallGrade,
+    // subGrades,
+    // autographGrade,
+    // subject,
+    // image,
   } = props.values;
   const {
     setGradingCompany,
@@ -58,19 +49,19 @@ const AddOtherItem = (props) => {
     setDescription,
     setTitle,
     setGenre,
-    setManufacturer,
-    setYear,
-    setOverallGrade,
-    setSubGrades,
-    setAutographGrade,
-    setSubject,
-    setImage,
+    // setManufacturer,
+    // setYear,
+    // setOverallGrade,
+    // setSubGrades,
+    // setAutographGrade,
+    // setSubject,
+    // setImage,
   } = props.stateSetters;
   const onCategoryChange = (evt) => {
     setCategory(evt.target.value);
     props.setCategorySelected(true);
   };
-  
+
   return (
     <>
       <Form.Group>
@@ -206,5 +197,20 @@ const SubmissionAdd = (props) => {
     </Container>
   );
 };
+AddBeckettItem.propTypes = {
+  stateSetters: PropTypes.object,
+};
 
+AddOtherItem.propTypes = {
+  stateSetters: PropTypes.object,
+  values: PropTypes.object,
+  categorySelected: PropTypes.string,
+  setCategorySelected: PropTypes.func,
+};
+SubmissionAdd.propTypes = {
+  stateSetters: PropTypes.object,
+  values: PropTypes.object,
+  categorySelected: PropTypes.string,
+  setCategorySelected: PropTypes.func,
+};
 export default SubmissionAdd;
