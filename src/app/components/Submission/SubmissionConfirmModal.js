@@ -1,6 +1,5 @@
 import React from 'react';
-import { Button, CloseButton, Modal } from 'react-bootstrap';
-import SubmitButton from '../Generic/SubmitButton';
+import { Button, Modal } from 'react-bootstrap';
 
 const SubmissionConfirmModal = (props) => {
   const { show, setConfirm, onHide } = props;

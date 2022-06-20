@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Container, Form, Row } from 'react-bootstrap';
+import { Button, Container, Row } from 'react-bootstrap';
 import SubmissionSuccess from '../Response/SubmissionSuccess';
 import SubmissionAdd from './SubmissionAdd';
 import SubmissionForm from './SubmissionForm';
@@ -71,11 +71,12 @@ const Submission = () => {
     setSubject,
     setImage,
   };
-
+  
   return (
     <>
-      <Container style={{ background: 'black' }}>
-        {!confirmedSubmission && !add && (
+      <Container style={{background: 'black'}} >
+        {
+          !confirmedSubmission && !add &&
           <Row className="justify-content-md-center">
             <SubmissionForm
               items={items}

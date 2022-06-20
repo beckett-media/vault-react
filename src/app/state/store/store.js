@@ -1,4 +1,4 @@
-import { initialState, rootReducer } from './rootReducer';
+import { initialState } from './rootReducer';
 import { configureStore } from '@reduxjs/toolkit';
 import {
   interestFormReducers,
