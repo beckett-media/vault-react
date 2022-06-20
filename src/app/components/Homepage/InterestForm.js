@@ -19,7 +19,7 @@ import { Col, Container, InputGroup, Row, Form } from 'react-bootstrap';
 import { validEmail, validPhone } from '../Validation/regex';
 import { initialState } from '../../state/store/rootReducer';
 
-const InterestForm = props => {
+const InterestForm = (props) => {
   const interestForm = useSelector(interestFormSelector);
   const dispatch = useDispatch();
 
@@ -29,7 +29,7 @@ const InterestForm = props => {
   const [invalidEmail, setInvalidEmail] = useState(false);
   const [invalidPhone, setInvalidPhone] = useState(false);
 
-  const onFieldChange = e => {
+  const onFieldChange = (e) => {
     if (lastField === '') {
       setLastField(e.target.id);
     }
@@ -148,12 +148,12 @@ const InterestForm = props => {
     }
     setLastField(e.target.id);
   };
-  const validateEmail = email => {
+  const validateEmail = (email) => {
     updateTempText(email);
     const isValid = validEmail.test(email);
     isValid ? setInvalidEmail(false) : setInvalidEmail(true);
   };
-  const validatePhone = phone => {
+  const validatePhone = (phone) => {
     updateTempText(phone);
     const isValid = validPhone.test(phone);
     isValid ? setInvalidPhone(false) : setInvalidPhone(true);
@@ -177,8 +177,8 @@ const InterestForm = props => {
               value={currentField === 'first' ? tempText : interestForm.first}
               className="transparent-text-input border border-dark rounded-pill"
               placeholder={'First Name*'}
-              onSelect={e => e.target.id !== currentField && onFieldChange(e)}
-              onChange={e => updateTempText(e.target.value)}
+              onSelect={(e) => e.target.id !== currentField && onFieldChange(e)}
+              onChange={(e) => updateTempText(e.target.value)}
             />
           </Col>
         </InputGroup>
@@ -193,8 +193,8 @@ const InterestForm = props => {
               value={currentField === 'last' ? tempText : interestForm.last}
               className="transparent-text-input border border-dark rounded-pill"
               placeholder={'Last Name*'}
-              onSelect={e => e.target.id !== currentField && onFieldChange(e)}
-              onChange={e => updateTempText(e.target.value)}
+              onSelect={(e) => e.target.id !== currentField && onFieldChange(e)}
+              onChange={(e) => updateTempText(e.target.value)}
             />
           </Col>
         </InputGroup>
@@ -212,8 +212,8 @@ const InterestForm = props => {
                 background: invalidEmail ? 'red' : 'rgb(58, 43, 77)',
               }}
               placeholder={'Email*'}
-              onSelect={e => e.target.id !== currentField && onFieldChange(e)}
-              onChange={e => validateEmail(e.target.value)}
+              onSelect={(e) => e.target.id !== currentField && onFieldChange(e)}
+              onChange={(e) => validateEmail(e.target.value)}
             />
           </Col>
         </InputGroup>
@@ -231,8 +231,8 @@ const InterestForm = props => {
                 background: invalidPhone ? 'red' : 'rgb(58, 43, 77)',
               }}
               placeholder={'Phone Number*'}
-              onSelect={e => e.target.id !== currentField && onFieldChange(e)}
-              onChange={e => validatePhone(e.target.value)}
+              onSelect={(e) => e.target.id !== currentField && onFieldChange(e)}
+              onChange={(e) => validatePhone(e.target.value)}
             />
           </Col>
         </InputGroup>
@@ -249,8 +249,8 @@ const InterestForm = props => {
               }
               className="transparent-text-input border border-dark rounded-pill"
               placeholder={'Beckett ID'}
-              onSelect={e => e.target.id !== currentField && onFieldChange(e)}
-              onChange={e => updateTempText(e.target.value)}
+              onSelect={(e) => e.target.id !== currentField && onFieldChange(e)}
+              onChange={(e) => updateTempText(e.target.value)}
             />
           </Col>
         </InputGroup>
@@ -265,7 +265,7 @@ const InterestForm = props => {
               <Form.Check.Input
                 type="checkbox"
                 id="checkbox1"
-                onChange={e => onFieldChange(e)}
+                onChange={(e) => onFieldChange(e)}
               />
               <Form.Check.Label>{`I have collectibles I’d like to securely store`}</Form.Check.Label>
               <Form.Control.Feedback type="valid"></Form.Control.Feedback>
@@ -275,7 +275,7 @@ const InterestForm = props => {
               <Form.Check.Input
                 type="checkbox"
                 id="checkbox2"
-                onChange={e => onFieldChange(e)}
+                onChange={(e) => onFieldChange(e)}
               />
               <Form.Check.Label>{`I am just exploring storage options`}</Form.Check.Label>
               <Form.Control.Feedback type="valid"></Form.Control.Feedback>
@@ -285,7 +285,7 @@ const InterestForm = props => {
               <Form.Check.Input
                 type="checkbox"
                 id="checkbox3"
-                onChange={e => onFieldChange(e)}
+                onChange={(e) => onFieldChange(e)}
               />
               <Form.Check.Label>
                 {'I am interested in insuring my collectible(s)'}
@@ -297,7 +297,7 @@ const InterestForm = props => {
               <Form.Check.Input
                 type="checkbox"
                 id="checkbox4"
-                onChange={e => onFieldChange(e)}
+                onChange={(e) => onFieldChange(e)}
               />
               <Form.Check.Label>
                 {
@@ -311,7 +311,7 @@ const InterestForm = props => {
               <Form.Check.Input
                 type="checkbox"
                 id="checkbox5"
-                onChange={e => onFieldChange(e)}
+                onChange={(e) => onFieldChange(e)}
               />
               <Form.Check.Label>
                 {
@@ -325,7 +325,7 @@ const InterestForm = props => {
               <Form.Check.Input
                 type="checkbox"
                 id="checkbox6"
-                onChange={e => onFieldChange(e)}
+                onChange={(e) => onFieldChange(e)}
               />
               <Form.Check.Label>
                 {"I would like access to Beckett Vault's exclusive investors"}
@@ -342,7 +342,7 @@ const InterestForm = props => {
               type="button"
               value="Get Early Access"
               className="border border-info rounded-pill fill-btn"
-              onMouseOver={e => onFieldChange(e)}
+              onMouseOver={(e) => onFieldChange(e)}
               onClick={() => props.formSubmission(interestForm)}
             />
           </Col>

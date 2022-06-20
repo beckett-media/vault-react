@@ -89,7 +89,7 @@ export const interestFormReducers = (state = { initialState }, action) => {
 
     default:
       return state;
-  };
+  }
 };
 
 export const submissionFormReducers = (state = { initialState }, action) => {
@@ -105,14 +105,13 @@ export const submissionFormReducers = (state = { initialState }, action) => {
       console.log(action);
       return {
         ...state,
-        items: state.items
-            .filter((obj) =>
-              obj.serialNumber === action.payload.itemObject.serialNumber,
-            ),
+        items: state.items.filter(
+          (obj) => obj.serialNumber === action.payload.itemObject.serialNumber,
+        ),
       };
     default:
       return state;
-  };
+  }
 };
 // Item object reducers
 export const itemObjectReducers = (state = { initialState }, action) => {

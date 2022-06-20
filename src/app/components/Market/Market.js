@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
-import './gallery.scss';
-import { getItems } from '../../services/items';
+import './market.scss';
+import { getMarketItems } from '../../services/items';
 import { Link } from 'react-router-dom';
 import Filter from '../Generic/Filter';
 import CardActions from '../Generic/CardActions';
 
-const Gallery = () => {
+const Market = () => {
   const [items, setItems] = useState([]);
   useEffect(() => {
-    getItems().then((data) => setItems(data));
+    getMarketItems().then((data) => setItems(data));
   }, []);
 
   return (
     <Container fluid>
       <Filter />
-      <div className="row m-4">
+      <div className="row">
         {items.map((item) => (
           <div className="col-lg-4 col-md-12 p-4 mb-lg-0" key={item.id}>
             <div className="slab">
@@ -38,4 +38,4 @@ const Gallery = () => {
   );
 };
 
-export default Gallery;
+export default Market;

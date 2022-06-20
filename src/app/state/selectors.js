@@ -1,16 +1,16 @@
 import { createSelector } from '@reduxjs/toolkit';
 
 export const interestFormSelector = createSelector(
-    (state) => state,
-    (state) => state.interestForm,
+  (state) => state,
+  (state) => state.interestForm,
 );
 
 export const itemObjectSelector = createSelector(
-    (state) => state,
-    (state) => state.itemObject,
+  (state) => state,
+  (state) => state.itemObject,
 );
 
 export const submissionFormSelector = createSelector(
-    (state) => state,
-    (state) => state.submissionForm,
+  (state) => state,
+  (state) => state.submissionForm,
 );

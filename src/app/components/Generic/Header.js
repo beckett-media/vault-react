@@ -4,7 +4,7 @@ import Nav from './Nav';
 
 const Header = () => {
   return (
-    <Col>
+    <Col className=" mb-3">
       <Row className="justify-content-md-center">
         <Nav />
       </Row>

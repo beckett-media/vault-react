@@ -61,13 +61,12 @@ const AddOtherItem = (props) => {
     setCategory(evt.target.value);
     props.setCategorySelected(true);
   };
-
   return (
     <>
       <Form.Group>
         <Form.Label>Grading Company</Form.Label>
         <Form.Control
-          type='text'
+          type="text"
           value={gradingCompany}
           onChange={(e) => setGradingCompany(e.target.value)}
         />
@@ -75,7 +74,7 @@ const AddOtherItem = (props) => {
       <Form.Group>
         <Form.Label>Serial Number</Form.Label>
         <Form.Control
-          type='text'
+          type="text"
           value={serialNumber}
           onChange={(e) => setSerialNumber(e.target.value)}
         />
@@ -98,10 +97,10 @@ const AddOtherItem = (props) => {
           <option value="comic">Comic</option>
         </Form.Select>
       </Form.Group>
-      { category === 'sport-card' &&
+      {category === 'sport-card' && (
         <>
           <Form.Group>
-            <Form.Label>Sport</Form.Label> <br/>
+            <Form.Label>Sport</Form.Label> <br />
             <Form.Select onChange={(e) => setGenre(e.target.value)}>
               <option>Select Sport</option>
               <option value="baseball">Baseball</option>
@@ -113,7 +112,7 @@ const AddOtherItem = (props) => {
           <Form.Group>
             <Form.Label>Title</Form.Label>
             <Form.Control
-              type='text'
+              type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
@@ -121,21 +120,21 @@ const AddOtherItem = (props) => {
           <Form.Group>
             <Form.Label>Description</Form.Label>
             <Form.Control
-              type='text'
+              type="text"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
           </Form.Group>
         </>
-      }
-      { props.categorySelected && category !== 'sport-card' &&
+      )}
+      {props.categorySelected && category !== 'sport-card' && (
         <>
           <Form.Group>
             <Form.Label>
               {category === 'other-card' ? 'Card Type' : 'Genre'}
             </Form.Label>
             <Form.Control
-              type='text'
+              type="text"
               value={genre}
               onChange={(e) => setGenre(e.target.value)}
             />
@@ -143,7 +142,7 @@ const AddOtherItem = (props) => {
           <Form.Group>
             <Form.Label>Title</Form.Label>
             <Form.Control
-              type='text'
+              type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
@@ -151,13 +150,13 @@ const AddOtherItem = (props) => {
           <Form.Group>
             <Form.Label>Description</Form.Label>
             <Form.Control
-              type='text'
+              type="text"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
           </Form.Group>
         </>
-      }
+      )}
     </>
   );
 };
@@ -185,15 +184,18 @@ const SubmissionAdd = (props) => {
           </Form.Select>
         </Form.Group>
       </Row>
-      {(gradingCompany === 'BGS' || gradingCompany === 'CBCS') ?
-        <AddBeckettItem stateSetters = {props.stateSetters}/> :
-        gradingCompanySelected ?
-          <AddOtherItem
-            stateSetters = {props.stateSetters}
-            values={props.values}
-            categorySelected={categorySelected}
-            setCategorySelected={setCategorySelected}
-          />: <></>}
+      {gradingCompany === 'BGS' || gradingCompany === 'CBCS' ? (
+        <AddBeckettItem stateSetters={props.stateSetters} />
+      ) : gradingCompanySelected ? (
+        <AddOtherItem
+          stateSetters={props.stateSetters}
+          values={props.values}
+          categorySelected={categorySelected}
+          setCategorySelected={setCategorySelected}
+        />
+      ) : (
+        <></>
+      )}
     </Container>
   );
 };
