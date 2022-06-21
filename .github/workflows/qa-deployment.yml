@@ -4,12 +4,6 @@ on:
   push:
     branches:
       - main
-
-env:
-    BUILD_DIR: 'build/'
-    AWS_REGION: 'us-west-1'
-    QA_AWS_BUCKET_NAME: 
-    QA_DISTRIBUTION_ID: 
     
 jobs:
   deploy:
