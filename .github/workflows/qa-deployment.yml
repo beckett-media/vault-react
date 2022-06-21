@@ -15,7 +15,7 @@ jobs:
   deploy:
     name: Deploy QA
     
-    uses: beckett-media/vault-react/.github/workflows/cont-deployment.yml
+    uses: beckett-media/vault-react/.github/workflows/cont-deployment.yml@main
     with:
       BUILD_DIR: ${{ env.BUILD_DIR }}
       AWS_REGION: ${{ env.AWS_REGION }}
