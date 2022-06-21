@@ -87,7 +87,7 @@ const Submission = () => {
             />
             <SubmitButton func={updateFormSubmitted} title="Submit" />
           </Row>
-        )}
+        }
         {confirmedSubmission && <SubmissionSuccess />}
         {add && (
           <>
