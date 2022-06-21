@@ -4,12 +4,6 @@ on:
   push:
     branches:
       - dev
-
-env:
-    BUILD_DIR: 'build/'
-    AWS_REGION: 'us-west-1'
-    DEV_AWS_BUCKET_NAME: dev-vulcan-beckettvaulting-assets-548281136650
-    DEV_DISTRIBUTION_ID: E35C28BRGBVHX7
     
 jobs:
   deploy:
@@ -17,8 +11,7 @@ jobs:
     
     uses: beckett-media/vault-react/.github/workflows/cont-deployment.yml@dev
     with:
-      BUILD_DIR: ${{ env.BUILD_DIR }}
-      AWS_REGION: ${{ env.AWS_REGION }}
-      AWS_BUCKET_NAME: ${{ env.DEV_AWS_BUCKET_NAME }}
-      CF_DISTRIBUTION_ID: ${{ env.DEV_DISTRIBUTION_ID }}
+      AWS_REGION: us-west-1
+      AWS_BUCKET_NAME: dev-vulcan-beckettvaulting-assets-548281136650
+      CF_DISTRIBUTION_ID: E35C28BRGBVHX7
     secrets: inherit
