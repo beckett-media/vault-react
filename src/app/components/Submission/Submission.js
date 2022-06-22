@@ -6,7 +6,7 @@ import SubmissionForm from './SubmissionForm';
 import SubmitButton from '../Generic/SubmitButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { submissionFormSelector } from '../../state/selectors';
-import { addItem } from '../../state/actions';
+import { addSubmissionItem } from '../../state/actions';
 
 const Submission = () => {
   const items = useSelector(submissionFormSelector).items;
@@ -23,7 +23,7 @@ const Submission = () => {
   const submitAddedItem = () => {
     confirmAdd();
     toggleCompleteAdd(!completeAdd);
-    dispatch(addItem(values));
+    dispatch(addSubmissionItem(values));
     Object.values(stateSetters).forEach((setter) => setter(''));
   };
   // Sorry for many state variables, they are strictly local.

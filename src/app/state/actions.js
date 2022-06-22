@@ -11,8 +11,8 @@ import {
   SET_CHECKBOX_2,
   SET_CHECKBOX_1,
   RESET_FORM,
-  ADD_ITEM,
-  REMOVE_ITEM,
+  ADD_SUBMISSION_ITEM,
+  REMOVE_SUBMISSION_ITEM,
   SET_CATEGORY,
   SET_GRADING_COMPANY,
   SET_SERIAL_NUMBER,
@@ -26,6 +26,15 @@ import {
   SET_SUB_GRADES,
   SET_SUBJECT,
   SET_IMAGE,
+  ADD_LIST_ITEM,
+  SET_LIST_FORM,
+  REMOVE_LIST_ITEM,
+  REMOVE_WITHDRAWAL_ITEM,
+  ADD_WITHDRAWAL_ITEM,
+  SET_WITHDRAWAL_FORM,
+  SET_SELECTED_ITEM_IDS,
+  SET_SELECTED_ITEM_ID,
+  REMOVE_SELECTED_ITEM_ID,
 } from './types';
 
 export const setFirst = (payload) => {
@@ -107,18 +116,76 @@ export const setCheckbox6 = (payload) => {
 };
 
 // submission form
-export const addItem = (payload) => {
-  console.log('payload is', payload.itemObject);
+export const setSubmissionForm = (payload) => {
+  console.log('payload is', payload.submissionForm);
   return {
-    type: ADD_ITEM,
+    type: SET_SUBMISSION_FORM,
     payload: payload,
   };
 };
 
-export const removeItem = (payload) => {
+export const addSubmissionItem = (payload) => {
+  console.log('payload is', payload.itemObject);
+  return {
+    type: ADD_SUBMISSION_ITEM,
+    payload: payload,
+  };
+};
+
+export const removeSubmissionItem = (payload) => {
   console.log('payload is', payload.submissionForm);
   return {
-    type: REMOVE_ITEM,
+    type: REMOVE_SUBMISSION_ITEM,
+    payload: payload,
+  };
+};
+
+// withdrawal reducers
+export const setWithdrawalForm = (payload) => {
+  console.log('payload is', payload.withdrawalForm);
+  return {
+    type: SET_WITHDRAWAL_FORM,
+    payload: payload,
+  };
+};
+
+export const addWithdrawalItem = (payload) => {
+  console.log('payload is', payload.itemObject);
+  return {
+    type: ADD_WITHDRAWAL_ITEM,
+    payload: payload,
+  };
+};
+
+export const removeWithdrawalItem = (payload) => {
+  console.log('payload is', payload.submissionForm);
+  return {
+    type: REMOVE_WITHDRAWAL_ITEM,
+    payload: payload,
+  };
+};
+
+// list items form
+export const setListForm = (payload) => {
+  console.log('payload is', payload.listForm);
+  return {
+    type: SET_LIST_FORM,
+    payload: payload,
+  };
+};
+
+export const addListItem = (payload) => {
+  console.log('payload is', payload.itemObject);
+  return {
+    type: ADD_LIST_ITEM,
+    payload: payload,
+  };
+};
+
+export const removeListItem = (payload) => {
+  console.log('payload is', payload.submissionForm);
+  return {
+    type: REMOVE_LIST_ITEM,
     payload: payload,
   };
 };
@@ -199,6 +266,26 @@ export const setSubject = (payload) => {
 export const setImage = (payload) => {
   return {
     type: SET_IMAGE,
+    payload: payload,
+  };
+};
+
+// selected item ids
+export const setSelectedItemId = (payload) => {
+  return {
+    type: SET_SELECTED_ITEM_ID,
+    payload: payload,
+  };
+};
+export const RemoveSelectedItemId = (payload) => {
+  return {
+    type: REMOVE_SELECTED_ITEM_ID,
+    payload: payload,
+  };
+};
+export const setSelectedItemIds = (payload) => {
+  return {
+    type: SET_SELECTED_ITEM_IDS,
     payload: payload,
   };
 };
