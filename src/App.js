@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from './app/components/Generic/Header';
 import Footer from './app/components/Generic/Footer';
 import Homepage from './app/components/Homepage/Homepage';
@@ -15,16 +15,18 @@ function App() {
   return (
     <>
       <Header />
-      <Routes>
-        <Route path="/submission" element={<Submission />} />
-        <Route path="/gallery" element={<Gallery />} />
-        <Route path="/item/:id" element={<Item />} />
-        <Route path="/market" element={<Market />} />
-        {/* PrivateRoute */}
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="*" element={<Homepage />} />
-      </Routes>
+      <main className="">
+        <Routes>
+          <Route path="/submission" element={<Submission />} />
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/item/:id" element={<Item />} />
+          <Route path="/market" element={<Market />} />
+          {/* PrivateRoute */}
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="*" element={<Homepage />} />
+        </Routes>
+      </main>
       <Footer />
     </>
   );

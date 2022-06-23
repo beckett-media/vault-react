@@ -56,20 +56,19 @@ const Homepage = () => {
     <Container fluid>
       <Row className="justify-content-md-center mt-2">
         <Collapse in={open} timeout={3000}>
-          <Col xs={5} className="title">
+          <Col className="title" align="center">
             {'Pioneer the Frontier of Digital & Physical Collectibles'}
           </Col>
         </Collapse>
-        <Col xs={5} className="title">
-          {'Pioneer the Frontier of Digital & Physical Collectibles'}
-        </Col>
       </Row>
-      <Row className="justify-content-md-center mt-1">
-        <input
-          type="button"
-          className="border border-info rounded-pill ghost-btn"
-          value="Begin your Journey"
-        />
+      <Row className="justify-content-md-center mt-1 mb-3">
+        <Col className="title" align="center">
+          <input
+            type="button"
+            className="rounded-pill ghost-btn btn-sm"
+            value="Begin your Journey"
+          />
+        </Col>
       </Row>
       <InterestForm
         formSubmission={formSubmission}
