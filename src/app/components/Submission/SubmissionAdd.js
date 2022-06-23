@@ -3,23 +3,23 @@ import { Container, Form, Row } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 const AddBeckettItem = (props) => {
-// const {
-//   setCategory,
-//   setSeialNumber,
-//   setDescription,
-//   setTitle,
-//   setGenre,
-//   setManufacturer,
-//   setYear,
-//   setOverallGrade,
-//   setSubGrades,
-//   setAutographGrade,
-//   setSubject,
-//   setImage,
-// } = props.stateSetters;
+  // const {
+  //   setCategory,
+  //   setSeialNumber,
+  //   setDescription,
+  //   setTitle,
+  //   setGenre,
+  //   setManufacturer,
+  //   setYear,
+  //   setOverallGrade,
+  //   setSubGrades,
+  //   setAutographGrade,
+  //   setSubject,
+  //   setImage,
+  // } = props.stateSetters;
 
   return (
-    <Form.Group className='md-5'>
+    <Form.Group className="md-5">
       <Form.Label>Serial Number</Form.Label>
       <Form.Control type="text" placeholder="Enter Serial Number" />
     </Form.Group>
@@ -79,16 +79,20 @@ const AddOtherItem = (props) => {
           onChange={(e) => setSerialNumber(e.target.value)}
         />
       </Form.Group>
-      {!props.categorySelected && <Form.Group>
-        <Form.Label>Description</Form.Label>
-        <Form.Control
-          type='text'
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-      </Form.Group>}
-      <div>Use the fields below if you cannot find the
-        item in the description above.</div>
+      {!props.categorySelected && (
+        <Form.Group>
+          <Form.Label>Description</Form.Label>
+          <Form.Control
+            type="text"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </Form.Group>
+      )}
+      <div>
+        Use the fields below if you cannot find the item in the description
+        above.
+      </div>
       <Form.Group>
         <Form.Select onChange={(e) => onCategoryChange(e)}>
           <option>Select Item Type</option>

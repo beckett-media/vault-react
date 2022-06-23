@@ -13,11 +13,9 @@ import {
   setCheckbox4,
   setCheckbox5,
   setCheckbox6,
-  resetForm,
 } from '../../state/actions';
-import { Col, Container, InputGroup, Row, Form } from 'react-bootstrap';
+import { Col, Container, Row, Form } from 'react-bootstrap';
 import { validEmail, validPhone } from '../Validation/regex';
-import { initialState } from '../../state/store/rootReducer';
 
 const InterestForm = (props) => {
   const interestForm = useSelector(interestFormSelector);
@@ -166,11 +164,8 @@ const InterestForm = (props) => {
             Fill out the form below to launch. {interestForm.first}
           </Col>
         </Row>
-        <InputGroup
-          md={{ span: 2, offset: 2 }}
-          className="justify-content-md-center"
-        >
-          <Col md="5">
+        <Row className="justify-content-md-center">
+          <Col className="col-md-5 p-1">
             <input
               id="first"
               type="text"
@@ -181,12 +176,9 @@ const InterestForm = (props) => {
               onChange={(e) => updateTempText(e.target.value)}
             />
           </Col>
-        </InputGroup>
-        <InputGroup
-          md={{ span: 2, offset: 2 }}
-          className="justify-content-md-center"
-        >
-          <Col md="5">
+        </Row>
+        <Row className="justify-content-md-center">
+          <Col className="col-md-5 p-1">
             <input
               id="last"
               type="text"
@@ -197,12 +189,9 @@ const InterestForm = (props) => {
               onChange={(e) => updateTempText(e.target.value)}
             />
           </Col>
-        </InputGroup>
-        <InputGroup
-          md={{ span: 2, offset: 2 }}
-          className="justify-content-md-center"
-        >
-          <Col md="5">
+        </Row>
+        <Row className="justify-content-md-center">
+          <Col className="col-md-5 p-1">
             <input
               id="email"
               type="text"
@@ -216,12 +205,9 @@ const InterestForm = (props) => {
               onChange={(e) => validateEmail(e.target.value)}
             />
           </Col>
-        </InputGroup>
-        <InputGroup
-          md={{ span: 2, offset: 2 }}
-          className="justify-content-md-center"
-        >
-          <Col md="5">
+        </Row>
+        <Row className="justify-content-md-center">
+          <Col className="col-md-5 p-1">
             <input
               id="phone"
               type="text"
@@ -235,12 +221,9 @@ const InterestForm = (props) => {
               onChange={(e) => validatePhone(e.target.value)}
             />
           </Col>
-        </InputGroup>
-        <InputGroup
-          md={{ span: 2, offset: 2 }}
-          className="justify-content-md-center"
-        >
-          <Col md="5">
+        </Row>
+        <Row className="justify-content-md-center">
+          <Col className="col-md-5 p-1">
             <input
               id="beckettId"
               type="text"
@@ -253,14 +236,12 @@ const InterestForm = (props) => {
               onChange={(e) => updateTempText(e.target.value)}
             />
           </Col>
-        </InputGroup>
-        <InputGroup
-          align="center"
-          md={{ span: 2, offset: 2 }}
-          sm={10}
-          className="justify-content-md-center"
-        >
-          <Col md="5" align="left" className="checkbox-array rounded-custom">
+        </Row>
+        <Row className="justify-content-md-center pt-1">
+          <Col
+            align="left"
+            className="checkbox-array rounded-custom col-md-5 p-3"
+          >
             <Form.Check type="checkbox" align="left">
               <Form.Check.Input
                 type="checkbox"
@@ -333,9 +314,9 @@ const InterestForm = (props) => {
               <Form.Control.Feedback type="valid"></Form.Control.Feedback>
             </Form.Check>
           </Col>
-        </InputGroup>
-        <InputGroup align="center" className="justify-content-md-center">
-          <Col>
+        </Row>
+        <Row className="justify-content-md-center">
+          <Col align="center" className="col-md-5 p-2">
             {/* onMouseover is used to fireoff event to update 
                                 text in redux before submission */}
             <input
@@ -346,7 +327,7 @@ const InterestForm = (props) => {
               onClick={() => props.formSubmission(interestForm)}
             />
           </Col>
-        </InputGroup>
+        </Row>
       </Form>
     </Container>
   );

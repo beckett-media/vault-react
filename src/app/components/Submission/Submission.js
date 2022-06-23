@@ -71,12 +71,11 @@ const Submission = () => {
     setSubject,
     setImage,
   };
-  
+
   return (
     <>
-      <Container style={{background: 'black'}} >
-        {
-          !confirmedSubmission && !add &&
+      <Container style={{ background: 'black' }}>
+        {!confirmedSubmission && !add && (
           <Row className="justify-content-md-center">
             <SubmissionForm
               items={items}
@@ -87,7 +86,7 @@ const Submission = () => {
             />
             <SubmitButton func={updateFormSubmitted} title="Submit" />
           </Row>
-        }
+        )}
         {confirmedSubmission && <SubmissionSuccess />}
         {add && (
           <>
