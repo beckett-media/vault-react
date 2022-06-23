@@ -7,6 +7,7 @@ import SubmitButton from '../Generic/SubmitButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { submissionFormSelector } from '../../state/selectors';
 import { addSubmissionItem } from '../../state/actions';
+import { postSubmission } from '../../services/submission';
 
 const Submission = () => {
   const items = useSelector(submissionFormSelector).items;
@@ -15,6 +16,16 @@ const Submission = () => {
   const [completeAdd, toggleCompleteAdd] = useState(false);
   const [confirmedSubmission, setConfirmedSubmission] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
+
+const num = '0'
+  formSubmitted && postSubmission({
+     user_id: `sd${num}`,
+     category: 'card',
+     grading_company: 'beckett',
+     serial_number: num.padStart('0', 10),
+     description: `test item ${num}`,
+     title: `test item ${num}`
+   })
 
   const cancelSubmission = () => setFormSubmitted(false);
   const updateFormSubmitted = () => setFormSubmitted(true);
