@@ -1,7 +1,22 @@
 import React, { useState } from 'react';
-import { Button, Col, Container, FormCheck, Modal, Row } from 'react-bootstrap';
+import {
+  Button,
+  Col,
+  Container,
+  FormCheck,
+  Modal,
+  Row,
+} from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { addListItem, addWithdrawalItem, setListForm, setSelectedItemId, setSelectedItemIds, setWithdrawalForm } from '../../state/actions';
+import {
+  addListItem,
+  addWithdrawalItem,
+  setListForm,
+  setSelectedItemId,
+  setSelectedItemIds,
+  setWithdrawalForm,
+  removeSelectedItemIds,
+} from '../../state/actions';
 import { selectedItemIdsSelector } from '../../state/selectors';
 import GenericForm from '../Generic/GenericForm';
 import SubmitButton from '../Generic/SubmitButton';
@@ -9,6 +24,7 @@ import LeftNav from '../LeftNav/LeftNav';
 import Profile from '../Profile/Profile';
 import './gallery.scss';
 import { GridItemBox, GridItemImg, ListItemBox, ListItemImg, ListOrGridView } from './Gallery.styled';
+import { BsGrid3X2GapFill, BsList } from 'react-icons/bs'
 
 const Gallery = () => {
   const dispatch = useDispatch();
@@ -21,26 +37,41 @@ const Gallery = () => {
     toggleShowConfirmationPage
   ] = useState(false)
   const toggleListView = () => setListView(!listView)
+
   const listItem = (evt) => {
-    dispatch(addListItem(evt.target.id))
+    const item = items.filter(item => item.id === evt.target.id)
+    dispatch(addListItem(item))
     toggleConfirm(true)
   }
+
   const listItems = (evt) => {
     setWithdrawOrList(evt.target.id)
-    //dispatch(setListForm(selectedItemIds))
+    dispatch(setListForm(selectedItemIds))
     toggleShowConfirmationPage(true)
   }
+
   const withdrawItem  = (evt) => {
-    dispatch(addWithdrawalItem(evt.target.id))
+    const item = items.filter(item => item.id === evt.target.id)
+    dispatch(addWithdrawalItem(item))
     toggleConfirm()
   }
+
   const withdrawItems  = (evt) => {
     setWithdrawOrList(evt.target.id)
-    //dispatch(setWithdrawalForm(selectedItemIds))
     toggleShowConfirmationPage(true)
   }
+
   const cancelConfirm = () => toggleConfirm(false)
-  const confirmAction = () => toggleShowConfirmationPage(false)
+
+  const cancelConfirmAction = () => toggleShowConfirmationPage(false)
+  const confirmAction = () => {
+    withdrawOrList === 'withdraw' ? 
+      dispatch(setWithdrawalForm(items.filter(item => selectedIds.includes(item.id)))) :
+      dispatch(setListForm(items.filter(item => selectedIds.includes(item.id))))
+    toggleShowConfirmationPage(false)
+  }
+  const clearSelections = () => dispatch(setSelectedItemIds([]))
+  
   const items = [
     {
       id: '0000',
@@ -100,22 +131,28 @@ const Gallery = () => {
         </Modal>
         {listView && 
           <ListItemBox>
-            <FormCheck onClick={() => !selectedItemIds.ids.includes(item.id) ? 
-              dispatch(setSelectedItemId(item.id)) : 
-              dispatch(removeSelectedItemIds(item.id))}/>
+            <FormCheck 
+              onClick={() => !selectedItemIds.ids.includes(item.id) ? 
+                dispatch(setSelectedItemId(item.id)) : 
+                dispatch(removeSelectedItemIds(item.id))}
+              checked={selectedItemIds.ids.includes(item.id)}
+            />
             <ListItemImg
               src={item.path}
               alt=""
             />
             <div>{item.title}</div>
             <SubmitButton id={item.id} func={listItem} title='List'/>
-            <SubmitButton id={item.id} func={withdrawItem} title='Withdraw'/>
+            {/* <SubmitButton id={item.id} func={withdrawItem} title='Withdraw'/> */}
           </ListItemBox>}
         {!listView && 
           <GridItemBox>
-            <FormCheck onClick={() => !selectedItemIds.ids.includes(item.id) ? 
-              dispatch(setSelectedItemId(item.id)) : 
-              dispatch(removeSelectedItemIds(item.id))}/>
+            <FormCheck 
+              onClick={() => !selectedItemIds.ids.includes(item.id) ? 
+                dispatch(setSelectedItemId(item.id)) : 
+                dispatch(removeSelectedItemIds(item.id))}
+              checked={selectedItemIds.ids.includes(item.id)}
+            />
             <div>{item.title}</div>
             <GridItemImg
               src={item.path}
@@ -123,7 +160,7 @@ const Gallery = () => {
             />
             <Row>
               <SubmitButton id={item.id} func={listItem} title='List'/>
-              <SubmitButton id={item.id} func={withdrawItem} title='Withdraw'/>
+              {/* <SubmitButton id={item.id} func={withdrawItem} title='Withdraw'/> */}
             </Row>
           </GridItemBox>}
 
@@ -132,28 +169,42 @@ const Gallery = () => {
   })
   return (
     <Container fluid>
-      {!showConfirmationPage && <>
-        <SubmitButton func={toggleListView} title='List | Grid'/>
-        <Col>
-          <Profile/>
-          {!showConfirmationPage && <Row>
-            <LeftNav />
-            <ListOrGridView listView={listView}>{itemBox}</ListOrGridView>
-          </Row>}
-        </Col>
-
-        <SubmitButton id='list' func={listItems} title='List'/>
-        <SubmitButton id='withdraw' func={withdrawItems} title='Withdraw'/>
-      </>}
-      {showConfirmationPage && 
-        <>
-          <GenericForm
-            items={items}
-            title={`Please confirm you would like to ${withdrawOrList} items below.`}
-          />
-          <SubmitButton func={confirmAction} title='Confirm'/>
-        </>
-      }
+        {!showConfirmationPage && <>
+          <Row className="mt-2 col-md-12">
+            <Col>
+              <SubmitButton func={toggleListView} title={<BsGrid3X2GapFill />} bg={listView ? 'bg-dark border border-dark' : 'bg-primary'} />
+              <SubmitButton func={toggleListView} title={<BsList />} bg={!listView ? 'bg-dark border border-dark' : 'bg-primary'} />
+            </Col>
+            <Col className='float-right'>
+              <Profile/>
+            </Col>
+          </Row>
+          <Row>
+            {!showConfirmationPage && <>
+              <Col>
+                <LeftNav />
+              </Col>
+              <Col>
+                <ListOrGridView listView={listView}>{itemBox}</ListOrGridView>
+              </Col>
+            </>}
+            </Row>
+          {selectedItemIds.ids.length > 0 && 
+            <>
+              <SubmitButton func={clearSelections} title='Clear'/>
+              <SubmitButton id='withdraw' func={withdrawItems} title='Withdraw'/>
+            </>}
+        </>}
+        {showConfirmationPage && 
+          <>
+            <GenericForm
+              items={items}
+              title={`Please confirm you would like to ${withdrawOrList} items below.`}
+            />
+            <SubmitButton func={confirmAction} title='Confirm'/>
+            <SubmitButton func={cancelConfirmAction} title='Go Back'/>
+          </>
+        }
     </Container>
   );
 };

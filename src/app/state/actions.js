@@ -277,7 +277,7 @@ export const setSelectedItemId = (payload) => {
     payload: payload,
   };
 };
-export const RemoveSelectedItemId = (payload) => {
+export const removeSelectedItemIds = (payload) => {
   return {
     type: REMOVE_SELECTED_ITEM_ID,
     payload: payload,

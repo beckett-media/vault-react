@@ -17,6 +17,7 @@ function App() {
         <Route path="/gallery" element={<Gallery />} />
       </Routes>
       <Footer />
+      {/* About the Vault, My Collection, Marketplace, Submit an Item, Profile icon */}
     </>
   );
 }
