@@ -4,7 +4,7 @@ import { getMarketItems } from '../../services/items';
 import { Link } from 'react-router-dom';
 import Filter from '../Generic/Filter';
 import CardActions from '../Generic/CardActions';
-import './Market.scss';
+import './market.scss';
 
 const Market = () => {
   const [items, setItems] = useState([]);
