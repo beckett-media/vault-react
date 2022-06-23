@@ -25,8 +25,18 @@ import {
   SET_DESCRIPTION,
   SET_SERIAL_NUMBER,
   SET_CATEGORY,
-  ADD_ITEM,
-  REMOVE_ITEM,
+  ADD_SUBMISSION_ITEM,
+  REMOVE_SUBMISSION_ITEM,
+  SET_SUBMISSION_FORM,
+  SET_WITHDRAWAL_FORM,
+  ADD_WITHDRAWAL_ITEM,
+  REMOVE_WITHDRAWAL_ITEM,
+  SET_LIST_FORM,
+  ADD_LIST_ITEM,
+  REMOVE_LIST_ITEM,
+  SET_SELECTED_ITEM_ID,
+  SET_SELECTED_ITEM_IDS,
+  REMOVE_SELECTED_ITEM_ID,
 } from './types';
 
 export const interestFormReducers = (state = { initialState }, action) => {
@@ -95,13 +105,19 @@ export const interestFormReducers = (state = { initialState }, action) => {
 export const submissionFormReducers = (state = { initialState }, action) => {
   console.log('reducer returns ', action.payload);
   switch (action.type) {
-    case ADD_ITEM:
+    case SET_SUBMISSION_FORM:
+      console.log(action);
+      return {
+        ...state,
+        items: action.payload,
+      };
+    case ADD_SUBMISSION_ITEM:
       console.log(action);
       return {
         ...state,
         items: [...state.items, action.payload],
       };
-    case REMOVE_ITEM:
+    case REMOVE_SUBMISSION_ITEM:
       console.log(action);
       return {
         ...state,
@@ -113,6 +129,92 @@ export const submissionFormReducers = (state = { initialState }, action) => {
       return state;
   }
 };
+
+export const withdrawalFormReducers = (state = { initialState }, action) => {
+  console.log('reducer returns ', action.payload);
+  switch (action.type) {
+    case SET_WITHDRAWAL_FORM:
+      console.log(action);
+      return {
+        ...state,
+        items: action.payload,
+      };
+    case ADD_WITHDRAWAL_ITEM:
+      console.log(action);
+      return {
+        ...state,
+        items: [...state.items, action.payload],
+      };
+    case REMOVE_WITHDRAWAL_ITEM:
+      console.log(action);
+      return {
+        ...state,
+        items: state.items
+            .filter((obj) =>
+              obj.id === action.payload.itemObject.id,
+            ),
+      };
+    default:
+      return state;
+  };
+};
+
+export const listFormReducers = (state = { initialState }, action) => {
+  console.log('reducer returns ', action.payload);
+  switch (action.type) {
+    case SET_LIST_FORM:
+      console.log(action);
+      return {
+        ...state,
+        items: action.payload,
+      };
+    case ADD_LIST_ITEM:
+      console.log(action);
+      return {
+        ...state,
+        items: [...state.items, action.payload],
+      };
+    case REMOVE_LIST_ITEM:
+      console.log(action);
+      return {
+        ...state,
+        items: state.items
+            .filter((obj) =>
+              obj.id === action.payload.itemObject.id,
+            ),
+      };
+    default:
+      return state;
+  };
+};
+
+// Selected Item Ids
+export const selectedItemIdsReducers = (state = { initialState }, action) => {
+  console.log('reducer returns ', action.payload);
+  switch (action.type) {
+    case SET_SELECTED_ITEM_ID:
+      console.log(action);
+      return {
+        ...state,
+        ids: [...state.ids, action.payload],
+      };
+      case REMOVE_SELECTED_ITEM_ID:
+        console.log(action);
+        return {
+          ...state,
+          ids: state.ids.filter(idToRm => idToRm !== action.payload),
+        };
+    case SET_SELECTED_ITEM_IDS:
+      console.log(action);
+      return {
+        ...state,
+        ids: action.payload,
+      };
+    default:
+      return state;
+  };
+};
+
 // Item object reducers
 export const itemObjectReducers = (state = { initialState }, action) => {
   console.log('reducer returns ', action.payload);

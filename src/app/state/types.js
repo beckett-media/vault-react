@@ -15,7 +15,6 @@ export const SET_CHECKBOX_5 = 'SET_CHECKBOX_5';
 export const SET_CHECKBOX_6 = 'SET_CHECKBOX_6';
 
 // Item object
-export const SET_SELECTED_ITEM = 'SET_SELECTED_ITEM';
 export const SET_CATEGORY = 'SET_CATEGORY';
 export const SET_GRADING_COMPANY = 'SET_GRADING_COMPANY';
 export const SET_SERIAL_NUMBER = 'SET_SERIAL_NUMBER';
@@ -30,10 +29,26 @@ export const SET_AUTOGRAPH_GRADE = 'SET_AUTOGRAPH_GRADE';
 export const SET_SUBJECT = 'SET_SUBJECT';
 export const SET_IMAGE = 'SET_IMAGE';
 
+// Selected Item IDs
+export const SET_SELECTED_ITEM_ID = 'SET_SELECTED_ITEM_ID';
+export const REMOVE_SELECTED_ITEM_ID = 'REMOVE_SELECTED_ITEM_ID';
+export const SET_SELECTED_ITEM_IDS = 'SET_SELECTED_ITEM_IDS';
+
 // Submission form fields
 export const SET_SUBMISSION_FORM = 'SET_SUBMISSION_FORM';
-export const ADD_ITEM = 'ADD_ITEM';
-export const REMOVE_ITEM = 'REMOVE_ITEM';
+export const ADD_SUBMISSION_ITEM = 'ADD_SUBMISSION_ITEM';
+export const REMOVE_SUBMISSION_ITEM = 'REMOVE_SUBMISSION_ITEM';
+
+// Withwrawal form fields
+export const SET_WITHDRAWAL_FORM = 'SET_WITHDRAWAL_FORM';
+export const ADD_WITHDRAWAL_ITEM = 'ADD_WITHDRAWAL_ITEM';
+export const REMOVE_WITHDRAWAL_ITEM = 'REMOVE_WITHDRAWAL_ITEM';
+
+// List form fields
+export const SET_LIST_FORM = 'SET_LIST_FORM';
+export const ADD_LIST_ITEM = 'ADD_LIST_ITEM';
+export const REMOVE_LIST_ITEM = 'REMOVE_LIST_ITEM';
+
 
 // Global State Reset for on Logout
 export const RESET_FORM = 'RESET_FORM';

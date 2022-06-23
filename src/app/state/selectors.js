@@ -14,3 +14,8 @@ export const submissionFormSelector = createSelector(
   (state) => state,
   (state) => state.submissionForm,
 );
+
+export const selectedItemIdsSelector = createSelector(
+  (state) => state,
+  (state) => state.selectedItemIds,
+);

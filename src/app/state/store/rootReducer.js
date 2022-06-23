@@ -2,7 +2,10 @@ import { combineReducers } from '@reduxjs/toolkit';
 import {
   interestFormReducers,
   itemObjectReducers,
+  listFormReducers,
+  selectedItemIdsReducers,
   submissionFormReducers,
+  withdrawalFormReducers,
 } from '../reducers';
 
 export const initialState = {
@@ -37,12 +40,24 @@ export const initialState = {
   submissionForm: {
     items: [],
   },
+  withdrawalForm: {
+    items: [],
+  },
+  listForm: {
+    items: [],
+  },
+  selectedItemIds: {
+    ids: [],
+  }
 };
 
 export const appReducer = combineReducers({
   interestForm: interestFormReducers,
   itemObject: itemObjectReducers,
+  selectedItemIds: selectedItemIdsReducers,
   submissionForm: submissionFormReducers,
+  withdrawalForm: withdrawalFormReducers,
+  listForm: listFormReducers,
 });
 
 export const rootReducer = (state, action) => {
