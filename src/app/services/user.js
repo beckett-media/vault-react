@@ -1,0 +1,11 @@
+const mockUser = {
+  id: 1,
+  name: 'Beckett SuperUser',
+  email: 'super@Man.com',
+  img: 'https://www.sideshow.com/storage/product-images/907776/superman_dc-comics_square.jpg',
+};
+
+export const getUser = async () => {
+  // get the real user here
+  return mockUser;
+};

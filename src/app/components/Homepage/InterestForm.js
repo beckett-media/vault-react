@@ -13,13 +13,11 @@ import {
   setCheckbox4,
   setCheckbox5,
   setCheckbox6,
-  resetForm,
 } from '../../state/actions';
-import { Col, Container, InputGroup, Row, Form } from 'react-bootstrap';
+import { Col, Container, Row, Form } from 'react-bootstrap';
 import { validEmail, validPhone } from '../Validation/regex';
-import { initialState } from '../../state/store/rootReducer';
 
-const InterestForm = props => {
+const InterestForm = (props) => {
   const interestForm = useSelector(interestFormSelector);
   const dispatch = useDispatch();
 
@@ -29,7 +27,7 @@ const InterestForm = props => {
   const [invalidEmail, setInvalidEmail] = useState(false);
   const [invalidPhone, setInvalidPhone] = useState(false);
 
-  const onFieldChange = e => {
+  const onFieldChange = (e) => {
     if (lastField === '') {
       setLastField(e.target.id);
     }
@@ -148,12 +146,12 @@ const InterestForm = props => {
     }
     setLastField(e.target.id);
   };
-  const validateEmail = email => {
+  const validateEmail = (email) => {
     updateTempText(email);
     const isValid = validEmail.test(email);
     isValid ? setInvalidEmail(false) : setInvalidEmail(true);
   };
-  const validatePhone = phone => {
+  const validatePhone = (phone) => {
     updateTempText(phone);
     const isValid = validPhone.test(phone);
     isValid ? setInvalidPhone(false) : setInvalidPhone(true);
@@ -166,43 +164,34 @@ const InterestForm = props => {
             Fill out the form below to launch. {interestForm.first}
           </Col>
         </Row>
-        <InputGroup
-          md={{ span: 2, offset: 2 }}
-          className="justify-content-md-center"
-        >
-          <Col md="5">
+        <Row className="justify-content-md-center">
+          <Col className="col-md-5 p-1">
             <input
               id="first"
               type="text"
               value={currentField === 'first' ? tempText : interestForm.first}
               className="transparent-text-input border border-dark rounded-pill"
               placeholder={'First Name*'}
-              onSelect={e => e.target.id !== currentField && onFieldChange(e)}
-              onChange={e => updateTempText(e.target.value)}
+              onSelect={(e) => e.target.id !== currentField && onFieldChange(e)}
+              onChange={(e) => updateTempText(e.target.value)}
             />
           </Col>
-        </InputGroup>
-        <InputGroup
-          md={{ span: 2, offset: 2 }}
-          className="justify-content-md-center"
-        >
-          <Col md="5">
+        </Row>
+        <Row className="justify-content-md-center">
+          <Col className="col-md-5 p-1">
             <input
               id="last"
               type="text"
               value={currentField === 'last' ? tempText : interestForm.last}
               className="transparent-text-input border border-dark rounded-pill"
               placeholder={'Last Name*'}
-              onSelect={e => e.target.id !== currentField && onFieldChange(e)}
-              onChange={e => updateTempText(e.target.value)}
+              onSelect={(e) => e.target.id !== currentField && onFieldChange(e)}
+              onChange={(e) => updateTempText(e.target.value)}
             />
           </Col>
-        </InputGroup>
-        <InputGroup
-          md={{ span: 2, offset: 2 }}
-          className="justify-content-md-center"
-        >
-          <Col md="5">
+        </Row>
+        <Row className="justify-content-md-center">
+          <Col className="col-md-5 p-1">
             <input
               id="email"
               type="text"
@@ -212,16 +201,13 @@ const InterestForm = props => {
                 background: invalidEmail ? 'red' : 'rgb(58, 43, 77)',
               }}
               placeholder={'Email*'}
-              onSelect={e => e.target.id !== currentField && onFieldChange(e)}
-              onChange={e => validateEmail(e.target.value)}
+              onSelect={(e) => e.target.id !== currentField && onFieldChange(e)}
+              onChange={(e) => validateEmail(e.target.value)}
             />
           </Col>
-        </InputGroup>
-        <InputGroup
-          md={{ span: 2, offset: 2 }}
-          className="justify-content-md-center"
-        >
-          <Col md="5">
+        </Row>
+        <Row className="justify-content-md-center">
+          <Col className="col-md-5 p-1">
             <input
               id="phone"
               type="text"
@@ -231,16 +217,13 @@ const InterestForm = props => {
                 background: invalidPhone ? 'red' : 'rgb(58, 43, 77)',
               }}
               placeholder={'Phone Number*'}
-              onSelect={e => e.target.id !== currentField && onFieldChange(e)}
-              onChange={e => validatePhone(e.target.value)}
+              onSelect={(e) => e.target.id !== currentField && onFieldChange(e)}
+              onChange={(e) => validatePhone(e.target.value)}
             />
           </Col>
-        </InputGroup>
-        <InputGroup
-          md={{ span: 2, offset: 2 }}
-          className="justify-content-md-center"
-        >
-          <Col md="5">
+        </Row>
+        <Row className="justify-content-md-center">
+          <Col className="col-md-5 p-1">
             <input
               id="beckettId"
               type="text"
@@ -249,23 +232,21 @@ const InterestForm = props => {
               }
               className="transparent-text-input border border-dark rounded-pill"
               placeholder={'Beckett ID'}
-              onSelect={e => e.target.id !== currentField && onFieldChange(e)}
-              onChange={e => updateTempText(e.target.value)}
+              onSelect={(e) => e.target.id !== currentField && onFieldChange(e)}
+              onChange={(e) => updateTempText(e.target.value)}
             />
           </Col>
-        </InputGroup>
-        <InputGroup
-          align="center"
-          md={{ span: 2, offset: 2 }}
-          sm={10}
-          className="justify-content-md-center"
-        >
-          <Col md="5" align="left" className="checkbox-array rounded-custom">
+        </Row>
+        <Row className="justify-content-md-center pt-1">
+          <Col
+            align="left"
+            className="checkbox-array rounded-custom col-md-5 p-3"
+          >
             <Form.Check type="checkbox" align="left">
               <Form.Check.Input
                 type="checkbox"
                 id="checkbox1"
-                onChange={e => onFieldChange(e)}
+                onChange={(e) => onFieldChange(e)}
               />
               <Form.Check.Label>{`I have collectibles I’d like to securely store`}</Form.Check.Label>
               <Form.Control.Feedback type="valid"></Form.Control.Feedback>
@@ -275,7 +256,7 @@ const InterestForm = props => {
               <Form.Check.Input
                 type="checkbox"
                 id="checkbox2"
-                onChange={e => onFieldChange(e)}
+                onChange={(e) => onFieldChange(e)}
               />
               <Form.Check.Label>{`I am just exploring storage options`}</Form.Check.Label>
               <Form.Control.Feedback type="valid"></Form.Control.Feedback>
@@ -285,7 +266,7 @@ const InterestForm = props => {
               <Form.Check.Input
                 type="checkbox"
                 id="checkbox3"
-                onChange={e => onFieldChange(e)}
+                onChange={(e) => onFieldChange(e)}
               />
               <Form.Check.Label>
                 {'I am interested in insuring my collectible(s)'}
@@ -297,7 +278,7 @@ const InterestForm = props => {
               <Form.Check.Input
                 type="checkbox"
                 id="checkbox4"
-                onChange={e => onFieldChange(e)}
+                onChange={(e) => onFieldChange(e)}
               />
               <Form.Check.Label>
                 {
@@ -311,7 +292,7 @@ const InterestForm = props => {
               <Form.Check.Input
                 type="checkbox"
                 id="checkbox5"
-                onChange={e => onFieldChange(e)}
+                onChange={(e) => onFieldChange(e)}
               />
               <Form.Check.Label>
                 {
@@ -325,7 +306,7 @@ const InterestForm = props => {
               <Form.Check.Input
                 type="checkbox"
                 id="checkbox6"
-                onChange={e => onFieldChange(e)}
+                onChange={(e) => onFieldChange(e)}
               />
               <Form.Check.Label>
                 {"I would like access to Beckett Vault's exclusive investors"}
@@ -333,20 +314,20 @@ const InterestForm = props => {
               <Form.Control.Feedback type="valid"></Form.Control.Feedback>
             </Form.Check>
           </Col>
-        </InputGroup>
-        <InputGroup align="center" className="justify-content-md-center">
-          <Col>
+        </Row>
+        <Row className="justify-content-md-center">
+          <Col align="center" className="col-md-5 p-2">
             {/* onMouseover is used to fireoff event to update 
                                 text in redux before submission */}
             <input
               type="button"
               value="Get Early Access"
               className="border border-info rounded-pill fill-btn"
-              onMouseOver={e => onFieldChange(e)}
+              onMouseOver={(e) => onFieldChange(e)}
               onClick={() => props.formSubmission(interestForm)}
             />
           </Col>
-        </InputGroup>
+        </Row>
       </Form>
     </Container>
   );

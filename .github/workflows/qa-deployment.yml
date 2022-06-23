@@ -1,0 +1,17 @@
+name: Continuous Deployment [QA]
+
+on:
+  push:
+    branches:
+      - main
+    
+jobs:
+  deploy:
+    name: Deploy QA
+    
+    uses: beckett-media/vault-react/.github/workflows/cont-deployment.yml@main
+    with:
+      AWS_REGION: us-west-1
+      AWS_BUCKET_NAME: qa-vulcan-beckettvaulting-assets-548281136650
+      CF_DISTRIBUTION_ID: E2K3QH80BXBBTA
+    secrets: inherit

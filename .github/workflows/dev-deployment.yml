@@ -1,0 +1,17 @@
+name: Continuous Deployment [DEV]
+
+on:
+  push:
+    branches:
+      - dev
+    
+jobs:
+  deploy:
+    name: Deploy Dev
+    
+    uses: beckett-media/vault-react/.github/workflows/cont-deployment.yml@dev
+    with:
+      AWS_REGION: us-west-1
+      AWS_BUCKET_NAME: dev-vulcan-beckettvaulting-assets-548281136650
+      CF_DISTRIBUTION_ID: E35C28BRGBVHX7
+    secrets: inherit

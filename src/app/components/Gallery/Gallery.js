@@ -24,10 +24,14 @@ import LeftNav from '../LeftNav/LeftNav';
 import Profile from '../Profile/Profile';
 import './gallery.scss';
 import { GridItemBox, GridItemImg, ListItemBox, ListItemImg, ListOrGridView } from './Gallery.styled';
-import { BsGrid3X2GapFill, BsList } from 'react-icons/bs'
+import { BsGrid3X2GapFill, BsList } from 'react-icons/bs';
+import CardActions from '../Generic/CardActions';
+import { getItems } from '../../services/items';
+import { Link } from 'react-router-dom';
 
 const Gallery = () => {
   const dispatch = useDispatch();
+  const [items, setItems] = useState([]);
   const [ listView, setListView ] = useState(false);
   const [ withdrawOrList, setWithdrawOrList ] = useState('');
   const [ showConfirm, toggleConfirm ] = useState(false);
@@ -71,52 +75,9 @@ const Gallery = () => {
     toggleShowConfirmationPage(false)
   }
   const clearSelections = () => dispatch(setSelectedItemIds([]))
-  
-  const items = [
-    {
-      id: '0000',
-      description: 'test Desc 0000',
-      serialNumber: '0123456789',
-      title: '0000 Example Title',
-      path: 'https://www.deanscards.com/images/Basic%20pages/Babe%20Ruth%201933%20Goudey%20PSA%203.JPG',
-    },
-    {
-      id: '0001',
-      description: 'test Desc 0001',
-      serialNumber: '0123456789',
-      title: '0000 Example Title',
-      path: 'https://cdn10.bigcommerce.com/s-omz8v4fn35/product_images/uploaded_images/corners2.png',
-    },
-    {
-      id: '0002',
-      description: 'test Desc 0002',
-      serialNumber: '0123456789',
-      title: '0000 Example Title',
-      path: 'https://www.oldsportscards.com/wp-content/uploads/2019/04/1959-Topps-10-Mickey-Mantle-Baseball-Card-Graded-PSA-1.jpg',
-    },
-    {
-      id: '0003',
-      description: 'test Desc 0003',
-      serialNumber: '0123456789',
-      title: '0000 Example Title',
-      path: 'https://www.deanscards.com/images/Basic%20pages/Babe%20Ruth%201933%20Goudey%20PSA%203.JPG',
-    },
-    {
-      id: '0004',
-      description: 'test Desc 0004',
-      serialNumber: '0123456789',
-      title: '0000 Example Title',
-      path: 'https://miro.medium.com/max/1200/1*JaWyJo7nrnouwmb8FSDD9g.jpeg',
-    },
-    {
-      id: '0005',
-      description: 'test Desc 0005',
-      serialNumber: '0123456789',
-      title: '0000 Example Title',
-      path: 'https://pbs.twimg.com/media/FHJ9gdUXIAM58gC.jpg',
-    },
-  ]
-  console.log(selectedItemIds)
+  useEffect(() => {
+    getItems().then((data) => setItems(data));
+  }, []);
   const itemBox = items.map((item) => {
     return(
       <>
@@ -138,10 +99,11 @@ const Gallery = () => {
               checked={selectedItemIds.ids.includes(item.id)}
             />
             <ListItemImg
-              src={item.path}
+              src={item.img}
               alt=""
             />
-            <div>{item.title}</div>
+            <Link to={`/item/${item.id}`}>{item.title}</Link>
+            <CardActions />
             <SubmitButton id={item.id} func={listItem} title='List'/>
             {/* <SubmitButton id={item.id} func={withdrawItem} title='Withdraw'/> */}
           </ListItemBox>}
@@ -153,12 +115,14 @@ const Gallery = () => {
                 dispatch(removeSelectedItemIds(item.id))}
               checked={selectedItemIds.ids.includes(item.id)}
             />
-            <div>{item.title}</div>
+            
+            <Link to={`/item/${item.id}`}>{item.title}</Link>
             <GridItemImg
-              src={item.path}
+              src={item.img}
               alt=""
             />
             <Row>
+              <CardActions />
               <SubmitButton id={item.id} func={listItem} title='List'/>
               {/* <SubmitButton id={item.id} func={withdrawItem} title='Withdraw'/> */}
             </Row>
@@ -205,6 +169,36 @@ const Gallery = () => {
             <SubmitButton func={cancelConfirmAction} title='Go Back'/>
           </>
         }
+{/* import React, { useState, useEffect } from 'react';
+import { Container } from 'react-bootstrap';
+import './gallery.scss';
+import Filter from '../Generic/Filter';
+
+const Gallery = () => {
+  useEffect(() => {
+    getItems().then((data) => setItems(data));
+  }, []);
+
+  return (
+    <Container fluid>
+      <Filter />
+      <div className="row m-4">
+        {items.map((item) => (
+          <div className="col-lg-4 col-md-12 p-4 mb-lg-0" key={item.id}>
+            <div className="slab">
+              <img
+                src={item.img}
+                className="w-100 shadow-1-strong rounded mb-4"
+                alt={item.title}
+              />
+            </div>
+            <div className="d-flex justify-content-center">
+            </div>
+            <div className="d-flex justify-content-center">
+            </div>
+          </div>
+        ))}
+      </div> */}
     </Container>
   );
 };

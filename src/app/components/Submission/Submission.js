@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Button, Container, Row } from 'react-bootstrap';
 import SubmissionSuccess from '../Response/SubmissionSuccess';
 import SubmissionAdd from './SubmissionAdd';
@@ -74,9 +74,8 @@ const Submission = () => {
 
   return (
     <>
-      <Container style={{background: 'black'}} >
-        {
-          !confirmedSubmission && !add &&
+      <Container style={{ background: 'black' }}>
+        {!confirmedSubmission && !add && (
           <Row className="justify-content-md-center">
             <SubmissionForm
               items={items}
@@ -85,24 +84,21 @@ const Submission = () => {
               setConfirm={submissionConfirmed}
               onAdd={onAdd}
             />
-            <SubmitButton func={updateFormSubmitted} title='Submit' />
+            <SubmitButton func={updateFormSubmitted} title="Submit" />
           </Row>
-        }
+        )}
         {confirmedSubmission && <SubmissionSuccess />}
-        {add &&
-        <>
-
-          <Row className="justify-content-md-center">
-            <SubmissionAdd
-              values={values}
-              stateSetters = {stateSetters}/>
-          </Row>
-          <Row className="justify-content-md-center">
-            <SubmitButton func={submitAddedItem} title='Add' />
-            <Button onClick={() => onAdd(false)}>Cancel</Button>
-          </Row>
-        </>
-        }
+        {add && (
+          <>
+            <Row className="justify-content-md-center">
+              <SubmissionAdd values={values} stateSetters={stateSetters} />
+            </Row>
+            <Row className="justify-content-md-center">
+              <SubmitButton func={submitAddedItem} title="Add" />
+              <Button onClick={() => onAdd(false)}>Cancel</Button>
+            </Row>
+          </>
+        )}
       </Container>
     </>
   );

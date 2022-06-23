@@ -1,12 +1,12 @@
 import React from 'react';
-import {Button, Container, Form, Row} from 'react-bootstrap';
+import { Button, Container, Form, Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import '../../../index.scss';
 import { submissionFormSelector } from '../../state/selectors';
 import SubmissionConfirmModal from './SubmissionConfirmModal';
 
 const SubmissionForm = (props) => {
-  const {formSubmitted, setConfirm, cancelSubmission, onAdd, items} = props;
+  const { formSubmitted, setConfirm, cancelSubmission, onAdd, items } = props;
   const submissionForm = useSelector(submissionFormSelector);
 
   return (
@@ -24,15 +24,13 @@ const SubmissionForm = (props) => {
           onHide={cancelSubmission}
         />
       </Row>
-      <Form >
+      <Form>
         {submissionForm.items.map((obj, i) => {
           return (
-            // I've added i to the key so that a duplicate won't throw an error.
-            <Row
-              className="justify-content-md-center"
-              key={obj.serialNumber + i}
-            >
-              <p>{i+1}. {obj.serialNumber} - {obj.description}</p>
+            <Row className="justify-content-md-center">
+              <p>
+                {i + 1}. {obj.serialNumber} - {obj.description}
+              </p>
             </Row>
           );
         })}

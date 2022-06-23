@@ -17,6 +17,19 @@ const Nav = () => {
         <li>
           <Link to="/gallery">Gallery</Link>
         </li>
+        <li>
+          <Link to="/market">Market</Link>
+        </li>
+        <li>
+          <Link to="/profile">
+            <i className="fa-solid fa-user"></i>
+          </Link>
+        </li>
+        <li>
+          <Link to="/cart">
+            <i className="fa-solid fa-cart-shopping"></i>
+          </Link>
+        </li>
       </ul>
     </nav>
   );

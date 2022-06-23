@@ -1,13 +1,13 @@
 import React from 'react';
-import { Col, Row } from 'react-bootstrap';
+import './footer.scss';
 
 const Footer = () => {
   return (
-    <Row className="justify-content-md-center">
-      <Col xs={1}>
-        <img src="/images/beckett-logo.svg" />
-      </Col>
-    </Row>
+    <footer className="footer mt-auto py-3 bg-dark">
+      <div className="container">
+        <span className="text-muted"></span>
+      </div>
+    </footer>
   );
 };
 
