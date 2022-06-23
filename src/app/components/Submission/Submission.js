@@ -18,14 +18,21 @@ const Submission = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
 
 const num = '0'
-  formSubmitted && postSubmission({
-     user_id: `sd${num}`,
-     category: 'card',
-     grading_company: 'beckett',
-     serial_number: num.padStart('0', 10),
-     description: `test item ${num}`,
-     title: `test item ${num}`
-   })
+  formSubmitted && postSubmission(
+    {
+      "user_id": "0123456789",
+      "description": "postmanTest",
+      "title": "postmanTitle",
+      "serial_number": "7327732711",
+      "category": "card",
+      "grading_company": "BGS",
+      "genre": "baseball",
+      "manufacturer": "faker",
+      "year": "1999",
+      "overall_grade": "9.5",
+      "sub_grades": "corners: 5"
+    }
+  )
 
   const cancelSubmission = () => setFormSubmitted(false);
   const updateFormSubmitted = () => setFormSubmitted(true);
