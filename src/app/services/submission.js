@@ -25,3 +25,11 @@ export const postSubmission = async (obj) => {
       return res
     })
   }
+
+  export const getSubmissions = async () => {
+    return axios.get(`${baseUrl}/marketplace/submission`)
+      .then(res => {
+        console.log('res', res)
+        return res
+      })
+    }
