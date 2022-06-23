@@ -15,7 +15,7 @@ import {
   setSelectedItemId,
   setSelectedItemIds,
   setWithdrawalForm,
-  removeSelectedItemIds,
+  removeSelectedItemId,
 } from '../../state/actions';
 import { selectedItemIdsSelector } from '../../state/selectors';
 import GenericForm from '../Generic/GenericForm';
@@ -95,7 +95,7 @@ const Gallery = () => {
             <FormCheck 
               onClick={() => !selectedItemIds.ids.includes(item.id) ? 
                 dispatch(setSelectedItemId(item.id)) : 
-                dispatch(removeSelectedItemIds(item.id))}
+                dispatch(removeSelectedItemId(item.id))}
               checked={selectedItemIds.ids.includes(item.id)}
             />
             <ListItemImg
@@ -112,7 +112,7 @@ const Gallery = () => {
             <FormCheck 
               onClick={() => !selectedItemIds.ids.includes(item.id) ? 
                 dispatch(setSelectedItemId(item.id)) : 
-                dispatch(removeSelectedItemIds(item.id))}
+                dispatch(removeSelectedItemId(item.id))}
               checked={selectedItemIds.ids.includes(item.id)}
             />
             
