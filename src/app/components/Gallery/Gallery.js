@@ -95,20 +95,33 @@ const Gallery = () => {
           </Button>
         </Modal>
         {listView && (
-          <ListItemBox>
-            <FormCheck
-              onClick={() =>
-                !selectedItemIds.ids.includes(item.id)
-                  ? dispatch(setSelectedItemId(item.id))
-                  : dispatch(removeSelectedItemId(item.id))
-              }
-              checked={selectedItemIds.ids.includes(item.id)}
-            />
-            <ListItemImg src={item.img} alt="" />
-            <Link to={`/item/${item.id}`}>{item.title}</Link>
-            <CardActions />
-            <SubmitButton id={item.id} func={listItem} title="List" />
-            {/* <SubmitButton id={item.id} func={withdrawItem} title='Withdraw'/> */}
+          <ListItemBox className="d-flex col-lg-8">
+            <Col className="p-1 flex-shrink-1">
+              <FormCheck
+                onClick={() =>
+                  !selectedItemIds.ids.includes(item.id)
+                    ? dispatch(setSelectedItemId(item.id))
+                    : dispatch(removeSelectedItemId(item.id))
+                }
+                checked={selectedItemIds.ids.includes(item.id)}
+              />
+              <ListItemImg src={item.img} alt="" />
+            </Col>
+            <Col className="p-1">
+              <Link to={`/item/${item.id}`}>{item.title}</Link>
+            </Col>
+            <Col className="p-1">
+              <CardActions />
+            </Col>
+            <Col className="p-1">
+              <SubmitButton
+                id={item.id}
+                func={listItem}
+                title="List"
+                size="sm"
+              />
+            </Col>
+            <Col className="flex-grow-1">&nbsp;</Col>
           </ListItemBox>
         )}
         {!listView && (
@@ -131,7 +144,12 @@ const Gallery = () => {
                 <CardActions />
               </Col>
               <Col>
-                <SubmitButton id={item.id} func={listItem} title="List" />
+                <SubmitButton
+                  id={item.id}
+                  func={listItem}
+                  title="List"
+                  size="sm"
+                />
               </Col>
             </Row>
           </GridItemBox>
