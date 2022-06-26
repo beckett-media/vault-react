@@ -13,7 +13,7 @@ import {
 import { selectedItemIdsSelector } from '../../state/selectors';
 import GenericForm from '../Generic/GenericForm';
 import SubmitButton from '../Generic/SubmitButton';
-import LeftNav from '../LeftNav/LeftNav';
+import LeftNav from '../Generic/LeftNav';
 import ProfileView from '../Profile/ProfileView';
 import './gallery.scss';
 import {
