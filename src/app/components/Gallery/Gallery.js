@@ -189,36 +189,6 @@ const Gallery = () => {
           <SubmitButton func={cancelConfirmAction} title="Go Back" />
         </>
       )}
-      {/* import React, { useState, useEffect } from 'react';
-import { Container } from 'react-bootstrap';
-import './gallery.scss';
-import Filter from '../Generic/Filter';
-
-const Gallery = () => {
-  useEffect(() => {
-    getItems().then((data) => setItems(data));
-  }, []);
-
-  return (
-    <Container fluid>
-      <Filter />
-      <div className="row m-4">
-        {items.map((item) => (
-          <div className="col-lg-4 col-md-12 p-4 mb-lg-0" key={item.id}>
-            <div className="slab">
-              <img
-                src={item.img}
-                className="w-100 shadow-1-strong rounded mb-4"
-                alt={item.title}
-              />
-            </div>
-            <div className="d-flex justify-content-center">
-            </div>
-            <div className="d-flex justify-content-center">
-            </div>
-          </div>
-        ))}
-      </div> */}
     </Container>
   );
 };
