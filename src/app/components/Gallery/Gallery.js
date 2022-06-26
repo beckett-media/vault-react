@@ -14,7 +14,7 @@ import { selectedItemIdsSelector } from '../../state/selectors';
 import GenericForm from '../Generic/GenericForm';
 import SubmitButton from '../Generic/SubmitButton';
 import LeftNav from '../LeftNav/LeftNav';
-import Profile from '../Profile/Profile';
+import ProfileView from '../Profile/ProfileView';
 import './gallery.scss';
 import {
   GridItemBox,
@@ -113,21 +113,26 @@ const Gallery = () => {
         )}
         {!listView && (
           <GridItemBox>
-            <FormCheck
-              onClick={() =>
-                !selectedItemIds.ids.includes(item.id)
-                  ? dispatch(setSelectedItemId(item.id))
-                  : dispatch(removeSelectedItemId(item.id))
-              }
-              checked={selectedItemIds.ids.includes(item.id)}
-            />
+            <Col className="justify-content-center mb-1 ml-3">
+              <FormCheck
+                onClick={() =>
+                  !selectedItemIds.ids.includes(item.id)
+                    ? dispatch(setSelectedItemId(item.id))
+                    : dispatch(removeSelectedItemId(item.id))
+                }
+                checked={selectedItemIds.ids.includes(item.id)}
+              />
 
-            <Link to={`/item/${item.id}`}>{item.title}</Link>
+              <Link to={`/item/${item.id}`}>{item.title}</Link>
+            </Col>
             <GridItemImg src={item.img} alt="" />
-            <Row>
-              <CardActions />
-              <SubmitButton id={item.id} func={listItem} title="List" />
-              {/* <SubmitButton id={item.id} func={withdrawItem} title='Withdraw'/> */}
+            <Row className="justify-content-center mt-3">
+              <Col className="justify-content-right ml-3">
+                <CardActions />
+              </Col>
+              <Col>
+                <SubmitButton id={item.id} func={listItem} title="List" />
+              </Col>
             </Row>
           </GridItemBox>
         )}
@@ -152,7 +157,7 @@ const Gallery = () => {
               />
             </Col>
             <Col className="float-right">
-              <Profile />
+              <ProfileView />
             </Col>
           </Row>
           <Row>
