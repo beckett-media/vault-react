@@ -11,13 +11,13 @@ const SubmissionForm = (props) => {
 
   return (
     <Container fluid>
-      <Row className="justify-content-md-center">
+      <Row className='justify-content-md-center'>
         <h1>Submission Form</h1>
       </Row>
-      <Row className="justify-content-md-center">
+      <Row className='justify-content-md-center'>
         <div>{items.length ? 'Items to Vault' : 'Add Items to Vault'}</div>
       </Row>
-      <Row className="justify-content-md-center">
+      <Row className='justify-content-md-center'>
         <SubmissionConfirmModal
           show={formSubmitted}
           setConfirm={setConfirm}
@@ -27,17 +27,17 @@ const SubmissionForm = (props) => {
       <Form>
         {submissionForm.items.map((obj, i) => {
           return (
-            <Row className="justify-content-md-center">
+            <Row className='justify-content-md-center'>
               <p>
                 {i + 1}. {obj.serialNumber} - {obj.description}
               </p>
             </Row>
           );
         })}
-        <Row className="justify-content-md-center">
+        <Row className='justify-content-md-center'>
           <Button onClick={() => onAdd(true)}>+</Button>
         </Row>
-        <Row className="justify-content-md-center" m={2}>
+        <Row className='justify-content-md-center' m={2}>
           <div>User Info</div>
         </Row>
       </Form>

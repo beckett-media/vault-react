@@ -54,19 +54,19 @@ const Homepage = () => {
   };
   return (
     <Container fluid>
-      <Row className="justify-content-md-center mt-2">
+      <Row className='justify-content-md-center mt-2'>
         <Collapse in={open} timeout={3000}>
-          <Col className="title" align="center">
+          <Col className='title' align='center'>
             {'Pioneer the Frontier of Digital & Physical Collectibles'}
           </Col>
         </Collapse>
       </Row>
-      <Row className="justify-content-md-center mt-1 mb-3">
-        <Col className="title" align="center">
+      <Row className='justify-content-md-center mt-1 mb-3'>
+        <Col className='title' align='center'>
           <input
-            type="button"
-            className="rounded-pill ghost-btn btn-sm"
-            value="Begin your Journey"
+            type='button'
+            className='rounded-pill ghost-btn btn-sm'
+            value='Begin your Journey'
           />
         </Col>
       </Row>

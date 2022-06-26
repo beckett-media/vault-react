@@ -93,7 +93,7 @@ const Submission = () => {
     <>
       <Container style={{ background: 'black' }}>
         {!confirmedSubmission && !add && (
-          <Row className="justify-content-md-center">
+          <Row className='justify-content-md-center'>
             <SubmissionForm
               items={items}
               formSubmitted={formSubmitted}
@@ -101,17 +101,17 @@ const Submission = () => {
               setConfirm={submissionConfirmed}
               onAdd={onAdd}
             />
-            <SubmitButton func={updateFormSubmitted} title="Submit" />
+            <SubmitButton func={updateFormSubmitted} title='Submit' />
           </Row>
         )}
         {confirmedSubmission && <SubmissionSuccess />}
         {add && (
           <>
-            <Row className="justify-content-md-center">
+            <Row className='justify-content-md-center'>
               <SubmissionAdd values={values} stateSetters={stateSetters} />
             </Row>
-            <Row className="justify-content-md-center">
-              <SubmitButton func={submitAddedItem} title="Add" />
+            <Row className='justify-content-md-center'>
+              <SubmitButton func={submitAddedItem} title='Add' />
               <Button onClick={() => onAdd(false)}>Cancel</Button>
             </Row>
           </>

@@ -85,7 +85,7 @@ const Gallery = () => {
       <>
         <Modal show={showConfirm} onHide={cancelConfirm}>
           <Modal.Header closeButton>
-            <Modal.Title id="contained-modal-title-vcenter">
+            <Modal.Title id='contained-modal-title-vcenter'>
               Modal heading
             </Modal.Title>
           </Modal.Header>
@@ -95,8 +95,8 @@ const Gallery = () => {
           </Button>
         </Modal>
         {listView && (
-          <ListItemBox className="d-flex col-lg-8">
-            <Col className="p-1 flex-shrink-1">
+          <ListItemBox className='d-flex col-lg-8'>
+            <Col className='p-1 flex-shrink-1'>
               <FormCheck
                 onClick={() =>
                   !selectedItemIds.ids.includes(item.id)
@@ -105,28 +105,28 @@ const Gallery = () => {
                 }
                 checked={selectedItemIds.ids.includes(item.id)}
               />
-              <ListItemImg src={item.img} alt="" />
+              <ListItemImg src={item.img} alt='' />
             </Col>
-            <Col className="p-1">
+            <Col className='p-1'>
               <Link to={`/item/${item.id}`}>{item.title}</Link>
             </Col>
-            <Col className="p-1">
+            <Col className='p-1'>
               <CardActions />
             </Col>
-            <Col className="p-1">
+            <Col className='p-1'>
               <SubmitButton
                 id={item.id}
                 func={listItem}
-                title="List"
-                size="sm"
+                title='List'
+                size='sm'
               />
             </Col>
-            <Col className="flex-grow-1">&nbsp;</Col>
+            <Col className='flex-grow-1'>&nbsp;</Col>
           </ListItemBox>
         )}
         {!listView && (
           <GridItemBox>
-            <Col className="justify-content-center mb-1 ml-3">
+            <Col className='justify-content-center mb-1 ml-3'>
               <FormCheck
                 onClick={() =>
                   !selectedItemIds.ids.includes(item.id)
@@ -138,17 +138,17 @@ const Gallery = () => {
 
               <Link to={`/item/${item.id}`}>{item.title}</Link>
             </Col>
-            <GridItemImg src={item.img} alt="" />
-            <Row className="justify-content-center mt-3">
-              <Col className="justify-content-right ml-3">
+            <GridItemImg src={item.img} alt='' />
+            <Row className='justify-content-center mt-3'>
+              <Col className='justify-content-right ml-3'>
                 <CardActions />
               </Col>
               <Col>
                 <SubmitButton
                   id={item.id}
                   func={listItem}
-                  title="List"
-                  size="sm"
+                  title='List'
+                  size='sm'
                 />
               </Col>
             </Row>
@@ -161,7 +161,7 @@ const Gallery = () => {
     <Container fluid>
       {!showConfirmationPage && (
         <>
-          <Row className="mt-2 col-md-12">
+          <Row className='mt-2 col-md-12'>
             <Col>
               <SubmitButton
                 func={toggleListView}
@@ -174,7 +174,7 @@ const Gallery = () => {
                 bg={!listView ? 'bg-dark border border-dark' : 'bg-primary'}
               />
             </Col>
-            <Col className="float-right">
+            <Col className='float-right'>
               <ProfileView />
             </Col>
           </Row>
@@ -192,11 +192,11 @@ const Gallery = () => {
           </Row>
           {selectedItemIds.ids.length > 0 && (
             <>
-              <SubmitButton func={clearSelections} title="Clear" />
+              <SubmitButton func={clearSelections} title='Clear' />
               <SubmitButton
-                id="withdraw"
+                id='withdraw'
                 func={withdrawItems}
-                title="Withdraw"
+                title='Withdraw'
               />
             </>
           )}
@@ -208,8 +208,8 @@ const Gallery = () => {
             items={items}
             title={`Please confirm you would like to ${withdrawOrList} items below.`}
           />
-          <SubmitButton func={confirmAction} title="Confirm" />
-          <SubmitButton func={cancelConfirmAction} title="Go Back" />
+          <SubmitButton func={confirmAction} title='Confirm' />
+          <SubmitButton func={cancelConfirmAction} title='Go Back' />
         </>
       )}
     </Container>

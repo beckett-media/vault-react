@@ -4,8 +4,8 @@ import Nav from './Nav';
 
 const Header = () => {
   return (
-    <Col className=" mb-3">
-      <Row className="justify-content-md-center">
+    <Col className=' mb-3'>
+      <Row className='justify-content-md-center'>
         <Nav />
       </Row>
     </Col>

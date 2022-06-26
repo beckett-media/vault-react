@@ -12,13 +12,13 @@ const ProfileView = () => {
 
   return (
     <Container fluid>
-      <div className="row">
-        <div className="col" align="right">
+      <div className='row'>
+        <div className='col' align='right'>
           {user.name} <br />
           {user.email}
         </div>
-        <div className="col">
-          <img className="img-thumbnail profile-image-thumb" src={user.img} />
+        <div className='col'>
+          <img className='img-thumbnail profile-image-thumb' src={user.img} />
         </div>
       </div>
     </Container>

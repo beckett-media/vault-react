@@ -6,7 +6,7 @@ const SubmissionConfirmModal = (props) => {
   return (
     <Modal show={show} onHide={onHide} centered>
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
+        <Modal.Title id='contained-modal-title-vcenter'>
           Modal heading
         </Modal.Title>
       </Modal.Header>
