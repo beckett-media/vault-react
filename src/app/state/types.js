@@ -49,6 +49,5 @@ export const SET_LIST_FORM = 'SET_LIST_FORM';
 export const ADD_LIST_ITEM = 'ADD_LIST_ITEM';
 export const REMOVE_LIST_ITEM = 'REMOVE_LIST_ITEM';
 
-
 // Global State Reset for on Logout
 export const RESET_FORM = 'RESET_FORM';

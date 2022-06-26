@@ -48,7 +48,7 @@ export const initialState = {
   },
   selectedItemIds: {
     ids: [],
-  }
+  },
 };
 
 export const appReducer = combineReducers({

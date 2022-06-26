@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
-import './Item.scss';
+import './item.scss';
 import { getItem } from '../../services/items';
 import { useParams } from 'react-router-dom';
 
