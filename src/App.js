@@ -17,22 +17,22 @@ function App() {
     <>
       <Header />
       <main className="">
-      <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/submission" element={<Submission />} />
-        <Route path="/gallery" element={<Gallery />} />
-        <Route path="/item/:id" element={<Item />} />
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/submission" element={<Submission />} />
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/item/:id" element={<Item />} />
           <Route path="/market" element={<Market />} />
           {/* PrivateRoute */}
           <Route path="/profile" element={<Profile />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="*" element={<Homepage />} />
-      </Routes>
+        </Routes>
       </main>
       <Footer />
       {/* About the Vault, My Collection, Marketplace, Submit an Item, Profile icon */}
-      </>
+    </>
   );
 }
 

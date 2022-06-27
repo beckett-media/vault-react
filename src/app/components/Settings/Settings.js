@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import { Accordion, Container, Form, Row } from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
-import { 
+import React, { useEffect, useState } from 'react';
+import { Accordion, Container, Form, Row } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import {
   setProfileBillAddress,
   setProfileBillCity,
   setProfileBillState,
   setProfileBillZipcode,
-  setProfileFirstName, 
+  setProfileFirstName,
   setProfileLastName,
   setProfilePrimaryEmail,
   setProfilePrimaryPhone,
@@ -15,11 +15,11 @@ import {
   setProfileShipAddress,
   setProfileShipCity,
   setProfileShipState,
-  setProfileShipZipcode
-} from '../../state/Profile/actions'
-import { profileFormSelector } from '../../state/Profile/selectors'
-import { states } from '../Assets/states'
-import SubmitButton from '../Generic/SubmitButton'
+  setProfileShipZipcode,
+} from '../../state/Profile/actions';
+import { profileFormSelector } from '../../state/Profile/selectors';
+import { states } from '../Assets/states';
+import SubmitButton from '../Generic/SubmitButton';
 
 const Settings = () => {
   const {
@@ -38,101 +38,115 @@ const Settings = () => {
     shipState,
     shipZipcode,
   } = useSelector(profileFormSelector);
-  const [ profileTab, setProfileTab ] = useState('profile')
-  const [ stateOptions, setStateOptions ] = useState([])
-  const [ setShippingAddress, toggleSetShippingAddress ] = useState(false)
-  const submitChanges = () => { return /** axiosCall */}
-  const dispatch = useDispatch()
+  const [profileTab, setProfileTab] = useState('profile');
+  const [stateOptions, setStateOptions] = useState([]);
+  const [setShippingAddress, toggleSetShippingAddress] = useState(false);
+  const submitChanges = () => {
+    return; /** axiosCall */
+  };
+  const dispatch = useDispatch();
   const shippingMatchesBilling = (val) => {
-    toggleSetShippingAddress(!setShippingAddress)
-  }
+    toggleSetShippingAddress(!setShippingAddress);
+  };
   useEffect(() => {
-    if(setShippingAddress){
-      dispatch(setProfileShipAddress(billAddress))
-      dispatch(setProfileShipCity(billCity))
-      dispatch(setProfileShipState(billState))
-      dispatch(setProfileShipZipcode(billZipcode))
-  }},[setShippingAddress])
-  useEffect(() => setStateOptions(states.map(state=>{return <option value={state}>{state}</option>})),[])
-  console.log(shipState, billState)
+    if (setShippingAddress) {
+      dispatch(setProfileShipAddress(billAddress));
+      dispatch(setProfileShipCity(billCity));
+      dispatch(setProfileShipState(billState));
+      dispatch(setProfileShipZipcode(billZipcode));
+    }
+  }, [setShippingAddress]);
+  useEffect(
+    () =>
+      setStateOptions(
+        states.map((state) => {
+          return <option value={state}>{state}</option>;
+        }),
+      ),
+    [],
+  );
+  console.log(shipState, billState);
   return (
     <Container fluid>
       <Row className="justify-content-md-center">
-        <Accordion defaultActiveKey='Profile'>
-          <Accordion.Item eventKey='Profile' onClick={() => setProfileTab('profile')}>
-            <Accordion.Header>{profileTab === 'profile' ? <div>Profile &or;</div> : <div>Profile &and;</div>}</Accordion.Header>
+        <Accordion defaultActiveKey="Profile">
+          <Accordion.Item
+            eventKey="Profile"
+            onClick={() => setProfileTab('profile')}
+          >
+            <Accordion.Header>
+              {profileTab === 'profile' ? (
+                <div>Profile &or;</div>
+              ) : (
+                <div>Profile &and;</div>
+              )}
+            </Accordion.Header>
             <Accordion.Body>
               <Form>
                 {/* Implement a drag and drop feature */}
                 <Row>
                   <Form.Group>
-                    <Form.Label>
-                      First Name
-                    </Form.Label>
-                    <Form.Control 
-                      type='text' 
+                    <Form.Label>First Name</Form.Label>
+                    <Form.Control
+                      type="text"
                       value={firstName}
-                      onChange={(e) => 
-                        dispatch(setProfileFirstName(e.target.value))}
+                      onChange={(e) =>
+                        dispatch(setProfileFirstName(e.target.value))
+                      }
                     />
                   </Form.Group>
                   <Form.Group>
-                    <Form.Label>
-                      Last Name
-                    </Form.Label>
-                    <Form.Control 
-                      type='text' 
+                    <Form.Label>Last Name</Form.Label>
+                    <Form.Control
+                      type="text"
                       value={lastName}
-                      onChange={(e) => 
-                        dispatch(setProfileLastName(e.target.value))}
+                      onChange={(e) =>
+                        dispatch(setProfileLastName(e.target.value))
+                      }
                     />
                   </Form.Group>
                 </Row>
                 <Row>
                   <Form.Group>
-                    <Form.Label>
-                      Primary Phone
-                    </Form.Label>
-                    <Form.Control 
-                      type='text'
+                    <Form.Label>Primary Phone</Form.Label>
+                    <Form.Control
+                      type="text"
                       value={primaryPhone}
-                      onChange={(e) => 
-                        dispatch(setProfilePrimaryPhone(e.target.value))}
+                      onChange={(e) =>
+                        dispatch(setProfilePrimaryPhone(e.target.value))
+                      }
                     />
                   </Form.Group>
                   <Form.Group>
-                    <Form.Label>
-                      Secondary Phone
-                    </Form.Label>
-                    <Form.Control 
-                      type='text' 
+                    <Form.Label>Secondary Phone</Form.Label>
+                    <Form.Control
+                      type="text"
                       value={secondaryPhone}
-                      onChange={(e) => 
-                        dispatch(setProfileSecondaryPhone(e.target.value))}
+                      onChange={(e) =>
+                        dispatch(setProfileSecondaryPhone(e.target.value))
+                      }
                     />
                   </Form.Group>
                 </Row>
                 <Row>
                   <Form.Group>
-                    <Form.Label>
-                      Primary Email
-                    </Form.Label>
-                    <Form.Control 
-                      type='text' 
+                    <Form.Label>Primary Email</Form.Label>
+                    <Form.Control
+                      type="text"
                       value={primaryEmail}
-                      onChange={(e) => 
-                        dispatch(setProfilePrimaryEmail(e.target.value))}
+                      onChange={(e) =>
+                        dispatch(setProfilePrimaryEmail(e.target.value))
+                      }
                     />
                   </Form.Group>
                   <Form.Group>
-                    <Form.Label>
-                      Secondary Email
-                    </Form.Label>
-                    <Form.Control 
-                      type='text' 
+                    <Form.Label>Secondary Email</Form.Label>
+                    <Form.Control
+                      type="text"
                       value={secondaryEmail}
-                      onChange={(e) => 
-                        dispatch(setProfileSecondaryEmail(e.target.value))}
+                      onChange={(e) =>
+                        dispatch(setProfileSecondaryEmail(e.target.value))
+                      }
                     />
                   </Form.Group>
                 </Row>
@@ -145,123 +159,132 @@ const Settings = () => {
               </Form>
             </Accordion.Body>
           </Accordion.Item>
-          <Accordion.Item eventKey='Address' onClick={() => setProfileTab('address')}>
-            <Accordion.Header>{profileTab === 'address' ? <div>Address &or;</div> : <div>Address &and;</div>}</Accordion.Header>
+          <Accordion.Item
+            eventKey="Address"
+            onClick={() => setProfileTab('address')}
+          >
+            <Accordion.Header>
+              {profileTab === 'address' ? (
+                <div>Address &or;</div>
+              ) : (
+                <div>Address &and;</div>
+              )}
+            </Accordion.Header>
             <Accordion.Body>
               <Form>
                 {/* Implement a drag and drop feature */}
                 <Form.Label>Billing Address</Form.Label>
                 <Form.Group>
-                  <Form.Label>
-                    Address
-                  </Form.Label>
-                  <Form.Control 
-                      type='text'
-                      value={billAddress}
-                      onChange={(e) => 
-                        dispatch(setProfileBillAddress(e.target.value))}
-                    />
+                  <Form.Label>Address</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={billAddress}
+                    onChange={(e) =>
+                      dispatch(setProfileBillAddress(e.target.value))
+                    }
+                  />
                 </Form.Group>
                 <Row>
                   <Form.Group>
-                    <Form.Label>
-                      City
-                    </Form.Label>
-                    <Form.Control 
-                      type='text'
+                    <Form.Label>City</Form.Label>
+                    <Form.Control
+                      type="text"
                       value={billCity}
-                      onChange={(e) => 
-                        dispatch(setProfileBillCity(e.target.value))}
+                      onChange={(e) =>
+                        dispatch(setProfileBillCity(e.target.value))
+                      }
                     />
                   </Form.Group>
                   <Form.Group>
-                    <Form.Label>
-                      State
-                    </Form.Label><br/>
-                    <Form.Select 
-                      onChange={(e) => dispatch(setProfileBillState(e.target.value))}
+                    <Form.Label>State</Form.Label>
+                    <br />
+                    <Form.Select
+                      onChange={(e) =>
+                        dispatch(setProfileBillState(e.target.value))
+                      }
                       defaultValue={billState}
                     >
-                      <option hidden value>Select State</option>
+                      <option hidden value>
+                        Select State
+                      </option>
                       {stateOptions}
                     </Form.Select>
                   </Form.Group>
                   <Form.Group>
-                    <Form.Label>
-                      Zipcode
-                    </Form.Label>
-                    <Form.Control 
-                      type='text' 
+                    <Form.Label>Zipcode</Form.Label>
+                    <Form.Control
+                      type="text"
                       value={billZipcode}
-                      onChange={(e) => 
-                        dispatch(setProfileBillZipcode(e.target.value))}
+                      onChange={(e) =>
+                        dispatch(setProfileBillZipcode(e.target.value))
+                      }
                     />
                   </Form.Group>
                 </Row>
                 <Form.Label>Shipping Address</Form.Label>
                 <Form.Group>
                   <Row>
-                    <Form.Check onChange={()=> shippingMatchesBilling()}/>
+                    <Form.Check onChange={() => shippingMatchesBilling()} />
                     <Form.Label>
                       Shipping address is the same as billing address.
                     </Form.Label>
                   </Row>
-                  </Form.Group>
+                </Form.Group>
                 <Form.Group>
-                  <Form.Label>
-                    Address
-                  </Form.Label>
-                  <Form.Control 
-                      type='text'
-                      value={shipAddress}
-                      onChange={(e) => 
-                        dispatch(setProfileShipAddress(e.target.value))}
-                    />
+                  <Form.Label>Address</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={shipAddress}
+                    onChange={(e) =>
+                      dispatch(setProfileShipAddress(e.target.value))
+                    }
+                  />
                 </Form.Group>
                 <Row>
                   <Form.Group>
-                    <Form.Label>
-                      City
-                    </Form.Label>
+                    <Form.Label>City</Form.Label>
                     <Form.Control
-                      type='text'
+                      type="text"
                       value={shipCity}
-                      onChange={(e) => 
-                        dispatch(setProfileShipCity(e.target.value))}
+                      onChange={(e) =>
+                        dispatch(setProfileShipCity(e.target.value))
+                      }
                     />
                   </Form.Group>
                   <Form.Group>
-                    <Form.Label>
-                      State
-                    </Form.Label><br/>
-                    <Form.Select 
-                      onChange={(e) => dispatch(setProfileShipState(e.target.value))}
+                    <Form.Label>State</Form.Label>
+                    <br />
+                    <Form.Select
+                      onChange={(e) =>
+                        dispatch(setProfileShipState(e.target.value))
+                      }
                       defaultValue={shipState}
                     >
-                      <option hidden value>Select State</option>
+                      <option hidden value>
+                        Select State
+                      </option>
                       {stateOptions}
                     </Form.Select>
                   </Form.Group>
                   <Form.Group>
-                    <Form.Label>
-                      Zipcode
-                    </Form.Label>
-                    <Form.Control 
-                      type='text'
+                    <Form.Label>Zipcode</Form.Label>
+                    <Form.Control
+                      type="text"
                       value={shipZipcode}
-                      onChange={(e) => 
-                        dispatch(setProfileShipZipcode(e.target.value))}
+                      onChange={(e) =>
+                        dispatch(setProfileShipZipcode(e.target.value))
+                      }
                     />
                   </Form.Group>
                 </Row>
-                <SubmitButton func={submitChanges} title='Update'/>
+                <SubmitButton func={submitChanges} title="Update" />
               </Form>
             </Accordion.Body>
           </Accordion.Item>
         </Accordion>
       </Row>
     </Container>
-  )
-}
+  );
+};
 
-export default Settings
+export default Settings;

@@ -14,7 +14,7 @@ import {
   SET_PROFILE_SHIP_CITY,
   SET_PROFILE_SHIP_STATE,
   SET_PROFILE_SHIP_ZIPCODE,
-} from "./types";
+} from './types';
 
 export const setProfileForm = (payload) => {
   console.log('payload is', payload.profileForm);
@@ -22,7 +22,7 @@ export const setProfileForm = (payload) => {
     type: SET_PROFILE_FORM,
     payload: payload,
   };
-}
+};
 export const setProfileLastName = (payload) => {
   console.log('payload is', payload.profileForm);
   return {
@@ -33,14 +33,14 @@ export const setProfileLastName = (payload) => {
 export const setProfileFirstName = (payload) => {
   console.log('payload is', payload.profileForm);
   return {
-    type:  SET_PROFILE_FIRST_NAME,
+    type: SET_PROFILE_FIRST_NAME,
     payload: payload,
-  }
-}
+  };
+};
 export const setProfilePrimaryPhone = (payload) => {
   console.log('payload is', payload.profileForm);
   return {
-    type:  SET_PROFILE_PRIMARY_PHONE,
+    type: SET_PROFILE_PRIMARY_PHONE,
     payload: payload,
   };
 };
@@ -61,63 +61,63 @@ export const setProfilePrimaryEmail = (payload) => {
 export const setProfileSecondaryEmail = (payload) => {
   console.log('payload is', payload.profileForm);
   return {
-    type:  SET_PROFILE_SECONDARY_EMAIL,
+    type: SET_PROFILE_SECONDARY_EMAIL,
     payload: payload,
   };
 };
 export const setProfileShipAddress = (payload) => {
   console.log('payload is', payload.profileForm);
   return {
-    type:  SET_PROFILE_SHIP_ADDRESS,
+    type: SET_PROFILE_SHIP_ADDRESS,
     payload: payload,
   };
 };
 export const setProfileShipCity = (payload) => {
   console.log('payload is', payload.profileForm);
   return {
-    type:  SET_PROFILE_SHIP_CITY,
+    type: SET_PROFILE_SHIP_CITY,
     payload: payload,
   };
 };
 export const setProfileShipState = (payload) => {
   console.log('payload is', payload.profileForm);
   return {
-    type:  SET_PROFILE_SHIP_STATE,
+    type: SET_PROFILE_SHIP_STATE,
     payload: payload,
   };
 };
 export const setProfileShipZipcode = (payload) => {
   console.log('payload is', payload.profileForm);
   return {
-    type:  SET_PROFILE_SHIP_ZIPCODE,
+    type: SET_PROFILE_SHIP_ZIPCODE,
     payload: payload,
   };
 };
 export const setProfileBillAddress = (payload) => {
   console.log('payload is', payload.profileForm);
   return {
-    type:  SET_PROFILE_BILL_ADDRESS,
+    type: SET_PROFILE_BILL_ADDRESS,
     payload: payload,
   };
 };
 export const setProfileBillCity = (payload) => {
   console.log('payload is', payload.profileForm);
   return {
-    type:  SET_PROFILE_BILL_CITY,
+    type: SET_PROFILE_BILL_CITY,
     payload: payload,
   };
 };
 export const setProfileBillState = (payload) => {
   console.log('payload is', payload.profileForm);
   return {
-    type:  SET_PROFILE_BILL_STATE,
+    type: SET_PROFILE_BILL_STATE,
     payload: payload,
   };
-};   
+};
 export const setProfileBillZipcode = (payload) => {
   console.log('payload is', payload.profileForm);
   return {
-    type:  SET_PROFILE_BILL_ZIPCODE,
+    type: SET_PROFILE_BILL_ZIPCODE,
     payload: payload,
   };
 };

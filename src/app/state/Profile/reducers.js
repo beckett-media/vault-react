@@ -13,9 +13,9 @@ import {
   SET_PROFILE_SHIP_ADDRESS,
   SET_PROFILE_SHIP_CITY,
   SET_PROFILE_SHIP_STATE,
-  SET_PROFILE_SHIP_ZIPCODE
-} from "./types";
-import { initialState } from "../store/rootReducer";
+  SET_PROFILE_SHIP_ZIPCODE,
+} from './types';
+import { initialState } from '../store/rootReducer';
 
 export const profileFormReducers = (state = { initialState }, action) => {
   console.log('reducer returns ', action.payload);
@@ -112,5 +112,5 @@ export const profileFormReducers = (state = { initialState }, action) => {
       };
     default:
       return state;
-  };
+  }
 };

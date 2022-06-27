@@ -149,14 +149,13 @@ export const withdrawalFormReducers = (state = { initialState }, action) => {
       console.log(action);
       return {
         ...state,
-        items: state.items
-            .filter((obj) =>
-              obj.id === action.payload.itemObject.id,
-            ),
+        items: state.items.filter(
+          (obj) => obj.id === action.payload.itemObject.id,
+        ),
       };
     default:
       return state;
-  };
+  }
 };
 
 export const listFormReducers = (state = { initialState }, action) => {
@@ -178,14 +177,13 @@ export const listFormReducers = (state = { initialState }, action) => {
       console.log(action);
       return {
         ...state,
-        items: state.items
-            .filter((obj) =>
-              obj.id === action.payload.itemObject.id,
-            ),
+        items: state.items.filter(
+          (obj) => obj.id === action.payload.itemObject.id,
+        ),
       };
     default:
       return state;
-  };
+  }
 };
 
 // Selected Item Ids
@@ -198,12 +196,12 @@ export const selectedItemIdsReducers = (state = { initialState }, action) => {
         ...state,
         ids: [...state.ids, action.payload],
       };
-      case REMOVE_SELECTED_ITEM_ID:
-        console.log(action);
-        return {
-          ...state,
-          ids: state.ids.filter(idToRm => idToRm !== action.payload),
-        };
+    case REMOVE_SELECTED_ITEM_ID:
+      console.log(action);
+      return {
+        ...state,
+        ids: state.ids.filter((idToRm) => idToRm !== action.payload),
+      };
     case SET_SELECTED_ITEM_IDS:
       console.log(action);
       return {
@@ -212,7 +210,7 @@ export const selectedItemIdsReducers = (state = { initialState }, action) => {
       };
     default:
       return state;
-  };
+  }
 };
 
 // Item object reducers
