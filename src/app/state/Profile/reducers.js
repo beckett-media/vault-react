@@ -30,37 +30,37 @@ export const profileFormReducers = (state = { initialState }, action) => {
       console.log(action);
       return {
         ...state,
-        profileForm: action.payload,
+        lastName: action.payload,
       };
     case SET_PROFILE_FIRST_NAME:
       console.log(action);
       return {
         ...state,
-        profileForm: action.payload,
+        firstName: action.payload,
       };
     case SET_PROFILE_PRIMARY_PHONE:
       console.log(action);
       return {
         ...state,
-        profileForm: action.payload,
+        primaryPhone: action.payload,
       };
     case SET_PROFILE_SECONDARY_PHONE:
       console.log(action);
       return {
         ...state,
-        profileForm: action.payload,
+        secondaryPhone: action.payload,
       };
     case SET_PROFILE_PRIMARY_EMAIL:
       console.log(action);
       return {
         ...state,
-        profileForm: action.payload,
+        primaryEmail: action.payload,
       };
     case SET_PROFILE_SECONDARY_EMAIL:
       console.log(action);
       return {
         ...state,
-        profileForm: action.payload,
+        secondaryEmail: action.payload,
       };
     case SET_PROFILE_SHIP_ADDRESS:
       console.log(action);

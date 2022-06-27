@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Accordion, Container, Form, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { 
@@ -11,9 +11,14 @@ import {
   setProfilePrimaryEmail,
   setProfilePrimaryPhone,
   setProfileSecondaryEmail,
-  setProfileSecondaryPhone
+  setProfileSecondaryPhone,
+  setProfileShipAddress,
+  setProfileShipCity,
+  setProfileShipState,
+  setProfileShipZipcode
 } from '../../state/Profile/actions'
 import { profileFormSelector } from '../../state/Profile/selectors'
+import { states } from '../Assets/states'
 import SubmitButton from '../Generic/SubmitButton'
 
 const Settings = () => {
@@ -34,14 +39,22 @@ const Settings = () => {
     shipZipcode,
   } = useSelector(profileFormSelector);
   const [ profileTab, setProfileTab ] = useState('profile')
+  const [ stateOptions, setStateOptions ] = useState([])
+  const [ setShippingAddress, toggleSetShippingAddress ] = useState(false)
   const submitChanges = () => { return /** axiosCall */}
   const dispatch = useDispatch()
   const shippingMatchesBilling = (val) => {
-    dispatch(setProfileBillAddress(shipAddress))
-    dispatch(setProfileBillCity(shipCity))
-    dispatch(setProfileBillState(shipState))
-    dispatch(setProfileBillZipcode(shipZipcode))
+    toggleSetShippingAddress(!setShippingAddress)
   }
+  useEffect(() => {
+    if(setShippingAddress){
+      dispatch(setProfileShipAddress(billAddress))
+      dispatch(setProfileShipCity(billCity))
+      dispatch(setProfileShipState(billState))
+      dispatch(setProfileShipZipcode(billZipcode))
+  }},[setShippingAddress])
+  useEffect(() => setStateOptions(states.map(state=>{return <option value={state}>{state}</option>})),[])
+  console.log(shipState, billState)
   return (
     <Container fluid>
       <Row className="justify-content-md-center">
@@ -165,11 +178,12 @@ const Settings = () => {
                     <Form.Label>
                       State
                     </Form.Label><br/>
-                    <Form.Select onChange={(e) => setProfileBillState(e)} value={billState}>
-                      <option disabled>Select State</option>
-                      <option value="ca">CA</option>
-                      <option value="ny">NY</option>
-                      <option value="tx">TX</option>
+                    <Form.Select 
+                      onChange={(e) => dispatch(setProfileBillState(e.target.value))}
+                      defaultValue={billState}
+                    >
+                      <option hidden value>Select State</option>
+                      {stateOptions}
                     </Form.Select>
                   </Form.Group>
                   <Form.Group>
@@ -199,9 +213,9 @@ const Settings = () => {
                   </Form.Label>
                   <Form.Control 
                       type='text'
-                      value={billAddress}
+                      value={shipAddress}
                       onChange={(e) => 
-                        dispatch(setProfileBillAddress(e.target.value))}
+                        dispatch(setProfileShipAddress(e.target.value))}
                     />
                 </Form.Group>
                 <Row>
@@ -211,9 +225,9 @@ const Settings = () => {
                     </Form.Label>
                     <Form.Control
                       type='text'
-                      value={billCity}
+                      value={shipCity}
                       onChange={(e) => 
-                        dispatch(setProfileBillCity(e.target.value))}
+                        dispatch(setProfileShipCity(e.target.value))}
                     />
                   </Form.Group>
                   <Form.Group>
@@ -221,13 +235,11 @@ const Settings = () => {
                       State
                     </Form.Label><br/>
                     <Form.Select 
-                      onChange={(e) => setProfileBillState(e)} 
-                      value={billState}
+                      onChange={(e) => dispatch(setProfileShipState(e.target.value))}
+                      defaultValue={shipState}
                     >
                       <option hidden value>Select State</option>
-                      <option value="ca">CA</option>
-                      <option value="ny">NY</option>
-                      <option value="tx">TX</option>
+                      {stateOptions}
                     </Form.Select>
                   </Form.Group>
                   <Form.Group>
@@ -236,9 +248,9 @@ const Settings = () => {
                     </Form.Label>
                     <Form.Control 
                       type='text'
-                      value={billZipcode}
+                      value={shipZipcode}
                       onChange={(e) => 
-                        dispatch(setProfileBillZipcode(e.target.value))}
+                        dispatch(setProfileShipZipcode(e.target.value))}
                     />
                   </Form.Group>
                 </Row>
