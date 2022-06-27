@@ -7,7 +7,7 @@ const SubmissionHistory = () => {
   console.log(submissions)
   return (
     <>
-      {submissions && submissions.map((sub) => <div>{sub}</div>)}
+      {submissions && submissions.map((sub) => <div key={item.id}>{sub}</div>)}
     </>
   )
 }

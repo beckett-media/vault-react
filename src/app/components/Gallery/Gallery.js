@@ -82,7 +82,7 @@ const Gallery = () => {
   const itemBox = items.map((item) => {
     return(
       <>
-        <Modal show={showConfirm} onHide={cancelConfirm}>
+        <Modal key={item.id} show={showConfirm} onHide={cancelConfirm}>
           <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
             Modal heading
@@ -94,7 +94,7 @@ const Gallery = () => {
         {listView && 
           <ListItemBox>
             <FormCheck 
-              onClick={() => !selectedItemIds.includes(item.id) ? 
+              onChange={() => !selectedItemIds.includes(item.id) ? 
                 dispatch(setSelectedItemId(item.id)) : 
                 dispatch(removeSelectedItemId(item.id))}
               checked={selectedItemIds.includes(item.id)}
@@ -111,7 +111,7 @@ const Gallery = () => {
         {!listView && 
           <GridItemBox>
             <FormCheck 
-              onClick={() => !selectedItemIds.includes(item.id) ? 
+              onChange={() => !selectedItemIds.includes(item.id) ? 
                 dispatch(setSelectedItemId(item.id)) : 
                 dispatch(removeSelectedItemId(item.id))}
               checked={selectedItemIds.includes(item.id)}

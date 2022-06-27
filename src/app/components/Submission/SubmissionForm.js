@@ -27,7 +27,7 @@ const SubmissionForm = (props) => {
       <Form>
         {submissionForm.items.map((obj, i) => {
           return (
-            <Row className="justify-content-md-center">
+            <Row key={item.id} className="justify-content-md-center">
               <p>
                 {i + 1}. {obj.serialNumber} - {obj.description}
               </p>
