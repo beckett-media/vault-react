@@ -1,19 +1,46 @@
 import React, { useState } from 'react'
 import { Accordion, Container, Form, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { setProfileBillAddress, setProfileBillZipcode, setProfileFirstName } from '../../state/Profile/actions'
+import { 
+  setProfileBillAddress,
+  setProfileBillCity,
+  setProfileBillState,
+  setProfileBillZipcode,
+  setProfileFirstName, 
+  setProfileLastName,
+  setProfilePrimaryEmail,
+  setProfilePrimaryPhone,
+  setProfileSecondaryEmail,
+  setProfileSecondaryPhone
+} from '../../state/Profile/actions'
 import { profileFormSelector } from '../../state/Profile/selectors'
+import SubmitButton from '../Generic/SubmitButton'
 
 const Settings = () => {
-  const profile = useSelector(profileFormSelector);
-  console.log(profile)
+  const {
+    billAddress,
+    billCity,
+    billState,
+    billZipcode,
+    firstName,
+    lastName,
+    primaryEmail,
+    primaryPhone,
+    secondaryEmail,
+    secondaryPhone,
+    shipAddress,
+    shipCity,
+    shipState,
+    shipZipcode,
+  } = useSelector(profileFormSelector);
   const [ profileTab, setProfileTab ] = useState('profile')
+  const submitChanges = () => { return /** axiosCall */}
   const dispatch = useDispatch()
   const shippingMatchesBilling = (val) => {
-    dispatch(setProfileBillAddress(profile.shipAddress))
-    dispatch(setProfileBillCity(profile.shipCity))
-    dispatch(setProfileBillState(profile.shipState))
-    dispatch(setProfileBillZipcode(profile.shipZipcode))
+    dispatch(setProfileBillAddress(shipAddress))
+    dispatch(setProfileBillCity(shipCity))
+    dispatch(setProfileBillState(shipState))
+    dispatch(setProfileBillZipcode(shipZipcode))
   }
   return (
     <Container fluid>
@@ -31,6 +58,7 @@ const Settings = () => {
                     </Form.Label>
                     <Form.Control 
                       type='text' 
+                      value={firstName}
                       onChange={(e) => 
                         dispatch(setProfileFirstName(e.target.value))}
                     />
@@ -41,6 +69,7 @@ const Settings = () => {
                     </Form.Label>
                     <Form.Control 
                       type='text' 
+                      value={lastName}
                       onChange={(e) => 
                         dispatch(setProfileLastName(e.target.value))}
                     />
@@ -52,7 +81,8 @@ const Settings = () => {
                       Primary Phone
                     </Form.Label>
                     <Form.Control 
-                      type='text' 
+                      type='text'
+                      value={primaryPhone}
                       onChange={(e) => 
                         dispatch(setProfilePrimaryPhone(e.target.value))}
                     />
@@ -63,6 +93,7 @@ const Settings = () => {
                     </Form.Label>
                     <Form.Control 
                       type='text' 
+                      value={secondaryPhone}
                       onChange={(e) => 
                         dispatch(setProfileSecondaryPhone(e.target.value))}
                     />
@@ -75,6 +106,7 @@ const Settings = () => {
                     </Form.Label>
                     <Form.Control 
                       type='text' 
+                      value={primaryEmail}
                       onChange={(e) => 
                         dispatch(setProfilePrimaryEmail(e.target.value))}
                     />
@@ -85,6 +117,7 @@ const Settings = () => {
                     </Form.Label>
                     <Form.Control 
                       type='text' 
+                      value={secondaryEmail}
                       onChange={(e) => 
                         dispatch(setProfileSecondaryEmail(e.target.value))}
                     />
@@ -110,7 +143,8 @@ const Settings = () => {
                     Address
                   </Form.Label>
                   <Form.Control 
-                      type='text' 
+                      type='text'
+                      value={billAddress}
                       onChange={(e) => 
                         dispatch(setProfileBillAddress(e.target.value))}
                     />
@@ -121,7 +155,8 @@ const Settings = () => {
                       City
                     </Form.Label>
                     <Form.Control 
-                      type='text' 
+                      type='text'
+                      value={billCity}
                       onChange={(e) => 
                         dispatch(setProfileBillCity(e.target.value))}
                     />
@@ -130,7 +165,7 @@ const Settings = () => {
                     <Form.Label>
                       State
                     </Form.Label><br/>
-                    <Form.Select onChange={(e) => setProfileBillState(e)}>
+                    <Form.Select onChange={(e) => setProfileBillState(e)} value={billState}>
                       <option disabled>Select State</option>
                       <option value="ca">CA</option>
                       <option value="ny">NY</option>
@@ -143,6 +178,7 @@ const Settings = () => {
                     </Form.Label>
                     <Form.Control 
                       type='text' 
+                      value={billZipcode}
                       onChange={(e) => 
                         dispatch(setProfileBillZipcode(e.target.value))}
                     />
@@ -161,20 +197,33 @@ const Settings = () => {
                   <Form.Label>
                     Address
                   </Form.Label>
-                  <Form.Control type='text'/>
+                  <Form.Control 
+                      type='text'
+                      value={billAddress}
+                      onChange={(e) => 
+                        dispatch(setProfileBillAddress(e.target.value))}
+                    />
                 </Form.Group>
                 <Row>
                   <Form.Group>
                     <Form.Label>
                       City
                     </Form.Label>
-                    <Form.Control type='text'/>
+                    <Form.Control
+                      type='text'
+                      value={billCity}
+                      onChange={(e) => 
+                        dispatch(setProfileBillCity(e.target.value))}
+                    />
                   </Form.Group>
                   <Form.Group>
                     <Form.Label>
                       State
                     </Form.Label><br/>
-                    <Form.Select>
+                    <Form.Select 
+                      onChange={(e) => setProfileBillState(e)} 
+                      value={billState}
+                    >
                       <option hidden value>Select State</option>
                       <option value="ca">CA</option>
                       <option value="ny">NY</option>
@@ -185,9 +234,15 @@ const Settings = () => {
                     <Form.Label>
                       Zipcode
                     </Form.Label>
-                    <Form.Control type='text'/>
+                    <Form.Control 
+                      type='text'
+                      value={billZipcode}
+                      onChange={(e) => 
+                        dispatch(setProfileBillZipcode(e.target.value))}
+                    />
                   </Form.Group>
                 </Row>
+                <SubmitButton func={submitChanges} title='Update'/>
               </Form>
             </Accordion.Body>
           </Accordion.Item>

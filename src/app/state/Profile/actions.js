@@ -1,3 +1,5 @@
+import { SET_PROFILE_BILL_ADDRESS, SET_PROFILE_BILL_CITY, SET_PROFILE_BILL_STATE, SET_PROFILE_BILL_ZIPCODE, SET_PROFILE_SHIP_ZIPCODE } from "./types";
+
 export const setProfileForm = (payload) => {
   console.log('payload is', payload.profileForm);
   return {
