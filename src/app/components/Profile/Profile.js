@@ -12,7 +12,9 @@ const Profile = () => {
 
   return (
     <Container fluid>
-      <Row className='justify-content-center'><h2>Profile</h2></Row>
+      <Row className='justify-content-center'>
+        <h2>Profile</h2>
+      </Row>
       <Row>
         <Col>
           <img src={user.img} className='img-thumbnail' />
