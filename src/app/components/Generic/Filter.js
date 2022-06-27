@@ -1,20 +1,20 @@
 import React from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row, Form } from 'react-bootstrap';
 
 const Filter = () => {
   return (
     <Row className='row justify-content-center mb-3'>
       <Col lg='2'>
-        <select className='form-select form-select-sm mr-3 rounded-pill'>
+        <Form.Select size='sm' className='mr-3 rounded-pill'>
           <option selected>Filter</option>
           <option>Team</option>
           <option>Player</option>
           <option>Year</option>
           <option>Other</option>
-        </select>
+        </Form.Select>
       </Col>
       <Col lg='2'>
-        <select className='form-select form-select-sm mr-3 rounded-pill'>
+        <Form.Select size='sm' className='mr-3 rounded-pill'>
           <option selected>Sort</option>
           <option>Name A-Z</option>
           <option>Name Z-A</option>
@@ -22,7 +22,7 @@ const Filter = () => {
           <option>Newest</option>
           <option>Most Expensive</option>
           <option>Least Expensive</option>
-        </select>
+        </Form.Select>
       </Col>
     </Row>
   );
