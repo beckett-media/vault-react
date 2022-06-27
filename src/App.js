@@ -10,6 +10,7 @@ import Profile from './app/components/Profile/Profile';
 import Cart from './app/components/Cart/Cart';
 import { Routes, Route } from 'react-router-dom';
 import './index.scss';
+import Settings from './app/components/Settings/Settings';
 
 function App() {
   return (
@@ -20,11 +21,11 @@ function App() {
         <Route path="/" element={<Homepage />} />
         <Route path="/submission" element={<Submission />} />
         <Route path="/gallery" element={<Gallery />} />
-        <Route path="/settings" element={<Settings />} />
         <Route path="/item/:id" element={<Item />} />
           <Route path="/market" element={<Market />} />
           {/* PrivateRoute */}
           <Route path="/profile" element={<Profile />} />
+          <Route path="/settings" element={<Settings />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="*" element={<Homepage />} />
       </Routes>

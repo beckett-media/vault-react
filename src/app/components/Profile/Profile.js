@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { getUser } from '../../services/user';
 import './Profile.scss';
 
@@ -12,11 +13,12 @@ const Profile = () => {
 
   return (
     <Container fluid>
-      <div className="row" onClick={toggleDropdown}>Profile</div>
       <div className="row">
         <div className="col">
+        <Link to="/settings">
           <h3>{user.name}</h3>
           <img src={user.img} />
+        </Link>
         </div>
         {/* This box should be on an individual page to edit profile. */}
         {/* {

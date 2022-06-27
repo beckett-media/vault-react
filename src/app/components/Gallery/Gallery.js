@@ -35,7 +35,7 @@ const Gallery = () => {
   const [ listView, setListView ] = useState(false);
   const [ withdrawOrList, setWithdrawOrList ] = useState('');
   const [ showConfirm, toggleConfirm ] = useState(false);
-  const selectedItemIds = useSelector(selectedItemIdsSelector);
+  const selectedItemIds = useSelector(selectedItemIdsSelector).ids;
   const [
     showConfirmationPage,
     toggleShowConfirmationPage
@@ -68,10 +68,11 @@ const Gallery = () => {
   const cancelConfirm = () => toggleConfirm(false)
 
   const cancelConfirmAction = () => toggleShowConfirmationPage(false)
+  console.log('selected item ids', selectedItemIds)
   const confirmAction = () => {
     withdrawOrList === 'withdraw' ? 
-      dispatch(setWithdrawalForm(items.filter(item => selectedIds.includes(item.id)))) :
-      dispatch(setListForm(items.filter(item => selectedIds.includes(item.id))))
+      dispatch(setWithdrawalForm(items.filter(item => selectedItemIds.includes(item.id)))) :
+      dispatch(setListForm(items.filter(item => selectedItemIds.includes(item.id))))
     toggleShowConfirmationPage(false)
   }
   const clearSelections = () => dispatch(setSelectedItemIds([]))
@@ -93,10 +94,10 @@ const Gallery = () => {
         {listView && 
           <ListItemBox>
             <FormCheck 
-              onClick={() => !selectedItemIds.ids.includes(item.id) ? 
+              onClick={() => !selectedItemIds.includes(item.id) ? 
                 dispatch(setSelectedItemId(item.id)) : 
                 dispatch(removeSelectedItemId(item.id))}
-              checked={selectedItemIds.ids.includes(item.id)}
+              checked={selectedItemIds.includes(item.id)}
             />
             <ListItemImg
               src={item.img}
@@ -110,10 +111,10 @@ const Gallery = () => {
         {!listView && 
           <GridItemBox>
             <FormCheck 
-              onClick={() => !selectedItemIds.ids.includes(item.id) ? 
+              onClick={() => !selectedItemIds.includes(item.id) ? 
                 dispatch(setSelectedItemId(item.id)) : 
                 dispatch(removeSelectedItemId(item.id))}
-              checked={selectedItemIds.ids.includes(item.id)}
+              checked={selectedItemIds.includes(item.id)}
             />
             
             <Link to={`/item/${item.id}`}>{item.title}</Link>
@@ -153,7 +154,7 @@ const Gallery = () => {
               </Col>
             </>}
             </Row>
-          {selectedItemIds.ids.length > 0 && 
+          {selectedItemIds.length > 0 && 
             <>
               <SubmitButton func={clearSelections} title='Clear'/>
               <SubmitButton id='withdraw' func={withdrawItems} title='Withdraw'/>
