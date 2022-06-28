@@ -13,9 +13,9 @@ import {
 import { selectedItemIdsSelector } from '../../state/selectors';
 import GenericForm from '../Generic/GenericForm';
 import SubmitButton from '../Generic/SubmitButton';
-import LeftNav from '../LeftNav/LeftNav';
-import Profile from '../Profile/Profile';
-import './gallery.scss';
+import LeftNav from '../Generic/LeftNav';
+import ProfileView from '../Profile/ProfileView';
+import './Gallery.scss';
 import {
   GridItemBox,
   GridItemImg,
@@ -64,7 +64,6 @@ const Gallery = () => {
   const cancelConfirm = () => toggleConfirm(false);
 
   const cancelConfirmAction = () => toggleShowConfirmationPage(false);
-  console.log('selected item ids', selectedItemIds);
   const confirmAction = () => {
     withdrawOrList === 'withdraw'
       ? dispatch(
@@ -88,7 +87,7 @@ const Gallery = () => {
       <>
         <Modal key={item.id} show={showConfirm} onHide={cancelConfirm}>
           <Modal.Header closeButton>
-            <Modal.Title id="contained-modal-title-vcenter">
+            <Modal.Title id='contained-modal-title-vcenter'>
               Modal heading
             </Modal.Title>
           </Modal.Header>
@@ -98,39 +97,62 @@ const Gallery = () => {
           </Button>
         </Modal>
         {listView && (
-          <ListItemBox>
-            <FormCheck
-              onChange={() =>
-                !selectedItemIds.includes(item.id)
-                  ? dispatch(setSelectedItemId(item.id))
-                  : dispatch(removeSelectedItemId(item.id))
-              }
-              checked={selectedItemIds.includes(item.id)}
-            />
-            <ListItemImg src={item.img} alt="" />
-            <Link to={`/item/${item.id}`}>{item.title}</Link>
-            <CardActions />
-            <SubmitButton id={item.id} func={listItem} title="List" />
-            {/* <SubmitButton id={item.id} func={withdrawItem} title='Withdraw'/> */}
+          <ListItemBox className='d-flex col-lg-8'>
+            <Col className='p-1 flex-shrink-1'>
+              <FormCheck
+                onClick={() =>
+                  !selectedItemIds.ids.includes(item.id)
+                    ? dispatch(setSelectedItemId(item.id))
+                    : dispatch(removeSelectedItemId(item.id))
+                }
+                checked={selectedItemIds.ids.includes(item.id)}
+              />
+              <ListItemImg src={item.img} alt='' />
+            </Col>
+            <Col className='p-1'>
+              <Link to={`/item/${item.id}`}>{item.title}</Link>
+            </Col>
+            <Col className='p-1'>
+              <CardActions />
+            </Col>
+            <Col className='p-1'>
+              <SubmitButton
+                id={item.id}
+                func={listItem}
+                title='List'
+                size='sm'
+              />
+            </Col>
+            <Col className='flex-grow-1'>&nbsp;</Col>
           </ListItemBox>
         )}
         {!listView && (
           <GridItemBox>
-            <FormCheck
-              onChange={() =>
-                !selectedItemIds.includes(item.id)
-                  ? dispatch(setSelectedItemId(item.id))
-                  : dispatch(removeSelectedItemId(item.id))
-              }
-              checked={selectedItemIds.includes(item.id)}
-            />
+            <Col className='justify-content-center mb-1 ml-3'>
+              <FormCheck
+                onClick={() =>
+                  !selectedItemIds.ids.includes(item.id)
+                    ? dispatch(setSelectedItemId(item.id))
+                    : dispatch(removeSelectedItemId(item.id))
+                }
+                checked={selectedItemIds.ids.includes(item.id)}
+              />
 
-            <Link to={`/item/${item.id}`}>{item.title}</Link>
-            <GridItemImg src={item.img} alt="" />
-            <Row>
-              <CardActions />
-              <SubmitButton id={item.id} func={listItem} title="List" />
-              {/* <SubmitButton id={item.id} func={withdrawItem} title='Withdraw'/> */}
+              <Link to={`/item/${item.id}`}>{item.title}</Link>
+            </Col>
+            <GridItemImg src={item.img} alt='' />
+            <Row className='justify-content-center mt-3'>
+              <Col className='justify-content-right ml-3'>
+                <CardActions />
+              </Col>
+              <Col>
+                <SubmitButton
+                  id={item.id}
+                  func={listItem}
+                  title='List'
+                  size='sm'
+                />
+              </Col>
             </Row>
           </GridItemBox>
         )}
@@ -141,7 +163,7 @@ const Gallery = () => {
     <Container fluid>
       {!showConfirmationPage && (
         <>
-          <Row className="mt-2 col-md-12">
+          <Row className='mt-2 col-md-12'>
             <Col>
               <SubmitButton
                 func={toggleListView}
@@ -154,8 +176,8 @@ const Gallery = () => {
                 bg={!listView ? 'bg-dark border border-dark' : 'bg-primary'}
               />
             </Col>
-            <Col className="float-right">
-              <Profile />
+            <Col className='float-right'>
+              <ProfileView />
             </Col>
           </Row>
           <Row>
@@ -214,14 +236,21 @@ const Gallery = () => {
                 className="w-100 shadow-1-strong rounded mb-4"
                 alt={item.title}
               />
-            </div>
-            <div className="d-flex justify-content-center">
-            </div>
-            <div className="d-flex justify-content-center">
-            </div>
-          </div>
-        ))}
-      </div> */}
+            </>
+          )}
+        </>
+      )}
+      {showConfirmationPage && (
+        <>
+          <GenericForm
+            items={items}
+            title={`Please confirm you would like to ${withdrawOrList} items below.`}
+          />
+          <SubmitButton func={confirmAction} title='Confirm' />
+          <SubmitButton func={cancelConfirmAction} title='Go Back' />
+        </>
+      )}
+*/}
     </Container>
   );
 };

@@ -16,18 +16,16 @@ function App() {
   return (
     <>
       <Header />
-      <main className="">
+      <main className=''>
         <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/submission" element={<Submission />} />
-          <Route path="/gallery" element={<Gallery />} />
-          <Route path="/item/:id" element={<Item />} />
-          <Route path="/market" element={<Market />} />
+          <Route path='/submission' element={<Submission />} />
+          <Route path='/gallery' element={<Gallery />} />
+          <Route path='/item/:id' element={<Item />} />
+          <Route path='/market' element={<Market />} />
           {/* PrivateRoute */}
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="*" element={<Homepage />} />
+          <Route path='/profile' element={<Profile />} />
+          <Route path='/cart' element={<Cart />} />
+          <Route path='*' element={<Homepage />} />
         </Routes>
       </main>
       <Footer />

@@ -159,44 +159,44 @@ const InterestForm = (props) => {
   return (
     <Container fluid>
       <Form>
-        <Row className="justify-content-md-center">
-          <Col align="center" style={{ color: 'white' }}>
+        <Row className='justify-content-md-center'>
+          <Col align='center' style={{ color: 'white' }}>
             Fill out the form below to launch. {interestForm.first}
           </Col>
         </Row>
-        <Row className="justify-content-md-center">
-          <Col className="col-md-5 p-1">
+        <Row className='justify-content-md-center'>
+          <Col className='col-md-5 p-1'>
             <input
-              id="first"
-              type="text"
+              id='first'
+              type='text'
               value={currentField === 'first' ? tempText : interestForm.first}
-              className="transparent-text-input border border-dark rounded-pill"
+              className='transparent-text-input border border-dark rounded-pill'
               placeholder={'First Name*'}
               onSelect={(e) => e.target.id !== currentField && onFieldChange(e)}
               onChange={(e) => updateTempText(e.target.value)}
             />
           </Col>
         </Row>
-        <Row className="justify-content-md-center">
-          <Col className="col-md-5 p-1">
+        <Row className='justify-content-md-center'>
+          <Col className='col-md-5 p-1'>
             <input
-              id="last"
-              type="text"
+              id='last'
+              type='text'
               value={currentField === 'last' ? tempText : interestForm.last}
-              className="transparent-text-input border border-dark rounded-pill"
+              className='transparent-text-input border border-dark rounded-pill'
               placeholder={'Last Name*'}
               onSelect={(e) => e.target.id !== currentField && onFieldChange(e)}
               onChange={(e) => updateTempText(e.target.value)}
             />
           </Col>
         </Row>
-        <Row className="justify-content-md-center">
-          <Col className="col-md-5 p-1">
+        <Row className='justify-content-md-center'>
+          <Col className='col-md-5 p-1'>
             <input
-              id="email"
-              type="text"
+              id='email'
+              type='text'
               value={currentField === 'email' ? tempText : interestForm.email}
-              className="transparent-text-input border border-dark rounded-pill"
+              className='transparent-text-input border border-dark rounded-pill'
               style={{
                 background: invalidEmail ? 'red' : 'rgb(58, 43, 77)',
               }}
@@ -206,13 +206,13 @@ const InterestForm = (props) => {
             />
           </Col>
         </Row>
-        <Row className="justify-content-md-center">
-          <Col className="col-md-5 p-1">
+        <Row className='justify-content-md-center'>
+          <Col className='col-md-5 p-1'>
             <input
-              id="phone"
-              type="text"
+              id='phone'
+              type='text'
               value={currentField === 'phone' ? tempText : interestForm.phone}
-              className="transparent-text-input border border-dark rounded-pill"
+              className='transparent-text-input border border-dark rounded-pill'
               style={{
                 background: invalidPhone ? 'red' : 'rgb(58, 43, 77)',
               }}
@@ -222,62 +222,62 @@ const InterestForm = (props) => {
             />
           </Col>
         </Row>
-        <Row className="justify-content-md-center">
-          <Col className="col-md-5 p-1">
+        <Row className='justify-content-md-center'>
+          <Col className='col-md-5 p-1'>
             <input
-              id="beckettId"
-              type="text"
+              id='beckettId'
+              type='text'
               value={
                 currentField === 'beckettId' ? tempText : interestForm.beckettId
               }
-              className="transparent-text-input border border-dark rounded-pill"
+              className='transparent-text-input border border-dark rounded-pill'
               placeholder={'Beckett ID'}
               onSelect={(e) => e.target.id !== currentField && onFieldChange(e)}
               onChange={(e) => updateTempText(e.target.value)}
             />
           </Col>
         </Row>
-        <Row className="justify-content-md-center pt-1">
+        <Row className='justify-content-md-center pt-1'>
           <Col
-            align="left"
-            className="checkbox-array rounded-custom col-md-5 p-3"
+            align='left'
+            className='checkbox-array rounded-custom col-md-5 p-3'
           >
-            <Form.Check type="checkbox" align="left">
+            <Form.Check type='checkbox' align='left'>
               <Form.Check.Input
-                type="checkbox"
-                id="checkbox1"
+                type='checkbox'
+                id='checkbox1'
                 onChange={(e) => onFieldChange(e)}
               />
               <Form.Check.Label>{`I have collectibles I’d like to securely store`}</Form.Check.Label>
-              <Form.Control.Feedback type="valid"></Form.Control.Feedback>
+              <Form.Control.Feedback type='valid'></Form.Control.Feedback>
             </Form.Check>
 
-            <Form.Check type="checkbox">
+            <Form.Check type='checkbox'>
               <Form.Check.Input
-                type="checkbox"
-                id="checkbox2"
+                type='checkbox'
+                id='checkbox2'
                 onChange={(e) => onFieldChange(e)}
               />
               <Form.Check.Label>{`I am just exploring storage options`}</Form.Check.Label>
-              <Form.Control.Feedback type="valid"></Form.Control.Feedback>
+              <Form.Control.Feedback type='valid'></Form.Control.Feedback>
             </Form.Check>
 
-            <Form.Check type="checkbox">
+            <Form.Check type='checkbox'>
               <Form.Check.Input
-                type="checkbox"
-                id="checkbox3"
+                type='checkbox'
+                id='checkbox3'
                 onChange={(e) => onFieldChange(e)}
               />
               <Form.Check.Label>
                 {'I am interested in insuring my collectible(s)'}
               </Form.Check.Label>
-              <Form.Control.Feedback type="valid"></Form.Control.Feedback>
+              <Form.Control.Feedback type='valid'></Form.Control.Feedback>
             </Form.Check>
 
-            <Form.Check type="checkbox">
+            <Form.Check type='checkbox'>
               <Form.Check.Input
-                type="checkbox"
-                id="checkbox4"
+                type='checkbox'
+                id='checkbox4'
                 onChange={(e) => onFieldChange(e)}
               />
               <Form.Check.Label>
@@ -285,13 +285,13 @@ const InterestForm = (props) => {
                   'I would like to establish documented ownership of my collectible(s)'
                 }
               </Form.Check.Label>
-              <Form.Control.Feedback type="valid"></Form.Control.Feedback>
+              <Form.Control.Feedback type='valid'></Form.Control.Feedback>
             </Form.Check>
 
-            <Form.Check type="checkbox">
+            <Form.Check type='checkbox'>
               <Form.Check.Input
-                type="checkbox"
-                id="checkbox5"
+                type='checkbox'
+                id='checkbox5'
                 onChange={(e) => onFieldChange(e)}
               />
               <Form.Check.Label>
@@ -299,30 +299,30 @@ const InterestForm = (props) => {
                   'I am interested in instantly trading my collectible(s) with others'
                 }
               </Form.Check.Label>
-              <Form.Control.Feedback type="valid"></Form.Control.Feedback>
+              <Form.Control.Feedback type='valid'></Form.Control.Feedback>
             </Form.Check>
 
-            <Form.Check type="checkbox">
+            <Form.Check type='checkbox'>
               <Form.Check.Input
-                type="checkbox"
-                id="checkbox6"
+                type='checkbox'
+                id='checkbox6'
                 onChange={(e) => onFieldChange(e)}
               />
               <Form.Check.Label>
                 {"I would like access to Beckett Vault's exclusive investors"}
               </Form.Check.Label>
-              <Form.Control.Feedback type="valid"></Form.Control.Feedback>
+              <Form.Control.Feedback type='valid'></Form.Control.Feedback>
             </Form.Check>
           </Col>
         </Row>
-        <Row className="justify-content-md-center">
-          <Col align="center" className="col-md-5 p-2">
+        <Row className='justify-content-md-center'>
+          <Col align='center' className='col-md-5 p-2'>
             {/* onMouseover is used to fireoff event to update 
                                 text in redux before submission */}
             <input
-              type="button"
-              value="Get Early Access"
-              className="border border-info rounded-pill fill-btn"
+              type='button'
+              value='Get Early Access'
+              className='border border-info rounded-pill fill-btn'
               onMouseOver={(e) => onFieldChange(e)}
               onClick={() => props.formSubmission(interestForm)}
             />

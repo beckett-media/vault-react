@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { Container, Row, Col } from 'react-bootstrap';
 import { getUser } from '../../services/user';
 import './Profile.scss';
 
@@ -13,38 +13,48 @@ const Profile = () => {
 
   return (
     <Container fluid>
-      <div className="row">
-        <div className="col">
-          <Link to="/settings">
-            <h3>{user.name}</h3>
-            <img src={user.img} />
-          </Link>
-        </div>
-        {/* This box should be on an individual page to edit profile. */}
-        {/* {
-          <div className="col">
-            <input
-              id="name"
-              type="text"
-              value={user.name}
-              className="transparent-text-input border border-dark rounded-pill"
-              placeholder={'Name*'}
-            />
-            <input
-              id="email"
-              type="text"
-              value={user.email}
-              className="transparent-text-input border border-dark rounded-pill"
-              placeholder={'Email*'}
-            />
-            <input
-              type="button"
-              className="border border-info rounded-pill ghost-btn"
-              value="Save Profile"
-            />
-          </div>
-        } */}
-      </div>
+      <Row className='justify-content-center'>
+        <h2>Profile</h2>
+      </Row>
+      <Row>
+        <Col>
+          <img src={user.img} className='img-thumbnail' />
+        </Col>
+
+        <Col>
+          <Row className='mb-2'>
+            <Col>
+              <input
+                id='name'
+                type='text'
+                value={user.name}
+                className='transparent-text-input border border-dark rounded-pill'
+                placeholder={'Name*'}
+              />
+            </Col>
+          </Row>
+          <Row className='mb-2'>
+            <Col>
+              <input
+                id='email'
+                type='text'
+                value={user.email}
+                className='transparent-text-input border border-dark rounded-pill'
+                placeholder={'Email*'}
+              />
+            </Col>
+          </Row>
+          <Row className='mb-2'>
+            <Col>
+              <input
+                type='button'
+                className='border border-info rounded-pill ghost-btn'
+                value='Save Profile'
+              />
+            </Col>
+          </Row>
+        </Col>
+      </Row>
     </Container>
   );
 };

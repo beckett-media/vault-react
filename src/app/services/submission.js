@@ -19,12 +19,10 @@ export const postSubmission = async (obj) => {
     image_base64: obj.img || '',
     image_format: obj.imgFormat || '',
   };
-  return axios
-    .post(`${baseUrl}/marketplace/submission`, { final })
-    .then((res) => {
-      console.log('res', res);
-      return res;
-    });
+  return axios.post(`${baseUrl}/marketplace/submission`, final).then((res) => {
+    console.log('res', res);
+    return res;
+  });
 };
 
 export const getSubmissions = async () => {
