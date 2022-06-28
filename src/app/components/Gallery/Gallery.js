@@ -99,22 +99,22 @@ const Gallery = () => {
         {listView && (
           <ListItemBox className='d-flex col-lg-8'>
             <Col className='p-1 flex-shrink-1'>
-              <FormCheck
+              {/* <FormCheck
                 onClick={() =>
                   !selectedItemIds.ids.includes(item.id)
                     ? dispatch(setSelectedItemId(item.id))
                     : dispatch(removeSelectedItemId(item.id))
                 }
                 checked={selectedItemIds.ids.includes(item.id)}
-              />
+              /> */}
               <ListItemImg src={item.img} alt='' />
             </Col>
             <Col className='p-1'>
               <Link to={`/item/${item.id}`}>{item.title}</Link>
             </Col>
-            <Col className='p-1'>
+            {/* <Col className='p-1'>
               <CardActions />
-            </Col>
+            </Col> */}
             <Col className='p-1'>
               <SubmitButton
                 id={item.id}
@@ -129,22 +129,22 @@ const Gallery = () => {
         {!listView && (
           <GridItemBox>
             <Col className='justify-content-center mb-1 ml-3'>
-              <FormCheck
+              {/* <FormCheck
                 onClick={() =>
                   !selectedItemIds.ids.includes(item.id)
                     ? dispatch(setSelectedItemId(item.id))
                     : dispatch(removeSelectedItemId(item.id))
                 }
                 checked={selectedItemIds.ids.includes(item.id)}
-              />
+              /> */}
 
               <Link to={`/item/${item.id}`}>{item.title}</Link>
             </Col>
             <GridItemImg src={item.img} alt='' />
             <Row className='justify-content-center mt-3'>
-              <Col className='justify-content-right ml-3'>
+              {/* <Col className='justify-content-right ml-3'>
                 <CardActions />
-              </Col>
+              </Col> */}
               <Col>
                 <SubmitButton
                   id={item.id}
