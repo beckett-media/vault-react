@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { getUser } from '../../services/user';
-import './profile.scss';
+import './Profile.scss';
 
 const ProfileView = () => {
   // todo: set is loading
