@@ -1,5 +1,5 @@
 import React from 'react';
-import { Nav, Navbar, Button, Container } from 'react-bootstrap';
+import { Nav, Navbar, NavDropdown, Button, Container } from 'react-bootstrap';
 import './nav.scss';
 
 const TopNav = () => {
@@ -19,9 +19,15 @@ const TopNav = () => {
             <Nav.Link href='/market'>Market</Nav.Link>
           </Nav>
           <Nav className='ml-auto'>
-            <Nav.Link href='/profile'>
-              <i className='fa-solid fa-user'></i>
-            </Nav.Link>
+            <NavDropdown
+              title={<i className='fa-solid fa-user'></i>}
+              id='basic-nav-dropdown'
+            >
+              <NavDropdown.Item href='/profile'>Profile</NavDropdown.Item>
+              <NavDropdown.Item href='#'>Account</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href='#'>Logout</NavDropdown.Item>
+            </NavDropdown>
             <Nav.Link href='/cart'>
               <i className='fa-solid fa-cart-shopping'></i>
             </Nav.Link>
