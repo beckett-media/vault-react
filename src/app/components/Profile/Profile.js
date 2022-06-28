@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { getUser } from '../../services/user';
-import './profile.scss';
+import './Profile.scss';
 
 const Profile = () => {
   // todo: set is loading
