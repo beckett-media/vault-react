@@ -1,6 +1,6 @@
 import React from 'react';
 import { Nav, Navbar, NavDropdown, Button, Container } from 'react-bootstrap';
-import './nav.scss';
+import './Nav.scss';
 
 const TopNav = () => {
   return (

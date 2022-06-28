@@ -178,7 +178,7 @@ const SubmissionAdd = (props) => {
       <Row className='justify-content-md-center'>
         <h1>Add Item</h1>
       </Row>
-      <Row className='justify-content-md-center'>
+      {/* <Row className='justify-content-md-center'>
         <Form.Group>
           <Form.Select onChange={(e) => onChange(e)}>
             <option>Select Grading Company</option>
@@ -190,19 +190,20 @@ const SubmissionAdd = (props) => {
       </Row>
       {gradingCompany === 'BGS' || gradingCompany === 'CBCS' ? (
         <AddBeckettItem stateSetters={props.stateSetters} />
-      ) : gradingCompanySelected ? (
+      ) : gradingCompanySelected ? ( */}
         <AddOtherItem
           stateSetters={props.stateSetters}
           values={props.values}
           categorySelected={categorySelected}
           setCategorySelected={setCategorySelected}
         />
-      ) : (
+      {/* ) : (
         <></>
-      )}
+      )} */}
     </Container>
   );
 };
+// This is to enable becket serial number lookup.
 AddBeckettItem.propTypes = {
   stateSetters: PropTypes.object,
 };
