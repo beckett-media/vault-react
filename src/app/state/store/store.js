@@ -8,6 +8,7 @@ import {
   submissionFormReducers,
   withdrawalFormReducers,
 } from '../reducers';
+import { profileFormReducers } from '../Profile/reducers';
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ export const store = configureStore({
     submissionForm: submissionFormReducers,
     withdrawalForm: withdrawalFormReducers,
     listForm: listFormReducers,
+    profileForm: profileFormReducers,
   },
   preloadedState: {
     interestForm: initialState.interestForm,
@@ -25,5 +27,6 @@ export const store = configureStore({
     submissionForm: initialState.submissionForm,
     withdrawalForm: initialState.withdrawalForm,
     listForm: initialState.listForm,
+    profileForm: initialState.profileForm,
   },
 });

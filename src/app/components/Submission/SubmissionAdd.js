@@ -89,7 +89,7 @@ const AddOtherItem = (props) => {
           />
         </Form.Group>
       )}
-      <div>
+      {/* <div>
         Use the fields below if you cannot find the item in the description
         above.
       </div>
@@ -160,7 +160,7 @@ const AddOtherItem = (props) => {
             />
           </Form.Group>
         </>
-      )}
+      )} */}
     </>
   );
 };
