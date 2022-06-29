@@ -1,5 +1,4 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import { profileFormReducers } from '../Profile/reducers';
 import {
   interestFormReducers,
   itemObjectReducers,
@@ -50,22 +49,6 @@ export const initialState = {
   selectedItemIds: {
     ids: [],
   },
-  profileForm: {
-    firstName: '',
-    lastName: '',
-    primaryPhone: '',
-    secondaryPhone: '',
-    primaryEmail: '',
-    secondaryEmail: '',
-    shipAddress: '',
-    shipCity: '',
-    shipState: '',
-    shipZipcode: '',
-    billAddress: '',
-    billCity: '',
-    billState: '',
-    billZipcode: '',
-  },
 };
 
 export const appReducer = combineReducers({
@@ -75,7 +58,6 @@ export const appReducer = combineReducers({
   submissionForm: submissionFormReducers,
   withdrawalForm: withdrawalFormReducers,
   listForm: listFormReducers,
-  profileForm: profileFormReducers,
 });
 
 export const rootReducer = (state, action) => {

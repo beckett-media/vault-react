@@ -1,23 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Accordion, Container, Form, Row } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  setProfileBillAddress,
-  setProfileBillCity,
-  setProfileBillState,
-  setProfileBillZipcode,
-  setProfileFirstName,
-  setProfileLastName,
-  setProfilePrimaryEmail,
-  setProfilePrimaryPhone,
-  setProfileSecondaryEmail,
-  setProfileSecondaryPhone,
-  setProfileShipAddress,
-  setProfileShipCity,
-  setProfileShipState,
-  setProfileShipZipcode,
-} from '../../state/Profile/actions';
-import { profileFormSelector } from '../../state/Profile/selectors';
 import { states } from '../Assets/states';
 import SubmitButton from '../Generic/SubmitButton';
 
