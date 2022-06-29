@@ -106,12 +106,12 @@ const SubmissionAdd = (props) => {
       <Row className='justify-content-md-center'>
         <h1>Add Item</h1>
       </Row>
-        <AddOtherItem
-          stateSetters={props.stateSetters}
-          values={props.values}
-          categorySelected={categorySelected}
-          setCategorySelected={setCategorySelected}
-        />
+      <AddOtherItem
+        stateSetters={props.stateSetters}
+        values={props.values}
+        categorySelected={categorySelected}
+        setCategorySelected={setCategorySelected}
+      />
     </Container>
   );
 };

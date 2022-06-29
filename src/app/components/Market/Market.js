@@ -3,7 +3,6 @@ import { Container } from 'react-bootstrap';
 import { getMarketItems } from '../../services/items';
 import { Link } from 'react-router-dom';
 import Filter from '../Generic/Filter';
-import CardActions from '../Generic/CardActions';
 import './Market.scss';
 
 const Market = () => {
@@ -27,9 +26,6 @@ const Market = () => {
             </div>
             <div className='d-flex justify-content-center'>
               <Link to={`/item/${item.id}`}>{item.title}</Link>
-            </div>
-            <div className='d-flex justify-content-center'>
-              <CardActions />
             </div>
           </div>
         ))}

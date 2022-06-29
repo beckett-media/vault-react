@@ -17,7 +17,8 @@ const Submission = () => {
   const [confirmedSubmission, setConfirmedSubmission] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
 
-  formSubmitted && confirmedSubmission &&
+  formSubmitted &&
+    confirmedSubmission &&
     postSubmission({
       userId: '0123456789',
       description: 'postmanTest',

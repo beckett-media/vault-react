@@ -4,6 +4,7 @@ import './Nav.scss';
 
 const TopNav = () => {
   //todo: get this from redux
+  // TODO highlight current page
   const cart = [];
   return (
     <Navbar bg='dark' variant='dark' expand='lg' fixed='top'>

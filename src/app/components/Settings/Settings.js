@@ -4,23 +4,23 @@ import { states } from '../Assets/states';
 import SubmitButton from '../Generic/SubmitButton';
 
 const Settings = () => {
-  const [ profileTab, setProfileTab ] = useState('profile');
-  const [ stateOptions, setStateOptions ] = useState([]);
-  const [ setShippingAddress, toggleSetShippingAddress ] = useState(false);
-  const [ billAddress,  setBillAddress ] = useState('');
-  const [ billCity,  setBillCity ] = useState('');
-  const [ billState,  setBillState ] = useState('');
-  const [ billZipcode,  setBillZipcode ] = useState('')
-  const [ firstName, setFirstName ] = useState('')
-  const [ lastName, setLastName ] = useState('')
-  const [ primaryEmail, setPrimaryEmail ] = useState('')
-  const [ primaryPhone, setPrimaryPhone ] = useState('')
-  const [ secondaryEmail, setSecondaryEmail ] = useState('')
-  const [ secondaryPhone, setSecondaryPhone ] = useState('')
-  const [ shipAddress, setShipAddress ] = useState('')
-  const [ shipCity, setShipCity ] = useState('')
-  const [ shipState, setShipState ] = useState('')
-  const [ shipZipcode, setShipZipcode ] = useState('')
+  const [profileTab, setProfileTab] = useState('profile');
+  const [stateOptions, setStateOptions] = useState([]);
+  const [setShippingAddress, toggleSetShippingAddress] = useState(false);
+  const [billAddress, setBillAddress] = useState('');
+  const [billCity, setBillCity] = useState('');
+  const [billState, setBillState] = useState('');
+  const [billZipcode, setBillZipcode] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [primaryEmail, setPrimaryEmail] = useState('');
+  const [primaryPhone, setPrimaryPhone] = useState('');
+  const [secondaryEmail, setSecondaryEmail] = useState('');
+  const [secondaryPhone, setSecondaryPhone] = useState('');
+  const [shipAddress, setShipAddress] = useState('');
+  const [shipCity, setShipCity] = useState('');
+  const [shipState, setShipState] = useState('');
+  const [shipZipcode, setShipZipcode] = useState('');
   const submitChanges = () => {
     return; /** axiosCall */
   };
@@ -30,10 +30,10 @@ const Settings = () => {
   };
   useEffect(() => {
     if (setShippingAddress) {
-       setShipAddress(billAddress);
-       setShipCity(billCity);
-       setShipState(billState);
-       setShipZipcode(billZipcode);
+      setShipAddress(billAddress);
+      setShipCity(billCity);
+      setShipState(billState);
+      setShipZipcode(billZipcode);
     }
   }, [setShippingAddress]);
   useEffect(
@@ -48,10 +48,10 @@ const Settings = () => {
   console.log(shipState, billState);
   return (
     <Container fluid>
-      <Row className="justify-content-md-center">
-        <Accordion defaultActiveKey="Profile">
+      <Row className='justify-content-md-center'>
+        <Accordion defaultActiveKey='Profile'>
           <Accordion.Item
-            eventKey="Profile"
+            eventKey='Profile'
             onClick={() => setProfileTab('profile')}
           >
             <Accordion.Header>
@@ -68,21 +68,17 @@ const Settings = () => {
                   <Form.Group>
                     <Form.Label>First Name</Form.Label>
                     <Form.Control
-                      type="text"
+                      type='text'
                       value={firstName}
-                      onChange={(e) =>
-                        setFirstName(e.target.value)
-                      }
+                      onChange={(e) => setFirstName(e.target.value)}
                     />
                   </Form.Group>
                   <Form.Group>
                     <Form.Label>Last Name</Form.Label>
                     <Form.Control
-                      type="text"
+                      type='text'
                       value={lastName}
-                      onChange={(e) =>
-                        setLastName(e.target.value)
-                      }
+                      onChange={(e) => setLastName(e.target.value)}
                     />
                   </Form.Group>
                 </Row>
@@ -90,21 +86,17 @@ const Settings = () => {
                   <Form.Group>
                     <Form.Label>Primary Phone</Form.Label>
                     <Form.Control
-                      type="text"
+                      type='text'
                       value={primaryPhone}
-                      onChange={(e) =>
-                        setPrimaryPhone(e.target.value)
-                      }
+                      onChange={(e) => setPrimaryPhone(e.target.value)}
                     />
                   </Form.Group>
                   <Form.Group>
                     <Form.Label>Secondary Phone</Form.Label>
                     <Form.Control
-                      type="text"
+                      type='text'
                       value={secondaryPhone}
-                      onChange={(e) =>
-                        setSecondaryPhone(e.target.value)
-                      }
+                      onChange={(e) => setSecondaryPhone(e.target.value)}
                     />
                   </Form.Group>
                 </Row>
@@ -112,21 +104,17 @@ const Settings = () => {
                   <Form.Group>
                     <Form.Label>Primary Email</Form.Label>
                     <Form.Control
-                      type="text"
+                      type='text'
                       value={primaryEmail}
-                      onChange={(e) =>
-                        setPrimaryEmail(e.target.value)
-                      }
+                      onChange={(e) => setPrimaryEmail(e.target.value)}
                     />
                   </Form.Group>
                   <Form.Group>
                     <Form.Label>Secondary Email</Form.Label>
                     <Form.Control
-                      type="text"
+                      type='text'
                       value={secondaryEmail}
-                      onChange={(e) =>
-                        setSecondaryEmail(e.target.value)
-                      }
+                      onChange={(e) => setSecondaryEmail(e.target.value)}
                     />
                   </Form.Group>
                 </Row>
@@ -134,7 +122,7 @@ const Settings = () => {
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item
-            eventKey="Address"
+            eventKey='Address'
             onClick={() => setProfileTab('address')}
           >
             <Accordion.Header>
@@ -150,31 +138,25 @@ const Settings = () => {
                 <Form.Group>
                   <Form.Label>Address</Form.Label>
                   <Form.Control
-                    type="text"
+                    type='text'
                     value={billAddress}
-                    onChange={(e) =>
-                      setBillAddress(e.target.value)
-                    }
+                    onChange={(e) => setBillAddress(e.target.value)}
                   />
                 </Form.Group>
                 <Row>
                   <Form.Group>
                     <Form.Label>City</Form.Label>
                     <Form.Control
-                      type="text"
+                      type='text'
                       value={billCity}
-                      onChange={(e) =>
-                        setBillCity(e.target.value)
-                      }
+                      onChange={(e) => setBillCity(e.target.value)}
                     />
                   </Form.Group>
                   <Form.Group>
                     <Form.Label>State</Form.Label>
                     <br />
                     <Form.Select
-                      onChange={(e) =>
-                        setBillState(e.target.value)
-                      }
+                      onChange={(e) => setBillState(e.target.value)}
                       defaultValue={billState}
                     >
                       <option hidden value>
@@ -186,11 +168,9 @@ const Settings = () => {
                   <Form.Group>
                     <Form.Label>Zipcode</Form.Label>
                     <Form.Control
-                      type="text"
+                      type='text'
                       value={billZipcode}
-                      onChange={(e) =>
-                        setBillZipcode(e.target.value)
-                      }
+                      onChange={(e) => setBillZipcode(e.target.value)}
                     />
                   </Form.Group>
                 </Row>
@@ -206,31 +186,25 @@ const Settings = () => {
                 <Form.Group>
                   <Form.Label>Address</Form.Label>
                   <Form.Control
-                    type="text"
+                    type='text'
                     value={shipAddress}
-                    onChange={(e) =>
-                      setShipAddress(e.target.value)
-                    }
+                    onChange={(e) => setShipAddress(e.target.value)}
                   />
                 </Form.Group>
                 <Row>
                   <Form.Group>
                     <Form.Label>City</Form.Label>
                     <Form.Control
-                      type="text"
+                      type='text'
                       value={shipCity}
-                      onChange={(e) =>
-                        setShipCity(e.target.value)
-                      }
+                      onChange={(e) => setShipCity(e.target.value)}
                     />
                   </Form.Group>
                   <Form.Group>
                     <Form.Label>State</Form.Label>
                     <br />
                     <Form.Select
-                      onChange={(e) =>
-                        setShipState(e.target.value)
-                      }
+                      onChange={(e) => setShipState(e.target.value)}
                       defaultValue={shipState}
                     >
                       <option hidden value>
@@ -242,15 +216,13 @@ const Settings = () => {
                   <Form.Group>
                     <Form.Label>Zipcode</Form.Label>
                     <Form.Control
-                      type="text"
+                      type='text'
                       value={shipZipcode}
-                      onChange={(e) =>
-                        setShipZipcode(e.target.value)
-                      }
+                      onChange={(e) => setShipZipcode(e.target.value)}
                     />
                   </Form.Group>
                 </Row>
-                <SubmitButton func={submitChanges} title="Update" />
+                <SubmitButton func={submitChanges} title='Update' />
               </Form>
             </Accordion.Body>
           </Accordion.Item>
