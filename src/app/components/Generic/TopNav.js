@@ -3,22 +3,25 @@ import { Nav, Navbar, NavDropdown, Button, Container } from 'react-bootstrap';
 import './nav.scss';
 
 const TopNav = () => {
+  //todo: get this from redux
+  const cart = [];
   return (
-    <Navbar bg='dark' variant='dark' expand='lg'>
+    <Navbar bg='dark' variant='dark' expand='lg' fixed='top'>
       <Container>
         <Navbar.Brand href='/'>
           <img src='/images/beckett-logo.svg' />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Collapse id='basic-navbar-nav'>
-          <Nav className='me-auto'>
+          <Nav className='m-auto'>
+            <Nav.Link href='/about'>About Vault</Nav.Link>
+            <Nav.Link href='/gallery'>My Collection</Nav.Link>
+            <Nav.Link href='/market'>Marketplace</Nav.Link>
+          </Nav>
+          <Nav className='ml-auto'>
             <Nav.Link href='/submission'>
               <Button size='sm'>Submit Item</Button>
             </Nav.Link>
-            <Nav.Link href='/gallery'>Gallery</Nav.Link>
-            <Nav.Link href='/market'>Market</Nav.Link>
-          </Nav>
-          <Nav className='ml-auto'>
             <NavDropdown
               title={<i className='fa-solid fa-user'></i>}
               id='basic-nav-dropdown'
@@ -28,9 +31,13 @@ const TopNav = () => {
               <NavDropdown.Divider />
               <NavDropdown.Item href='#'>Logout</NavDropdown.Item>
             </NavDropdown>
-            <Nav.Link href='/cart'>
-              <i className='fa-solid fa-cart-shopping'></i>
-            </Nav.Link>
+            {cart.length ? (
+              <Nav.Link href='/cart'>
+                <i className='fa-solid fa-cart-shopping'></i>
+              </Nav.Link>
+            ) : (
+              <></>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>
