@@ -22,38 +22,36 @@ import { states } from '../Assets/states';
 import SubmitButton from '../Generic/SubmitButton';
 
 const Settings = () => {
-  const {
-    billAddress,
-    billCity,
-    billState,
-    billZipcode,
-    firstName,
-    lastName,
-    primaryEmail,
-    primaryPhone,
-    secondaryEmail,
-    secondaryPhone,
-    shipAddress,
-    shipCity,
-    shipState,
-    shipZipcode,
-  } = useSelector(profileFormSelector);
-  const [profileTab, setProfileTab] = useState('profile');
-  const [stateOptions, setStateOptions] = useState([]);
-  const [setShippingAddress, toggleSetShippingAddress] = useState(false);
+  const [ profileTab, setProfileTab ] = useState('profile');
+  const [ stateOptions, setStateOptions ] = useState([]);
+  const [ setShippingAddress, toggleSetShippingAddress ] = useState(false);
+  const [ billAddress,  setBillAddress ] = useState('');
+  const [ billCity,  setBillCity ] = useState('');
+  const [ billState,  setBillState ] = useState('');
+  const [ billZipcode,  setBillZipcode ] = useState('')
+  const [ firstName, setFirstName ] = useState('')
+  const [ lastName, setLastName ] = useState('')
+  const [ primaryEmail, setPrimaryEmail ] = useState('')
+  const [ primaryPhone, setPrimaryPhone ] = useState('')
+  const [ secondaryEmail, setSecondaryEmail ] = useState('')
+  const [ secondaryPhone, setSecondaryPhone ] = useState('')
+  const [ shipAddress, setShipAddress ] = useState('')
+  const [ shipCity, setShipCity ] = useState('')
+  const [ shipState, setShipState ] = useState('')
+  const [ shipZipcode, setShipZipcode ] = useState('')
   const submitChanges = () => {
     return; /** axiosCall */
   };
-  const dispatch = useDispatch();
+
   const shippingMatchesBilling = (val) => {
     toggleSetShippingAddress(!setShippingAddress);
   };
   useEffect(() => {
     if (setShippingAddress) {
-      dispatch(setProfileShipAddress(billAddress));
-      dispatch(setProfileShipCity(billCity));
-      dispatch(setProfileShipState(billState));
-      dispatch(setProfileShipZipcode(billZipcode));
+       setShipAddress(billAddress);
+       setShipCity(billCity);
+       setShipState(billState);
+       setShipZipcode(billZipcode);
     }
   }, [setShippingAddress]);
   useEffect(
@@ -91,7 +89,7 @@ const Settings = () => {
                       type="text"
                       value={firstName}
                       onChange={(e) =>
-                        dispatch(setProfileFirstName(e.target.value))
+                        setFirstName(e.target.value)
                       }
                     />
                   </Form.Group>
@@ -101,7 +99,7 @@ const Settings = () => {
                       type="text"
                       value={lastName}
                       onChange={(e) =>
-                        dispatch(setProfileLastName(e.target.value))
+                        setLastName(e.target.value)
                       }
                     />
                   </Form.Group>
@@ -113,7 +111,7 @@ const Settings = () => {
                       type="text"
                       value={primaryPhone}
                       onChange={(e) =>
-                        dispatch(setProfilePrimaryPhone(e.target.value))
+                        setPrimaryPhone(e.target.value)
                       }
                     />
                   </Form.Group>
@@ -123,7 +121,7 @@ const Settings = () => {
                       type="text"
                       value={secondaryPhone}
                       onChange={(e) =>
-                        dispatch(setProfileSecondaryPhone(e.target.value))
+                        setSecondaryPhone(e.target.value)
                       }
                     />
                   </Form.Group>
@@ -135,7 +133,7 @@ const Settings = () => {
                       type="text"
                       value={primaryEmail}
                       onChange={(e) =>
-                        dispatch(setProfilePrimaryEmail(e.target.value))
+                        setPrimaryEmail(e.target.value)
                       }
                     />
                   </Form.Group>
@@ -145,17 +143,11 @@ const Settings = () => {
                       type="text"
                       value={secondaryEmail}
                       onChange={(e) =>
-                        dispatch(setProfileSecondaryEmail(e.target.value))
+                        setSecondaryEmail(e.target.value)
                       }
                     />
                   </Form.Group>
                 </Row>
-                {/* <Form.Group>
-                  <Form.Label>
-                    Choose a profile image...
-                  </Form.Label>
-                  <Form.Control type='file'/>
-                </Form.Group> */}
               </Form>
             </Accordion.Body>
           </Accordion.Item>
@@ -172,7 +164,6 @@ const Settings = () => {
             </Accordion.Header>
             <Accordion.Body>
               <Form>
-                {/* Implement a drag and drop feature */}
                 <Form.Label>Billing Address</Form.Label>
                 <Form.Group>
                   <Form.Label>Address</Form.Label>
@@ -180,7 +171,7 @@ const Settings = () => {
                     type="text"
                     value={billAddress}
                     onChange={(e) =>
-                      dispatch(setProfileBillAddress(e.target.value))
+                      setBillAddress(e.target.value)
                     }
                   />
                 </Form.Group>
@@ -191,7 +182,7 @@ const Settings = () => {
                       type="text"
                       value={billCity}
                       onChange={(e) =>
-                        dispatch(setProfileBillCity(e.target.value))
+                        setBillCity(e.target.value)
                       }
                     />
                   </Form.Group>
@@ -200,7 +191,7 @@ const Settings = () => {
                     <br />
                     <Form.Select
                       onChange={(e) =>
-                        dispatch(setProfileBillState(e.target.value))
+                        setBillState(e.target.value)
                       }
                       defaultValue={billState}
                     >
@@ -216,7 +207,7 @@ const Settings = () => {
                       type="text"
                       value={billZipcode}
                       onChange={(e) =>
-                        dispatch(setProfileBillZipcode(e.target.value))
+                        setBillZipcode(e.target.value)
                       }
                     />
                   </Form.Group>
@@ -236,7 +227,7 @@ const Settings = () => {
                     type="text"
                     value={shipAddress}
                     onChange={(e) =>
-                      dispatch(setProfileShipAddress(e.target.value))
+                      setShipAddress(e.target.value)
                     }
                   />
                 </Form.Group>
@@ -247,7 +238,7 @@ const Settings = () => {
                       type="text"
                       value={shipCity}
                       onChange={(e) =>
-                        dispatch(setProfileShipCity(e.target.value))
+                        setShipCity(e.target.value)
                       }
                     />
                   </Form.Group>
@@ -256,7 +247,7 @@ const Settings = () => {
                     <br />
                     <Form.Select
                       onChange={(e) =>
-                        dispatch(setProfileShipState(e.target.value))
+                        setShipState(e.target.value)
                       }
                       defaultValue={shipState}
                     >
@@ -272,7 +263,7 @@ const Settings = () => {
                       type="text"
                       value={shipZipcode}
                       onChange={(e) =>
-                        dispatch(setProfileShipZipcode(e.target.value))
+                        setShipZipcode(e.target.value)
                       }
                     />
                   </Form.Group>

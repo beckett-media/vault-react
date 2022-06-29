@@ -99,22 +99,11 @@ const Gallery = () => {
         {listView && (
           <ListItemBox className='d-flex col-lg-8'>
             <Col className='p-1 flex-shrink-1'>
-              {/* <FormCheck
-                onClick={() =>
-                  !selectedItemIds.ids.includes(item.id)
-                    ? dispatch(setSelectedItemId(item.id))
-                    : dispatch(removeSelectedItemId(item.id))
-                }
-                checked={selectedItemIds.ids.includes(item.id)}
-              /> */}
               <ListItemImg src={item.img} alt='' />
             </Col>
             <Col className='p-1'>
               <Link to={`/item/${item.id}`}>{item.title}</Link>
             </Col>
-            {/* <Col className='p-1'>
-              <CardActions />
-            </Col> */}
             <Col className='p-1'>
               <SubmitButton
                 id={item.id}
@@ -129,22 +118,11 @@ const Gallery = () => {
         {!listView && (
           <GridItemBox>
             <Col className='justify-content-center mb-1 ml-3'>
-              {/* <FormCheck
-                onClick={() =>
-                  !selectedItemIds.ids.includes(item.id)
-                    ? dispatch(setSelectedItemId(item.id))
-                    : dispatch(removeSelectedItemId(item.id))
-                }
-                checked={selectedItemIds.ids.includes(item.id)}
-              /> */}
 
               <Link to={`/item/${item.id}`}>{item.title}</Link>
             </Col>
             <GridItemImg src={item.img} alt='' />
             <Row className='justify-content-center mt-3'>
-              {/* <Col className='justify-content-right ml-3'>
-                <CardActions />
-              </Col> */}
               <Col>
                 <SubmitButton
                   id={item.id}
@@ -214,43 +192,6 @@ const Gallery = () => {
           <SubmitButton func={cancelConfirmAction} title="Go Back" />
         </>
       )}
-      {/* import React, { useState, useEffect } from 'react';
-import { Container } from 'react-bootstrap';
-import './gallery.scss';
-import Filter from '../Generic/Filter';
-
-const Gallery = () => {
-  useEffect(() => {
-    getItems().then((data) => setItems(data));
-  }, []);
-
-  return (
-    <Container fluid>
-      <Filter />
-      <div className="row m-4">
-        {items.map((item) => (
-          <div className="col-lg-4 col-md-12 p-4 mb-lg-0" key={item.id}>
-            <div className="slab">
-              <img
-                src={item.img}
-                className="w-100 shadow-1-strong rounded mb-4"
-                alt={item.title}
-              />
-            </>
-          )}
-        </>
-      )}
-      {showConfirmationPage && (
-        <>
-          <GenericForm
-            items={items}
-            title={`Please confirm you would like to ${withdrawOrList} items below.`}
-          />
-          <SubmitButton func={confirmAction} title='Confirm' />
-          <SubmitButton func={cancelConfirmAction} title='Go Back' />
-        </>
-      )}
-*/}
     </Container>
   );
 };
