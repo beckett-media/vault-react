@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 // import { initialState } from '../../state/store/rootReducer';
 import { validEmail, validPhone } from '../Validation/regex';
 import InterestForm from './InterestForm';
-import './homepage.scss';
+import './Homepage.scss';
 
 const Homepage = () => {
   const [open, setOpen] = useState(false);
