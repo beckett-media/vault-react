@@ -10,6 +10,7 @@ import Profile from './app/components/Profile/Profile';
 import Cart from './app/components/Cart/Cart';
 import { Routes, Route } from 'react-router-dom';
 import './index.scss';
+import Settings from './app/components/Settings/Settings';
 
 function App() {
   return (

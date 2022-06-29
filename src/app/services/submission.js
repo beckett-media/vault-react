@@ -1,17 +1,21 @@
 const axios = require('axios');
+const axiosRetry = require('axios-retry');
+
 import config from "../../config";
 
 export const postSubmission = async (obj) => {
-  console.log('ran');
+
+axiosRetry(axios, { retries: 3 });
+  console.log('ran', obj);
   const final = {
     user_id: 0,
-    grading_company: obj.gradingCompany,
-    serial_number: obj.serialNumber,
+    grading_company: obj.gradingCompany || '',
+    serial_number: obj.serialNumber || '',
     title: obj.title || '',
     description: obj.description,
     genre: obj.genre || '',
     manufacturer: obj.manufacturer || '',
-    year: obj.year || '',
+    year: parseInt(obj.year) || parseInt('0000'),
     overall_grade: obj.overallGrade || '',
     sub_grades: obj.subGrades || '',
     autograph: obj.autograph || '',
