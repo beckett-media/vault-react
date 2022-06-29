@@ -88,12 +88,12 @@ const Gallery = () => {
         <Modal key={item.id} show={showConfirm} onHide={cancelConfirm}>
           <Modal.Header closeButton>
             <Modal.Title id='contained-modal-title-vcenter'>
-              Modal heading
+              Sell this item?
             </Modal.Title>
           </Modal.Header>
-          <p>TEST Modal</p>
+          <p>Would you like to list this item for sale in the marketplace?</p>
           <Button onClick={() => toggleShowConfirmationPage(true)}>
-            Button
+            Continue
           </Button>
         </Modal>
         {listView && (
