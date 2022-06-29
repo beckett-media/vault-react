@@ -1,5 +1,5 @@
 const axios = require('axios');
-const baseUrl = 'https://dev.beckett.com:3300';
+import config from "../../config";
 
 export const postSubmission = async (obj) => {
   console.log('ran');
@@ -19,14 +19,14 @@ export const postSubmission = async (obj) => {
     image_base64: obj.img || '',
     image_format: obj.imgFormat || '',
   };
-  return axios.post(`${baseUrl}/marketplace/submission`, final).then((res) => {
+  return axios.post(`${config.BASE_URL}/marketplace/submission`, final).then((res) => {
     console.log('res', res);
     return res;
   });
 };
 
 export const getSubmissions = async () => {
-  return axios.get(`${baseUrl}/marketplace/submission`).then((res) => {
+  return axios.get(`${config.BASE_URL}/marketplace/submission`).then((res) => {
     console.log('res', res);
     return res;
   });
