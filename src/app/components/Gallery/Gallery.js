@@ -15,6 +15,7 @@ import GenericForm from '../Generic/GenericForm';
 import SubmitButton from '../Generic/SubmitButton';
 import LeftNav from '../Generic/LeftNav';
 import ProfileView from '../Profile/ProfileView';
+import Filter from '../Generic/Filter';
 import './Gallery.scss';
 import {
   GridItemBox,
@@ -24,11 +25,11 @@ import {
   ListOrGridView,
 } from './Gallery.styled';
 import { BsGrid3X2GapFill, BsList } from 'react-icons/bs';
-import CardActions from '../Generic/CardActions';
 import { getItems } from '../../services/items';
 import { Link } from 'react-router-dom';
 
 const Gallery = () => {
+  document.body.classList.add('gallery-container');
   const dispatch = useDispatch();
   const [items, setItems] = useState([]);
   const [listView, setListView] = useState(false);
@@ -99,39 +100,23 @@ const Gallery = () => {
         {listView && (
           <ListItemBox className='d-flex col-lg-8'>
             <Col className='p-1 flex-shrink-1'>
-              <ListItemImg src={item.img} alt='' />
+              <Link to={`/item/${item.id}`}>
+                <ListItemImg src={item.img} alt='' />
+              </Link>
             </Col>
             <Col className='p-1'>
               <Link to={`/item/${item.id}`}>{item.title}</Link>
             </Col>
-            <Col className='p-1'>
-              <SubmitButton
-                id={item.id}
-                func={listItem}
-                title='List'
-                size='sm'
-              />
-            </Col>
-            <Col className='flex-grow-1'>&nbsp;</Col>
           </ListItemBox>
         )}
         {!listView && (
           <GridItemBox>
             <Col className='justify-content-center mb-1 ml-3'>
-
               <Link to={`/item/${item.id}`}>{item.title}</Link>
             </Col>
-            <GridItemImg src={item.img} alt='' />
-            <Row className='justify-content-center mt-3'>
-              <Col>
-                <SubmitButton
-                  id={item.id}
-                  func={listItem}
-                  title='List'
-                  size='sm'
-                />
-              </Col>
-            </Row>
+            <Link to={`/item/${item.id}`}>
+              <GridItemImg src={item.img} alt='' />
+            </Link>
           </GridItemBox>
         )}
       </>
@@ -142,7 +127,15 @@ const Gallery = () => {
       {!showConfirmationPage && (
         <>
           <Row className='mt-2 col-md-12'>
-            <Col>
+            <Col className='float-right m-3'>
+              <ProfileView />
+            </Col>
+          </Row>
+          <Row className='m-3'>
+            <hr />
+          </Row>
+          <Row className='mt-2 col-md-12'>
+            <Col sm={2}>
               <SubmitButton
                 func={toggleListView}
                 title={<BsGrid3X2GapFill />}
@@ -154,16 +147,14 @@ const Gallery = () => {
                 bg={!listView ? 'bg-dark border border-dark' : 'bg-primary'}
               />
             </Col>
-            <Col className='float-right'>
-              <ProfileView />
+            <Col sm={9}>
+              <Filter />
             </Col>
           </Row>
+
           <Row>
             {!showConfirmationPage && (
               <>
-                <Col>
-                  <LeftNav />
-                </Col>
                 <Col>
                   <ListOrGridView listView={listView}>{itemBox}</ListOrGridView>
                 </Col>
@@ -172,11 +163,11 @@ const Gallery = () => {
           </Row>
           {selectedItemIds.length > 0 && (
             <>
-              <SubmitButton func={clearSelections} title="Clear" />
+              <SubmitButton func={clearSelections} title='Clear' />
               <SubmitButton
-                id="withdraw"
+                id='withdraw'
                 func={withdrawItems}
-                title="Withdraw"
+                title='Withdraw'
               />
             </>
           )}
@@ -188,8 +179,8 @@ const Gallery = () => {
             items={items}
             title={`Please confirm you would like to ${withdrawOrList} items below.`}
           />
-          <SubmitButton func={confirmAction} title="Confirm" />
-          <SubmitButton func={cancelConfirmAction} title="Go Back" />
+          <SubmitButton func={confirmAction} title='Confirm' />
+          <SubmitButton func={cancelConfirmAction} title='Go Back' />
         </>
       )}
     </Container>

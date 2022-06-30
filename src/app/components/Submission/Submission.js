@@ -10,6 +10,7 @@ import { addSubmissionItem } from '../../state/actions';
 import { postSubmission } from '../../services/submission';
 
 const Submission = () => {
+  document.body.classList.add('submit-container');
   const items = useSelector(submissionFormSelector).items;
   const dispatch = useDispatch();
   const [add, onAdd] = useState(false);
@@ -17,7 +18,8 @@ const Submission = () => {
   const [confirmedSubmission, setConfirmedSubmission] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
 
-  formSubmitted && confirmedSubmission &&
+  formSubmitted &&
+    confirmedSubmission &&
     postSubmission({
       userId: '0123456789',
       description: 'postmanTest',

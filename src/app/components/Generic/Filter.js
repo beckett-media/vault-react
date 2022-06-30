@@ -2,16 +2,16 @@ import React from 'react';
 import { Col, Row, Form } from 'react-bootstrap';
 
 const Filter = () => {
+  // add onSearch, onSort props.
   return (
     <Row className='row justify-content-center mb-3'>
       <Col lg='2'>
-        <Form.Select size='sm' className='mr-3 rounded-pill'>
-          <option selected>Filter</option>
-          <option>Team</option>
-          <option>Player</option>
-          <option>Year</option>
-          <option>Other</option>
-        </Form.Select>
+        <Form.Control
+          type='search'
+          placeholder='Search'
+          size='sm'
+          className='mr-3 rounded-pill'
+        />
       </Col>
       <Col lg='2'>
         <Form.Select size='sm' className='mr-3 rounded-pill'>
