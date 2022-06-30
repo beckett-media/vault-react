@@ -170,7 +170,7 @@ const InterestForm = (props) => {
               id='first'
               type='text'
               value={currentField === 'first' ? tempText : interestForm.first}
-              className='transparent-text-input border border-dark rounded-pill'
+              className='transparent-text-input border border-dark rounded-pill px-3'
               placeholder={'First Name*'}
               onSelect={(e) => e.target.id !== currentField && onFieldChange(e)}
               onChange={(e) => updateTempText(e.target.value)}
@@ -183,7 +183,7 @@ const InterestForm = (props) => {
               id='last'
               type='text'
               value={currentField === 'last' ? tempText : interestForm.last}
-              className='transparent-text-input border border-dark rounded-pill'
+              className='transparent-text-input border border-dark rounded-pill px-3'
               placeholder={'Last Name*'}
               onSelect={(e) => e.target.id !== currentField && onFieldChange(e)}
               onChange={(e) => updateTempText(e.target.value)}
@@ -196,7 +196,7 @@ const InterestForm = (props) => {
               id='email'
               type='text'
               value={currentField === 'email' ? tempText : interestForm.email}
-              className='transparent-text-input border border-dark rounded-pill'
+              className='transparent-text-input border border-dark rounded-pill px-3'
               style={{
                 background: invalidEmail ? 'red' : 'rgb(58, 43, 77)',
               }}
@@ -212,7 +212,7 @@ const InterestForm = (props) => {
               id='phone'
               type='text'
               value={currentField === 'phone' ? tempText : interestForm.phone}
-              className='transparent-text-input border border-dark rounded-pill'
+              className='transparent-text-input border border-dark rounded-pill px-3'
               style={{
                 background: invalidPhone ? 'red' : 'rgb(58, 43, 77)',
               }}
@@ -230,7 +230,7 @@ const InterestForm = (props) => {
               value={
                 currentField === 'beckettId' ? tempText : interestForm.beckettId
               }
-              className='transparent-text-input border border-dark rounded-pill'
+              className='transparent-text-input border border-dark rounded-pill px-3'
               placeholder={'Beckett ID'}
               onSelect={(e) => e.target.id !== currentField && onFieldChange(e)}
               onChange={(e) => updateTempText(e.target.value)}
@@ -316,7 +316,7 @@ const InterestForm = (props) => {
           </Col>
         </Row>
         <Row className='justify-content-md-center'>
-          <Col align='center' className='col-md-5 p-2'>
+          <Col align='center' className='col-md-5'>
             {/* onMouseover is used to fireoff event to update 
                                 text in redux before submission */}
             <input
