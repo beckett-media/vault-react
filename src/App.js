@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from './app/components/Generic/Header';
 import Footer from './app/components/Generic/Footer';
 import Homepage from './app/components/Homepage/Homepage';
@@ -8,6 +8,7 @@ import Item from './app/components/Item/Item';
 import Market from './app/components/Market/Market';
 import Profile from './app/components/Profile/Profile';
 import Cart from './app/components/Cart/Cart';
+import Account from './app/components/Account/Account';
 import { Routes, Route } from 'react-router-dom';
 import './index.scss';
 
@@ -23,6 +24,7 @@ function App() {
           <Route path='/market' element={<Market />} />
           {/* PrivateRoute */}
           <Route path='/profile' element={<Profile />} />
+          <Route path='/account' element={<Account />} />
           <Route path='/cart' element={<Cart />} />
           <Route path='*' element={<Homepage />} />
         </Routes>
