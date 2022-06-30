@@ -10,6 +10,7 @@ import { addSubmissionItem } from '../../state/actions';
 import { postSubmission } from '../../services/submission';
 
 const Submission = () => {
+  document.body.classList.add('submit-container');
   const items = useSelector(submissionFormSelector).items;
   const dispatch = useDispatch();
   const [add, onAdd] = useState(false);
@@ -17,20 +18,20 @@ const Submission = () => {
   const [confirmedSubmission, setConfirmedSubmission] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
 
-  const num = '0';
   formSubmitted &&
+    confirmedSubmission &&
     postSubmission({
-      user_id: '0123456789',
+      userId: '0123456789',
       description: 'postmanTest',
       title: 'postmanTitle',
-      serial_number: '7327732711',
+      serialNumber: '7327732711',
       category: 'card',
-      grading_company: 'BGS',
+      gradingCompany: 'BGS',
       genre: 'baseball',
       manufacturer: 'faker',
       year: '1999',
-      overall_grade: '9.5',
-      sub_grades: 'corners: 5',
+      overallGrade: '9.5',
+      subGrades: 'corners: 5',
     });
 
   const cancelSubmission = () => setFormSubmitted(false);

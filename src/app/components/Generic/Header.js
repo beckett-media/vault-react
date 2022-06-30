@@ -6,7 +6,7 @@ const Header = () => {
   return (
     <Col className=' mb-3'>
       <Row className='justify-content-md-center'>
-        <TopNav/>
+        <TopNav />
       </Row>
     </Col>
   );

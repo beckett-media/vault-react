@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import ComingSoon from '../Generic/ComingSoon'
+import React, { useEffect, useState } from 'react';
+import ComingSoon from '../Generic/ComingSoon';
 
 const Account = () => {
-  const [ openComingSoon, setOpenComingSoon ] = useState(false)
-  useEffect(() => setOpenComingSoon(true),[])
-  
+  const [openComingSoon, setOpenComingSoon] = useState(false);
+  useEffect(() => setOpenComingSoon(true), []);
+
   return (
     <>
-      <ComingSoon open={openComingSoon} setOpen={setOpenComingSoon}/>
+      <ComingSoon open={openComingSoon} setOpen={setOpenComingSoon} />
     </>
-  )
-}
+  );
+};
 
 export default Account;

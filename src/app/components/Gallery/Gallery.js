@@ -15,6 +15,7 @@ import GenericForm from '../Generic/GenericForm';
 import SubmitButton from '../Generic/SubmitButton';
 import LeftNav from '../Generic/LeftNav';
 import ProfileView from '../Profile/ProfileView';
+import Filter from '../Generic/Filter';
 import './Gallery.scss';
 import {
   GridItemBox,
@@ -24,17 +25,17 @@ import {
   ListOrGridView,
 } from './Gallery.styled';
 import { BsGrid3X2GapFill, BsList } from 'react-icons/bs';
-import CardActions from '../Generic/CardActions';
 import { getItems } from '../../services/items';
 import { Link } from 'react-router-dom';
 
 const Gallery = () => {
+  document.body.classList.add('gallery-container');
   const dispatch = useDispatch();
   const [items, setItems] = useState([]);
   const [listView, setListView] = useState(false);
   const [withdrawOrList, setWithdrawOrList] = useState('');
   const [showConfirm, toggleConfirm] = useState(false);
-  const selectedItemIds = useSelector(selectedItemIdsSelector);
+  const selectedItemIds = useSelector(selectedItemIdsSelector).ids;
   const [showConfirmationPage, toggleShowConfirmationPage] = useState(false);
   const toggleListView = () => setListView(!listView);
 
@@ -68,11 +69,13 @@ const Gallery = () => {
     withdrawOrList === 'withdraw'
       ? dispatch(
           setWithdrawalForm(
-            items.filter((item) => selectedIds.includes(item.id)),
+            items.filter((item) => selectedItemIds.includes(item.id)),
           ),
         )
       : dispatch(
-          setListForm(items.filter((item) => selectedIds.includes(item.id))),
+          setListForm(
+            items.filter((item) => selectedItemIds.includes(item.id)),
+          ),
         );
     toggleShowConfirmationPage(false);
   };
@@ -83,7 +86,7 @@ const Gallery = () => {
   const itemBox = items.map((item) => {
     return (
       <>
-        <Modal show={showConfirm} onHide={cancelConfirm}>
+        <Modal key={item.id} show={showConfirm} onHide={cancelConfirm}>
           <Modal.Header closeButton>
             <Modal.Title id='contained-modal-title-vcenter'>
               Sell this item?
@@ -97,61 +100,23 @@ const Gallery = () => {
         {listView && (
           <ListItemBox className='d-flex col-lg-8'>
             <Col className='p-1 flex-shrink-1'>
-              <FormCheck
-                onClick={() =>
-                  !selectedItemIds.ids.includes(item.id)
-                    ? dispatch(setSelectedItemId(item.id))
-                    : dispatch(removeSelectedItemId(item.id))
-                }
-                checked={selectedItemIds.ids.includes(item.id)}
-              />
-              <ListItemImg src={item.img} alt='' />
+              <Link to={`/item/${item.id}`}>
+                <ListItemImg src={item.img} alt='' />
+              </Link>
             </Col>
             <Col className='p-1'>
               <Link to={`/item/${item.id}`}>{item.title}</Link>
             </Col>
-            <Col className='p-1'>
-              <CardActions />
-            </Col>
-            <Col className='p-1'>
-              <SubmitButton
-                id={item.id}
-                func={listItem}
-                title='List'
-                size='sm'
-              />
-            </Col>
-            <Col className='flex-grow-1'>&nbsp;</Col>
           </ListItemBox>
         )}
         {!listView && (
           <GridItemBox>
             <Col className='justify-content-center mb-1 ml-3'>
-              <FormCheck
-                onClick={() =>
-                  !selectedItemIds.ids.includes(item.id)
-                    ? dispatch(setSelectedItemId(item.id))
-                    : dispatch(removeSelectedItemId(item.id))
-                }
-                checked={selectedItemIds.ids.includes(item.id)}
-              />
-
               <Link to={`/item/${item.id}`}>{item.title}</Link>
             </Col>
-            <GridItemImg src={item.img} alt='' />
-            <Row className='justify-content-center mt-3'>
-              <Col className='justify-content-right ml-3'>
-                <CardActions />
-              </Col>
-              <Col>
-                <SubmitButton
-                  id={item.id}
-                  func={listItem}
-                  title='List'
-                  size='sm'
-                />
-              </Col>
-            </Row>
+            <Link to={`/item/${item.id}`}>
+              <GridItemImg src={item.img} alt='' />
+            </Link>
           </GridItemBox>
         )}
       </>
@@ -162,7 +127,15 @@ const Gallery = () => {
       {!showConfirmationPage && (
         <>
           <Row className='mt-2 col-md-12'>
-            <Col>
+            <Col className='float-right m-3'>
+              <ProfileView />
+            </Col>
+          </Row>
+          <Row className='m-3'>
+            <hr />
+          </Row>
+          <Row className='mt-2 col-md-12'>
+            <Col sm={2}>
               <SubmitButton
                 func={toggleListView}
                 title={<BsGrid3X2GapFill />}
@@ -174,23 +147,21 @@ const Gallery = () => {
                 bg={!listView ? 'bg-dark border border-dark' : 'bg-primary'}
               />
             </Col>
-            <Col className='float-right'>
-              <ProfileView />
+            <Col sm={9}>
+              <Filter />
             </Col>
           </Row>
+
           <Row>
             {!showConfirmationPage && (
               <>
-                <Col>
-                  <LeftNav />
-                </Col>
                 <Col>
                   <ListOrGridView listView={listView}>{itemBox}</ListOrGridView>
                 </Col>
               </>
             )}
           </Row>
-          {selectedItemIds.ids.length > 0 && (
+          {selectedItemIds.length > 0 && (
             <>
               <SubmitButton func={clearSelections} title='Clear' />
               <SubmitButton

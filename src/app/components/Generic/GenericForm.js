@@ -9,7 +9,7 @@ const GenericForm = (props) => {
     props.items.map(
       (item) =>
         selectedItemIds.ids.includes(item.id) && (
-          <div>
+          <div key={item.id}>
             {item.serialNumber} - {item.description}
           </div>
         ),
