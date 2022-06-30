@@ -2,10 +2,12 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 
 const About = () => {
-    document.body.classList.add('about-container');
+  document.body.classList.add('about-container');
   return (
-    <Container fluid><h3>About</h3></Container>
-    );
+    <Container fluid>
+      <h3>About</h3>
+    </Container>
+  );
 };
 
 export default About;
