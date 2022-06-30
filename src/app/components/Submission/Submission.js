@@ -10,6 +10,7 @@ import { addSubmissionItem } from '../../state/actions';
 import { postSubmission } from '../../services/submission';
 
 const Submission = () => {
+  document.body.classList.add('submit-container');
   const items = useSelector(submissionFormSelector).items;
   const dispatch = useDispatch();
   const [add, onAdd] = useState(false);

@@ -21,7 +21,7 @@ const TopNav = () => {
           </Nav>
           <Nav className='ml-auto'>
             <Nav.Link href='/submission'>
-              <Button size='sm'>Submit Item</Button>
+              <Button size='sm' className='submit-nav'>Submit Item</Button>
             </Nav.Link>
             <NavDropdown
               title={<i className='fa-solid fa-user'></i>}
