@@ -29,6 +29,7 @@ import { getItems } from '../../services/items';
 import { Link } from 'react-router-dom';
 
 const Gallery = () => {
+  document.body.classList.add('gallery-container');
   const dispatch = useDispatch();
   const [items, setItems] = useState([]);
   const [listView, setListView] = useState(false);

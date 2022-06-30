@@ -1,7 +1,11 @@
 import React from 'react';
+import { Container } from 'react-bootstrap';
 
 const About = () => {
-  return <h3>About</h3>;
+    document.body.classList.add('about-container');
+  return (
+    <Container fluid><h3>About</h3></Container>
+    );
 };
 
 export default About;

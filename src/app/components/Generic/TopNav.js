@@ -15,9 +15,9 @@ const TopNav = () => {
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Collapse id='basic-navbar-nav'>
           <Nav className='m-auto'>
-            <Nav.Link href='/about'>About Vault</Nav.Link>
-            <Nav.Link href='/gallery'>My Collection</Nav.Link>
-            <Nav.Link href='/market'>Marketplace</Nav.Link>
+            <Nav.Link href='/about' className='about-nav'>About Vault</Nav.Link>
+            <Nav.Link href='/gallery' className='gallery-nav'>My Collection</Nav.Link>
+            <Nav.Link href='/market' className='market-nav'>Marketplace</Nav.Link>
           </Nav>
           <Nav className='ml-auto'>
             <Nav.Link href='/submission'>

@@ -6,6 +6,7 @@ import Filter from '../Generic/Filter';
 import './Market.scss';
 
 const Market = () => {
+  document.body.classList.add('market-container');
   const [items, setItems] = useState([]);
   useEffect(() => {
     getMarketItems().then((data) => setItems(data));
