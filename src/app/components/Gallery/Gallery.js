@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Container, FormCheck, Modal, Row } from 'react-bootstrap';
+import { Button, Card, Col, Container, FormCheck, Modal, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   addListItem,
@@ -111,12 +111,22 @@ const Gallery = () => {
         )}
         {!listView && (
           <GridItemBox>
-            <Col className='justify-content-center mb-1 ml-3'>
-              <Link to={`/item/${item.id}`}>{item.title}</Link>
-            </Col>
-            <Link to={`/item/${item.id}`}>
-              <GridItemImg src={item.img} alt='' />
-            </Link>
+            <Card className='bg-dark'>
+              <Card.Header className='card-hdr'>
+                <Link to={`/item/${item.id}`}>
+                  <Card.Title>
+                    {console.log(item.title.slice(0, 26))}
+                    { // Logic to split title longer than 25 char and append ... to it.
+                      item.title.length > 25 ?
+                      item.title.slice(0, item.title.slice(0,26).lastIndexOf(' ')) + ' ...' : 
+                      item.title
+                    }
+                  </Card.Title></Link>
+              </Card.Header>
+              <Card.Body>
+                <Link to={`/item/${item.id}`}><Card.Img className='card-img' variant="top" src={item.img} alt='' /></Link>
+              </Card.Body>
+            </Card>
           </GridItemBox>
         )}
       </>
