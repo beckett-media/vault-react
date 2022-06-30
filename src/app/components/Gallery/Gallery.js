@@ -135,7 +135,7 @@ const Gallery = () => {
             <hr />
           </Row>
           <Row className='mt-2 col-md-12'>
-            <Col>
+            <Col sm={2}>
               <SubmitButton
                 func={toggleListView}
                 title={<BsGrid3X2GapFill />}
@@ -147,7 +147,7 @@ const Gallery = () => {
                 bg={!listView ? 'bg-dark border border-dark' : 'bg-primary'}
               />
             </Col>
-            <Col>
+            <Col sm={9}>
               <Filter />
             </Col>
           </Row>
