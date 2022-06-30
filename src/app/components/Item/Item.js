@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import moment from 'moment';
 import { Row, Col } from 'react-bootstrap';
 import './Item.scss';
 import { getItem } from '../../services/items';
@@ -15,21 +16,21 @@ const Item = () => {
 
   return (
     <Row>
-      <Col className='align-center'>
+      <Col className='align-center' md={5} sm={12}>
         <img
           src={item.img}
           className='shadow-1-strong rounded mb-4 img-fluid'
           alt={item.title}
         />
       </Col>
-      <Col className='m-3'>
+      <Col className='m-3' md={5} sm={12}>
         <Row>
           <h3>{item.title}</h3>
         </Row>
         <Row>{item.description}</Row>
         <Row>
           <br />
-          {item.date && item.date.toString()}
+          {item.date && moment(item.date).format('MMMM Do YYYY')}
         </Row>
         <Row>${item.price}</Row>
       </Col>
