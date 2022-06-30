@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container } from 'react-bootstrap';
+import { Row, Col, Container } from 'react-bootstrap';
 import { getUser } from '../../services/user';
 import './Profile.scss';
 
@@ -12,15 +12,15 @@ const ProfileView = () => {
 
   return (
     <Container fluid>
-      <div className='row'>
-        <div className='col'>
+      <Row>
+        <Col>
           <img className='img-thumbnail profile-image-thumb' src={user.img} />
-        </div>
-        <div className='col'>
+        </Col>
+        <Col>
           {user.name} <br />
           {user.email}
-        </div>
-      </div>
+        </Col>
+      </Row>
     </Container>
   );
 };
