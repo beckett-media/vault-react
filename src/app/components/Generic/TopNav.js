@@ -2,7 +2,7 @@ import React from 'react';
 import { Nav, Navbar, NavDropdown, Button, Container } from 'react-bootstrap';
 import './Nav.scss';
 
-const TopNav = () => {
+const TopNav = (props) => {
   //todo: get this from redux
   // TODO highlight current page
   const cart = [];
@@ -36,7 +36,7 @@ const TopNav = () => {
               id='basic-nav-dropdown'
             >
               <NavDropdown.Item href='/profile'>Profile</NavDropdown.Item>
-              <NavDropdown.Item href='#'>Account</NavDropdown.Item>
+              <NavDropdown.Item href='/account'>Account</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href='#'>Logout</NavDropdown.Item>
             </NavDropdown>
