@@ -13,15 +13,30 @@ const Item = () => {
     // TODO: fix when it's xs
     getItem(id).then((data) => setItem(data));
   }, []);
+  console.log(item.img)
 
   return (
     <Row>
       <Col className='align-center' md={5} sm={12}>
-        <img
-          src={item.img}
-          className='shadow-1-strong rounded mb-4 img-fluid'
-          alt={item.title}
-        />
+        <div className='flip-card'>
+          <div className='flip-card-inner'>
+            <div className='flip-card-front'>
+              <img
+                src={item.img}
+                className='shadow-1-strong rounded mb-4 img-fluid'
+                alt={item.title}
+              />
+            </div>
+            <div className='flip-card-back'>
+              <img
+                src={item.imgRev}
+                className='shadow-1-strong rounded mb-4 img-fluid'
+                alt={item.title}
+              />
+            </div>
+          </div>
+        </div>
+        
       </Col>
       <Col className='m-3' md={5} sm={12}>
         <Row>
