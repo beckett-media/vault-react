@@ -70,24 +70,26 @@ const Item = () => {
         {user && user.id == item.ownerId ? (
           <>
             <Row className='mt-2'>
+              <Col ></Col>
               <SubmitButton
                 func={listItem}
                 title='Sell in Marketplace'
-                bg='bg-primary'
+                bg='primary'
               />
             </Row>
+            <br/>
             <Row>
               <SubmitButton
                 className='withdraw-btn'
                 func={withdrawItem}
                 title='Withdraw from Vault'
-                bg='bg-transparent'
+                bg='outline-primary'
               />
             </Row>
           </>
         ) : (
           <Row>
-            <Button className='' size='sm' bg='bg-transparent'>
+            <Button className='' size='sm' bg='transparent'>
               Buy
             </Button>
           </Row>
