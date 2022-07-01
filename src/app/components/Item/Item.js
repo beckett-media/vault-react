@@ -13,7 +13,7 @@ const Item = () => {
     // TODO: fix when it's xs
     getItem(id).then((data) => setItem(data));
   }, []);
-  console.log(item.img)
+  console.log(item.img);
 
   return (
     <Row>
@@ -36,7 +36,6 @@ const Item = () => {
             </div>
           </div>
         </div>
-        
       </Col>
       <Col className='m-3' md={5} sm={12}>
         <Row>
