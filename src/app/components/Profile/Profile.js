@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
 import { getUser } from '../../services/user';
-import './profile.scss';
+import './Profile.scss';
 
 const Profile = () => {
   // todo: set is loading
@@ -11,8 +12,10 @@ const Profile = () => {
   }, []);
 
   return (
-    <Container fluid>
-      <Row className='justify-content-center'><h2>Profile</h2></Row>
+    <Container>
+      <Row className='justify-content-center'>
+        <h2>Profile</h2>
+      </Row>
       <Row>
         <Col>
           <img src={user.img} className='img-thumbnail' />

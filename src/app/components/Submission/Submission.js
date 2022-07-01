@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Container, Row } from 'react-bootstrap';
+import { Button, Col, Container, Row } from 'react-bootstrap';
 import SubmissionSuccess from '../Response/SubmissionSuccess';
 import SubmissionAdd from './SubmissionAdd';
 import SubmissionForm from './SubmissionForm';
@@ -8,30 +8,33 @@ import { useDispatch, useSelector } from 'react-redux';
 import { submissionFormSelector } from '../../state/selectors';
 import { addSubmissionItem } from '../../state/actions';
 import { postSubmission } from '../../services/submission';
+import './Submission.scss';
+import { Link } from 'react-router-dom';
 
 const Submission = () => {
+  document.body.classList.add('submit-container');
   const items = useSelector(submissionFormSelector).items;
   const dispatch = useDispatch();
   const [add, onAdd] = useState(false);
   const [completeAdd, toggleCompleteAdd] = useState(false);
   const [confirmedSubmission, setConfirmedSubmission] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
-
-  const num = '0';
+  const [ successfulSubmission, setSuccessfulSubmission ] = useState(false)
   formSubmitted &&
+    confirmedSubmission &&
     postSubmission({
-      user_id: '0123456789',
+      userId: '0123456789',
       description: 'postmanTest',
       title: 'postmanTitle',
-      serial_number: '7327732711',
+      serialNumber: '7327732711',
       category: 'card',
-      grading_company: 'BGS',
+      gradingCompany: 'BGS',
       genre: 'baseball',
       manufacturer: 'faker',
       year: '1999',
-      overall_grade: '9.5',
-      sub_grades: 'corners: 5',
-    }).then((res) => console.log(res));
+      overallGrade: '9.5',
+      subGrades: 'corners: 5',
+    }).then(res => res.statusText === 'Created' && setSuccessfulSubmission(true));
 
   const cancelSubmission = () => setFormSubmitted(false);
   const updateFormSubmitted = () => setFormSubmitted(true);
@@ -88,7 +91,7 @@ const Submission = () => {
     setSubject,
     setImage,
   };
-
+  const setOnAdd = () => onAdd(false);
   return (
     <>
       <Container style={{ background: 'black' }}>
@@ -101,21 +104,56 @@ const Submission = () => {
               setConfirm={submissionConfirmed}
               onAdd={onAdd}
             />
-            <SubmitButton func={updateFormSubmitted} title='Submit' />
           </Row>
         )}
-        {confirmedSubmission && <SubmissionSuccess />}
+        {successfulSubmission && <SubmissionSuccess />}
         {add && (
           <>
-            <Row className='justify-content-md-center'>
-              <SubmissionAdd values={values} stateSetters={stateSetters} />
+            <Row className='m-2'>
+              <Col xs={12}>
+                <SubmissionAdd values={values} stateSetters={stateSetters} />
+              </Col>
             </Row>
-            <Row className='justify-content-md-center'>
-              <SubmitButton func={submitAddedItem} title='Add' />
-              <Button onClick={() => onAdd(false)}>Cancel</Button>
+            <Row className='mx-4 my-2'>
+              <Col xs={2}>
+                <SubmitButton func={submitAddedItem} title='Next' size='lg' />
+              </Col>
+            </Row>
+            <Row className='mx-4 my-2'>
+              <Col xs={2}>
+                <SubmitButton
+                  func={setOnAdd}
+                  title='Cancel'
+                  bg='transparent'
+                />
+              </Col>
             </Row>
           </>
         )}
+        {!confirmedSubmission && !add && items.length !== 0 && (
+          <Row className='m-2'>
+            <Col xs={3}>
+              <SubmitButton
+                func={updateFormSubmitted}
+                title='Submit'
+                size='lg'
+              />
+            </Col>
+          </Row>
+        )}
+        {!confirmedSubmission && !add &&
+          <Row className='m-2'>
+            <Col xs={3}>
+              <Link to='/market'>
+                <SubmitButton
+                  func={cancelSubmission}
+                  title='Cancel'
+                  bg='transparent border'
+                />
+              </Link>
+            </Col>
+          </Row>
+        }
       </Container>
     </>
   );

@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 // import { initialState } from '../../state/store/rootReducer';
 import { validEmail, validPhone } from '../Validation/regex';
 import InterestForm from './InterestForm';
-import './homepage.scss';
+import './Homepage.scss';
 
 const Homepage = () => {
   const [open, setOpen] = useState(false);
@@ -53,7 +53,7 @@ const Homepage = () => {
     // finish, before firing off the post request
   };
   return (
-    <Container fluid>
+    <Container>
       <Row className='justify-content-md-center mt-2'>
         <Collapse in={open} timeout={3000}>
           <Col className='title' align='center'>
