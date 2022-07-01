@@ -3,7 +3,8 @@ import moment from 'moment';
 import { Row, Col } from 'react-bootstrap';
 import './Item.scss';
 import { getItem } from '../../services/items';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import SubmitButton from '../Generic/SubmitButton';
 
 const Item = () => {
   const { id } = useParams();
@@ -13,8 +14,14 @@ const Item = () => {
     // TODO: fix when it's xs
     getItem(id).then((data) => setItem(data));
   }, []);
+  const navigate = useNavigate();
   console.log(item.img);
-
+  const listItem = () => {
+    navigate('/market');
+  };
+  const withdrawItem = () => {
+    navigate('/');
+  };
   return (
     <Row>
       <Col className='align-center' md={5} sm={12}>
@@ -36,17 +43,43 @@ const Item = () => {
             </div>
           </div>
         </div>
+        <Row className='mt-2'>
+          <SubmitButton
+            func={listItem}
+            title='Sell in Marketplace'
+            bg='bg-primary'
+          />
+        </Row>
+        <Row>
+          <SubmitButton
+            className='withdraw-btn'
+            func={withdrawItem}
+            title='Withdraw from Vault'
+            bg='bg-transparent'
+          />
+        </Row>
       </Col>
       <Col className='m-3' md={5} sm={12}>
         <Row>
           <h3>{item.title}</h3>
         </Row>
-        <Row>{item.description}</Row>
+        <Row>
+          <p className='fs-6'>{item.description}</p>
+        </Row>
         <Row>
           <br />
-          {item.date && moment(item.date).format('MMMM Do YYYY')}
+          <p className='fs-5'>
+            {' '}
+            <span className='fw-bold'>Date vaulted: </span>{' '}
+            {item.date && moment(item.date).format('MMMM Do YYYY')}
+          </p>
         </Row>
-        <Row>${item.price}</Row>
+        <Row>
+          <p className='fs-5'>
+            <span className='fw-bold'>Est. Value: </span> $
+            {item.price?.toLocaleString()}
+          </p>
+        </Row>
       </Col>
     </Row>
   );
