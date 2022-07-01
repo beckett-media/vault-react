@@ -122,14 +122,13 @@ const Gallery = () => {
             <Card className=' dark'>
               <Card.Header className='card-hdr'>
                 <Link to={`/item/${item.id}`}>
-                  <Card.Title>
-                    {console.log(item.title.slice(0, 26))}
+                  <Card.Title className='fs-6'>
                     {
-                      // Logic to split title longer than 25 char and append ... to it.
-                      item.title.length > 25
+                      // Logic to split title longer than 33 char and append ... to it.
+                      item.title.length > 33
                         ? item.title.slice(
                             0,
-                            item.title.slice(0, 26).lastIndexOf(' '),
+                            item.title.slice(0, 34).lastIndexOf(' '),
                           ) + ' ...'
                         : item.title
                     }
