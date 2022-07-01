@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import moment from 'moment';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
 import './Item.scss';
 import { getItem } from '../../services/items';
 import { useNavigate, useParams } from 'react-router-dom';
 import SubmitButton from '../Generic/SubmitButton';
+import { UserContext } from '../Context/UserContext';
 
 const Item = () => {
+  const { user } = useContext(UserContext);
   const { id } = useParams();
   const [item, setItem] = useState({});
   useEffect(() => {
@@ -43,21 +45,6 @@ const Item = () => {
             </div>
           </div>
         </div>
-        <Row className='mt-2'>
-          <SubmitButton
-            func={listItem}
-            title='Sell in Marketplace'
-            bg='bg-primary'
-          />
-        </Row>
-        <Row>
-          <SubmitButton
-            className='withdraw-btn'
-            func={withdrawItem}
-            title='Withdraw from Vault'
-            bg='bg-transparent'
-          />
-        </Row>
       </Col>
       <Col className='m-3' md={5} sm={12}>
         <Row>
@@ -80,6 +67,31 @@ const Item = () => {
             {item.price?.toLocaleString()}
           </p>
         </Row>
+        {user && user.id == item.ownerId ? (
+          <>
+            <Row className='mt-2'>
+              <SubmitButton
+                func={listItem}
+                title='Sell in Marketplace'
+                bg='bg-primary'
+              />
+            </Row>
+            <Row>
+              <SubmitButton
+                className='withdraw-btn'
+                func={withdrawItem}
+                title='Withdraw from Vault'
+                bg='bg-transparent'
+              />
+            </Row>
+          </>
+        ) : (
+          <Row>
+            <Button className='' size='sm' bg='bg-transparent'>
+              Buy
+            </Button>
+          </Row>
+        )}
       </Col>
     </Row>
   );

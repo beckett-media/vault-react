@@ -5,7 +5,7 @@ const Filter = () => {
   // add onSearch, onSort props.
   return (
     <Row className='row justify-content-center mb-3'>
-      <Col lg='2'>
+      <Col lg='4'>
         <Form.Control
           type='search'
           placeholder='Search'
