@@ -3,6 +3,7 @@ import { Nav, Navbar, NavDropdown, Button, Container } from 'react-bootstrap';
 import './Nav.scss';
 import { UserContext } from '../Context/UserContext';
 import { getUser } from '../../services/user';
+import SubmitButton from './SubmitButton';
 
 const TopNav = (props) => {
   const { user, setUser } = useContext(UserContext);
@@ -35,9 +36,7 @@ const TopNav = (props) => {
           <Nav className='ml-auto'>
             {user && (
               <Nav.Link href='/submission'>
-                <Button size='sm' className='submit-nav'>
-                  Submit Item
-                </Button>
+                <SubmitButton size='sm' title='Submit Item' className='submit-nav' bg='primary' />
               </Nav.Link>
             )}
             <NavDropdown

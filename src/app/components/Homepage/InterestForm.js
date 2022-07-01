@@ -157,7 +157,7 @@ const InterestForm = (props) => {
     isValid ? setInvalidPhone(false) : setInvalidPhone(true);
   };
   return (
-    <Container fluid>
+    <Container>
       <Form>
         <Row className='justify-content-md-center'>
           <Col align='center' style={{ color: 'white' }}>

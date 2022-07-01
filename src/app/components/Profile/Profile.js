@@ -12,7 +12,7 @@ const Profile = () => {
   }, []);
 
   return (
-    <Container fluid>
+    <Container>
       <Row className='justify-content-center'>
         <h2>Profile</h2>
       </Row>

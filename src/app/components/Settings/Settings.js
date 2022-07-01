@@ -47,7 +47,7 @@ const Settings = () => {
   );
   console.log(shipState, billState);
   return (
-    <Container fluid>
+    <Container>
       <Row className='justify-content-md-center'>
         <Accordion defaultActiveKey='Profile'>
           <Accordion.Item

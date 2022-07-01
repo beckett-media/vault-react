@@ -1,16 +1,20 @@
 import React from 'react';
-import { Button, Container, Form, Row } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { Col, Container, Form, Row } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
 import '../../../index.scss';
+import { removeSubmissionItem } from '../../state/actions';
 import { submissionFormSelector } from '../../state/selectors';
+import SubmitButton from '../Generic/SubmitButton';
 import SubmissionConfirmModal from './SubmissionConfirmModal';
 
 const SubmissionForm = (props) => {
   const { formSubmitted, setConfirm, cancelSubmission, onAdd, items } = props;
   const submissionForm = useSelector(submissionFormSelector);
-
+  const onAddNew = () => onAdd(true);
+  const dispatch = useDispatch()
+  const removeItem = (id) => dispatch(removeSubmissionItem)
   return (
-    <Container fluid>
+    <Container>
       <Row className='justify-content-md-center'>
         <h1>Submission Form</h1>
       </Row>
@@ -27,18 +31,30 @@ const SubmissionForm = (props) => {
       <Form>
         {submissionForm.items.map((obj, i) => {
           return (
-            <Row key={item.id} className='justify-content-md-center'>
-              <p>
-                {i + 1}. {obj.serialNumber} - {obj.description}
-              </p>
+            <Container key={obj.id} className='m-2 p-3 border border rounded'>
+            <Row>
+              <Col>
+                <p>{i + 1}. {obj.gradingCompany}</p> 
+              </Col>
+              <Col className='right-align'>
+                {obj.serialNumber}
+              </Col> 
             </Row>
+            <Row><Col>{obj.description}</Col></Row>
+            <SubmitButton func={removeItem} title='Delete' bg='link' isLink/> 
+            </Container>
           );
         })}
-        <Row className='justify-content-md-center'>
-          <Button onClick={() => onAdd(true)}>+</Button>
-        </Row>
-        <Row className='justify-content-md-center' m={2}>
-          <div>User Info</div>
+        <Row className='m-2'>
+          <Col xs={3}>
+            <SubmitButton
+              func={onAddNew}
+              title={
+                submissionForm.items.length ? 'Add another item' : 'Add an item'
+              }
+              size='lg'
+            />
+          </Col>
         </Row>
       </Form>
     </Container>

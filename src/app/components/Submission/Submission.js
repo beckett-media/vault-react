@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Container, Row } from 'react-bootstrap';
+import { Button, Col, Container, Row } from 'react-bootstrap';
 import SubmissionSuccess from '../Response/SubmissionSuccess';
 import SubmissionAdd from './SubmissionAdd';
 import SubmissionForm from './SubmissionForm';
@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { submissionFormSelector } from '../../state/selectors';
 import { addSubmissionItem } from '../../state/actions';
 import { postSubmission } from '../../services/submission';
+import './Submission.scss';
+import { Link } from 'react-router-dom';
 
 const Submission = () => {
   document.body.classList.add('submit-container');
@@ -89,7 +91,7 @@ const Submission = () => {
     setSubject,
     setImage,
   };
-
+  const setOnAdd = () => onAdd(false);
   return (
     <>
       <Container style={{ background: 'black' }}>
@@ -102,21 +104,56 @@ const Submission = () => {
               setConfirm={submissionConfirmed}
               onAdd={onAdd}
             />
-            <SubmitButton func={updateFormSubmitted} title='Submit' />
           </Row>
         )}
         {confirmedSubmission && <SubmissionSuccess />}
         {add && (
           <>
-            <Row className='justify-content-md-center'>
-              <SubmissionAdd values={values} stateSetters={stateSetters} />
+            <Row className='m-2'>
+              <Col xs={12}>
+                <SubmissionAdd values={values} stateSetters={stateSetters} />
+              </Col>
             </Row>
-            <Row className='justify-content-md-center'>
-              <SubmitButton func={submitAddedItem} title='Add' />
-              <Button onClick={() => onAdd(false)}>Cancel</Button>
+            <Row className='mx-4 my-2'>
+              <Col xs={2}>
+                <SubmitButton func={submitAddedItem} title='Next' size='lg' />
+              </Col>
+            </Row>
+            <Row className='mx-4 my-2'>
+              <Col xs={2}>
+                <SubmitButton
+                  func={setOnAdd}
+                  title='Cancel'
+                  bg='transparent'
+                />
+              </Col>
             </Row>
           </>
         )}
+        {!confirmedSubmission && !add && items.length !== 0 && (
+          <Row className='m-2'>
+            <Col xs={3}>
+              <SubmitButton
+                func={updateFormSubmitted}
+                title='Submit'
+                size='lg'
+              />
+            </Col>
+          </Row>
+        )}
+        {!confirmedSubmission && !add &&
+          <Row className='m-2'>
+            <Col xs={3}>
+              <Link to='/market'>
+                <SubmitButton
+                  func={cancelSubmission}
+                  title='Cancel'
+                  bg='transparent border'
+                />
+              </Link>
+            </Col>
+          </Row>
+        }
       </Container>
     </>
   );

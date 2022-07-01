@@ -11,7 +11,7 @@ const ProfileView = () => {
   }, []);
 
   return (
-    <Container fluid>
+    <Container>
       <Row>
         <Col>
           <img className='img-thumbnail profile-image-thumb' src={user.img} />

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Form, Row } from 'react-bootstrap';
+import { Col, Container, Form, Row } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 const AddBeckettItem = (props) => {
@@ -62,34 +62,40 @@ const AddOtherItem = (props) => {
     props.setCategorySelected(true);
   };
   return (
-    <>
-      <Form.Group>
-        <Form.Label>Grading Company</Form.Label>
-        <Form.Control
-          type='text'
-          value={gradingCompany}
-          onChange={(e) => setGradingCompany(e.target.value)}
-        />
-      </Form.Group>
-      <Form.Group>
-        <Form.Label>Serial Number</Form.Label>
-        <Form.Control
-          type='text'
-          value={serialNumber}
-          onChange={(e) => setSerialNumber(e.target.value)}
-        />
-      </Form.Group>
+    <Form>
+      <Row>
+        <Col sm={12} lg={6}>
+          <Form.Group>
+            <Form.Label>Grading Company</Form.Label>
+            <Form.Control
+              type='text'
+              value={gradingCompany}
+              onChange={(e) => setGradingCompany(e.target.value)}
+            />
+          </Form.Group>
+        </Col>
+        <Col sm={12} lg={6}>
+          <Form.Group>
+            <Form.Label>Serial Number</Form.Label>
+            <Form.Control
+              type='text'
+              value={serialNumber}
+              onChange={(e) => setSerialNumber(e.target.value)}
+            />
+          </Form.Group>
+        </Col>
+      </Row>
       {!props.categorySelected && (
         <Form.Group>
           <Form.Label>Description</Form.Label>
           <Form.Control
-            type='text'
+            as='textarea'
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
         </Form.Group>
       )}
-    </>
+    </Form>
   );
 };
 const SubmissionAdd = (props) => {

@@ -13,10 +13,10 @@ const ComingSoon = (props) => {
   return (
     <>
       <Modal show={open} onHide={dismiss}>
-        <Modal.Header closeButton className='bg-dark'>
+        <Modal.Header closeButton className=' dark'>
           <Modal.Title>Coming soon!</Modal.Title>
         </Modal.Header>
-        <Modal.Body className='bg-dark'>
+        <Modal.Body className=' dark'>
           <p>This feature isn't quite ready yet!</p>
         </Modal.Body>
         <SubmitButton func={dismiss} title='Close' bg='black' />

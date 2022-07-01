@@ -119,7 +119,7 @@ const Gallery = () => {
         )}
         {!listView && (
           <GridItemBox>
-            <Card className='bg-dark'>
+            <Card className=' dark'>
               <Card.Header className='card-hdr'>
                 <Link to={`/item/${item.id}`}>
                   <Card.Title>
@@ -153,7 +153,7 @@ const Gallery = () => {
     );
   });
   return (
-    <Container fluid>
+    <Container>
       {!showConfirmationPage && (
         <>
           <Row className='mt-2 col-md-12'>
@@ -169,12 +169,12 @@ const Gallery = () => {
               <SubmitButton
                 func={toggleListView}
                 title={<BsGrid3X2GapFill />}
-                bg={listView ? 'bg-dark border border-dark' : 'bg-primary'}
+                bg={listView ? ' dark border border-dark' : ' primary'}
               />
               <SubmitButton
                 func={toggleListView}
                 title={<BsList />}
-                bg={!listView ? 'bg-dark border border-dark' : 'bg-primary'}
+                bg={!listView ? ' dark border border-dark' : ' primary'}
               />
             </Col>
             <Col sm={9}>

@@ -13,7 +13,7 @@ const Market = () => {
   }, []);
 
   return (
-    <Container fluid>
+    <Container>
       <Filter />
       <div className='row'>
         {items.map((item) => (
