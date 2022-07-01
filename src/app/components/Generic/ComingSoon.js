@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Modal } from 'react-bootstrap';
 import SubmitButton from './SubmitButton';
 import { useNavigate } from 'react-router-dom';
+import './ComingSoon.scss'
 
 const ComingSoon = (props) => {
   const { open, setOpen } = props;
@@ -13,13 +14,15 @@ const ComingSoon = (props) => {
   return (
     <>
       <Modal show={open} onHide={dismiss}>
-        <Modal.Header closeButton className=' dark'>
+        <Modal.Header closeButton className='modal-header'>
           <Modal.Title>Coming soon!</Modal.Title>
         </Modal.Header>
-        <Modal.Body className=' dark'>
+        <Modal.Body className='modal-body'>
           <p>This feature isn't quite ready yet!</p>
         </Modal.Body>
-        <SubmitButton func={dismiss} title='Close' bg='black' />
+        <Modal.Footer>
+          <SubmitButton func={dismiss} title='Return to My Collection' bg='dark' />
+        </Modal.Footer>
       </Modal>
     </>
   );
