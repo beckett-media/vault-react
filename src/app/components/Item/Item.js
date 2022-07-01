@@ -3,7 +3,8 @@ import moment from 'moment';
 import { Row, Col, Button } from 'react-bootstrap';
 import './Item.scss';
 import { getItem } from '../../services/items';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import SubmitButton from '../Generic/SubmitButton';
 import { UserContext } from '../Context/UserContext';
 
 const Item = () => {
@@ -12,10 +13,17 @@ const Item = () => {
   const [item, setItem] = useState({});
   useEffect(() => {
     // TODO: throw an error / redirect if we can't find the item?
+    // TODO: fix when it's xs
     getItem(id).then((data) => setItem(data));
   }, []);
+  const navigate = useNavigate();
   console.log(item.img);
-
+  const listItem = () => {
+    navigate('/market');
+  };
+  const withdrawItem = () => {
+    navigate('/');
+  };
   return (
     <Row>
       <Col className='align-center' md={5} sm={12}>
@@ -42,24 +50,48 @@ const Item = () => {
         <Row>
           <h3>{item.title}</h3>
         </Row>
-        <Row>{item.description}</Row>
+        <Row>
+          <p className='fs-6'>{item.description}</p>
+        </Row>
         <Row>
           <br />
-          Vaulted: {item.date && moment(item.date).format('MMMM Do YYYY')}
+          <p className='fs-5'>
+            {' '}
+            <span className='fw-bold'>Date vaulted: </span>{' '}
+            {item.date && moment(item.date).format('MMMM Do YYYY')}
+          </p>
         </Row>
-        <Row>Est. Value: ${item.price}</Row>
-        <Row className='mt-3'>
-          {user && user.id == item.ownerId ? (
-            <>
-              <Button size='sm' className='mb-3'>
-                Withdraw from Vault
-              </Button>
-              <Button size='sm'>Sell in Vault</Button>
-            </>
-          ) : (
-            <Button size='sm'>Buy</Button>
-          )}
+        <Row>
+          <p className='fs-5'>
+            <span className='fw-bold'>Est. Value: </span> $
+            {item.price?.toLocaleString()}
+          </p>
         </Row>
+        {user && user.id == item.ownerId ? (
+          <>
+            <Row className='mt-2'>
+              <SubmitButton
+                func={listItem}
+                title='Sell in Marketplace'
+                bg='bg-primary'
+              />
+            </Row>
+            <Row>
+              <SubmitButton
+                className='withdraw-btn'
+                func={withdrawItem}
+                title='Withdraw from Vault'
+                bg='bg-transparent'
+              />
+            </Row>
+          </>
+        ) : (
+          <Row>
+            <Button className='' size='sm' bg='bg-transparent'>
+              Buy
+            </Button>
+          </Row>
+        )}
       </Col>
     </Row>
   );
