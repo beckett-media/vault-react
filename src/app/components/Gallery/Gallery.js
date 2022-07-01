@@ -119,7 +119,7 @@ const Gallery = () => {
         )}
         {!listView && (
           <GridItemBox>
-            <Card className=' dark'>
+            <Card className='dark'>
               <Card.Header className='card-hdr'>
                 <Link to={`/item/${item.id}`}>
                   <Card.Title className='fs-6'>
@@ -168,12 +168,12 @@ const Gallery = () => {
               <SubmitButton
                 func={toggleListView}
                 title={<BsGrid3X2GapFill />}
-                bg={listView ? ' dark border border-dark' : ' primary'}
+                bg={listView ? 'dark border border-dark' : 'primary'}
               />
               <SubmitButton
                 func={toggleListView}
                 title={<BsList />}
-                bg={!listView ? ' dark border border-dark' : ' primary'}
+                bg={!listView ? 'dark border border-dark' : 'primary'}
               />
             </Col>
             <Col sm={9}>
