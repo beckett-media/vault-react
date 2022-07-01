@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { Col, Container, Form, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { interestFormSelector } from '../../state/selectors';
+
 import {
-  setFirst,
-  setLast,
-  setPhone,
-  setEmail,
   setBeckettId,
   setCheckbox1,
   setCheckbox2,
@@ -13,8 +10,12 @@ import {
   setCheckbox4,
   setCheckbox5,
   setCheckbox6,
+  setEmail,
+  setFirst,
+  setLast,
+  setPhone,
 } from '../../state/actions';
-import { Col, Container, Row, Form } from 'react-bootstrap';
+import { interestFormSelector } from '../../state/selectors';
 import { validEmail, validPhone } from '../Validation/regex';
 
 const InterestForm = (props) => {

@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { Button, Container, Row } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { postSubmission } from '../../services/submission';
+import { addSubmissionItem } from '../../state/actions';
+import { submissionFormSelector } from '../../state/selectors';
+import SubmitButton from '../Generic/SubmitButton';
 import SubmissionSuccess from '../Response/SubmissionSuccess';
 import SubmissionAdd from './SubmissionAdd';
 import SubmissionForm from './SubmissionForm';
-import SubmitButton from '../Generic/SubmitButton';
-import { useDispatch, useSelector } from 'react-redux';
-import { submissionFormSelector } from '../../state/selectors';
-import { addSubmissionItem } from '../../state/actions';
-import { postSubmission } from '../../services/submission';
 
 const Submission = () => {
   document.body.classList.add('submit-container');

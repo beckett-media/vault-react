@@ -1,20 +1,21 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import Header from './app/components/Generic/Header';
-import Footer from './app/components/Generic/Footer';
-import Homepage from './app/components/Homepage/Homepage';
-import Submission from './app/components/Submission/Submission';
+import { Container } from 'react-bootstrap';
+import { Route, Routes } from 'react-router-dom';
+
+import About from './app/components/About/About';
+import Account from './app/components/Account/Account';
+import Cart from './app/components/Cart/Cart';
+import { UserContext } from './app/components/Context/UserContext';
 import Gallery from './app/components/Gallery/Gallery';
+import Footer from './app/components/Generic/Footer';
+import Header from './app/components/Generic/Header';
+import Homepage from './app/components/Homepage/Homepage';
 import Item from './app/components/Item/Item';
 import Market from './app/components/Market/Market';
 import Profile from './app/components/Profile/Profile';
-import Cart from './app/components/Cart/Cart';
-import Account from './app/components/Account/Account';
-import About from './app/components/About/About';
-import { Routes, Route } from 'react-router-dom';
-import './index.scss';
 import Settings from './app/components/Settings/Settings';
-import { Container } from 'react-bootstrap';
-import { UserContext } from './app/components/Context/UserContext';
+import Submission from './app/components/Submission/Submission';
+import './index.scss';
 
 function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));

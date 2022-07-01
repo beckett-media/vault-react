@@ -1,7 +1,7 @@
+import config from '../../config';
+
 const axios = require('axios');
 const axiosRetry = require('axios-retry');
-
-import config from '../../config';
 
 export const postSubmission = async (obj) => {
   axiosRetry(axios, { retries: 3 });

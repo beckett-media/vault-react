@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
+
 const SubmitButton = (props) => {
   const { id = '', func, title, bg = 'bg-primary btn-sm' } = props;
   return (

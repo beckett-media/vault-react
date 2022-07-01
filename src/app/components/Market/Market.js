@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
-import { getMarketItems } from '../../services/items';
 import { Link } from 'react-router-dom';
+
+import { getMarketItems } from '../../services/items';
 import Filter from '../Generic/Filter';
 import './Market.scss';
 

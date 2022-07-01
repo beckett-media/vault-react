@@ -1,5 +1,5 @@
-import { initialState } from './rootReducer';
 import { configureStore } from '@reduxjs/toolkit';
+
 import {
   interestFormReducers,
   itemObjectReducers,
@@ -8,6 +8,7 @@ import {
   submissionFormReducers,
   withdrawalFormReducers,
 } from '../reducers';
+import { initialState } from './rootReducer';
 
 export const store = configureStore({
   reducer: {

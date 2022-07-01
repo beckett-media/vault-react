@@ -1,6 +1,6 @@
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { Container, Form, Row } from 'react-bootstrap';
-import PropTypes from 'prop-types';
 
 const AddBeckettItem = (props) => {
   // const {

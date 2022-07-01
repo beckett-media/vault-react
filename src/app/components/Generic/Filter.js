@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Row, Form } from 'react-bootstrap';
+import { Col, Form, Row } from 'react-bootstrap';
 
 const Filter = () => {
   // add onSearch, onSort props.

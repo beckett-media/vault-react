@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+
 import ComingSoon from '../Generic/ComingSoon';
 
 const Account = () => {

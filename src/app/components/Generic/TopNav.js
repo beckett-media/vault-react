@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
-import { Nav, Navbar, NavDropdown, Button, Container } from 'react-bootstrap';
-import './Nav.scss';
-import { UserContext } from '../Context/UserContext';
+import { Button, Container, Nav, NavDropdown, Navbar } from 'react-bootstrap';
+
 import { getUser } from '../../services/user';
+import { UserContext } from '../Context/UserContext';
+import './Nav.scss';
 
 const TopNav = (props) => {
   const { user, setUser } = useContext(UserContext);

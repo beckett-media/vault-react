@@ -8,22 +8,26 @@ import {
   Modal,
   Row,
 } from 'react-bootstrap';
+import { BsGrid3X2GapFill, BsList } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+
+import { getItems } from '../../services/items';
 import {
   addListItem,
   addWithdrawalItem,
+  removeSelectedItemId,
   setListForm,
   setSelectedItemId,
   setSelectedItemIds,
   setWithdrawalForm,
-  removeSelectedItemId,
 } from '../../state/actions';
 import { selectedItemIdsSelector } from '../../state/selectors';
-import GenericForm from '../Generic/GenericForm';
-import SubmitButton from '../Generic/SubmitButton';
-import LeftNav from '../Generic/LeftNav';
-import ProfileView from '../Profile/ProfileView';
 import Filter from '../Generic/Filter';
+import GenericForm from '../Generic/GenericForm';
+import LeftNav from '../Generic/LeftNav';
+import SubmitButton from '../Generic/SubmitButton';
+import ProfileView from '../Profile/ProfileView';
 import './Gallery.scss';
 import {
   GridItemBox,
@@ -32,9 +36,6 @@ import {
   ListItemImg,
   ListOrGridView,
 } from './Gallery.styled';
-import { BsGrid3X2GapFill, BsList } from 'react-icons/bs';
-import { getItems } from '../../services/items';
-import { Link } from 'react-router-dom';
 
 const Gallery = () => {
   document.body.classList.add('gallery-container');

@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { Modal } from 'react-bootstrap';
-import SubmitButton from './SubmitButton';
 import { useNavigate } from 'react-router-dom';
+
+import SubmitButton from './SubmitButton';
 
 const ComingSoon = (props) => {
   const { open, setOpen } = props;

@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Row, Col, Container } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Col, Container, Row } from 'react-bootstrap';
+
 import { getUser } from '../../services/user';
 import './Profile.scss';
 

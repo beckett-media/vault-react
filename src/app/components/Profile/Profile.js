@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Col, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { Container, Row, Col } from 'react-bootstrap';
+
 import { getUser } from '../../services/user';
 import './Profile.scss';
 

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Collapse, Container, Row } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
+
 // import { resetForm } from '../../state/actions';
 // import { initialState } from '../../state/store/rootReducer';
 import { validEmail, validPhone } from '../Validation/regex';
-import InterestForm from './InterestForm';
 import './Homepage.scss';
+import InterestForm from './InterestForm';
 
 const Homepage = () => {
   const [open, setOpen] = useState(false);

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+
 import { selectedItemIdsSelector } from '../../state/selectors';
 
 const GenericForm = (props) => {

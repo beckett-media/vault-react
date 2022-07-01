@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Container, Form, Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+
 import '../../../index.scss';
 import { submissionFormSelector } from '../../state/selectors';
 import SubmissionConfirmModal from './SubmissionConfirmModal';
