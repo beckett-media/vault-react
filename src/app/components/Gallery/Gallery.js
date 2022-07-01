@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Card, Col, Container, FormCheck, Modal, Row } from 'react-bootstrap';
+import {
+  Button,
+  Card,
+  Col,
+  Container,
+  FormCheck,
+  Modal,
+  Row,
+} from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   addListItem,
@@ -115,15 +123,27 @@ const Gallery = () => {
               <Card.Header className='card-hdr'>
                 <Link to={`/item/${item.id}`}>
                   <Card.Title className='fs-6'>
-                    { // Logic to split title longer than 33 char and append ... to it.
-                      item.title.length > 33 ?
-                      item.title.slice(0, item.title.slice(0,34).lastIndexOf(' ')) + ' ...' : 
-                      item.title
+                    {
+                      // Logic to split title longer than 33 char and append ... to it.
+                      item.title.length > 33
+                        ? item.title.slice(
+                            0,
+                            item.title.slice(0, 34).lastIndexOf(' '),
+                          ) + ' ...'
+                        : item.title
                     }
-                  </Card.Title></Link>
+                  </Card.Title>
+                </Link>
               </Card.Header>
               <Card.Body>
-                <Link to={`/item/${item.id}`}><Card.Img className='card-img' variant="top" src={item.img} alt='' /></Link>
+                <Link to={`/item/${item.id}`}>
+                  <Card.Img
+                    className='card-img'
+                    variant='top'
+                    src={item.img}
+                    alt=''
+                  />
+                </Link>
               </Card.Body>
             </Card>
           </GridItemBox>
