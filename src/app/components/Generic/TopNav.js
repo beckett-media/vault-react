@@ -6,7 +6,7 @@ import { getUser } from '../../services/user';
 
 const TopNav = (props) => {
   const { user, setUser } = useContext(UserContext);
-  //todo: get this from redux
+  // todo: get this from redux
   // TODO highlight current page
   const cart = [];
   return (
@@ -33,11 +33,13 @@ const TopNav = (props) => {
             )}
           </Nav>
           <Nav className='ml-auto'>
-            <Nav.Link href='/submission'>
-              <Button size='sm' className='submit-nav'>
-                Submit Item
-              </Button>
-            </Nav.Link>
+            {user && (
+              <Nav.Link href='/submission'>
+                <Button size='sm' className='submit-nav'>
+                  Submit Item
+                </Button>
+              </Nav.Link>
+            )}
             <NavDropdown
               title={<i className='fa-solid fa-user'></i>}
               id='basic-nav-dropdown'
