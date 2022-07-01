@@ -19,7 +19,7 @@ const Submission = () => {
   const [completeAdd, toggleCompleteAdd] = useState(false);
   const [confirmedSubmission, setConfirmedSubmission] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
-
+  const [ successfulSubmission, setSuccessfulSubmission ] = useState(false)
   formSubmitted &&
     confirmedSubmission &&
     postSubmission({
@@ -34,7 +34,7 @@ const Submission = () => {
       year: '1999',
       overallGrade: '9.5',
       subGrades: 'corners: 5',
-    });
+    }).then(res => res.statusText === 'Created' && setSuccessfulSubmission(true));
 
   const cancelSubmission = () => setFormSubmitted(false);
   const updateFormSubmitted = () => setFormSubmitted(true);
@@ -106,7 +106,7 @@ const Submission = () => {
             />
           </Row>
         )}
-        {confirmedSubmission && <SubmissionSuccess />}
+        {successfulSubmission && <SubmissionSuccess />}
         {add && (
           <>
             <Row className='m-2'>

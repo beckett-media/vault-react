@@ -7,7 +7,7 @@ export const postSubmission = async (obj) => {
   axiosRetry(axios, { retries: 3 });
   console.log('ran', obj);
   const final = {
-    user_id: 0,
+    user_name: 'Tester',
     grading_company: obj.gradingCompany || '',
     serial_number: obj.serialNumber || '',
     title: obj.title || '',
