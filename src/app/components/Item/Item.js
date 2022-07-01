@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import moment from 'moment';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
 import './Item.scss';
 import { getItem } from '../../services/items';
 import { useParams } from 'react-router-dom';
+import { UserContext } from '../Context/UserContext';
 
 const Item = () => {
+  const { user } = useContext(UserContext);
   const { id } = useParams();
   const [item, setItem] = useState({});
   useEffect(() => {
     // TODO: throw an error / redirect if we can't find the item?
-    // TODO: fix when it's xs
     getItem(id).then((data) => setItem(data));
   }, []);
   console.log(item.img);
@@ -44,9 +45,21 @@ const Item = () => {
         <Row>{item.description}</Row>
         <Row>
           <br />
-          {item.date && moment(item.date).format('MMMM Do YYYY')}
+          Vaulted: {item.date && moment(item.date).format('MMMM Do YYYY')}
         </Row>
-        <Row>${item.price}</Row>
+        <Row>Est. Value: ${item.price}</Row>
+        <Row className='mt-3'>
+          {user && user.id == item.ownerId ? (
+            <>
+              <Button size='sm' className='mb-3'>
+                Withdraw from Vault
+              </Button>
+              <Button size='sm'>Sell in Vault</Button>
+            </>
+          ) : (
+            <Button size='sm'>Buy</Button>
+          )}
+        </Row>
       </Col>
     </Row>
   );
