@@ -9,7 +9,7 @@
 .flip-card {
   background-color: transparent;
   width: 300px;
-  height: 300px;
+  height: 100%;
   perspective: 1000px;
 }
 
@@ -20,7 +20,6 @@
   text-align: center;
   transition: transform 0.6s;
   transform-style: preserve-3d;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
 
 .flip-card:hover .flip-card-inner {
@@ -36,12 +35,17 @@
 }
 
 .flip-card-front {
-  background-color: #bbb;
+  background-color: none;
   color: black;
 }
 
 .flip-card-back {
-  background-color: #2980b9;
+  background-color: none;
   color: white;
   transform: rotateY(180deg);
+}
+
+.bg-transparent.btn.btn-primary {
+  margin-top: 20px;
+  color: white !important;
 }

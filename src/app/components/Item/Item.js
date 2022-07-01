@@ -16,7 +16,8 @@ const Item = () => {
   }, []);
   const navigate = useNavigate()
   console.log(item.img)
-  const listItem = () => {navigate('marketplace')}
+  const listItem = () => {navigate('/market')}
+  const withdrawItem = () => {navigate('/')}
   return (
     <Row>
       <Col className='align-center' md={5} sm={12}>
@@ -38,11 +39,11 @@ const Item = () => {
             </div>
           </div>
         </div>
-        <Row>
+        <Row className='mt-2'>
           <SubmitButton func={listItem} title='Sell in Marketplace' bg='bg-primary'/>
         </Row>
         <Row>
-          <SubmitButton className='fs-1' func={listItem} title='Sell in Marketplace' bg='bg-transparent'/>
+          <SubmitButton className='withdraw-btn' func={withdrawItem} title='Withdraw from Vault' bg='bg-transparent'/>
         </Row>
       </Col>
       <Col className='m-3' md={5} sm={12}>
