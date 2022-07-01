@@ -31,7 +31,7 @@ const Submission = () => {
       year: '1999',
       overall_grade: '9.5',
       sub_grades: 'corners: 5',
-    });
+    }).then((res) => console.log(res));
 
   const cancelSubmission = () => setFormSubmitted(false);
   const updateFormSubmitted = () => setFormSubmitted(true);
