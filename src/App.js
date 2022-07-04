@@ -8,6 +8,8 @@ import Item from './app/components/Item/Item';
 import Market from './app/components/Market/Market';
 import Profile from './app/components/Profile/Profile';
 import Cart from './app/components/Cart/Cart';
+import About from './app/components/About/About';
+import Account from './app/components/Account/Account';
 import SignIn from './app/components/SignIn/SignIn';
 import { Routes, Route, Router } from 'react-router-dom';
 import './index.scss';
