@@ -1,14 +1,11 @@
 import React, { useContext } from 'react';
-import { Nav, Navbar, NavDropdown, Button, Container } from 'react-bootstrap';
+import { Nav, Navbar, NavDropdown, Container } from 'react-bootstrap';
 import './Nav.scss';
-import { UserContext } from '../Context/UserContext';
-import { getUser } from '../../services/user';
 import SubmitButton from './SubmitButton';
+import AuthContext from '../../contexts/auth';
 
-const TopNav = (props) => {
-  const { user, setUser } = useContext(UserContext);
-  // todo: get this from redux
-  // TODO highlight current page
+const TopNav = () => {
+  const { authStatus, signOut } = useContext(AuthContext);
   const cart = [];
   return (
     <Navbar bg='dark' variant='dark' expand='lg' fixed='top'>
@@ -19,7 +16,7 @@ const TopNav = (props) => {
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Collapse id='basic-navbar-nav'>
           <Nav className='m-auto'>
-            {user && (
+            {authStatus === AuthStatus.SignedIn && (
               <>
                 <Nav.Link href='/about' className='about-nav'>
                   About Vault
@@ -34,7 +31,7 @@ const TopNav = (props) => {
             )}
           </Nav>
           <Nav className='ml-auto'>
-            {user && (
+            {authStatus === AuthStatus.SignedIn && (
               <Nav.Link href='/submission'>
                 <SubmitButton
                   size='sm'
@@ -51,25 +48,16 @@ const TopNav = (props) => {
               <NavDropdown.Item href='/profile'>Profile</NavDropdown.Item>
               <NavDropdown.Item href='/account'>Account</NavDropdown.Item>
               <NavDropdown.Divider />
-              {user ? (
+              {authStatus === AuthStatus.SignedIn ? (
                 <NavDropdown.Item
                   onClick={async () => {
-                    localStorage.setItem('user', null);
-                    setUser(null);
+                    signOut();
                   }}
                 >
                   Logout
                 </NavDropdown.Item>
               ) : (
-                <NavDropdown.Item
-                  onClick={async () => {
-                    const newUser = await getUser();
-                    localStorage.setItem('user', JSON.stringify(newUser));
-                    setUser(newUser);
-                  }}
-                >
-                  Login
-                </NavDropdown.Item>
+                <NavDropdown.Item href='/signin'>Login</NavDropdown.Item>
               )}
             </NavDropdown>
             {cart.length ? (

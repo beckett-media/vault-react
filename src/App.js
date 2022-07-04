@@ -11,7 +11,7 @@ import Cart from './app/components/Cart/Cart';
 import About from './app/components/About/About';
 import Account from './app/components/Account/Account';
 import SignIn from './app/components/SignIn/SignIn';
-import { Routes, Route, Router } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import './index.scss';
 
 import AuthProvider, {
@@ -22,17 +22,21 @@ import AuthProvider, {
 import { ChakraProvider } from '@chakra-ui/react';
 
 const SignInRoute = () => (
-  <Routes>
-    <Route exact path='/' element={<PrivateRoute />}>
-      <Route exact path='/profile' element={<Profile />} />
-    </Route>
-    <Route path='/signin' element={<SignIn />} />
-    {/* <Route path="/signup" component={SignUp} />
-      <Route path="/verify" component={VerifyCode} />
-      <Route path="/requestcode" component={RequestCode} />
-      <Route path="/forgotpassword" component={ForgotPassword} />
-      <Route path="/" component={Landing} /> */}
-  </Routes>
+  //TODO: route to logged out landing page
+  //TODO: open up all cognito routes below
+  <>
+    <Routes>
+      <Route exact path='/' element={<PrivateRoute />}>
+        <Route exact path='/profile' element={<Profile />} />
+      </Route>
+      <Route path='/signin' element={<SignIn />} />
+      {/* <Route path="/signup" component={SignUp} />
+        <Route path="/verify" component={VerifyCode} />
+        <Route path="/requestcode" component={RequestCode} />
+        <Route path="/forgotpassword" component={ForgotPassword} />
+        <Route path="/" component={Landing} /> */}
+    </Routes>
+  </>
 );
 
 function App() {
