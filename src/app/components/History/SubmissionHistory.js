@@ -5,7 +5,11 @@ const SubmissionHistory = () => {
   const [submissions, updateSubmissions] = useState([]);
   useEffect(() => updateSubmissions(getSubmissions()));
   console.log(submissions);
-  return <>{submissions && submissions.map((sub) => <div>{sub}</div>)}</>;
+  return (
+    <>
+      {submissions && submissions.map((sub) => <div key={item.id}>{sub}</div>)}
+    </>
+  );
 };
 
 export default SubmissionHistory;

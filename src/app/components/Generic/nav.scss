@@ -1,17 +1,31 @@
-nav {
-  ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
+.about-container {
+  .about-nav {
+    font-weight: bolder;
+    color: white !important;
+    text-shadow: 0 0 32px gold;
   }
+}
 
-  li {
-    display: inline-block;
+.gallery-container {
+  .gallery-nav {
+    font-weight: bolder;
+    color: white !important;
+    text-shadow: 0 0 32px gold;
   }
+}
 
-  a {
-    display: block;
-    padding: 6px 12px;
-    text-decoration: none;
+.market-container {
+  .market-nav {
+    font-weight: bolder;
+    color: white !important;
+    text-shadow: 0 0 32px gold;
+  }
+}
+
+.submit-container {
+  .submit-nav {
+    font-weight: bolder;
+    color: white !important;
+    text-shadow: 0 0 32px gold;
   }
 }

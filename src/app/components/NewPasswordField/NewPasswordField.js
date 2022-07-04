@@ -10,66 +10,66 @@ import {
   InputRightElement,
   useDisclosure,
   useMergeRefs,
-} from "@chakra-ui/react"
-import * as React from "react"
-import { HiEye, HiEyeOff } from "react-icons/hi"
+} from '@chakra-ui/react';
+import * as React from 'react';
+import { HiEye, HiEyeOff } from 'react-icons/hi';
 
 export const NewPasswordField = React.forwardRef((props, ref) => {
-  const { isOpen, onToggle } = useDisclosure()
-  const inputRef = React.useRef(null)
+  const { isOpen, onToggle } = useDisclosure();
+  const inputRef = React.useRef(null);
 
-  const mergeRef = useMergeRefs(inputRef, ref)
+  const mergeRef = useMergeRefs(inputRef, ref);
   const onClickReveal = () => {
-    onToggle()
+    onToggle();
     if (inputRef.current) {
-      inputRef.current.focus({ preventScroll: true })
+      inputRef.current.focus({ preventScroll: true });
     }
-  }
+  };
 
   return (
     <FormControl>
-      <FormLabel htmlFor="password" color={"white"}>
+      <FormLabel htmlFor='password' color={'white'}>
         Confirm Password
       </FormLabel>
       <InputGroup>
         <InputRightElement>
           <IconButton
-            variant="link"
-            aria-label={isOpen ? "Mask password" : "Reveal password"}
+            variant='link'
+            aria-label={isOpen ? 'Mask password' : 'Reveal password'}
             icon={isOpen ? <HiEyeOff /> : <HiEye />}
             onClick={onClickReveal}
           />
         </InputRightElement>
         <Input
-          borderColor={"transparent"}
+          borderColor={'transparent'}
           h={12}
-          bg="#42404D"
-          id="password"
+          bg='#42404D'
+          id='password'
           ref={mergeRef}
-          name="password"
-          type={isOpen ? "text" : "password"}
-          autoComplete="current-password"
+          name='password'
+          type={isOpen ? 'text' : 'password'}
+          autoComplete='current-password'
           required
           value={props.value}
           onChange={props.onChange}
           {...props}
         />
       </InputGroup>
-      <HStack justify="flex-start" my={3}>
+      <HStack justify='flex-start' my={3}>
         <Button
-          _focus={{ boxShadow: "none" }}
-          variant="link"
-          colorScheme="blue"
-          size="sm"
+          _focus={{ boxShadow: 'none' }}
+          variant='link'
+          colorScheme='blue'
+          size='sm'
           onClick={() => {
-            window.location.href = "/reset-password"
+            window.location.href = '/reset-password';
           }}
         >
           Forgot password?
         </Button>
       </HStack>
     </FormControl>
-  )
-})
+  );
+});
 
-NewPasswordField.displayName = "PasswordField"
+NewPasswordField.displayName = 'PasswordField';

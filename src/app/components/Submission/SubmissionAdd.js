@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Form, Row } from 'react-bootstrap';
+import { Col, Container, Form, Row } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 const AddBeckettItem = (props) => {
@@ -62,106 +62,40 @@ const AddOtherItem = (props) => {
     props.setCategorySelected(true);
   };
   return (
-    <>
-      <Form.Group>
-        <Form.Label>Grading Company</Form.Label>
-        <Form.Control
-          type='text'
-          value={gradingCompany}
-          onChange={(e) => setGradingCompany(e.target.value)}
-        />
-      </Form.Group>
-      <Form.Group>
-        <Form.Label>Serial Number</Form.Label>
-        <Form.Control
-          type='text'
-          value={serialNumber}
-          onChange={(e) => setSerialNumber(e.target.value)}
-        />
-      </Form.Group>
+    <Form>
+      <Row>
+        <Col sm={12} lg={6}>
+          <Form.Group>
+            <Form.Label>Grading Company</Form.Label>
+            <Form.Control
+              type='text'
+              value={gradingCompany}
+              onChange={(e) => setGradingCompany(e.target.value)}
+            />
+          </Form.Group>
+        </Col>
+        <Col sm={12} lg={6}>
+          <Form.Group>
+            <Form.Label>Serial Number</Form.Label>
+            <Form.Control
+              type='text'
+              value={serialNumber}
+              onChange={(e) => setSerialNumber(e.target.value)}
+            />
+          </Form.Group>
+        </Col>
+      </Row>
       {!props.categorySelected && (
         <Form.Group>
           <Form.Label>Description</Form.Label>
           <Form.Control
-            type='text'
+            as='textarea'
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
         </Form.Group>
       )}
-      <div>
-        Use the fields below if you cannot find the item in the description
-        above.
-      </div>
-      <Form.Group>
-        <Form.Select onChange={(e) => onCategoryChange(e)}>
-          <option>Select Item Type</option>
-          <option value='sport-card'>Sport Card</option>
-          <option value='other-card'>Other Card</option>
-          <option value='comic'>Comic</option>
-        </Form.Select>
-      </Form.Group>
-      {category === 'sport-card' && (
-        <>
-          <Form.Group>
-            <Form.Label>Sport</Form.Label> <br />
-            <Form.Select onChange={(e) => setGenre(e.target.value)}>
-              <option>Select Sport</option>
-              <option value='baseball'>Baseball</option>
-              <option value='basketball'>Basketball</option>
-              <option value='football'>Football</option>
-              <option value='other'>Other</option>
-            </Form.Select>
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Title</Form.Label>
-            <Form.Control
-              type='text'
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Description</Form.Label>
-            <Form.Control
-              type='text'
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
-          </Form.Group>
-        </>
-      )}
-      {props.categorySelected && category !== 'sport-card' && (
-        <>
-          <Form.Group>
-            <Form.Label>
-              {category === 'other-card' ? 'Card Type' : 'Genre'}
-            </Form.Label>
-            <Form.Control
-              type='text'
-              value={genre}
-              onChange={(e) => setGenre(e.target.value)}
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Title</Form.Label>
-            <Form.Control
-              type='text'
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Description</Form.Label>
-            <Form.Control
-              type='text'
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
-          </Form.Group>
-        </>
-      )}
-    </>
+    </Form>
   );
 };
 const SubmissionAdd = (props) => {
@@ -178,31 +112,16 @@ const SubmissionAdd = (props) => {
       <Row className='justify-content-md-center'>
         <h1>Add Item</h1>
       </Row>
-      <Row className='justify-content-md-center'>
-        <Form.Group>
-          <Form.Select onChange={(e) => onChange(e)}>
-            <option>Select Grading Company</option>
-            <option value='BGS'>Beckett Grading Service</option>
-            <option value='CBCS'>CBCS</option>
-            <option value=''>Other</option>
-          </Form.Select>
-        </Form.Group>
-      </Row>
-      {gradingCompany === 'BGS' || gradingCompany === 'CBCS' ? (
-        <AddBeckettItem stateSetters={props.stateSetters} />
-      ) : gradingCompanySelected ? (
-        <AddOtherItem
-          stateSetters={props.stateSetters}
-          values={props.values}
-          categorySelected={categorySelected}
-          setCategorySelected={setCategorySelected}
-        />
-      ) : (
-        <></>
-      )}
+      <AddOtherItem
+        stateSetters={props.stateSetters}
+        values={props.values}
+        categorySelected={categorySelected}
+        setCategorySelected={setCategorySelected}
+      />
     </Container>
   );
 };
+// This is to enable becket serial number lookup.
 AddBeckettItem.propTypes = {
   stateSetters: PropTypes.object,
 };

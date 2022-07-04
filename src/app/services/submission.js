@@ -1,17 +1,20 @@
 const axios = require('axios');
-const baseUrl = 'https://dev.beckett.com:3300';
+const axiosRetry = require('axios-retry');
+
+import config from '../../config';
 
 export const postSubmission = async (obj) => {
-  console.log('ran');
+  axiosRetry(axios, { retries: 3 });
+  console.log('ran', obj);
   const final = {
-    user_id: 0,
-    grading_company: obj.gradingCompany,
-    serial_number: obj.serialNumber,
+    user_name: 'Tester',
+    grading_company: obj.gradingCompany || '',
+    serial_number: obj.serialNumber || '',
     title: obj.title || '',
     description: obj.description,
     genre: obj.genre || '',
     manufacturer: obj.manufacturer || '',
-    year: obj.year || '',
+    year: parseInt(obj.year) || parseInt('0000'),
     overall_grade: obj.overallGrade || '',
     sub_grades: obj.subGrades || '',
     autograph: obj.autograph || '',
@@ -20,7 +23,7 @@ export const postSubmission = async (obj) => {
     image_format: obj.imgFormat || '',
   };
   return axios
-    .post(`${baseUrl}/marketplace/submission`, { final })
+    .post(`${config.BASE_URL}/marketplace/submission`, final)
     .then((res) => {
       console.log('res', res);
       return res;
@@ -28,7 +31,7 @@ export const postSubmission = async (obj) => {
 };
 
 export const getSubmissions = async () => {
-  return axios.get(`${baseUrl}/marketplace/submission`).then((res) => {
+  return axios.get(`${config.BASE_URL}/marketplace/submission`).then((res) => {
     console.log('res', res);
     return res;
   });

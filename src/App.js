@@ -12,15 +12,17 @@ import SignIn from './app/components/SignIn/SignIn';
 import { Routes, Route, Router } from 'react-router-dom';
 import './index.scss';
 
-import AuthProvider, { PrivateRoute, AuthIsSignedIn, AuthIsNotSignedIn } from './app/contexts/auth'
-import { ChakraProvider } from '@chakra-ui/react'
-
-
+import AuthProvider, {
+  PrivateRoute,
+  AuthIsSignedIn,
+  AuthIsNotSignedIn,
+} from './app/contexts/auth';
+import { ChakraProvider } from '@chakra-ui/react';
 
 const SignInRoute = () => (
   <Routes>
-    <Route exact path='/' element={<PrivateRoute/>}>
-      <Route exact path='/profile' element={<Profile/>}/>
+    <Route exact path='/' element={<PrivateRoute />}>
+      <Route exact path='/profile' element={<Profile />} />
     </Route>
     <Route path='/signin' element={<SignIn />} />
     {/* <Route path="/signup" component={SignUp} />
@@ -29,7 +31,7 @@ const SignInRoute = () => (
       <Route path="/forgotpassword" component={ForgotPassword} />
       <Route path="/" component={Landing} /> */}
   </Routes>
-)
+);
 
 function App() {
   return (
@@ -40,11 +42,12 @@ function App() {
           <main className=''>
             <Routes>
               <Route path='/submission' element={<Submission />} />
+              <Route path='/about' element={<About />} />
               <Route path='/gallery' element={<Gallery />} />
               <Route path='/item/:id' element={<Item />} />
               <Route path='/market' element={<Market />} />
-              {/* PrivateRoute */}
-              {/* <Route path='/profile' element={<Profile />} /> */}
+              <Route path='/profile' element={<Profile />} />
+              <Route path='/account' element={<Account />} />
               <Route path='/cart' element={<Cart />} />
               <Route path='*' element={<Homepage />} />
             </Routes>
@@ -57,7 +60,6 @@ function App() {
           </ChakraProvider>
         </AuthIsNotSignedIn>
       </AuthProvider>
-      {/* About the Vault, My Collection, Marketplace, Submit an Item, Profile icon */}
     </>
   );
 }
