@@ -2,10 +2,10 @@ import React, { useContext } from 'react';
 import { Nav, Navbar, NavDropdown, Container } from 'react-bootstrap';
 import './Nav.scss';
 import SubmitButton from './SubmitButton';
-import AuthContext from '../../contexts/auth';
+import { AuthStatus, AuthContext } from '../../contexts/auth';
 
 const TopNav = () => {
-  const { authStatus, signOut } = useContext(AuthContext);
+  const authContext = useContext(AuthContext);
   const cart = [];
   return (
     <Navbar bg='dark' variant='dark' expand='lg' fixed='top'>
@@ -16,7 +16,7 @@ const TopNav = () => {
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Collapse id='basic-navbar-nav'>
           <Nav className='m-auto'>
-            {authStatus === AuthStatus.SignedIn && (
+            {authContext.authStatus === AuthStatus.SignedIn && (
               <>
                 <Nav.Link href='/about' className='about-nav'>
                   About Vault
@@ -31,7 +31,7 @@ const TopNav = () => {
             )}
           </Nav>
           <Nav className='ml-auto'>
-            {authStatus === AuthStatus.SignedIn && (
+            {authContext.authStatus === AuthStatus.SignedIn && (
               <Nav.Link href='/submission'>
                 <SubmitButton
                   size='sm'
@@ -48,10 +48,10 @@ const TopNav = () => {
               <NavDropdown.Item href='/profile'>Profile</NavDropdown.Item>
               <NavDropdown.Item href='/account'>Account</NavDropdown.Item>
               <NavDropdown.Divider />
-              {authStatus === AuthStatus.SignedIn ? (
+              {authContext.authStatus === AuthStatus.SignedIn ? (
                 <NavDropdown.Item
                   onClick={async () => {
-                    signOut();
+                    authContext.signOut();
                   }}
                 >
                   Logout

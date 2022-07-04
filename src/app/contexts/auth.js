@@ -3,7 +3,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 
 import * as cognito from '../libs/cognito';
 
-const AuthStatus = {
+export const AuthStatus = {
   Loading: 'Loading',
   SignedIn: 'SignedIn',
   SetPassword: 'SetPassword',
@@ -65,7 +65,7 @@ const AuthProvider = ({ children }) => {
 
         const attr = await getAttributes();
         setAttrInfo(attr);
-        console.log(attr);
+        //console.log(attr);
         setAuthStatus(AuthStatus.SignedIn);
       } catch (err) {
         setAuthStatus(AuthStatus.SignedOut);
