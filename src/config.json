@@ -2,14 +2,14 @@
   "dev": {
     "BASE_URL": "https://dev.beckett.com:3300"
   },
-  "stage": {
-    "BASE_URL": "https://stage.beckett.com:3300"
-  },
   "qa": {
     "BASE_URL": "https://qa.beckett.com:3300"
   },
   "production": {
     "BASE_URL": "https://www.beckett.com:3300"
   },
-  "general": {}
+  "general": {
+    "REACT_APP_USERPOOL_ID":"us-west-1_QgCMUGduZ",
+    "REACT_APP_CLIENT_ID":"30apj4knq7ps2qsaldr6clpr9p"
+  }
 }

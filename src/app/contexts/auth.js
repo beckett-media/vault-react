@@ -31,7 +31,7 @@ export const PrivateRoute = () => {
   return authStatus === AuthStatus.SignedIn ? (
     <Outlet />
   ) : (
-    <Navigate to='/signin' />
+    <Navigate to='/landing' />
   );
 };
 

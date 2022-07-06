@@ -5,8 +5,10 @@ import {
   CognitoUserPool,
 } from 'amazon-cognito-identity-js';
 
-const userPoolId = process.env.REACT_APP_USERPOOL_ID;
-const clientId = process.env.REACT_APP_CLIENT_ID;
+import config from '../../config';
+
+const userPoolId = config.REACT_APP_USERPOOL_ID;
+const clientId = config.REACT_APP_CLIENT_ID;
 
 console.log(`userpool id=${userPoolId}`);
 console.log(`client id=${clientId}`);

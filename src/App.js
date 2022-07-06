@@ -11,61 +11,40 @@ import Cart from './app/components/Cart/Cart';
 import About from './app/components/About/About';
 import Account from './app/components/Account/Account';
 import SignIn from './app/components/SignIn/SignIn';
+import Landing from './app/components/Homepage/Landing';
 import { Routes, Route } from 'react-router-dom';
 import './index.scss';
 
 import AuthProvider, {
   PrivateRoute,
-  AuthIsSignedIn,
-  AuthIsNotSignedIn,
 } from './app/contexts/auth';
-import { ChakraProvider } from '@chakra-ui/react';
 
-const SignInRoute = () => (
-  //TODO: route to logged out landing page
-  //TODO: open up all cognito routes below
-  <>
-    <Routes>
-      <Route exact path='/' element={<PrivateRoute />}>
-        <Route exact path='/profile' element={<Profile />} />
-      </Route>
-      <Route path='/signin' element={<SignIn />} />
-      {/* <Route path="/signup" component={SignUp} />
-        <Route path="/verify" component={VerifyCode} />
-        <Route path="/requestcode" component={RequestCode} />
-        <Route path="/forgotpassword" component={ForgotPassword} />
-        <Route path="/" component={Landing} /> */}
-    </Routes>
-  </>
-);
 
 function App() {
   return (
     <>
       <AuthProvider>
-        <AuthIsSignedIn>
           <Header />
           <main className=''>
             <Routes>
-              <Route path='/submission' element={<Submission />} />
-              <Route path='/about' element={<About />} />
-              <Route path='/gallery' element={<Gallery />} />
-              <Route path='/item/:id' element={<Item />} />
-              <Route path='/market' element={<Market />} />
-              <Route path='/profile' element={<Profile />} />
-              <Route path='/account' element={<Account />} />
-              <Route path='/cart' element={<Cart />} />
+              <Route exact path='/' element={<PrivateRoute />}>
+                <Route path='/submission' element={<Submission />} />
+                <Route path='/about' element={<About />} />
+                <Route path='/gallery' element={<Gallery />} />
+                <Route path='/item/:id' element={<Item />} />
+                <Route path='/market' element={<Market />} />
+                <Route path='/account' element={<Account />} />
+                <Route path='/cart' element={<Cart />} />
+                <Route exact path='/profile' element={<Profile />} />
+                <Route path='/' element={<Homepage />} />
+              </Route>
+              <Route path='/' element={<Landing />} />
+              <Route path='/signin' element={<SignIn />} />
               <Route path='*' element={<Homepage />} />
             </Routes>
           </main>
           <Footer />
-        </AuthIsSignedIn>
-        <AuthIsNotSignedIn>
-          <ChakraProvider>
-            <SignInRoute />
-          </ChakraProvider>
-        </AuthIsNotSignedIn>
-      </AuthProvider>
+        </AuthProvider>
     </>
   );
 }
