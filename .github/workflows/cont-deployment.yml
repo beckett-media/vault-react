@@ -14,7 +14,7 @@ on:
       AWS_REGION:
         required: false
         type: string
-        default: 'us-west-1' 
+        default: 'us-west-1'
     secrets:
       AWS_ACCESS_KEY_ID:
         required: true
@@ -45,7 +45,10 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: DISABLE_ESLINT_PLUGIN=true  npm run build
+        run: npm run build
+        env:
+          DISABLE_ESLINT_PLUGIN: true
+          CI: false
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1

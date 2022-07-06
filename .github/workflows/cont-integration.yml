@@ -25,4 +25,7 @@ jobs:
         run: npm install
 
       - name: Build
-        run: DISABLE_ESLINT_PLUGIN=true npm run build
+        run: npm  run build
+        env:
+          DISABLE_ESLINT_PLUGIN: true 
+          CI: false
