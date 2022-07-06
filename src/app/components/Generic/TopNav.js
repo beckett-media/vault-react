@@ -45,17 +45,19 @@ const TopNav = () => {
               title={<i className='fa-solid fa-user'></i>}
               id='basic-nav-dropdown'
             >
-              <NavDropdown.Item href='/profile'>Profile</NavDropdown.Item>
-              <NavDropdown.Item href='/account'>Account</NavDropdown.Item>
-              <NavDropdown.Divider />
               {authContext.authStatus === AuthStatus.SignedIn ? (
-                <NavDropdown.Item
-                  onClick={async () => {
-                    authContext.signOut();
-                  }}
-                >
-                  Logout
-                </NavDropdown.Item>
+                <>
+                  <NavDropdown.Item href='/profile'>Profile</NavDropdown.Item>
+                  <NavDropdown.Item href='/account'>Account</NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item
+                    onClick={async () => {
+                      authContext.signOut();
+                    }}
+                  >
+                    Logout
+                  </NavDropdown.Item>
+                </>
               ) : (
                 <NavDropdown.Item href='/signin'>Login</NavDropdown.Item>
               )}
