@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect } from 'react';
 import Header from './app/components/Generic/Header';
 import Footer from './app/components/Generic/Footer';
 import Homepage from './app/components/Homepage/Homepage';
@@ -8,39 +8,64 @@ import Item from './app/components/Item/Item';
 import Market from './app/components/Market/Market';
 import Profile from './app/components/Profile/Profile';
 import Cart from './app/components/Cart/Cart';
-import Account from './app/components/Account/Account';
 import About from './app/components/About/About';
+import Account from './app/components/Account/Account';
+import SignIn from './app/components/SignIn/SignIn';
 import { Routes, Route } from 'react-router-dom';
 import './index.scss';
-import Settings from './app/components/Settings/Settings';
-import { Container } from 'react-bootstrap';
-import { UserContext } from './app/components/Context/UserContext';
+
+import AuthProvider, {
+  PrivateRoute,
+  AuthIsSignedIn,
+  AuthIsNotSignedIn,
+} from './app/contexts/auth';
+import { ChakraProvider } from '@chakra-ui/react';
+
+const SignInRoute = () => (
+  //TODO: route to logged out landing page
+  //TODO: open up all cognito routes below
+  <>
+    <Routes>
+      <Route exact path='/' element={<PrivateRoute />}>
+        <Route exact path='/profile' element={<Profile />} />
+      </Route>
+      <Route path='/signin' element={<SignIn />} />
+      {/* <Route path="/signup" component={SignUp} />
+        <Route path="/verify" component={VerifyCode} />
+        <Route path="/requestcode" component={RequestCode} />
+        <Route path="/forgotpassword" component={ForgotPassword} />
+        <Route path="/" component={Landing} /> */}
+    </Routes>
+  </>
+);
 
 function App() {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
-  const userValue = useMemo(() => ({ user, setUser }), [user, setUser]);
   return (
     <>
-      <UserContext.Provider value={userValue}>
-        <Header />
-        <main className=''>
-          <Container>
+      <AuthProvider>
+        <AuthIsSignedIn>
+          <Header />
+          <main className=''>
             <Routes>
               <Route path='/submission' element={<Submission />} />
               <Route path='/about' element={<About />} />
               <Route path='/gallery' element={<Gallery />} />
               <Route path='/item/:id' element={<Item />} />
               <Route path='/market' element={<Market />} />
-              {/* PrivateRoute */}
               <Route path='/profile' element={<Profile />} />
               <Route path='/account' element={<Account />} />
               <Route path='/cart' element={<Cart />} />
               <Route path='*' element={<Homepage />} />
             </Routes>
-          </Container>
-        </main>
-        <Footer />
-      </UserContext.Provider>
+          </main>
+          <Footer />
+        </AuthIsSignedIn>
+        <AuthIsNotSignedIn>
+          <ChakraProvider>
+            <SignInRoute />
+          </ChakraProvider>
+        </AuthIsNotSignedIn>
+      </AuthProvider>
     </>
   );
 }

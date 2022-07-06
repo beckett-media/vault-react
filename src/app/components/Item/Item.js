@@ -5,10 +5,8 @@ import './Item.scss';
 import { getItem } from '../../services/items';
 import { useNavigate, useParams } from 'react-router-dom';
 import SubmitButton from '../Generic/SubmitButton';
-import { UserContext } from '../Context/UserContext';
 
 const Item = () => {
-  const { user } = useContext(UserContext);
   const { id } = useParams();
   const [item, setItem] = useState({});
   useEffect(() => {
@@ -67,17 +65,18 @@ const Item = () => {
             {item.price?.toLocaleString()}
           </p>
         </Row>
-        {user && user.id == item.ownerId ? (
+        {/* TODO: fix this using the new auth */}
+        {true ? (
           <>
             <Row className='mt-2'>
-              <Col ></Col>
+              <Col></Col>
               <SubmitButton
                 func={listItem}
                 title='Sell in Marketplace'
                 bg='primary'
               />
             </Row>
-            <br/>
+            <br />
             <Row>
               <SubmitButton
                 className='withdraw-btn'
