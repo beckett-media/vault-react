@@ -8,19 +8,19 @@ const Footer = () => {
     <>
       <hr />
       <Row className='footer mb-2 py-5 mx-4 dark'>
-        <Col >
+        <Col>
           <Link to='/about'>
             <span className='text-muted fs-5 fw-bold'>Beckett Vault</span>
           </Link>
         </Col>
-        <Col >
+        <Col>
           <span className='text-muted'>Terms of Service</span>
           <span className='text-muted'>Privacy Policy</span>
           <span className='text-muted'>FAQ</span>
           <span className='text-muted'>Support</span>
         </Col>
         {/** TODO: Verify this should be 2021 */}
-        <Col >
+        <Col>
           <span className='text-muted'>&copy; Beckett, Inc. 2021</span>
         </Col>
       </Row>

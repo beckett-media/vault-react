@@ -9,7 +9,7 @@
     "BASE_URL": "https://www.beckett.com:3300"
   },
   "general": {
-    "REACT_APP_USERPOOL_ID":"us-west-1_QgCMUGduZ",
-    "REACT_APP_CLIENT_ID":"30apj4knq7ps2qsaldr6clpr9p"
+    "REACT_APP_USERPOOL_ID": "us-west-1_QgCMUGduZ",
+    "REACT_APP_CLIENT_ID": "30apj4knq7ps2qsaldr6clpr9p"
   }
 }
