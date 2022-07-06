@@ -20,7 +20,7 @@
     "babel-preset-react": "^6.24.1",
     "framer-motion": "^6.3.16",
     "jest": "^28.1.1",
-    "moment": "^2.29.3",
+    "moment": "^2.29.4",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-icons": "^4.4.0",
