@@ -22,7 +22,7 @@ const Item = () => {
     navigate('/market');
   };
   const withdrawItem = () => {
-    navigate('/');
+    navigate('/withdraw');
   };
   return (
     <Row>
@@ -79,12 +79,12 @@ const Item = () => {
             </Row>
             <br/>
             <Row>
-              <SubmitButton
-                className='withdraw-btn'
-                func={withdrawItem}
-                title='Withdraw from Vault'
-                bg='outline-primary'
-              />
+                <SubmitButton
+                  className='withdraw-btn'
+                  func={withdrawItem}
+                  title='Withdraw from Vault'
+                  bg='outline-primary'
+                />
             </Row>
           </>
         ) : (
