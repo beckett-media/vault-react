@@ -47,6 +47,8 @@ const Gallery = () => {
   const [showConfirmationPage, toggleShowConfirmationPage] = useState(false);
   const toggleListView = () => setListView(!listView);
 
+  console.log(items)
+
   const listItem = (evt) => {
     const item = items.filter((item) => item.id === evt.target.id);
     dispatch(addListItem(item));
@@ -143,6 +145,7 @@ const Gallery = () => {
                     src={item.img}
                     alt=''
                   />
+                  <div className={`${item.submit && 'card-submit'} ${item.withdraw && 'card-withdraw'}`}>Item pending {item.submit && 'submission'} {item.withdraw && 'withdrawal'}</div>
                 </Link>
               </Card.Body>
             </Card>

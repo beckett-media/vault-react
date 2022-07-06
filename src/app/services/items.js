@@ -9,6 +9,9 @@ const mockItems = [
       'https://uploads.tapatalk-cdn.com/20180529/ddf1bbba0522b0a64945e765b2b2df4c.jpg',
     date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 7),
     price: 1200,
+    withdraw: false,
+    submit: true, 
+    public: false
   },
   {
     id: 2,
