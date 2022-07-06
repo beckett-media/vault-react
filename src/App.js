@@ -11,60 +11,49 @@ import Cart from './app/components/Cart/Cart';
 import About from './app/components/About/About';
 import Account from './app/components/Account/Account';
 import SignIn from './app/components/SignIn/SignIn';
+import Landing from './app/components/Homepage/Landing';
 import { Routes, Route } from 'react-router-dom';
+import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import './index.scss';
 
-import AuthProvider, {
-  PrivateRoute,
-  AuthIsSignedIn,
-  AuthIsNotSignedIn,
-} from './app/contexts/auth';
-import { ChakraProvider } from '@chakra-ui/react';
-
-const SignInRoute = () => (
-  //TODO: route to logged out landing page
-  //TODO: open up all cognito routes below
-  <>
-    <Routes>
-      <Route exact path='/' element={<PrivateRoute />}>
-        <Route exact path='/profile' element={<Profile />} />
-      </Route>
-      <Route path='/signin' element={<SignIn />} />
-      {/* <Route path="/signup" component={SignUp} />
-        <Route path="/verify" component={VerifyCode} />
-        <Route path="/requestcode" component={RequestCode} />
-        <Route path="/forgotpassword" component={ForgotPassword} />
-        <Route path="/" component={Landing} /> */}
-    </Routes>
-  </>
-);
+import AuthProvider, { PrivateRoute } from './app/contexts/auth';
+//chakra uses a default theme, this will remove it.
+const emptyChakraTheme = extendTheme({
+  styles: {
+    global: () => ({
+      body: {
+        bg: '',
+      },
+    }),
+  },
+});
 
 function App() {
   return (
     <>
       <AuthProvider>
-        <AuthIsSignedIn>
+        <ChakraProvider theme={emptyChakraTheme}>
           <Header />
           <main className=''>
             <Routes>
-              <Route path='/submission' element={<Submission />} />
-              <Route path='/about' element={<About />} />
-              <Route path='/gallery' element={<Gallery />} />
-              <Route path='/item/:id' element={<Item />} />
-              <Route path='/market' element={<Market />} />
-              <Route path='/profile' element={<Profile />} />
-              <Route path='/account' element={<Account />} />
-              <Route path='/cart' element={<Cart />} />
+              <Route exact path='/' element={<PrivateRoute />}>
+                <Route path='/submission' element={<Submission />} />
+                <Route path='/about' element={<About />} />
+                <Route path='/gallery' element={<Gallery />} />
+                <Route path='/item/:id' element={<Item />} />
+                <Route path='/market' element={<Market />} />
+                <Route path='/account' element={<Account />} />
+                <Route path='/cart' element={<Cart />} />
+                <Route exact path='/profile' element={<Profile />} />
+                <Route path='/' element={<Homepage />} />
+              </Route>
+              <Route path='/signin' element={<SignIn />} />
+              <Route path='/landing' element={<Landing />} />
               <Route path='*' element={<Homepage />} />
             </Routes>
           </main>
           <Footer />
-        </AuthIsSignedIn>
-        <AuthIsNotSignedIn>
-          <ChakraProvider>
-            <SignInRoute />
-          </ChakraProvider>
-        </AuthIsNotSignedIn>
+        </ChakraProvider>
       </AuthProvider>
     </>
   );
