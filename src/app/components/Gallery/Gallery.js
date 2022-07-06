@@ -145,7 +145,7 @@ const Gallery = () => {
                     src={item.img}
                     alt=''
                   />
-                  <div className={`${item.submit && 'card-submit'} ${item.withdraw && 'card-withdraw'}`}>Item pending {item.submit && 'submission'} {item.withdraw && 'withdrawal'}</div>
+                  {(item.submit || item.withdraw) && (<div className='card-pending'>Item pending {item.submit && 'submission'} {item.withdraw && 'withdrawal'}</div>)}
                 </Link>
               </Card.Body>
             </Card>
