@@ -14,4 +14,5 @@ jobs:
       AWS_REGION: us-west-1
       AWS_BUCKET_NAME: dev-vulcan-beckettvaulting-assets-548281136650
       CF_DISTRIBUTION_ID: E35C28BRGBVHX7
+      ENV: dev
     secrets: inherit
