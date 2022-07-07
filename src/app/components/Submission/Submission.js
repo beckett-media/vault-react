@@ -19,7 +19,7 @@ const Submission = () => {
   const [completeAdd, toggleCompleteAdd] = useState(false);
   const [confirmedSubmission, setConfirmedSubmission] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const [ successfulSubmission, setSuccessfulSubmission ] = useState(false)
+  const [successfulSubmission, setSuccessfulSubmission] = useState(false);
   formSubmitted &&
     confirmedSubmission &&
     postSubmission({
@@ -34,7 +34,9 @@ const Submission = () => {
       year: '1999',
       overallGrade: '9.5',
       subGrades: 'corners: 5',
-    }).then(res => res.statusText === 'Created' && setSuccessfulSubmission(true));
+    }).then(
+      (res) => res.statusText === 'Created' && setSuccessfulSubmission(true),
+    );
 
   const cancelSubmission = () => setFormSubmitted(false);
   const updateFormSubmitted = () => setFormSubmitted(true);
@@ -121,11 +123,7 @@ const Submission = () => {
             </Row>
             <Row className='mx-4 my-2'>
               <Col xs={2}>
-                <SubmitButton
-                  func={setOnAdd}
-                  title='Cancel'
-                  bg='transparent'
-                />
+                <SubmitButton func={setOnAdd} title='Cancel' bg='transparent' />
               </Col>
             </Row>
           </>
@@ -141,7 +139,7 @@ const Submission = () => {
             </Col>
           </Row>
         )}
-        {!confirmedSubmission && !add &&
+        {!confirmedSubmission && !add && (
           <Row className='m-2'>
             <Col xs={3}>
               <Link to='/market'>
@@ -153,7 +151,7 @@ const Submission = () => {
               </Link>
             </Col>
           </Row>
-        }
+        )}
       </Container>
     </>
   );

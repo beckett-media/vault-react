@@ -5,15 +5,17 @@ import './Item.scss';
 import { getItem } from '../../services/items';
 import { useNavigate, useParams } from 'react-router-dom';
 import SubmitButton from '../Generic/SubmitButton';
-import { UserContext } from '../Context/UserContext';
+import { AuthStatus, AuthContext } from '../../contexts/auth';
 
 const Item = () => {
-  const { user } = useContext(UserContext);
+  const authContext = useContext(AuthContext);
+  //this is an array of cognitoAttributes.
+  //TODO: make a helper function that tuns this into an object.
+  console.log('authContext.attrInfo', authContext.attrInfo);
   const { id } = useParams();
   const [item, setItem] = useState({});
   useEffect(() => {
     // TODO: throw an error / redirect if we can't find the item?
-    // TODO: fix when it's xs
     getItem(id).then((data) => setItem(data));
   }, []);
   const navigate = useNavigate();
@@ -67,17 +69,18 @@ const Item = () => {
             {item.price?.toLocaleString()}
           </p>
         </Row>
-        {user && user.id == item.ownerId ? (
+        {/* TODO: fix this using the new auth */}
+        {true ? (
           <>
             <Row className='mt-2'>
-              <Col ></Col>
+              <Col></Col>
               <SubmitButton
                 func={listItem}
                 title='Sell in Marketplace'
                 bg='primary'
               />
             </Row>
-            <br/>
+            <br />
             <Row>
               <SubmitButton
                 className='withdraw-btn'
