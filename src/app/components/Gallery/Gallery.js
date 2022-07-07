@@ -4,7 +4,6 @@ import {
   Card,
   Col,
   Container,
-  FormCheck,
   Modal,
   Row,
 } from 'react-bootstrap';
@@ -13,15 +12,12 @@ import {
   addListItem,
   addWithdrawalItem,
   setListForm,
-  setSelectedItemId,
   setSelectedItemIds,
   setWithdrawalForm,
-  removeSelectedItemId,
 } from '../../state/actions';
 import { selectedItemIdsSelector } from '../../state/selectors';
 import GenericForm from '../Generic/GenericForm';
 import SubmitButton from '../Generic/SubmitButton';
-import LeftNav from '../Generic/LeftNav';
 import ProfileView from '../Profile/ProfileView';
 import Filter from '../Generic/Filter';
 import './Gallery.scss';
@@ -40,12 +36,21 @@ const Gallery = () => {
   document.body.classList.add('gallery-container');
   const dispatch = useDispatch();
   const [items, setItems] = useState([]);
+  //const [filteredItems, setFilteredItems] = useState([])
   const [listView, setListView] = useState(false);
   const [withdrawOrList, setWithdrawOrList] = useState('');
   const [showConfirm, toggleConfirm] = useState(false);
-  const selectedItemIds = useSelector(selectedItemIdsSelector).ids;
   const [showConfirmationPage, toggleShowConfirmationPage] = useState(false);
+  const [searchVal, setSearchVal] = useState('')
+  const [sortBy, setSortBy] = useState('title')
+  const selectedItemIds = useSelector(selectedItemIdsSelector).ids;
   const toggleListView = () => setListView(!listView);
+
+  const searchValRegex = new RegExp(searchVal.toLowerCase(),'g')
+
+  const filteredItems = items
+    .filter((item) => 
+      searchValRegex.test(item.title.toLowerCase()))
 
   const listItem = (evt) => {
     const item = items.filter((item) => item.id === evt.target.id);
@@ -91,12 +96,24 @@ const Gallery = () => {
   useEffect(() => {
     getItems().then((data) => setItems(data));
   }, []);
-  const itemBox = items.map((item) => {
+  
+  const sortedItems = sortBy ? 
+    filteredItems.sort((itemA, itemB) => {
+      const sortVal = sortBy.split('-')
+      const reverse = sortVal.length !== 1;
+      if(itemA[`${sortVal[0]}`] <= itemB[`${sortVal[0]}`]){
+        return reverse ? 1 : -1
+      }
+      else return reverse ? -1 : 1
+  }) :
+    filteredItems;
+
+    const itemBox = sortedItems.map((item) => {
     return (
       <>
         <Modal key={item.id} show={showConfirm} onHide={cancelConfirm}>
           <Modal.Header closeButton>
-            <Modal.Title id='contained-modal-title-vcenter'>
+            <Modal.Title id='contained-modal-title-center'>
               Sell this item?
             </Modal.Title>
           </Modal.Header>
@@ -178,7 +195,12 @@ const Gallery = () => {
               />
             </Col>
             <Col sm={9}>
-              <Filter />
+              <Filter
+                searchVal={searchVal}
+                setSearchVal={setSearchVal}
+                sortBy={sortBy}
+                setSortBy={setSortBy}
+              />
             </Col>
           </Row>
 
