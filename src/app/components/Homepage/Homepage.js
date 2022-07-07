@@ -26,6 +26,7 @@ const Homepage = () => {
       ? console.log('Invalid email.')
       : true;
   };
+
   const formSubmission = async ({
     email,
     phone,

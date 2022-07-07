@@ -8,7 +8,7 @@ const Footer = () => {
     <>
       <hr />
       <Row className='footer mb-2 py-5 mx-4 dark'>
-        <Col >
+        <Col>
           <Link to='/about'>
             <span className='text-muted fs-5 fw-bold'>Beckett Vault</span>
           </Link>

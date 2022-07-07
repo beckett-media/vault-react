@@ -11,8 +11,8 @@ const SubmissionForm = (props) => {
   const { formSubmitted, setConfirm, cancelSubmission, onAdd, items } = props;
   const submissionForm = useSelector(submissionFormSelector);
   const onAddNew = () => onAdd(true);
-  const dispatch = useDispatch()
-  const removeItem = (id) => dispatch(removeSubmissionItem)
+  const dispatch = useDispatch();
+  const removeItem = (id) => dispatch(removeSubmissionItem);
   return (
     <Container>
       <Row className='justify-content-md-center'>
@@ -32,16 +32,18 @@ const SubmissionForm = (props) => {
         {submissionForm.items.map((obj, i) => {
           return (
             <Container key={obj.id} className='m-2 p-3 border border rounded'>
-            <Row>
-              <Col>
-                <p>{i + 1}. {obj.gradingCompany}</p> 
-              </Col>
-              <Col className='right-align'>
-                {obj.serialNumber}
-              </Col> 
-            </Row>
-            <Row><Col>{obj.description}</Col></Row>
-            <SubmitButton func={removeItem} title='Delete' bg='link' isLink/> 
+              <Row>
+                <Col>
+                  <p>
+                    {i + 1}. {obj.gradingCompany}
+                  </p>
+                </Col>
+                <Col className='right-align'>{obj.serialNumber}</Col>
+              </Row>
+              <Row>
+                <Col>{obj.description}</Col>
+              </Row>
+              <SubmitButton func={removeItem} title='Delete' bg='link' isLink />
             </Container>
           );
         })}

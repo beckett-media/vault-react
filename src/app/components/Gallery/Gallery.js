@@ -173,7 +173,7 @@ const Gallery = () => {
       {!showConfirmationPage && (
         <>
           <Row className='mt-2 col-md-12'>
-          <Col md={8}></Col>
+            <Col md={8}></Col>
             <Col className='m-3'>
               <ProfileView />
             </Col>
