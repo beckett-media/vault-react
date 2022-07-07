@@ -69,8 +69,13 @@ const Item = () => {
             {item.price?.toLocaleString()}
           </p>
         </Row>
+<<<<<<< HEAD
         {//TODO: Add a Remove from Marketplace button if currently listed.
         user && user.id == item.ownerId ? (
+=======
+        {/* TODO: fix this using the new auth */}
+        {true ? (
+>>>>>>> a3bd3cee50015b578a8724bad6c982052c78d9f4
           <>
             <Row className='mt-2'>
               <Col></Col>
