@@ -31,7 +31,9 @@ const Footer = () => {
         </Col>
         {/** TODO: Verify this should be 2021 */}
         <Col>
-          <div className='text-muted align-right'>&copy; Beckett, Inc. 2021</div>
+          <div className='text-muted align-right'>
+            &copy; Beckett, Inc. 2021
+          </div>
         </Col>
       </Row>
     </>

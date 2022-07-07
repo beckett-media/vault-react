@@ -4,6 +4,8 @@ import configData from './config.json';
 let config;
 if (process.env.NODE_ENV === 'production') {
   config = Object.assign({}, configData.general, configData.production);
+} else if (process.env.NODE_ENV === 'qa') {
+  config = Object.assign({}, configData.general, configData.qa);
 } else {
   config = Object.assign({}, configData.general, configData.dev);
 }
