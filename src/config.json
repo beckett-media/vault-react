@@ -1,6 +1,6 @@
 {
   "dev": {
-    "BASE_URL": "https://dev.beckett.com:3300"
+    "BASE_URL": "http://localhost:3300"
   },
   "stage": {
     "BASE_URL": "https://stage.beckett.com:3300"
