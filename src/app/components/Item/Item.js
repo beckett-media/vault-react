@@ -70,7 +70,7 @@ const Item = () => {
           </p>
         </Row>
         {/* TODO: fix this using the new auth */}
-        {true ?
+        {true ? (
           <>
             <Row className='mt-2'>
               <Col></Col>
