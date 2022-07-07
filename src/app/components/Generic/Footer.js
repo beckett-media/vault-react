@@ -14,14 +14,26 @@ const Footer = () => {
           </Link>
         </Col>
         <Col>
-          <span className='text-muted'>Terms of Service</span>
-          <span className='text-muted'>Privacy Policy</span>
-          <span className='text-muted'>FAQ</span>
-          <span className='text-muted'>Support</span>
+          <Row>
+            <Col xs={4}>
+              <div className='text-muted fw-bold'>Terms of Service</div>
+            </Col>
+            <Col xs={3}>
+              <div className='text-muted fw-bold'>Privacy Policy</div>
+            </Col>
+            <Col xs={2}>
+              <div className='text-muted fw-bold'>FAQ</div>
+            </Col>
+            <Col xs={2}>
+              <div className='text-muted fw-bold'>Support</div>
+            </Col>
+          </Row>
         </Col>
         {/** TODO: Verify this should be 2021 */}
         <Col>
-          <span className='text-muted'>&copy; Beckett, Inc. 2021</span>
+          <div className='text-muted align-right'>
+            &copy; Beckett, Inc. 2021
+          </div>
         </Col>
       </Row>
     </>
