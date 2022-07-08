@@ -194,7 +194,7 @@ const Gallery = () => {
           </Row>
 
             {}
-            {/* {!showConfirmationPage && 
+            {!showConfirmationPage && 
               submissions.filter(item => item.minted_at === 0).length && 
               (
                 <Row>
@@ -204,7 +204,7 @@ const Gallery = () => {
                   </Link>
                   </Col>
                 </Row>
-              )} */}
+              )}
 
           <Row className='m-3'>
             <hr />
