@@ -33,7 +33,7 @@ const SubmissionForm = (props) => {
           return (
             <Container key={obj.id} className='m-2 p-3 border border rounded'>
               <Row>
-                <Col>
+                <Col className='info-box'>
                   <p>
                     {i + 1}. {obj.gradingCompany}
                   </p>

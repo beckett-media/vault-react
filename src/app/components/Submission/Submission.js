@@ -22,6 +22,22 @@ const Submission = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [successfulSubmission, setSuccessfulSubmission] = useState(false);
   const [user, setUser] = useState([]);
+  
+  const [gradingCompany, setGradingCompany] = useState('');
+  const [category, setCategory] = useState('');
+  const [serialNumber, setSerialNumber] = useState('');
+  const [description, setDescription] = useState('');
+  // Below are optional
+  const [title, setTitle] = useState('');
+  const [genre, setGenre] = useState('');
+  const [manufacturer, setManufacturer] = useState('');
+  const [year, setYear] = useState('');
+  const [overallGrade, setOverallGrade] = useState('');
+  const [subGrades, setSubGrades] = useState('');
+  const [autographGrade, setAutographGrade] = useState('');
+  const [subject, setSubject] = useState('');
+  const [image, setImage] = useState('');
+
   useEffect(() => {
     getUser().then((data) => setUser(data));
   }, []);
@@ -53,21 +69,7 @@ const Submission = () => {
     dispatch(addSubmissionItem(values));
     Object.values(stateSetters).forEach((setter) => setter(''));
   };
-  // Sorry for many state variables, they are strictly local.
-  const [gradingCompany, setGradingCompany] = useState('');
-  const [category, setCategory] = useState('');
-  const [serialNumber, setSerialNumber] = useState('');
-  const [description, setDescription] = useState('');
-  // Below are optional
-  const [title, setTitle] = useState('');
-  const [genre, setGenre] = useState('');
-  const [manufacturer, setManufacturer] = useState('');
-  const [year, setYear] = useState('');
-  const [overallGrade, setOverallGrade] = useState('');
-  const [subGrades, setSubGrades] = useState('');
-  const [autographGrade, setAutographGrade] = useState('');
-  const [subject, setSubject] = useState('');
-  const [image, setImage] = useState('');
+
   const values = {
     gradingCompany,
     category,
