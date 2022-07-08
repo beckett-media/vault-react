@@ -45,7 +45,7 @@ const Settings = () => {
       ),
     [],
   );
-  console.log(shipState, billState);
+
   return (
     <Container>
       <Row className='justify-content-md-center'>

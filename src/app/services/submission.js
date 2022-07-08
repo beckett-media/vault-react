@@ -6,7 +6,6 @@ import config from '../../config';
 console.log( config)
 export const postSubmission = async (obj) => {
   axiosRetry(axios, { retries: 3 });
-  console.log('ran', obj);
   const final = {
     user_name: obj.userName,
     grading_company: obj.gradingCompany || '',
@@ -27,16 +26,13 @@ export const postSubmission = async (obj) => {
   return axios
     .post(`${config.BASE_URL}/marketplace/submission`, final)
     .then((res) => {
-      console.log('res', res);
       return res;
     });
 };
 
 export const getSubmissions = async (userName) => {
-  console.log(userName)
   return axios.get(`${config.BASE_URL}/marketplace/submission`, 
     {params: {user_name: userName}}).then((res) => {
-    console.log('res', res);
-    return res;
+      return res;
   });
 };

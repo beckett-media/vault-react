@@ -97,7 +97,6 @@ const InterestForm = (props) => {
       }
     }
     if (e.target.id !== currentField) {
-      console.log('ran');
       switch (lastField) {
         case 'first':
           dispatch(

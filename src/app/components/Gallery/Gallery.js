@@ -111,7 +111,6 @@ const Gallery = () => {
     getItems().then((data) => setItems(data));
   }, []);
 
-  console.log(submissions)
   const sortedItems = sortBy ? 
     filteredItems.sort((itemA, itemB) => {
       const sortVal = sortBy.split('-')
@@ -194,8 +193,8 @@ const Gallery = () => {
             </Col>
           </Row>
 
-          
-            {!showConfirmationPage && 
+            {}
+            {/* {!showConfirmationPage && 
               submissions.filter(item => item.minted_at === 0).length && 
               (
                 <Row>
@@ -205,7 +204,7 @@ const Gallery = () => {
                   </Link>
                   </Col>
                 </Row>
-              )}
+              )} */}
 
           <Row className='m-3'>
             <hr />

@@ -40,59 +40,47 @@ import {
 } from './types';
 
 export const interestFormReducers = (state = { initialState }, action) => {
-  console.log('reducer returns ', action.payload);
   switch (action.type) {
     case SET_FIRST:
-      console.log(action);
-      return { ...state, first: action.payload.interestForm.first };
+            return { ...state, first: action.payload.interestForm.first };
     case SET_LAST:
-      console.log(action);
-      return { ...state, last: action.payload.interestForm.last };
+            return { ...state, last: action.payload.interestForm.last };
     case SET_PHONE:
-      console.log(action);
-      return { ...state, phone: action.payload.interestForm.phone };
+            return { ...state, phone: action.payload.interestForm.phone };
     case SET_EMAIL:
-      console.log(action);
-      return { ...state, email: action.payload.interestForm.email };
+            return { ...state, email: action.payload.interestForm.email };
     case SET_BECKETT_ID:
-      console.log(action);
-      return {
+            return {
         ...state,
         beckettId: action.payload.interestForm.beckettId,
       };
     case SET_CHECKBOX_1:
-      console.log(action);
-      return {
+            return {
         ...state,
         checkbox1: action.payload.interestForm.checkbox1,
       };
     case SET_CHECKBOX_2:
-      console.log(action);
-      return {
+            return {
         ...state,
         checkbox2: action.payload.interestForm.checkbox2,
       };
     case SET_CHECKBOX_3:
-      console.log(action);
-      return {
+            return {
         ...state,
         checkbox3: action.payload.interestForm.checkbox3,
       };
     case SET_CHECKBOX_4:
-      console.log(action);
-      return {
+            return {
         ...state,
         checkbox4: action.payload.interestForm.checkbox4,
       };
     case SET_CHECKBOX_5:
-      console.log(action);
-      return {
+            return {
         ...state,
         checkbox5: action.payload.interestForm.checkbox5,
       };
     case SET_CHECKBOX_6:
-      console.log(action);
-      return {
+            return {
         ...state,
         checkbox6: action.payload.interestForm.checkbox6,
       };
@@ -103,23 +91,19 @@ export const interestFormReducers = (state = { initialState }, action) => {
 };
 
 export const submissionFormReducers = (state = { initialState }, action) => {
-  console.log('reducer returns ', action.payload);
   switch (action.type) {
     case SET_SUBMISSION_FORM:
-      console.log(action);
-      return {
+            return {
         ...state,
         items: action.payload,
       };
     case ADD_SUBMISSION_ITEM:
-      console.log(action);
-      return {
+            return {
         ...state,
         items: [...state.items, action.payload],
       };
     case REMOVE_SUBMISSION_ITEM:
-      console.log(action);
-      return {
+            return {
         ...state,
         items: state.items.filter(
           (obj) => obj.serialNumber === action.payload.itemObject.serialNumber,
@@ -134,20 +118,17 @@ export const withdrawalFormReducers = (state = { initialState }, action) => {
   console.log('reducer returns ', action.payload);
   switch (action.type) {
     case SET_WITHDRAWAL_FORM:
-      console.log(action);
-      return {
+            return {
         ...state,
         items: action.payload,
       };
     case ADD_WITHDRAWAL_ITEM:
-      console.log(action);
-      return {
+            return {
         ...state,
         items: [...state.items, action.payload],
       };
     case REMOVE_WITHDRAWAL_ITEM:
-      console.log(action);
-      return {
+            return {
         ...state,
         items: state.items.filter(
           (obj) => obj.id === action.payload.itemObject.id,
@@ -162,20 +143,17 @@ export const listFormReducers = (state = { initialState }, action) => {
   console.log('reducer returns ', action.payload);
   switch (action.type) {
     case SET_LIST_FORM:
-      console.log(action);
-      return {
+            return {
         ...state,
         items: action.payload,
       };
     case ADD_LIST_ITEM:
-      console.log(action);
-      return {
+            return {
         ...state,
         items: [...state.items, action.payload],
       };
     case REMOVE_LIST_ITEM:
-      console.log(action);
-      return {
+            return {
         ...state,
         items: state.items.filter(
           (obj) => obj.id === action.payload.itemObject.id,
@@ -188,23 +166,19 @@ export const listFormReducers = (state = { initialState }, action) => {
 
 // Selected Item Ids
 export const selectedItemIdsReducers = (state = { initialState }, action) => {
-  console.log('reducer returns ', action.payload);
   switch (action.type) {
     case SET_SELECTED_ITEM_ID:
-      console.log(action);
-      return {
+            return {
         ...state,
         ids: [...state.ids, action.payload],
       };
     case REMOVE_SELECTED_ITEM_ID:
-      console.log(action);
-      return {
+            return {
         ...state,
         ids: state.ids.filter((idToRm) => idToRm !== action.payload),
       };
     case SET_SELECTED_ITEM_IDS:
-      console.log(action);
-      return {
+            return {
         ...state,
         ids: action.payload,
       };
@@ -215,83 +189,69 @@ export const selectedItemIdsReducers = (state = { initialState }, action) => {
 
 // Item object reducers
 export const itemObjectReducers = (state = { initialState }, action) => {
-  console.log('reducer returns ', action.payload);
   switch (action.type) {
     case SET_CATEGORY:
-      console.log(action);
-      return {
+            return {
         ...state,
         category: action.payload.itemObject.cateogory,
       };
     case SET_GRADING_COMPANY:
-      console.log(action);
-      return {
+            return {
         ...state,
         gradingCompany: action.payload.itemObject.gradingCompany,
       };
     case SET_SERIAL_NUMBER:
-      console.log(action);
-      return {
+            return {
         ...state,
         serialNumber: action.payload.itemObject.serialNumber,
       };
     case SET_DESCRIPTION:
-      console.log(action);
-      return {
+            return {
         ...state,
         description: action.payload.itemObject.description,
       };
     case SET_TITLE:
-      console.log(action);
-      return {
+            return {
         ...state,
         title: action.payload.itemObject.title,
       };
     case SET_GENRE:
-      console.log(action);
-      return {
+            return {
         ...state,
         genre: action.payload.itemObject.genre,
       };
     case SET_MANUFACTURER:
-      console.log(action);
-      return {
+            return {
         ...state,
         manufacturer: action.payload.itemObject.manufacturer,
       };
     case SET_YEAR:
-      console.log(action);
-      return {
+            return {
         ...state,
         year: action.payload.itemObject.year,
       };
     case SET_OVERALL_GRADE:
-      console.log(action);
-      return {
+            return {
         ...state,
         overallGrade: action.payload.itemObject.overallGrade,
       };
     case SET_AUTOGRAPH_GRADE:
-      console.log(action);
-      return {
+            return {
         ...state,
         autographGrade: action.payload.itemObject.autographGrade,
       };
     case SET_SUB_GRADES:
-      console.log(action);
-      return {
+            return {
         ...state,
         subGrade: action.payload.itemObject.subGrade,
       };
     case SET_SUBJECT:
-      console.log(action);
-      return {
+            return {
         ...state,
         subject: action.payload.itemObject.subject,
       };
     case SET_IMAGE:
-      console.log(action);
-      return {
+            return {
         ...state,
         image: action.payload.itemObject.image,
       };
@@ -303,8 +263,7 @@ export const itemObjectReducers = (state = { initialState }, action) => {
 
 // On logout
 //   case RESET_FORM:
-//     console.log(action);
-//     return { ...state, initialState };
+//     //     return { ...state, initialState };
 
 //   default:
 //     return state;

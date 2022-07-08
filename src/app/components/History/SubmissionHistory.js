@@ -5,20 +5,23 @@ import { getUser } from '../../services/user';
 import './SubmissionHistory.scss'
 
 const SubmissionHistory = () => {
+  const [togglePage, setTogglePage] = useState(false)
   const [submissions, setSubmissions] = useState([])
   const [selected, setSelected] = useState('')
   const [user, setUser] = useState([]);
+
   useEffect(() => {
     getUser().then((data) => setUser(data));
   }, []);
-  console.log('user.name on submission history ', user.name)
-  const submission = async () => await getSubmissions(user.name)
+
   useEffect(() => {
     const fetchSubmissions = async () => 
-      submission().then(res=>setSubmissions(res.data))
+    getSubmissions(user.name).then(res=>{
+      return (setSubmissions(res.data))})
     user && fetchSubmissions()
-  },[user])
-  console.log(submissions)
+    setTogglePage(true)
+  },[user, togglePage])
+
   return (
     <Container className='py-2 sub-box'>
       <div className='fs-3 pb-3'>Submission History</div>

@@ -14,18 +14,21 @@ const Item = () => {
   console.log('authContext.attrInfo', authContext.attrInfo);
   const { id } = useParams();
   const [item, setItem] = useState({});
+  
   useEffect(() => {
     // TODO: throw an error / redirect if we can't find the item?
     getItem(id).then((data) => setItem(data));
   }, []);
   const navigate = useNavigate();
-  console.log(item.img);
+
   const listItem = () => {
     navigate('/market');
   };
+
   const withdrawItem = () => {
     navigate('/');
   };
+  
   return (
     <Row>
       <Col className='align-center' md={5} sm={12}>

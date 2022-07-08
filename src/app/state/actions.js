@@ -37,78 +37,67 @@ import {
   REMOVE_SELECTED_ITEM_ID,
 } from './types';
 
-export const setFirst = (payload) => {
-  console.log('payload is', payload.interestForm);
+export const setFirst = (payload) => {  
   return {
     type: SET_FIRST,
     payload: payload,
   };
 };
-export const setLast = (payload) => {
-  console.log('payload is', payload.interestForm);
+export const setLast = (payload) => {  
   return {
     type: SET_LAST,
     payload: payload,
   };
 };
-export const setPhone = (payload) => {
-  console.log('payload is', payload.interestForm);
+export const setPhone = (payload) => {  
   return {
     type: SET_PHONE,
     payload: payload,
   };
 };
-export const setEmail = (payload) => {
-  console.log('payload is', payload.interestForm);
+export const setEmail = (payload) => {  
   return {
     type: SET_EMAIL,
     payload: payload,
   };
 };
-export const setBeckettId = (payload) => {
-  console.log('payload is', payload.interestForm);
+export const setBeckettId = (payload) => {  
   return {
     type: SET_BECKETT_ID,
     payload: payload,
   };
 };
-export const setCheckbox1 = (payload) => {
-  console.log('payload is', payload.interestForm);
+export const setCheckbox1 = (payload) => {  
   return {
     type: SET_CHECKBOX_1,
     payload: payload,
   };
 };
-export const setCheckbox2 = (payload) => {
-  console.log('payload is', payload.interestForm);
+export const setCheckbox2 = (payload) => {  
   return {
     type: SET_CHECKBOX_2,
     payload: payload,
   };
 };
-export const setCheckbox3 = (payload) => {
-  console.log('payload is', payload.interestForm);
+export const setCheckbox3 = (payload) => {  
   return {
     type: SET_CHECKBOX_3,
     payload: payload,
   };
 };
-export const setCheckbox4 = (payload) => {
-  console.log('payload is', payload.interestForm);
+export const setCheckbox4 = (payload) => {  
   return {
     type: SET_CHECKBOX_4,
     payload: payload,
   };
 };
-export const setCheckbox5 = (payload) => {
-  console.log('payload is', payload.interestForm);
+export const setCheckbox5 = (payload) => {  
   return {
     type: SET_CHECKBOX_5,
     payload: payload,
   };
 };
-export const setCheckbox6 = (payload) => {
-  console.log('payload is', payload.interestForm);
+export const setCheckbox6 = (payload) => {  
   return {
     type: SET_CHECKBOX_6,
     payload: payload,
@@ -117,7 +106,6 @@ export const setCheckbox6 = (payload) => {
 
 // submission form
 export const setSubmissionForm = (payload) => {
-  console.log('payload is', payload.submissionForm);
   return {
     type: SET_SUBMISSION_FORM,
     payload: payload,
@@ -125,7 +113,6 @@ export const setSubmissionForm = (payload) => {
 };
 
 export const addSubmissionItem = (payload) => {
-  console.log('payload is', payload.itemObject);
   return {
     type: ADD_SUBMISSION_ITEM,
     payload: payload,
@@ -133,7 +120,6 @@ export const addSubmissionItem = (payload) => {
 };
 
 export const removeSubmissionItem = (payload) => {
-  console.log('payload is', payload.submissionForm);
   return {
     type: REMOVE_SUBMISSION_ITEM,
     payload: payload,
@@ -142,7 +128,6 @@ export const removeSubmissionItem = (payload) => {
 
 // withdrawal reducers
 export const setWithdrawalForm = (payload) => {
-  console.log('payload is', payload.withdrawalForm);
   return {
     type: SET_WITHDRAWAL_FORM,
     payload: payload,
@@ -150,7 +135,6 @@ export const setWithdrawalForm = (payload) => {
 };
 
 export const addWithdrawalItem = (payload) => {
-  console.log('payload is', payload.itemObject);
   return {
     type: ADD_WITHDRAWAL_ITEM,
     payload: payload,
@@ -158,7 +142,6 @@ export const addWithdrawalItem = (payload) => {
 };
 
 export const removeWithdrawalItem = (payload) => {
-  console.log('payload is', payload.submissionForm);
   return {
     type: REMOVE_WITHDRAWAL_ITEM,
     payload: payload,
@@ -167,7 +150,6 @@ export const removeWithdrawalItem = (payload) => {
 
 // list items form
 export const setListForm = (payload) => {
-  console.log('payload is', payload.listForm);
   return {
     type: SET_LIST_FORM,
     payload: payload,
@@ -175,7 +157,6 @@ export const setListForm = (payload) => {
 };
 
 export const addListItem = (payload) => {
-  console.log('payload is', payload.itemObject);
   return {
     type: ADD_LIST_ITEM,
     payload: payload,
@@ -183,7 +164,6 @@ export const addListItem = (payload) => {
 };
 
 export const removeListItem = (payload) => {
-  console.log('payload is', payload.submissionForm);
   return {
     type: REMOVE_LIST_ITEM,
     payload: payload,
@@ -292,7 +272,7 @@ export const setSelectedItemIds = (payload) => {
 
 // on Logout action
 export const resetForm = (payload) => {
-  console.log('payload is', payload.interestForm);
+  
   return {
     type: RESET_FORM,
     payload: payload,

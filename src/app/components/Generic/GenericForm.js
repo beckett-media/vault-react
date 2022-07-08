@@ -4,7 +4,7 @@ import { selectedItemIdsSelector } from '../../state/selectors';
 
 const GenericForm = (props) => {
   const selectedItemIds = useSelector(selectedItemIdsSelector);
-  console.log('generic', selectedItemIds);
+
   const genericFormItems = () =>
     props.items.map(
       (item) =>
