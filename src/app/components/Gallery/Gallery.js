@@ -151,9 +151,19 @@ const Gallery = () => {
         {!listView && (
           <GridItemBox>
             <Card className='dark'>
-              <Card.Header className='card-hdr'>
+              <Card.Header >
+              <Link to={`/item/${item.id}`}>
+                  <Card.Img
+                    className='card-img'
+                    variant='top'
+                    src={item.img}
+                    alt=''
+                  />
+                </Link>
+              </Card.Header>
+              <Card.Body className='card-bdy'>
                 <Link to={`/item/${item.id}`}>
-                  <Card.Title className='fs-6'>
+                  <Card.Title className='fs-6 fw-bold'>
                     {
                       // Logic to split title longer than 33 char and append ... to it.
                       item.title.length > 33
@@ -164,17 +174,7 @@ const Gallery = () => {
                         : item.title
                     }
                   </Card.Title>
-                </Link>
-              </Card.Header>
-              <Card.Body>
-                <Link to={`/item/${item.id}`}>
-                  <Card.Img
-                    className='card-img'
-                    variant='top'
-                    src={item.img}
-                    alt=''
-                  />
-                </Link>
+                  </Link>
               </Card.Body>
             </Card>
           </GridItemBox>

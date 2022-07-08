@@ -13,7 +13,7 @@ const Profile = () => {
 
   return (
     <Container>
-      <Row className='justify-content-center'>
+      <Row className='justify-content-center info-box'>
         <h2>Profile</h2>
       </Row>
       <Row>
@@ -28,7 +28,7 @@ const Profile = () => {
                 id='name'
                 type='text'
                 value={user.name}
-                className='transparent-text-input border border-dark rounded-pill'
+                className='transparent-text-input border border-dark rounded-pill px-3 py-1'
                 placeholder={'Name*'}
               />
             </Col>
@@ -39,7 +39,7 @@ const Profile = () => {
                 id='email'
                 type='text'
                 value={user.email}
-                className='transparent-text-input border border-dark rounded-pill'
+                className='transparent-text-input border border-dark rounded-pill px-3 py-1'
                 placeholder={'Email*'}
               />
             </Col>

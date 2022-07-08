@@ -6,6 +6,7 @@ import { getItem } from '../../services/items';
 import { useNavigate, useParams } from 'react-router-dom';
 import SubmitButton from '../Generic/SubmitButton';
 import { AuthStatus, AuthContext } from '../../contexts/auth';
+import { getUser } from '../../services/user';
 
 const Item = () => {
   const authContext = useContext(AuthContext);
@@ -14,7 +15,12 @@ const Item = () => {
   console.log('authContext.attrInfo', authContext.attrInfo);
   const { id } = useParams();
   const [item, setItem] = useState({});
-  
+  const [user, setUser] = useState([]);
+
+  useEffect(() => {
+    getUser().then((data) => setUser(data));
+  }, []);
+
   useEffect(() => {
     // TODO: throw an error / redirect if we can't find the item?
     getItem(id).then((data) => setItem(data));
@@ -30,7 +36,7 @@ const Item = () => {
   };
 
   return (
-    <Row>
+    <Row className='p-5'>
       <Col className='align-center' md={5} sm={12}>
         <div className='flip-card'>
           <div className='flip-card-inner'>
@@ -51,7 +57,7 @@ const Item = () => {
           </div>
         </div>
       </Col>
-      <Col className='m-3' md={5} sm={12}>
+      <Col className='m-3 info-box' md={5} sm={12}>
         <Row>
           <h3>{item.title}</h3>
         </Row>
