@@ -3,11 +3,12 @@ const axiosRetry = require('axios-retry');
 
 import config from '../../config';
 
+console.log( config)
 export const postSubmission = async (obj) => {
   axiosRetry(axios, { retries: 3 });
   console.log('ran', obj);
   const final = {
-    user_name: 'Tester',
+    user_name: obj.userName,
     grading_company: obj.gradingCompany || '',
     serial_number: obj.serialNumber || '',
     title: obj.title || '',
@@ -21,6 +22,7 @@ export const postSubmission = async (obj) => {
     subject: obj.subject || '',
     image_base64: obj.img || '',
     image_format: obj.imgFormat || '',
+    status_
   };
   return axios
     .post(`${config.BASE_URL}/marketplace/submission`, final)
@@ -30,8 +32,10 @@ export const postSubmission = async (obj) => {
     });
 };
 
-export const getSubmissions = async () => {
-  return axios.get(`${config.BASE_URL}/marketplace/submission`).then((res) => {
+export const getSubmissions = async (userName) => {
+  console.log(userName)
+  return axios.get(`${config.BASE_URL}/marketplace/submission`, 
+    {params: {user_name: userName}}).then((res) => {
     console.log('res', res);
     return res;
   });

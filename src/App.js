@@ -17,6 +17,7 @@ import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import './index.scss';
 
 import AuthProvider, { PrivateRoute } from './app/contexts/auth';
+import SubmissionHistory from './app/components/History/SubmissionHistory';
 //chakra uses a default theme, this will remove it.
 const emptyChakraTheme = extendTheme({
   styles: {
@@ -45,6 +46,7 @@ function App() {
                 <Route path='/account' element={<Account />} />
                 <Route path='/cart' element={<Cart />} />
                 <Route exact path='/profile' element={<Profile />} />
+                <Route path='/history' element={<SubmissionHistory />} />
                 <Route path='/' element={<Homepage />} />
               </Route>
               <Route path='/signin' element={<SignIn />} />

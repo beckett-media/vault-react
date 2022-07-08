@@ -31,6 +31,8 @@ import {
 import { BsGrid3X2GapFill, BsList } from 'react-icons/bs';
 import { getItems } from '../../services/items';
 import { Link } from 'react-router-dom';
+import { getSubmissions } from '../../services/submission';
+import { getUser } from '../../services/user';
 
 const Gallery = () => {
   document.body.classList.add('gallery-container');
@@ -43,6 +45,18 @@ const Gallery = () => {
   const [showConfirmationPage, toggleShowConfirmationPage] = useState(false);
   const [searchVal, setSearchVal] = useState('')
   const [sortBy, setSortBy] = useState('title')
+  const [submissions, setSubmissions] = useState([])
+  const [user, setUser] = useState([]);
+  useEffect(() => {
+    getUser().then((data) => setUser(data));
+  }, []);
+  const submission = async () => await getSubmissions(user.name)
+  useEffect(() => {
+    const fetchSubmissions = async () => 
+      submission().then(res=>setSubmissions(res.data))
+      fetchSubmissions()
+  }, [user])
+  
   const selectedItemIds = useSelector(selectedItemIdsSelector).ids;
   const toggleListView = () => setListView(!listView);
 
@@ -96,7 +110,8 @@ const Gallery = () => {
   useEffect(() => {
     getItems().then((data) => setItems(data));
   }, []);
-  
+
+  console.log(submissions)
   const sortedItems = sortBy ? 
     filteredItems.sort((itemA, itemB) => {
       const sortVal = sortBy.split('-')
@@ -110,8 +125,8 @@ const Gallery = () => {
 
     const itemBox = sortedItems.map((item) => {
     return (
-      <>
-        <Modal key={item.id} show={showConfirm} onHide={cancelConfirm}>
+      <div key={item.id} >
+        <Modal show={showConfirm} onHide={cancelConfirm}>
           <Modal.Header closeButton>
             <Modal.Title id='contained-modal-title-center'>
               Sell this item?
@@ -165,7 +180,7 @@ const Gallery = () => {
             </Card>
           </GridItemBox>
         )}
-      </>
+      </div>
     );
   });
   return (
@@ -178,6 +193,20 @@ const Gallery = () => {
               <ProfileView />
             </Col>
           </Row>
+
+          
+            {!showConfirmationPage && 
+              submissions.filter(item => item.minted_at === 0).length && 
+              (
+                <Row>
+                  <Col>
+                  <Link to='/history'>
+                    <Button>SHOW PENDING ITEMS</Button>
+                  </Link>
+                  </Col>
+                </Row>
+              )}
+
           <Row className='m-3'>
             <hr />
           </Row>
@@ -213,6 +242,7 @@ const Gallery = () => {
               </>
             )}
           </Row>
+        
           {selectedItemIds.length > 0 && (
             <>
               <SubmitButton func={clearSelections} title='Clear' />

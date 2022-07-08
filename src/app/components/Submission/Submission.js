@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import SubmissionSuccess from '../Response/SubmissionSuccess';
 import SubmissionAdd from './SubmissionAdd';
@@ -10,6 +10,7 @@ import { addSubmissionItem } from '../../state/actions';
 import { postSubmission } from '../../services/submission';
 import './Submission.scss';
 import { Link } from 'react-router-dom';
+import { getUser } from '../../services/user';
 
 const Submission = () => {
   document.body.classList.add('submit-container');
@@ -20,10 +21,14 @@ const Submission = () => {
   const [confirmedSubmission, setConfirmedSubmission] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [successfulSubmission, setSuccessfulSubmission] = useState(false);
+  const [user, setUser] = useState([]);
+  useEffect(() => {
+    getUser().then((data) => setUser(data));
+  }, []);
   formSubmitted &&
     confirmedSubmission &&
     postSubmission({
-      userId: '0123456789',
+      userName: user.name,
       description: 'postmanTest',
       title: 'postmanTitle',
       serialNumber: '7327732711',
@@ -34,6 +39,7 @@ const Submission = () => {
       year: '1999',
       overallGrade: '9.5',
       subGrades: 'corners: 5',
+      status_desc: 'Pending'
     }).then(
       (res) => res.statusText === 'Created' && setSuccessfulSubmission(true),
     );
