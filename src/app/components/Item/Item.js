@@ -62,7 +62,7 @@ const Item = () => {
           <br />
           <p className='fs-5'>
             {' '}
-            <span className='fw-bold'>Date vaulted: </span>{' '}
+            <span className='fw-bold'>Date Vaulted: </span>{' '}
             {item.date && moment(item.date).format('MMMM Do YYYY')}
           </p>
         </Row>
