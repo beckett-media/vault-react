@@ -28,7 +28,7 @@ const Item = () => {
   const withdrawItem = () => {
     navigate('/');
   };
-  
+
   return (
     <Row>
       <Col className='align-center' md={5} sm={12}>
