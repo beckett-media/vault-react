@@ -29,17 +29,16 @@ const Submission = () => {
     confirmedSubmission &&
     postSubmission({
       userName: user.name,
-      description: 'postmanTest',
-      title: 'postmanTitle',
-      serialNumber: '7327732711',
-      category: 'card',
-      gradingCompany: 'BGS',
-      genre: 'baseball',
-      manufacturer: 'faker',
-      year: '1999',
-      overallGrade: '9.5',
-      subGrades: 'corners: 5',
-      status_desc: 'Pending'
+      description: description,
+      title: title,
+      serialNumber: serialNumber,
+      category: category,
+      gradingCompany: gradingCompany,
+      genre: genre,
+      manufacturer: manufacturer,
+      year: year,
+      overallGrade: overallGrade,
+      subGrades: subGrades,
     }).then(
       (res) => res.statusText === 'Created' && setSuccessfulSubmission(true),
     );

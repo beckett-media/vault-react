@@ -21,7 +21,6 @@ export const postSubmission = async (obj) => {
     subject: obj.subject || '',
     image_base64: obj.img || '',
     image_format: obj.imgFormat || '',
-    status_
   };
   return axios
     .post(`${config.BASE_URL}/marketplace/submission`, final)
