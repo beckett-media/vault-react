@@ -70,7 +70,7 @@ const Item = () => {
           </p>
         </Row>
         {//TODO: Add a Remove from Marketplace button if currently listed.
-        user && user.id == item.ownerId ? (
+        true ? (
           <>
             <Row className='mt-2'>
               <Col></Col>
