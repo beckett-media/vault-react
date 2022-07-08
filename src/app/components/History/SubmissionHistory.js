@@ -16,7 +16,7 @@ const SubmissionHistory = () => {
   useEffect(() => {
     const fetchSubmissions = async () => 
       submission().then(res=>setSubmissions(res.data))
-      fetchSubmissions()
+    user && fetchSubmissions()
   },[user])
   console.log(submissions)
   return (

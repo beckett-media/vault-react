@@ -50,11 +50,11 @@ const Gallery = () => {
   useEffect(() => {
     getUser().then((data) => setUser(data));
   }, []);
-  const submission = async () => await getSubmissions(user.name)
+  const submissionsObj = async () => await getSubmissions(user.name)
   useEffect(() => {
     const fetchSubmissions = async () => 
-      submission().then(res=>setSubmissions(res.data))
-      fetchSubmissions()
+      submissionsObj().then(res=>setSubmissions(res.data))
+    user && fetchSubmissions()
   }, [user])
   
   const selectedItemIds = useSelector(selectedItemIdsSelector).ids;
