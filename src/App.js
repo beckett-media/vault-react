@@ -24,6 +24,7 @@ const emptyChakraTheme = extendTheme({
     global: () => ({
       body: {
         bg: '',
+        color: 'white',
       },
     }),
   },
