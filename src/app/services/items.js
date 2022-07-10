@@ -7,7 +7,7 @@ const mockItems = [
     img: `https://www.deanscards.com/images/Basic%20pages/Babe%20Ruth%201933%20Goudey%20PSA%203.JPG`,
     imgRev:
       'https://uploads.tapatalk-cdn.com/20180529/ddf1bbba0522b0a64945e765b2b2df4c.jpg',
-    date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 7),
+    date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 7).toString(),
     price: 1200,
   },
   {
@@ -18,7 +18,7 @@ const mockItems = [
     img: `https://cdn10.bigcommerce.com/s-omz8v4fn35/product_images/uploaded_images/corners2.png`,
     imgRev:
       'https://uploads.tapatalk-cdn.com/20180529/ddf1bbba0522b0a64945e765b2b2df4c.jpg',
-    date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 14),
+    date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 14).toString(),
     price: 1600,
   },
   {
@@ -29,7 +29,7 @@ const mockItems = [
     img: `https://www.oldsportscards.com/wp-content/uploads/2019/04/1959-Topps-10-Mickey-Mantle-Baseball-Card-Graded-PSA-1.jpg`,
     imgRev:
       'https://uploads.tapatalk-cdn.com/20180529/ddf1bbba0522b0a64945e765b2b2df4c.jpg',
-    date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 3),
+    date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 3).toString(),
     price: 12000,
   },
   {
@@ -40,7 +40,7 @@ const mockItems = [
     img: `https://www.deanscards.com/images/Basic%20pages/Babe%20Ruth%201933%20Goudey%20PSA%203.JPG`,
     imgRev:
       'https://uploads.tapatalk-cdn.com/20180529/ddf1bbba0522b0a64945e765b2b2df4c.jpg',
-    date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 21),
+    date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 21).toString(),
     price: 7200,
   },
   {
@@ -51,7 +51,7 @@ const mockItems = [
     img: `https://miro.medium.com/max/1200/1*JaWyJo7nrnouwmb8FSDD9g.jpeg`,
     imgRev:
       'https://uploads.tapatalk-cdn.com/20180529/ddf1bbba0522b0a64945e765b2b2df4c.jpg',
-    date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 33),
+    date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 33).toString(),
     price: 5500,
   },
   {
@@ -62,7 +62,7 @@ const mockItems = [
     img: `https://pbs.twimg.com/media/FHJ9gdUXIAM58gC.jpg`,
     imgRev:
       'https://uploads.tapatalk-cdn.com/20180529/ddf1bbba0522b0a64945e765b2b2df4c.jpg',
-    date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 1),
+    date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 1).toString(),
     price: 3200,
   },
 ];

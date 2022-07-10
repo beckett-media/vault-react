@@ -15,6 +15,11 @@ export const submissionFormSelector = createSelector(
   (state) => state.submissionForm,
 );
 
+export const withdrawFormSelector = createSelector(
+  (state) => state,
+  (state) => state.withdrawalForm,
+);
+
 export const selectedItemIdsSelector = createSelector(
   (state) => state,
   (state) => state.selectedItemIds,

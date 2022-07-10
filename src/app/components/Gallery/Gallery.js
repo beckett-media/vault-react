@@ -16,7 +16,7 @@ import {
   setWithdrawalForm,
 } from '../../state/actions';
 import { selectedItemIdsSelector } from '../../state/selectors';
-import GenericForm from '../Generic/GenericForm';
+import WithdrawForm from './WithdrawForm';
 import SubmitButton from '../Generic/SubmitButton';
 import ProfileView from '../Profile/ProfileView';
 import Filter from '../Generic/Filter';
@@ -31,6 +31,7 @@ import {
 import { BsGrid3X2GapFill, BsList } from 'react-icons/bs';
 import { getItems } from '../../services/items';
 import { Link } from 'react-router-dom';
+import { withdrawItem } from '../../services/withdraw';
 
 const Gallery = () => {
   document.body.classList.add('gallery-container');
@@ -40,6 +41,8 @@ const Gallery = () => {
   const [listView, setListView] = useState(false);
   const [withdrawOrList, setWithdrawOrList] = useState('');
   const [showConfirm, toggleConfirm] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const [showConfirmationPage, toggleShowConfirmationPage] = useState(false);
   const [searchVal, setSearchVal] = useState('')
   const [sortBy, setSortBy] = useState('title')
@@ -62,34 +65,29 @@ const Gallery = () => {
     .filter((item) =>
       searchValRegex.test(item.title.toLowerCase()))
 
-  const listItem = (evt) => {
-    const item = items.filter((item) => item.id === evt.target.id);
-    dispatch(addListItem(item));
-    toggleConfirm(true);
-  };
+  // const listItem = (evt) => {
+  //   const item = items.filter((item) => item.id === evt.target.id);
+  //   dispatch(addListItem(item));
+  //   toggleConfirm(true);
+  // };
 
-  const listItems = (evt) => {
-    setWithdrawOrList(evt.target.id);
-    dispatch(setListForm(selectedIds));
-    toggleShowConfirmationPage(true);
-  };
+  // const listItems = (evt) => {
+  //   setWithdrawOrList(evt.target.id);
+  //   dispatch(setListForm(selectedIds));
+  //   toggleShowConfirmationPage(true);
+  // };
 
-  const withdrawItem = (evt) => {
-    const item = items.filter((item) => item.id === evt.target.id);
-    dispatch(addWithdrawalItem(item));
-    toggleConfirm();
-  };
+  // const withdrawItem = (evt) => {
+  //   const item = items.filter((item) => item.id === evt.target.id);
+  //   dispatch(addWithdrawalItem(item));
+  //   toggleConfirm();
+  // };
 
   const withdrawItems = (evt) => {
     setWithdrawOrList(evt.target.id);
     toggleShowConfirmationPage(true);
-  };
 
-  const cancelConfirm = () => toggleConfirm(false);
-
-  const cancelConfirmAction = () => toggleShowConfirmationPage(false);
-  const confirmAction = () => {
-    withdrawOrList === 'withdraw'
+    evt.target.id === 'withdraw'
       ? dispatch(
           setWithdrawalForm(
             items.filter((item) => selectedIds.includes(item.id)),
@@ -100,7 +98,37 @@ const Gallery = () => {
             items.filter((item) => selectedIds.includes(item.id)),
           ),
         );
+  };
+
+  const cancelConfirm = () => toggleConfirm(false);
+
+  const cancelConfirmAction = () => {
     toggleShowConfirmationPage(false);
+    setErrorMessage('');
+    setSuccessMessage('');
+  };
+
+  const confirmAction = async () => {
+    if (withdrawOrList === 'withdraw') {
+      Promise.all([
+        selectedIds.map((id) => withdrawItem(id)),
+      ])
+        .then((alls) => {
+          console.log('withdraw call result', alls);
+
+          setSelectedIds([]);
+          dispatch(setWithdrawalForm([]));
+          toggleShowConfirmationPage(false);
+
+          setSuccessMessage('Withdrawal successful');
+        })
+        .catch((err) => {
+          console.error('withdraw call error', err);
+          setErrorMessage('Withdrawal failed');
+        });
+    } else {
+      // List
+    }
   };
 
   const clearSelections = () => {
@@ -229,6 +257,12 @@ const Gallery = () => {
             </Col>
           </Row>
 
+          {
+            !!successMessage && (
+              <p className='mt-2 mb-4 success-message'>{successMessage}</p>
+            )
+          }
+
           <Row>
             {!showConfirmationPage && (
               <>
@@ -240,7 +274,7 @@ const Gallery = () => {
           </Row>
           {selectedIds.length > 0 && (
             <>
-              <SubmitButton func={clearSelections} title='Clear' />
+              <SubmitButton func={clearSelections} title='Clear' />&nbsp;
               <SubmitButton
                 id='withdraw'
                 func={withdrawItems}
@@ -252,11 +286,16 @@ const Gallery = () => {
       )}
       {showConfirmationPage && (
         <>
-          <GenericForm
+          {
+            !!errorMessage && (
+              <p className='mt-2 mb-4 error-message'>{errorMessage}</p>
+            )
+          }
+          <WithdrawForm
             items={items}
-            title={`Please confirm you would like to ${withdrawOrList} items below.`}
+            title={`Please confirm you would like to ${withdrawOrList} items below:`}
           />
-          <SubmitButton func={confirmAction} title='Confirm' />
+          <SubmitButton func={confirmAction} title='Confirm' />&nbsp;
           <SubmitButton func={cancelConfirmAction} title='Go Back' />
         </>
       )}
