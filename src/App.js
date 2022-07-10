@@ -5,6 +5,7 @@ import Homepage from './app/components/Homepage/Homepage';
 import Submission from './app/components/Submission/Submission';
 import Gallery from './app/components/Gallery/Gallery';
 import Item from './app/components/Item/Item';
+import Withdraw from './app/components/Withdraw/Withdraw';
 import Market from './app/components/Market/Market';
 import Profile from './app/components/Profile/Profile';
 import Cart from './app/components/Cart/Cart';
@@ -42,6 +43,7 @@ function App() {
                 <Route path='/gallery' element={<Gallery />} />
                 <Route path='/item/:id' element={<Item />} />
                 <Route path='/market' element={<Market />} />
+                <Route path='/withdraw' element={<Withdraw />} />
                 <Route path='/account' element={<Account />} />
                 <Route path='/cart' element={<Cart />} />
                 <Route exact path='/profile' element={<Profile />} />
