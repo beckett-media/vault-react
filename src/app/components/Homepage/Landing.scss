@@ -1,0 +1,154 @@
+.landing-page-wrapper {
+  font-family: 'Inter', sans-serif ;
+  color: white;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: #161619;
+}
+
+.section {
+  &_landing-hero, &_landing-content, &_landing-cta {
+    width: 100%;
+  }
+
+  &_landing-hero{
+
+  }
+
+  &_landing-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+  }
+
+  &_landing-cta {
+    background-color: white;
+    height: 340px;
+  }
+}
+
+.landing-hero_ {
+  &component {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+  &image-wrapper {
+    background-color:dimgray;
+    height: 100vh;
+    width: 100%;
+
+  }
+
+  &content-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    text-align: center;
+    position: absolute;
+    bottom: 160px;
+  }
+
+  &heading{
+    font-size: 56px;
+    font-family: 'Alliance', 'Inter', sans-serif;
+    font-weight: 700;
+  }
+
+  &button-wrapper .btn {
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+  }
+}
+
+.landing-block_ {
+  &component {
+    width: 100%;
+    padding: 80px 0;
+
+    @media only screen and (max-width: 600px) {
+      padding: 40px 0;
+    }
+
+    &--alt {
+      background-color: white;
+      color: black;
+    }
+  }
+
+  &layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 80px;
+
+    @media only screen and (max-width: 1000px) {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    &--alt {
+      flex-direction: row-reverse;
+
+      @media only screen and (max-width: 1000px) {
+        flex-direction: column-reverse;
+      }
+    }
+  }
+
+  &content {
+    &-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      flex: auto;
+    }
+  }
+
+  &heading {
+    font-size: 24px;
+    font-weight: 700;
+  }
+  
+  &image {
+    &-wrapper {
+      width: 46.8%;
+      height: 440px;
+      background-color:dimgrey;
+      flex: none;
+
+      @media only screen and (max-width: 1000px) {
+        width: 100%;
+      }
+    }
+    
+  }
+}
+
+.landing-cta_ {
+  &component {
+    color: black;
+    height: 100%;
+  }
+
+  &layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+  }
+
+  &heading {
+    font-size: 36px;
+  }
+
+  &button-wrapper .btn {
+    color: white;
+  }
+}
+
