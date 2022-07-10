@@ -11,3 +11,11 @@
 .card-hdr a {
   color: black;
 }
+
+.card-selected {
+  border: 5px solid blue;
+}
+
+.card-noselect {
+  border: 5px solid transparent;
+}

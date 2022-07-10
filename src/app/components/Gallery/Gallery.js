@@ -6,13 +6,13 @@ import {
   Container,
   Modal,
   Row,
+  ToggleButton,
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   addListItem,
   addWithdrawalItem,
   setListForm,
-  setSelectedItemIds,
   setWithdrawalForm,
 } from '../../state/actions';
 import { selectedItemIdsSelector } from '../../state/selectors';
@@ -43,13 +43,23 @@ const Gallery = () => {
   const [showConfirmationPage, toggleShowConfirmationPage] = useState(false);
   const [searchVal, setSearchVal] = useState('')
   const [sortBy, setSortBy] = useState('title')
-  const selectedItemIds = useSelector(selectedItemIdsSelector).ids;
+  // const selectedItemIds = useSelector(selectedItemIdsSelector).ids;
   const toggleListView = () => setListView(!listView);
+  const [selectedIds, setSelectedIds] = useState([]);
+  const isSelected = (id) => selectedIds.includes(id);
 
-  const searchValRegex = new RegExp(searchVal.toLowerCase(),'g')
+  const handleItemSelection = (isChecked, id) => {
+    if (isChecked) {
+      setSelectedIds([...selectedIds, id]);
+    } else {
+      setSelectedIds(selectedIds.filter((itemId) => itemId !== id));
+    }
+  };
+
+  const searchValRegex = new RegExp(searchVal.toLowerCase(), 'g');
 
   const filteredItems = items
-    .filter((item) => 
+    .filter((item) =>
       searchValRegex.test(item.title.toLowerCase()))
 
   const listItem = (evt) => {
@@ -60,7 +70,7 @@ const Gallery = () => {
 
   const listItems = (evt) => {
     setWithdrawOrList(evt.target.id);
-    dispatch(setListForm(selectedItemIds));
+    dispatch(setListForm(selectedIds));
     toggleShowConfirmationPage(true);
   };
 
@@ -82,33 +92,36 @@ const Gallery = () => {
     withdrawOrList === 'withdraw'
       ? dispatch(
           setWithdrawalForm(
-            items.filter((item) => selectedItemIds.includes(item.id)),
+            items.filter((item) => selectedIds.includes(item.id)),
           ),
         )
       : dispatch(
           setListForm(
-            items.filter((item) => selectedItemIds.includes(item.id)),
+            items.filter((item) => selectedIds.includes(item.id)),
           ),
         );
     toggleShowConfirmationPage(false);
   };
-  const clearSelections = () => dispatch(setSelectedItemIds([]));
+
+  const clearSelections = () => {
+    setSelectedIds([]);
+  };
+
   useEffect(() => {
     getItems().then((data) => setItems(data));
   }, []);
-  
-  const sortedItems = sortBy ? 
+
+  const sortedItems = sortBy ?
     filteredItems.sort((itemA, itemB) => {
-      const sortVal = sortBy.split('-')
+      const sortVal = sortBy.split('-');
       const reverse = sortVal.length !== 1;
-      if(itemA[`${sortVal[0]}`] <= itemB[`${sortVal[0]}`]){
-        return reverse ? 1 : -1
-      }
-      else return reverse ? -1 : 1
+      if (itemA[`${sortVal[0]}`] <= itemB[`${sortVal[0]}`]) {
+        return reverse ? 1 : -1;
+      } else return reverse ? -1 : 1;
   }) :
     filteredItems;
 
-    const itemBox = sortedItems.map((item) => {
+  const itemBox = sortedItems.map((item) => {
     return (
       <>
         <Modal key={item.id} show={showConfirm} onHide={cancelConfirm}>
@@ -136,7 +149,7 @@ const Gallery = () => {
         )}
         {!listView && (
           <GridItemBox>
-            <Card className='dark'>
+            <Card className={`dark ${isSelected(item.id) ? 'card-selected' : 'card-noselect'}`}>
               <Card.Header className='card-hdr'>
                 <Link to={`/item/${item.id}`}>
                   <Card.Title className='fs-6'>
@@ -161,6 +174,17 @@ const Gallery = () => {
                     alt=''
                   />
                 </Link>
+                <ToggleButton
+                  className="mt-2 w-100"
+                  id={`toggle-${item.id}`}
+                  type="checkbox"
+                  variant="outline-primary"
+                  checked={isSelected(item.id)}
+                  value="1"
+                  onChange={(e) => handleItemSelection(e.currentTarget.checked, item.id)}
+                >
+                  Select
+                </ToggleButton>
               </Card.Body>
             </Card>
           </GridItemBox>
@@ -168,6 +192,7 @@ const Gallery = () => {
       </>
     );
   });
+
   return (
     <Container>
       {!showConfirmationPage && (
@@ -213,7 +238,7 @@ const Gallery = () => {
               </>
             )}
           </Row>
-          {selectedItemIds.length > 0 && (
+          {selectedIds.length > 0 && (
             <>
               <SubmitButton func={clearSelections} title='Clear' />
               <SubmitButton
