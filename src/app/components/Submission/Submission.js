@@ -39,6 +39,7 @@ const Submission = () => {
   const submitAddedItem = (item) => {
     setItems([...items, item]);
     setConfirmedSubmission(true);
+    onAdd(true);
   };
 
   const setOnAdd = () => onAdd(false);
