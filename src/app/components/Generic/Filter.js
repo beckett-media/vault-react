@@ -5,7 +5,7 @@ const Filter = (props) => {
   const { searchVal, setSearchVal, setSortBy } = props;
   // add onSearch, onSort props.
   return (
-    <Row className='row justify-content-center mb-3'>
+    <Row className='row w-100 justify-content-end'>
       <Col lg='4'>
         <Form.Control
           type='search'

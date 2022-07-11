@@ -1,10 +1,13 @@
 import styled from 'styled-components';
 
 export const ListOrGridView = styled.div`
-  display: flex;
-  width: 90vw;
-  flex-direction: ${(props) => (props.listView ? 'column' : 'row')};
-  flex-wrap: wrap;
+  padding: 40px 0;
+  width: 100%;
+
+  ${(props) =>
+    props.listView
+      ? 'display: flex; flex-direction: column; flex-wrap: wrap;'
+      : 'display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; grid-column-gap: 16px;'};
 `;
 
 export const ListItemBox = styled.div`
@@ -14,9 +17,9 @@ export const ListItemBox = styled.div`
 `;
 
 export const GridItemBox = styled.div`
-  margin: 10px;
   display: flex;
   flex-direction: column;
+  margin-bottom: 16px;
 `;
 
 export const ListItemImg = styled.img`

@@ -27,3 +27,38 @@
 .success-message {
   color: #4f4;
 }
+
+.section- {
+  &profile-info {
+    width: 100%;
+    padding: 40px 0 28px 0;
+  }
+
+  &gallery {
+    width: 100%;
+  }
+}
+
+.gallery-filter_ {
+  &divider {
+  width: 100%;
+  height: 1px;
+  background-color: #fff;
+  }
+
+  &layout{
+    padding: 16px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &filter-wrapper {
+    width: 100%;
+  }
+}
+
+.gallery_wrapper{
+  display: flex;
+  justify-content: center;
+}
