@@ -120,15 +120,13 @@ const Gallery = () => {
           </Button>
         </Modal>
         {listView && (
-          <ListItemBox className='d-flex col-lg-8'>
-            <Col className='p-1 flex-shrink-1'>
-              <Link to={`/item/${item.id}`}>
+          <ListItemBox>
+            <Link to={`/item/${item.id}`}>
+              <Col className='d-flex flex-row align-items-center gap-3'>
                 <ListItemImg src={item.img} alt='' />
-              </Link>
-            </Col>
-            <Col className='p-1'>
-              <Link to={`/item/${item.id}`}>{item.title}</Link>
-            </Col>
+                <div>{item.title}</div>
+              </Col>
+            </Link>
           </ListItemBox>
         )}
         {!listView && (
@@ -198,7 +196,7 @@ const Gallery = () => {
 
           <div className='section-gallery'>
             <div className='gallery-filter_component'>
-              <div className='gallery-filter_divider'></div>
+              <div className='gallery-filter_divider' />
               <div className='page-padding'>
                 <div className='container-large'>
                   <div className='gallery-filter_layout'>
@@ -214,16 +212,29 @@ const Gallery = () => {
                         bg={!listView ? 'dark border border-dark' : 'primary'}
                       />
                     </div>
-                    <Filter
-                      searchVal={searchVal}
-                      setSearchVal={setSearchVal}
-                      sortBy={sortBy}
-                      setSortBy={setSortBy}
-                    />
+                    <div className='d-flex gap-4'>
+                      <Filter
+                        searchVal={searchVal}
+                        setSearchVal={setSearchVal}
+                        sortBy={sortBy}
+                        setSortBy={setSortBy}
+                      />
+                      {selectedItemIds.length > 0 && (
+                        <div className='d-flex'>
+                          <SubmitButton func={clearSelections} title='Clear' />
+                          &nbsp;
+                          <SubmitButton
+                            id='withdraw'
+                            func={withdrawItems}
+                            title='Withdraw'
+                          />
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
-              <div className='gallery-filter_divider'></div>
+              <div className='gallery-filter_divider' />
             </div>
             {!!successMessage && (
               <p className='mt-2 mb-4 success-message'>{successMessage}</p>
@@ -231,26 +242,11 @@ const Gallery = () => {
 
             <div className='page-padding'>
               <div className='container-large'>
-                <div className='gallery_wrapper'>
-                  {!showConfirmationPage && (
-                    <ListOrGridView listView={listView}>
-                      {itemBox}
-                    </ListOrGridView>
-                  )}
-                </div>
+                {!showConfirmationPage && (
+                  <ListOrGridView listView={listView}>{itemBox}</ListOrGridView>
+                )}
               </div>
             </div>
-            {selectedItemIds.length > 0 && (
-              <>
-                <SubmitButton func={clearSelections} title='Clear' />
-                &nbsp;
-                <SubmitButton
-                  id='withdraw'
-                  func={withdrawItems}
-                  title='Withdraw'
-                />
-              </>
-            )}
           </div>
         </>
       )}

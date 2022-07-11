@@ -11,7 +11,7 @@ export const ListOrGridView = styled.div`
 `;
 
 export const ListItemBox = styled.div`
-  margin: 10px;
+  margin: 4px;
   display: flex;
   flex-direction: row;
 `;
@@ -23,7 +23,7 @@ export const GridItemBox = styled.div`
 `;
 
 export const ListItemImg = styled.img`
-  width: 30px;
+  width: 50px;
 `;
 
 export const GridItemImg = styled.img`
