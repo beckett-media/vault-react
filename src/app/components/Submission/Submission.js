@@ -17,17 +17,17 @@ const Submission = () => {
   const [successfulSubmission, setSuccessfulSubmission] = useState(false);
 
   const submitAddedItem = (item) => {
-    console.log('item', item);
-    setItems([...items, item]);
-    setTimeout(console.log('1000items', items), 1000);
+    const newItems = [...items, item];
+    console.log('newItems', newItems);
+    setItems(newItems);
   };
 
   const removeItem = (removeItem) => {
     setItems(items.filter((item) => item != removeItem));
   };
 
-  const submitForm = async () => {
-    setFormSubmitted(false);
+  const submitForm = () => {
+    setFormSubmitted(true);
   };
 
   const submitFinalForm = async () => {
@@ -64,7 +64,7 @@ const Submission = () => {
               <Col xs={3}>
                 <Link to='/market'>
                   <SubmitButton
-                    func={submitForm}
+                    func={() => null}
                     title='Cancel'
                     bg='transparent border'
                   />
