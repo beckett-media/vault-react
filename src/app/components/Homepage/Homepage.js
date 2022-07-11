@@ -1,31 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Collapse, Container, Row, Carousel } from 'react-bootstrap';
-
-import InterestForm from './InterestForm';
+import { Col, Row, Carousel } from 'react-bootstrap';
+import { getTopStories } from '../../services/general';
 import Card from './Card';
 import './Homepage.scss';
 
-const cardData = [
-  {
-    title: 'Top Ten Cards',
-    body: 'Consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.',
-    cta: 'Discover More',
-  },
-  {
-    title: 'New Releases',
-    body: 'Consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.',
-    cta: 'Shop Now',
-  },
-  {
-    title: 'New Releases',
-    body: 'Consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.',
-    cta: 'Shop Now',
-  },
-];
-
 const Homepage = () => {
-  const [open, setOpen] = useState(false);
-  useEffect(() => setOpen(true), []);
+  const [topStories, setTopStories] = useState([]);
+  useEffect(() => {
+    // TODO: throw an error if we can't find the stories?
+    getTopStories().then((data) => setTopStories(data));
+  }, []);
 
   return (
     <div className='page-wrapper'>
@@ -77,9 +61,13 @@ const Homepage = () => {
                 </div>
               </Row>
               <Row className='home-content_cards-wrapper gy-4'>
-                {cardData.map((data, index) => (
+                {topStories.map((story, index) => (
                   <Col key={index} sm={12} md={4}>
-                    <Card title={data.title} body={data.body} cta={data.cta} />
+                    <Card
+                      title={story.title}
+                      body={story.body}
+                      cta={story.cta}
+                    />
                   </Col>
                 ))}
               </Row>
@@ -88,25 +76,6 @@ const Homepage = () => {
         </div>
       </section>
     </div>
-    // <Container>
-    //   <Row className='justify-content-md-center mt-2'>
-    //     <Collapse in={open} timeout={3000}>
-    //       <Col className='title' align='center'>
-    //         {'Pioneer the Frontier of Digital & Physical Collectibles'}
-    //       </Col>
-    //     </Collapse>
-    //   </Row>
-    //   <Row className='justify-content-md-center mt-1 mb-3'>
-    //     <Col className='title' align='center'>
-    //       <input
-    //         type='button'
-    //         className='rounded-pill ghost-btn btn-sm'
-    //         value='Begin your Journey'
-    //       />
-    //     </Col>
-    //   </Row>
-    //   <InterestForm />
-    // </Container>
   );
 };
 
