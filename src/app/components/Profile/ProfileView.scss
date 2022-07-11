@@ -1,0 +1,45 @@
+.profile-image-thumb {
+  max-height: 200px;
+}
+
+.profile-info_ {
+  &component{
+    width: fit-content;
+  }
+
+  &layout{
+    display: flex;
+    align-items: center;
+    gap: 40px;
+  }
+
+  &image-wrapper{
+    width: 160px;
+    height: 160px;
+    border-radius: 100%;
+    overflow: hidden;
+  }
+
+  &image {
+    height: 100%;
+    transition: all ease-in-out 0.2s;
+    transform: scale(1);
+  }
+
+  &content-wrapper{
+
+  }
+
+  &heading {
+    font-size: 36px;
+    font-weight: 700;
+  }
+
+  &body {
+    font-size: 14px;
+  }
+}
+
+.profile-info_component:hover .profile-info_image {
+  transform: scale(1.05);
+}
