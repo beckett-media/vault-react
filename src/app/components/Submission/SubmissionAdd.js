@@ -16,6 +16,8 @@ const SubmissionAdd = ({ submitAddedItem }) => {
   const submitAddItemFormSubmit = (e) => {
     e.preventDefault();
     submitAddedItem(item);
+    setItem({});
+    e.target.reset();
   };
   const updateItem = (tempItem) => setItem({ ...item, ...tempItem });
 

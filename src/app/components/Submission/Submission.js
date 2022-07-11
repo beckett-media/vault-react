@@ -4,6 +4,7 @@ import SubmissionSuccess from '../Response/SubmissionSuccess';
 import SubmissionAdd from './SubmissionAdd';
 import SubmissionForm from './SubmissionForm';
 import SubmitButton from '../Generic/SubmitButton';
+import SubmissionConfirmModal from './SubmissionConfirmModal';
 import './Submission.scss';
 import { Link } from 'react-router-dom';
 import { postSubmission } from '../../services/submission';
@@ -14,15 +15,24 @@ const Submission = () => {
   const [add, onAdd] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [successfulSubmission, setSuccessfulSubmission] = useState(false);
-  const [confirmedSubmission, setConfirmedSubmission] = useState(false);
 
   const submitAddedItem = (item) => {
     console.log('item', item);
     setItems([...items, item]);
+    setTimeout(console.log('1000items', items), 1000);
   };
 
   const removeItem = (removeItem) => {
-    setItems(items.filter(item => item != removeItem));
+    setItems(items.filter((item) => item != removeItem));
+  };
+
+  const submitForm = async () => {
+    setFormSubmitted(false);
+  };
+
+  const submitFinalForm = async () => {
+    await postSubmission(items);
+    setSuccessfulSubmission(true);
   };
 
   return (
@@ -32,27 +42,20 @@ const Submission = () => {
       ) : (
         <>
           <Container>
-              <Row className='justify-content-md-center'>
-                <SubmissionForm
-                  items={items}
-                  formSubmitted={formSubmitted}
-                  cancelSubmission={setFormSubmitted(false)}
-                  setConfirm={setConfirmedSubmission(true)}
-                  removeItem={removeItem}
-                  onAdd={onAdd}
-                />
-              </Row>
+            <Row className='justify-content-md-center'>
+              <SubmissionForm
+                items={items}
+                removeItem={removeItem}
+                onAdd={onAdd}
+              />
+            </Row>
 
             {add && <SubmissionAdd submitAddedItem={submitAddedItem} />}
 
             {items.length !== 0 && (
               <Row className='m-2'>
                 <Col xs={3}>
-                  <SubmitButton
-                    func={updateFormSubmitted}
-                    title='Submit'
-                    size='lg'
-                  />
+                  <SubmitButton func={submitForm} title='Submit' size='lg' />
                 </Col>
               </Row>
             )}
@@ -61,7 +64,7 @@ const Submission = () => {
               <Col xs={3}>
                 <Link to='/market'>
                   <SubmitButton
-                    func={setFormSubmitted(false)}
+                    func={submitForm}
                     title='Cancel'
                     bg='transparent border'
                   />
@@ -69,6 +72,11 @@ const Submission = () => {
               </Col>
             </Row>
           </Container>
+
+          <SubmissionConfirmModal
+            show={formSubmitted}
+            setConfirm={submitFinalForm}
+          />
         </>
       )}
     </>

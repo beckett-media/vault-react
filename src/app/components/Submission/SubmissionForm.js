@@ -1,19 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Container, Form, Row } from 'react-bootstrap';
-import '../../../index.scss';
 import SubmitButton from '../Generic/SubmitButton';
-import SubmissionConfirmModal from './SubmissionConfirmModal';
 
-const SubmissionForm = ({
-  formSubmitted,
-  setConfirm,
-  cancelSubmission,
-  onAdd,
-  removeItem,
-  items,
-}) => {
-  const onAddNew = () => onAdd(true);
+const SubmissionForm = ({ onAdd, removeItem, items }) => {
+  const [displayItems, setDisplayItems] = useState([]);
 
+  useEffect(() => {
+    setDisplayItems(
+      items.map((item, i) => {
+        return (
+          <Container
+            key={item.serialNumber}
+            className='m-2 p-3 border border rounded'
+          >
+            <Row>
+              <Col>
+                <p>
+                  {i + 1}. {item.gradingCompany}
+                </p>
+              </Col>
+              <Col className='right-align'>{item.serialNumber}</Col>
+            </Row>
+            <Row>
+              <Col>{item.description}</Col>
+            </Row>
+            <SubmitButton
+              func={removeItem(item)}
+              title='Delete'
+              bg='link'
+              isLink
+            />
+          </Container>
+        );
+      }),
+    );
+  }, [items]);
   return (
     <Container>
       <Row className='justify-content-md-center'>
@@ -22,36 +43,12 @@ const SubmissionForm = ({
       <Row className='justify-content-md-center'>
         <div>{items.length ? 'Items to Vault' : 'Add Items to Vault'}</div>
       </Row>
-      <Row className='justify-content-md-center'>
-        <SubmissionConfirmModal
-          show={formSubmitted}
-          setConfirm={setConfirm}
-          onHide={cancelSubmission}
-        />
-      </Row>
       <Form>
-        {items.map((item, i) => {
-          return (
-            <Container key={item.id} className='m-2 p-3 border border rounded'>
-              <Row>
-                <Col>
-                  <p>
-                    {i + 1}. {item.gradingCompany}
-                  </p>
-                </Col>
-                <Col className='right-align'>{item.serialNumber}</Col>
-              </Row>
-              <Row>
-                <Col>{item.description}</Col>
-              </Row>
-              <SubmitButton func={removeItem(item)} title='Delete' bg='link' isLink />
-            </Container>
-          );
-        })}
+        {displayItems}
         <Row className='m-2'>
           <Col xs={3}>
             <SubmitButton
-              func={onAddNew}
+              func={() => onAdd(true)}
               title={items.length ? 'Add another item' : 'Add an item'}
               size='lg'
             />
