@@ -6,6 +6,7 @@ const SubmissionForm = ({ onAdd, removeItem, items }) => {
   const [displayItems, setDisplayItems] = useState([]);
 
   useEffect(() => {
+    console.log('items', items);
     setDisplayItems(
       items.map((item, i) => {
         return (
@@ -25,7 +26,7 @@ const SubmissionForm = ({ onAdd, removeItem, items }) => {
               <Col>{item.description}</Col>
             </Row>
             <SubmitButton
-              func={removeItem(item)}
+              func={() => removeItem(item)}
               title='Delete'
               bg='link'
               isLink
