@@ -74,7 +74,6 @@ const Gallery = () => {
   useEffect(() => {
     getItems().then((data) => setItems(data));
   }, []);
-<<<<<<< HEAD
 
   const sortedItems = sortBy ? 
     filteredItems.sort((itemA, itemB) => {
@@ -86,18 +85,6 @@ const Gallery = () => {
       else return reverse ? -1 : 1
   }) :
     filteredItems;
-=======
->>>>>>> d34d2a4bc926a6e2f64b4457cc70f8c6a1eed39f
-
-  const sortedItems = sortBy
-    ? filteredItems.sort((itemA, itemB) => {
-        const sortVal = sortBy.split('-');
-        const reverse = sortVal.length !== 1;
-        if (itemA[`${sortVal[0]}`] <= itemB[`${sortVal[0]}`]) {
-          return reverse ? 1 : -1;
-        } else return reverse ? -1 : 1;
-      })
-    : filteredItems;
 
   const itemBox = sortedItems.map((item) => {
     return (
