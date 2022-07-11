@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Card, Col, Container, Modal, Row } from 'react-bootstrap';
+import {
+  Button,
+  Card,
+  Col,
+  Container,
+  Modal,
+  Row,
+  ToggleButton,
+} from 'react-bootstrap';
 import WithdrawForm from './WithdrawForm';
 import SubmitButton from '../Generic/SubmitButton';
 import ProfileView from '../Profile/ProfileView';
@@ -7,7 +15,6 @@ import Filter from '../Generic/Filter';
 import './Gallery.scss';
 import {
   GridItemBox,
-  GridItemImg,
   ListItemBox,
   ListItemImg,
   ListOrGridView,
@@ -30,14 +37,13 @@ const Gallery = () => {
   const [sortBy, setSortBy] = useState('title');
   const [selectedItemIds, setSelectedItemIds] = useState([]);
   const toggleListView = () => setListView(!listView);
-  const [selectedIds, setSelectedIds] = useState([]);
-  const isSelected = (id) => selectedIds.includes(id);
+  const isSelected = (id) => selectedItemIds.includes(id);
 
   const handleItemSelection = (isChecked, id) => {
     if (isChecked) {
-      setSelectedIds([...selectedIds, id]);
+      setSelectedItemIds([...selectedItemIds, id]);
     } else {
-      setSelectedIds(selectedIds.filter((itemId) => itemId !== id));
+      setSelectedItemIds(selectedItemIds.filter((itemId) => itemId !== id));
     }
   };
 
@@ -46,23 +52,10 @@ const Gallery = () => {
   const filteredItems = items.filter((item) =>
     searchValRegex.test(item.title.toLowerCase()),
   );
-  
 
   const withdrawItems = (evt) => {
     setWithdrawOrList(evt.target.id);
     toggleShowConfirmationPage(true);
-
-    evt.target.id === 'withdraw'
-      ? dispatch(
-          setWithdrawalForm(
-            items.filter((item) => selectedIds.includes(item.id)),
-          ),
-        )
-      : dispatch(
-          setListForm(
-            items.filter((item) => selectedIds.includes(item.id)),
-          ),
-        );
   };
 
   const cancelConfirm = () => toggleConfirm(false);
@@ -76,13 +69,12 @@ const Gallery = () => {
   const confirmAction = async () => {
     if (withdrawOrList === 'withdraw') {
       Promise.all([
-        selectedIds.map((id) => withdrawItem(id)),
+        selectedItemIds.map((id) => withdrawItem(id)),
       ])
         .then((alls) => {
           console.log('withdraw call result', alls);
 
-          setSelectedIds([]);
-          dispatch(setWithdrawalForm([]));
+          setSelectedItemIds([]);
           toggleShowConfirmationPage(false);
 
           setSuccessMessage('Withdrawal successful');
@@ -97,7 +89,7 @@ const Gallery = () => {
   };
 
   const clearSelections = () => {
-    setSelectedIds([]);
+    setSelectedItemIds([]);
   };
 
   useEffect(() => {
@@ -237,7 +229,7 @@ const Gallery = () => {
               </>
             )}
           </Row>
-          {selectedIds.length > 0 && (
+          {selectedItemIds.length > 0 && (
             <>
               <SubmitButton func={clearSelections} title='Clear' />&nbsp;
               <SubmitButton
@@ -257,8 +249,12 @@ const Gallery = () => {
             )
           }
           <WithdrawForm
-            items={items}
-            title={`Please confirm you would like to ${withdrawOrList} items below:`}
+            itemsToWithdraw={
+              items.filter((item) => selectedItemIds.includes(item.id))
+            }
+            title={
+              `Please confirm you would like to ${withdrawOrList} items below:`
+            }
           />
           <SubmitButton func={confirmAction} title='Confirm' />&nbsp;
           <SubmitButton func={cancelConfirmAction} title='Go Back' />

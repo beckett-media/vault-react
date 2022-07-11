@@ -12,11 +12,11 @@
   color: black;
 }
 
-.card-selected {
-  border: 5px solid blue;
+.card.card-selected {
+  border: 5px solid #54c4c8;
 }
 
-.card-noselect {
+.card.card-noselect {
   border: 5px solid transparent;
 }
 
