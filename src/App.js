@@ -18,7 +18,7 @@ import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import './index.scss';
 
 import AuthProvider, { PrivateRoute } from './app/contexts/auth';
-//chakra uses a default theme, this will remove it.
+// chakra uses a default theme, this will remove it.
 const emptyChakraTheme = extendTheme({
   styles: {
     global: () => ({

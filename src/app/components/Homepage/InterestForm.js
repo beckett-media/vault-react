@@ -25,7 +25,7 @@ const InterestForm = (props) => {
     if (isValidEmail && isValidPhone) {
       return postInterestForm(formElements);
     }
-    //TODO: display the errors on the page?
+    // TODO: display the errors on the page?
     return;
   };
   return (
@@ -140,7 +140,7 @@ const InterestForm = (props) => {
             <Form.Check type='checkbox'>
               <Form.Check.Input type='checkbox' id='checkbox6' />
               <Form.Check.Label>
-                {"I would like access to Beckett Vault's exclusive investors"}
+                {`I would like access to Beckett Vault's exclusive investors`}
               </Form.Check.Label>
               <Form.Control.Feedback type='valid'></Form.Control.Feedback>
             </Form.Check>
