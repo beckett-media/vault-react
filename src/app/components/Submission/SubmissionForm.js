@@ -9,6 +9,7 @@ const SubmissionForm = ({
   setConfirm,
   cancelSubmission,
   onAdd,
+  removeItem,
   items,
 }) => {
   const onAddNew = () => onAdd(true);
@@ -29,21 +30,21 @@ const SubmissionForm = ({
         />
       </Row>
       <Form>
-        {items.map((obj, i) => {
+        {items.map((item, i) => {
           return (
-            <Container key={obj.id} className='m-2 p-3 border border rounded'>
+            <Container key={item.id} className='m-2 p-3 border border rounded'>
               <Row>
                 <Col>
                   <p>
-                    {i + 1}. {obj.gradingCompany}
+                    {i + 1}. {item.gradingCompany}
                   </p>
                 </Col>
-                <Col className='right-align'>{obj.serialNumber}</Col>
+                <Col className='right-align'>{item.serialNumber}</Col>
               </Row>
               <Row>
-                <Col>{obj.description}</Col>
+                <Col>{item.description}</Col>
               </Row>
-              <SubmitButton func={removeItem} title='Delete' bg='link' isLink />
+              <SubmitButton func={removeItem(item)} title='Delete' bg='link' isLink />
             </Container>
           );
         })}
