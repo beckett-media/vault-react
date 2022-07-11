@@ -1,21 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Button,
-  Card,
-  Col,
-  Container,
-  Modal,
-  Row,
-} from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  addListItem,
-  addWithdrawalItem,
-  setListForm,
-  setSelectedItemIds,
-  setWithdrawalForm,
-} from '../../state/actions';
-import { selectedItemIdsSelector } from '../../state/selectors';
+import { Button, Card, Col, Container, Modal, Row } from 'react-bootstrap';
 import GenericForm from '../Generic/GenericForm';
 import SubmitButton from '../Generic/SubmitButton';
 import ProfileView from '../Profile/ProfileView';
@@ -36,9 +20,7 @@ import { getUser } from '../../services/user';
 
 const Gallery = () => {
   document.body.classList.add('gallery-container');
-  const dispatch = useDispatch();
   const [items, setItems] = useState([]);
-  //const [filteredItems, setFilteredItems] = useState([])
   const [listView, setListView] = useState(false);
   const [withdrawOrList, setWithdrawOrList] = useState('');
   const [showConfirm, toggleConfirm] = useState(false);
@@ -57,32 +39,14 @@ const Gallery = () => {
     user && fetchSubmissions()
   }, [user])
   
-  const selectedItemIds = useSelector(selectedItemIdsSelector).ids;
+  const [selectedItemIds, setSelectedItemIds] = useState([]);
   const toggleListView = () => setListView(!listView);
 
-  const searchValRegex = new RegExp(searchVal.toLowerCase(),'g')
+  const searchValRegex = new RegExp(searchVal.toLowerCase(), 'g');
 
-  const filteredItems = items
-    .filter((item) => 
-      searchValRegex.test(item.title.toLowerCase()))
-
-  const listItem = (evt) => {
-    const item = items.filter((item) => item.id === evt.target.id);
-    dispatch(addListItem(item));
-    toggleConfirm(true);
-  };
-
-  const listItems = (evt) => {
-    setWithdrawOrList(evt.target.id);
-    dispatch(setListForm(selectedItemIds));
-    toggleShowConfirmationPage(true);
-  };
-
-  const withdrawItem = (evt) => {
-    const item = items.filter((item) => item.id === evt.target.id);
-    dispatch(addWithdrawalItem(item));
-    toggleConfirm();
-  };
+  const filteredItems = items.filter((item) =>
+    searchValRegex.test(item.title.toLowerCase()),
+  );
 
   const withdrawItems = (evt) => {
     setWithdrawOrList(evt.target.id);
@@ -110,6 +74,7 @@ const Gallery = () => {
   useEffect(() => {
     getItems().then((data) => setItems(data));
   }, []);
+<<<<<<< HEAD
 
   const sortedItems = sortBy ? 
     filteredItems.sort((itemA, itemB) => {
@@ -121,8 +86,20 @@ const Gallery = () => {
       else return reverse ? -1 : 1
   }) :
     filteredItems;
+=======
+>>>>>>> d34d2a4bc926a6e2f64b4457cc70f8c6a1eed39f
 
-    const itemBox = sortedItems.map((item) => {
+  const sortedItems = sortBy
+    ? filteredItems.sort((itemA, itemB) => {
+        const sortVal = sortBy.split('-');
+        const reverse = sortVal.length !== 1;
+        if (itemA[`${sortVal[0]}`] <= itemB[`${sortVal[0]}`]) {
+          return reverse ? 1 : -1;
+        } else return reverse ? -1 : 1;
+      })
+    : filteredItems;
+
+  const itemBox = sortedItems.map((item) => {
     return (
       <div key={item.id} >
         <Modal show={showConfirm} onHide={cancelConfirm}>

@@ -21,6 +21,7 @@
         "object-curly-spacing": 0,
         "operator-linebreak": 0,
         "indent": 0,
+        "react/prop-types": 0,
         "max-len": 1,
         "no-unused-vars": 1,
         "require-jsdoc": [2, {

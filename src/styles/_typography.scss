@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+@font-face {
+  font-family: 'Alliance';
+  src: url('../app/assets/fonts/Alliance-PlattBold.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.h1 {
+  font-size: 56px;
+  font-family: 'Alliance', 'Inter', sans-serif;
+  font-weight: 700;
+}

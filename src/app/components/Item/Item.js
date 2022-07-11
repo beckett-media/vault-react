@@ -89,23 +89,24 @@ const Item = () => {
                 bg='primary'
               />
             </Row>
-            <br />
             <Row>
-              <SubmitButton
-                className='withdraw-btn'
-                func={withdrawItem}
-                title='Withdraw from Vault'
-                bg='outline-primary'
-              />
-            </Row>
+                <SubmitButton
+                  className='withdraw-btn'
+                  func={withdrawItem}
+                  title='Withdraw from Vault'
+                  bg='outline-primary'
+                />
+              </Row>
+            <br />
           </>
         ) : (
-          <Row>
-            <Button className='' size='sm' bg='transparent'>
-              Buy
-            </Button>
-          </Row>
-        )}
+            <Row>
+              <Button className='' size='sm' bg='transparent'>
+                Buy
+              </Button>
+            </Row>
+          )
+        }
       </Col>
     </Row>
   );

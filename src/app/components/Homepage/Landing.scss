@@ -1,28 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-
-@font-face {
-  font-family: "Alliance";
-  src: url("../../assets/fonts/Alliance-PlattBold.otf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-.page-padding {
-  padding: 0 80px;
-  height: 100%;
-
-  @media only screen and (max-width: 600px) {
-    padding: 0 40px;
-  }
-}
-
-.container-large {
-  max-width: 1280px;
-  height: 100%;
-}
-
 .landing-page-wrapper {
-  font-family: 'Inter', sans-serif ;
+  font-family: 'Inter', sans-serif;
   color: white;
   width: 100%;
   display: flex;
@@ -32,19 +9,19 @@
 }
 
 .section {
-  &_landing-hero, &_landing-content, &_landing-cta {
+  &_landing-hero,
+  &_landing-content,
+  &_landing-cta {
     width: 100%;
   }
 
-  &_landing-hero{
-
+  &_landing-hero {
   }
 
   &_landing-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-
   }
 
   &_landing-cta {
@@ -61,10 +38,9 @@
   }
 
   &image-wrapper {
-    background-color:dimgray;
+    background-color: dimgray;
     height: 100vh;
     width: 100%;
-
   }
 
   &content-wrapper {
@@ -76,9 +52,10 @@
     bottom: 160px;
   }
 
-  &heading{
+  &heading {
     font-size: 56px;
     font-family: 'Alliance', 'Inter', sans-serif;
+    font-weight: 700;
   }
 
   &button-wrapper .btn {
@@ -110,8 +87,8 @@
     gap: 80px;
 
     @media only screen and (max-width: 1000px) {
-        flex-direction: column;
-        gap: 40px;
+      flex-direction: column;
+      gap: 40px;
     }
 
     &--alt {
@@ -136,19 +113,18 @@
     font-size: 24px;
     font-weight: 700;
   }
-  
+
   &image {
     &-wrapper {
       width: 46.8%;
       height: 440px;
-      background-color:dimgrey;
+      background-color: dimgrey;
       flex: none;
 
       @media only screen and (max-width: 1000px) {
         width: 100%;
       }
     }
-    
   }
 }
 
@@ -173,4 +149,3 @@
     color: white;
   }
 }
-

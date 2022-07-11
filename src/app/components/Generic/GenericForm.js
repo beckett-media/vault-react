@@ -1,10 +1,9 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { selectedItemIdsSelector } from '../../state/selectors';
 
 const GenericForm = (props) => {
-  const selectedItemIds = useSelector(selectedItemIdsSelector);
-
+  const [selectedItemIds, setSelectedItemIds] = useState(
+    props.items.map((item) => item.id),
+  );
   const genericFormItems = () =>
     props.items.map(
       (item) =>
