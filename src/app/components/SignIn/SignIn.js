@@ -19,8 +19,9 @@ import {
 
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/auth';
-import Background_Pattern_1280_w from '../../assets/Background_Pattern_1280_w.svg';
+import BackgroundPattern1280w from '../../assets/Background_Pattern_1280_w.svg';
 import { PasswordField } from '../PasswordField/PasswordField';
+import { NewPasswordField } from '../NewPasswordField/NewPasswordField';
 
 import './SignIn.scss';
 
@@ -207,7 +208,7 @@ const SignIn = () => {
       <Box
         w={'100%'}
         h={'100%'}
-        backgroundImage={`url(${Background_Pattern_1280_w})`}
+        backgroundImage={`url(${BackgroundPattern1280w})`}
         backgroundRepeat='no-repeat'
         backgroundSize='cover'
         backgroundPosition='center center'
@@ -234,7 +235,7 @@ const SignIn = () => {
                   LOGIN
                 </Heading>
                 <div>
-                  <Text color='white'>Don't have an account?</Text>
+                  <Text color='white'>{`Don't have an account?`}</Text>
                   <Button
                     variant='link'
                     colorScheme='blue'
