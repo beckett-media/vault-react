@@ -40,6 +40,13 @@
 }
 
 .gallery-filter_ {
+  &component {
+    position: sticky;
+    top: 61px;
+    z-index: 9;
+    background-color: #161619;
+  }
+
   &divider {
   width: 100%;
   height: 1px;
@@ -54,7 +61,8 @@
   }
 
   &filter-wrapper {
-    width: 100%;
+    width: fit-content;
+    display: flex;
   }
 }
 
