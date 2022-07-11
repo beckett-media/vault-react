@@ -4,8 +4,8 @@ import { validEmail, validPhone } from '../Validation/regex';
 import { postInterestForm } from '../../services/interest';
 
 const InterestForm = (props) => {
-  const [isValidEmail, setValidEmail] = useState(false);
-  const [isValidPhone, setValidPhone] = useState(false);
+  const [isValidEmail, setValidEmail] = useState(true);
+  const [isValidPhone, setValidPhone] = useState(true);
 
   const validateEmail = (email) => {
     const isValid = validEmail.test(email);
@@ -33,7 +33,7 @@ const InterestForm = (props) => {
       <Form onSubmit={submitInterestForm}>
         <Row className='justify-content-md-center'>
           <Col align='center' style={{ color: 'white' }}>
-            Fill out the form below to launch. {interestForm.first}
+            Fill out the form below to launch.
           </Col>
         </Row>
         <Row className='justify-content-md-center'>
@@ -41,7 +41,6 @@ const InterestForm = (props) => {
             <input
               id='first'
               type='text'
-              value={currentField === 'first' ? tempText : interestForm.first}
               className='transparent-text-input border border-dark rounded-pill px-3'
               placeholder={'First Name*'}
             />
@@ -52,7 +51,6 @@ const InterestForm = (props) => {
             <input
               id='last'
               type='text'
-              value={currentField === 'last' ? tempText : interestForm.last}
               className='transparent-text-input border border-dark rounded-pill px-3'
               placeholder={'Last Name*'}
             />
@@ -63,10 +61,9 @@ const InterestForm = (props) => {
             <input
               id='email'
               type='text'
-              value={currentField === 'email' ? tempText : interestForm.email}
               className='transparent-text-input border border-dark rounded-pill px-3'
               style={{
-                background: invalidEmail ? 'red' : 'rgb(58, 43, 77)',
+                background: isValidEmail ? 'rgb(58, 43, 77)' : 'red',
               }}
               placeholder={'Email*'}
             />
@@ -77,10 +74,9 @@ const InterestForm = (props) => {
             <input
               id='phone'
               type='text'
-              value={currentField === 'phone' ? tempText : interestForm.phone}
               className='transparent-text-input border border-dark rounded-pill px-3'
               style={{
-                background: invalidPhone ? 'red' : 'rgb(58, 43, 77)',
+                background: isValidPhone ? 'rgb(58, 43, 77)' : 'red',
               }}
               placeholder={'Phone Number*'}
             />
@@ -91,9 +87,6 @@ const InterestForm = (props) => {
             <input
               id='beckettId'
               type='text'
-              value={
-                currentField === 'beckettId' ? tempText : interestForm.beckettId
-              }
               className='transparent-text-input border border-dark rounded-pill px-3'
               placeholder={'Beckett ID'}
             />

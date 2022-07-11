@@ -1,7 +1,5 @@
 import { initialState } from './store/rootReducer';
-import {
-  CART_FORM,
-} from './types';
+import { CART_FORM } from './types';
 
 export const cartReducers = (state = { initialState }, action) => {
   console.log('reducer returns ', action.payload);

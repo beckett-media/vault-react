@@ -1,7 +1,5 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import {
-  cartReducers,
-} from '../reducers';
+import { cartReducers } from '../reducers';
 
 export const initialState = {
   cartForm: {

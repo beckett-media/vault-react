@@ -4,5 +4,3 @@ export const cartSelector = createSelector(
   (state) => state,
   (state) => state.cartForm,
 );
-
-

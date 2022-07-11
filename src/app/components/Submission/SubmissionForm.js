@@ -4,7 +4,13 @@ import '../../../index.scss';
 import SubmitButton from '../Generic/SubmitButton';
 import SubmissionConfirmModal from './SubmissionConfirmModal';
 
-const SubmissionForm = ({ formSubmitted, setConfirm, cancelSubmission, onAdd, items }) => {
+const SubmissionForm = ({
+  formSubmitted,
+  setConfirm,
+  cancelSubmission,
+  onAdd,
+  items,
+}) => {
   const onAddNew = () => onAdd(true);
 
   return (
@@ -23,7 +29,7 @@ const SubmissionForm = ({ formSubmitted, setConfirm, cancelSubmission, onAdd, it
         />
       </Row>
       <Form>
-        {submissionForm.items.map((obj, i) => {
+        {items.map((obj, i) => {
           return (
             <Container key={obj.id} className='m-2 p-3 border border rounded'>
               <Row>
@@ -45,9 +51,7 @@ const SubmissionForm = ({ formSubmitted, setConfirm, cancelSubmission, onAdd, it
           <Col xs={3}>
             <SubmitButton
               func={onAddNew}
-              title={
-                submissionForm.items.length ? 'Add another item' : 'Add an item'
-              }
+              title={items.length ? 'Add another item' : 'Add an item'}
               size='lg'
             />
           </Col>

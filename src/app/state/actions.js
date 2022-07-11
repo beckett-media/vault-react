@@ -1,6 +1,4 @@
-import {
-  CART_FORM
-} from './types';
+import { CART_FORM } from './types';
 
 export const setCart = (payload) => {
   console.log('payload is', payload.cart);

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Col, Container, Form, Row } from 'react-bootstrap';
+import { Col, Container, Form, Row, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 const AddBeckettItem = (props) => {
@@ -11,84 +11,80 @@ const AddBeckettItem = (props) => {
   );
 };
 
-const AddOtherItem = (props) => {
-  const {
-    gradingCompany,
-    category,
-    serialNumber,
-    description,
-    title,
-    genre,
-  } = props.values;
-
-  return (
-    <Form>
-      <Row>
-        <Col sm={12} lg={6}>
-          <Form.Group>
-            <Form.Label>Grading Company</Form.Label>
-            <Form.Control
-              type='text'
-              value={gradingCompany}
-            />
-          </Form.Group>
-        </Col>
-        <Col sm={12} lg={6}>
-          <Form.Group>
-            <Form.Label>Serial Number</Form.Label>
-            <Form.Control
-              type='text'
-              value={serialNumber}
-            />
-          </Form.Group>
-        </Col>
-      </Row>
-      {!props.categorySelected && (
-        <Form.Group>
-          <Form.Label>Description</Form.Label>
-          <Form.Control
-            as='textarea'
-            value={description}
-          />
-        </Form.Group>
-      )}
-    </Form>
-  );
-};
-
-const SubmissionAdd = (props) => {
-  const gradingCompany = props.values.gradingCompany;
-  const [gradingCompanySelected, setGradingCompanySelected] = useState(false);
-  const [categorySelected, setCategorySelected] = useState(false);
-  const onChange = (evt) => {
-    setGradingCompanySelected(true);
+const SubmissionAdd = ({ submitAddedItem }) => {
+  const [item, setItem] = useState({});
+  const submitAddItemFormSubmit = (e) => {
+    e.preventDefault();
+    submitAddedItem(item);
   };
+  const updateItem = (tempItem) => setItem({ ...item, ...tempItem });
 
   return (
     <Container>
       <Row className='justify-content-md-center'>
         <h1>Add Item</h1>
       </Row>
-      <AddOtherItem
-        stateSetters={props.stateSetters}
-        values={props.values}
-        categorySelected={categorySelected}
-        setCategorySelected={setCategorySelected}
-      />
+      <Form onSubmit={submitAddItemFormSubmit}>
+        <Row className='m-2'>
+          <Col xs={12}>
+            <Row>
+              <Col sm={12} lg={6}>
+                <Form.Group>
+                  <Form.Label>Grading Company</Form.Label>
+                  <Form.Control
+                    type='text'
+                    onChange={(e) =>
+                      updateItem({ gradingCompany: e.target.value })
+                    }
+                  />
+                </Form.Group>
+              </Col>
+              <Col sm={12} lg={6}>
+                <Form.Group>
+                  <Form.Label>Serial Number</Form.Label>
+                  <Form.Control
+                    type='text'
+                    onChange={(e) =>
+                      updateItem({ serialNumber: e.target.value })
+                    }
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+
+            <Form.Group>
+              <Form.Label>Description</Form.Label>
+              <Form.Control
+                as='textarea'
+                onChange={(e) => updateItem({ description: e.target.value })}
+              />
+            </Form.Group>
+          </Col>
+        </Row>
+        <Row className='mx-4 my-2'>
+          <Col xs={2}>
+            <Button type='submit' size='lg'>
+              Add
+            </Button>
+          </Col>
+        </Row>
+        <Row className='mx-4 my-2'>
+          <Col xs={2}>
+            <Button type='reset' bg='transparent' onClick={() => setItem({})}>
+              Cancel
+            </Button>
+          </Col>
+        </Row>
+      </Form>
     </Container>
   );
 };
+
 // This is to enable becket serial number lookup.
 AddBeckettItem.propTypes = {
   stateSetters: PropTypes.object,
 };
 
-AddOtherItem.propTypes = {
-  stateSetters: PropTypes.object,
-  values: PropTypes.object,
-  categorySelected: PropTypes.string,
-  setCategorySelected: PropTypes.func,
-};
 SubmissionAdd.propTypes = {
   stateSetters: PropTypes.object,
   values: PropTypes.object,

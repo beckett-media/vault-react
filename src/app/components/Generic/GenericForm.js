@@ -1,7 +1,9 @@
 import React from 'react';
 
 const GenericForm = (props) => {
-  const [selectedItemIds, setSelectedItemIds] = useState(props.items.map(item => item.id));
+  const [selectedItemIds, setSelectedItemIds] = useState(
+    props.items.map((item) => item.id),
+  );
   const genericFormItems = () =>
     props.items.map(
       (item) =>
