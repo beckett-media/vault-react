@@ -220,7 +220,10 @@ const Gallery = () => {
                         setSortBy={setSortBy}
                       />
                       {selectedItemIds.length > 0 && (
-                        <div className='d-flex'>
+                        <div className='d-flex align-items-center'>
+                          <div className='me-2'>
+                            {selectedItemIds.length} item(s) selected
+                          </div>
                           <SubmitButton func={clearSelections} title='Clear' />
                           &nbsp;
                           <SubmitButton
