@@ -4,4 +4,10 @@ anything in here will override the bootstrap varaibles.
 
 */
 
-$primary: #54c4c8;
+$primary: #54C4C8;
+
+.carousel-indicators button {
+    width: 16px !important;
+    height: 16px !important;
+    border-radius: 100%;
+  }
