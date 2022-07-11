@@ -1,3 +1,6 @@
+import axios from 'axios';
+import config from '../../config';
+
 const mockItems = [
   {
     id: 1,
@@ -149,4 +152,9 @@ export const getItem = async (id) => {
 export const getMarketItems = async () => {
   // const data = axios.post(url, {userId: user.id})
   return mockMarketItems;
+};
+
+export const withdrawItem = async (itemId) => {
+  return await axios
+    .delete(`${config.BASE_URL}/marketplace/vaulting/${itemId}`);
 };

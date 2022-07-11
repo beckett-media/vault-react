@@ -20,9 +20,8 @@ import {
   ListOrGridView,
 } from './Gallery.styled';
 import { BsGrid3X2GapFill, BsList } from 'react-icons/bs';
-import { getItems } from '../../services/items';
+import { getItems, withdrawItem } from '../../services/items';
 import { Link } from 'react-router-dom';
-import { withdrawItem } from '../../services/withdraw';
 
 const Gallery = () => {
   document.body.classList.add('gallery-container');
