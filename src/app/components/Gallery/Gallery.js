@@ -1,21 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Button,
-  Card,
-  Col,
-  Container,
-  Modal,
-  Row,
-  ToggleButton,
-} from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  addListItem,
-  addWithdrawalItem,
-  setListForm,
-  setWithdrawalForm,
-} from '../../state/actions';
-import { selectedItemIdsSelector } from '../../state/selectors';
+import { Button, Card, Col, Container, Modal, Row } from 'react-bootstrap';
 import WithdrawForm from './WithdrawForm';
 import SubmitButton from '../Generic/SubmitButton';
 import ProfileView from '../Profile/ProfileView';
@@ -35,18 +19,16 @@ import { withdrawItem } from '../../services/withdraw';
 
 const Gallery = () => {
   document.body.classList.add('gallery-container');
-  const dispatch = useDispatch();
   const [items, setItems] = useState([]);
-  //const [filteredItems, setFilteredItems] = useState([])
   const [listView, setListView] = useState(false);
   const [withdrawOrList, setWithdrawOrList] = useState('');
   const [showConfirm, toggleConfirm] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [showConfirmationPage, toggleShowConfirmationPage] = useState(false);
-  const [searchVal, setSearchVal] = useState('')
-  const [sortBy, setSortBy] = useState('title')
-  // const selectedItemIds = useSelector(selectedItemIdsSelector).ids;
+  const [searchVal, setSearchVal] = useState('');
+  const [sortBy, setSortBy] = useState('title');
+  const [selectedItemIds, setSelectedItemIds] = useState([]);
   const toggleListView = () => setListView(!listView);
   const [selectedIds, setSelectedIds] = useState([]);
   const isSelected = (id) => selectedIds.includes(id);
@@ -61,27 +43,10 @@ const Gallery = () => {
 
   const searchValRegex = new RegExp(searchVal.toLowerCase(), 'g');
 
-  const filteredItems = items
-    .filter((item) =>
-      searchValRegex.test(item.title.toLowerCase()))
-
-  // const listItem = (evt) => {
-  //   const item = items.filter((item) => item.id === evt.target.id);
-  //   dispatch(addListItem(item));
-  //   toggleConfirm(true);
-  // };
-
-  // const listItems = (evt) => {
-  //   setWithdrawOrList(evt.target.id);
-  //   dispatch(setListForm(selectedIds));
-  //   toggleShowConfirmationPage(true);
-  // };
-
-  // const withdrawItem = (evt) => {
-  //   const item = items.filter((item) => item.id === evt.target.id);
-  //   dispatch(addWithdrawalItem(item));
-  //   toggleConfirm();
-  // };
+  const filteredItems = items.filter((item) =>
+    searchValRegex.test(item.title.toLowerCase()),
+  );
+  
 
   const withdrawItems = (evt) => {
     setWithdrawOrList(evt.target.id);
@@ -139,15 +104,15 @@ const Gallery = () => {
     getItems().then((data) => setItems(data));
   }, []);
 
-  const sortedItems = sortBy ?
-    filteredItems.sort((itemA, itemB) => {
-      const sortVal = sortBy.split('-');
-      const reverse = sortVal.length !== 1;
-      if (itemA[`${sortVal[0]}`] <= itemB[`${sortVal[0]}`]) {
-        return reverse ? 1 : -1;
-      } else return reverse ? -1 : 1;
-  }) :
-    filteredItems;
+  const sortedItems = sortBy
+    ? filteredItems.sort((itemA, itemB) => {
+        const sortVal = sortBy.split('-');
+        const reverse = sortVal.length !== 1;
+        if (itemA[`${sortVal[0]}`] <= itemB[`${sortVal[0]}`]) {
+          return reverse ? 1 : -1;
+        } else return reverse ? -1 : 1;
+      })
+    : filteredItems;
 
   const itemBox = sortedItems.map((item) => {
     return (
