@@ -155,6 +155,7 @@ export const getMarketItems = async () => {
 };
 
 export const withdrawItem = async (itemId) => {
-  return await axios
-    .delete(`${config.BASE_URL}/marketplace/vaulting/${itemId}`);
+  return await axios.delete(
+    `${config.BASE_URL}/marketplace/vaulting/${itemId}`,
+  );
 };

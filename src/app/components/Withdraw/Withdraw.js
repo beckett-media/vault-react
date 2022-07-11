@@ -10,11 +10,7 @@ import { AuthStatus, AuthContext } from '../../contexts/auth';
 const Withdraw = () => {
   const authContext = useContext(AuthContext);
 
-  return (
-    <div>
-      TODO
-    </div>
-  );
+  return <div>TODO</div>;
 };
 
 export default Withdraw;

@@ -67,9 +67,7 @@ const Gallery = () => {
 
   const confirmAction = async () => {
     if (withdrawOrList === 'withdraw') {
-      Promise.all([
-        selectedItemIds.map((id) => withdrawItem(id)),
-      ])
+      Promise.all([selectedItemIds.map((id) => withdrawItem(id))])
         .then((alls) => {
           console.log('withdraw call result', alls);
 
@@ -133,7 +131,11 @@ const Gallery = () => {
         )}
         {!listView && (
           <GridItemBox>
-            <Card className={`dark ${isSelected(item.id) ? 'card-selected' : 'card-noselect'}`}>
+            <Card
+              className={`dark ${
+                isSelected(item.id) ? 'card-selected' : 'card-noselect'
+              }`}
+            >
               <Card.Header className='card-hdr'>
                 <Link to={`/item/${item.id}`}>
                   <Card.Title className='fs-6'>
@@ -159,13 +161,15 @@ const Gallery = () => {
                   />
                 </Link>
                 <ToggleButton
-                  className="mt-2 w-100"
+                  className='mt-2 w-100'
                   id={`toggle-${item.id}`}
-                  type="checkbox"
-                  variant="outline-primary"
+                  type='checkbox'
+                  variant='outline-primary'
                   checked={isSelected(item.id)}
-                  value="1"
-                  onChange={(e) => handleItemSelection(e.currentTarget.checked, item.id)}
+                  value='1'
+                  onChange={(e) =>
+                    handleItemSelection(e.currentTarget.checked, item.id)
+                  }
                 >
                   Select
                 </ToggleButton>
@@ -213,11 +217,9 @@ const Gallery = () => {
             </Col>
           </Row>
 
-          {
-            !!successMessage && (
-              <p className='mt-2 mb-4 success-message'>{successMessage}</p>
-            )
-          }
+          {!!successMessage && (
+            <p className='mt-2 mb-4 success-message'>{successMessage}</p>
+          )}
 
           <Row>
             {!showConfirmationPage && (
@@ -230,7 +232,8 @@ const Gallery = () => {
           </Row>
           {selectedItemIds.length > 0 && (
             <>
-              <SubmitButton func={clearSelections} title='Clear' />&nbsp;
+              <SubmitButton func={clearSelections} title='Clear' />
+              &nbsp;
               <SubmitButton
                 id='withdraw'
                 func={withdrawItems}
@@ -242,20 +245,17 @@ const Gallery = () => {
       )}
       {showConfirmationPage && (
         <>
-          {
-            !!errorMessage && (
-              <p className='mt-2 mb-4 error-message'>{errorMessage}</p>
-            )
-          }
+          {!!errorMessage && (
+            <p className='mt-2 mb-4 error-message'>{errorMessage}</p>
+          )}
           <WithdrawForm
-            itemsToWithdraw={
-              items.filter((item) => selectedItemIds.includes(item.id))
-            }
-            title={
-              `Please confirm you would like to ${withdrawOrList} items below:`
-            }
+            itemsToWithdraw={items.filter((item) =>
+              selectedItemIds.includes(item.id),
+            )}
+            title={`Please confirm you would like to ${withdrawOrList} items below:`}
           />
-          <SubmitButton func={confirmAction} title='Confirm' />&nbsp;
+          <SubmitButton func={confirmAction} title='Confirm' />
+          &nbsp;
           <SubmitButton func={cancelConfirmAction} title='Go Back' />
         </>
       )}
