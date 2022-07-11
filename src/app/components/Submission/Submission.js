@@ -4,17 +4,13 @@ import SubmissionSuccess from '../Response/SubmissionSuccess';
 import SubmissionAdd from './SubmissionAdd';
 import SubmissionForm from './SubmissionForm';
 import SubmitButton from '../Generic/SubmitButton';
-import { useDispatch, useSelector } from 'react-redux';
-import { submissionFormSelector } from '../../state/selectors';
-import { addSubmissionItem } from '../../state/actions';
-import { postSubmission } from '../../services/submission';
 import './Submission.scss';
 import { Link } from 'react-router-dom';
+import {postSubmission} from '../../services/submission'
 
 const Submission = () => {
   document.body.classList.add('submit-container');
-  const items = useSelector(submissionFormSelector).items;
-  const dispatch = useDispatch();
+  const [items, setItems] = useState([]);
   const [add, onAdd] = useState(false);
   const [completeAdd, toggleCompleteAdd] = useState(false);
   const [confirmedSubmission, setConfirmedSubmission] = useState(false);
@@ -45,8 +41,6 @@ const Submission = () => {
   const submitAddedItem = () => {
     confirmAdd();
     toggleCompleteAdd(!completeAdd);
-    dispatch(addSubmissionItem(values));
-    Object.values(stateSetters).forEach((setter) => setter(''));
   };
   // Sorry for many state variables, they are strictly local.
   const [gradingCompany, setGradingCompany] = useState('');
@@ -78,21 +72,6 @@ const Submission = () => {
     subject,
     image,
   };
-  const stateSetters = {
-    setGradingCompany,
-    setCategory,
-    setSerialNumber,
-    setDescription,
-    setTitle,
-    setGenre,
-    setManufacturer,
-    setYear,
-    setOverallGrade,
-    setSubGrades,
-    setAutographGrade,
-    setSubject,
-    setImage,
-  };
   const setOnAdd = () => onAdd(false);
   return (
     <>
@@ -113,7 +92,7 @@ const Submission = () => {
           <>
             <Row className='m-2'>
               <Col xs={12}>
-                <SubmissionAdd values={values} stateSetters={stateSetters} />
+                <SubmissionAdd values={values} />
               </Col>
             </Row>
             <Row className='mx-4 my-2'>

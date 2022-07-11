@@ -3,21 +3,6 @@ import { Col, Container, Form, Row } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 const AddBeckettItem = (props) => {
-  // const {
-  //   setCategory,
-  //   setSeialNumber,
-  //   setDescription,
-  //   setTitle,
-  //   setGenre,
-  //   setManufacturer,
-  //   setYear,
-  //   setOverallGrade,
-  //   setSubGrades,
-  //   setAutographGrade,
-  //   setSubject,
-  //   setImage,
-  // } = props.stateSetters;
-
   return (
     <Form.Group className='md-5'>
       <Form.Label>Serial Number</Form.Label>
@@ -34,33 +19,8 @@ const AddOtherItem = (props) => {
     description,
     title,
     genre,
-    // manufacturer,
-    // year,
-    // overallGrade,
-    // subGrades,
-    // autographGrade,
-    // subject,
-    // image,
   } = props.values;
-  const {
-    setGradingCompany,
-    setCategory,
-    setSerialNumber,
-    setDescription,
-    setTitle,
-    setGenre,
-    // setManufacturer,
-    // setYear,
-    // setOverallGrade,
-    // setSubGrades,
-    // setAutographGrade,
-    // setSubject,
-    // setImage,
-  } = props.stateSetters;
-  const onCategoryChange = (evt) => {
-    setCategory(evt.target.value);
-    props.setCategorySelected(true);
-  };
+
   return (
     <Form>
       <Row>
@@ -70,7 +30,6 @@ const AddOtherItem = (props) => {
             <Form.Control
               type='text'
               value={gradingCompany}
-              onChange={(e) => setGradingCompany(e.target.value)}
             />
           </Form.Group>
         </Col>
@@ -80,7 +39,6 @@ const AddOtherItem = (props) => {
             <Form.Control
               type='text'
               value={serialNumber}
-              onChange={(e) => setSerialNumber(e.target.value)}
             />
           </Form.Group>
         </Col>
@@ -91,19 +49,18 @@ const AddOtherItem = (props) => {
           <Form.Control
             as='textarea'
             value={description}
-            onChange={(e) => setDescription(e.target.value)}
           />
         </Form.Group>
       )}
     </Form>
   );
 };
+
 const SubmissionAdd = (props) => {
   const gradingCompany = props.values.gradingCompany;
   const [gradingCompanySelected, setGradingCompanySelected] = useState(false);
   const [categorySelected, setCategorySelected] = useState(false);
   const onChange = (evt) => {
-    props.stateSetters.setGradingCompany(evt.target.value);
     setGradingCompanySelected(true);
   };
 
@@ -138,4 +95,5 @@ SubmissionAdd.propTypes = {
   categorySelected: PropTypes.string,
   setCategorySelected: PropTypes.func,
 };
+
 export default SubmissionAdd;

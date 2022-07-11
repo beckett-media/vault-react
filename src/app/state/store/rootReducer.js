@@ -1,63 +1,16 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import {
-  interestFormReducers,
-  itemObjectReducers,
-  listFormReducers,
-  selectedItemIdsReducers,
-  submissionFormReducers,
-  withdrawalFormReducers,
+  cartReducers,
 } from '../reducers';
 
 export const initialState = {
-  interestForm: {
-    first: '',
-    last: '',
-    phone: '',
-    email: '',
-    beckettId: '',
-    checkbox1: false,
-    checkbox2: false,
-    checkbox3: false,
-    checkbox4: false,
-    checkbox5: false,
-    checkbox6: false,
-  },
-  itemObject: {
-    category: '',
-    gradingCompany: '',
-    serialNumber: '',
-    description: '',
-    title: '',
-    genre: '',
-    manufacturer: '',
-    year: '',
-    overallGrade: '',
-    subGrades: '',
-    autographGrade: '',
-    subject: '',
-    image: '',
-  },
-  submissionForm: {
+  cartForm: {
     items: [],
-  },
-  withdrawalForm: {
-    items: [],
-  },
-  listForm: {
-    items: [],
-  },
-  selectedItemIds: {
-    ids: [],
   },
 };
 
 export const appReducer = combineReducers({
-  interestForm: interestFormReducers,
-  itemObject: itemObjectReducers,
-  selectedItemIds: selectedItemIdsReducers,
-  submissionForm: submissionFormReducers,
-  withdrawalForm: withdrawalFormReducers,
-  listForm: listFormReducers,
+  cart: cartReducers,
 });
 
 export const rootReducer = (state, action) => {

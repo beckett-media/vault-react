@@ -69,34 +69,36 @@ const Item = () => {
             {item.price?.toLocaleString()}
           </p>
         </Row>
-        {//TODO: Add a Remove from Marketplace button if currently listed.
-        true ? (
-          <>
-            <Row className='mt-2'>
-              <Col></Col>
-              <SubmitButton
-                func={listItem}
-                title='Sell in Marketplace'
-                bg='primary'
-              />
-            </Row>
-            <br />
+        {
+          //TODO: Add a Remove from Marketplace button if currently listed.
+          true ? (
+            <>
+              <Row className='mt-2'>
+                <Col></Col>
+                <SubmitButton
+                  func={listItem}
+                  title='Sell in Marketplace'
+                  bg='primary'
+                />
+              </Row>
+              <br />
+              <Row>
+                <SubmitButton
+                  className='withdraw-btn'
+                  func={withdrawItem}
+                  title='Withdraw from Vault'
+                  bg='outline-primary'
+                />
+              </Row>
+            </>
+          ) : (
             <Row>
-              <SubmitButton
-                className='withdraw-btn'
-                func={withdrawItem}
-                title='Withdraw from Vault'
-                bg='outline-primary'
-              />
+              <Button className='' size='sm' bg='transparent'>
+                Buy
+              </Button>
             </Row>
-          </>
-        ) : (
-          <Row>
-            <Button className='' size='sm' bg='transparent'>
-              Buy
-            </Button>
-          </Row>
-        )}
+          )
+        }
       </Col>
     </Row>
   );

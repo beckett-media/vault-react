@@ -1,18 +1,12 @@
 import React from 'react';
 import { Col, Container, Form, Row } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
 import '../../../index.scss';
-import { removeSubmissionItem } from '../../state/actions';
-import { submissionFormSelector } from '../../state/selectors';
 import SubmitButton from '../Generic/SubmitButton';
 import SubmissionConfirmModal from './SubmissionConfirmModal';
 
-const SubmissionForm = (props) => {
-  const { formSubmitted, setConfirm, cancelSubmission, onAdd, items } = props;
-  const submissionForm = useSelector(submissionFormSelector);
+const SubmissionForm = ({ formSubmitted, setConfirm, cancelSubmission, onAdd, items }) => {
   const onAddNew = () => onAdd(true);
-  const dispatch = useDispatch();
-  const removeItem = (id) => dispatch(removeSubmissionItem);
+
   return (
     <Container>
       <Row className='justify-content-md-center'>
