@@ -12,7 +12,6 @@ const [cartObject, setCartObject] = useState({
 
 const defaultState = {
   cart: cartObject,
-  removeItem: cartReducer.removeItem,
 };
 
 export const CartContext = createContext(defaultState);
@@ -27,7 +26,7 @@ const cartReducer = (state, action) => {
 
 const CartProvider = ({children}) => {
   const state = {cart, removeItem}
-  const [ cartState, dispatch ] = useReducer(cartReducer, { cart: [] });
-  return <CartContext.Provider value={state}>{children}</CartContext.Provider>
+  const [ cartState, dispatch ] = useReducer(cartReducer, { cart: {}});
+  return <CartContext.Provider value={cartState}>{children}</CartContext.Provider>
 }
 export default CartProvider;
