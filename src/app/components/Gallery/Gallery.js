@@ -25,20 +25,20 @@ const Gallery = () => {
   const [withdrawOrList, setWithdrawOrList] = useState('');
   const [showConfirm, toggleConfirm] = useState(false);
   const [showConfirmationPage, toggleShowConfirmationPage] = useState(false);
-  const [searchVal, setSearchVal] = useState('')
-  const [sortBy, setSortBy] = useState('title')
-  const [submissions, setSubmissions] = useState([])
+  const [searchVal, setSearchVal] = useState('');
+  const [sortBy, setSortBy] = useState('title');
+  const [submissions, setSubmissions] = useState([]);
   const [user, setUser] = useState([]);
   useEffect(() => {
     getUser().then((data) => setUser(data));
   }, []);
-  const submissionsObj = async () => await getSubmissions(user.name)
+  const submissionsObj = async () => await getSubmissions(user.name);
   useEffect(() => {
-    const fetchSubmissions = async () => 
-      submissionsObj().then(res=>setSubmissions(res.data))
-    user && fetchSubmissions()
-  }, [user])
-  
+    const fetchSubmissions = async () =>
+      submissionsObj().then((res) => setSubmissions(res.data));
+    user && fetchSubmissions();
+  }, [user]);
+
   const [selectedItemIds, setSelectedItemIds] = useState([]);
   const toggleListView = () => setListView(!listView);
 
@@ -75,20 +75,19 @@ const Gallery = () => {
     getItems().then((data) => setItems(data));
   }, []);
 
-  const sortedItems = sortBy ? 
-    filteredItems.sort((itemA, itemB) => {
-      const sortVal = sortBy.split('-')
-      const reverse = sortVal.length !== 1;
-      if(itemA[`${sortVal[0]}`] <= itemB[`${sortVal[0]}`]){
-        return reverse ? 1 : -1
-      }
-      else return reverse ? -1 : 1
-  }) :
-    filteredItems;
+  const sortedItems = sortBy
+    ? filteredItems.sort((itemA, itemB) => {
+        const sortVal = sortBy.split('-');
+        const reverse = sortVal.length !== 1;
+        if (itemA[`${sortVal[0]}`] <= itemB[`${sortVal[0]}`]) {
+          return reverse ? 1 : -1;
+        } else return reverse ? -1 : 1;
+      })
+    : filteredItems;
 
   const itemBox = sortedItems.map((item) => {
     return (
-      <div key={item.id} >
+      <div key={item.id}>
         <Modal show={showConfirm} onHide={cancelConfirm}>
           <Modal.Header closeButton>
             <Modal.Title id='contained-modal-title-center'>
@@ -115,8 +114,8 @@ const Gallery = () => {
         {!listView && (
           <GridItemBox>
             <Card className='dark'>
-              <Card.Header >
-              <Link to={`/item/${item.id}`}>
+              <Card.Header>
+                <Link to={`/item/${item.id}`}>
                   <Card.Img
                     className='card-img'
                     variant='top'
@@ -138,7 +137,7 @@ const Gallery = () => {
                         : item.title
                     }
                   </Card.Title>
-                  </Link>
+                </Link>
               </Card.Body>
             </Card>
           </GridItemBox>
@@ -157,18 +156,17 @@ const Gallery = () => {
             </Col>
           </Row>
 
-            {}
-            {!showConfirmationPage && 
-              submissions.filter(item => item.minted_at === 0).length && 
-              (
-                <Row>
-                  <Col>
+          {}
+          {!showConfirmationPage &&
+            submissions.filter((item) => item.minted_at === 0).length && (
+              <Row>
+                <Col>
                   <Link to='/history'>
                     <Button>SHOW PENDING ITEMS</Button>
                   </Link>
-                  </Col>
-                </Row>
-              )}
+                </Col>
+              </Row>
+            )}
 
           <Row className='m-3'>
             <hr />
@@ -205,7 +203,7 @@ const Gallery = () => {
               </>
             )}
           </Row>
-        
+
           {selectedItemIds.length > 0 && (
             <>
               <SubmitButton func={clearSelections} title='Clear' />

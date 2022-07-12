@@ -17,7 +17,7 @@ const Submission = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [successfulSubmission, setSuccessfulSubmission] = useState(false);
   const [user, setUser] = useState([]);
-  
+
   const [gradingCompany, setGradingCompany] = useState('');
   const [category, setCategory] = useState('');
   const [serialNumber, setSerialNumber] = useState('');

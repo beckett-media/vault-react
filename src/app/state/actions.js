@@ -37,67 +37,67 @@ import {
   REMOVE_SELECTED_ITEM_ID,
 } from './types';
 
-export const setFirst = (payload) => {  
+export const setFirst = (payload) => {
   return {
     type: SET_FIRST,
     payload: payload,
   };
 };
-export const setLast = (payload) => {  
+export const setLast = (payload) => {
   return {
     type: SET_LAST,
     payload: payload,
   };
 };
-export const setPhone = (payload) => {  
+export const setPhone = (payload) => {
   return {
     type: SET_PHONE,
     payload: payload,
   };
 };
-export const setEmail = (payload) => {  
+export const setEmail = (payload) => {
   return {
     type: SET_EMAIL,
     payload: payload,
   };
 };
-export const setBeckettId = (payload) => {  
+export const setBeckettId = (payload) => {
   return {
     type: SET_BECKETT_ID,
     payload: payload,
   };
 };
-export const setCheckbox1 = (payload) => {  
+export const setCheckbox1 = (payload) => {
   return {
     type: SET_CHECKBOX_1,
     payload: payload,
   };
 };
-export const setCheckbox2 = (payload) => {  
+export const setCheckbox2 = (payload) => {
   return {
     type: SET_CHECKBOX_2,
     payload: payload,
   };
 };
-export const setCheckbox3 = (payload) => {  
+export const setCheckbox3 = (payload) => {
   return {
     type: SET_CHECKBOX_3,
     payload: payload,
   };
 };
-export const setCheckbox4 = (payload) => {  
+export const setCheckbox4 = (payload) => {
   return {
     type: SET_CHECKBOX_4,
     payload: payload,
   };
 };
-export const setCheckbox5 = (payload) => {  
+export const setCheckbox5 = (payload) => {
   return {
     type: SET_CHECKBOX_5,
     payload: payload,
   };
 };
-export const setCheckbox6 = (payload) => {  
+export const setCheckbox6 = (payload) => {
   return {
     type: SET_CHECKBOX_6,
     payload: payload,
@@ -272,7 +272,6 @@ export const setSelectedItemIds = (payload) => {
 
 // on Logout action
 export const resetForm = (payload) => {
-  
   return {
     type: RESET_FORM,
     payload: payload,

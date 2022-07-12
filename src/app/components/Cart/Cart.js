@@ -19,6 +19,7 @@ const Cart = () => {
       { id: '3234', title: 'title3', price: '1234.56', img: user.img },
     ],
     total: 0,
+    proceedToCheckout: false,
   });
 
   const updateTotal = () =>
@@ -38,15 +39,24 @@ const Cart = () => {
     setCart({...cart, items: updatedItems});
   }
 
+  const proceedToCheckoutToggle = () => {
+    setCart({...cart, proceedToCheckout: true});
+  }
   return (
     <Col className='row justify-content-center mb-3 m-5'>
       <Row className='fw-bold fs-2 pt-5'>Shopping Cart</Row>
       <Row className='px-5'>
         <Col xxl={5}>
-          <CartItems items={cart.items} removeItem={removeItem}/>
+          <CartItems 
+            cart={cart} 
+            removeItem={removeItem}
+          />
         </Col>
         <Col xxl={5}>
-          <CartTotal cart={cart} />
+          <CartTotal 
+            cart={cart} 
+            proceedToCheckoutToggle={proceedToCheckoutToggle}
+          />
         </Col>
       </Row>
     </Col>
