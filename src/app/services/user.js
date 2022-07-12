@@ -9,3 +9,9 @@ export const getUser = async () => {
   // get the real user here
   return mockUser;
 };
+
+export const updateUser = async (user) => {
+  // TODO: run validation
+  // update user
+  return user;
+};
