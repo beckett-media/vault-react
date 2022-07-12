@@ -9,7 +9,6 @@ import Withdraw from './app/components/Withdraw/Withdraw';
 import Market from './app/components/Market/Market';
 import Profile from './app/components/Profile/Profile';
 import Cart from './app/components/Cart/Cart';
-import About from './app/components/About/About';
 import SignIn from './app/components/SignIn/SignIn';
 import Landing from './app/components/Homepage/Landing';
 import { Routes, Route } from 'react-router-dom';
@@ -39,7 +38,7 @@ function App() {
             <Routes>
               <Route exact path='/' element={<PrivateRoute />}>
                 <Route path='/submission' element={<Submission />} />
-                <Route path='/about' element={<About />} />
+                <Route path='/about' element={<Homepage />} />
                 <Route path='/gallery' element={<Gallery />} />
                 <Route path='/item/:id' element={<Item />} />
                 <Route path='/market' element={<Market />} />
