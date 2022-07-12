@@ -9,11 +9,10 @@ const SubmissionForm = ({ onAdd, items }) => {
   console.log(cartContext)
   const removeItem = () => console.log()
   useEffect(() => {
-    console.log('items', items);
     setDisplayItems(
       items.map((item, i) => {
         return (
-          <Container key={obj.id} className='m-2 p-3 border border rounded'>
+          <Container key={item.id} className='m-2 p-3 border border rounded'>
             <Row>
               <Col className='info-box'>
                 <p>

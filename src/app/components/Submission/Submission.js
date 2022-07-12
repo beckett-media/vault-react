@@ -18,38 +18,14 @@ const Submission = () => {
   const [successfulSubmission, setSuccessfulSubmission] = useState(false);
   const [user, setUser] = useState([]);
 
-  const [gradingCompany, setGradingCompany] = useState('');
-  const [category, setCategory] = useState('');
-  const [serialNumber, setSerialNumber] = useState('');
-  const [description, setDescription] = useState('');
-  // Below are optional
-  const [title, setTitle] = useState('');
-  const [genre, setGenre] = useState('');
-  const [manufacturer, setManufacturer] = useState('');
-  const [year, setYear] = useState('');
-  const [overallGrade, setOverallGrade] = useState('');
-  const [subGrades, setSubGrades] = useState('');
-  const [autographGrade, setAutographGrade] = useState('');
-  const [subject, setSubject] = useState('');
-  const [image, setImage] = useState('');
-
   useEffect(() => {
     getUser().then((data) => setUser(data));
   }, []);
   formSubmitted &&
     confirmedSubmission &&
     postSubmission({
+      ...item,
       userName: user.name,
-      description: description,
-      title: title,
-      serialNumber: serialNumber,
-      category: category,
-      gradingCompany: gradingCompany,
-      genre: genre,
-      manufacturer: manufacturer,
-      year: year,
-      overallGrade: overallGrade,
-      subGrades: subGrades,
     }).then(
       (res) => res.statusText === 'Created' && setSuccessfulSubmission(true),
     );
@@ -60,20 +36,8 @@ const Submission = () => {
     setItems(newItems);
   };
 
-  const values = {
-    gradingCompany,
-    category,
-    serialNumber,
-    description,
-    title,
-    genre,
-    manufacturer,
-    year,
-    overallGrade,
-    subGrades,
-    autographGrade,
-    subject,
-    image,
+  const removeItem = (removedItem) => {
+    setItems(items.filter((item) => item != removedItem));
   };
 
   const submitForm = () => {

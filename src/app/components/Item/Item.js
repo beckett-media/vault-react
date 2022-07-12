@@ -78,19 +78,19 @@ const Item = () => {
             {item.price?.toLocaleString()}
           </p>
         </Row>
-        {
-          //TODO: Add a Remove from Marketplace button if currently listed.
-          user && user.id == item.ownerId ? (
-            <>
-              <Row className='mt-2'>
-                <Col></Col>
-                <SubmitButton
-                  func={listItem}
-                  title='Sell in Marketplace'
-                  bg='primary'
-                />
-              </Row>
-              <Row>
+        {//TODO: Add a Remove from Marketplace button if currently listed.
+        user && user.id == item.ownerId ? (
+          <>
+            <Row className='mt-2'>
+              <Col></Col>
+              <SubmitButton
+                func={listItem}
+                title='Sell in Marketplace'
+                bg='primary'
+              />
+            </Row>
+            <br/>
+            <Row>
                 <SubmitButton
                   className='withdraw-btn'
                   func={withdrawItem}
