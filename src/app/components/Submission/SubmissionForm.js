@@ -1,12 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Col, Container, Form, Row } from 'react-bootstrap';
-import { CartContext } from '../../contexts/cart';
 import SubmitButton from '../Generic/SubmitButton';
 
 const SubmissionForm = ({ onAdd, items }) => {
   const [displayItems, setDisplayItems] = useState([]);
-  const cartContext = useContext(CartContext)
-  console.log(cartContext)
+
   const removeItem = () => console.log()
   useEffect(() => {
     setDisplayItems(
@@ -16,13 +14,13 @@ const SubmissionForm = ({ onAdd, items }) => {
             <Row>
               <Col className='info-box'>
                 <p>
-                  {i + 1}. {obj.gradingCompany}
+                  {i + 1}. {item.gradingCompany}
                 </p>
               </Col>
-              <Col className='right-align'>{obj.serialNumber}</Col>
+              <Col className='right-align'>{item.serialNumber}</Col>
             </Row>
             <Row>
-              <Col>{obj.description}</Col>
+              <Col>{item.description}</Col>
             </Row>
             <SubmitButton func={removeItem} title='Delete' bg='link' isLink />
           </Container>

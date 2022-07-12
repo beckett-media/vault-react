@@ -38,33 +38,35 @@ function App() {
   return (
     <>
       <AuthProvider>
-        <ChakraProvider theme={emptyChakraTheme}>
-          <Header />
-          <main className=''>
-            <Routes>
-              <Route exact path='/' element={<PrivateRoute />}>
-                <Route path='/submission' element={<Submission />} />
-                <Route path='/about' element={<Homepage />} />
-                <Route path='/gallery' element={<Gallery />} />
-                <Route path='/item/:id' element={<Item />} />
-                <Route path='/market' element={<Market />} />
-                <Route path='/withdraw' element={<Withdraw />} />
-                <Route path='/cart' element={<Cart />} />
-                <Route exact path='/profile' element={<Profile />} />
-                <Route path='/history' element={<SubmissionHistory />} />
-                <Route path='/support' element={<Support />} />
-                <Route path='/' element={<Homepage />} />
-              </Route>
-              <Route path='/faq' element={<Faq />} />
-              <Route path='/privacy' element={<Privacy />} />
-              <Route path='/terms' element={<Terms />} />
-              <Route path='/signin' element={<SignIn />} />
-              <Route path='/landing' element={<Landing />} />
-              <Route path='*' element={<Homepage />} />
-            </Routes>
-          </main>
-          <Footer />
-        </ChakraProvider>
+        <ContextProvider>
+          <ChakraProvider theme={emptyChakraTheme}>
+            <Header />
+            <main className=''>
+              <Routes>
+                <Route exact path='/' element={<PrivateRoute />}>
+                  <Route path='/submission' element={<Submission />} />
+                  <Route path='/about' element={<Homepage />} />
+                  <Route path='/gallery' element={<Gallery />} />
+                  <Route path='/item/:id' element={<Item />} />
+                  <Route path='/market' element={<Market />} />
+                  <Route path='/withdraw' element={<Withdraw />} />
+                  <Route path='/cart' element={<Cart />} />
+                  <Route exact path='/profile' element={<Profile />} />
+                  <Route path='/history' element={<SubmissionHistory />} />
+                  <Route path='/support' element={<Support />} />
+                  <Route path='/' element={<Homepage />} />
+                </Route>
+                <Route path='/faq' element={<Faq />} />
+                <Route path='/privacy' element={<Privacy />} />
+                <Route path='/terms' element={<Terms />} />
+                <Route path='/signin' element={<SignIn />} />
+                <Route path='/landing' element={<Landing />} />
+                <Route path='*' element={<Homepage />} />
+              </Routes>
+            </main>
+            <Footer />
+          </ChakraProvider>
+        </ContextProvider>
       </AuthProvider>
     </>
   );

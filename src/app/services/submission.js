@@ -1,6 +1,5 @@
 const axios = require('axios');
 const axiosRetry = require('axios-retry');
-import config from '../../config.json';
 
 import config from '../../config';
 

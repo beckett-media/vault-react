@@ -59,6 +59,7 @@ const Submission = () => {
             <Row className='justify-content-md-center'>
               <SubmissionForm
                 items={items}
+                removeItem={removeItem}
                 onAdd={onAdd}
               />
             </Row>
