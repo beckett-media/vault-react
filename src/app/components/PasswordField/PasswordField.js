@@ -20,18 +20,19 @@ export const PasswordField = React.forwardRef((props, ref) => {
 
   const mergeRef = useMergeRefs(inputRef, ref);
   const onClickReveal = () => {
+    console.log(isOpen);
     onToggle();
     if (inputRef.current) {
       inputRef.current.focus({ preventScroll: true });
     }
   };
 
-  const { value, onChange, type } = props;
+  const { value, onChange, prefix} = props;
 
   return (
     <FormControl>
       <FormLabel htmlFor='password' color={'white'}>
-        {type} Password
+        {prefix} Password
       </FormLabel>
       <InputGroup>
         <InputRightElement>
@@ -55,7 +56,6 @@ export const PasswordField = React.forwardRef((props, ref) => {
           required
           value={props.value}
           onChange={props.onChange}
-          {...props}
         />
       </InputGroup>
       <HStack justify='flex-start' my={3}>

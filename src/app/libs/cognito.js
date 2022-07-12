@@ -91,8 +91,8 @@ export async function verifyCode(username, code) {
   });
 }
 
-export async function signInWithEmail(username, password) {
-  return new Promise(function (resolve, reject) {
+export async function signInWithEmail(username, password, setPassword) {
+  return new Promise(function(resolve, reject) {
     const authenticationData = {
       Username: username,
       Password: password,
@@ -102,12 +102,27 @@ export async function signInWithEmail(username, password) {
     currentUser = getCognitoUser(username);
 
     currentUser.authenticateUser(authenticationDetails, {
-      onSuccess: function (res) {
-        resolve(res);
+      onSuccess: function(res) {
+        resolve(["SIGNED_IN", res]);
       },
       onFailure: function (err) {
         reject(err);
       },
+      newPasswordRequired: function(userAttributes, requiredAttributes) {
+        if (setPassword) {
+          delete userAttributes.email_verified
+          currentUser.completeNewPasswordChallenge(password, userAttributes,{
+            onSuccess: function(res) {
+              resolve(["NEW_PASSWORD_SET", res]);
+            },
+            onFailure: function(err) {
+              reject(err);
+            }
+          })
+        } else {
+          resolve(["NEW_PASSWORD", userAttributes]);
+        }   
+    }
     });
   }).catch((err) => {
     throw err;
