@@ -1,19 +1,28 @@
 .page-padding {
   padding: 0 80px;
   height: 100%;
+  display: flex;
+  justify-content: center;
 
-  @media only screen and (max-width: 600px) {
-    padding: 0 40px;
+  @media only screen and (max-width: 1000px) {
+    padding: 0 20px;
+  }
+
+  @media only screen and (max-width: 400px) {
+    padding: 0 0;
   }
 }
 
 .container-large {
   max-width: 1280px;
   height: 100%;
+  width: 100%;
 }
 
 .page-wrapper {
   font-family: 'Inter', sans-serif;
+  letter-spacing: -0.015em;
+  font-size: 18px;
   color: white;
   width: 100%;
   display: flex;

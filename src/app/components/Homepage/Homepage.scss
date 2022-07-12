@@ -3,3 +3,55 @@
   font-weight: bolder;
   color: #c0c0c0;
 }
+
+.section_home- {
+  &carousel {
+    width: 100%;
+    padding-top: 24px;
+  }
+  &content {
+    width: 100%;
+    padding: 80px 0;
+  }
+}
+
+.home-carousel_ {
+  &component {
+  }
+  &layout {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    height: 600px;
+  }
+  &carousel-wrapper {
+    background-color: gray;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  &heading {
+    position: absolute;
+    z-index: 1;
+    bottom: 202px;
+    text-align: center;
+  }
+}
+
+.home-content_ {
+  &layout {
+  }
+  &content-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 40px;
+  }
+  &heading {
+    font-size: 48px;
+  }
+  &body {
+  }
+  &cards-wrapper {
+  }
+}

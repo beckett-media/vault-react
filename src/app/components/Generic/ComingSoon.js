@@ -18,7 +18,7 @@ const ComingSoon = (props) => {
           <Modal.Title>Coming soon!</Modal.Title>
         </Modal.Header>
         <Modal.Body className='modal-body'>
-          <p>This feature isn't quite ready yet!</p>
+          <p>{`This feature isn't quite ready yet!`}</p>
         </Modal.Body>
         <Modal.Footer>
           <SubmitButton
