@@ -9,23 +9,31 @@ const Footer = () => {
       <hr />
       <Row className='footer mb-2 py-5 mx-4 dark'>
         <Col>
-          <Link to='/about'>
+          <Link to='/'>
             <span className='text-muted fs-5 fw-bold'>Beckett Vault</span>
           </Link>
         </Col>
         <Col>
           <Row>
             <Col xs={4}>
-              <div className='text-muted fw-bold'>Terms of Service</div>
+              <Link to='/terms'>
+                <div className='text-muted fw-bold'>Terms of Service</div>
+              </Link>
             </Col>
             <Col xs={3}>
-              <div className='text-muted fw-bold'>Privacy Policy</div>
+              <Link to='/privacy'>
+                <div className='text-muted fw-bold'>Privacy Policy</div>
+              </Link>
             </Col>
             <Col xs={2}>
-              <div className='text-muted fw-bold'>FAQ</div>
+              <Link to='/faq'>
+                <div className='text-muted fw-bold'>FAQ</div>
+              </Link>
             </Col>
             <Col xs={2}>
-              <div className='text-muted fw-bold'>Support</div>
+              <Link to='/support'>
+                <div className='text-muted fw-bold'>Support</div>
+              </Link>
             </Col>
           </Row>
         </Col>

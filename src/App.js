@@ -1,6 +1,10 @@
 import React from 'react';
 import Header from './app/components/Generic/Header';
 import Footer from './app/components/Generic/Footer';
+import Faq from './app/components/Generic/Faq';
+import Privacy from './app/components/Generic/Privacy';
+import Support from './app/components/Generic/Support';
+import Terms from './app/components/Generic/Terms';
 import Homepage from './app/components/Homepage/Homepage';
 import Submission from './app/components/Submission/Submission';
 import Gallery from './app/components/Gallery/Gallery';
@@ -46,8 +50,12 @@ function App() {
                 <Route path='/withdraw' element={<Withdraw />} />
                 <Route path='/cart' element={<Cart />} />
                 <Route exact path='/profile' element={<Profile />} />
+                <Route path='/support' element={<Support />} />
                 <Route path='/' element={<Homepage />} />
               </Route>
+              <Route path='/faq' element={<Faq />} />
+              <Route path='/privacy' element={<Privacy />} />
+              <Route path='/terms' element={<Terms />} />
               <Route path='/signin' element={<SignIn />} />
               <Route path='/landing' element={<Landing />} />
               <Route path='*' element={<Homepage />} />
