@@ -3,24 +3,23 @@ const axiosRetry = require('axios-retry');
 
 import config from '../../config';
 
-console.log( config)
-export const postSubmission = async (obj) => {
+export const postSubmission = async (submissionObj) => {
   axiosRetry(axios, { retries: 3 });
   const final = {
-    user_name: obj.userName,
-    grading_company: obj.gradingCompany || '',
-    serial_number: obj.serialNumber || '',
-    title: obj.title || '',
-    description: obj.description,
-    genre: obj.genre || '',
-    manufacturer: obj.manufacturer || '',
-    year: parseInt(obj.year) || parseInt('0000'),
-    overall_grade: obj.overallGrade || '',
-    sub_grades: obj.subGrades || '',
-    autograph: obj.autograph || '',
-    subject: obj.subject || '',
-    image_base64: obj.img || '',
-    image_format: obj.imgFormat || '',
+    user_name: submissionObj.userName,
+    grading_company: submissionObj.gradingCompany || '',
+    serial_number: submissionObj.serialNumber || '',
+    title: submissionObj.title || '',
+    description: submissionObj.description,
+    genre: submissionObj.genre || '',
+    manufacturer: submissionObj.manufacturer || '',
+    year: parseInt(submissionObj.year) || parseInt('0000'),
+    overall_grade: submissionObj.overallGrade || '',
+    sub_grades: submissionObj.subGrades || '',
+    autograph: submissionObj.autograph || '',
+    subject: submissionObj.subject || '',
+    image_base64: submissionObj.img || '',
+    image_format: submissionObj.imgFormat || '',
   };
   return axios
     .post(`${config.BASE_URL}/marketplace/submission`, final)
