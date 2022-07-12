@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 import { getUser, updateUser } from '../../services/user';
 import './Profile.scss';
+import ProfileView from './ProfileView';
 
 const Profile = () => {
   // todo: set is loading
@@ -25,17 +26,12 @@ const Profile = () => {
   return (
     <Container>
       <Form>
-        <Row className='justify-content-center'>
-          <Col lg='6'>
-            <h2>Profile</h2>
-          </Col>
-        </Row>
-        <Row className='justify-content-center mb-2'>
+        <Row className='justify-content-center m-2'>
           <Col lg='6'>
             <Row className='mb-2'>
               <Col>
-                {/* TODO: change image code, s3 or just a url? */}
-                <img src={user.img} className='img-thumbnail' />
+                <ProfileView />
+                <hr className='m-2' />
               </Col>
             </Row>
             <Row>

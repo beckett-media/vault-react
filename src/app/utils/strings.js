@@ -1,0 +1,8 @@
+export const trimString = (str, length) => {
+    return str.length > length
+    ? `${str.slice(
+        0,
+        str.length+1
+      )}...`
+    : str
+}

@@ -3,7 +3,6 @@ import {
   Button,
   Card,
   Col,
-  Container,
   Modal,
   Row,
   ToggleButton,
@@ -21,10 +20,10 @@ import {
   GridItemBox,
   ListItemBox,
   ListItemImg,
-  ListOrGridView,
 } from './Gallery.styled';
 import { getSubmissions } from '../../services/submission';
 import { getUser } from '../../services/user';
+import { trimString } from '../../utils/strings';
 
 const Gallery = () => {
   document.body.classList.add('gallery-container');
@@ -153,15 +152,7 @@ const Gallery = () => {
               <Card.Header className='card-hdr'>
                 <Link to={`/item/${item.id}`}>
                   <Card.Title className='fs-6 fw-bold'>
-                    {
-                      // Logic to split title longer than 33 char and append ... to it.
-                      item.title.length > 26
-                        ? item.title.slice(
-                            0,
-                            item.title.slice(0, 27).lastIndexOf(' '),
-                          ) + ' ...'
-                        : item.title
-                    }
+                    {trimString(item.title, 26)}
                   </Card.Title>
                 </Link>
               </Card.Header>
@@ -207,10 +198,7 @@ const Gallery = () => {
               </div>
             </div>
           </div>
-
-          {}
-          {!showConfirmationPage &&
-            submissions.filter((item) => item.minted_at === 0).length && (
+          {!showConfirmationPage && submissions.filter((item) => item.minted_at === 0).length ? (
               <Row>
                 <Col>
                   <Link to='/history'>
@@ -218,7 +206,7 @@ const Gallery = () => {
                   </Link>
                 </Col>
               </Row>
-            )}
+            ):(<></>)}
 
           <div className='section-collection'>
             <div className='gallery-filter_component'>
