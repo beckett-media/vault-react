@@ -40,7 +40,11 @@ const Settings = () => {
     () =>
       setStateOptions(
         states.map((state) => {
-          return <option value={state} key={state}>{state}</option>;
+          return (
+            <option value={state} key={state}>
+              {state}
+            </option>
+          );
         }),
       ),
     [],
