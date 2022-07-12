@@ -141,10 +141,10 @@ const Gallery = () => {
                   <Card.Title className='fs-6'>
                     {
                       // Logic to split title longer than 33 char and append ... to it.
-                      item.title.length > 28
+                      item.title.length > 26
                         ? item.title.slice(
                             0,
-                            item.title.slice(0, 29).lastIndexOf(' '),
+                            item.title.slice(0, 27).lastIndexOf(' '),
                           ) + ' ...'
                         : item.title
                     }
@@ -194,7 +194,7 @@ const Gallery = () => {
             </div>
           </div>
 
-          <div className='section-gallery'>
+          <div className='section-collection'>
             <div className='gallery-filter_component'>
               <div className='gallery-filter_divider' />
               <div className='page-padding'>
@@ -246,7 +246,13 @@ const Gallery = () => {
             <div className='page-padding'>
               <div className='container-large'>
                 {!showConfirmationPage && (
-                  <ListOrGridView listView={listView}>{itemBox}</ListOrGridView>
+                  <div
+                    className={`gallery_component ${
+                      listView ? 'gallery_list' : 'gallery_grid'
+                    }`}
+                  >
+                    {itemBox}
+                  </div>
                 )}
               </div>
             </div>
