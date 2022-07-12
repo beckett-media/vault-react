@@ -48,6 +48,7 @@ function App() {
                 <Route path='/cart' element={<Cart />} />
                 <Route exact path='/profile' element={<Profile />} />
                 <Route path='/history' element={<SubmissionHistory />} />
+                <Route path='/support' element={<Support />} />
                 <Route path='/' element={<Homepage />} />
               </Route>
               <Route path='/signin' element={<SignIn />} />
