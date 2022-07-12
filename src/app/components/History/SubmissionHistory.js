@@ -10,9 +10,8 @@ const SubmissionHistory = () => {
   const [user, setUser] = useState({});
 
   useEffect(() => {
-    getUser().then((data) => {
-      console.log('does this run?');
-      setUser(data);
+    getUser().then((user) => {
+      setUser(user);
       getSubmissions(user.name).then((res) => setSubmissions(res.data));
     });
   }, []);
