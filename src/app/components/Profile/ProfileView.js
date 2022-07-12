@@ -12,7 +12,7 @@ const ProfileView = () => {
 
   return (
     <Container>
-      <Row>
+      <Row className='info-box'>
         <Col>
           <img className='img-thumbnail profile-image-thumb' src={user.img} />
         </Col>

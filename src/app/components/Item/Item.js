@@ -6,6 +6,7 @@ import { getItem } from '../../services/items';
 import { useNavigate, useParams } from 'react-router-dom';
 import SubmitButton from '../Generic/SubmitButton';
 import { AuthStatus, AuthContext } from '../../contexts/auth';
+import { getUser } from '../../services/user';
 
 const Item = () => {
   const authContext = useContext(AuthContext);
@@ -14,20 +15,28 @@ const Item = () => {
   console.log('authContext.attrInfo', authContext.attrInfo);
   const { id } = useParams();
   const [item, setItem] = useState({});
+  const [user, setUser] = useState([]);
+
+  useEffect(() => {
+    getUser().then((data) => setUser(data));
+  }, []);
+
   useEffect(() => {
     // TODO: throw an error / redirect if we can't find the item?
     getItem(id).then((data) => setItem(data));
   }, []);
   const navigate = useNavigate();
-  console.log(item.img);
+
   const listItem = () => {
     navigate('/market');
   };
+
   const withdrawItem = () => {
     navigate('/');
   };
+
   return (
-    <Row>
+    <Row className='p-5'>
       <Col className='align-center' md={5} sm={12}>
         <div className='flip-card'>
           <div className='flip-card-inner'>
@@ -48,7 +57,7 @@ const Item = () => {
           </div>
         </div>
       </Col>
-      <Col className='m-3' md={5} sm={12}>
+      <Col className='m-3 info-box' md={5} sm={12}>
         <Row>
           <h3>{item.title}</h3>
         </Row>
@@ -59,7 +68,7 @@ const Item = () => {
           <br />
           <p className='fs-5'>
             {' '}
-            <span className='fw-bold'>Date vaulted: </span>{' '}
+            <span className='fw-bold'>Date Vaulted: </span>{' '}
             {item.date && moment(item.date).format('MMMM Do YYYY')}
           </p>
         </Row>
@@ -69,20 +78,19 @@ const Item = () => {
             {item.price?.toLocaleString()}
           </p>
         </Row>
-        {
-          // TODO: Add a Remove from Marketplace button if currently listed.
-          true ? (
-            <>
-              <Row className='mt-2'>
-                <Col></Col>
-                <SubmitButton
-                  func={listItem}
-                  title='Sell in Marketplace'
-                  bg='primary'
-                />
-              </Row>
-              <br />
-              <Row>
+        {//TODO: Add a Remove from Marketplace button if currently listed.
+        user && user.id == item.ownerId ? (
+          <>
+            <Row className='mt-2'>
+              <Col></Col>
+              <SubmitButton
+                func={listItem}
+                title='Sell in Marketplace'
+                bg='primary'
+              />
+            </Row>
+            <br/>
+            <Row>
                 <SubmitButton
                   className='withdraw-btn'
                   func={withdrawItem}
@@ -90,8 +98,9 @@ const Item = () => {
                   bg='outline-primary'
                 />
               </Row>
-            </>
-          ) : (
+            <br />
+          </>
+        ) : (
             <Row>
               <Button className='' size='sm' bg='transparent'>
                 Buy

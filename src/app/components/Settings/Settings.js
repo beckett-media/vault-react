@@ -40,12 +40,12 @@ const Settings = () => {
     () =>
       setStateOptions(
         states.map((state) => {
-          return <option value={state}>{state}</option>;
+          return <option value={state} key={state}>{state}</option>;
         }),
       ),
     [],
   );
-  console.log(shipState, billState);
+
   return (
     <Container>
       <Row className='justify-content-md-center'>

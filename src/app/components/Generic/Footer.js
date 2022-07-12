@@ -40,7 +40,7 @@ const Footer = () => {
         {/** TODO: Verify this should be 2021 */}
         <Col>
           <div className='text-muted align-right'>
-            &copy; Beckett, Inc. 2021
+            &copy; Beckett, Inc. 2022
           </div>
         </Col>
       </Row>
