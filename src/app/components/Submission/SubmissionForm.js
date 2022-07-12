@@ -21,7 +21,12 @@ const SubmissionForm = ({ onAdd, removeItem, items }) => {
             <Row>
               <Col>{item.description}</Col>
             </Row>
-            <SubmitButton func={removeItem} title='Delete' bg='link' isLink />
+            <SubmitButton
+              func={() => removeItem(item)}
+              title='Delete'
+              bg='link'
+              isLink
+            />
           </Container>
         );
       }),
