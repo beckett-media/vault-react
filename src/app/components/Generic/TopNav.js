@@ -48,7 +48,6 @@ const TopNav = () => {
               {authContext.authStatus === AuthStatus.SignedIn ? (
                 <>
                   <NavDropdown.Item href='/profile'>Profile</NavDropdown.Item>
-                  <NavDropdown.Item href='/account'>Account</NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item
                     onClick={async () => {
