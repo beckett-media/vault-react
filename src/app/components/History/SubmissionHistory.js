@@ -21,7 +21,7 @@ const SubmissionHistory = () => {
       });
     user && fetchSubmissions();
     setTogglePage(true);
-  }, [user, togglePage]);
+  }, [user]);
 
   return (
     <Container className='py-2 sub-box'>
