@@ -1,36 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Col, Container, Form, Row } from 'react-bootstrap';
+import { CartContext } from '../../contexts/cart';
 import SubmitButton from '../Generic/SubmitButton';
 
-const SubmissionForm = ({ onAdd, removeItem, items }) => {
+const SubmissionForm = ({ onAdd, items }) => {
   const [displayItems, setDisplayItems] = useState([]);
-
+  const cartContext = useContext(CartContext)
+  console.log(cartContext)
+  const removeItem = () => console.log()
   useEffect(() => {
     console.log('items', items);
     setDisplayItems(
       items.map((item, i) => {
         return (
-          <Container
-            key={item.serialNumber}
-            className='m-2 p-3 border border rounded'
-          >
+          <Container key={obj.id} className='m-2 p-3 border border rounded'>
             <Row>
-              <Col>
+              <Col className='info-box'>
                 <p>
-                  {i + 1}. {item.gradingCompany}
+                  {i + 1}. {obj.gradingCompany}
                 </p>
               </Col>
-              <Col className='right-align'>{item.serialNumber}</Col>
+              <Col className='right-align'>{obj.serialNumber}</Col>
             </Row>
             <Row>
-              <Col>{item.description}</Col>
+              <Col>{obj.description}</Col>
             </Row>
-            <SubmitButton
-              func={() => removeItem(item)}
-              title='Delete'
-              bg='link'
-              isLink
-            />
+            <SubmitButton func={removeItem} title='Delete' bg='link' isLink />
           </Container>
         );
       }),
@@ -45,24 +40,7 @@ const SubmissionForm = ({ onAdd, removeItem, items }) => {
         <div>{items.length ? 'Items to Vault' : 'Add Items to Vault'}</div>
       </Row>
       <Form>
-        {submissionForm.items.map((obj, i) => {
-          return (
-            <Container key={obj.id} className='m-2 p-3 border border rounded'>
-              <Row>
-                <Col className='info-box'>
-                  <p>
-                    {i + 1}. {obj.gradingCompany}
-                  </p>
-                </Col>
-                <Col className='right-align'>{obj.serialNumber}</Col>
-              </Row>
-              <Row>
-                <Col>{obj.description}</Col>
-              </Row>
-              <SubmitButton func={removeItem} title='Delete' bg='link' isLink />
-            </Container>
-          );
-        })}
+        {displayItems}
         <Row className='m-2'>
           <Col xs={3}>
             <SubmitButton

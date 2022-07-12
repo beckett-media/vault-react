@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Col, Form, Image, Row } from 'react-bootstrap';
 import SubmitButton from '../Generic/SubmitButton';
 import { FaInfoCircle } from 'react-icons/fa'
 import './Cart.scss'
+import CartProvider, { CartContext } from '../../contexts/cart';
 
-const CartItems = (props) => {
-  const { cart, removeItem } = props;
+const CartItems = () => {
+  const cartContext = useContext(CartContext)
   const [ isSelected, setIsSelected ] = useState('store')
   const [ continueToPayment, setContinueToPayment ] = useState(false)
   return (
     <Col className='pt-5'>
-      {cart.items.map((item, i) => {
+      {cartContext.cartObject.items?.map((item, i) => {
         return (
           <Row key={item.id} className='mb-3 p-3 border'>
             <Row className='py-2'>
@@ -34,7 +35,7 @@ const CartItems = (props) => {
         );
       })}
       {
-        cart.proceedToCheckout === true && !continueToPayment &&
+        cartContext.cartObject.proceedToCheckout === true && !continueToPayment &&
         <Row className='px-5 py-3 pb-4 border'>
           <div>
             <div className='fs-4 py-2 fw-bold'>

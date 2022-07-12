@@ -1,33 +1,33 @@
-import React, { useState } from 'react';
-import { Col, Row } from 'react-bootstrap';
+import React, { useContext, useState } from 'react';
+import { Button, Col, Row } from 'react-bootstrap';
+import { CartContext, proceedToCheckoutToggle } from '../../contexts/cart';
 import SubmitButton from '../Generic/SubmitButton';
 import './Cart.scss'
 
-const CartTotal = (props) => {
-  const { cart, proceedToCheckoutToggle } = props;
-  
+const CartTotal = () => {
+  const cartContext = useContext(CartContext)
   const tax = 12.00
   return (
-      <Col className='m-5 border border'>
-        <Row className='pt-5 px-5'>
-          <Col sm={9}>Subtotal {`( ${cart.items.length} items )`}</Col>
-          <Col className='align-right'>${cart.total}</Col>
+    <Col className='m-5 border border'>
+      <Row className='pt-5 px-5'>
+        <Col sm={9}>Subtotal {`( ${cartContext.cartObject.items.length} items )`}</Col>
+        <Col className='align-right'>${cartContext.cartObject.total}</Col>
+      </Row>
+      <Row className='py-3 px-5'>
+        <Col sm={9}>Estimated Taxes</Col>
+        <Col className='align-right'>${tax.toLocaleString()}</Col>
+      </Row>
+      <hr/>
+      <Row className='pb-5 pt-3 px-5 fw-bold fs-4'>
+        <Col sm={7}>Estimated Total</Col>
+        <Col className='align-right'>${cartContext.cartObject.total + tax}</Col>
+      </Row>
+      { !cartContext.proceedToCheckout &&
+        <Row className='pb-5 px-5 fw-bold row justify-content-center'>
+          <Button onClick={() => cartContext. proceedToCheckoutToggle()}>Continue to checkout</Button>
         </Row>
-        <Row className='py-3 px-5'>
-          <Col sm={9}>Estimated Taxes</Col>
-          <Col className='align-right'>${tax.toLocaleString()}</Col>
-        </Row>
-        <hr/>
-        <Row className='pb-5 pt-3 px-5 fw-bold fs-4'>
-          <Col sm={7}>Estimated Total</Col>
-          <Col className='align-right'>${cart.total + tax}</Col>
-        </Row>
-        { !cart.proceedToCheckout &&
-          <Row className='pb-5 px-5 fw-bold row justify-content-center'>
-            <SubmitButton title='Continue to checkout' func={proceedToCheckoutToggle} bg='primary'/>
-          </Row>
-        }
-      </Col>
+      }
+    </Col>
   );
 };
 

@@ -1,9 +1,7 @@
 const axios = require('axios');
 const axiosRetry = require('axios-retry');
-
 import config from '../../config';
 
-console.log(config);
 export const postSubmission = async (obj) => {
   axiosRetry(axios, { retries: 3 });
   const final = {

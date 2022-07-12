@@ -18,6 +18,7 @@ import './index.scss';
 
 import AuthProvider, { PrivateRoute } from './app/contexts/auth';
 import SubmissionHistory from './app/components/History/SubmissionHistory';
+import CartProvider from './app/contexts/cart';
 //chakra uses a default theme, this will remove it.
 const emptyChakraTheme = extendTheme({
   styles: {
@@ -34,29 +35,31 @@ function App() {
   return (
     <>
       <AuthProvider>
-        <ChakraProvider theme={emptyChakraTheme}>
-          <Header />
-          <main className=''>
-            <Routes>
-              <Route exact path='/' element={<PrivateRoute />}>
-                <Route path='/submission' element={<Submission />} />
-                <Route path='/about' element={<About />} />
-                <Route path='/gallery' element={<Gallery />} />
-                <Route path='/item/:id' element={<Item />} />
-                <Route path='/market' element={<Market />} />
-                <Route path='/withdraw' element={<Withdraw />} />
-                <Route path='/cart' element={<Cart />} />
-                <Route exact path='/profile' element={<Profile />} />
-                <Route path='/history' element={<SubmissionHistory />} />
-                <Route path='/' element={<Homepage />} />
-              </Route>
-              <Route path='/signin' element={<SignIn />} />
-              <Route path='/landing' element={<Landing />} />
-              <Route path='*' element={<Homepage />} />
-            </Routes>
-          </main>
-          <Footer />
-        </ChakraProvider>
+        <CartProvider>
+          <ChakraProvider theme={emptyChakraTheme}>
+            <Header />
+            <main className=''>
+              <Routes>
+                <Route exact path='/' element={<PrivateRoute />}>
+                  <Route path='/submission' element={<Submission />} />
+                  <Route path='/about' element={<About />} />
+                  <Route path='/gallery' element={<Gallery />} />
+                  <Route path='/item/:id' element={<Item />} />
+                  <Route path='/market' element={<Market />} />
+                  <Route path='/withdraw' element={<Withdraw />} />
+                  <Route path='/cart' element={<Cart />} />
+                  <Route exact path='/profile' element={<Profile />} />
+                  <Route path='/history' element={<SubmissionHistory />} />
+                  <Route path='/' element={<Homepage />} />
+                </Route>
+                <Route path='/signin' element={<SignIn />} />
+                <Route path='/landing' element={<Landing />} />
+                <Route path='*' element={<Homepage />} />
+              </Routes>
+            </main>
+            <Footer />
+          </ChakraProvider>
+        </CartProvider>
       </AuthProvider>
     </>
   );

@@ -1,32 +1,48 @@
-import { createContext, useState } from "react";
+import { createContext, useReducer, useState } from "react";
 
-const [cartObject, setCartObject] = useState({
-  items: [
-    { id: '1234', title: 'title1', price: '1234.56', img: user.img },
-    { id: '2234', title: 'title2', price: '1234.56', img: user.img },
-    { id: '3234', title: 'title3', price: '1234.56', img: user.img },
-  ],
-  total: 0,
-  proceedToCheckout: false,
-});
+export const CartContext = createContext();
 
-const defaultState = {
-  cart: cartObject,
-};
 
-export const CartContext = createContext(defaultState);
+export const actions = {
+  REMOVE_ITEM_FROM_CART: 'REMOVE_ITEM_FROM_CART',
+  PROCEED_TO_CHECKOUT_TOGGLE: 'PROCEED_TO_CHECKOUT_TOGGLE',
+}
+
+const updateTotal = (state) =>
+  state.cartObject.items.reduce(
+    (itemsPrevVal, itemsCurVal) =>
+      itemsPrevVal + parseFloat(itemsCurVal.price),
+  0,
+);
 
 const cartReducer = (state, action) => {
   switch(action) {
     case 'REMOVE_ITEM_FROM_CART':
-      const updatedItems = cart.items.filter((item) => item.id !== itemToRemove)
-    setCartObject({...state, items: updatedItems});
+      const updatedItems = state.items.filter((item) => item.id !== itemToRemove)
+      return {...state, items: updatedItems, total: updateTotal(state)};
+    case 'PROCEED_TO_CHECKOUT':
+      return {...state, proceedToCheckout: true};
   }
 }
 
-const CartProvider = ({children}) => {
-  const state = {cart, removeItem}
-  const [ cartState, dispatch ] = useReducer(cartReducer, { cart: {}});
-  return <CartContext.Provider value={cartState}>{children}</CartContext.Provider>
+const initialState = {
+  items: [],
+  total: 0,
+  proceedToCheckout: false,
+};
+
+export const CartProvider = ({children}) => {
+  const [cartState, dispatch] = useReducer(cartReducer, initialState)
+
+  const value = {
+    cartObject: cartState,
+    removeItemFromCart: (itemToRemove) => {
+      dispatch({ type: actions.REMOVE_ITEM_FROM_CART, itemToRemove });
+    },
+    proceedToCheckoutToggle: (proceed) => {
+      dispatch({ type: actions.PROCEED_TO_CHECKOUT_TOGGLE, proceed });
+    },
+  };
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }
 export default CartProvider;
