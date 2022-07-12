@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 
-const [cart, setCart] = useState({
+const [cartObject, setCartObject] = useState({
   items: [
     { id: '1234', title: 'title1', price: '1234.56', img: user.img },
     { id: '2234', title: 'title2', price: '1234.56', img: user.img },
@@ -11,22 +11,23 @@ const [cart, setCart] = useState({
 });
 
 const defaultState = {
-  cart: cart,
-  removeItem: removeItem,
+  cart: cartObject,
+  removeItem: cartReducer.removeItem,
 };
 
 export const CartContext = createContext(defaultState);
 
-const [ cartState, dispatch ] = useReducer(cartReducer, { cart: [] });
-
-const removeItem = (itemToRemove) => {
-  const updatedItems = cart.items.filter((item) => item.id !== itemToRemove)
-  console.log(itemToRemove, updatedItems)
-  setCart({...cart, items: updatedItems});
+const cartReducer = (state, action) => {
+  switch(action) {
+    case 'REMOVE_ITEM_FROM_CART':
+      const updatedItems = cart.items.filter((item) => item.id !== itemToRemove)
+    setCartObject({...state, items: updatedItems});
+  }
 }
 
 const CartProvider = ({children}) => {
   const state = {cart, removeItem}
+  const [ cartState, dispatch ] = useReducer(cartReducer, { cart: [] });
   return <CartContext.Provider value={state}>{children}</CartContext.Provider>
 }
 export default CartProvider;

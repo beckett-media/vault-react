@@ -1,19 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Card, Col, Container, Modal, Row } from 'react-bootstrap';
-import GenericForm from '../Generic/GenericForm';
+import {
+  Button,
+  Card,
+  Col,
+  Container,
+  Modal,
+  Row,
+  ToggleButton,
+} from 'react-bootstrap';
+import WithdrawForm from './WithdrawForm';
 import SubmitButton from '../Generic/SubmitButton';
 import ProfileView from '../Profile/ProfileView';
 import Filter from '../Generic/Filter';
 import './Gallery.scss';
 import {
   GridItemBox,
-  GridItemImg,
   ListItemBox,
   ListItemImg,
   ListOrGridView,
 } from './Gallery.styled';
 import { BsGrid3X2GapFill, BsList } from 'react-icons/bs';
-import { getItems } from '../../services/items';
+import { getItems, withdrawItem } from '../../services/items';
 import { Link } from 'react-router-dom';
 import { getSubmissions } from '../../services/submission';
 import { getUser } from '../../services/user';
@@ -24,6 +31,8 @@ const Gallery = () => {
   const [listView, setListView] = useState(false);
   const [withdrawOrList, setWithdrawOrList] = useState('');
   const [showConfirm, toggleConfirm] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const [showConfirmationPage, toggleShowConfirmationPage] = useState(false);
   const [searchVal, setSearchVal] = useState('');
   const [sortBy, setSortBy] = useState('title');
@@ -41,6 +50,15 @@ const Gallery = () => {
 
   const [selectedItemIds, setSelectedItemIds] = useState([]);
   const toggleListView = () => setListView(!listView);
+  const isSelected = (id) => selectedItemIds.includes(id);
+
+  const handleItemSelection = (isChecked, id) => {
+    if (isChecked) {
+      setSelectedItemIds([...selectedItemIds, id]);
+    } else {
+      setSelectedItemIds(selectedItemIds.filter((itemId) => itemId !== id));
+    }
+  };
 
   const searchValRegex = new RegExp(searchVal.toLowerCase(), 'g');
 
@@ -55,22 +73,36 @@ const Gallery = () => {
 
   const cancelConfirm = () => toggleConfirm(false);
 
-  const cancelConfirmAction = () => toggleShowConfirmationPage(false);
-  const confirmAction = () => {
-    withdrawOrList === 'withdraw'
-      ? dispatch(
-          setWithdrawalForm(
-            items.filter((item) => selectedItemIds.includes(item.id)),
-          ),
-        )
-      : dispatch(
-          setListForm(
-            items.filter((item) => selectedItemIds.includes(item.id)),
-          ),
-        );
+  const cancelConfirmAction = () => {
     toggleShowConfirmationPage(false);
+    setErrorMessage('');
+    setSuccessMessage('');
   };
-  const clearSelections = () => dispatch(setSelectedItemIds([]));
+
+  const confirmAction = async () => {
+    if (withdrawOrList === 'withdraw') {
+      Promise.all([selectedItemIds.map((id) => withdrawItem(id))])
+        .then((alls) => {
+          console.log('withdraw call result', alls);
+
+          setSelectedItemIds([]);
+          toggleShowConfirmationPage(false);
+
+          setSuccessMessage('Withdrawal successful');
+        })
+        .catch((err) => {
+          console.error('withdraw call error', err);
+          setErrorMessage('Withdrawal failed');
+        });
+    } else {
+      // List
+    }
+  };
+
+  const clearSelections = () => {
+    setSelectedItemIds([]);
+  };
+
   useEffect(() => {
     getItems().then((data) => setItems(data));
   }, []);
@@ -113,18 +145,12 @@ const Gallery = () => {
         )}
         {!listView && (
           <GridItemBox>
-            <Card className='dark'>
-              <Card.Header>
-                <Link to={`/item/${item.id}`}>
-                  <Card.Img
-                    className='card-img'
-                    variant='top'
-                    src={item.img}
-                    alt=''
-                  />
-                </Link>
-              </Card.Header>
-              <Card.Body className='card-bdy'>
+            <Card
+              className={`dark ${
+                isSelected(item.id) ? 'card-selected' : 'card-noselect'
+              }`}
+            >
+              <Card.Header className='card-hdr'>
                 <Link to={`/item/${item.id}`}>
                   <Card.Title className='fs-6 fw-bold'>
                     {
@@ -138,6 +164,29 @@ const Gallery = () => {
                     }
                   </Card.Title>
                 </Link>
+              </Card.Header>
+              <Card.Body>
+                <Link to={`/item/${item.id}`}>
+                  <Card.Img
+                    className='card-img'
+                    variant='top'
+                    src={item.img}
+                    alt=''
+                  />
+                </Link>
+                <ToggleButton
+                  className='mt-2 w-100'
+                  id={`toggle-${item.id}`}
+                  type='checkbox'
+                  variant='outline-primary'
+                  checked={isSelected(item.id)}
+                  value='1'
+                  onChange={(e) =>
+                    handleItemSelection(e.currentTarget.checked, item.id)
+                  }
+                >
+                  Select
+                </ToggleButton>
               </Card.Body>
             </Card>
           </GridItemBox>
@@ -145,6 +194,7 @@ const Gallery = () => {
       </div>
     );
   });
+
   return (
     <Container>
       {!showConfirmationPage && (
@@ -194,6 +244,10 @@ const Gallery = () => {
             </Col>
           </Row>
 
+          {!!successMessage && (
+            <p className='mt-2 mb-4 success-message'>{successMessage}</p>
+          )}
+
           <Row>
             {!showConfirmationPage && (
               <>
@@ -207,6 +261,7 @@ const Gallery = () => {
           {selectedItemIds.length > 0 && (
             <>
               <SubmitButton func={clearSelections} title='Clear' />
+              &nbsp;
               <SubmitButton
                 id='withdraw'
                 func={withdrawItems}
@@ -218,11 +273,17 @@ const Gallery = () => {
       )}
       {showConfirmationPage && (
         <>
-          <GenericForm
-            items={items}
-            title={`Please confirm you would like to ${withdrawOrList} items below.`}
+          {!!errorMessage && (
+            <p className='mt-2 mb-4 error-message'>{errorMessage}</p>
+          )}
+          <WithdrawForm
+            itemsToWithdraw={items.filter((item) =>
+              selectedItemIds.includes(item.id),
+            )}
+            title={`Please confirm you would like to ${withdrawOrList} items below:`}
           />
           <SubmitButton func={confirmAction} title='Confirm' />
+          &nbsp;
           <SubmitButton func={cancelConfirmAction} title='Go Back' />
         </>
       )}

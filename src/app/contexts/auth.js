@@ -65,7 +65,7 @@ const AuthProvider = ({ children }) => {
 
         const attr = await getAttributes();
         setAttrInfo(attr);
-        //console.log(attr);
+
         setAuthStatus(AuthStatus.SignedIn);
       } catch (err) {
         setAuthStatus(AuthStatus.SignedOut);

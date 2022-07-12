@@ -10,8 +10,8 @@ import { getUser } from '../../services/user';
 
 const Item = () => {
   const authContext = useContext(AuthContext);
-  //this is an array of cognitoAttributes.
-  //TODO: make a helper function that tuns this into an object.
+  // this is an array of cognitoAttributes.
+  // TODO: make a helper function that tuns this into an object.
   console.log('authContext.attrInfo', authContext.attrInfo);
   const { id } = useParams();
   const [item, setItem] = useState({});
