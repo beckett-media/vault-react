@@ -34,6 +34,7 @@ const Profile = () => {
           <Col lg='6'>
             <Row className='mb-2'>
               <Col>
+                {/* TODO: change image code, s3 or just a url? */}
                 <img src={user.img} className='img-thumbnail' />
               </Col>
             </Row>
