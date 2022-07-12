@@ -36,6 +36,10 @@ const Submission = () => {
     setItems(newItems);
   };
 
+  const removeItem = (removedItem) => {
+    setItems(items.filter((item) => item != removedItem));
+  };
+
   const submitForm = () => {
     setFormSubmitted(true);
   };
