@@ -1,29 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Button,
-  Card,
-  Col,
-  Container,
-  Modal,
-  Row,
-  ToggleButton,
-} from 'react-bootstrap';
+import { Button, Card, Col, Modal, Row, ToggleButton } from 'react-bootstrap';
+import { BsGrid3X2GapFill, BsList } from 'react-icons/bs';
+import { getItems, withdrawItem } from '../../services/items';
+import { Link } from 'react-router-dom';
+
 import WithdrawForm from './WithdrawForm';
 import SubmitButton from '../Generic/SubmitButton';
 import ProfileView from '../Profile/ProfileView';
 import Filter from '../Generic/Filter';
 import './Gallery.scss';
-import {
-  GridItemBox,
-  ListItemBox,
-  ListItemImg,
-  ListOrGridView,
-} from './Gallery.styled';
-import { BsGrid3X2GapFill, BsList } from 'react-icons/bs';
-import { getItems, withdrawItem } from '../../services/items';
-import { Link } from 'react-router-dom';
+import { GridItemBox, ListItemBox, ListItemImg } from './Gallery.styled';
 import { getSubmissions } from '../../services/submission';
 import { getUser } from '../../services/user';
+import { trimString } from '../../utils/strings';
 
 const Gallery = () => {
   document.body.classList.add('gallery-container');
@@ -117,6 +106,7 @@ const Gallery = () => {
       })
     : filteredItems;
 
+  //  Card component
   const itemBox = sortedItems.map((item) => {
     return (
       <div key={item.id}>
@@ -132,15 +122,13 @@ const Gallery = () => {
           </Button>
         </Modal>
         {listView && (
-          <ListItemBox className='d-flex col-lg-8'>
-            <Col className='p-1 flex-shrink-1'>
-              <Link to={`/item/${item.id}`}>
+          <ListItemBox>
+            <Link to={`/item/${item.id}`}>
+              <Col className='d-flex flex-row align-items-center gap-3'>
                 <ListItemImg src={item.img} alt='' />
-              </Link>
-            </Col>
-            <Col className='p-1'>
-              <Link to={`/item/${item.id}`}>{item.title}</Link>
-            </Col>
+                <div>{item.title}</div>
+              </Col>
+            </Link>
           </ListItemBox>
         )}
         {!listView && (
@@ -153,15 +141,7 @@ const Gallery = () => {
               <Card.Header className='card-hdr'>
                 <Link to={`/item/${item.id}`}>
                   <Card.Title className='fs-6 fw-bold'>
-                    {
-                      // Logic to split title longer than 33 char and append ... to it.
-                      item.title.length > 33
-                        ? item.title.slice(
-                            0,
-                            item.title.slice(0, 34).lastIndexOf(' '),
-                          ) + ' ...'
-                        : item.title
-                    }
+                    {trimString(item.title, 26)}
                   </Card.Title>
                 </Link>
               </Card.Header>
@@ -195,18 +175,19 @@ const Gallery = () => {
     );
   });
 
+  //  Page component
   return (
-    <Container>
+    <div className='page-wrapper'>
       {!showConfirmationPage && (
         <>
-          <Row className='mt-2 col-md-12'>
-            <Col md={8}></Col>
-            <Col className='m-3'>
-              <ProfileView />
-            </Col>
-          </Row>
+          <div className='section-profile-info'>
+            <div className='page-padding'>
+              <div className='container-large'>
+                <ProfileView />
+              </div>
+            </div>
+          </div>
 
-          {}
           {!showConfirmationPage &&
             submissions.filter((item) => item.minted_at === 0).length && (
               <Row>
@@ -248,15 +229,54 @@ const Gallery = () => {
             <p className='mt-2 mb-4 success-message'>{successMessage}</p>
           )}
 
-          <Row>
-            {!showConfirmationPage && (
-              <>
-                <Col>
-                  <ListOrGridView listView={listView}>{itemBox}</ListOrGridView>
-                </Col>
-              </>
+          <div className='section-collection'>
+            <div className='gallery-filter_component'>
+              <div className='gallery-filter_divider' />
+              <div className='page-padding'>
+                <div className='container-large'>
+                  <div className='gallery-filter_layout'>
+                    <div className='gallery-filter_toggle-wrapper'>
+                      <SubmitButton
+                        func={toggleListView}
+                        title={<BsGrid3X2GapFill />}
+                        bg={listView ? 'dark border border-dark' : 'primary'}
+                      />
+                      <SubmitButton
+                        func={toggleListView}
+                        title={<BsList />}
+                        bg={!listView ? 'dark border border-dark' : 'primary'}
+                      />
+                    </div>
+                    <div className='d-flex gap-4'>
+                      <Filter
+                        searchVal={searchVal}
+                        setSearchVal={setSearchVal}
+                        sortBy={sortBy}
+                        setSortBy={setSortBy}
+                      />
+                      {selectedItemIds.length > 0 && (
+                        <div className='d-flex align-items-center'>
+                          <div className='me-2'>
+                            {selectedItemIds.length} item(s) selected
+                          </div>
+                          <SubmitButton func={clearSelections} title='Clear' />
+                          &nbsp;
+                          <SubmitButton
+                            id='withdraw'
+                            func={withdrawItems}
+                            title='Withdraw'
+                          />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className='gallery-filter_divider' />
+            </div>
+            {!!successMessage && (
+              <p className='mt-2 mb-4 success-message'>{successMessage}</p>
             )}
-          </Row>
 
           {selectedItemIds.length > 0 && (
             <>
@@ -269,6 +289,21 @@ const Gallery = () => {
               />
             </>
           )}
+
+            <div className='page-padding'>
+              <div className='container-large'>
+                {!showConfirmationPage && (
+                  <div
+                    className={`gallery_component ${
+                      listView ? 'gallery_list' : 'gallery_grid'
+                    }`}
+                  >
+                    {itemBox}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
         </>
       )}
       {showConfirmationPage && (
@@ -287,7 +322,7 @@ const Gallery = () => {
           <SubmitButton func={cancelConfirmAction} title='Go Back' />
         </>
       )}
-    </Container>
+    </div>
   );
 };
 

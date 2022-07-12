@@ -41,8 +41,8 @@ export async function getSession() {
     currentUser = userPool.getCurrentUser();
   }
 
-  return new Promise(function(resolve, reject) {
-    currentUser.getSession(function(err, session) {
+  return new Promise(function (resolve, reject) {
+    currentUser.getSession(function (err, session) {
       if (err) {
         reject(err);
       } else {
@@ -55,7 +55,7 @@ export async function getSession() {
 }
 
 export async function signUpUserWithEmail(username, email, password) {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     const attributeList = [
       new CognitoUserAttribute({
         Name: 'email',
@@ -63,7 +63,7 @@ export async function signUpUserWithEmail(username, email, password) {
       }),
     ];
 
-    userPool.signUp(username, password, attributeList, [], function(err, res) {
+    userPool.signUp(username, password, attributeList, [], function (err, res) {
       if (err) {
         reject(err);
       } else {
@@ -76,10 +76,10 @@ export async function signUpUserWithEmail(username, email, password) {
 }
 
 export async function verifyCode(username, code) {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     const cognitoUser = getCognitoUser(username);
 
-    cognitoUser.confirmRegistration(code, true, function(err, result) {
+    cognitoUser.confirmRegistration(code, true, function (err, result) {
       if (err) {
         reject(err);
       } else {
@@ -92,7 +92,7 @@ export async function verifyCode(username, code) {
 }
 
 export async function signInWithEmail(username, password) {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     const authenticationData = {
       Username: username,
       Password: password,
@@ -102,10 +102,10 @@ export async function signInWithEmail(username, password) {
     currentUser = getCognitoUser(username);
 
     currentUser.authenticateUser(authenticationDetails, {
-      onSuccess: function(res) {
+      onSuccess: function (res) {
         resolve(res);
       },
-      onFailure: function(err) {
+      onFailure: function (err) {
         reject(err);
       },
     });
@@ -121,8 +121,8 @@ export function signOut() {
 }
 
 export async function getAttributes() {
-  return new Promise(function(resolve, reject) {
-    currentUser.getUserAttributes(function(err, attributes) {
+  return new Promise(function (resolve, reject) {
+    currentUser.getUserAttributes(function (err, attributes) {
       if (err) {
         reject(err);
       } else {
@@ -135,7 +135,7 @@ export async function getAttributes() {
 }
 
 export async function setAttribute(attribute) {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     const attributeList = [];
     const res = new CognitoUserAttribute(attribute);
     attributeList.push(res);
@@ -153,7 +153,7 @@ export async function setAttribute(attribute) {
 }
 
 export async function sendCode(username) {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     const cognitoUser = getCognitoUser(username);
 
     if (!cognitoUser) {
@@ -162,10 +162,10 @@ export async function sendCode(username) {
     }
 
     cognitoUser.forgotPassword({
-      onSuccess: function(res) {
+      onSuccess: function (res) {
         resolve(res);
       },
-      onFailure: function(err) {
+      onFailure: function (err) {
         reject(err);
       },
     });
@@ -175,7 +175,7 @@ export async function sendCode(username) {
 }
 
 export async function forgotPassword(username, code, password) {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     const cognitoUser = getCognitoUser(username);
 
     if (!cognitoUser) {
@@ -184,10 +184,10 @@ export async function forgotPassword(username, code, password) {
     }
 
     cognitoUser.confirmPassword(code, password, {
-      onSuccess: function() {
+      onSuccess: function () {
         resolve('password updated');
       },
-      onFailure: function(err) {
+      onFailure: function (err) {
         reject(err);
       },
     });
@@ -195,8 +195,8 @@ export async function forgotPassword(username, code, password) {
 }
 
 export async function changePassword(oldPassword, newPassword) {
-  return new Promise(function(resolve, reject) {
-    currentUser.changePassword(oldPassword, newPassword, function(err, res) {
+  return new Promise(function (resolve, reject) {
+    currentUser.changePassword(oldPassword, newPassword, function (err, res) {
       if (err) {
         reject(err);
       } else {

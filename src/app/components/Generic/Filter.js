@@ -5,21 +5,21 @@ const Filter = (props) => {
   const { searchVal, setSearchVal, setSortBy } = props;
   // add onSearch, onSort props.
   return (
-    <Row className='row justify-content-center mb-3'>
-      <Col lg='4'>
+    <Row className='gap-3'>
+      <Col sm='8'>
         <Form.Control
           type='search'
           placeholder='Search'
           size='sm'
-          className='mr-3 rounded-pill'
+          className='rounded-pill'
           value={searchVal}
           onChange={(e) => setSearchVal(e.target.value)}
         />
       </Col>
-      <Col lg='2'>
+      <Col sm='4'>
         <Form.Select
           size='sm'
-          className='mr-3 rounded-pill'
+          className='rounded-pill'
           onChange={(e) => setSortBy(e.target.value)}
         >
           <option selected>Sort</option>
