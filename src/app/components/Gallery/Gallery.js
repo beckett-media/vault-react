@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Button,
-  Card,
-  Col,
-  Modal,
-  Row,
-  ToggleButton,
-} from 'react-bootstrap';
+import { Button, Card, Col, Modal, Row, ToggleButton } from 'react-bootstrap';
 import { BsGrid3X2GapFill, BsList } from 'react-icons/bs';
 import { getItems, withdrawItem } from '../../services/items';
 import { Link } from 'react-router-dom';
@@ -16,11 +9,7 @@ import SubmitButton from '../Generic/SubmitButton';
 import ProfileView from '../Profile/ProfileView';
 import Filter from '../Generic/Filter';
 import './Gallery.scss';
-import {
-  GridItemBox,
-  ListItemBox,
-  ListItemImg,
-} from './Gallery.styled';
+import { GridItemBox, ListItemBox, ListItemImg } from './Gallery.styled';
 import { getSubmissions } from '../../services/submission';
 import { getUser } from '../../services/user';
 import { trimString } from '../../utils/strings';
@@ -198,15 +187,18 @@ const Gallery = () => {
               </div>
             </div>
           </div>
-          {!showConfirmationPage && submissions.filter((item) => item.minted_at === 0).length ? (
-              <Row>
-                <Col>
-                  <Link to='/history'>
-                    <Button>SHOW PENDING ITEMS</Button>
-                  </Link>
-                </Col>
-              </Row>
-            ):(<></>)}
+          {!showConfirmationPage &&
+          submissions.filter((item) => item.minted_at === 0).length ? (
+            <Row>
+              <Col>
+                <Link to='/history'>
+                  <Button>SHOW PENDING ITEMS</Button>
+                </Link>
+              </Col>
+            </Row>
+          ) : (
+            <></>
+          )}
 
           <div className='section-collection'>
             <div className='gallery-filter_component'>
