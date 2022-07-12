@@ -1,13 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Button,
-  Card,
-  Col,
-  Container,
-  Modal,
-  Row,
-  ToggleButton,
-} from 'react-bootstrap';
+import { Button, Card, Col, Modal, Row, ToggleButton } from 'react-bootstrap';
 import { BsGrid3X2GapFill, BsList } from 'react-icons/bs';
 import { getItems, withdrawItem } from '../../services/items';
 import { Link } from 'react-router-dom';
@@ -17,14 +9,10 @@ import SubmitButton from '../Generic/SubmitButton';
 import ProfileView from '../Profile/ProfileView';
 import Filter from '../Generic/Filter';
 import './Gallery.scss';
-import {
-  GridItemBox,
-  ListItemBox,
-  ListItemImg,
-  ListOrGridView,
-} from './Gallery.styled';
+import { GridItemBox, ListItemBox, ListItemImg } from './Gallery.styled';
 import { getSubmissions } from '../../services/submission';
 import { getUser } from '../../services/user';
+import { trimString } from '../../utils/strings';
 
 const Gallery = () => {
   document.body.classList.add('gallery-container');
@@ -153,15 +141,7 @@ const Gallery = () => {
               <Card.Header className='card-hdr'>
                 <Link to={`/item/${item.id}`}>
                   <Card.Title className='fs-6 fw-bold'>
-                    {
-                      // Logic to split title longer than 33 char and append ... to it.
-                      item.title.length > 26
-                        ? item.title.slice(
-                            0,
-                            item.title.slice(0, 27).lastIndexOf(' '),
-                          ) + ' ...'
-                        : item.title
-                    }
+                    {trimString(item.title, 26)}
                   </Card.Title>
                 </Link>
               </Card.Header>
@@ -207,18 +187,18 @@ const Gallery = () => {
               </div>
             </div>
           </div>
-
-          {}
           {!showConfirmationPage &&
-            submissions.filter((item) => item.minted_at === 0).length && (
-              <Row>
-                <Col>
-                  <Link to='/history'>
-                    <Button>SHOW PENDING ITEMS</Button>
-                  </Link>
-                </Col>
-              </Row>
-            )}
+          submissions.filter((item) => item.minted_at === 0).length ? (
+            <Row>
+              <Col>
+                <Link to='/history'>
+                  <Button>SHOW PENDING ITEMS</Button>
+                </Link>
+              </Col>
+            </Row>
+          ) : (
+            <></>
+          )}
 
           <div className='section-collection'>
             <div className='gallery-filter_component'>

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Container } from 'react-bootstrap';
 import { getUser } from '../../services/user';
 import './ProfileView.scss';
 
