@@ -26,7 +26,7 @@ const Footer = () => {
               </Link>
             </Col>
             <Col xs={2}>
-              <Link to='/frequently'>
+              <Link to='/faq'>
                 <div className='text-muted fw-bold'>FAQ</div>
               </Link>
             </Col>

@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './app/components/Generic/Header';
 import Footer from './app/components/Generic/Footer';
-import Frequently from './app/components/Generic/Frequently';
+import Faq from './app/components/Generic/Faq';
 import Privacy from './app/components/Generic/Privacy';
 import Support from './app/components/Generic/Support';
 import Terms from './app/components/Generic/Terms';
@@ -53,7 +53,7 @@ function App() {
                 <Route path='/support' element={<Support />} />
                 <Route path='/' element={<Homepage />} />
               </Route>
-              <Route path='/frequently' element={<Frequently />} />
+              <Route path='/faq' element={<Faq />} />
               <Route path='/privacy' element={<Privacy />} />
               <Route path='/terms' element={<Terms />} />
               <Route path='/signin' element={<SignIn />} />
