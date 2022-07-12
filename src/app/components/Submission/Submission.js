@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import SubmissionSuccess from '../Response/SubmissionSuccess';
 import SubmissionAdd from './SubmissionAdd';
@@ -7,6 +7,7 @@ import SubmitButton from '../Generic/SubmitButton';
 import SubmissionConfirmModal from './SubmissionConfirmModal';
 import './Submission.scss';
 import { Link } from 'react-router-dom';
+import { getUser } from '../../services/user';
 import { postSubmission } from '../../services/submission';
 
 const Submission = () => {
@@ -15,6 +16,19 @@ const Submission = () => {
   const [add, onAdd] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [successfulSubmission, setSuccessfulSubmission] = useState(false);
+  const [user, setUser] = useState([]);
+
+  useEffect(() => {
+    getUser().then((data) => setUser(data));
+  }, []);
+  formSubmitted &&
+    confirmedSubmission &&
+    postSubmission({
+      ...item,
+      userName: user.name,
+    }).then(
+      (res) => res.statusText === 'Created' && setSuccessfulSubmission(true),
+    );
 
   const submitAddedItem = (item) => {
     const newItems = [...items, item];
@@ -22,8 +36,8 @@ const Submission = () => {
     setItems(newItems);
   };
 
-  const removeItem = (removeItem) => {
-    setItems(items.filter((item) => item != removeItem));
+  const removeItem = (removedItem) => {
+    setItems(items.filter((item) => item != removedItem));
   };
 
   const submitForm = () => {

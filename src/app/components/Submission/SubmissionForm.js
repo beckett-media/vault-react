@@ -6,16 +6,12 @@ const SubmissionForm = ({ onAdd, removeItem, items }) => {
   const [displayItems, setDisplayItems] = useState([]);
 
   useEffect(() => {
-    console.log('items', items);
     setDisplayItems(
       items.map((item, i) => {
         return (
-          <Container
-            key={item.serialNumber}
-            className='m-2 p-3 border border rounded'
-          >
+          <Container key={item.id} className='m-2 p-3 border border rounded'>
             <Row>
-              <Col>
+              <Col className='info-box'>
                 <p>
                   {i + 1}. {item.gradingCompany}
                 </p>

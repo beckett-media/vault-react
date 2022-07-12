@@ -23,6 +23,8 @@ import {
   ListItemImg,
   ListOrGridView,
 } from './Gallery.styled';
+import { getSubmissions } from '../../services/submission';
+import { getUser } from '../../services/user';
 
 const Gallery = () => {
   document.body.classList.add('gallery-container');
@@ -35,6 +37,18 @@ const Gallery = () => {
   const [showConfirmationPage, toggleShowConfirmationPage] = useState(false);
   const [searchVal, setSearchVal] = useState('');
   const [sortBy, setSortBy] = useState('title');
+  const [submissions, setSubmissions] = useState([]);
+  const [user, setUser] = useState([]);
+  useEffect(() => {
+    getUser().then((data) => setUser(data));
+  }, []);
+  const submissionsObj = async () => await getSubmissions(user.name);
+  useEffect(() => {
+    const fetchSubmissions = async () =>
+      submissionsObj().then((res) => setSubmissions(res.data));
+    user && fetchSubmissions();
+  }, [user]);
+
   const [selectedItemIds, setSelectedItemIds] = useState([]);
   const toggleListView = () => setListView(!listView);
   const isSelected = (id) => selectedItemIds.includes(id);
@@ -107,8 +121,8 @@ const Gallery = () => {
   //  Card component
   const itemBox = sortedItems.map((item) => {
     return (
-      <>
-        <Modal key={item.id} show={showConfirm} onHide={cancelConfirm}>
+      <div key={item.id}>
+        <Modal show={showConfirm} onHide={cancelConfirm}>
           <Modal.Header closeButton>
             <Modal.Title id='contained-modal-title-center'>
               Sell this item?
@@ -138,7 +152,7 @@ const Gallery = () => {
             >
               <Card.Header className='card-hdr'>
                 <Link to={`/item/${item.id}`}>
-                  <Card.Title className='fs-6'>
+                  <Card.Title className='fs-6 fw-bold'>
                     {
                       // Logic to split title longer than 33 char and append ... to it.
                       item.title.length > 26
@@ -177,7 +191,7 @@ const Gallery = () => {
             </Card>
           </GridItemBox>
         )}
-      </>
+      </div>
     );
   });
 
@@ -193,6 +207,18 @@ const Gallery = () => {
               </div>
             </div>
           </div>
+
+          {}
+          {!showConfirmationPage &&
+            submissions.filter((item) => item.minted_at === 0).length && (
+              <Row>
+                <Col>
+                  <Link to='/history'>
+                    <Button>SHOW PENDING ITEMS</Button>
+                  </Link>
+                </Col>
+              </Row>
+            )}
 
           <div className='section-collection'>
             <div className='gallery-filter_component'>
