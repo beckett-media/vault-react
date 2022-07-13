@@ -1,9 +1,30 @@
+import { swapObjectKeyValue } from '../utils/strings';
+
 const mockUser = {
   id: 1,
   name: 'Beckett SuperUser',
   email: 'super@Man.com',
   img: 'https://www.sideshow.com/storage/product-images/907776/superman_dc-comics_square.jpg',
 };
+
+const cognitoToUser = {
+  'custom:state': 'state',
+  'custom:ship_address_line_1': 'shipAddressLine1',
+  'custom:address_line_1': 'addressLine1',
+  'custom:ship_city': 'shipCity',
+  'custom:country': 'country',
+  'custom:given_name': 'givenName',
+  'custom:ship_state': 'shipState',
+  'custom:city': 'city',
+  'custom:profile': 'profile',
+  'custom:ship_address_line_2': 'shipAddressLine2',
+  'custom:family_name': 'familyName',
+  'custom:address_line_2': 'addressLine2',
+  'custom:ship_country': 'shipCountry',
+  email_verified: 'emailVerified',
+};
+
+const userToCognito = swapObjectKeyValue(cognitoToUser);
 
 export const getUser = async () => {
   // get the real user here
@@ -13,9 +34,15 @@ export const getUser = async () => {
 export const updateUser = async (user) => {
   // TODO: run validation
   // update user
-
-  // Example of updating Cognito attributes
-  // await setAttributes([{Name: "custom:given_name", Value: user.firstName}, {Name: "custom:family_name", Value: user.lastName}]);
-
   return user;
+};
+
+export const mapCognitoUser = (cognitoUser) => {
+  return cognitoUser.reduce((acc, attr) => {
+    console.log('acc', acc);
+    console.log('attr', attr);
+    const newName = cognitoToUser[attr.Name] ? cognitoToUser[attr.Name] : attr.Name;
+    acc[newName] = attr.Value;
+    return acc;
+  }, {});
 };

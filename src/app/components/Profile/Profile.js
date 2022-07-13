@@ -1,24 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
-import { getUser, updateUser } from '../../services/user';
+import { updateUser, mapCognitoUser } from '../../services/user';
 import './Profile.scss';
 import ProfileView from './ProfileView';
+import { AuthContext } from '../../contexts/auth';
 
 const Profile = () => {
-  // todo: set is loading
-  const [user, setUser] = useState([]);
-  const [userState, setUserState] = useState({});
-  useEffect(() => {
-    getUser().then((data) => {
-      setUser(data);
-      // TODO: make sure this works for userState too.
-      // we might need to map something
-      setUserState(data);
-    });
-  }, []);
+  const authContext = useContext(AuthContext);
 
-  const updateUserState = (tempItem) =>
-    setUserState({ ...userState, ...tempItem });
+  const user = mapCognitoUser(authContext.attrInfo);
+  console.log(authContext.attrInfo);
+  console.log(user);
+  const [userState, setUserState] = useState({});
+
+  const updateUserState = (tempItem) => setUserState({ ...userState, ...tempItem });
 
   const submitUpdateUser = () => {
     updateUser(userState);
@@ -49,9 +44,7 @@ const Profile = () => {
                         <Form.Control
                           type='text'
                           value={userState.firstName}
-                          onChange={(e) =>
-                            updateUserState({ firstName: e.target.value })
-                          }
+                          onChange={(e) => updateUserState({ firstName: e.target.value })}
                         />
                       </Form.Group>
                     </Col>
@@ -61,9 +54,7 @@ const Profile = () => {
                         <Form.Control
                           type='text'
                           value={userState.lastName}
-                          onChange={(e) =>
-                            updateUserState({ lastName: e.target.value })
-                          }
+                          onChange={(e) => updateUserState({ lastName: e.target.value })}
                         />
                       </Form.Group>
                     </Col>
@@ -74,9 +65,7 @@ const Profile = () => {
                       <Form.Control
                         type='text'
                         value={userState.country}
-                        onChange={(e) =>
-                          updateUserState({ country: e.target.value })
-                        }
+                        onChange={(e) => updateUserState({ country: e.target.value })}
                       />
                     </Form.Group>
                   </Row>
@@ -86,16 +75,12 @@ const Profile = () => {
                       <Form.Control
                         type='text'
                         value={userState.address1}
-                        onChange={(e) =>
-                          updateUserState({ address1: e.target.value })
-                        }
+                        onChange={(e) => updateUserState({ address1: e.target.value })}
                       />
                       <Form.Control
                         type='text'
                         value={userState.address2}
-                        onChange={(e) =>
-                          updateUserState({ address2: e.target.value })
-                        }
+                        onChange={(e) => updateUserState({ address2: e.target.value })}
                       />
                     </Form.Group>
                   </Row>
@@ -106,9 +91,7 @@ const Profile = () => {
                         <Form.Control
                           type='text'
                           value={userState.city}
-                          onChange={(e) =>
-                            updateUserState({ city: e.target.value })
-                          }
+                          onChange={(e) => updateUserState({ city: e.target.value })}
                         />
                       </Form.Group>
                     </Col>
@@ -118,9 +101,7 @@ const Profile = () => {
                         <Form.Control
                           type='text'
                           value={userState.state}
-                          onChange={(e) =>
-                            updateUserState({ state: e.target.value })
-                          }
+                          onChange={(e) => updateUserState({ state: e.target.value })}
                         />
                       </Form.Group>
                     </Col>
@@ -130,9 +111,7 @@ const Profile = () => {
                         <Form.Control
                           type='text'
                           value={userState.zip}
-                          onChange={(e) =>
-                            updateUserState({ zip: e.target.value })
-                          }
+                          onChange={(e) => updateUserState({ zip: e.target.value })}
                         />
                       </Form.Group>
                     </Col>

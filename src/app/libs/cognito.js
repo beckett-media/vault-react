@@ -1,9 +1,4 @@
-import {
-  AuthenticationDetails,
-  CognitoUser,
-  CognitoUserAttribute,
-  CognitoUserPool,
-} from 'amazon-cognito-identity-js';
+import { AuthenticationDetails, CognitoUser, CognitoUserAttribute, CognitoUserPool } from 'amazon-cognito-identity-js';
 
 import config from '../../config';
 
@@ -151,9 +146,7 @@ export async function getAttributes() {
 
 export async function setAttributes(attributes) {
   return new Promise(function (resolve, reject) {
-    const attributeList = attributes.map(
-      (attribute) => new CognitoUserAttribute(attribute),
-    );
+    const attributeList = attributes.map((attribute) => new CognitoUserAttribute(attribute));
 
     currentUser.updateAttributes(attributeList, (err, res) => {
       if (err) {

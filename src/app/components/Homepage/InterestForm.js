@@ -93,10 +93,7 @@ const InterestForm = (props) => {
           </Col>
         </Row>
         <Row className='justify-content-md-center pt-1'>
-          <Col
-            align='left'
-            className='checkbox-array rounded-custom col-md-5 p-3'
-          >
+          <Col align='left' className='checkbox-array rounded-custom col-md-5 p-3'>
             <Form.Check type='checkbox' align='left'>
               <Form.Check.Input type='checkbox' id='checkbox1' />
               <Form.Check.Label>{`I have collectibles I’d like to securely store`}</Form.Check.Label>
@@ -111,18 +108,14 @@ const InterestForm = (props) => {
 
             <Form.Check type='checkbox'>
               <Form.Check.Input type='checkbox' id='checkbox3' />
-              <Form.Check.Label>
-                {'I am interested in insuring my collectible(s)'}
-              </Form.Check.Label>
+              <Form.Check.Label>{'I am interested in insuring my collectible(s)'}</Form.Check.Label>
               <Form.Control.Feedback type='valid'></Form.Control.Feedback>
             </Form.Check>
 
             <Form.Check type='checkbox'>
               <Form.Check.Input type='checkbox' id='checkbox4' />
               <Form.Check.Label>
-                {
-                  'I would like to establish documented ownership of my collectible(s)'
-                }
+                {'I would like to establish documented ownership of my collectible(s)'}
               </Form.Check.Label>
               <Form.Control.Feedback type='valid'></Form.Control.Feedback>
             </Form.Check>
@@ -130,29 +123,21 @@ const InterestForm = (props) => {
             <Form.Check type='checkbox'>
               <Form.Check.Input type='checkbox' id='checkbox5' />
               <Form.Check.Label>
-                {
-                  'I am interested in instantly trading my collectible(s) with others'
-                }
+                {'I am interested in instantly trading my collectible(s) with others'}
               </Form.Check.Label>
               <Form.Control.Feedback type='valid'></Form.Control.Feedback>
             </Form.Check>
 
             <Form.Check type='checkbox'>
               <Form.Check.Input type='checkbox' id='checkbox6' />
-              <Form.Check.Label>
-                {`I would like access to Beckett Vault's exclusive investors`}
-              </Form.Check.Label>
+              <Form.Check.Label>{`I would like access to Beckett Vault's exclusive investors`}</Form.Check.Label>
               <Form.Control.Feedback type='valid'></Form.Control.Feedback>
             </Form.Check>
           </Col>
         </Row>
         <Row className='justify-content-md-center'>
           <Col align='center' className='col-md-5'>
-            <input
-              type='submit'
-              value='Get Early Access'
-              className='border border-info rounded-pill fill-btn'
-            />
+            <input type='submit' value='Get Early Access' className='border border-info rounded-pill fill-btn' />
           </Col>
         </Row>
       </Form>

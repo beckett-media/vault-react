@@ -39,17 +39,23 @@ const Submission = () => {
 
   const handleSubmitForm = async () => {
     if (formSubmitted) {
-      Promise.allSettled(items.map((item) => postSubmission({
-        ...formatSubmissionItem(item),
-        user: user.name,
-      }))).then((resp) => {
-        console.log('resp', resp);
-        setSuccessfulSubmission(true);
-      }).catch((e) => {
-        // TODO
-        console.error(e);
-        alert('there was an error');
-      });
+      Promise.allSettled(
+        items.map((item) =>
+          postSubmission({
+            ...formatSubmissionItem(item),
+            user: user.name,
+          }),
+        ),
+      )
+        .then((resp) => {
+          console.log('resp', resp);
+          setSuccessfulSubmission(true);
+        })
+        .catch((e) => {
+          // TODO
+          console.error(e);
+          alert('there was an error');
+        });
     }
   };
 
@@ -65,11 +71,7 @@ const Submission = () => {
         <>
           <Container>
             <Row className='justify-content-md-center'>
-              <SubmissionForm
-                items={items}
-                removeItem={removeItem}
-                onAdd={onAdd}
-              />
+              <SubmissionForm items={items} removeItem={removeItem} onAdd={onAdd} />
             </Row>
 
             {add && <SubmissionAdd submitAddedItem={submitAddedItem} />}
@@ -85,20 +87,13 @@ const Submission = () => {
             <Row className='m-2'>
               <Col xs={3}>
                 <Link to='/market'>
-                  <SubmitButton
-                    func={() => null}
-                    title='Cancel'
-                    bg='transparent border'
-                  />
+                  <SubmitButton func={() => null} title='Cancel' bg='transparent border' />
                 </Link>
               </Col>
             </Row>
           </Container>
 
-          <SubmissionConfirmModal
-            show={formSubmitted}
-            setConfirm={submitFinalForm}
-          />
+          <SubmissionConfirmModal show={formSubmitted} setConfirm={submitFinalForm} />
         </>
       )}
     </>

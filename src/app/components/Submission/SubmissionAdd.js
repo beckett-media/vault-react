@@ -35,49 +35,36 @@ const SubmissionAdd = ({ submitAddedItem }) => {
         <Row className='m-2'>
           <Col xs={12}>
             <Row>
-              <SubmissionImageUploader onFileChange={(obj) => {
-                if (obj) {
-                  updateItem(obj);
-                } else {
-                  updateItem({
-                    imageFormat: null,
-                    imageBase64: null,
-                  });
-                }
-              }}/>
+              <SubmissionImageUploader
+                onFileChange={(obj) => {
+                  if (obj) {
+                    updateItem(obj);
+                  } else {
+                    updateItem({
+                      imageFormat: null,
+                      imageBase64: null,
+                    });
+                  }
+                }}
+              />
             </Row>
             <Row>
               <Col sm={12} lg={4}>
                 <Form.Group>
                   <Form.Label>Title</Form.Label>
-                  <Form.Control
-                    type='text'
-                    onChange={(e) =>
-                      updateItem({ title: e.target.value })
-                    }
-                  />
+                  <Form.Control type='text' onChange={(e) => updateItem({ title: e.target.value })} />
                 </Form.Group>
               </Col>
               <Col sm={12} lg={4}>
                 <Form.Group>
                   <Form.Label>Genre</Form.Label>
-                  <Form.Control
-                    type='text'
-                    onChange={(e) =>
-                      updateItem({ genre: e.target.value })
-                    }
-                  />
+                  <Form.Control type='text' onChange={(e) => updateItem({ genre: e.target.value })} />
                 </Form.Group>
               </Col>
               <Col sm={12} lg={4}>
                 <Form.Group>
                   <Form.Label>Manufacturer</Form.Label>
-                  <Form.Control
-                    type='text'
-                    onChange={(e) =>
-                      updateItem({ manufacturer: e.target.value })
-                    }
-                  />
+                  <Form.Control type='text' onChange={(e) => updateItem({ manufacturer: e.target.value })} />
                 </Form.Group>
               </Col>
             </Row>
@@ -86,10 +73,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
               <Col sm={12}>
                 <Form.Group>
                   <Form.Label>Description</Form.Label>
-                  <Form.Control
-                    as='textarea'
-                    onChange={(e) => updateItem({ description: e.target.value })}
-                  />
+                  <Form.Control as='textarea' onChange={(e) => updateItem({ description: e.target.value })} />
                 </Form.Group>
               </Col>
             </Row>
@@ -98,23 +82,13 @@ const SubmissionAdd = ({ submitAddedItem }) => {
               <Col sm={12} lg={3}>
                 <Form.Group>
                   <Form.Label>Grading Company</Form.Label>
-                  <Form.Control
-                    type='text'
-                    onChange={(e) =>
-                      updateItem({ gradingCompany: e.target.value })
-                    }
-                  />
+                  <Form.Control type='text' onChange={(e) => updateItem({ gradingCompany: e.target.value })} />
                 </Form.Group>
               </Col>
               <Col sm={12} lg={3}>
                 <Form.Group>
                   <Form.Label>Serial Number</Form.Label>
-                  <Form.Control
-                    type='text'
-                    onChange={(e) =>
-                      updateItem({ serialNumber: e.target.value })
-                    }
-                  />
+                  <Form.Control type='text' onChange={(e) => updateItem({ serialNumber: e.target.value })} />
                 </Form.Group>
               </Col>
               <Col sm={12} lg={3}>
@@ -124,9 +98,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                     type='number'
                     min={1900}
                     max={2050}
-                    onChange={(e) =>
-                      updateItem({ year: Number(e.target.value) })
-                    }
+                    onChange={(e) => updateItem({ year: Number(e.target.value) })}
                   />
                 </Form.Group>
               </Col>
@@ -136,9 +108,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                   <Form.Control
                     type='number'
                     min={1}
-                    onChange={(e) =>
-                      updateItem({ estimatedValue: Number(e.target.value) })
-                    }
+                    onChange={(e) => updateItem({ estimatedValue: Number(e.target.value) })}
                   />
                 </Form.Group>
               </Col>
@@ -148,49 +118,28 @@ const SubmissionAdd = ({ submitAddedItem }) => {
               <Col sm={12} lg={3}>
                 <Form.Group>
                   <Form.Label>Overall grade</Form.Label>
-                  <Form.Control
-                    type='text'
-                    onChange={(e) =>
-                      updateItem({ overallGrade: e.target.value })
-                    }
-                  />
+                  <Form.Control type='text' onChange={(e) => updateItem({ overallGrade: e.target.value })} />
                 </Form.Group>
               </Col>
               <Col sm={12} lg={3}>
                 <Form.Group>
                   <Form.Label>Sub grades</Form.Label>
-                  <Form.Control
-                    type='text'
-                    onChange={(e) =>
-                      updateItem({ subGrades: e.target.value })
-                    }
-                  />
+                  <Form.Control type='text' onChange={(e) => updateItem({ subGrades: e.target.value })} />
                 </Form.Group>
               </Col>
               <Col sm={12} lg={3}>
                 <Form.Group>
                   <Form.Label>Auto graph</Form.Label>
-                  <Form.Control
-                    type='text'
-                    onChange={(e) =>
-                      updateItem({ autoGraph: e.target.value })
-                    }
-                  />
+                  <Form.Control type='text' onChange={(e) => updateItem({ autoGraph: e.target.value })} />
                 </Form.Group>
               </Col>
               <Col sm={12} lg={3}>
                 <Form.Group>
                   <Form.Label>Subject</Form.Label>
-                  <Form.Control
-                    type='text'
-                    onChange={(e) =>
-                      updateItem({ subject: e.target.value })
-                    }
-                  />
+                  <Form.Control type='text' onChange={(e) => updateItem({ subject: e.target.value })} />
                 </Form.Group>
               </Col>
             </Row>
-
           </Col>
         </Row>
         <Row className='mx-4 my-2'>
