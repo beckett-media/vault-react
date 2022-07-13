@@ -18,7 +18,7 @@ const Item = () => {
   const { id } = useParams();
   const [item, setItem] = useState({});
   const [user, setUser] = useState([]);
-  console.log(item)
+  
   useEffect(() => {
     getUser().then((data) => setUser(data));
   }, []);
@@ -36,7 +36,10 @@ const Item = () => {
   const withdrawItem = () => {
     navigate('/');
   };
-
+  const addToCart = async () => {
+    await cartContext.addItemToCart(item);
+    navigate('/cart')
+  }
   return (
     <Row className='p-5'>
       <Col className='align-center' md={5} sm={12}>
@@ -105,7 +108,7 @@ const Item = () => {
             </>
           ) : (
             <Row>
-              <Button className='' size='sm' bg='transparent' onClick={() => cartContext.addItemToCart(item)}>
+              <Button className='' size='sm' bg='transparent' onClick={() => addToCart()}>
                 Buy
               </Button>
             </Row>

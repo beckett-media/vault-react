@@ -1,18 +1,23 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Col, Form, Image, Row } from 'react-bootstrap';
 import SubmitButton from '../Generic/SubmitButton';
 import { FaInfoCircle } from 'react-icons/fa'
 import './Cart.scss'
 import { useCartContext } from '../../contexts/cart';
+import { useNavigate } from 'react-router-dom';
 
 const CartItems = () => {
   const cartContext = useCartContext()
   const [ isSelected, setIsSelected ] = useState('store')
   const [ continueToPayment, setContinueToPayment ] = useState(false)
-  console.log(cartContext)
+  const navigate = useNavigate()
+  const removeItem = async (item) => {
+    await cartContext.removeItemFromCart(item);
+    navigate('/market')
+  }
   return (
     <Col className='pt-5'>
-      {cartContext.cartObject.items?.map((item, i) => {
+      {cartContext.items?.map((item, i) => {
         return (
           <Row key={item.id} className='mb-3 p-3 border'>
             <Row className='py-2'>
@@ -29,7 +34,7 @@ const CartItems = () => {
             </Row>
             <Row className='p-2'>
               <Col>
-                <Button id={item.id} onClick={(e) => cartContext.removeItemFromCart(e.target.id)} variant='link'>Remove</Button>
+                <Button id={item.id} onClick={() => removeItem(item)} variant='link'>Remove</Button>
               </Col>
             </Row>
           </Row>

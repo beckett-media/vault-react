@@ -9,24 +9,25 @@ export const actions = {
   PROCEED_TO_CHECKOUT_TOGGLE: 'PROCEED_TO_CHECKOUT_TOGGLE',
 }
 
-const updateTotal = (state) =>
-  state.cartObject.items.reduce(
-    (itemsPrevVal, itemsCurVal) =>
-      itemsPrevVal + parseFloat(itemsCurVal.price),
-  0,
-);
-
 const cartReducer = (state, action) => {
-  console.log(action)
-  switch(action) {
+  switch(action.type) {
     case 'ADD_ITEM_TO_CART':
-      console.log(action)
-      return {...state, items: [...state.items, itemToAdd], total: updateTotal(state)};
+      return {
+        ...state, 
+        items: [...state.items, action.itemToAdd], 
+        total: state.total + parseFloat(action.itemToAdd.price)
+      };
     case 'REMOVE_ITEM_FROM_CART':
-      const updatedItems = state.items.filter((item) => item.id !== itemToRemove)
-      return {...state, items: updatedItems, total: updateTotal(state)};
-    case 'PROCEED_TO_CHECKOUT':
-      return {...state, proceedToCheckout: true};
+      const updatedItems = state.items.filter((item) => item.id !== action.itemToRemove.id)
+      return {
+        ...state, 
+        items: updatedItems, 
+        total: (state.total - parseFloat(action.itemToRemove.price))
+      };
+    case 'PROCEED_TO_CHECKOUT_TOGGLE':
+      return {
+        ...state, 
+        proceedToCheckout: true};
   }
 }
 
@@ -38,9 +39,10 @@ const initialState = {
 
 export const CartProvider = ({children}) => {
   const [cartState, dispatch] = useReducer(cartReducer, initialState)
-
   const value = {
-    cartObject: cartState,
+    items: cartState.items,
+    total: cartState.total,
+    proceedToCheckout: cartState.proceedToCheckout,
     addItemToCart: (itemToAdd) => {
       dispatch({ type: actions.ADD_ITEM_TO_CART, itemToAdd });
     },
