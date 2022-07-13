@@ -21,7 +21,7 @@ const cognitoToUser = {
   'custom:family_name': 'familyName',
   'custom:address_line_2': 'addressLine2',
   'custom:ship_country': 'shipCountry',
-  email_verified: 'emailVerified',
+  'email_verified': 'emailVerified',
 };
 
 const userToCognito = swapObjectKeyValue(cognitoToUser);
@@ -31,17 +31,17 @@ export const getUser = async () => {
   return mockUser;
 };
 
-export const updateUser = async (user) => {
-  // TODO: run validation
-  // update user
-  return user;
+export const mapCognitoToUser = (cognitoUser) => {
+  return cognitoUser.reduce((acc, attr) => {
+    const newName = cognitoToUser[attr.Name] ? cognitoToUser[attr.Name] : attr.Name;
+    acc[newName] = attr.Value;
+    return acc;
+  }, {});
 };
 
-export const mapCognitoUser = (cognitoUser) => {
-  return cognitoUser.reduce((acc, attr) => {
-    console.log('acc', acc);
-    console.log('attr', attr);
-    const newName = cognitoToUser[attr.Name] ? cognitoToUser[attr.Name] : attr.Name;
+export const mapUserToCognito = (user) => {
+  return user.reduce((acc, attr) => {
+    const newName = userToCognito[attr.Name] ? userToCognito[attr.Name] : attr.Name;
     acc[newName] = attr.Value;
     return acc;
   }, {});

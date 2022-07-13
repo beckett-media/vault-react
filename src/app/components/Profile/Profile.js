@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
-import { updateUser, mapCognitoUser } from '../../services/user';
+import { mapCognitoUser, mapUserToCognito } from '../../services/user';
 import './Profile.scss';
 import ProfileView from './ProfileView';
 import { AuthContext } from '../../contexts/auth';
@@ -15,9 +15,11 @@ const Profile = () => {
 
   const updateUserState = (tempItem) => setUserState({ ...userState, ...tempItem });
 
-  const submitUpdateUser = () => {
-    updateUser(userState);
+  const submitUpdateUser = async () => {
+    // TODO: on error?
+    await authContext.setAttributes(mapUserToCognito(userState));
   };
+
   return (
     <Container>
       <Form>
@@ -44,7 +46,7 @@ const Profile = () => {
                         <Form.Control
                           type='text'
                           value={userState.firstName}
-                          onChange={(e) => updateUserState({ firstName: e.target.value })}
+                          onChange={(e) => updateUserState({ givenName: e.target.value })}
                         />
                       </Form.Group>
                     </Col>
@@ -54,7 +56,7 @@ const Profile = () => {
                         <Form.Control
                           type='text'
                           value={userState.lastName}
-                          onChange={(e) => updateUserState({ lastName: e.target.value })}
+                          onChange={(e) => updateUserState({ familyName: e.target.value })}
                         />
                       </Form.Group>
                     </Col>
@@ -75,12 +77,12 @@ const Profile = () => {
                       <Form.Control
                         type='text'
                         value={userState.address1}
-                        onChange={(e) => updateUserState({ address1: e.target.value })}
+                        onChange={(e) => updateUserState({ addressLine1: e.target.value })}
                       />
                       <Form.Control
                         type='text'
                         value={userState.address2}
-                        onChange={(e) => updateUserState({ address2: e.target.value })}
+                        onChange={(e) => updateUserState({ addressLine2: e.target.value })}
                       />
                     </Form.Group>
                   </Row>
