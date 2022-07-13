@@ -48,7 +48,7 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: NODE_ENV=${{ inputs.AWS_REGION }} npm run build
+        run: REACT_APP_ENV=${{ inputs.ENV }} npm run build
         env:
           DISABLE_ESLINT_PLUGIN: true
           CI: false
