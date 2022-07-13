@@ -26,12 +26,12 @@ export const PasswordField = React.forwardRef((props, ref) => {
     }
   };
 
-  const { value, onChange, type } = props;
+  const { value, onChange, prefix } = props;
 
   return (
     <FormControl>
       <FormLabel htmlFor='password' color={'white'}>
-        {type} Password
+        {prefix} Password
       </FormLabel>
       <InputGroup>
         <InputRightElement>
@@ -55,7 +55,6 @@ export const PasswordField = React.forwardRef((props, ref) => {
           required
           value={props.value}
           onChange={props.onChange}
-          {...props}
         />
       </InputGroup>
       <HStack justify='flex-start' my={3}>

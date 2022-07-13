@@ -19,9 +19,12 @@ import { Routes, Route } from 'react-router-dom';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import './index.scss';
 
-import AuthProvider, { PrivateRoute } from './app/contexts/auth';
+import AuthProvider, {
+  PrivateRoute,
+  OnlyUnathenticated,
+} from './app/contexts/auth';
 import SubmissionHistory from './app/components/History/SubmissionHistory';
-//chakra uses a default theme, this will remove it.
+// chakra uses a default theme, this will remove it.
 const emptyChakraTheme = extendTheme({
   styles: {
     global: () => ({
@@ -54,12 +57,14 @@ function App() {
                 <Route path='/support' element={<Support />} />
                 <Route path='/' element={<Homepage />} />
               </Route>
+              <Route exact path='/signin' element={<OnlyUnathenticated />}>
+                <Route path='' element={<SignIn />} />
+              </Route>
               <Route path='/faq' element={<Faq />} />
               <Route path='/privacy' element={<Privacy />} />
               <Route path='/terms' element={<Terms />} />
-              <Route path='/signin' element={<SignIn />} />
               <Route path='/landing' element={<Landing />} />
-              <Route path='*' element={<Homepage />} />
+              <Route path='/*' element={<Landing />} />
             </Routes>
           </main>
           <Footer />

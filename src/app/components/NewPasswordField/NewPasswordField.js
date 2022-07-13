@@ -44,7 +44,7 @@ export const NewPasswordField = React.forwardRef((props, ref) => {
           borderColor={'transparent'}
           h={12}
           bg='#42404D'
-          id='password'
+          id='newPassword'
           ref={mergeRef}
           name='password'
           type={isOpen ? 'text' : 'password'}

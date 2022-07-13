@@ -91,7 +91,7 @@ export async function verifyCode(username, code) {
   });
 }
 
-export async function signInWithEmail(username, password) {
+export async function signInWithEmail(username, password, setPassword) {
   return new Promise(function (resolve, reject) {
     const authenticationData = {
       Username: username,
@@ -103,10 +103,25 @@ export async function signInWithEmail(username, password) {
 
     currentUser.authenticateUser(authenticationDetails, {
       onSuccess: function (res) {
-        resolve(res);
+        resolve(['SIGNED_IN', res]);
       },
       onFailure: function (err) {
         reject(err);
+      },
+      newPasswordRequired: function (userAttributes, requiredAttributes) {
+        if (setPassword) {
+          delete userAttributes.email_verified;
+          currentUser.completeNewPasswordChallenge(password, userAttributes, {
+            onSuccess: function (res) {
+              resolve(['NEW_PASSWORD_SET', res]);
+            },
+            onFailure: function (err) {
+              reject(err);
+            },
+          });
+        } else {
+          resolve(['NEW_PASSWORD', userAttributes]);
+        }
       },
     });
   }).catch((err) => {
