@@ -145,7 +145,7 @@ const AuthProvider = ({ children }) => {
   }
 
   async function setAttribute(attr) {
-    await setAttributes([attr])
+    await setAttributes([attr]);
   }
 
   async function setAttributes(attrs) {
@@ -195,7 +195,7 @@ const AuthProvider = ({ children }) => {
     changePassword,
     getAttributes,
     setAttribute,
-    setAttributes
+    setAttributes,
   };
 
   return <AuthContext.Provider value={state}>{children}</AuthContext.Provider>;

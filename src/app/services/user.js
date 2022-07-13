@@ -5,9 +5,6 @@ const mockUser = {
   img: 'https://www.sideshow.com/storage/product-images/907776/superman_dc-comics_square.jpg',
 };
 
-
-
-
 export const getUser = async () => {
   // get the real user here
   return mockUser;
