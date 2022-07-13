@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Col, Container, Form, Row } from 'react-bootstrap';
 import SubmitButton from '../Generic/SubmitButton';
 
-const SubmissionForm = ({ onAdd, removeItem, items }) => {
+const SubmissionForm = ({ onAdd, items }) => {
   const [displayItems, setDisplayItems] = useState([]);
 
+  const removeItem = () => console.log()
   useEffect(() => {
     setDisplayItems(
       items.map((item, i) => {
@@ -21,12 +22,7 @@ const SubmissionForm = ({ onAdd, removeItem, items }) => {
             <Row>
               <Col>{item.description}</Col>
             </Row>
-            <SubmitButton
-              func={() => removeItem(item)}
-              title='Delete'
-              bg='link'
-              isLink
-            />
+            <SubmitButton func={removeItem} title='Delete' bg='link' isLink />
           </Container>
         );
       }),
