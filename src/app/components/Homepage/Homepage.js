@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Row, Carousel } from 'react-bootstrap';
 import { getTopStories } from '../../services/general';
-import StoryCard from './StoryCard';
+import StoryCard from '../Shared/StoryCard/StoryCard';
 import './Homepage.scss';
 
 const Homepage = () => {

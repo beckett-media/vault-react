@@ -21,7 +21,7 @@ const TopNav = () => {
                 <Nav.Link href='/about' className='about-nav'>
                   About Vault
                 </Nav.Link>
-                <Nav.Link href='/gallery' className='gallery-nav'>
+                <Nav.Link href='/collection' className='gallery-nav'>
                   My Collection
                 </Nav.Link>
                 <Nav.Link href='/market' className='market-nav'>
