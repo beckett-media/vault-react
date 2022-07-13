@@ -5,27 +5,24 @@ import Faq from './app/components/Generic/Faq';
 import Privacy from './app/components/Generic/Privacy';
 import Support from './app/components/Generic/Support';
 import Terms from './app/components/Generic/Terms';
-import Homepage from './app/components/Homepage/Homepage';
-import Submission from './app/components/Submission/Submission';
-import MyCollection from './app/components/MyCollection/MyCollection';
-import Item from './app/components/Item/Item';
-import Withdraw from './app/components/Withdraw/Withdraw';
-import Market from './app/components/Market/Market';
-import Profile from './app/components/Profile/Profile';
-import Cart from './app/components/Cart/Cart';
-import SignIn from './app/components/SignIn/SignIn';
-import Landing from './app/components/Homepage/Landing';
+import Homepage from './app/pages/Homepage/Homepage';
+import Submission from './app/pages/Submission/Submission';
+import MyCollection from './app/pages/MyCollection/MyCollection';
+import Item from './app/pages/Item/Item';
+import Withdraw from './app/pages/Withdraw/Withdraw';
+import Marketplace from './app/pages/Marketplace/Marketplace';
+import Profile from './app/pages/Profile/Profile';
+import Cart from './app/pages/Cart/Cart';
+import SignIn from './app/pages/SignIn/SignIn';
+import Landing from './app/pages/Landing/Landing';
 import { Routes, Route } from 'react-router-dom';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import './index.scss';
 
-import AuthProvider, {
-  PrivateRoute,
-  OnlyUnathenticated,
-} from './app/contexts/auth';
-import SubmissionHistory from './app/components/History/SubmissionHistory';
+import AuthProvider, { PrivateRoute, OnlyUnathenticated } from './app/contexts/auth';
+import SubmissionHistory from './app/pages/History/SubmissionHistory';
 import CartProvider from './app/contexts/cart';
-//chakra uses a default theme, this will remove it.
+//  chakra uses a default theme, this will remove it.
 const emptyChakraTheme = extendTheme({
   styles: {
     global: () => ({
@@ -51,7 +48,7 @@ function App() {
                   <Route path='/about' element={<Homepage />} />
                   <Route path='/collection' element={<MyCollection />} />
                   <Route path='/item/:id' element={<Item />} />
-                  <Route path='/market' element={<Market />} />
+                  <Route path='/market' element={<Marketplace />} />
                   <Route path='/withdraw' element={<Withdraw />} />
                   <Route path='/cart' element={<Cart />} />
                   <Route exact path='/profile' element={<Profile />} />

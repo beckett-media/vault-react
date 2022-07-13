@@ -33,18 +33,10 @@ const TopNav = () => {
           <Nav className='ml-auto'>
             {authContext.authStatus === AuthStatus.SignedIn && (
               <Nav.Link href='/submission'>
-                <SubmitButton
-                  size='sm'
-                  title='Submit Item'
-                  className='submit-nav'
-                  bg='primary'
-                />
+                <SubmitButton size='sm' title='Submit Item' className='submit-nav' bg='primary' />
               </Nav.Link>
             )}
-            <NavDropdown
-              title={<i className='fa-solid fa-user'></i>}
-              id='basic-nav-dropdown'
-            >
+            <NavDropdown title={<i className='fa-solid fa-user'></i>} id='basic-nav-dropdown'>
               {authContext.authStatus === AuthStatus.SignedIn ? (
                 <>
                   <NavDropdown.Item href='/profile'>Profile</NavDropdown.Item>

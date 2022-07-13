@@ -21,11 +21,7 @@ const ComingSoon = (props) => {
           <p>{`This feature isn't quite ready yet!`}</p>
         </Modal.Body>
         <Modal.Footer>
-          <SubmitButton
-            func={dismiss}
-            title='Return to My Collection'
-            bg='dark'
-          />
+          <SubmitButton func={dismiss} title='Return to My Collection' bg='dark' />
         </Modal.Footer>
       </Modal>
     </>
