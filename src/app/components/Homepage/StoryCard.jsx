@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 
-import './Card.scss';
+import './StoryCard.scss';
 
 const Card = ({ title, body, cta }, props) => {
   return (
