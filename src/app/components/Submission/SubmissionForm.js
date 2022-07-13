@@ -9,24 +9,39 @@ const SubmissionForm = ({ onAdd, removeItem, items }) => {
     setDisplayItems(
       items.map((item, i) => {
         return (
-          <Container key={item.id} className='m-2 p-3 border border rounded'>
+          <Container key={i} className='m-2 p-3 border border rounded'>
             <Row>
-              <Col className='info-box'>
-                <p>
-                  {i + 1}. {item.gradingCompany}
-                </p>
+              <Col sm={12} lg={3}>
+                {
+                  item.previewUrl && item.imageBase64 ? (
+                    <img src={item.previewUrl} alt="preview" />
+                  ): null
+                }
               </Col>
-              <Col className='right-align'>{item.serialNumber}</Col>
+              <Col sm={12} lg={9}>
+                <Row>
+                  <Col className='info-box'>
+                    <p>
+                      {i + 1}. {item.genre} - {item.title}
+                    </p>
+                  </Col>
+                  <Col className='right-align'>{item.manufacturer}</Col>
+                </Row>
+                <Row>
+                  <p>{item.description}</p>
+                  <p>{`Company: ${item.company}, Serial number: ${item.serialNumber}`}</p>
+                  <p>{`Year: ${item.year}, Estimated value: $${item.estimatedValue}`}</p>
+                  <p>{`Overall grade: ${item.overallGrade}, Sub grades: ${item.subGrades}`}</p>
+                  <p>{`Autograph: ${item.autoGraph}, Subgraph: ${item.subgraph}`}</p>
+                </Row>
+                <SubmitButton
+                  func={() => removeItem(item)}
+                  title='Delete'
+                  bg='link'
+                  isLink
+                />
+              </Col>
             </Row>
-            <Row>
-              <Col>{item.description}</Col>
-            </Row>
-            <SubmitButton
-              func={() => removeItem(item)}
-              title='Delete'
-              bg='link'
-              isLink
-            />
           </Container>
         );
       }),

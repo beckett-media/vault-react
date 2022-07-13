@@ -4,14 +4,16 @@ import { Button, Modal } from 'react-bootstrap';
 const SubmissionConfirmModal = (props) => {
   const { show, setConfirm } = props;
   return (
-    <Modal show={show} centered>
+    <Modal show={show} centered style={{color: 'black'}}>
       <Modal.Header closeButton>
         <Modal.Title id='contained-modal-title-vcenter'>
-          Modal heading
+          Warning
         </Modal.Title>
       </Modal.Header>
-      <p>TEST Modal</p>
-      <Button onClick={() => setConfirm()}>Button</Button>
+      <Modal.Body>
+        <p>Are you sure to submit?</p>
+      </Modal.Body>
+      <Button onClick={() => setConfirm()}>Confirm</Button>
     </Modal>
   );
 };

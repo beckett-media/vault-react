@@ -9,6 +9,7 @@ import './Submission.scss';
 import { Link } from 'react-router-dom';
 import { getUser } from '../../services/user';
 import { postSubmission } from '../../services/submission';
+import { formatSubmissionItem } from '../../utils/submissions';
 
 const Submission = () => {
   document.body.classList.add('submit-container');
@@ -21,14 +22,6 @@ const Submission = () => {
   useEffect(() => {
     getUser().then((data) => setUser(data));
   }, []);
-  formSubmitted &&
-    confirmedSubmission &&
-    postSubmission({
-      ...item,
-      userName: user.name,
-    }).then(
-      (res) => res.statusText === 'Created' && setSuccessfulSubmission(true),
-    );
 
   const submitAddedItem = (item) => {
     const newItems = [...items, item];
@@ -44,9 +37,24 @@ const Submission = () => {
     setFormSubmitted(true);
   };
 
+  const handleSubmitForm = async () => {
+    if (formSubmitted) {
+      Promise.allSettled(items.map((item) => postSubmission({
+        ...formatSubmissionItem(item),
+        user: user.name,
+      }))).then((resp) => {
+        console.log('resp', resp);
+        setSuccessfulSubmission(true);
+      }).catch((e) => {
+        // TODO
+        console.error(e);
+        alert('there was an error');
+      });
+    }
+  };
+
   const submitFinalForm = async () => {
-    await postSubmission(items);
-    setSuccessfulSubmission(true);
+    await handleSubmitForm(items);
   };
 
   return (
