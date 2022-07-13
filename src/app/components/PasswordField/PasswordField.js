@@ -20,7 +20,6 @@ export const PasswordField = React.forwardRef((props, ref) => {
 
   const mergeRef = useMergeRefs(inputRef, ref);
   const onClickReveal = () => {
-    console.log(isOpen);
     onToggle();
     if (inputRef.current) {
       inputRef.current.focus({ preventScroll: true });
