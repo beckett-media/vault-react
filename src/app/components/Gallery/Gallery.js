@@ -12,7 +12,7 @@ import './Gallery.scss';
 import { GridItemBox, ListItemBox, ListItemImg } from './Gallery.styled';
 import { getSubmissions } from '../../services/submission';
 import { getUser } from '../../services/user';
-import { trimString } from '../../utils/strings';
+import { trimString, formatPrice } from '../../utils/strings';
 
 const Gallery = () => {
   document.body.classList.add('gallery-container');
@@ -133,42 +133,44 @@ const Gallery = () => {
         )}
         {!listView && (
           <GridItemBox>
-            <Card
-              className={`dark ${
-                isSelected(item.id) ? 'card-selected' : 'card-noselect'
+            <div
+              className={`item-card_component dark ${
+                isSelected(item.id)
+                  ? 'item-card_selected'
+                  : 'item-card_noselect'
               }`}
             >
-              <Card.Header className='card-hdr'>
+              <div className='item-card_layout'>
                 <Link to={`/item/${item.id}`}>
-                  <Card.Title className='fs-6 fw-bold'>
-                    {trimString(item.title, 26)}
-                  </Card.Title>
+                  <div className='item-card_image-wrapper'>
+                    <img className='item-card_image' src={item.img} alt='' />
+                  </div>
+                  <div className='item-card_content-wrapper'>
+                    <div className='item-card_title'>
+                      {trimString(item.title, 20)}
+                    </div>
+                    <div className='item-card_price'>
+                      {formatPrice.format(item.price)}
+                    </div>
+                  </div>
                 </Link>
-              </Card.Header>
-              <Card.Body>
-                <Link to={`/item/${item.id}`}>
-                  <Card.Img
-                    className='card-img'
-                    variant='top'
-                    src={item.img}
-                    alt=''
-                  />
-                </Link>
-                <ToggleButton
-                  className='mt-2 w-100'
-                  id={`toggle-${item.id}`}
-                  type='checkbox'
-                  variant='outline-primary'
-                  checked={isSelected(item.id)}
-                  value='1'
-                  onChange={(e) =>
-                    handleItemSelection(e.currentTarget.checked, item.id)
-                  }
-                >
-                  Select
-                </ToggleButton>
-              </Card.Body>
-            </Card>
+                <div className='item-card_select-wrapper'>
+                  <ToggleButton
+                    className='w-100'
+                    id={`toggle-${item.id}`}
+                    type='checkbox'
+                    variant='outline-primary'
+                    checked={isSelected(item.id)}
+                    value='1'
+                    onChange={(e) =>
+                      handleItemSelection(e.currentTarget.checked, item.id)
+                    }
+                  >
+                    Select
+                  </ToggleButton>
+                </div>
+              </div>
+            </div>
           </GridItemBox>
         )}
       </div>
