@@ -189,46 +189,17 @@ const Gallery = () => {
               </div>
             </div>
           </div>
-
           {!showConfirmationPage &&
-            submissions.filter((item) => item.minted_at === 0).length && (
-              <Row>
-                <Col>
-                  <Link to='/history'>
-                    <Button>SHOW PENDING ITEMS</Button>
-                  </Link>
-                </Col>
-              </Row>
-            )}
-
-          <Row className='m-3'>
-            <hr />
-          </Row>
-          <Row className='mt-2 col-md-12'>
-            <Col sm={2}>
-              <SubmitButton
-                func={toggleListView}
-                title={<BsGrid3X2GapFill />}
-                bg={listView ? 'dark border border-dark' : 'primary'}
-              />
-              <SubmitButton
-                func={toggleListView}
-                title={<BsList />}
-                bg={!listView ? 'dark border border-dark' : 'primary'}
-              />
-            </Col>
-            <Col sm={9}>
-              <Filter
-                searchVal={searchVal}
-                setSearchVal={setSearchVal}
-                sortBy={sortBy}
-                setSortBy={setSortBy}
-              />
-            </Col>
-          </Row>
-
-          {!!successMessage && (
-            <p className='mt-2 mb-4 success-message'>{successMessage}</p>
+          submissions.filter((item) => item.minted_at === 0).length ? (
+            <Row>
+              <Col>
+                <Link to='/history'>
+                  <Button>SHOW PENDING ITEMS</Button>
+                </Link>
+              </Col>
+            </Row>
+          ) : (
+            <></>
           )}
 
           <div className='section-collection'>
@@ -279,18 +250,6 @@ const Gallery = () => {
             {!!successMessage && (
               <p className='mt-2 mb-4 success-message'>{successMessage}</p>
             )}
-
-          {selectedItemIds.length > 0 && (
-            <>
-              <SubmitButton func={clearSelections} title='Clear' />
-              &nbsp;
-              <SubmitButton
-                id='withdraw'
-                func={withdrawItems}
-                title='Withdraw'
-              />
-            </>
-          )}
 
             <div className='page-padding'>
               <div className='container-large'>
