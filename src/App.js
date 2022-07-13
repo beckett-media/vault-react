@@ -24,12 +24,8 @@ import AuthProvider, {
   OnlyUnathenticated,
 } from './app/contexts/auth';
 import SubmissionHistory from './app/components/History/SubmissionHistory';
-<<<<<<< HEAD
 import CartProvider from './app/contexts/cart';
 //chakra uses a default theme, this will remove it.
-=======
-// chakra uses a default theme, this will remove it.
->>>>>>> 37f94c7619f47d329cac637acc7105168dd46927
 const emptyChakraTheme = extendTheme({
   styles: {
     global: () => ({
