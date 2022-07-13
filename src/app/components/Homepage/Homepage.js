@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Row, Carousel } from 'react-bootstrap';
 import { getTopStories } from '../../services/general';
-import Card from './Card';
+import StoryCard from './StoryCard';
 import './Homepage.scss';
 
 const Homepage = () => {
@@ -63,7 +63,7 @@ const Homepage = () => {
               <Row className='home-content_cards-wrapper gy-4'>
                 {topStories.map((story, index) => (
                   <Col key={index} sm={12} md={4}>
-                    <Card
+                    <StoryCard
                       title={story.title}
                       body={story.body}
                       cta={story.cta}

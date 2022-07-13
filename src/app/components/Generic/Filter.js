@@ -5,7 +5,7 @@ const Filter = (props) => {
   const { searchVal, setSearchVal, setSortBy } = props;
   // add onSearch, onSort props.
   return (
-    <Row className='gap-3'>
+    <Row className='row'>
       <Col sm='8'>
         <Form.Control
           type='search'
