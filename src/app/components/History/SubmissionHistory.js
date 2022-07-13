@@ -50,11 +50,11 @@ const SubmissionHistory = () => {
                 <Col>
                   <div>Status: {sub.status_desc}</div>
                 </Col>
-                <Col xs={3}>
-                  <div>{new Date(sub.created_at).toLocaleDateString()} </div>
+                <Col>
+                  <div>Grading Company: {sub.grading_company}</div>
                 </Col>
-                <Col xs={1} className='right-align px-4'>
-                  &and;
+                <Col>
+                  <div>Serial Number: {sub.serial_number}</div>
                 </Col>
               </Row>
             )}
