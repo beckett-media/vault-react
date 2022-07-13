@@ -24,7 +24,8 @@ import AuthProvider, {
   OnlyUnathenticated,
 } from './app/contexts/auth';
 import SubmissionHistory from './app/components/History/SubmissionHistory';
-// chakra uses a default theme, this will remove it.
+import CartProvider from './app/contexts/cart';
+//chakra uses a default theme, this will remove it.
 const emptyChakraTheme = extendTheme({
   styles: {
     global: () => ({
@@ -40,7 +41,8 @@ function App() {
   return (
     <>
       <AuthProvider>
-        <ChakraProvider theme={emptyChakraTheme}>
+        <CartProvider>
+          <ChakraProvider theme={emptyChakraTheme}>
           <Header />
           <main className=''>
             <Routes>
@@ -68,7 +70,8 @@ function App() {
             </Routes>
           </main>
           <Footer />
-        </ChakraProvider>
+          </ChakraProvider>
+        </CartProvider>
       </AuthProvider>
     </>
   );

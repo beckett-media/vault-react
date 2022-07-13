@@ -1,11 +1,21 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Col, Row } from 'react-bootstrap';
+import CartItems from './CartItems';
+import CartTotal from './CartTotal';
 
 const Cart = () => {
   return (
-    <div className='row justify-content-center mb-3'>
-      Your cart is Empty, go <Link to='/market'> Buy Stuff </Link>
-    </div>
+    <Col className='row justify-content-center mb-3 m-5'>
+      <Row className='fw-bold fs-2 pt-5'>Shopping Cart</Row>
+      <Row className='px-5'>
+        <Col xxl={5}>
+          <CartItems />
+        </Col>
+        <Col xxl={5}>
+          <CartTotal />
+        </Col>
+      </Row>
+    </Col>
   );
 };
 
