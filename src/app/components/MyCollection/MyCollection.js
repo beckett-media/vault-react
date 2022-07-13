@@ -8,11 +8,13 @@ import WithdrawForm from './WithdrawForm';
 import SubmitButton from '../Generic/SubmitButton';
 import ProfileView from '../Profile/ProfileView';
 import Filter from '../Generic/Filter';
-import './Gallery.scss';
-import { GridItemBox, ListItemBox, ListItemImg } from './Gallery.styled';
+import ItemCard from '../Shared/ItemCard/ItemCard';
+
+import './MyCollection.scss';
+
+import { GridItemBox, ListItemBox, ListItemImg } from './MyCollection.styled';
 import { getSubmissions } from '../../services/submission';
 import { getUser } from '../../services/user';
-import { trimString, formatPrice } from '../../utils/strings';
 
 const Gallery = () => {
   document.body.classList.add('gallery-container');
@@ -134,41 +136,27 @@ const Gallery = () => {
         {!listView && (
           <GridItemBox>
             <div
-              className={`item-card_component dark ${
+              className={`${
                 isSelected(item.id)
                   ? 'item-card_selected'
                   : 'item-card_noselect'
               }`}
             >
-              <div className='item-card_layout'>
-                <Link to={`/item/${item.id}`}>
-                  <div className='item-card_image-wrapper'>
-                    <img className='item-card_image' src={item.img} alt='' />
-                  </div>
-                  <div className='item-card_content-wrapper'>
-                    <div className='item-card_title'>
-                      {trimString(item.title, 20)}
-                    </div>
-                    <div className='item-card_price'>
-                      {formatPrice.format(item.price)}
-                    </div>
-                  </div>
-                </Link>
-                <div className='item-card_select-wrapper'>
-                  <ToggleButton
-                    className='w-100'
-                    id={`toggle-${item.id}`}
-                    type='checkbox'
-                    variant='outline-primary'
-                    checked={isSelected(item.id)}
-                    value='1'
-                    onChange={(e) =>
-                      handleItemSelection(e.currentTarget.checked, item.id)
-                    }
-                  >
-                    Select
-                  </ToggleButton>
-                </div>
+              <ItemCard item={item} />
+              <div className='item-card_select-wrapper'>
+                <ToggleButton
+                  className='w-100'
+                  id={`toggle-${item.id}`}
+                  type='checkbox'
+                  variant='outline-primary'
+                  checked={isSelected(item.id)}
+                  value='1'
+                  onChange={(e) =>
+                    handleItemSelection(e.currentTarget.checked, item.id)
+                  }
+                >
+                  Select
+                </ToggleButton>
               </div>
             </div>
           </GridItemBox>
