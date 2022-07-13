@@ -27,7 +27,7 @@ export const PasswordField = React.forwardRef((props, ref) => {
     }
   };
 
-  const { value, onChange, prefix} = props;
+  const { value, onChange, prefix } = props;
 
   return (
     <FormControl>

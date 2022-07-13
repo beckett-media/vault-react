@@ -45,7 +45,7 @@ export const OnlyUnathenticated = () => {
   ) : (
     <Navigate to='/home' />
   );
-}
+};
 
 export const AuthIsNotSignedIn = ({ children }) => {
   const { authStatus } = useContext(AuthContext);
@@ -75,10 +75,10 @@ const AuthProvider = ({ children }) => {
             'refreshToken',
             `${session.refreshToken.token}`,
           );
-  
+
           const attr = await getAttributes();
           setAttrInfo(attr);
-  
+
           setAuthStatus(AuthStatus.SignedIn);
         } catch (err) {
           setAuthStatus(AuthStatus.SignedOut);
@@ -94,10 +94,14 @@ const AuthProvider = ({ children }) => {
 
   async function signInWithEmail(username, password, setPassword = false) {
     try {
-      const [status, res] = await cognito.signInWithEmail(username, password, setPassword);
-      status === "NEW_PASSWORD" ? 
-        setAuthStatus(AuthStatus.SetPassword) :
-        setAuthStatus(AuthStatus.SignedIn);
+      const [status, res] = await cognito.signInWithEmail(
+        username,
+        password,
+        setPassword,
+      );
+      status === 'NEW_PASSWORD'
+        ? setAuthStatus(AuthStatus.SetPassword)
+        : setAuthStatus(AuthStatus.SignedIn);
     } catch (err) {
       setAuthStatus(AuthStatus.SignedOut);
       throw err;
