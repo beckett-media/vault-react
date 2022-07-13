@@ -3,7 +3,7 @@
     "BASE_URL": "http://localhost:3300"
   },
   "qa": {
-    "BASE_URL": "https://qa.beckett.com:3300"
+    "BASE_URL": "https://dev.beckett.com:3300"
   },
   "production": {
     "BASE_URL": "https://www.beckett.com:3300"

@@ -21,14 +21,6 @@ const Submission = () => {
   useEffect(() => {
     getUser().then((data) => setUser(data));
   }, []);
-  formSubmitted &&
-    confirmedSubmission &&
-    postSubmission({
-      ...item,
-      userName: user.name,
-    }).then(
-      (res) => res.statusText === 'Created' && setSuccessfulSubmission(true),
-    );
 
   const submitAddedItem = (item) => {
     const newItems = [...items, item];
@@ -44,9 +36,38 @@ const Submission = () => {
     setFormSubmitted(true);
   };
 
+  const handleSubmitForm = async () => {
+    if (formSubmitted) {
+      Promise.allSettled(items.map((item) => postSubmission({
+        user: user.name,
+        description: item.description,
+        grading_company: item.gradingCompany,
+        serial_number: item.serialNumber,
+        title: item.title,
+        description: item.description,
+        genre: item.genre,
+        manufacturer: item.manufacturer,
+        year: item.year,
+        overall_grade: item.overallGrade,
+        sub_grades: item.subGrades,
+        autograph: item.autoGraph,
+        subject: item.subject,
+        est_value: item.estimatedValue,
+        image_base64: item.imageBase64.split(`data:${item.imageFormat};base64,`)[1],
+        image_format: item.imageFormat,
+      }))).then((resp) => {
+        console.log('resp', resp);
+        setSuccessfulSubmission(true);
+      }).catch((e) => {
+        // TODO
+        console.error(e);
+        alert('there was an error');
+      });
+    }
+  };
+
   const submitFinalForm = async () => {
-    await postSubmission(items);
-    setSuccessfulSubmission(true);
+    await handleSubmitForm(items);
   };
 
   return (
