@@ -37,9 +37,6 @@ export const PrivateRoute = () => {
 
 export const OnlyUnathenticated = () => {
   const { authStatus } = useContext(AuthContext);
-
-  // If authorized, return an outlet that will render child elements
-  // If not, return element that will navigate to login page
   return [AuthStatus.SignedOut, AuthStatus.SetPassword].includes(authStatus) ? (
     <Outlet />
   ) : (
