@@ -145,8 +145,12 @@ const AuthProvider = ({ children }) => {
   }
 
   async function setAttribute(attr) {
+    await setAttributes([attr]);
+  }
+
+  async function setAttributes(attrs) {
     try {
-      const res = await cognito.setAttribute(attr);
+      const res = await cognito.setAttributes(attrs);
       return res;
     } catch (err) {
       throw err;
@@ -191,6 +195,7 @@ const AuthProvider = ({ children }) => {
     changePassword,
     getAttributes,
     setAttribute,
+    setAttributes,
   };
 
   return <AuthContext.Provider value={state}>{children}</AuthContext.Provider>;

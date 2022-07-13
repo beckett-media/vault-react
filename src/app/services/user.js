@@ -13,5 +13,9 @@ export const getUser = async () => {
 export const updateUser = async (user) => {
   // TODO: run validation
   // update user
+
+  // Example of updating Cognito attributes
+  // await setAttributes([{Name: "custom:given_name", Value: user.firstName}, {Name: "custom:family_name", Value: user.lastName}]);
+
   return user;
 };

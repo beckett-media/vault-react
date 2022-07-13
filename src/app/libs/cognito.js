@@ -149,11 +149,11 @@ export async function getAttributes() {
   });
 }
 
-export async function setAttribute(attribute) {
+export async function setAttributes(attributes) {
   return new Promise(function (resolve, reject) {
-    const attributeList = [];
-    const res = new CognitoUserAttribute(attribute);
-    attributeList.push(res);
+    const attributeList = attributes.map(
+      (attribute) => new CognitoUserAttribute(attribute),
+    );
 
     currentUser.updateAttributes(attributeList, (err, res) => {
       if (err) {
