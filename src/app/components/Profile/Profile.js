@@ -8,7 +8,6 @@ import { AuthContext } from '../../contexts/auth';
 const Profile = () => {
   const authContext = useContext(AuthContext);
   const user = mapCognitoToUser(authContext.attrInfo);
-  console.log(user);
   const [userState, setUserState] = useState(user);
 
   const updateUserState = (tempItem) => setUserState({ ...userState, ...tempItem });
