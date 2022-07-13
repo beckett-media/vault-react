@@ -9,6 +9,7 @@ import './Submission.scss';
 import { Link } from 'react-router-dom';
 import { getUser } from '../../services/user';
 import { postSubmission } from '../../services/submission';
+import { formatSubmissionItem } from '../../utils/submissions';
 
 const Submission = () => {
   document.body.classList.add('submit-container');
@@ -39,22 +40,8 @@ const Submission = () => {
   const handleSubmitForm = async () => {
     if (formSubmitted) {
       Promise.allSettled(items.map((item) => postSubmission({
+        ...formatSubmissionItem(item),
         user: user.name,
-        description: item.description,
-        grading_company: item.gradingCompany,
-        serial_number: item.serialNumber,
-        title: item.title,
-        description: item.description,
-        genre: item.genre,
-        manufacturer: item.manufacturer,
-        year: item.year,
-        overall_grade: item.overallGrade,
-        sub_grades: item.subGrades,
-        autograph: item.autoGraph,
-        subject: item.subject,
-        est_value: item.estimatedValue,
-        image_base64: item.imageBase64.split(`data:${item.imageFormat};base64,`)[1],
-        image_format: item.imageFormat,
       }))).then((resp) => {
         console.log('resp', resp);
         setSuccessfulSubmission(true);
