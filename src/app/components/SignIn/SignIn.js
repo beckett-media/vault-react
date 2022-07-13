@@ -18,7 +18,7 @@ import {
 } from '@chakra-ui/react';
 
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../contexts/auth';
+import { AuthContext, AuthStatus } from '../../contexts/auth';
 import BackgroundPattern1280w from '../../assets/Background_Pattern_1280_w.svg';
 import { PasswordField } from '../PasswordField/PasswordField';
 import { NewPasswordField } from '../NewPasswordField/NewPasswordField';
@@ -140,6 +140,8 @@ export const useValidCode = (initialValue) => {
 const SignIn = () => {
   const { email, setEmail, emailIsValid } = useValidEmail('');
   const { password, setPassword, passwordIsValid } = useValidPassword('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = React.useState('');
   const [error, setError] = useState('');
 
   const isValid =
@@ -155,7 +157,6 @@ const SignIn = () => {
   const signInClicked = async () => {
     try {
       await authContext.signInWithEmail(email, password);
-      navigate('/home');
     } catch (err) {
       console.log(err);
       if (err.code === 'UserNotConfirmedException') {
@@ -163,6 +164,20 @@ const SignIn = () => {
       } else {
         setError(err.message);
       }
+    }
+  };
+  const checkPassword = () => {
+    return newPassword === confirmPassword;
+  };
+
+  const createNewPasswordClicked = async () => {
+    try {
+      if (!checkPassword()) {
+        throw Error('Passwords do not match!');
+      }
+      await authContext.signInWithEmail(email, password, true);
+    } catch (err) {
+      setError(err.message);
     }
   };
 
@@ -256,9 +271,7 @@ const SignIn = () => {
                     {error}
                   </Text>
                 )}
-                {!(
-                  authContext.authStatus === authContext.authStatus.SetPassword
-                ) && (
+                {!(authContext.authStatus === AuthStatus.SetPassword) && (
                   <>
                     <FormControl>
                       <FormLabel htmlFor='email' color='white'>
@@ -281,13 +294,11 @@ const SignIn = () => {
                     />
                   </>
                 )}
-                {authContext.authStatus ===
-                  authContext.authStatus.SetPassword && (
+                {authContext.authStatus === AuthStatus.SetPassword && (
                   <>
                     <PasswordField
-                      type={
-                        authContext.authStatus ===
-                        authContext.authStatus.SetPassword
+                      prefix={
+                        authContext.authStatus === AuthStatus.SetPassword
                           ? 'New'
                           : 'password'
                       }
@@ -302,9 +313,7 @@ const SignIn = () => {
                 )}
               </Stack>
               <Box display={'flex'} justifyContent={'center'}>
-                {!(
-                  authContext.authStatus === authContext.authStatus.SetPassword
-                ) && (
+                {!(authContext.authStatus === AuthStatus.SetPassword) && (
                   <Button
                     onClick={signInClicked}
                     my={6}
@@ -315,19 +324,15 @@ const SignIn = () => {
                     color={'black'}
                     fontWeight={'bold'}
                     _focus={{ boxShadow: 'none' }}
-                    isLoading={
-                      authContext.authStatus ===
-                      authContext.authStatus.SetPassword
-                    }
+                    isLoading={authContext.authStatus === AuthStatus.Loading}
                   >
                     Continue
                   </Button>
                 )}
-                {authContext.authStatus ===
-                  authContext.authStatus.SetPassword && (
+                {authContext.authStatus === AuthStatus.SetPassword && (
                   <Button
                     onClick={() => {
-                      createNewPassword();
+                      createNewPasswordClicked();
                     }}
                     my={6}
                     borderRadius={100}
@@ -337,10 +342,7 @@ const SignIn = () => {
                     color={'black'}
                     fontWeight={'bold'}
                     _focus={{ boxShadow: 'none' }}
-                    isLoading={
-                      authContext.authStatus ===
-                      authContext.authStatus.SetPassword
-                    }
+                    isLoading={authContext.authStatus === AuthStatus.Loading}
                   >
                     Create Password
                   </Button>
