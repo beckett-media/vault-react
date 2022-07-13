@@ -3,10 +3,10 @@ import { Col, Container, Row } from 'react-bootstrap';
 import CartItems from './CartItems';
 import CartTotal from './CartTotal';
 import { getUser } from '../../services/user';
-import { CartContext } from '../../contexts/cart';
+import { useCartContext } from '../../contexts/cart';
 
 const Cart = () => {
-  const cartContext = useContext(CartContext)
+  const cartContext = useCartContext()
 
   console.log(cartContext)
   const [user, setUser] = useState([]);

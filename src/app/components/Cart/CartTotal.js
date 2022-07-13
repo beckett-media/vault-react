@@ -1,11 +1,11 @@
 import React, { useContext, useState } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
-import { CartContext, proceedToCheckoutToggle } from '../../contexts/cart';
+import { CartContext, proceedToCheckoutToggle, useCartContext } from '../../contexts/cart';
 import SubmitButton from '../Generic/SubmitButton';
 import './Cart.scss'
 
 const CartTotal = () => {
-  const cartContext = useContext(CartContext)
+  const cartContext = useCartContext()
   const tax = 12.00
   return (
     <Col className='m-5 border border'>

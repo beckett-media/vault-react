@@ -7,16 +7,18 @@ import { useNavigate, useParams } from 'react-router-dom';
 import SubmitButton from '../Generic/SubmitButton';
 import { AuthStatus, AuthContext } from '../../contexts/auth';
 import { getUser } from '../../services/user';
+import { useCartContext } from '../../contexts/cart';
 
 const Item = () => {
   const authContext = useContext(AuthContext);
+  const cartContext = useCartContext()
   // this is an array of cognitoAttributes.
   // TODO: make a helper function that tuns this into an object.
   console.log('authContext.attrInfo', authContext.attrInfo);
   const { id } = useParams();
   const [item, setItem] = useState({});
   const [user, setUser] = useState([]);
-
+  console.log(item)
   useEffect(() => {
     getUser().then((data) => setUser(data));
   }, []);
@@ -103,7 +105,7 @@ const Item = () => {
             </>
           ) : (
             <Row>
-              <Button className='' size='sm' bg='transparent'>
+              <Button className='' size='sm' bg='transparent' onClick={() => cartContext.addItemToCart(item)}>
                 Buy
               </Button>
             </Row>

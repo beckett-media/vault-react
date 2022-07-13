@@ -3,12 +3,13 @@ import { Button, Col, Form, Image, Row } from 'react-bootstrap';
 import SubmitButton from '../Generic/SubmitButton';
 import { FaInfoCircle } from 'react-icons/fa'
 import './Cart.scss'
-import CartProvider, { CartContext } from '../../contexts/cart';
+import { useCartContext } from '../../contexts/cart';
 
 const CartItems = () => {
-  const cartContext = useContext(CartContext)
+  const cartContext = useCartContext()
   const [ isSelected, setIsSelected ] = useState('store')
   const [ continueToPayment, setContinueToPayment ] = useState(false)
+  console.log(cartContext)
   return (
     <Col className='pt-5'>
       {cartContext.cartObject.items?.map((item, i) => {
@@ -28,14 +29,14 @@ const CartItems = () => {
             </Row>
             <Row className='p-2'>
               <Col>
-                <Button id={item.id} onClick={(e) => removeItem(e.target.id)} variant='link'>Remove</Button>
+                <Button id={item.id} onClick={(e) => cartContext.removeItemFromCart(e.target.id)} variant='link'>Remove</Button>
               </Col>
             </Row>
           </Row>
         );
       })}
       {
-        cartContext.cartObject.proceedToCheckout === true && !continueToPayment &&
+        cartContext.proceedToCheckout === true && !continueToPayment &&
         <Row className='px-5 py-3 pb-4 border'>
           <div>
             <div className='fs-4 py-2 fw-bold'>

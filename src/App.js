@@ -38,7 +38,7 @@ function App() {
   return (
     <>
       <AuthProvider>
-        <ContextProvider>
+        <CartProvider>
           <ChakraProvider theme={emptyChakraTheme}>
             <Header />
             <main className=''>
@@ -66,7 +66,7 @@ function App() {
             </main>
             <Footer />
           </ChakraProvider>
-        </ContextProvider>
+        </CartProvider>
       </AuthProvider>
     </>
   );

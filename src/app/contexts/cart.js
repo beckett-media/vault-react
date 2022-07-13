@@ -1,9 +1,10 @@
-import { createContext, useReducer, useState } from "react";
+import { createContext, useContext, useReducer, useState } from "react";
 
 export const CartContext = createContext();
 
 
 export const actions = {
+  ADD_ITEM_TO_CART: 'ADD_ITEM_TO_CART',
   REMOVE_ITEM_FROM_CART: 'REMOVE_ITEM_FROM_CART',
   PROCEED_TO_CHECKOUT_TOGGLE: 'PROCEED_TO_CHECKOUT_TOGGLE',
 }
@@ -16,7 +17,11 @@ const updateTotal = (state) =>
 );
 
 const cartReducer = (state, action) => {
+  console.log(action)
   switch(action) {
+    case 'ADD_ITEM_TO_CART':
+      console.log(action)
+      return {...state, items: [...state.items, itemToAdd], total: updateTotal(state)};
     case 'REMOVE_ITEM_FROM_CART':
       const updatedItems = state.items.filter((item) => item.id !== itemToRemove)
       return {...state, items: updatedItems, total: updateTotal(state)};
@@ -36,6 +41,9 @@ export const CartProvider = ({children}) => {
 
   const value = {
     cartObject: cartState,
+    addItemToCart: (itemToAdd) => {
+      dispatch({ type: actions.ADD_ITEM_TO_CART, itemToAdd });
+    },
     removeItemFromCart: (itemToRemove) => {
       dispatch({ type: actions.REMOVE_ITEM_FROM_CART, itemToRemove });
     },
@@ -45,4 +53,7 @@ export const CartProvider = ({children}) => {
   };
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }
+
+export const useCartContext = () => useContext(CartContext)
+
 export default CartProvider;
