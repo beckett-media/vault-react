@@ -1,23 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Col, Form, Image, Row } from 'react-bootstrap';
 import SubmitButton from '../Generic/SubmitButton';
 import { FaInfoCircle } from 'react-icons/fa'
 import './Cart.scss'
 import { useCartContext } from '../../contexts/cart';
 import { useNavigate } from 'react-router-dom';
+import { getMarketItems } from '../../services/items';
 
 const CartItems = () => {
   const cartContext = useCartContext()
   const [ isSelected, setIsSelected ] = useState('store')
   const [ continueToPayment, setContinueToPayment ] = useState(false)
   const navigate = useNavigate()
+  const [marketItems, setMarketItems] = useState([])
+  useEffect(() => {
+    console.log(getMarketItems())
+    getMarketItems().then(items=> setMarketItems(items, ...marketItems))},[])
   const removeItem = async (item) => {
+    window.localStorage.removeItem('cartItemId')
     await cartContext.removeItemFromCart(item);
     navigate('/market')
   }
+  useEffect(() => {
+    console.log(marketItems)
+    if(cartContext.items.length !== 0 && window.localStorage.getItem('cartItemId') !== (null || undefined) ){
+      window.localStorage.setItem('cartItemId', JSON.stringify(cartContext.items))
+    } 
+    else if (cartContext.items.length === 0 && window.localStorage.getItem('cartItemId') !== null) {
+        cartContext.addItemToCart(JSON.parse(window.localStorage.getItem('cartItemId')))
+      }
+   }, [])
   return (
     <Col className='pt-5'>
-      {cartContext.items?.map((item, i) => {
+      {cartContext.items.length && cartContext.items?.map((item, i) => {
         return (
           <Row key={item.id} className='mb-3 p-3 border'>
             <Row className='py-2'>

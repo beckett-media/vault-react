@@ -36,7 +36,7 @@ const emptyChakraTheme = extendTheme({
     }),
   },
 });
-
+console.log('localStorage for items',window.localStorage.cartItemId)
 function App() {
   return (
     <>

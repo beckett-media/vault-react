@@ -3,10 +3,11 @@ import { Nav, Navbar, NavDropdown, Container } from 'react-bootstrap';
 import './Nav.scss';
 import SubmitButton from './SubmitButton';
 import { AuthStatus, AuthContext } from '../../contexts/auth';
+import { useCartContext } from '../../contexts/cart';
 
 const TopNav = () => {
   const authContext = useContext(AuthContext);
-  const cart = [];
+  const cartItemsLength = useCartContext().items.length
   return (
     <Navbar bg='dark' variant='dark' expand='lg' fixed='top'>
       <Container>
@@ -62,7 +63,7 @@ const TopNav = () => {
                 <NavDropdown.Item href='/signin'>Login</NavDropdown.Item>
               )}
             </NavDropdown>
-            {cart.length ? (
+            {cartItemsLength || window.localStorage.getItem('cartItemId') ? (
               <Nav.Link href='/cart'>
                 <i className='fa-solid fa-cart-shopping'></i>
               </Nav.Link>
