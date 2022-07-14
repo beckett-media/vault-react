@@ -12,8 +12,10 @@ const TopNav = () => {
   return (
     <Navbar bg='dark' variant='dark' expand='lg' fixed='top'>
       <Container>
-        <Navbar.Brand href='/'>
-          <img src='/images/beckett-logo.svg' />
+        <Navbar.Brand>
+          <Link to='/'>
+            <img src='/images/beckett-logo.svg' />
+          </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Collapse id='basic-navbar-nav'>
@@ -49,8 +51,8 @@ const TopNav = () => {
             >
               {authContext.authStatus === AuthStatus.SignedIn ? (
                 <>
-                  <NavDropdown.Item href='/profile'>Profile</NavDropdown.Item>
-                  <NavDropdown.Item href='/history'>History</NavDropdown.Item>
+                  <NavDropdown.Item><Link to='/profile'>Profile</Link></NavDropdown.Item>
+                  <NavDropdown.Item><Link to='/history'>History</Link></NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item
                     onClick={async () => {
@@ -61,7 +63,7 @@ const TopNav = () => {
                   </NavDropdown.Item>
                 </>
               ) : (
-                <NavDropdown.Item href='/signin'>Login</NavDropdown.Item>
+                <NavDropdown.Item><Link to='/login'>Login</Link></NavDropdown.Item>
               )}
             </NavDropdown>
             {cartItemsLength || window.localStorage.getItem('cartItemId') ? (
