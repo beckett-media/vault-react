@@ -1,0 +1,49 @@
+.preview-gallery_ {
+  &component {
+    overflow: hidden;
+  }
+
+  &layout {
+
+  }
+
+  &text-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 16px;
+  }
+
+  &heading {
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  &link-wrapper {
+
+  }
+
+  &gallery-wrapper {
+    // min-width: 1200px;
+    overflow-y: hidden;
+    overflow-x: auto;
+    white-space: nowrap;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-column-gap: 16px;
+
+    // @media only screen and (max-width: 1300px) {
+    //   grid-column-gap: 8px;
+    // }
+
+    // @media only screen and (max-width: 1200px) {
+    //   grid-column-gap: 16px;
+    //   grid-row-gap: 16px;
+    //   grid-template-columns: repeat(2, 1fr);
+    // }
+
+    // @media only screen and (max-width: 650px) {
+    //   grid-template-columns: repeat(1, 1fr);
+    // }
+  }
+}
