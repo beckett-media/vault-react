@@ -11,12 +11,14 @@ const PreviewGallery = ({ data, title, link }, props) => {
       <div className='preview-gallery_layout'>
         <div className='preview-gallery_text-wrapper'>
           <div className='preview-gallery_heading'>{title}</div>
-          <div className='preview-gallery_link-wrapper'>
-            <Link to={`/${link}`}>See more</Link>
-          </div>
+          {link && (
+            <div className='preview-gallery_link-wrapper'>
+              <Link to={`/${link}`}>See more</Link>
+            </div>
+          )}
         </div>
         <div className='preview-gallery_gallery-wrapper'>
-          {data.slice(0, 4).map((item, index) => (
+          {data?.slice(0, 4).map((item, index) => (
             <ItemCard item={item} key={index} />
           ))}
         </div>
