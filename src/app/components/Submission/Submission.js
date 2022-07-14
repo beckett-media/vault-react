@@ -12,7 +12,6 @@ import { postSubmission } from '../../services/submission';
 import { formatSubmissionItem } from '../../utils/submissions';
 
 const Submission = () => {
-  document.body.classList.add('submit-container');
   const [items, setItems] = useState([]);
   const [add, onAdd] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
