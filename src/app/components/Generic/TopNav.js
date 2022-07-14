@@ -4,6 +4,7 @@ import './Nav.scss';
 import SubmitButton from './SubmitButton';
 import { AuthStatus, AuthContext } from '../../contexts/auth';
 import { useCartContext } from '../../contexts/cart';
+import { Link } from 'react-router-dom';
 
 const TopNav = () => {
   const authContext = useContext(AuthContext);
@@ -19,28 +20,28 @@ const TopNav = () => {
           <Nav className='m-auto'>
             {authContext.authStatus === AuthStatus.SignedIn && (
               <>
-                <Nav.Link href='/about' className='about-nav'>
+                <Link to='/about' className='about-nav'>
                   About Vault
-                </Nav.Link>
-                <Nav.Link href='/gallery' className='gallery-nav'>
+                </Link>
+                <Link to='/gallery' className='gallery-nav'>
                   My Collection
-                </Nav.Link>
-                <Nav.Link href='/market' className='market-nav'>
+                </Link>
+                <Link to='/market' className='market-nav'>
                   Marketplace
-                </Nav.Link>
+                </Link>
               </>
             )}
           </Nav>
           <Nav className='ml-auto'>
             {authContext.authStatus === AuthStatus.SignedIn && (
-              <Nav.Link href='/submission'>
+              <Link to='/submission'>
                 <SubmitButton
                   size='sm'
                   title='Submit Item'
                   className='submit-nav'
                   bg='primary'
                 />
-              </Nav.Link>
+              </Link>
             )}
             <NavDropdown
               title={<i className='fa-solid fa-user'></i>}
@@ -64,9 +65,9 @@ const TopNav = () => {
               )}
             </NavDropdown>
             {cartItemsLength || window.localStorage.getItem('cartItemId') ? (
-              <Nav.Link href='/cart'>
+              <Link to='/cart'>
                 <i className='fa-solid fa-cart-shopping'></i>
-              </Nav.Link>
+              </Link>
             ) : (
               <></>
             )}
