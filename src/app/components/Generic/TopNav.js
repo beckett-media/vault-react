@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Nav, Navbar, NavDropdown, Container } from 'react-bootstrap';
 import './Nav.scss';
 import SubmitButton from './SubmitButton';
-import { AuthStatus, AuthContext } from '../../contexts/auth';
+import { AuthContext } from '../../contexts/auth';
 import { useCartContext } from '../../contexts/cart';
 import { Link } from 'react-router-dom';
 
@@ -20,7 +20,7 @@ const TopNav = () => {
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Collapse id='basic-navbar-nav'>
           <Nav className='m-auto'>
-            {authContext.authStatus === AuthStatus.SignedIn && (
+            {authContext.isSignedIn && (
               <>
                 <Link to='/about' className='about-nav m-2'>
                   About Vault
@@ -35,13 +35,13 @@ const TopNav = () => {
             )}
           </Nav>
           <Nav className='ml-auto'>
-            {authContext.authStatus === AuthStatus.SignedIn && (
+            {authContext.isSignedIn && (
               <Link to='/submission'>
                 <SubmitButton size='sm' title='Submit Item' className='submit-nav' bg='primary' />
               </Link>
             )}
             <NavDropdown title={<i className='fa-solid fa-user'></i>} id='basic-nav-dropdown'>
-              {authContext.authStatus === AuthStatus.SignedIn ? (
+              {authContext.isSignedIn ? (
                 <>
                   <NavDropdown.Item>
                     <Link to='/profile'>Profile</Link>
