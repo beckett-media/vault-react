@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 const TopNav = () => {
   const authContext = useContext(AuthContext);
-  const cartItemsLength = useCartContext().items.length
+  const cartItemsLength = useCartContext().items.length;
   return (
     <Navbar bg='dark' variant='dark' expand='lg' fixed='top'>
       <Container>
@@ -37,22 +37,18 @@ const TopNav = () => {
           <Nav className='ml-auto'>
             {authContext.authStatus === AuthStatus.SignedIn && (
               <Link to='/submission'>
-                <SubmitButton
-                  size='sm'
-                  title='Submit Item'
-                  className='submit-nav'
-                  bg='primary'
-                />
+                <SubmitButton size='sm' title='Submit Item' className='submit-nav' bg='primary' />
               </Link>
             )}
-            <NavDropdown
-              title={<i className='fa-solid fa-user'></i>}
-              id='basic-nav-dropdown'
-            >
+            <NavDropdown title={<i className='fa-solid fa-user'></i>} id='basic-nav-dropdown'>
               {authContext.authStatus === AuthStatus.SignedIn ? (
                 <>
-                  <NavDropdown.Item><Link to='/profile'>Profile</Link></NavDropdown.Item>
-                  <NavDropdown.Item><Link to='/history'>History</Link></NavDropdown.Item>
+                  <NavDropdown.Item>
+                    <Link to='/profile'>Profile</Link>
+                  </NavDropdown.Item>
+                  <NavDropdown.Item>
+                    <Link to='/history'>History</Link>
+                  </NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item
                     onClick={async () => {
@@ -63,10 +59,12 @@ const TopNav = () => {
                   </NavDropdown.Item>
                 </>
               ) : (
-                <NavDropdown.Item><Link to='/login'>Login</Link></NavDropdown.Item>
+                <NavDropdown.Item>
+                  <Link to='/login'>Login</Link>
+                </NavDropdown.Item>
               )}
             </NavDropdown>
-            {cartItemsLength || window.localStorage.getItem('cartItemId') ? (
+            {cartItemsLength ? (
               <Link to='/cart'>
                 <i className='fa-solid fa-cart-shopping mt-2 p-1'></i>
               </Link>
