@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Card, Col, Modal, Row, ToggleButton } from 'react-bootstrap';
+import { Button, Col, Modal, Row, ToggleButton } from 'react-bootstrap';
 import { BsGrid3X2GapFill, BsList } from 'react-icons/bs';
 import { getItems, withdrawItem } from '../../services/items';
 import { Link } from 'react-router-dom';
@@ -17,7 +17,6 @@ import { getSubmissions } from '../../services/submission';
 import { getUser } from '../../services/user';
 
 const Gallery = () => {
-  document.body.classList.add('gallery-container');
   const [items, setItems] = useState([]);
   const [listView, setListView] = useState(false);
   const [withdrawOrList, setWithdrawOrList] = useState('');
