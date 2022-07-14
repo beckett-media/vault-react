@@ -1,35 +1,57 @@
 import React, { useState, useEffect } from 'react';
-import { Container } from 'react-bootstrap';
 import { getMarketItems } from '../../services/items';
-import { Link } from 'react-router-dom';
 import Filter from '../Generic/Filter';
+
+import PreviewGallery from '../Shared/PreviewGallery/PreviewGallery';
+import StoriesGrid from '../Shared/StoriesGrid/StoriesGrid';
+
 import './Market.scss';
+import hero from '../../assets/vault-market-hero.png';
+import { getMarketplaceTopStories } from '../../services/general';
 
 const Market = () => {
   document.body.classList.add('market-container');
   const [items, setItems] = useState([]);
+  const [marketplaceStoriesData, setMarketplaceStoriesData] = useState([]);
+
   useEffect(() => {
     getMarketItems().then((data) => setItems(data));
+    getMarketplaceTopStories().then((data) => setMarketplaceStoriesData(data));
   }, []);
 
   return (
-    <Container>
+    <div className='page-wrapper'>
       <Filter />
-      <div className='row'>
-        {items.map((item) => (
-          <div className='col-lg-4 col-md-12 p-4 mb-lg-0' key={item.id}>
-            <div className='slab'>
-              <Link to={`/item/${item.id}`}>
-                <img src={item.img} className='w-100 shadow-1-strong rounded mb-4' alt={item.title} />
-              </Link>
-            </div>
-            <div className='d-flex justify-content-center'>
-              <Link to={`/item/${item.id}`}>{item.title}</Link>
+      <div className='section_market-hero'>
+        <div className='page-padding'>
+          <div className='container-large'>
+            <div className='market-hero_wrapper'>
+              <img src={hero} alt='' className='market-hero_image' />
             </div>
           </div>
-        ))}
+        </div>
       </div>
-    </Container>
+      <div className='section_market-stories'>
+        <div className='page-padding'>
+          <div className='container-large'>
+            <StoriesGrid data={marketplaceStoriesData} />
+          </div>
+        </div>
+      </div>
+      <div className='section_market-categories'>
+        <div className='page-padding'>
+          <div className='container-large'>
+            <div className='market-categories_spacer'></div>
+            <PreviewGallery title={'Basketball'} link={'link'} data={items} />
+            <div className='market-categories_spacer'></div>
+            <PreviewGallery title={'Baseball'} link={'link'} data={items} />
+            <div className='market-categories_spacer'></div>
+            <PreviewGallery title={'Football'} link={'link'} data={items} />
+            <div className='market-categories_spacer'></div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
