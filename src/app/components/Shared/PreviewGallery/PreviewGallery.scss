@@ -1,0 +1,31 @@
+.preview-gallery_ {
+  &component {
+
+  }
+
+  &layout {
+
+  }
+
+  &text-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 16px;
+  }
+
+  &heading {
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  &link-wrapper {
+
+  }
+
+  &gallery-wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-column-gap: 16px;
+  }
+}
