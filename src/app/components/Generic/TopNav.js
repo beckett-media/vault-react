@@ -2,11 +2,12 @@ import React, { useContext } from 'react';
 import { Nav, Navbar, NavDropdown, Container } from 'react-bootstrap';
 import './Nav.scss';
 import SubmitButton from './SubmitButton';
-import { AuthContext } from '../../contexts/auth';
+import { AuthStatus, AuthContext } from '../../contexts/auth';
+import { useCartContext } from '../../contexts/cart';
 
 const TopNav = () => {
   const authContext = useContext(AuthContext);
-  const cart = [];
+  const cartItemsLength = useCartContext().items.length
   return (
     <Navbar bg='dark' variant='dark' expand='lg' fixed='top'>
       <Container>
@@ -16,12 +17,12 @@ const TopNav = () => {
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Collapse id='basic-navbar-nav'>
           <Nav className='m-auto'>
-            {authContext.isSignedIn && (
+            {authContext.authStatus === AuthStatus.SignedIn && (
               <>
                 <Nav.Link href='/about' className='about-nav'>
                   About Vault
                 </Nav.Link>
-                <Nav.Link href='/collection' className='gallery-nav'>
+                <Nav.Link href='/gallery' className='gallery-nav'>
                   My Collection
                 </Nav.Link>
                 <Nav.Link href='/market' className='market-nav'>
@@ -31,13 +32,21 @@ const TopNav = () => {
             )}
           </Nav>
           <Nav className='ml-auto'>
-            {authContext.isSignedIn && (
+            {authContext.authStatus === AuthStatus.SignedIn && (
               <Nav.Link href='/submission'>
-                <SubmitButton size='sm' title='Submit Item' className='submit-nav' bg='primary' />
+                <SubmitButton
+                  size='sm'
+                  title='Submit Item'
+                  className='submit-nav'
+                  bg='primary'
+                />
               </Nav.Link>
             )}
-            <NavDropdown title={<i className='fa-solid fa-user'></i>} id='basic-nav-dropdown'>
-              {authContext.isSignedIn ? (
+            <NavDropdown
+              title={<i className='fa-solid fa-user'></i>}
+              id='basic-nav-dropdown'
+            >
+              {authContext.authStatus === AuthStatus.SignedIn ? (
                 <>
                   <NavDropdown.Item href='/profile'>Profile</NavDropdown.Item>
                   <NavDropdown.Item href='/history'>History</NavDropdown.Item>
@@ -54,7 +63,7 @@ const TopNav = () => {
                 <NavDropdown.Item href='/signin'>Login</NavDropdown.Item>
               )}
             </NavDropdown>
-            {cart.length ? (
+            {cartItemsLength || window.localStorage.getItem('cartItemId') ? (
               <Nav.Link href='/cart'>
                 <i className='fa-solid fa-cart-shopping'></i>
               </Nav.Link>
