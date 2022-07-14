@@ -4,7 +4,7 @@ import './Nav.scss';
 import SubmitButton from './SubmitButton';
 import { AuthContext } from '../../contexts/auth';
 import { useCartContext } from '../../contexts/cart';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const TopNav = () => {
   const authContext = useContext(AuthContext);
@@ -22,15 +22,15 @@ const TopNav = () => {
           <Nav className='m-auto'>
             {authContext.isSignedIn && (
               <>
-                <Link to='/about' className='about-nav m-2'>
+                <NavLink to='/about' className={({ isActive }) => (isActive ? 'active-nav m-2' : 'm-2')}>
                   About Vault
-                </Link>
-                <Link to='/collection' className='gallery-nav m-2'>
+                </NavLink>
+                <NavLink to='/collection' className={({ isActive }) => (isActive ? 'active-nav m-2' : 'm-2')}>
                   My Collection
-                </Link>
-                <Link to='/market' className='market-nav m-2'>
+                </NavLink>
+                <NavLink to='/market' className={({ isActive }) => (isActive ? 'active-nav m-2' : 'm-2')}>
                   Marketplace
-                </Link>
+                </NavLink>
               </>
             )}
           </Nav>

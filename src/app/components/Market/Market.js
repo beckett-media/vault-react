@@ -10,7 +10,6 @@ import hero from '../../assets/vault-market-hero.png';
 import { getMarketplaceTopStories } from '../../services/general';
 
 const Market = () => {
-  document.body.classList.add('market-container');
   const [items, setItems] = useState([]);
   const [marketplaceStoriesData, setMarketplaceStoriesData] = useState([]);
 
