@@ -7,30 +7,16 @@ import StoriesGrid from '../Shared/StoriesGrid/StoriesGrid';
 
 import './Market.scss';
 import hero from '../../assets/vault-market-hero.png';
-
-const marketplaceStoriesData = [
-  {
-    title: 'This is a test',
-    body: 'This is a test',
-    cta: 'This is a test',
-  },
-  {
-    title: 'This is a test',
-    body: 'This is a test',
-    cta: 'This is a test',
-  },
-  {
-    title: 'This is a test',
-    body: 'This is a test',
-    cta: 'This is a test',
-  },
-];
+import { getMarketplaceTopStories } from '../../services/general';
 
 const Market = () => {
   document.body.classList.add('market-container');
   const [items, setItems] = useState([]);
+  const [marketplaceStoriesData, setMarketplaceStoriesData] = useState([]);
+
   useEffect(() => {
     getMarketItems().then((data) => setItems(data));
+    getMarketplaceTopStories().then((data) => setMarketplaceStoriesData(data));
   }, []);
 
   return (
