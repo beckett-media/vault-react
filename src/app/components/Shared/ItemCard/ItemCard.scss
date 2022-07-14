@@ -11,7 +11,6 @@
   }
 
   &layout {
-
   }
 
   &image-wrapper {
@@ -27,9 +26,9 @@
   &image {
     width: 100%;
     height: 100%;
-    object-fit: contain;  
+    object-fit: contain;
   }
-  
+
   &content-wrapper {
     color: black;
     padding: 4px 20px;
@@ -39,9 +38,8 @@
     font-size: 20px;
     font-weight: 700;
   }
-  
-  &price {
 
+  &price {
   }
 
   &select-wrapper {

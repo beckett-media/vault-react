@@ -31,7 +31,7 @@ const SubmissionImageUploader = ({ onFileChange }) => {
         maxFiles={1}
         multiple={false}
         canCancel={false}
-        inputContent="Drag image or Click to Browse"
+        inputContent='Drag image or Click to Browse'
         submitButtonDisabled
       />
     </div>

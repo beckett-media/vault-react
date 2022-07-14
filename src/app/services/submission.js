@@ -6,11 +6,9 @@ import config from '../../config';
 export const postSubmission = async (item) => {
   // TODO: validate item
   axiosRetry(axios, { retries: 3 });
-  return axios
-    .post(`${config.BASE_URL}/marketplace/submission`, item)
-    .then((res) => {
-      return res;
-    });
+  return axios.post(`${config.BASE_URL}/marketplace/submission`, item).then((res) => {
+    return res;
+  });
 };
 
 export const getSubmissions = async (userName) => {

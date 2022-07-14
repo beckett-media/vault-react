@@ -11,14 +11,14 @@ import { useCartContext } from '../../contexts/cart';
 
 const Item = () => {
   const authContext = useContext(AuthContext);
-  const cartContext = useCartContext()
+  const cartContext = useCartContext();
   // this is an array of cognitoAttributes.
   // TODO: make a helper function that tuns this into an object.
   console.log('authContext.attrInfo', authContext.attrInfo);
   const { id } = useParams();
   const [item, setItem] = useState({});
   const [user, setUser] = useState([]);
-  
+
   useEffect(() => {
     getUser().then((data) => setUser(data));
   }, []);
@@ -38,26 +38,18 @@ const Item = () => {
   };
   const addToCart = async () => {
     await cartContext.addItemToCart(item);
-    navigate('/cart')
-  }
+    navigate('/cart');
+  };
   return (
     <Row className='p-5'>
       <Col className='align-center' md={5} sm={12}>
         <div className='flip-card'>
           <div className='flip-card-inner'>
             <div className='flip-card-front'>
-              <img
-                src={item.img}
-                className='shadow-1-strong rounded mb-4 img-fluid'
-                alt={item.title}
-              />
+              <img src={item.img} className='shadow-1-strong rounded mb-4 img-fluid' alt={item.title} />
             </div>
             <div className='flip-card-back'>
-              <img
-                src={item.imgRev}
-                className='shadow-1-strong rounded mb-4 img-fluid'
-                alt={item.title}
-              />
+              <img src={item.imgRev} className='shadow-1-strong rounded mb-4 img-fluid' alt={item.title} />
             </div>
           </div>
         </div>
@@ -73,14 +65,12 @@ const Item = () => {
           <br />
           <p className='fs-5'>
             {' '}
-            <span className='fw-bold'>Date Vaulted: </span>{' '}
-            {item.date && moment(item.date).format('MMMM Do YYYY')}
+            <span className='fw-bold'>Date Vaulted: </span> {item.date && moment(item.date).format('MMMM Do YYYY')}
           </p>
         </Row>
         <Row>
           <p className='fs-5'>
-            <span className='fw-bold'>Est. Value: </span> $
-            {item.price?.toLocaleString()}
+            <span className='fw-bold'>Est. Value: </span> ${item.price?.toLocaleString()}
           </p>
         </Row>
         {
@@ -89,11 +79,7 @@ const Item = () => {
             <>
               <Row className='mt-2'>
                 <Col></Col>
-                <SubmitButton
-                  func={listItem}
-                  title='Sell in Marketplace'
-                  bg='primary'
-                />
+                <SubmitButton func={listItem} title='Sell in Marketplace' bg='primary' />
               </Row>
               <br />
               <Row>

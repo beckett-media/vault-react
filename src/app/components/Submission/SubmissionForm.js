@@ -12,11 +12,7 @@ const SubmissionForm = ({ onAdd, removeItem, items }) => {
           <Container key={i} className='m-2 p-3 border border rounded'>
             <Row>
               <Col sm={12} lg={3}>
-                {
-                  item.previewUrl && item.imageBase64 ? (
-                    <img src={item.previewUrl} alt="preview" />
-                  ): null
-                }
+                {item.previewUrl && item.imageBase64 ? <img src={item.previewUrl} alt='preview' /> : null}
               </Col>
               <Col sm={12} lg={9}>
                 <Row>
@@ -34,12 +30,7 @@ const SubmissionForm = ({ onAdd, removeItem, items }) => {
                   <p>{`Overall grade: ${item.overallGrade}, Sub grades: ${item.subGrades}`}</p>
                   <p>{`Autograph: ${item.autoGraph}, Subgraph: ${item.subgraph}`}</p>
                 </Row>
-                <SubmitButton
-                  func={() => removeItem(item)}
-                  title='Delete'
-                  bg='link'
-                  isLink
-                />
+                <SubmitButton func={() => removeItem(item)} title='Delete' bg='link' isLink />
               </Col>
             </Row>
           </Container>

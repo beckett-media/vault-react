@@ -28,14 +28,10 @@ const Landing = () => {
                   <img src='' alt='' className='landing-block_image' />
                 </div>
                 <div className='landing-block_content-wrapper'>
-                  <div className='landing-block_heading'>
-                    Sed ut perspiciatis unde omnis
-                  </div>
+                  <div className='landing-block_heading'>Sed ut perspiciatis unde omnis</div>
                   <p className='landing-block_content'>
-                    Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
-                    odit aut fugit, sed quia consequuntur magni dolores eos qui
-                    ratione voluptatem sequi nesciunt. Neque porro quisquam est,
-                    qui dolorem.
+                    Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur
+                    magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem.
                   </p>
                 </div>
               </div>
@@ -50,14 +46,10 @@ const Landing = () => {
                   <img src='' alt='' className='landing-block_image' />
                 </div>
                 <div className='landing-block_content-wrapper'>
-                  <div className='landing-block_heading'>
-                    Sed ut perspiciatis unde omnis
-                  </div>
+                  <div className='landing-block_heading'>Sed ut perspiciatis unde omnis</div>
                   <p className='landing-block_content'>
-                    Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
-                    odit aut fugit, sed quia consequuntur magni dolores eos qui
-                    ratione voluptatem sequi nesciunt. Neque porro quisquam est,
-                    qui dolorem.
+                    Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur
+                    magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem.
                   </p>
                 </div>
               </div>
@@ -72,14 +64,10 @@ const Landing = () => {
                   <img src='' alt='' className='landing-block_image' />
                 </div>
                 <div className='landing-block_content-wrapper'>
-                  <div className='landing-block_heading'>
-                    Sed ut perspiciatis unde omnis
-                  </div>
+                  <div className='landing-block_heading'>Sed ut perspiciatis unde omnis</div>
                   <p className='landing-block_content'>
-                    Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
-                    odit aut fugit, sed quia consequuntur magni dolores eos qui
-                    ratione voluptatem sequi nesciunt. Neque porro quisquam est,
-                    qui dolorem.
+                    Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur
+                    magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem.
                   </p>
                 </div>
               </div>

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Nav, Navbar, NavDropdown, Container } from 'react-bootstrap';
 import './Nav.scss';
 import SubmitButton from './SubmitButton';
-import { AuthStatus, AuthContext } from '../../contexts/auth';
+import { AuthContext } from '../../contexts/auth';
 
 const TopNav = () => {
   const authContext = useContext(AuthContext);
@@ -16,7 +16,7 @@ const TopNav = () => {
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Collapse id='basic-navbar-nav'>
           <Nav className='m-auto'>
-            {authContext.authStatus === AuthStatus.SignedIn && (
+            {authContext.isSignedIn && (
               <>
                 <Nav.Link href='/about' className='about-nav'>
                   About Vault
@@ -31,21 +31,13 @@ const TopNav = () => {
             )}
           </Nav>
           <Nav className='ml-auto'>
-            {authContext.authStatus === AuthStatus.SignedIn && (
+            {authContext.isSignedIn && (
               <Nav.Link href='/submission'>
-                <SubmitButton
-                  size='sm'
-                  title='Submit Item'
-                  className='submit-nav'
-                  bg='primary'
-                />
+                <SubmitButton size='sm' title='Submit Item' className='submit-nav' bg='primary' />
               </Nav.Link>
             )}
-            <NavDropdown
-              title={<i className='fa-solid fa-user'></i>}
-              id='basic-nav-dropdown'
-            >
-              {authContext.authStatus === AuthStatus.SignedIn ? (
+            <NavDropdown title={<i className='fa-solid fa-user'></i>} id='basic-nav-dropdown'>
+              {authContext.isSignedIn ? (
                 <>
                   <NavDropdown.Item href='/profile'>Profile</NavDropdown.Item>
                   <NavDropdown.Item href='/history'>History</NavDropdown.Item>

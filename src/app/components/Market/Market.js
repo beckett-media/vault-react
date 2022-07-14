@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col } from 'react-bootstrap';
 import { getMarketItems } from '../../services/items';
-import { Link } from 'react-router-dom';
 import Filter from '../Generic/Filter';
 
 import PreviewGallery from '../Shared/PreviewGallery/PreviewGallery';
