@@ -14,7 +14,7 @@ const ItemCard = ({ item }, props) => {
           </div>
           <div className='item-card_content-wrapper'>
             <div className='item-card_title'>{trimString(item.title, 20)}</div>
-            <div className='item-card_price'>{formatPrice.format(item.price)}</div>
+            <div className='item-card_price'>{formatPrice(item.price)}</div>
           </div>
         </Link>
       </div>
