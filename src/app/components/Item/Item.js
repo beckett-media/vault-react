@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import moment from 'moment';
 import { Row, Col, Button } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import SubmitButton from '../Generic/SubmitButton';
 import PreviewGallery from '../Shared/PreviewGallery/PreviewGallery';
@@ -51,6 +52,7 @@ const Item = () => {
     await cartContext.addItemToCart(item);
     navigate('/cart');
   };
+
   return (
     <div className='page-wrapper'>
       <div className='section_item-details'>
@@ -79,12 +81,18 @@ const Item = () => {
                     <div>{formatPrice(item.price)}</div>
                     <div>{item.grade ? item.grade : 'Beckett 10'}</div>
                   </div>
-                  <div className='product-info_tags-wrapper'></div>
+                  <div className='product-info_tags-wrapper'>
+                    {item.tags?.map((tag, index) => (
+                      <div className='tag_component' key={index}>
+                        {tag}
+                      </div>
+                    ))}
+                  </div>
                   <div className='product-info_buttons-wrapper'>
                     <Button className='w-100' onClick={() => addToCart()}>
                       Buy Now
                     </Button>
-                    <Button className='w-100' variant='outline-primary' onClick={() => addToCart()}>
+                    <Button className='w-100' variant='outline-dark' onClick={() => addToCart()}>
                       Add To Cart
                     </Button>
                   </div>
@@ -97,10 +105,12 @@ const Item = () => {
                         <div className='divider--grey'></div>
                         <div className='suggested-purchase_component' key={index}>
                           <div className='suggested-purchase_content-wrapper'>
-                            <div className='suggested-purchase_title ellipses_wrapper'>
-                              <span className='ellipses_child'>{formatPrice(item.price) + ' - ' + item.title}</span>
-                            </div>
-                            <div className='suggested-purchase_price'>{formatPrice(item.price)}</div>
+                            <Link to={`/item/${item.id}`}>
+                              <div className='suggested-purchase_title ellipses_wrapper'>
+                                <span className='ellipses_child'>{formatPrice(item.price) + ' - ' + item.title}</span>
+                              </div>
+                            </Link>
+                            <div className='suggested-purchase_price'>Sold by: {item?.owner}</div>
                           </div>
                           <div className='suggested-purchase_button-wrapper'>
                             <Button className='w-100 h-100' onClick={() => addToCart()}>
@@ -127,7 +137,7 @@ const Item = () => {
           </div>
         </div>
       </div>
-      <Col className='align-center' md={5} sm={12}>
+      {/* <Col className='align-center' md={5} sm={12}>
         <div className='flip-card'>
           <div className='flip-card-inner'>
             <div className='flip-card-front'>
@@ -185,7 +195,7 @@ const Item = () => {
             </Row>
           )
         }
-      </Col>
+      </Col> */}
     </div>
   );
 };
