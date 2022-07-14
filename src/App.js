@@ -19,10 +19,7 @@ import { Routes, Route } from 'react-router-dom';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import './index.scss';
 
-import AuthProvider, {
-  PrivateRoute,
-  OnlyUnathenticated,
-} from './app/contexts/auth';
+import AuthProvider, { PrivateRoute, OnlyUnathenticated } from './app/contexts/auth';
 import SubmissionHistory from './app/components/History/SubmissionHistory';
 import CartProvider from './app/contexts/cart';
 //chakra uses a default theme, this will remove it.

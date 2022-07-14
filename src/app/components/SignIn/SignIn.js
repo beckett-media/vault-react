@@ -144,11 +144,7 @@ const SignIn = () => {
   const [confirmPassword, setConfirmPassword] = React.useState('');
   const [error, setError] = useState('');
 
-  const isValid =
-    !emailIsValid ||
-    email.length === 0 ||
-    !passwordIsValid ||
-    password.length === 0;
+  const isValid = !emailIsValid || email.length === 0 || !passwordIsValid || password.length === 0;
 
   const navigate = useNavigate();
 
@@ -202,13 +198,7 @@ const SignIn = () => {
           height: '80px',
         }}
       >
-        <Box
-          display={'flex'}
-          justifyContent={'center'}
-          alignItems={'center'}
-          h={'100%'}
-          w={'100%'}
-        >
+        <Box display={'flex'} justifyContent={'center'} alignItems={'center'} h={'100%'} w={'100%'}>
           <Image
             onClick={() => {
               navigate('/');
@@ -288,27 +278,17 @@ const SignIn = () => {
                         onChange={(e) => setEmail(e.target.value)}
                       />
                     </FormControl>
-                    <PasswordField
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
+                    <PasswordField value={password} onChange={(e) => setPassword(e.target.value)} />
                   </>
                 )}
                 {authContext.authStatus === AuthStatus.SetPassword && (
                   <>
                     <PasswordField
-                      prefix={
-                        authContext.authStatus === AuthStatus.SetPassword
-                          ? 'New'
-                          : 'password'
-                      }
+                      prefix={authContext.authStatus === AuthStatus.SetPassword ? 'New' : 'password'}
                       value={newPassword}
                       onChange={(e) => setNewPassword(e.target.value)}
                     />
-                    <NewPasswordField
-                      value={confirmPassword}
-                      onChange={(e) => setConfirmPassword(e.target.value)}
-                    />
+                    <NewPasswordField value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
                   </>
                 )}
               </Stack>
@@ -361,13 +341,7 @@ const SignIn = () => {
           height: '80px',
         }}
       >
-        <Box
-          display={'flex'}
-          justifyContent={'center'}
-          alignItems={'center'}
-          h={'100%'}
-          w={'100%'}
-        >
+        <Box display={'flex'} justifyContent={'center'} alignItems={'center'} h={'100%'} w={'100%'}>
           <Image src={require('../../assets/logoDown.png')} alt='logo' />
         </Box>
       </Box>
