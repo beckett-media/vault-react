@@ -74,6 +74,8 @@ const mockMarketItems = [
     imgRev: 'https://uploads.tapatalk-cdn.com/20180529/ddf1bbba0522b0a64945e765b2b2df4c.jpg',
     date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 7),
     price: 6700,
+    owner: 'Seller 123',
+    tags: ['tag 1', 'tag 2', 'tag 3', 'tag 4', 'tag 5'],
   },
   {
     id: 8,
@@ -84,6 +86,8 @@ const mockMarketItems = [
     imgRev: 'https://uploads.tapatalk-cdn.com/20180529/ddf1bbba0522b0a64945e765b2b2df4c.jpg',
     date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 23),
     price: 900,
+    owner: 'Seller 123',
+    tags: ['tag 1', 'tag 2', 'tag 3', 'tag 4', 'tag 5'],
   },
   {
     id: 9,
@@ -94,6 +98,8 @@ const mockMarketItems = [
     imgRev: 'https://uploads.tapatalk-cdn.com/20180529/ddf1bbba0522b0a64945e765b2b2df4c.jpg',
     date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 4),
     price: 4400,
+    owner: 'Seller 123',
+    tags: ['tag 1', 'tag 2', 'tag 3', 'tag 4', 'tag 5'],
   },
   {
     id: 10,
@@ -104,6 +110,8 @@ const mockMarketItems = [
     imgRev: 'https://uploads.tapatalk-cdn.com/20180529/ddf1bbba0522b0a64945e765b2b2df4c.jpg',
     date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 8),
     price: 2600,
+    owner: 'Seller 123',
+    tags: ['tag 1', 'tag 2', 'tag 3', 'tag 4', 'tag 5'],
   },
   {
     id: 11,
@@ -114,6 +122,8 @@ const mockMarketItems = [
     imgRev: 'https://uploads.tapatalk-cdn.com/20180529/ddf1bbba0522b0a64945e765b2b2df4c.jpg',
     date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 11),
     price: 600,
+    owner: 'Seller 123',
+    tags: ['tag 1', 'tag 2', 'tag 3', 'tag 4', 'tag 5'],
   },
   {
     id: 12,
@@ -124,6 +134,8 @@ const mockMarketItems = [
     imgRev: 'https://uploads.tapatalk-cdn.com/20180529/ddf1bbba0522b0a64945e765b2b2df4c.jpg',
     date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 17),
     price: 1400,
+    owner: 'Seller 123',
+    tags: ['tag 1', 'tag 2', 'tag 3', 'tag 4', 'tag 5'],
   },
 ];
 
