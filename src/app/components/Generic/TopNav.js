@@ -20,13 +20,13 @@ const TopNav = () => {
           <Nav className='m-auto'>
             {authContext.authStatus === AuthStatus.SignedIn && (
               <>
-                <Link to='/about' className='about-nav'>
+                <Link to='/about' className='about-nav m-2'>
                   About Vault
                 </Link>
-                <Link to='/gallery' className='gallery-nav'>
+                <Link to='/gallery' className='gallery-nav m-2'>
                   My Collection
                 </Link>
-                <Link to='/market' className='market-nav'>
+                <Link to='/market' className='market-nav m-2'>
                   Marketplace
                 </Link>
               </>
@@ -66,7 +66,7 @@ const TopNav = () => {
             </NavDropdown>
             {cartItemsLength || window.localStorage.getItem('cartItemId') ? (
               <Link to='/cart'>
-                <i className='fa-solid fa-cart-shopping'></i>
+                <i className='fa-solid fa-cart-shopping mt-2 p-1'></i>
               </Link>
             ) : (
               <></>
