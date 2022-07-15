@@ -1,13 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react';
-import moment from 'moment';
-import { Row, Col, Button } from 'react-bootstrap';
-import './Item.scss';
-import { getItem } from '../../services/items';
+import { Button } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
-import SubmitButton from '../Generic/SubmitButton';
-import { AuthStatus, AuthContext } from '../../contexts/auth';
+import { Link } from 'react-router-dom';
+
+import PreviewGallery from '../Shared/PreviewGallery/PreviewGallery';
+import { getItem } from '../../services/items';
+import {  AuthContext } from '../../contexts/auth';
 import { getUser } from '../../services/user';
 import { useCartContext } from '../../contexts/cart';
+import { getMarketItems } from '../../services/items';
+import { formatPrice } from '../../utils/strings';
+
+import './Item.scss';
 
 const Item = () => {
   const authContext = useContext(AuthContext);
@@ -18,15 +22,20 @@ const Item = () => {
   const { id } = useParams();
   const [item, setItem] = useState({});
   const [user, setUser] = useState([]);
+  const [relatedItems, setRelatedItems] = useState([]);
 
   useEffect(() => {
     getUser().then((data) => setUser(data));
   }, []);
 
   useEffect(() => {
+    getMarketItems().then((data) => setRelatedItems(data));
+  }, []);
+
+  useEffect(() => {
     // TODO: throw an error / redirect if we can't find the item?
     getItem(id).then((data) => setItem(data));
-  }, []);
+  }, [id]);
   const navigate = useNavigate();
 
   const listItem = () => {
@@ -40,9 +49,92 @@ const Item = () => {
     await cartContext.addItemToCart(item);
     navigate('/cart');
   };
+
   return (
-    <Row className='p-5'>
-      <Col className='align-center' md={5} sm={12}>
+    <div className='page-wrapper'>
+      <div className='section_item-details'>
+        <div className='page-padding'>
+          <div className='container-large'>
+            <div className='item-details_layout'>
+              <div className='item-details_content-wrapper'>
+                <div className='item-details_image-wrapper'>
+                  <div className='flip-card_component'>
+                    <div className='flip-card_inner'>
+                      <img src={item.img} className='flip-card_front' alt={item.title} />
+                      <img src={item.imgRev} className='flip-card_back' alt={item.title} />
+                    </div>
+                  </div>
+                </div>
+                <div className='item-details_divider' />
+                <div className='item-details_text-wrapper'>
+                  <div className='item-details_heading'>Details</div>
+                  <div className='item-details_description'>{item.description}</div>
+                </div>
+              </div>
+              <div className='item-details_actions-wrapper'>
+                <div className='product-info_component'>
+                  <div className='product-info_title'>{item.title}</div>
+                  <div className='product-info_stats'>
+                    <div>{formatPrice(item.price)}</div>
+                    <div>{item.grade ? item.grade : 'Beckett 10'}</div>
+                  </div>
+                  <div className='product-info_tags-wrapper'>
+                    {item.tags?.map((tag, index) => (
+                      <div className='tag_component' key={index}>
+                        {tag}
+                      </div>
+                    ))}
+                  </div>
+                  <div className='product-info_buttons-wrapper'>
+                    <Button className='w-100' onClick={() => addToCart()}>
+                      Buy Now
+                    </Button>
+                    <Button className='w-100' variant='outline-dark' onClick={() => addToCart()}>
+                      Add To Cart
+                    </Button>
+                  </div>
+                </div>
+                <div className='suggested-purchases_component'>
+                  <div className='suggested-purchases_title'>Other sellers on Beckett</div>
+                  <div className='suggested-purchases_items-wrapper'>
+                    {relatedItems?.slice(0, 4).map((item, index) => (
+                      <>
+                        <div className='divider--grey'></div>
+                        <div className='suggested-purchase_component' key={index}>
+                          <div className='suggested-purchase_content-wrapper'>
+                            <Link to={`/item/${item.id}`}>
+                              <div className='suggested-purchase_title ellipses_wrapper'>
+                                <span className='ellipses_child'>{formatPrice(item.price) + ' - ' + item.title}</span>
+                              </div>
+                            </Link>
+                            <div className='suggested-purchase_price'>Sold by: {item?.owner}</div>
+                          </div>
+                          <div className='suggested-purchase_button-wrapper'>
+                            <Button className='w-100 h-100' onClick={() => addToCart()}>
+                              Add To Cart
+                            </Button>
+                          </div>
+                        </div>
+                      </>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className='section_item-related'>
+        <div className='page-padding'>
+          <div className='container-large'>
+            <div className='divider--light' />
+            <div className='item-related_gallery-wrapper'>
+              <PreviewGallery data={relatedItems} title={'Related items'} />
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* <Col className='align-center' md={5} sm={12}>
         <div className='flip-card'>
           <div className='flip-card-inner'>
             <div className='flip-card-front'>
@@ -94,14 +186,14 @@ const Item = () => {
             </>
           ) : (
             <Row>
-              <Button className='' size='sm' bg='transparent' onClick={() => addToCart()}>
+              <Button className='' size='sm' onClick={() => addToCart()}>
                 Buy
               </Button>
             </Row>
           )
         }
-      </Col>
-    </Row>
+      </Col> */}
+    </div>
   );
 };
 

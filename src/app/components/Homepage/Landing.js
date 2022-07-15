@@ -3,7 +3,6 @@ import './Landing.scss';
 import { Button } from 'react-bootstrap';
 
 const Landing = () => {
-  document.body.classList.add('landing-container');
   return (
     <div className='page-wrapper landing-page-wrapper'>
       <div className='section_landing-hero'>
