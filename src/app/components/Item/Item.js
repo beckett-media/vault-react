@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import PreviewGallery from '../Shared/PreviewGallery/PreviewGallery';
 import { getItem } from '../../services/items';
-import {  AuthContext } from '../../contexts/auth';
+import { AuthContext } from '../../contexts/auth';
 import { getUser } from '../../services/user';
 import { useCartContext } from '../../contexts/cart';
 import { getMarketItems } from '../../services/items';
