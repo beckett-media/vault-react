@@ -3,15 +3,22 @@ import { useParams } from 'react-router-dom';
 
 import DisplayImage from '../Shared/DisplayImage/DisplayImage';
 import ItemGallery from '../Shared/ItemGallery/ItemGallery';
+import DepartmentFilter from '../Shared/DepartmentFilter/DepartmentFilter';
 
 import './Departments.scss';
 import hero from '../../assets/vault-market-hero.png';
 import { getMarketItems } from '../../services/items';
 
 const Department = () => {
-  const { param } = useParams();
-  const [category, setCategory] = useState(param);
+  const { department } = useParams();
+  const [category, setCategory] = useState(department);
   const [marketItems, setMarketItems] = useState([]);
+
+  useEffect(() => {
+    if (department) {
+      //
+    }
+  }, [department]);
 
   useEffect(() => {
     getMarketItems().then((data) => setMarketItems(data));
@@ -19,6 +26,7 @@ const Department = () => {
 
   return (
     <div className='page-wrapper'>
+      <DepartmentFilter />
       <div className='section_department-hero'>
         <div className='page-padding'>
           <div className='container-large'>

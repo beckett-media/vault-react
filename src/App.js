@@ -50,7 +50,8 @@ function App() {
                   <Route path='/collection' element={<MyCollection />} />
                   <Route path='/item/:id' element={<Item />} />
                   <Route path='/market' element={<Market />} />
-                  <Route path='/department' element={<Department />} />
+                  <Route path='/market/:department' element={<Department />} />
+
                   <Route path='/withdraw' element={<Withdraw />} />
                   <Route path='/cart' element={<Cart />} />
                   <Route exact path='/profile' element={<Profile />} />
