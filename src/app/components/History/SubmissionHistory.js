@@ -8,7 +8,7 @@ const SubmissionHistory = () => {
   const [submissions, setSubmissions] = useState([]);
   const [selected, setSelected] = useState('');
   const [user, setUser] = useState({});
-  
+
   useEffect(() => {
     getUser().then((userObject) => {
       setUser(userObject);
@@ -19,7 +19,7 @@ const SubmissionHistory = () => {
               setSubmissions(res.data);
             }
           } else {
-            setSubmissions({ title: 'No submission history', created_at: new Date() });
+            setSubmissions([{ title: 'No submission history', created_at: new Date() }]);
           }
         })
         .catch((err) => {
