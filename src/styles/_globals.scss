@@ -4,7 +4,7 @@
   display: flex;
   justify-content: center;
 
-  @media only screen and (max-width: 1000px) {
+  @media only screen and (max-width: 1100px) {
     padding: 0 20px;
   }
 
@@ -17,10 +17,17 @@
   }
 }
 
-.container-large {
-  max-width: 1280px;
-  height: 100%;
-  width: 100%;
+.container- {
+  &large{
+    max-width: 1280px;
+    height: 100%;
+    width: 100%;
+  }
+  &medium{
+    max-width: 1080px;
+    height: 100%;
+    width: 100%;
+  }
 }
 
 .page-wrapper {
@@ -33,4 +40,39 @@
   align-items: center;
   flex-direction: column;
   background-color: #161619;
+}
+
+.divider-- {
+  &light {
+    width: 100%;
+    height: 1px;
+    background-color: #fff;
+  }
+
+  &grey {
+    width: 100%;
+    height: 1px;
+    background-color: #D9D9D9;
+  }
+
+  &dark {
+    width: 100%;
+    height: 1px;
+    background-color: #000;
+  }
+}
+
+.ellipses_ {
+  &wrapper {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    white-space: nowrap;
+  }
+
+  &child {
+    display: table-cell;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
