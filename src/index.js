@@ -2,7 +2,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
-import ScrollToTop from './app/components/Shared/ScrollToTop/ScrollToTop';
+import ScrollToTop from './app/components/ScrollToTop/ScrollToTop';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
