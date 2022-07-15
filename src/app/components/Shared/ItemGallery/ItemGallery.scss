@@ -1,0 +1,15 @@
+.item-gallery_ {
+  &grid-wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-column-gap: 16px;
+    grid-row-gap: 16px;
+  }
+
+  &button-wrapper {
+    margin: 88px 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+}
