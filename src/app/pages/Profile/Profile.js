@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 import { mapCognitoToUser, mapUserToCognito } from '../../services/user';
 import './Profile.scss';
-import ProfileView from './ProfileView';
+import UserInfo from '../../components/UserInfo/UserInfo';
 import { AuthContext } from '../../contexts/auth';
 
 const Profile = () => {
@@ -24,7 +24,7 @@ const Profile = () => {
           <Col lg='6'>
             <Row className='mb-2'>
               <Col>
-                <ProfileView />
+                <UserInfo />
                 <hr className='m-2' />
               </Col>
             </Row>

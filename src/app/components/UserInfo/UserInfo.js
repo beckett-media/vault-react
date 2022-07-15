@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { getUser } from '../../services/user';
-import './ProfileView.scss';
+import './UserInfo.scss';
 
-const ProfileView = () => {
+const UserInfo = () => {
   // todo: set is loading
   const [user, setUser] = useState([]);
   useEffect(() => {
@@ -24,4 +24,4 @@ const ProfileView = () => {
   );
 };
 
-export default ProfileView;
+export default UserInfo;

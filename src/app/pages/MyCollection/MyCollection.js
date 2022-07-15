@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 import WithdrawForm from './WithdrawForm';
 import SubmitButton from '../../components/Generic/SubmitButton';
-import ProfileView from '../Profile/ProfileView';
+import UserInfo from '../../components/UserInfo/UserInfo';
 import Filter from '../../components/Generic/Filter';
 import ItemCard from '../../components/ItemCard/ItemCard';
 
@@ -157,7 +157,7 @@ const Gallery = () => {
           <div className='section-profile-info'>
             <div className='page-padding'>
               <div className='container-large'>
-                <ProfileView />
+                <UserInfo />
               </div>
             </div>
           </div>
