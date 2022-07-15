@@ -1,0 +1,39 @@
+.suggested-purchases_ {
+  &component {
+    background-color: #fff;
+    color: #000;
+  }
+
+  &title {
+    padding: 28px 24px;
+    font-size: 24px;
+  }
+}
+
+.suggested-purchase_ {
+  &component {
+    padding: 28px 24px;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    width: 100%;
+    gap: 8px;
+
+    @media only screen and (max-width: 550px) {
+      flex-direction: column;
+    }
+  }
+
+  &title {
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  &price {
+    font-size: 16px;
+  }
+
+  &button-wrapper {
+    min-width: fit-content;
+  }
+}

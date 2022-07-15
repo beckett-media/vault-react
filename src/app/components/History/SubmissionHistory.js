@@ -8,7 +8,7 @@ const SubmissionHistory = () => {
   const [submissions, setSubmissions] = useState([]);
   const [selected, setSelected] = useState('');
   const [user, setUser] = useState({});
-  
+
   useEffect(() => {
     getUser().then((userObject) => {
       setUser(userObject);
