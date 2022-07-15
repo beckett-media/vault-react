@@ -5,6 +5,7 @@ import Filter from '../Generic/Filter';
 import PreviewGallery from '../Shared/PreviewGallery/PreviewGallery';
 import StoriesGrid from '../Shared/StoriesGrid/StoriesGrid';
 import DisplayImage from '../Shared/DisplayImage/DisplayImage';
+import DepartmentFilter from '../Shared/DepartmentFilter/DepartmentFilter';
 
 import './Market.scss';
 import hero from '../../assets/vault-market-hero.png';
@@ -21,7 +22,7 @@ const Market = () => {
 
   return (
     <div className='page-wrapper'>
-      <Filter />
+      <DepartmentFilter />
       <div className='section_market-hero'>
         <div className='page-padding'>
           <div className='container-large'>
