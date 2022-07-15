@@ -28,20 +28,12 @@ export const PrivateRoute = () => {
 
   // If authorized, return an outlet that will render child elements
   // If not, return element that will navigate to login page
-  return authStatus === AuthStatus.SignedIn ? (
-    <Outlet />
-  ) : (
-    <Navigate to='/landing' />
-  );
+  return authStatus === AuthStatus.SignedIn ? <Outlet /> : <Navigate to='/landing' />;
 };
 
 export const OnlyUnathenticated = () => {
   const { authStatus } = useContext(AuthContext);
-  return [AuthStatus.SignedOut, AuthStatus.SetPassword].includes(authStatus) ? (
-    <Outlet />
-  ) : (
-    <Navigate to='/home' />
-  );
+  return [AuthStatus.SignedOut, AuthStatus.SetPassword].includes(authStatus) ? <Outlet /> : <Navigate to='/home' />;
 };
 
 export const AuthIsNotSignedIn = ({ children }) => {
@@ -54,9 +46,11 @@ const AuthProvider = ({ children }) => {
   const [authStatus, setAuthStatus] = useState(AuthStatus.Loading);
   const [sessionInfo, setSessionInfo] = useState({});
   const [attrInfo, setAttrInfo] = useState([]);
+  const [isSignedIn, setIsSignedIn] = useState(false);
 
   useEffect(() => {
     async function getSessionInfo() {
+      setIsSignedIn(authStatus === AuthStatus.SignedIn);
       if (authStatus !== AuthStatus.SetPassword) {
         try {
           const session = await getSession();
@@ -64,14 +58,8 @@ const AuthProvider = ({ children }) => {
             accessToken: session.accessToken.jwtToken,
             refreshToken: session.refreshToken.token,
           });
-          window.localStorage.setItem(
-            'accessToken',
-            `${session.accessToken.jwtToken}`,
-          );
-          window.localStorage.setItem(
-            'refreshToken',
-            `${session.refreshToken.token}`,
-          );
+          window.localStorage.setItem('accessToken', `${session.accessToken.jwtToken}`);
+          window.localStorage.setItem('refreshToken', `${session.refreshToken.token}`);
 
           const attr = await getAttributes();
           setAttrInfo(attr);
@@ -91,14 +79,8 @@ const AuthProvider = ({ children }) => {
 
   async function signInWithEmail(username, password, setPassword = false) {
     try {
-      const [status, res] = await cognito.signInWithEmail(
-        username,
-        password,
-        setPassword,
-      );
-      status === 'NEW_PASSWORD'
-        ? setAuthStatus(AuthStatus.SetPassword)
-        : setAuthStatus(AuthStatus.SignedIn);
+      const [status, res] = await cognito.signInWithEmail(username, password, setPassword);
+      status === 'NEW_PASSWORD' ? setAuthStatus(AuthStatus.SetPassword) : setAuthStatus(AuthStatus.SignedIn);
     } catch (err) {
       setAuthStatus(AuthStatus.SignedOut);
       throw err;
@@ -185,6 +167,7 @@ const AuthProvider = ({ children }) => {
     authStatus,
     sessionInfo,
     attrInfo,
+    isSignedIn,
     signUpWithEmail,
     signInWithEmail,
     signOut,

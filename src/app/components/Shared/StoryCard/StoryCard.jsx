@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap';
 
 import './StoryCard.scss';
 
-const Card = ({ title, body, cta }, props) => {
+const StoryCard = ({ title, body, cta }, props) => {
   return (
     <div className='card_component'>
       <div className='card_image-wrapper'></div>
@@ -21,10 +21,10 @@ const Card = ({ title, body, cta }, props) => {
   );
 };
 
-Card.propTypes = {
+StoryCard.propTypes = {
   title: PropTypes.string,
   body: PropTypes.string,
   cta: PropTypes.string,
 };
 
-export default Card;
+export default StoryCard;

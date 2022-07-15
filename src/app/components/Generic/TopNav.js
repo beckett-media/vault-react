@@ -2,54 +2,53 @@ import React, { useContext } from 'react';
 import { Nav, Navbar, NavDropdown, Container } from 'react-bootstrap';
 import './Nav.scss';
 import SubmitButton from './SubmitButton';
-import { AuthStatus, AuthContext } from '../../contexts/auth';
+import { AuthContext } from '../../contexts/auth';
 import { useCartContext } from '../../contexts/cart';
+import { Link } from 'react-router-dom';
 
 const TopNav = () => {
   const authContext = useContext(AuthContext);
-  const cartItemsLength = useCartContext().items.length
+  const cartItemsLength = useCartContext().items.length;
   return (
     <Navbar bg='dark' variant='dark' expand='lg' fixed='top'>
       <Container>
-        <Navbar.Brand href='/'>
-          <img src='/images/beckett-logo.svg' />
+        <Navbar.Brand>
+          <Link to='/'>
+            <img src='/images/beckett-logo.svg' />
+          </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Collapse id='basic-navbar-nav'>
           <Nav className='m-auto'>
-            {authContext.authStatus === AuthStatus.SignedIn && (
+            {authContext.isSignedIn && (
               <>
-                <Nav.Link href='/about' className='about-nav'>
+                <Link to='/about' className='about-nav m-2'>
                   About Vault
-                </Nav.Link>
-                <Nav.Link href='/gallery' className='gallery-nav'>
+                </Link>
+                <Link to='/collection' className='gallery-nav m-2'>
                   My Collection
-                </Nav.Link>
-                <Nav.Link href='/market' className='market-nav'>
+                </Link>
+                <Link to='/market' className='market-nav m-2'>
                   Marketplace
-                </Nav.Link>
+                </Link>
               </>
             )}
           </Nav>
           <Nav className='ml-auto'>
-            {authContext.authStatus === AuthStatus.SignedIn && (
-              <Nav.Link href='/submission'>
-                <SubmitButton
-                  size='sm'
-                  title='Submit Item'
-                  className='submit-nav'
-                  bg='primary'
-                />
-              </Nav.Link>
+            {authContext.isSignedIn && (
+              <Link to='/submission'>
+                <SubmitButton size='sm' title='Submit Item' className='submit-nav' bg='primary' />
+              </Link>
             )}
-            <NavDropdown
-              title={<i className='fa-solid fa-user'></i>}
-              id='basic-nav-dropdown'
-            >
-              {authContext.authStatus === AuthStatus.SignedIn ? (
+            <NavDropdown title={<i className='fa-solid fa-user'></i>} id='basic-nav-dropdown'>
+              {authContext.isSignedIn ? (
                 <>
-                  <NavDropdown.Item href='/profile'>Profile</NavDropdown.Item>
-                  <NavDropdown.Item href='/history'>History</NavDropdown.Item>
+                  <NavDropdown.Item>
+                    <Link to='/profile'>Profile</Link>
+                  </NavDropdown.Item>
+                  <NavDropdown.Item>
+                    <Link to='/history'>History</Link>
+                  </NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item
                     onClick={async () => {
@@ -60,13 +59,15 @@ const TopNav = () => {
                   </NavDropdown.Item>
                 </>
               ) : (
-                <NavDropdown.Item href='/signin'>Login</NavDropdown.Item>
+                <NavDropdown.Item>
+                  <Link to='/login'>Login</Link>
+                </NavDropdown.Item>
               )}
             </NavDropdown>
-            {cartItemsLength || window.localStorage.getItem('cartItemId') ? (
-              <Nav.Link href='/cart'>
-                <i className='fa-solid fa-cart-shopping'></i>
-              </Nav.Link>
+            {cartItemsLength ? (
+              <Link to='/cart'>
+                <i className='fa-solid fa-cart-shopping mt-2 p-1'></i>
+              </Link>
             ) : (
               <></>
             )}

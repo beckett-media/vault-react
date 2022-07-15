@@ -8,11 +8,13 @@ import WithdrawForm from './WithdrawForm';
 import SubmitButton from '../Generic/SubmitButton';
 import ProfileView from '../Profile/ProfileView';
 import Filter from '../Generic/Filter';
-import './Gallery.scss';
-import { GridItemBox, ListItemBox, ListItemImg } from './Gallery.styled';
+import ItemCard from '../Shared/ItemCard/ItemCard';
+
+import './MyCollection.scss';
+
+import { GridItemBox, ListItemBox, ListItemImg } from './MyCollection.styled';
 import { getSubmissions } from '../../services/submission';
 import { getUser } from '../../services/user';
-import { trimString, formatPrice } from '../../utils/strings';
 
 const Gallery = () => {
   document.body.classList.add('gallery-container');
@@ -32,8 +34,7 @@ const Gallery = () => {
   }, []);
   const submissionsObj = async () => await getSubmissions(user.name);
   useEffect(() => {
-    const fetchSubmissions = async () =>
-      submissionsObj().then((res) => setSubmissions(res.data));
+    const fetchSubmissions = async () => submissionsObj().then((res) => setSubmissions(res.data));
     user && fetchSubmissions();
   }, [user]);
 
@@ -51,9 +52,7 @@ const Gallery = () => {
 
   const searchValRegex = new RegExp(searchVal.toLowerCase(), 'g');
 
-  const filteredItems = items.filter((item) =>
-    searchValRegex.test(item.title.toLowerCase()),
-  );
+  const filteredItems = items.filter((item) => searchValRegex.test(item.title.toLowerCase()));
 
   const withdrawItems = (evt) => {
     setWithdrawOrList(evt.target.id);
@@ -112,14 +111,10 @@ const Gallery = () => {
       <div key={item.id}>
         <Modal show={showConfirm} onHide={cancelConfirm}>
           <Modal.Header closeButton>
-            <Modal.Title id='contained-modal-title-center'>
-              Sell this item?
-            </Modal.Title>
+            <Modal.Title id='contained-modal-title-center'>Sell this item?</Modal.Title>
           </Modal.Header>
           <p>Would you like to list this item for sale in the marketplace?</p>
-          <Button onClick={() => toggleShowConfirmationPage(true)}>
-            Continue
-          </Button>
+          <Button onClick={() => toggleShowConfirmationPage(true)}>Continue</Button>
         </Modal>
         {listView && (
           <ListItemBox>
@@ -133,42 +128,20 @@ const Gallery = () => {
         )}
         {!listView && (
           <GridItemBox>
-            <div
-              className={`item-card_component dark ${
-                isSelected(item.id)
-                  ? 'item-card_selected'
-                  : 'item-card_noselect'
-              }`}
-            >
-              <div className='item-card_layout'>
-                <Link to={`/item/${item.id}`}>
-                  <div className='item-card_image-wrapper'>
-                    <img className='item-card_image' src={item.img} alt='' />
-                  </div>
-                  <div className='item-card_content-wrapper'>
-                    <div className='item-card_title'>
-                      {trimString(item.title, 20)}
-                    </div>
-                    <div className='item-card_price'>
-                      {formatPrice.format(item.price)}
-                    </div>
-                  </div>
-                </Link>
-                <div className='item-card_select-wrapper'>
-                  <ToggleButton
-                    className='w-100'
-                    id={`toggle-${item.id}`}
-                    type='checkbox'
-                    variant='outline-primary'
-                    checked={isSelected(item.id)}
-                    value='1'
-                    onChange={(e) =>
-                      handleItemSelection(e.currentTarget.checked, item.id)
-                    }
-                  >
-                    Select
-                  </ToggleButton>
-                </div>
+            <div className={`${isSelected(item.id) ? 'item-card_selected' : 'item-card_noselect'}`}>
+              <ItemCard item={item} />
+              <div className='item-card_select-wrapper'>
+                <ToggleButton
+                  className='w-100'
+                  id={`toggle-${item.id}`}
+                  type='checkbox'
+                  variant='outline-primary'
+                  checked={isSelected(item.id)}
+                  value='1'
+                  onChange={(e) => handleItemSelection(e.currentTarget.checked, item.id)}
+                >
+                  Select
+                </ToggleButton>
               </div>
             </div>
           </GridItemBox>
@@ -189,8 +162,7 @@ const Gallery = () => {
               </div>
             </div>
           </div>
-          {!showConfirmationPage &&
-          submissions.filter((item) => item.minted_at === 0).length ? (
+          {!showConfirmationPage && submissions.filter((item) => item.minted_at === 0).length ? (
             <Row>
               <Col>
                 <Link to='/history'>
@@ -221,24 +193,13 @@ const Gallery = () => {
                       />
                     </div>
                     <div className='d-flex gap-4'>
-                      <Filter
-                        searchVal={searchVal}
-                        setSearchVal={setSearchVal}
-                        sortBy={sortBy}
-                        setSortBy={setSortBy}
-                      />
+                      <Filter searchVal={searchVal} setSearchVal={setSearchVal} sortBy={sortBy} setSortBy={setSortBy} />
                       {selectedItemIds.length > 0 && (
                         <div className='d-flex align-items-center'>
-                          <div className='me-2'>
-                            {selectedItemIds.length} item(s) selected
-                          </div>
+                          <div className='me-2'>{selectedItemIds.length} item(s) selected</div>
                           <SubmitButton func={clearSelections} title='Clear' />
                           &nbsp;
-                          <SubmitButton
-                            id='withdraw'
-                            func={withdrawItems}
-                            title='Withdraw'
-                          />
+                          <SubmitButton id='withdraw' func={withdrawItems} title='Withdraw' />
                         </div>
                       )}
                     </div>
@@ -247,20 +208,12 @@ const Gallery = () => {
               </div>
               <div className='gallery-filter_divider' />
             </div>
-            {!!successMessage && (
-              <p className='mt-2 mb-4 success-message'>{successMessage}</p>
-            )}
+            {!!successMessage && <p className='mt-2 mb-4 success-message'>{successMessage}</p>}
 
             <div className='page-padding'>
               <div className='container-large'>
                 {!showConfirmationPage && (
-                  <div
-                    className={`gallery_component ${
-                      listView ? 'gallery_list' : 'gallery_grid'
-                    }`}
-                  >
-                    {itemBox}
-                  </div>
+                  <div className={`gallery_component ${listView ? 'gallery_list' : 'gallery_grid'}`}>{itemBox}</div>
                 )}
               </div>
             </div>
@@ -269,13 +222,9 @@ const Gallery = () => {
       )}
       {showConfirmationPage && (
         <>
-          {!!errorMessage && (
-            <p className='mt-2 mb-4 error-message'>{errorMessage}</p>
-          )}
+          {!!errorMessage && <p className='mt-2 mb-4 error-message'>{errorMessage}</p>}
           <WithdrawForm
-            itemsToWithdraw={items.filter((item) =>
-              selectedItemIds.includes(item.id),
-            )}
+            itemsToWithdraw={items.filter((item) => selectedItemIds.includes(item.id))}
             title={`Please confirm you would like to ${withdrawOrList} items below:`}
           />
           <SubmitButton func={confirmAction} title='Confirm' />

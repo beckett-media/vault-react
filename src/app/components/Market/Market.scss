@@ -1,0 +1,35 @@
+.section_market- {
+  &hero {
+    width: 100%;
+  }
+  &stories {
+    width: 100%;
+  }
+  &categories {
+    width: 100%;
+  }
+}
+
+.market-hero_ {
+  &wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 40px 0;
+
+    @media only screen and (max-width: 900px) {
+      margin: 20px 0;
+    }
+  }
+  &image {
+    width: 100%;
+    object-fit: contain;
+  }
+}
+
+.market-categories_spacer {
+  height: 40px;
+
+  @media only screen and (max-width: 900px) {
+    margin: 20px 0;
+  }
+}

@@ -8,11 +8,17 @@ const SubmissionHistory = () => {
   const [submissions, setSubmissions] = useState([]);
   const [selected, setSelected] = useState('');
   const [user, setUser] = useState({});
-
+  console.log(user.name, submissions)
   useEffect(() => {
-    getUser().then((user) => {
-      setUser(user);
-      getSubmissions(user.name).then((res) => setSubmissions(res.data));
+    getUser().then((userObject) => {
+      setUser(userObject);
+      getSubmissions(user.name).then((res) => {
+        if(res.statusCode === 200){
+          setSubmissions(res.data)}
+        }).catch(err => {
+          setSubmissions(
+            [...submissions, {title: err.message, created_at: new Date()}]
+          )});
     });
   }, []);
 
@@ -28,13 +34,10 @@ const SubmissionHistory = () => {
         </Col>
         <Col xs={1} />
       </Row>
-      {submissions.map((sub) => {
+      {submissions?.length && submissions?.map((sub) => {
         return (
           <div key={sub.submission_id}>
-            <Row
-              className='py-3 border'
-              onClick={() => setSelected(sub.submission_id)}
-            >
+            <Row className='py-3 border' onClick={() => setSelected(sub.submission_id)}>
               <Col xs={8} className='fw-bold'>
                 <div>{sub.title}</div>
               </Col>
