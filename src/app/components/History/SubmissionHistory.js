@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
 import { getSubmissions } from '../../services/submission';
 import { getUser } from '../../services/user';
 import './SubmissionHistory.scss';
@@ -9,18 +8,23 @@ const SubmissionHistory = () => {
   const [submissions, setSubmissions] = useState([]);
   const [selected, setSelected] = useState('');
   const [user, setUser] = useState({});
-  const navigate = useNavigate()
+  
   useEffect(() => {
     getUser().then((userObject) => {
       setUser(userObject);
-      getSubmissions(user.name).then((res) => {
-        if(res.statusCode === 200){
-          if(res.data.length !== 0){setSubmissions(res.data)}}
-          else{alert('No submission history.')}
-        }).catch(err => {
-          setSubmissions(
-            [...submissions, {title: err.message, created_at: new Date()}]
-          )});
+      getSubmissions(user.name)
+        .then((res) => {
+          if (res.statusCode === 200) {
+            if (res.data.length !== 0) {
+              setSubmissions(res.data);
+            }
+          } else {
+            setSubmissions({ title: 'No submission history', created_at: new Date() });
+          }
+        })
+        .catch((err) => {
+          setSubmissions([...submissions, { title: err.message, created_at: new Date() }]);
+        });
     });
   }, []);
 
@@ -36,7 +40,7 @@ const SubmissionHistory = () => {
         </Col>
         <Col xs={1} />
       </Row>
-      {submissions?.length && submissions?.map((sub) => {
+      {submissions.map((sub) => {
         return (
           <div key={sub.submission_id}>
             <Row className='py-3 border' onClick={() => setSelected(sub.submission_id)}>
