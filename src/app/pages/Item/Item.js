@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import PreviewGallery from '../Shared/PreviewGallery/PreviewGallery';
-import ProductInfo from '../Shared/ProductInfo/ProductInfo';
-import SuggestedPurchases from '../Shared/SuggestedPurchases/SuggestedPurchases';
+import PreviewGallery from '../../components/PreviewGallery/PreviewGallery';
+import ProductInfo from '../../components/ProductInfo/ProductInfo';
+import SuggestedPurchases from '../../components/SuggestedPurchases/SuggestedPurchases';
 
 import { getItem } from '../../services/items';
 import { AuthContext } from '../../contexts/auth';

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Form, Image, Row } from 'react-bootstrap';
-import SubmitButton from '../Generic/SubmitButton';
+import SubmitButton from '../../components/Generic/SubmitButton';
 import { FaInfoCircle } from 'react-icons/fa';
 import './Cart.scss';
 import { useCartContext } from '../../contexts/cart';

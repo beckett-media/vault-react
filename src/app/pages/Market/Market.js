@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { getMarketItems } from '../../services/items';
-import Filter from '../Generic/Filter';
+import Filter from '../../components/Generic/Filter';
 
-import PreviewGallery from '../Shared/PreviewGallery/PreviewGallery';
-import StoriesGrid from '../Shared/StoriesGrid/StoriesGrid';
+import PreviewGallery from '../../components/PreviewGallery/PreviewGallery';
+import StoriesGrid from '../../components/StoriesGrid/StoriesGrid';
 
 import './Market.scss';
 import hero from '../../assets/vault-market-hero.png';

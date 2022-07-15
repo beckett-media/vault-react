@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 
 import './ProductInfo.scss';
 
-import { formatPrice } from '../../../utils/strings';
+import { formatPrice } from '../../utils/strings';
 
 const ProductInfo = ({ isOwner, item, addToCart }, props) => {
   return (

@@ -3,7 +3,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import SubmissionSuccess from '../Response/SubmissionSuccess';
 import SubmissionAdd from './SubmissionAdd';
 import SubmissionForm from './SubmissionForm';
-import SubmitButton from '../Generic/SubmitButton';
+import SubmitButton from '../../components/Generic/SubmitButton';
 import SubmissionConfirmModal from './SubmissionConfirmModal';
 import './Submission.scss';
 import { Link } from 'react-router-dom';

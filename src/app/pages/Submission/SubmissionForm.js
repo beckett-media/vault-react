@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Container, Form, Row } from 'react-bootstrap';
-import SubmitButton from '../Generic/SubmitButton';
+import SubmitButton from '../../components/Generic/SubmitButton';
 
 const SubmissionForm = ({ onAdd, removeItem, items }) => {
   const [displayItems, setDisplayItems] = useState([]);

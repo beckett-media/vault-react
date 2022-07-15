@@ -20,8 +20,8 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { AuthContext, AuthStatus } from '../../contexts/auth';
 import BackgroundPattern1280w from '../../assets/Background_Pattern_1280_w.svg';
-import { PasswordField } from '../PasswordField/PasswordField';
-import { NewPasswordField } from '../NewPasswordField/NewPasswordField';
+import { PasswordField } from '../../components/PasswordField/PasswordField';
+import { NewPasswordField } from '../../components/NewPasswordField/NewPasswordField';
 
 import './SignIn.scss';
 

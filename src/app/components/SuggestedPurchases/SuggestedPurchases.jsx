@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import './SuggestedPurchases.scss';
 
-import { formatPrice } from '../../../utils/strings';
+import { formatPrice } from '../../utils/strings';
 
 const SuggestedPurchases = ({ isOwner, data, addToCart }, props) => {
   return (

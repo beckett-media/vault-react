@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Accordion, Container, Form, Row } from 'react-bootstrap';
 import { states } from '../Assets/states';
-import SubmitButton from '../Generic/SubmitButton';
+import SubmitButton from '../../components/Generic/SubmitButton';
 
 const Settings = () => {
   const [profileTab, setProfileTab] = useState('profile');

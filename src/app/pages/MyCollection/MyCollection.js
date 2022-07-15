@@ -5,10 +5,10 @@ import { getItems, withdrawItem } from '../../services/items';
 import { Link } from 'react-router-dom';
 
 import WithdrawForm from './WithdrawForm';
-import SubmitButton from '../Generic/SubmitButton';
+import SubmitButton from '../../components/Generic/SubmitButton';
 import ProfileView from '../Profile/ProfileView';
-import Filter from '../Generic/Filter';
-import ItemCard from '../Shared/ItemCard/ItemCard';
+import Filter from '../../components/Generic/Filter';
+import ItemCard from '../../components/ItemCard/ItemCard';
 
 import './MyCollection.scss';
 

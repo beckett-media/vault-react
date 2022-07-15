@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { trimString, formatPrice } from '../../../utils/strings';
+import { trimString, formatPrice } from '../../utils/strings';
 
 import './ItemCard.scss';
 
