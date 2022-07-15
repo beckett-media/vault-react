@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import { getSubmissions } from '../../services/submission';
 import { getUser } from '../../services/user';
 import './SubmissionHistory.scss';
@@ -8,13 +9,14 @@ const SubmissionHistory = () => {
   const [submissions, setSubmissions] = useState([]);
   const [selected, setSelected] = useState('');
   const [user, setUser] = useState({});
-  console.log(user.name, submissions)
+  const navigate = useNavigate()
   useEffect(() => {
     getUser().then((userObject) => {
       setUser(userObject);
       getSubmissions(user.name).then((res) => {
         if(res.statusCode === 200){
-          setSubmissions(res.data)}
+          if(res.data.length !== 0){setSubmissions(res.data)}}
+          else{navigate('/coming-soon')}
         }).catch(err => {
           setSubmissions(
             [...submissions, {title: err.message, created_at: new Date()}]
