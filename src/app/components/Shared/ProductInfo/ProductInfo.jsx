@@ -5,7 +5,7 @@ import './ProductInfo.scss';
 
 import { formatPrice } from '../../../utils/strings';
 
-const ProductInfo = ({ isOwner, item }, props) => {
+const ProductInfo = ({ isOwner, item, addToCart }, props) => {
   return (
     <div className='product-info_component'>
       <div className='product-info_title'>{item.title}</div>

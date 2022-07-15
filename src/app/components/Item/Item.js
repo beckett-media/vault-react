@@ -14,11 +14,9 @@ import { getMarketItems } from '../../services/items';
 import './Item.scss';
 
 const Item = () => {
+  // see Profile component for creating a user
   const authContext = useContext(AuthContext);
   const cartContext = useCartContext();
-  // this is an array of cognitoAttributes.
-  // TODO: make a helper function that tuns this into an object.
-  console.log('authContext.attrInfo', authContext.attrInfo);
   const { id } = useParams();
   const [item, setItem] = useState({});
   const [user, setUser] = useState([]);
@@ -74,8 +72,8 @@ const Item = () => {
                 </div>
               </div>
               <div className='item-details_actions-wrapper'>
-                <ProductInfo item={item} isOwner={isOwner} />
-                <SuggestedPurchases data={relatedItems} isOwner={isOwner} />
+                <ProductInfo item={item} isOwner={isOwner} addToCart={addToCart} />
+                <SuggestedPurchases data={relatedItems} isOwner={isOwner} addToCart={addToCart} />
               </div>
             </div>
           </div>

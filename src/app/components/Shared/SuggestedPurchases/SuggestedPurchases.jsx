@@ -6,7 +6,7 @@ import './SuggestedPurchases.scss';
 
 import { formatPrice } from '../../../utils/strings';
 
-const SuggestedPurchases = ({ isOwner, data }, props) => {
+const SuggestedPurchases = ({ isOwner, data, addToCart }, props) => {
   return (
     <div className='suggested-purchases_component'>
       <div className='suggested-purchases_title'>Other sellers on Beckett</div>
