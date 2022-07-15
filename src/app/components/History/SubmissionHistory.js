@@ -16,7 +16,7 @@ const SubmissionHistory = () => {
       getSubmissions(user.name).then((res) => {
         if(res.statusCode === 200){
           if(res.data.length !== 0){setSubmissions(res.data)}}
-          else{navigate('/coming-soon')}
+          else{alert('No submission history.')}
         }).catch(err => {
           setSubmissions(
             [...submissions, {title: err.message, created_at: new Date()}]

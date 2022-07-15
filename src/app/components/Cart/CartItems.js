@@ -4,21 +4,18 @@ import SubmitButton from '../Generic/SubmitButton';
 import { FaInfoCircle } from 'react-icons/fa';
 import './Cart.scss';
 import { useCartContext } from '../../contexts/cart';
-import { useNavigate } from 'react-router-dom';
 import { getMarketItems } from '../../services/items';
 
 const CartItems = () => {
   const cartContext = useCartContext()
   const [ isSelected, setIsSelected ] = useState('store')
   const [ continueToPayment, setContinueToPayment ] = useState(false)
-  const navigate = useNavigate()
   const [marketItems, setMarketItems] = useState([])
   useEffect(() => {
     getMarketItems().then(items=> setMarketItems(items, ...marketItems))},[])
   const removeItem = async (item) => {
     window.localStorage.removeItem('cartItemId')
     await cartContext.removeItemFromCart(item);
-    navigate('/market');
   };
   return (
     <Col className='pt-5'>
