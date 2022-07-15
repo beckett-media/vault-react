@@ -20,32 +20,31 @@ const CartItems = () => {
   };
   return (
     <Col className='pt-5'>
-      {cartContext.items.length &&
-        cartContext.items?.map((item, i) => {
-          return (
-            <Row key={item.id} className='mb-3 p-3 border'>
-              <Row className='py-2'>
-                <Col>
-                  <Image src={item.img} />
-                </Col>
-                <Col>
-                  <p>{item.title}</p>
-                </Col>
-                <Col className='pb-3 right-align'>
-                  <p>${item.price}</p>
-                </Col>
-                <hr />
-              </Row>
-              <Row className='p-2'>
-                <Col>
-                  <Button id={item.id} onClick={() => removeItem(item)} variant='link'>
-                    Remove
-                  </Button>
-                </Col>
-              </Row>
+      {cartContext.items?.map((item, i) => {
+        return (
+          <Row key={item.id} className='mb-3 p-3 border'>
+            <Row className='py-2'>
+              <Col>
+                <Image src={item.img} />
+              </Col>
+              <Col>
+                <p>{item.title}</p>
+              </Col>
+              <Col className='pb-3 right-align'>
+                <p>${item.price}</p>
+              </Col>
+              <hr />
             </Row>
-          );
-        })}
+            <Row className='p-2'>
+              <Col>
+                <Button id={item.id} onClick={() => removeItem(item)} variant='link'>
+                  Remove
+                </Button>
+              </Col>
+            </Row>
+          </Row>
+        );
+      })}
       {cartContext.proceedToCheckout === true && !continueToPayment && (
         <Row className='px-5 py-3 pb-4 border'>
           <div>
