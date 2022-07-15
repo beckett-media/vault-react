@@ -18,7 +18,7 @@ import Landing from './app/pages/Landing/Landing';
 import { Routes, Route } from 'react-router-dom';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import './index.scss';
-import Department from './app/components/Department/Department';
+import Department from './app/pages/Department/Department';
 
 import AuthProvider, { PrivateRoute, OnlyUnathenticated } from './app/contexts/auth';
 import SubmissionHistory from './app/pages/History/SubmissionHistory';

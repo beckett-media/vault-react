@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { getMarketItems } from '../../services/items';
 import Filter from '../../components/Generic/Filter';
 
-import PreviewGallery from '../Shared/PreviewGallery/PreviewGallery';
-import StoriesGrid from '../Shared/StoriesGrid/StoriesGrid';
-import DisplayImage from '../Shared/DisplayImage/DisplayImage';
-import DepartmentFilter from '../Shared/DepartmentFilter/DepartmentFilter';
+import PreviewGallery from '../../components/PreviewGallery/PreviewGallery';
+import StoriesGrid from '../../components/StoriesGrid/StoriesGrid';
+import DisplayImage from '../../components/DisplayImage/DisplayImage';
+import DepartmentFilter from '../../components/DepartmentFilter/DepartmentFilter';
 
 import './Market.scss';
 import hero from '../../assets/vault-market-hero.png';

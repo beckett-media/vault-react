@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import DisplayImage from '../Shared/DisplayImage/DisplayImage';
-import ItemGallery from '../Shared/ItemGallery/ItemGallery';
-import DepartmentFilter from '../Shared/DepartmentFilter/DepartmentFilter';
+import DisplayImage from '../../components/DisplayImage/DisplayImage';
+import ItemGallery from '../../components/ItemGallery/ItemGallery';
+import DepartmentFilter from '../../components/DepartmentFilter/DepartmentFilter';
 
 import './Departments.scss';
 import hero from '../../assets/vault-market-hero.png';
