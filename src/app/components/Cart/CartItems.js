@@ -14,7 +14,6 @@ const CartItems = () => {
   const navigate = useNavigate()
   const [marketItems, setMarketItems] = useState([])
   useEffect(() => {
-    console.log(getMarketItems())
     getMarketItems().then(items=> setMarketItems(items, ...marketItems))},[])
   const removeItem = async (item) => {
     window.localStorage.removeItem('cartItemId')

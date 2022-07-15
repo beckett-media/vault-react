@@ -35,7 +35,7 @@ const Submission = () => {
   const submitForm = () => {
     setFormSubmitted(true);
   };
-  console.log('user.name is',user.name)
+
   const handleSubmitForm = async () => {
     if (formSubmitted) {
       Promise.allSettled(
