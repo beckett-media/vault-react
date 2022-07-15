@@ -11,7 +11,7 @@ const DepartmentFilter = () => {
     <div className='department-filter_component'>
       <div className='department-filter_layout'>
         {navItems.map((item, index) => (
-          <Link to={`/market/${item}`} key={index}>
+          <Link to={`/market/${item.toLocaleLowerCase()}`} key={index}>
             <div className='department-filter_item'>{item}</div>
           </Link>
         ))}

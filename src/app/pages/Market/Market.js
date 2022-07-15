@@ -41,11 +41,11 @@ const Market = () => {
         <div className='page-padding'>
           <div className='container-large'>
             <div className='market-categories_spacer'></div>
-            <PreviewGallery title={'Basketball'} link={'link'} data={items} />
+            <PreviewGallery title={'Basketball'} link={'/market/basketball'} data={items} />
             <div className='market-categories_spacer'></div>
-            <PreviewGallery title={'Baseball'} link={'link'} data={items} />
+            <PreviewGallery title={'Baseball'} link={'/market/baseball'} data={items} />
             <div className='market-categories_spacer'></div>
-            <PreviewGallery title={'Football'} link={'link'} data={items} />
+            <PreviewGallery title={'Football'} link={'/market/football'} data={items} />
             <div className='market-categories_spacer'></div>
           </div>
         </div>
