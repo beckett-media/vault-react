@@ -1,20 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react';
-import moment from 'moment';
-import { Row, Col, Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
-import SubmitButton from '../Generic/SubmitButton';
 import PreviewGallery from '../Shared/PreviewGallery/PreviewGallery';
-
-import './Item.scss';
-
 import { getItem } from '../../services/items';
-import { AuthStatus, AuthContext } from '../../contexts/auth';
+import {  AuthContext } from '../../contexts/auth';
 import { getUser } from '../../services/user';
 import { useCartContext } from '../../contexts/cart';
 import { getMarketItems } from '../../services/items';
-import { formatPrice, trimString } from '../../utils/strings';
+import { formatPrice } from '../../utils/strings';
+
+import './Item.scss';
 
 const Item = () => {
   const authContext = useContext(AuthContext);
@@ -38,7 +35,7 @@ const Item = () => {
   useEffect(() => {
     // TODO: throw an error / redirect if we can't find the item?
     getItem(id).then((data) => setItem(data));
-  }, []);
+  }, [id]);
   const navigate = useNavigate();
 
   const listItem = () => {
