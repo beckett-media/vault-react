@@ -22,6 +22,7 @@ import './index.scss';
 import AuthProvider, { PrivateRoute, OnlyUnathenticated } from './app/contexts/auth';
 import SubmissionHistory from './app/components/History/SubmissionHistory';
 import CartProvider from './app/contexts/cart';
+import ComingSoon from './app/components/Generic/ComingSoon';
 //chakra uses a default theme, this will remove it.
 const emptyChakraTheme = extendTheme({
   styles: {
@@ -33,7 +34,6 @@ const emptyChakraTheme = extendTheme({
     }),
   },
 });
-
 function App() {
   return (
     <>
@@ -63,6 +63,7 @@ function App() {
                 <Route path='/privacy' element={<Privacy />} />
                 <Route path='/terms' element={<Terms />} />
                 <Route path='/landing' element={<Landing />} />
+                <Route path='/coming-soon' element={<ComingSoon />} />
                 <Route path='/*' element={<Landing />} />
               </Routes>
             </main>

@@ -21,7 +21,7 @@ const cognitoToUser = {
   'custom:family_name': 'familyName',
   'custom:address_line_2': 'addressLine2',
   'custom:ship_country': 'shipCountry',
-  'email_verified': 'emailVerified',
+  email_verified: 'emailVerified',
 };
 
 const userToCognito = swapObjectKeyValue(cognitoToUser);
