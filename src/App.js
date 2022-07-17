@@ -6,6 +6,7 @@ import Privacy from './app/components/Generic/Privacy';
 import Support from './app/components/Generic/Support';
 import Terms from './app/components/Generic/Terms';
 import Homepage from './app/components/Homepage/Homepage';
+import AdminPage from './app/components/Admin/AdminPage';
 import Submission from './app/components/Submission/Submission';
 import MyCollection from './app/components/MyCollection/MyCollection';
 import Item from './app/components/Item/Item';
@@ -22,7 +23,7 @@ import './index.scss';
 import AuthProvider, { PrivateRoute, OnlyUnathenticated } from './app/contexts/auth';
 import SubmissionHistory from './app/components/History/SubmissionHistory';
 import CartProvider from './app/contexts/cart';
-//chakra uses a default theme, this will remove it.
+// chakra uses a default theme, this will remove it.
 const emptyChakraTheme = extendTheme({
   styles: {
     global: () => ({
@@ -61,6 +62,7 @@ function App() {
                 </Route>
                 <Route path='/faq' element={<Faq />} />
                 <Route path='/privacy' element={<Privacy />} />
+                <Route path='/admin' element={<AdminPage />} />
                 <Route path='/terms' element={<Terms />} />
                 <Route path='/landing' element={<Landing />} />
                 <Route path='/*' element={<Landing />} />

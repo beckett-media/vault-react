@@ -11,10 +11,20 @@ export const postSubmission = async (item) => {
   });
 };
 
-export const getSubmissions = async (userName) => {
+export const getSubmissions = async () => {
   return axios
     .get(`${config.BASE_URL}/marketplace/submission`, {
-      params: { user_name: userName },
+      params: { status: 1 },
+    })
+    .then((res) => {
+      return res;
+    });
+};
+
+export const approveRejectSubmissions = (approve = true) => {
+  return axios
+    .put(`${config.BASE_URL}/marketplace/submission`, {
+      params: { approve },
     })
     .then((res) => {
       return res;

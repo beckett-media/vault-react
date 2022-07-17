@@ -157,3 +157,11 @@ export const getMarketItems = async () => {
 export const withdrawItem = async (itemId) => {
   return await axios.delete(`${config.BASE_URL}/marketplace/vaulting/${itemId}`);
 };
+
+export const fetchItems = () => {
+  return axios.get(`${config.BASE_URL}/marketplace/vaulting`, {
+    headers: {
+      Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
+    },
+  });
+};
