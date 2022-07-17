@@ -3,6 +3,15 @@ const axiosRetry = require('axios-retry');
 
 import config from '../../config';
 
+export const SUBMISSION_STATUS = {
+  Failed: 0,
+  Submitted: 1,
+  Received: 2,
+  Rejected: 3,
+  Approved: 4,
+  Vaulted: 5,
+};
+
 export const postSubmission = async (item) => {
   // TODO: validate item
   axiosRetry(axios, { retries: 3 });
@@ -11,20 +20,22 @@ export const postSubmission = async (item) => {
   });
 };
 
-export const getSubmissions = async () => {
+export const getSubmissions = async (status = SUBMISSION_STATUS.Submitted) => {
   return axios
     .get(`${config.BASE_URL}/marketplace/submission`, {
-      params: { status: 1 },
+      params: { status },
     })
     .then((res) => {
-      return res;
+      return res.data;
     });
 };
 
-export const approveRejectSubmissions = (approve = true) => {
+export const approveRejectSubmissions = (subId, approve = true) => {
   return axios
-    .put(`${config.BASE_URL}/marketplace/submission`, {
-      params: { approve },
+    .put(`${config.BASE_URL}/marketplace/submission/${subId}`, {
+      params: {
+        status: approve ? SUBMISSION_STATUS.Approved : SUBMISSION_STATUS.Rejected,
+      },
     })
     .then((res) => {
       return res;
