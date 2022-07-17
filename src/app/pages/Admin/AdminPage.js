@@ -4,7 +4,7 @@ import { getTopStories } from '../../services/general';
 import { fetchItems } from '../../services/items';
 import { getSubmissions } from '../../services/submission';
 import { getAdminUserGroups } from '../../services/user';
-import StoryCard from '../Shared/StoryCard/StoryCard';
+
 import './AdminPage.scss';
 
 const AdminPage = () => {

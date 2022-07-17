@@ -6,7 +6,7 @@ import Privacy from './app/components/Generic/Privacy';
 import Support from './app/components/Generic/Support';
 import Terms from './app/components/Generic/Terms';
 import Homepage from './app/pages/Homepage/Homepage';
-import AdminPage from './app/components/Admin/AdminPage';
+import AdminPage from './app/pages/Admin/AdminPage';
 import Submission from './app/pages/Submission/Submission';
 import MyCollection from './app/pages/MyCollection/MyCollection';
 import Item from './app/pages/Item/Item';
