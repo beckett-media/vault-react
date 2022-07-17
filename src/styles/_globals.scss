@@ -18,12 +18,12 @@
 }
 
 .container- {
-  &large{
+  &large {
     max-width: 1280px;
     height: 100%;
     width: 100%;
   }
-  &medium{
+  &medium {
     max-width: 1080px;
     height: 100%;
     width: 100%;
@@ -52,7 +52,7 @@
   &grey {
     width: 100%;
     height: 1px;
-    background-color: #D9D9D9;
+    background-color: #d9d9d9;
   }
 
   &dark {
