@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
-import { getSubmissions } from '../../services/submission';
-import { getUser } from '../../services/user';
+import React from 'react';
+import { Col, Row } from 'react-bootstrap';
 import './History.scss';
 
-export const submissionHistory = (props) => {
-  const submissions = props.submissions;
+export const saleHistory = (props) => {
+  const sales = props.sales;
   const selected = props.selected;
   const setSelected = props.setSelected;
   return (
-    submissions.map((sub) => {
+    sales.map((sub) => {
       return (
-        <div key={sub.submission_id}>
-          <Row className='py-3 border' onClick={() => setSelected(sub.submission_id)}>
+        <div key={sub.sale_id}>
+          <Row className='py-3 border' onClick={() => setSelected(sub.sale_id)}>
             <Col xs={8} className='fw-bold'>
               <div>{sub.title}</div>
             </Col>
@@ -23,7 +21,7 @@ export const submissionHistory = (props) => {
               &and;
             </Col>
           </Row>
-          {selected === sub.submission_id && (
+          {selected === sub.sale_id && (
             <Row className='py-3 px-5 border'>
               <Col lg={3}>
                 <div>Status: {sub.status_desc}</div>

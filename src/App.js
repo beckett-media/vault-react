@@ -20,7 +20,7 @@ import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import './index.scss';
 
 import AuthProvider, { PrivateRoute, OnlyUnathenticated } from './app/contexts/auth';
-import SubmissionHistory from './app/pages/History/SubmissionHistory';
+import History from './app/pages/History/History';
 import CartProvider from './app/contexts/cart';
 import ComingSoon from './app/components/Generic/ComingSoon';
 //chakra uses a default theme, this will remove it.
@@ -52,7 +52,7 @@ function App() {
                   <Route path='/withdraw' element={<Withdraw />} />
                   <Route path='/cart' element={<Cart />} />
                   <Route exact path='/profile' element={<Profile />} />
-                  <Route path='/history' element={<SubmissionHistory />} />
+                  <Route path='/history' element={<History />} />
                   <Route path='/support' element={<Support />} />
                   <Route path='/' element={<Homepage />} />
                 </Route>
