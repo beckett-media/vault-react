@@ -18,6 +18,7 @@ import Landing from './app/pages/Landing/Landing';
 import { Routes, Route } from 'react-router-dom';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import './index.scss';
+import Department from './app/pages/Department/Department';
 
 import AuthProvider, { PrivateRoute, OnlyUnathenticated } from './app/contexts/auth';
 import SubmissionHistory from './app/pages/History/SubmissionHistory';
@@ -49,6 +50,8 @@ function App() {
                   <Route path='/collection' element={<MyCollection />} />
                   <Route path='/item/:id' element={<Item />} />
                   <Route path='/market' element={<Market />} />
+                  <Route path='/market/:department' element={<Department />} />
+
                   <Route path='/withdraw' element={<Withdraw />} />
                   <Route path='/cart' element={<Cart />} />
                   <Route exact path='/profile' element={<Profile />} />

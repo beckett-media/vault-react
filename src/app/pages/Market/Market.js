@@ -4,6 +4,8 @@ import Filter from '../../components/Generic/Filter';
 
 import PreviewGallery from '../../components/PreviewGallery/PreviewGallery';
 import StoriesGrid from '../../components/StoriesGrid/StoriesGrid';
+import DisplayImage from '../../components/DisplayImage/DisplayImage';
+import DepartmentFilter from '../../components/DepartmentFilter/DepartmentFilter';
 
 import './Market.scss';
 import hero from '../../assets/vault-market-hero.png';
@@ -20,13 +22,11 @@ const Market = () => {
 
   return (
     <div className='page-wrapper'>
-      <Filter />
+      <DepartmentFilter />
       <div className='section_market-hero'>
         <div className='page-padding'>
           <div className='container-large'>
-            <div className='market-hero_wrapper'>
-              <img src={hero} alt='' className='market-hero_image' />
-            </div>
+            <DisplayImage size='large' image={hero} />
           </div>
         </div>
       </div>
@@ -41,11 +41,11 @@ const Market = () => {
         <div className='page-padding'>
           <div className='container-large'>
             <div className='market-categories_spacer'></div>
-            <PreviewGallery title={'Basketball'} link={'link'} data={items} />
+            <PreviewGallery title={'Basketball'} link={'/market/basketball'} data={items} />
             <div className='market-categories_spacer'></div>
-            <PreviewGallery title={'Baseball'} link={'link'} data={items} />
+            <PreviewGallery title={'Baseball'} link={'/market/baseball'} data={items} />
             <div className='market-categories_spacer'></div>
-            <PreviewGallery title={'Football'} link={'link'} data={items} />
+            <PreviewGallery title={'Football'} link={'/market/football'} data={items} />
             <div className='market-categories_spacer'></div>
           </div>
         </div>
