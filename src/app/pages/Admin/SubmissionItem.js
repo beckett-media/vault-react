@@ -1,9 +1,11 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import SubmitButton from '../../components/Generic/SubmitButton';
 import { SUBMISSION_STATUS } from '../../services/submission';
 
 function SubmissionItem({ onApprove, onReject, submission: item }) {
+  const navigate = useNavigate();
   const shouldEnableApproveButton =
     item.status !== SUBMISSION_STATUS.Failed || item.status !== SUBMISSION_STATUS.Approved;
   const shouldEnableRejectButton =
@@ -41,6 +43,8 @@ function SubmissionItem({ onApprove, onReject, submission: item }) {
         />
         &nbsp;
         <SubmitButton func={() => onReject(item.id)} title='Reject' bg='danger' disabled={!shouldEnableRejectButton} />
+        &nbsp;
+        <SubmitButton func={() => navigate(`/admin/submission/${item.id}`)} title='Vaulting' bg='link' />
       </div>
     </div>
   );

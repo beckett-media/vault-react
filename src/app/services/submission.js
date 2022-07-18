@@ -30,6 +30,14 @@ export const getSubmissions = async (status = SUBMISSION_STATUS.Submitted) => {
     });
 };
 
+export const getSingleSubmission = async (submissionId) => {
+  return axios
+    .get(`${config.BASE_URL}/marketplace/submission/${submissionId}`)
+    .then((res) => {
+      return res.data;
+    });
+};
+
 export const approveRejectSubmissions = (subId, approve = true) => {
   return axios
     .put(`${config.BASE_URL}/marketplace/submission/${subId}`, {

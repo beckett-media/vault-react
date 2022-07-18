@@ -7,6 +7,9 @@ import Support from './app/components/Generic/Support';
 import Terms from './app/components/Generic/Terms';
 import Homepage from './app/pages/Homepage/Homepage';
 import AdminPage from './app/pages/Admin/AdminPage';
+import AdminSubmissionPage from './app/pages/Admin/SubmissionPage';
+import AdminVaultingPage from './app/pages/Admin/SubmissionPage';
+import AdminCreateVaultingPage from './app/pages/Admin/CreateVaultingPage';
 import Submission from './app/pages/Submission/Submission';
 import MyCollection from './app/pages/MyCollection/MyCollection';
 import Item from './app/pages/Item/Item';
@@ -62,7 +65,11 @@ function App() {
                 </Route>
                 <Route path='/faq' element={<Faq />} />
                 <Route path='/privacy' element={<Privacy />} />
-                <Route path='/admin' element={<AdminPage />} />
+                <Route path='/admin' element={<AdminPage />}>
+                  <Route exact path="submission/:submissionId" element={<AdminCreateVaultingPage />} />
+                  <Route exact path="submission" element={<AdminSubmissionPage />} />
+                  <Route exact path="vaulting" element={<AdminVaultingPage />} />
+                </Route>
                 <Route path='/terms' element={<Terms />} />
                 <Route path='/landing' element={<Landing />} />
                 <Route path='/coming-soon' element={<ComingSoon />} />
