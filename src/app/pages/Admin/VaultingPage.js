@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
-import { getSubmissions, approveRejectSubmissions } from '../../services/submission';
+import { fetchItems } from '../../services/items';
+import { approveRejectSubmissions } from '../../services/submission';
 import SubmissionItem from './SubmissionItem';
 
-const SubmissionPage = () => {
-  const [submissions, setSubmissions] = useState([]);
+const VaultingPage = () => {
+  const [items, setItems] = useState([]);
   useEffect(() => {
     const fetch = () => {
-      getSubmissions().then((data) => {
-        setSubmissions(data);
+      fetchItems().then((data) => {
+        setItems(data);
       });
     };
 
@@ -18,7 +19,7 @@ const SubmissionPage = () => {
   const handleApproveClick = (subId) => {
     approveRejectSubmissions(subId, true)
       .then((data) => {
-        setSubmissions(submissions.map((sub) => (sub.id === subId ? data : sub)));
+        setItems(items.map((sub) => (sub.id === subId ? data : sub)));
       })
       .catch((e) => {
         console.error('approve error', e);
@@ -36,7 +37,7 @@ const SubmissionPage = () => {
   return (
     <div className='page-wrapper'>
       <Row>
-        {submissions.map((submission, index) => (
+        {items.map((submission, index) => (
           <Col key={index} className='col-sm-12 col-md-6'>
             <SubmissionItem submission={submission} onApprove={handleApproveClick} onReject={handleRejectClick} />
           </Col>
@@ -46,4 +47,4 @@ const SubmissionPage = () => {
   );
 };
 
-export default SubmissionPage;
+export default VaultingPage;

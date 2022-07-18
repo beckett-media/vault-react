@@ -8,7 +8,7 @@ import Terms from './app/components/Generic/Terms';
 import Homepage from './app/pages/Homepage/Homepage';
 import AdminPage from './app/pages/Admin/AdminPage';
 import AdminSubmissionPage from './app/pages/Admin/SubmissionPage';
-import AdminVaultingPage from './app/pages/Admin/SubmissionPage';
+import AdminVaultingPage from './app/pages/Admin/VaultingPage';
 import AdminCreateVaultingPage from './app/pages/Admin/CreateVaultingPage';
 import Submission from './app/pages/Submission/Submission';
 import MyCollection from './app/pages/MyCollection/MyCollection';

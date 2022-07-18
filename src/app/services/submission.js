@@ -44,6 +44,6 @@ export const approveRejectSubmissions = (subId, approve = true) => {
       status: approve ? SUBMISSION_STATUS.Approved : SUBMISSION_STATUS.Rejected,
     })
     .then((res) => {
-      return res;
+      return res.data;
     });
 };

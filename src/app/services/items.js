@@ -307,6 +307,9 @@ export const fetchItems = () => {
     headers: {
       Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
     },
+  })
+  .then((res) => {
+    return res.data;
   });
 };
 
