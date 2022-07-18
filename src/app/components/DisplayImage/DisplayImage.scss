@@ -1,0 +1,24 @@
+.display-image_ {
+  &wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 40px 0;
+
+    @media only screen and (max-width: 900px) {
+      margin: 20px 0;
+    }
+  }
+
+  &large {
+    max-height: 600px;
+  }
+  
+  &medium {
+    max-height: 300px;
+  }
+
+  &image {
+    width: 100%;
+    object-fit: cover;
+  }
+}
