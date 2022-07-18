@@ -17,7 +17,7 @@ const DepartmentFilter = () => {
         ))}
         <DropdownButton variant='outline-primary' title='Sort by'>
           {navItems.map((item, index) => (
-            <Dropdown.Item className='department-filter_item' key={index}>
+            <Dropdown.Item href={`/market/${item.toLocaleLowerCase()}`} className='department-filter_item' key={index}>
               {item}
             </Dropdown.Item>
           ))}
