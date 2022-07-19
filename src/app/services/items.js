@@ -21,6 +21,7 @@ const mockItems = [
     imgRev: 'https://uploads.tapatalk-cdn.com/20180529/ddf1bbba0522b0a64945e765b2b2df4c.jpg',
     date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 7).toString(),
     price: 1200,
+    grade: 7.5,
   },
   {
     id: 2,
@@ -31,6 +32,7 @@ const mockItems = [
     imgRev: 'https://uploads.tapatalk-cdn.com/20180529/ddf1bbba0522b0a64945e765b2b2df4c.jpg',
     date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 14).toString(),
     price: 1600,
+    grade: 7.5,
   },
   {
     id: 3,
@@ -41,6 +43,7 @@ const mockItems = [
     imgRev: 'https://uploads.tapatalk-cdn.com/20180529/ddf1bbba0522b0a64945e765b2b2df4c.jpg',
     date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 3).toString(),
     price: 12000,
+    grade: 7.5,
   },
   {
     id: 4,
@@ -51,6 +54,7 @@ const mockItems = [
     imgRev: 'https://uploads.tapatalk-cdn.com/20180529/ddf1bbba0522b0a64945e765b2b2df4c.jpg',
     date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 21).toString(),
     price: 7200,
+    grade: 7.5,
   },
   {
     id: 5,
@@ -61,6 +65,7 @@ const mockItems = [
     imgRev: 'https://uploads.tapatalk-cdn.com/20180529/ddf1bbba0522b0a64945e765b2b2df4c.jpg',
     date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 33).toString(),
     price: 5500,
+    grade: 7.5,
   },
   {
     id: 6,
@@ -71,6 +76,7 @@ const mockItems = [
     imgRev: 'https://uploads.tapatalk-cdn.com/20180529/ddf1bbba0522b0a64945e765b2b2df4c.jpg',
     date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 1).toString(),
     price: 3200,
+    grade: 7.5,
   },
 ];
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Col, Container, Row, Form } from 'react-bootstrap';
-import { validEmail, validPhone } from '../Validation/regex';
+import { validEmail, validPhone } from '../../utils/validationRegex';
 import { postInterestForm } from '../../services/interest';
 
 const InterestForm = (props) => {
