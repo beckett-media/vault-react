@@ -86,7 +86,8 @@
       "./src/**"
     ],
     "moduleNameMapper": {
-      "^.+\\.(css|less|scss)$": "<rootDir>/config/CSSStub.js"
+      "^.+\\.(css|less|scss)$": "<rootDir>/config/CSSStub.js",
+      "\\.(jpg|jpeg|png|svg)$": "<rootDir>/config/fileMock.js"
     },
     "coverageThreshold": {
       "global": {
