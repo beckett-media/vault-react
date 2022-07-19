@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Col, Container, Form, Row, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import SubmissionImageUploader from './SubmissionImageUploader';
+import ImageUploader from '../../components/Generic/ImageUploader';
 
 const AddBeckettItem = (props) => {
   return (
@@ -35,7 +35,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
         <Row className='m-2'>
           <Col xs={12}>
             <Row>
-              <SubmissionImageUploader
+              <ImageUploader
                 onFileChange={(obj) => {
                   if (obj) {
                     updateItem(obj);

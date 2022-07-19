@@ -1,3 +1,5 @@
+import axios from 'axios';
+import config from '../../config';
 import { swapObjectKeyValue } from '../utils/strings';
 
 const mockUser = {
@@ -48,4 +50,12 @@ export const mapUserToCognito = (user) => {
     acc[newName] = attr.Value;
     return acc;
   }, {});
+};
+
+export const getAdminUserGroups = () => {
+  return axios.get(`${config.BASE_URL}/auth/admin`, {
+    headers: {
+      Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
+    },
+  });
 };
