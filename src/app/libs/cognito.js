@@ -106,7 +106,7 @@ export async function signInWithEmail(username, password, setPassword) {
       newPasswordRequired: function (userAttributes, requiredAttributes) {
         if (setPassword) {
           delete userAttributes.email_verified;
-          currentUser.completeNewPasswordChallenge(password, userAttributes, {
+          currentUser.completeNewPasswordChallenge(setPassword, userAttributes, {
             onSuccess: function (res) {
               resolve(['NEW_PASSWORD_SET', res]);
             },

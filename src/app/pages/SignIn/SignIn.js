@@ -171,7 +171,7 @@ const SignIn = () => {
       if (!checkPassword()) {
         throw Error('Passwords do not match!');
       }
-      await authContext.signInWithEmail(email, password, true);
+      await authContext.signInWithEmail(email, password, newPassword);
     } catch (err) {
       setError(err.message);
     }
