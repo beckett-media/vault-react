@@ -14,6 +14,7 @@ export const ListItemBox = styled.div`
   margin: 4px;
   display: flex;
   flex-direction: row;
+  width: 100%;
 `;
 
 export const GridItemBox = styled.div`

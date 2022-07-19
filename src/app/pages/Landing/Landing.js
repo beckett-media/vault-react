@@ -1,6 +1,7 @@
 import React from 'react';
 import './Landing.scss';
 import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const Landing = () => {
   return (
@@ -13,7 +14,9 @@ const Landing = () => {
           <div className='landing-hero_content-wrapper'>
             <h1 className='landing-hero_heading'>Beckett Vault</h1>
             <div className='landing-hero_button-wrapper'>
-              <Button>Join Today</Button>
+              <Link to='/beta-signup'>
+                <Button>Join Today</Button>
+              </Link>
             </div>
           </div>
         </div>

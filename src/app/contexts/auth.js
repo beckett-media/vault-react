@@ -77,7 +77,7 @@ const AuthProvider = ({ children }) => {
     return null;
   }
 
-  async function signInWithEmail(username, password, setPassword = false) {
+  async function signInWithEmail(username, password, setPassword = null) {
     try {
       const [status, res] = await cognito.signInWithEmail(username, password, setPassword);
       status === 'NEW_PASSWORD' ? setAuthStatus(AuthStatus.SetPassword) : setAuthStatus(AuthStatus.SignedIn);

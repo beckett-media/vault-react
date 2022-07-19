@@ -13,7 +13,7 @@ const PreviewGallery = ({ data, title, link }, props) => {
           <div className='preview-gallery_heading'>{title}</div>
           {link && (
             <div className='preview-gallery_link-wrapper'>
-              <Link to={`/${link}`}>See more</Link>
+              <Link to={link}>See more</Link>
             </div>
           )}
         </div>
