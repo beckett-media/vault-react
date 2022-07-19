@@ -156,7 +156,7 @@ const Profile = () => {
                       />
                     </Col>
                   </Row>
-                  {!isShippingSame && (
+                  {isShippingSame || (
                     <>
                       <Row className='mb-2'>
                         <Form.Group>
