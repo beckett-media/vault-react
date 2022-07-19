@@ -15,6 +15,7 @@ function AdminCreateVaultingPage() {
   const isValidId = submissionId && !isNaN(Number(submissionId));
 
   React.useEffect(() => {
+    // TODO: Check if vaulting is created already with this submissionId. Need API to check.
     const fetch = () => {
       getSingleSubmission(submissionId)
         .then((data) => {

@@ -24,7 +24,7 @@ import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import './index.scss';
 import Department from './app/pages/Department/Department';
 
-import AuthProvider, { PrivateRoute, OnlyUnathenticated } from './app/contexts/auth';
+import AuthProvider, { PrivateRoute, OnlyUnathenticated, AdminRoute } from './app/contexts/auth';
 import SubmissionHistory from './app/pages/History/SubmissionHistory';
 import CartProvider from './app/contexts/cart';
 import ComingSoon from './app/components/Generic/ComingSoon';
@@ -70,7 +70,8 @@ function App() {
                 </Route>
                 <Route path='/faq' element={<Faq />} />
                 <Route path='/privacy' element={<Privacy />} />
-                <Route path='/admin' element={<AdminPage />}>
+                <Route path='/admin' element={<AdminRoute />}>
+                  <Route exact path="" element={<AdminPage />} />
                   <Route exact path="submission/:submissionId" element={<AdminCreateVaultingPage />} />
                   <Route exact path="submission" element={<AdminSubmissionPage />} />
                   <Route exact path="vaulting" element={<AdminVaultingPage />} />
