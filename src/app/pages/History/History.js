@@ -23,11 +23,22 @@ const History = () => {
             setHistoryItems([{
               id: 's0',
               title: 'No historyItems',
-              created_at: new Date() }]);
+              created_at: new Date(),
+              status_desc: 'none',
+              grading_company: 'none',
+              serial_number: 'none'
+            }]);
           }
         })
         .catch((err) => {
-          setHistoryItems([{ title: err.message, created_at: new Date() }]);
+          setHistoryItems([{ 
+            id: 'none',
+            title: err.message, 
+            created_at: new Date(),
+            status_desc: 'none',
+            grading_company: 'none',
+            serial_number: 'none'
+          }]);
         });
     });
   }, []);
