@@ -13,7 +13,7 @@ export const AuthStatus = {
 
 const defaultState = {
   sessionInfo: {},
-  isAdmin: true,
+  isAdmin: false,
   adminGroups: null,
   authStatus: AuthStatus.Loading,
 };
