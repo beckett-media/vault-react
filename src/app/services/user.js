@@ -52,10 +52,10 @@ export const mapUserToCognito = (user) => {
   }, {});
 };
 
-export const getAdminUserGroups = () => {
+export const getAdminUserGroups = (token) => {
   return axios.get(`${config.BASE_URL}/auth/admin`, {
     headers: {
-      Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
+      Authorization: `Bearer ${token || window.localStorage.getItem('accessToken')}`,
     },
-  });
+  }).then((res) => res.data);
 };

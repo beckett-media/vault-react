@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Col, Row, Carousel } from 'react-bootstrap';
+import React from 'react';
+import { Row } from 'react-bootstrap';
 import { Outlet, useNavigate } from 'react-router-dom';
 import SubmitButton from '../../components/Generic/SubmitButton';
 
