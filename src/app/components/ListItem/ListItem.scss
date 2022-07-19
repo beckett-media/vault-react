@@ -1,0 +1,14 @@
+.list-item_ {
+  &component {
+
+  }
+
+  &layout {
+    display: flex;
+    align-items: center;
+  }
+
+  &image {
+    width: 50px;
+  }
+}
