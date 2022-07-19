@@ -12,90 +12,33 @@ import { getSales } from '../../services/sales';
 import { getPurchases } from '../../services/purchases';
 
 const History = () => {
-  const [submissions, setSubmissions] = useState([]);
-  const [withdrawals, setWithdrawals] = useState([]);
-  const [sales, setSales] = useState([]);
-  const [purchases, setPurchases] = useState([]);
+  const [history, setHistory] = useState([]);
   const [selected, setSelected] = useState('');
   const [user, setUser] = useState({});
 
   useEffect(() => {
     getUser().then((userObject) => {
       setUser(userObject);
-      getSubmissions(user.name)
+      getHistory(user.name)
         .then((res) => {
           if (res.statusCode === 200) {
             if (res.data.length !== 0) {
-              setSubmissions(res.data);
+              setHistory(res.data);
             }
           } else {
-            setSubmissions([{
+            setHistory([{
               submission_id: 's0',
-              title: 'No submission history',
+              title: 'No history',
               created_at: new Date() }]);
           }
         })
         .catch((err) => {
-          setSubmissions([...submissions, { title: err.message, created_at: new Date() }]);
-        });
-        getWithdrawals(user.name)
-        .then((res) => {
-          if (res.statusCode === 200) {
-            if (res.data.length !== 0) {
-              setWithdrawals(res.data);
-            }
-          } else {
-            setWithdrawals([{
-              withdrawal_id: 'w0',
-              title: 'No withdrawal history', 
-              created_at: new Date() 
-            }]);
-          }
-        })
-        .catch((err) => {
-          setWithdrawals([...withdrawals, { title: err.message, created_at: new Date() }]);
-        });
-        getSales(user.name)
-        .then((res) => {
-          if (res.statusCode === 200) {
-            if (res.data.length !== 0) {
-              setSales(res.data);
-            }
-          } else {
-            setSales([{
-              sale_id: 's1',
-              title: 'No sale history', 
-              created_at: new Date() 
-            }]);
-          }
-        })
-        .catch((err) => {
-          setSales([...sales, { title: err.message, created_at: new Date() }]);
-        });
-        getPurchases(user.name)
-        .then((res) => {
-          if (res.statusCode === 200) {
-            if (res.data.length !== 0) {
-              setPurchases(res.data);
-            }
-          } else {
-            setPurchases([{
-              purchase_id: 'p0',
-              title: 'No purchase history', 
-              created_at: new Date() 
-            }]);
-          }
-        })
-        .catch((err) => {
-          setPurchases([...purchases, { title: err.message, created_at: new Date() }]);
+          setHistory([...submissions, { title: err.message, created_at: new Date() }]);
         });
     });
   }, []);
   let items = ([
-    ...submissionHistory({submissions, selected, setSelected}),
-    ...withdrawalHistory({withdrawals, selected, setSelected}),
-    ...saleHistory({sales, selected, setSelected}),
-    ...purchaseHistory({purchases, selected, setSelected}),
+    ...submissionHistory({submissions, selected, setSelected})
   ])
   // TODO: Set searching and filtering items.
   const sortedItems = items.sort((a,b)=> {
