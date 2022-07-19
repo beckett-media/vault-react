@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
 import * as cognito from '../libs/cognito';
+import { getAdminUserGroups } from '../services/user';
 
 export const AuthStatus = {
   Loading: 'Loading',
@@ -44,6 +45,7 @@ export const AuthIsNotSignedIn = ({ children }) => {
 
 const AuthProvider = ({ children }) => {
   const [authStatus, setAuthStatus] = useState(AuthStatus.Loading);
+  const [adminGroups, setAdminGroups] = useState([]);
   const [sessionInfo, setSessionInfo] = useState({});
   const [attrInfo, setAttrInfo] = useState([]);
   const [isSignedIn, setIsSignedIn] = useState(false);
@@ -63,6 +65,13 @@ const AuthProvider = ({ children }) => {
 
           const attr = await getAttributes();
           setAttrInfo(attr);
+
+          getAdminUserGroups(session.accessToken.jwtToken)
+            .then((data) => setAdminGroups(data.groups || []))
+            .catch((err) => {
+              console.log('getAdminUserGroups', err);
+              setAdminGroups([]);
+            });
 
           setAuthStatus(AuthStatus.SignedIn);
         } catch (err) {
@@ -165,9 +174,11 @@ const AuthProvider = ({ children }) => {
 
   const state = {
     authStatus,
+    adminGroups,
     sessionInfo,
     attrInfo,
     isSignedIn,
+    isAdmin: adminGroups.includes('admin'),
     signUpWithEmail,
     signInWithEmail,
     signOut,
