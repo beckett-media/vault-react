@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
-import { fetchItems } from '../../services/items';
-import { approveRejectSubmissions } from '../../services/submission';
+import { fetchItems, withdrawItem } from '../../services/items';
 import VaultingItem from './VaultingItem';
 
 const VaultingPage = () => {
@@ -16,13 +15,13 @@ const VaultingPage = () => {
     fetch();
   }, []);
 
-  const handleApproveOrRejectClick = (subId, approve) => {
-    approveRejectSubmissions(subId, approve)
+  const handleWithdrawClick = (id) => {
+    withdrawItem(id)
       .then((data) => {
-        setSubmissions(submissions.map((sub) => (sub.id === subId ? data : sub)));
+        setItems(items.map((item) => (item.id === id ? data : item)));
       })
       .catch((e) => {
-        console.error(`${approve ? 'approve' : 'reject'} error`, e);
+        console.error(`withdraw error`, e);
         alert(e.message);
       });
   };
@@ -30,12 +29,11 @@ const VaultingPage = () => {
   return (
     <div className='page-wrapper'>
       <Row>
-        {items.map((submission, index) => (
+        {items.map((item, index) => (
           <Col key={index} className='col-sm-12 col-md-6'>
             <VaultingItem
-              submission={submission}
-              onApprove={(id) => handleApproveOrRejectClick(id, true)}
-              onReject={(id) => handleApproveOrRejectClick(id, false)}
+              item={item}
+              onWithdraw={handleWithdrawClick}
             />
           </Col>
         ))}

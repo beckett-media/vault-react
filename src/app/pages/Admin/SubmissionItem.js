@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import SubmitButton from '../../components/Generic/SubmitButton';
 import { SUBMISSION_STATUS } from '../../services/submission';
 
-function SubmissionItem({ onApprove, onReject, submission: item }) {
+function SubmissionItem({ onApprove, onReject, item }) {
   const navigate = useNavigate();
   const shouldEnableApproveButton =
     item.status !== SUBMISSION_STATUS.Failed || item.status !== SUBMISSION_STATUS.Approved;

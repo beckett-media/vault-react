@@ -1,6 +1,16 @@
 import axios from 'axios';
 import config from '../../config';
 
+export const VAULTING_STATUS = {
+  NotMinted: 0,
+  Minting: 1,
+  Minted: 2,
+  Locking: 3,
+  Locked: 4,
+  Withdrawing: 5,
+  Withdrawn: 6,
+};
+
 const mockItems = [
   {
     id: 1,
@@ -298,10 +308,6 @@ export const getMarketItems = async () => {
   return mockMarketItems;
 };
 
-export const withdrawItem = async (itemId) => {
-  return await axios.delete(`${config.BASE_URL}/marketplace/vaulting/${itemId}`);
-};
-
 export const fetchItems = () => {
   return axios.get(`${config.BASE_URL}/marketplace/vaulting`, {
     headers: {
@@ -323,4 +329,15 @@ export const createVaulting = (item) => {
     .then((res) => {
       return res;
     });
+};
+
+export const withdrawItem = (id) => {
+  return axios.delete(`${config.BASE_URL}/marketplace/vaulting/${id}`, {
+    headers: {
+      Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
+    },
+  })
+  .then((res) => {
+    return res.data;
+  });
 };

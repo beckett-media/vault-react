@@ -1,15 +1,11 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
 import SubmitButton from '../../components/Generic/SubmitButton';
-import { SUBMISSION_STATUS } from '../../services/submission';
+import { VAULTING_STATUS } from '../../services/items';
 
-function VaultingItem({ onApprove, onReject, submission: item }) {
-  const navigate = useNavigate();
-  const shouldEnableApproveButton =
-    item.status !== SUBMISSION_STATUS.Failed || item.status !== SUBMISSION_STATUS.Approved;
-  const shouldEnableRejectButton =
-    item.status !== SUBMISSION_STATUS.Failed || item.status !== SUBMISSION_STATUS.Rejected;
+function VaultingItem({ onWithdraw, item }) {
+  const shouldEnableWithdrawButton =
+    item.status === VAULTING_STATUS.Minted;
 
   return (
     <div className='m-4'>
@@ -36,13 +32,11 @@ function VaultingItem({ onApprove, onReject, submission: item }) {
       </Row>
       <div className='mt-4'>
         <SubmitButton
-          func={() => onApprove(item.id)}
-          title='Approve'
-          bg='success'
-          disabled={!shouldEnableApproveButton}
+          func={() => onWithdraw(item.id)}
+          title='Withdraw'
+          bg='danger'
+          disabled={!shouldEnableWithdrawButton}
         />
-        &nbsp;
-        <SubmitButton func={() => onReject(item.id)} title='Reject' bg='danger' disabled={!shouldEnableRejectButton} />
       </div>
     </div>
   );

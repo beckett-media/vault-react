@@ -32,7 +32,7 @@ const SubmissionPage = () => {
         {submissions.map((submission, index) => (
           <Col key={index} className='col-sm-12 col-md-6'>
             <SubmissionItem
-              submission={submission}
+              item={submission}
               onApprove={(id) => handleApproveOrRejectClick(id, true)}
               onReject={(id) => handleApproveOrRejectClick(id, false)}
             />
