@@ -24,6 +24,9 @@ import AuthProvider, { PrivateRoute, OnlyUnathenticated } from './app/contexts/a
 import SubmissionHistory from './app/pages/History/SubmissionHistory';
 import CartProvider from './app/contexts/cart';
 import ComingSoon from './app/components/Generic/ComingSoon';
+import InterestForm from './app/pages/Homepage/InterestForm';
+
+
 //chakra uses a default theme, this will remove it.
 const emptyChakraTheme = extendTheme({
   styles: {
@@ -66,6 +69,7 @@ function App() {
                 <Route path='/privacy' element={<Privacy />} />
                 <Route path='/terms' element={<Terms />} />
                 <Route path='/landing' element={<Landing />} />
+                <Route path='/beta-signup' element={<InterestForm />} />
                 <Route path='/coming-soon' element={<ComingSoon />} />
                 <Route path='/*' element={<Landing />} />
               </Routes>
