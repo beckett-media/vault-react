@@ -1,18 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
-import { submissionHistory } from './SubmissionHistory';
+import { submissionHistory } from './submissionHistory';
 import './History.scss'
 import { getUser } from '../../services/user';
-import { getSubmissions } from '../../services/submission';
-import { getWithdrawals } from '../../services/withdrawal';
-import { withdrawalHistory } from './WithdrawalHistory';
-import { saleHistory } from './SaleHistory';
-import { purchaseHistory } from './PurchaseHistory';
-import { getSales } from '../../services/sales';
-import { getPurchases } from '../../services/purchases';
+import { getHistory } from '../../services/history';
 
 const History = () => {
-  const [history, setHistory] = useState([]);
+  const [historyItems, setHistoryItems] = useState([]);
   const [selected, setSelected] = useState('');
   const [user, setUser] = useState({});
 
@@ -23,26 +17,26 @@ const History = () => {
         .then((res) => {
           if (res.statusCode === 200) {
             if (res.data.length !== 0) {
-              setHistory(res.data);
+              setHistoryItems(res.data);
             }
           } else {
-            setHistory([{
-              submission_id: 's0',
-              title: 'No history',
+            setHistoryItems([{
+              id: 's0',
+              title: 'No historyItems',
               created_at: new Date() }]);
           }
         })
         .catch((err) => {
-          setHistory([...submissions, { title: err.message, created_at: new Date() }]);
+          setHistoryItems([{ title: err.message, created_at: new Date() }]);
         });
     });
   }, []);
   let items = ([
-    ...submissionHistory({submissions, selected, setSelected})
+    ...submissionHistory({historyItems, selected, setSelected})
   ])
   // TODO: Set searching and filtering items.
   const sortedItems = items.sort((a,b)=> {
-    if(a.key < b.key){
+    if(a.id < b.id){
       return -1
     }
     else return 1

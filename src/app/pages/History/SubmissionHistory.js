@@ -1,43 +1,41 @@
-import React, { useEffect, useState } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
-import { getSubmissions } from '../../services/submission';
-import { getUser } from '../../services/user';
+import React from 'react';
+import { Col, Row } from 'react-bootstrap';
 import './History.scss';
 
 export const submissionHistory = (props) => {
-  const submissions = props.submissions;
+  const historyItems = props.historyItems;
   const selected = props.selected;
   const setSelected = props.setSelected;
-  return (
-    submissions.map((sub) => {
-      return (
-        <div key={sub.submission_id}>
-          <Row className='py-3 border' onClick={() => setSelected(sub.submission_id)}>
-            <Col xs={8} className='fw-bold'>
-              <div>{sub.title}</div>
+
+  const mapHistoryComponents = (items) => items.map((item) => 
+      <div key={item.id} id={item.id}>
+        <Row className='py-3 border' onClick={() => setSelected(item.id)}>
+          <Col xs={8} className='fw-bold'>
+            <div>{item.title}</div>
+          </Col>
+          <Col xs={3}>
+            <div>{new Date(item.created_at).toLocaleDateString()}</div>
+          </Col>
+          <Col xs={1} className='right-align px-4'>
+            &and;
+          </Col>
+        </Row>
+        {selected === item.id && (
+          <Row className='py-3 px-5 border'>
+            <Col lg={3}>
+              <div>Status: {item.status_desc}</div>
             </Col>
-            <Col xs={3}>
-              <div>{new Date(sub.created_at).toLocaleDateString()} </div>
+            <Col lg={5}>
+              <div>{'Grading Company: ' + item.grading_company}</div>
             </Col>
-            <Col xs={1} className='right-align px-4'>
-              &and;
+            <Col lg={2}>
+              <div>Serial Number: {item.serial_number}</div>
             </Col>
           </Row>
-          {selected === sub.submission_id && (
-            <Row className='py-3 px-5 border'>
-              <Col lg={3}>
-                <div>Status: {sub.status_desc}</div>
-              </Col>
-              <Col lg={5}>
-                <div>Grading Company: {sub.grading_company}</div>
-              </Col>
-              <Col lg={2}>
-                <div>Serial Number: {sub.serial_number}</div>
-              </Col>
-            </Row>
-          )}
-        </div>
-      );
-    })
+        )}
+      </div>
+    )
+  return (
+    historyItems && mapHistoryComponents(historyItems)
   );
 };
