@@ -326,6 +326,19 @@ export const fetchItems = () => {
     });
 };
 
+export const fetchMarketItems = () => {
+  return axios
+    .get(`${config.BASE_URL}/marketplace/listings`, {
+      headers: {
+        Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
+      },
+    })
+    .then((res) => {
+      console.log(res)
+      return res.data;
+    });
+}
+
 export const createVaulting = (item) => {
   return axios
     .post(`${config.BASE_URL}/marketplace/vaulting`, item, {

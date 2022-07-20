@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getMarketItems } from '../../services/items';
+import { fetchMarketItems, getMarketItems } from '../../services/items';
 import Filter from '../../components/Generic/Filter';
 
 import PreviewGallery from '../../components/PreviewGallery/PreviewGallery';
@@ -16,7 +16,7 @@ const Market = () => {
   const [marketplaceStoriesData, setMarketplaceStoriesData] = useState([]);
 
   useEffect(() => {
-    getMarketItems().then((data) => setItems(data));
+    fetchMarketItems().then((data) => setItems(data));
     getMarketplaceTopStories().then((data) => setMarketplaceStoriesData(data));
   }, []);
 
