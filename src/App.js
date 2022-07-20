@@ -19,7 +19,7 @@ import Profile from './app/pages/Profile/Profile';
 import Cart from './app/pages/Cart/Cart';
 import SignIn from './app/pages/SignIn/SignIn';
 import Landing from './app/pages/Landing/Landing';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import './index.scss';
 import Department from './app/pages/Department/Department';
@@ -65,22 +65,22 @@ function App() {
                   <Route path='/support' element={<Support />} />
                   <Route path='/' element={<Homepage />} />
                 </Route>
-                <Route exact path='/signin' element={<OnlyUnathenticated />}>
-                  <Route path='' element={<SignIn />} />
-                </Route>
-                <Route path='/faq' element={<Faq />} />
-                <Route path='/privacy' element={<Privacy />} />
                 <Route path='/admin' element={<AdminRoute />}>
                   <Route exact path='' element={<AdminPage />} />
                   <Route exact path='submission/:submissionId' element={<AdminCreateVaultingPage />} />
                   <Route exact path='submission' element={<AdminSubmissionPage />} />
                   <Route exact path='vaulting' element={<AdminVaultingPage />} />
                 </Route>
+                <Route exact path='/signin' element={<OnlyUnathenticated />}>
+                  <Route path='' element={<SignIn />} />
+                </Route>
+                <Route path='/faq' element={<Faq />} />
+                <Route path='/privacy' element={<Privacy />} />
                 <Route path='/terms' element={<Terms />} />
-                <Route path='/landing' element={<Landing />} />
                 <Route path='/beta-signup' element={<InterestForm />} />
                 <Route path='/coming-soon' element={<ComingSoon />} />
-                <Route path='/*' element={<Landing />} />
+                <Route path='/landing' element={<Landing />} />
+                <Route path='/*' element={<Navigate to="/" replace={true} />} />
               </Routes>
             </main>
             <Footer />

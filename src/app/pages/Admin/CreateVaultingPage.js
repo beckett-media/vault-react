@@ -33,7 +33,7 @@ function AdminCreateVaultingPage() {
   }, [submissionId, isValidId]);
 
   if (!isValidId) {
-    return <Navigate to='/admin/submission' />;
+    return <Navigate to='/admin/submission' replace={true} />;
   }
 
   const handleCreateClick = () => {

@@ -4,10 +4,11 @@ import './Nav.scss';
 import SubmitButton from './SubmitButton';
 import { AuthContext } from '../../contexts/auth';
 import { useCartContext } from '../../contexts/cart';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 
 const TopNav = () => {
   const authContext = useContext(AuthContext);
+  const navigate = useNavigate();
   const cartItemsLength = useCartContext().items.length;
   return (
     <Navbar bg='dark' variant='dark' expand='lg' fixed='top'>
@@ -53,6 +54,7 @@ const TopNav = () => {
                   <NavDropdown.Item
                     onClick={async () => {
                       authContext.signOut();
+                      navigate('/');
                     }}
                   >
                     Logout
