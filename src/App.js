@@ -23,8 +23,7 @@ import { Routes, Route } from 'react-router-dom';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import './index.scss';
 import Department from './app/pages/Department/Department';
-
-import AuthProvider, { PrivateRoute, OnlyUnathenticated } from './app/contexts/auth';
+import AuthProvider, { PrivateRoute, OnlyUnathenticated, AdminRoute } from './app/contexts/auth';
 import History from './app/pages/History/History';
 import CartProvider from './app/contexts/cart';
 import ComingSoon from './app/components/Generic/ComingSoon';
@@ -70,10 +69,11 @@ function App() {
                 </Route>
                 <Route path='/faq' element={<Faq />} />
                 <Route path='/privacy' element={<Privacy />} />
-                <Route path='/admin' element={<AdminPage />}>
-                  <Route exact path="submission/:submissionId" element={<AdminCreateVaultingPage />} />
-                  <Route exact path="submission" element={<AdminSubmissionPage />} />
-                  <Route exact path="vaulting" element={<AdminVaultingPage />} />
+                <Route path='/admin' element={<AdminRoute />}>
+                  <Route exact path='' element={<AdminPage />} />
+                  <Route exact path='submission/:submissionId' element={<AdminCreateVaultingPage />} />
+                  <Route exact path='submission' element={<AdminSubmissionPage />} />
+                  <Route exact path='vaulting' element={<AdminVaultingPage />} />
                 </Route>
                 <Route path='/terms' element={<Terms />} />
                 <Route path='/landing' element={<Landing />} />

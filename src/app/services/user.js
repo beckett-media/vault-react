@@ -10,19 +10,22 @@ const mockUser = {
 };
 
 const cognitoToUser = {
-  'custom:state': 'state',
-  'custom:ship_address_line_1': 'shipAddressLine1',
-  'custom:address_line_1': 'addressLine1',
-  'custom:ship_city': 'shipCity',
-  'custom:country': 'country',
   'custom:given_name': 'givenName',
-  'custom:ship_state': 'shipState',
-  'custom:city': 'city',
-  'custom:profile': 'profile',
-  'custom:ship_address_line_2': 'shipAddressLine2',
   'custom:family_name': 'familyName',
+  'custom:country': 'country',
+  'custom:address_line_1': 'addressLine1',
   'custom:address_line_2': 'addressLine2',
+  'custom:city': 'city',
+  'custom:state': 'state',
+  'custom:zipcode': 'zipcode',
+  'custom:phone': 'phone',
   'custom:ship_country': 'shipCountry',
+  'custom:ship_address_line_1': 'shipAddressLine1',
+  'custom:ship_address_line_2': 'shipAddressLine2',
+  'custom:ship_city': 'shipCity',
+  'custom:ship_state': 'shipState',
+  'custom:ship_zipcode': 'shipZipcode',
+  'custom:profile': 'profile',
   email_verified: 'emailVerified',
 };
 
@@ -49,10 +52,12 @@ export const mapUserToCognito = (user) => {
   }, {});
 };
 
-export const getAdminUserGroups = () => {
-  return axios.get(`${config.BASE_URL}/auth/admin`, {
-    headers: {
-      Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
-    },
-  });
+export const getAdminUserGroups = (token) => {
+  return axios
+    .get(`${config.BASE_URL}/auth/admin`, {
+      headers: {
+        Authorization: `Bearer ${token || window.localStorage.getItem('accessToken')}`,
+      },
+    })
+    .then((res) => res.data);
 };
