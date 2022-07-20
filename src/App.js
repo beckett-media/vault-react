@@ -23,9 +23,8 @@ import { Routes, Route } from 'react-router-dom';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import './index.scss';
 import Department from './app/pages/Department/Department';
-
 import AuthProvider, { PrivateRoute, OnlyUnathenticated, AdminRoute } from './app/contexts/auth';
-import SubmissionHistory from './app/pages/History/SubmissionHistory';
+import History from './app/pages/History/History';
 import CartProvider from './app/contexts/cart';
 import ComingSoon from './app/components/Generic/ComingSoon';
 import InterestForm from './app/pages/Homepage/InterestForm';
@@ -61,7 +60,7 @@ function App() {
                   <Route path='/withdraw' element={<Withdraw />} />
                   <Route path='/cart' element={<Cart />} />
                   <Route exact path='/profile' element={<Profile />} />
-                  <Route path='/history' element={<SubmissionHistory />} />
+                  <Route path='/history' element={<History />} />
                   <Route path='/support' element={<Support />} />
                   <Route path='/' element={<Homepage />} />
                 </Route>
