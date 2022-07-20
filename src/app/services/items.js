@@ -315,14 +315,15 @@ export const getMarketItems = async () => {
 };
 
 export const fetchItems = () => {
-  return axios.get(`${config.BASE_URL}/marketplace/vaulting`, {
-    headers: {
-      Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
-    },
-  })
-  .then((res) => {
-    return res.data;
-  });
+  return axios
+    .get(`${config.BASE_URL}/marketplace/vaulting`, {
+      headers: {
+        Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
+      },
+    })
+    .then((res) => {
+      return res.data;
+    });
 };
 
 export const createVaulting = (item) => {
@@ -338,12 +339,13 @@ export const createVaulting = (item) => {
 };
 
 export const withdrawItem = (id) => {
-  return axios.delete(`${config.BASE_URL}/marketplace/vaulting/${id}`, {
-    headers: {
-      Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
-    },
-  })
-  .then((res) => {
-    return res.data;
-  });
+  return axios
+    .delete(`${config.BASE_URL}/marketplace/vaulting/${id}`, {
+      headers: {
+        Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
+      },
+    })
+    .then((res) => {
+      return res.data;
+    });
 };

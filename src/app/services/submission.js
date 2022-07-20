@@ -23,7 +23,7 @@ export const postSubmission = async (item) => {
 export const getSubmissions = async (status) => {
   return axios
     .get(`${config.BASE_URL}/marketplace/submission`, {
-      params: status ? { status }: undefined,
+      params: status ? { status } : undefined,
     })
     .then((res) => {
       return res.data;
@@ -31,11 +31,9 @@ export const getSubmissions = async (status) => {
 };
 
 export const getSingleSubmission = async (submissionId) => {
-  return axios
-    .get(`${config.BASE_URL}/marketplace/submission/${submissionId}`)
-    .then((res) => {
-      return res.data;
-    });
+  return axios.get(`${config.BASE_URL}/marketplace/submission/${submissionId}`).then((res) => {
+    return res.data;
+  });
 };
 
 export const approveRejectSubmissions = (subId, approve = true) => {

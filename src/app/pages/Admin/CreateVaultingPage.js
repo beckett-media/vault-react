@@ -43,12 +43,14 @@ function AdminCreateVaultingPage() {
       submission_id: submission.id,
       image_base64: image.imageBase64,
       image_format: image.imageFormat,
-    }).then((res) => {
-      alert('Vaulting created');
-      navigate('/admin/vaulting');
-    }).catch((err) => {
-      alert(err.message);
-    });
+    })
+      .then((res) => {
+        alert('Vaulting created');
+        navigate('/admin/vaulting');
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
   };
 
   return (
