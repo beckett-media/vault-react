@@ -34,7 +34,7 @@ const Gallery = () => {
   }, []);
   const submissionsObj = async () => await getSubmissions(user.name);
   useEffect(() => {
-    const fetchSubmissions = async () => submissionsObj().then((res) => setSubmissions(res.data));
+    const fetchSubmissions = async () => submissionsObj().then((res) => setSubmissions(res.data || []));
     user && fetchSubmissions();
   }, [user]);
 
