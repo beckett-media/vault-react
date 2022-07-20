@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
-import { submissionHistory } from './submissionHistory';
+import { itemsHistory } from './itemsHistory';
 import './History.scss'
 import { getUser } from '../../services/user';
 import { getHistory } from '../../services/history';
@@ -43,7 +43,7 @@ const History = () => {
     });
   }, []);
   let items = ([
-    ...submissionHistory({historyItems, selected, setSelected})
+    ...itemsHistory({historyItems, selected, setSelected})
   ])
   // TODO: Set searching and filtering items.
   const sortedItems = items.sort((a,b)=> {

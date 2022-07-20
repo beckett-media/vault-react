@@ -2,7 +2,7 @@ import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import './History.scss';
 
-export const submissionHistory = (props) => {
+export const itemsHistory = (props) => {
   const historyItems = props.historyItems;
   const selected = props.selected;
   const setSelected = props.setSelected;
