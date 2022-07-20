@@ -31,7 +31,7 @@ export const PrivateRoute = () => {
 
   // If authorized, return an outlet that will render child elements
   // If not, return element that will navigate to login page
-  return authStatus === AuthStatus.SignedIn ? <Outlet /> : <Navigate to='/landing' />;
+  return authStatus === AuthStatus.SignedIn ? <Outlet /> : <Navigate to='/landing' replace={true} />;
 };
 
 export const AdminRoute = () => {
@@ -44,12 +44,13 @@ export const AdminRoute = () => {
 
   // If authorized, return an outlet that will render child elements
   // If not, return element that will navigate to login page
-  return isAdmin ? <Outlet /> : <Navigate to='/landing' />;
+  return isAdmin ? <Outlet /> : <Navigate to='/landing' replace={true} />;
 };
 
 export const OnlyUnathenticated = () => {
   const { authStatus } = useContext(AuthContext);
-  return [AuthStatus.SignedOut, AuthStatus.SetPassword].includes(authStatus) ? <Outlet /> : <Navigate to='/home' />;
+  return [AuthStatus.SignedOut, AuthStatus.SetPassword].includes(authStatus) ?
+    <Outlet /> : <Navigate to='/' replace={true} />;
 };
 
 export const AuthIsNotSignedIn = ({ children }) => {
