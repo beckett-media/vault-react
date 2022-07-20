@@ -15,7 +15,7 @@ const History = () => {
       setUser(userObject);
       getHistory(user.name)
         .then((res) => {
-          if (res.statusCode === 200) {
+          if (res.status === 200) {
             if (res.data.length !== 0) {
               setHistoryItems(res.data);
             }
