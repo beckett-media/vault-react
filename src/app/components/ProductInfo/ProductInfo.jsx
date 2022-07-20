@@ -16,7 +16,7 @@ const ProductInfo = ({ isOwner, item, addToCart }, props) => {
       {item.tags && (
         <div className='product-info_tags-wrapper'>
           {item.tags.map((tag, index) => (
-            <div className='tag_component' key={index}>
+            <div className='tag_component' key={'product-info_' + index}>
               {tag}
             </div>
           ))}

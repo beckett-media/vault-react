@@ -30,7 +30,7 @@ const SubmissionPage = () => {
     <div className='page-wrapper'>
       <Row>
         {submissions.map((submission, index) => (
-          <Col key={index} className='col-sm-12 col-md-6'>
+          <Col key={Math.random() * 1000} className='col-sm-12 col-md-6'>
             <SubmissionItem
               item={submission}
               onApprove={(id) => handleApproveOrRejectClick(id, true)}

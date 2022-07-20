@@ -14,7 +14,7 @@ const SuggestedPurchases = ({ isOwner, data, addToCart }, props) => {
         {data?.slice(0, 4).map((item, index) => (
           <>
             <div className='divider--grey'></div>
-            <div className='suggested-purchase_component' key={index}>
+            <div className='suggested-purchase_component' key={'suggested-purchases_' + index}>
               <div className='suggested-purchase_content-wrapper'>
                 <Link to={`/item/${item.id}`}>
                   <div className='suggested-purchase_title ellipses_wrapper'>
