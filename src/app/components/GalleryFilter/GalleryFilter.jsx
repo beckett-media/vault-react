@@ -1,11 +1,11 @@
 import React from 'react';
-import { SubmitButton } from 'react-bootstrap';
+import SubmitButton from '../../components/Generic/SubmitButton';
 import { BsGrid3X2GapFill, BsList } from 'react-icons/bs';
 
-import Filter from '../../components/Generic/Filter';
+import Filter from '../Generic/Filter';
 import './GalleryFilter.scss';
 
-const GalleryFilter = () => {
+const GalleryFilter = ({ isListVisible, listToggleHandler }) => {
   return (
     <div className='gallery-filter_component'>
       <div className='gallery-filter_divider' />
@@ -14,14 +14,14 @@ const GalleryFilter = () => {
           <div className='gallery-filter_layout'>
             <div className='gallery-filter_toggle-wrapper'>
               <SubmitButton
-                func={toggleListView}
+                func={listToggleHandler}
                 title={<BsGrid3X2GapFill />}
-                bg={listView ? 'dark border border-dark' : 'primary'}
+                bg={isListVisible ? 'dark border border-dark' : 'primary'}
               />
               <SubmitButton
-                func={toggleListView}
+                func={listToggleHandler}
                 title={<BsList />}
-                bg={!listView ? 'dark border border-dark' : 'primary'}
+                bg={!isListVisible ? 'dark border border-dark' : 'primary'}
               />
             </div>
             <div className='d-flex gap-4'>
