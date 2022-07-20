@@ -31,10 +31,7 @@ const VaultingPage = () => {
       <Row>
         {items.map((item, index) => (
           <Col key={index} className='col-sm-12 col-md-6'>
-            <VaultingItem
-              item={item}
-              onWithdraw={handleWithdrawClick}
-            />
+            <VaultingItem item={item} onWithdraw={handleWithdrawClick} />
           </Col>
         ))}
       </Row>

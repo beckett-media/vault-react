@@ -4,8 +4,7 @@ import SubmitButton from '../../components/Generic/SubmitButton';
 import { VAULTING_STATUS } from '../../services/items';
 
 function VaultingItem({ onWithdraw, item }) {
-  const shouldEnableWithdrawButton =
-    item.status === VAULTING_STATUS.Minted;
+  const shouldEnableWithdrawButton = item.status === VAULTING_STATUS.Minted;
 
   return (
     <div className='m-4'>
