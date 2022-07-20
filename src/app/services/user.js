@@ -53,9 +53,11 @@ export const mapUserToCognito = (user) => {
 };
 
 export const getAdminUserGroups = (token) => {
-  return axios.get(`${config.BASE_URL}/auth/admin`, {
-    headers: {
-      Authorization: `Bearer ${token || window.localStorage.getItem('accessToken')}`,
-    },
-  }).then((res) => res.data);
+  return axios
+    .get(`${config.BASE_URL}/auth/admin`, {
+      headers: {
+        Authorization: `Bearer ${token || window.localStorage.getItem('accessToken')}`,
+      },
+    })
+    .then((res) => res.data);
 };

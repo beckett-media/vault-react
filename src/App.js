@@ -71,10 +71,10 @@ function App() {
                 <Route path='/faq' element={<Faq />} />
                 <Route path='/privacy' element={<Privacy />} />
                 <Route path='/admin' element={<AdminRoute />}>
-                  <Route exact path="" element={<AdminPage />} />
-                  <Route exact path="submission/:submissionId" element={<AdminCreateVaultingPage />} />
-                  <Route exact path="submission" element={<AdminSubmissionPage />} />
-                  <Route exact path="vaulting" element={<AdminVaultingPage />} />
+                  <Route exact path='' element={<AdminPage />} />
+                  <Route exact path='submission/:submissionId' element={<AdminCreateVaultingPage />} />
+                  <Route exact path='submission' element={<AdminSubmissionPage />} />
+                  <Route exact path='vaulting' element={<AdminVaultingPage />} />
                 </Route>
                 <Route path='/terms' element={<Terms />} />
                 <Route path='/landing' element={<Landing />} />
