@@ -1,17 +1,21 @@
 import React from 'react';
-import Link from 'react-router';
+import { Link } from 'react-router-dom';
+
 import './ListItem.scss';
 
-const ListItem = ({ item }, props) => {
+import { trimString, formatPrice } from '../../utils/strings';
+
+const ListItem = ({ data }, props) => {
+  console.log(data);
   return (
     <div className='list-item_component'>
-      <Link to={`/item/${item.id}`} className='w-100'>
+      <Link to={`/item/${data.id}`} className='w-100'>
         <div className='list-item_layout'>
-          <div className='list-item_image' src={item.img} alt='' />
-          <div>{trimString(item.title, 20)}</div>
-          <div>{trimString(item.description, 50)}</div>
-          <div className='text-end'>{item.grade}</div>
-          <div className='text-end'>{formatPrice(item.price)}</div>
+          <img className='list-item_image' src={data.img} alt='' />
+          <div>{trimString(data.title, 20)}</div>
+          <div>{trimString(data.description, 50)}</div>
+          <div className='text-end'>{data.grade}</div>
+          <div className='text-end'>{formatPrice(data.price)}</div>
         </div>
       </Link>
     </div>
