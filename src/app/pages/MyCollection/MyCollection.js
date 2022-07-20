@@ -16,32 +16,57 @@ import { GridItemBox, ListItemBox, ListItemImg } from './MyCollection.styled';
 import { getSubmissions } from '../../services/submission';
 import { getUser } from '../../services/user';
 import { formatPrice, trimString } from '../../utils/strings';
+import CollectionGallery from '../../components/CollectionGallery/CollectionGallery';
+import ListItem from '../../components/ListItem/ListItem';
 
 const Gallery = () => {
+  //  INITIAL FETCH
   const [items, setItems] = useState([]);
-  const [listView, setListView] = useState(false);
-  const [withdrawOrList, setWithdrawOrList] = useState('');
-  const [showConfirm, toggleConfirm] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
-  const [showConfirmationPage, toggleShowConfirmationPage] = useState(false);
-  const [searchVal, setSearchVal] = useState('');
-  const [sortBy, setSortBy] = useState('title');
-  const [submissions, setSubmissions] = useState([]);
   const [user, setUser] = useState([]);
+
+  useEffect(() => {
+    getItems().then((data) => setItems(data));
+  }, []);
+
   useEffect(() => {
     getUser().then((data) => setUser(data));
   }, []);
+
+  //  FETCH PAST SUBMISSIONS
+  const [submissions, setSubmissions] = useState([]);
+
   const submissionsObj = async () => await getSubmissions(user.name);
   useEffect(() => {
     const fetchSubmissions = async () =>
       submissionsObj().then((res) => setSubmissions(Array.isArray(res.data) ? res.data : []));
     user && fetchSubmissions();
-    console.log("fix for array error");
+    console.log('fix for array error');
   }, [user]);
 
-  const [selectedItemIds, setSelectedItemIds] = useState([]);
+  //  SEARCH & FILTRATION
+  const [sortBy, setSortBy] = useState('title');
+  const [searchVal, setSearchVal] = useState('');
+  const [listView, setListView] = useState(false);
+
   const toggleListView = () => setListView(!listView);
+
+  const searchValRegex = new RegExp(searchVal.toLowerCase(), 'g');
+
+  const filteredItems = items.filter((item) => searchValRegex.test(item.title.toLowerCase()));
+
+  const sortedItems = sortBy
+    ? filteredItems.sort((itemA, itemB) => {
+        const sortVal = sortBy.split('-');
+        const reverse = sortVal.length !== 1;
+        if (itemA[`${sortVal[0]}`] <= itemB[`${sortVal[0]}`]) {
+          return reverse ? 1 : -1;
+        } else return reverse ? -1 : 1;
+      })
+    : filteredItems;
+
+  // MULTISELECT
+  const [selectedItemIds, setSelectedItemIds] = useState([]);
+
   const isSelected = (id) => selectedItemIds.includes(id);
 
   const handleItemSelection = (isChecked, id) => {
@@ -52,9 +77,16 @@ const Gallery = () => {
     }
   };
 
-  const searchValRegex = new RegExp(searchVal.toLowerCase(), 'g');
+  const clearSelections = () => {
+    setSelectedItemIds([]);
+  };
 
-  const filteredItems = items.filter((item) => searchValRegex.test(item.title.toLowerCase()));
+  //  SELLING & WITHDRAWAL
+  const [showConfirm, toggleConfirm] = useState(false);
+  const [showConfirmationPage, toggleShowConfirmationPage] = useState(false);
+  const [withdrawOrList, setWithdrawOrList] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   const withdrawItems = (evt) => {
     setWithdrawOrList(evt.target.id);
@@ -89,32 +121,30 @@ const Gallery = () => {
     }
   };
 
-  const clearSelections = () => {
-    setSelectedItemIds([]);
+  //  PAGINATION
+  const [activePage, setActivePage] = useState(1);
+
+  const findPaginationCount = (totalItemCount, totalItemsPerPage) => {
+    return Math.ceil(totalItemCount / totalItemsPerPage);
   };
 
-  useEffect(() => {
-    getItems().then((data) => setItems(data));
-  }, []);
-
-  const sortedItems = sortBy
-    ? filteredItems.sort((itemA, itemB) => {
-        const sortVal = sortBy.split('-');
-        const reverse = sortVal.length !== 1;
-        if (itemA[`${sortVal[0]}`] <= itemB[`${sortVal[0]}`]) {
-          return reverse ? 1 : -1;
-        } else return reverse ? -1 : 1;
-      })
-    : filteredItems;
-
-  const findPaginationCount = (listItems) => {
-    return Math.ceil(listItems / 16);
-  };
+  const updatePage = () => {};
 
   const paginationItems = [];
-  for (let i = 1; i <= findPaginationCount(sortedItems.length); i++) {
-    paginationItems.push(<Pagination.Item key={i}>{i}</Pagination.Item>);
+
+  for (let i = 1; i <= findPaginationCount(sortedItems.length, 16); i++) {
+    paginationItems.push(
+      <Pagination.Item
+        key={'pagination_' + i}
+        active={i === activePage}
+        onClick={(e) => setActivePage(e.target.text + 0)}
+      >
+        {i}
+      </Pagination.Item>,
+    );
   }
+
+  console.log(paginationItems);
 
   //  Card component
   const itemBox = sortedItems.map((item) => {
@@ -127,19 +157,7 @@ const Gallery = () => {
           <p>Would you like to list this item for sale in the marketplace?</p>
           <Button onClick={() => toggleShowConfirmationPage(true)}>Continue</Button>
         </Modal>
-        {listView && (
-          <ListItemBox>
-            <Link to={`/item/${item.id}`} className='w-100'>
-              <div className='collection_list-item-layout'>
-                <ListItemImg src={item.img} alt='' />
-                <div>{trimString(item.title, 20)}</div>
-                <div>{trimString(item.description, 50)}</div>
-                <div className='text-end'>{item.grade}</div>
-                <div className='text-end'>{formatPrice(item.price)}</div>
-              </div>
-            </Link>
-          </ListItemBox>
-        )}
+        {listView && <ListItem data={item} />}
         {!listView && (
           <GridItemBox>
             <div className={`${isSelected(item.id) ? 'item-card_selected' : 'item-card_noselect'}`}>
@@ -248,6 +266,7 @@ const Gallery = () => {
               </div>
             </div>
           </div>
+          {/* <CollectionGallery data={sortedItems}></CollectionGallery> */}
         </>
       )}
       {showConfirmationPage && (
