@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
 import * as cognito from '../libs/cognito';
+import { getAdminUserGroups } from '../services/user';
 
 export const AuthStatus = {
   Loading: 'Loading',
@@ -12,6 +13,8 @@ export const AuthStatus = {
 
 const defaultState = {
   sessionInfo: {},
+  isAdmin: false,
+  adminGroups: null,
   authStatus: AuthStatus.Loading,
 };
 
@@ -31,6 +34,19 @@ export const PrivateRoute = () => {
   return authStatus === AuthStatus.SignedIn ? <Outlet /> : <Navigate to='/landing' />;
 };
 
+export const AdminRoute = () => {
+  const { isAdmin, adminGroups } = useContext(AuthContext);
+
+  // TODO: AuthContext - Fix adminGroups becomes `null` twice.
+  if (adminGroups === null) {
+    return <div>Loading</div>;
+  }
+
+  // If authorized, return an outlet that will render child elements
+  // If not, return element that will navigate to login page
+  return isAdmin ? <Outlet /> : <Navigate to='/landing' />;
+};
+
 export const OnlyUnathenticated = () => {
   const { authStatus } = useContext(AuthContext);
   return [AuthStatus.SignedOut, AuthStatus.SetPassword].includes(authStatus) ? <Outlet /> : <Navigate to='/home' />;
@@ -44,6 +60,7 @@ export const AuthIsNotSignedIn = ({ children }) => {
 
 const AuthProvider = ({ children }) => {
   const [authStatus, setAuthStatus] = useState(AuthStatus.Loading);
+  const [adminGroups, setAdminGroups] = useState(null);
   const [sessionInfo, setSessionInfo] = useState({});
   const [attrInfo, setAttrInfo] = useState([]);
   const [isSignedIn, setIsSignedIn] = useState(false);
@@ -64,6 +81,14 @@ const AuthProvider = ({ children }) => {
           const attr = await getAttributes();
           setAttrInfo(attr);
 
+          setAdminGroups(null);
+          getAdminUserGroups(session.accessToken.jwtToken)
+            .then((data) => setAdminGroups(data.groups || []))
+            .catch((err) => {
+              console.log('getAdminUserGroups', err);
+              setAdminGroups([]);
+            });
+
           setAuthStatus(AuthStatus.SignedIn);
         } catch (err) {
           setAuthStatus(AuthStatus.SignedOut);
@@ -77,7 +102,7 @@ const AuthProvider = ({ children }) => {
     return null;
   }
 
-  async function signInWithEmail(username, password, setPassword = false) {
+  async function signInWithEmail(username, password, setPassword = null) {
     try {
       const [status, res] = await cognito.signInWithEmail(username, password, setPassword);
       status === 'NEW_PASSWORD' ? setAuthStatus(AuthStatus.SetPassword) : setAuthStatus(AuthStatus.SignedIn);
@@ -165,9 +190,11 @@ const AuthProvider = ({ children }) => {
 
   const state = {
     authStatus,
+    adminGroups,
     sessionInfo,
     attrInfo,
     isSignedIn,
+    isAdmin: (adminGroups || []).includes('admin'),
     signUpWithEmail,
     signInWithEmail,
     signOut,

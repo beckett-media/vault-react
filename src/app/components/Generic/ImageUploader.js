@@ -4,7 +4,7 @@ import Dropzone from 'react-dropzone-uploader';
 import { blobToBase64 } from '../../utils/image';
 
 // https://react-dropzone-uploader.js.org/docs/customization
-const SubmissionImageUploader = ({ onFileChange }) => {
+const ImageUploader = ({ onFileChange }) => {
   const [dropStatus, setDropStatus] = React.useState('');
 
   // called every time a file's `status` changes
@@ -38,4 +38,4 @@ const SubmissionImageUploader = ({ onFileChange }) => {
   );
 };
 
-export default SubmissionImageUploader;
+export default ImageUploader;

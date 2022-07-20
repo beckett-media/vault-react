@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Modal, Row, ToggleButton } from 'react-bootstrap';
+import { Button, Col, Modal, Row, ToggleButton, Pagination } from 'react-bootstrap';
 import { BsGrid3X2GapFill, BsList } from 'react-icons/bs';
 import { getItems, withdrawItem } from '../../services/items';
 import { Link } from 'react-router-dom';
@@ -15,6 +15,7 @@ import './MyCollection.scss';
 import { GridItemBox, ListItemBox, ListItemImg } from './MyCollection.styled';
 import { getSubmissions } from '../../services/submission';
 import { getUser } from '../../services/user';
+import { formatPrice, trimString } from '../../utils/strings';
 
 const Gallery = () => {
   const [items, setItems] = useState([]);
@@ -33,7 +34,7 @@ const Gallery = () => {
   }, []);
   const submissionsObj = async () => await getSubmissions(user.name);
   useEffect(() => {
-    const fetchSubmissions = async () => submissionsObj().then((res) => setSubmissions(res.data));
+    const fetchSubmissions = async () => submissionsObj().then((res) => setSubmissions(res.data || []));
     user && fetchSubmissions();
   }, [user]);
 
@@ -104,6 +105,15 @@ const Gallery = () => {
       })
     : filteredItems;
 
+  const findPaginationCount = (listItems) => {
+    return Math.ceil(listItems / 16);
+  };
+
+  const paginationItems = [];
+  for (let i = 1; i <= findPaginationCount(sortedItems.length); i++) {
+    paginationItems.push(<Pagination.Item key={i}>{i}</Pagination.Item>);
+  }
+
   //  Card component
   const itemBox = sortedItems.map((item) => {
     return (
@@ -117,11 +127,14 @@ const Gallery = () => {
         </Modal>
         {listView && (
           <ListItemBox>
-            <Link to={`/item/${item.id}`}>
-              <Col className='d-flex flex-row align-items-center gap-3'>
+            <Link to={`/item/${item.id}`} className='w-100'>
+              <div className='collection_list-item-layout'>
                 <ListItemImg src={item.img} alt='' />
-                <div>{item.title}</div>
-              </Col>
+                <div>{trimString(item.title, 20)}</div>
+                <div>{trimString(item.description, 50)}</div>
+                <div className='text-end'>{item.grade}</div>
+                <div className='text-end'>{formatPrice(item.price)}</div>
+              </div>
             </Link>
           </ListItemBox>
         )}
@@ -211,9 +224,25 @@ const Gallery = () => {
 
             <div className='page-padding'>
               <div className='container-large'>
+                {listView && (
+                  <div className='collection_list-item-layout mt-4 fw-bold'>
+                    <div></div>
+                    <div>Item</div>
+                    <div>Details</div>
+                    <div className='text-end'>Grade</div>
+                    <div className='text-end'>Price</div>
+                  </div>
+                )}
                 {!showConfirmationPage && (
                   <div className={`gallery_component ${listView ? 'gallery_list' : 'gallery_grid'}`}>{itemBox}</div>
                 )}
+                <div className='collection_pagination'>
+                  <Pagination>
+                    <Pagination.Prev />
+                    {paginationItems}
+                    <Pagination.Next />
+                  </Pagination>
+                </div>
               </div>
             </div>
           </div>

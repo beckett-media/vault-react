@@ -33,6 +33,7 @@ const mockMarketplaceTopStories = [
     cta: 'This is a test',
   },
 ];
+
 export const getTopStories = async () => {
   // const data = axios.post(url, {userId: user.id})
   return mockTopStories;
