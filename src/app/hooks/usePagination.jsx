@@ -27,5 +27,6 @@ export const usePagination = (sortedItems) => {
     const lowerBound = upperBound - 16;
     return array.slice(lowerBound, upperBound);
   };
+
   return { activePage, paginationItems, updatePage };
 };
