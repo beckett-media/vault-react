@@ -83,7 +83,16 @@ const CollectionGallery = ({ data }) => {
               isListVisible ? 'collection-gallery_layout-list' : 'collection-gallery_layout-grid'
             }`}
           >
-            {updatePage(sortedItems, activePage).map((item, index) => (
+            {isListVisible && (
+              <div className='collection_list-item-layout mt-4 fw-bold'>
+                <div></div>
+                <div>Item</div>
+                <div>Details</div>
+                <div className='text-end'>Grade</div>
+                <div className='text-end'>Price</div>
+              </div>
+            )}
+            {(searchVal ? sortedItems : updatePage(sortedItems, activePage)).map((item, index) => (
               <>
                 {isListVisible && <ListItem data={item} key={'collection-gallery_' + index} />}
                 {!isListVisible && (
@@ -95,10 +104,20 @@ const CollectionGallery = ({ data }) => {
                   >
                     <div className='collection-gallery_card-overlay'></div>
                     <div
-                      className='collection-gallery_overlay-button'
-                      onClick={(e) => handleItemSelection(e.currentTarget.checked, item.id)}
+                      className={`collection-gallery_overlay-button ${
+                        isSelected(item.id) && 'collection-gallery_overlay-button-selected'
+                      }`}
                     >
                       <BsCheck size={40} />
+                      <ToggleButton
+                        className='collection-gallery_overlay-toggle'
+                        id={`toggled-${item.id}`}
+                        type='checkbox'
+                        variant='outline-primary'
+                        checked={isSelected(item.id)}
+                        value='1'
+                        onChange={(e) => handleItemSelection(e.currentTarget.checked, item.id)}
+                      />
                     </div>
                     <ItemCard data={item} />
                   </div>
