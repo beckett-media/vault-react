@@ -29,7 +29,7 @@ function AdminCreateVaultingPage() {
 
       fetchItemBySubmission(submissionId)
         .then((data) => {
-          setIsExisting(!!data);
+          setIsExisting(data && data.length > 0);
         }).catch((err) => {
           console.error('fetchItemBySubmission err', err);
           setIsExisting(false);
