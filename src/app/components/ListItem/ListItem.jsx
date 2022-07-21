@@ -22,18 +22,4 @@ const ListItem = ({ item }, props) => {
   );
 };
 
-ListItem.defaultProps = {
-  item: {
-    id: 1,
-    ownerId: 1,
-    title: `1933 Goudey Babe Ruth PSA 3  Test for Really Long Title that will not fit on the card`,
-    description: `Baseball ipsum dolor sit amet bleeder butcher boy fastball. Range assist batters box southpaw hitter 1-2-3 hack check swing. Corner curve line drive pickoff slugging count practice practice assist. 4-bagger hall of fame hot dog butcher boy starter, plunked baseball swing 4-6-3. Pitchout perfect game baseball card walk off starting pitcher flyout sport. Out double play plate season steal foul pole 4-bagger.`,
-    img: `https://www.deanscards.com/images/Basic%20pages/Babe%20Ruth%201933%20Goudey%20PSA%203.JPG`,
-    imgRev: 'https://uploads.tapatalk-cdn.com/20180529/ddf1bbba0522b0a64945e765b2b2df4c.jpg',
-    date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 7).toString(),
-    price: 1200,
-    grade: 7.5,
-  },
-};
-
 export default ListItem;
