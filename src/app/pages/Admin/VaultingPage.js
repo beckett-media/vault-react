@@ -30,7 +30,7 @@ const VaultingPage = () => {
     <div className='page-wrapper'>
       <Row>
         {items?.map((item, index) => (
-          <Col key={Math.random() * 1000} className='col-sm-12 col-md-6'>
+          <Col key={'vaulting-page_' + index} className='col-sm-12 col-md-6'>
             <VaultingItem item={item} onWithdraw={handleWithdrawClick} />
           </Col>
         ))}
