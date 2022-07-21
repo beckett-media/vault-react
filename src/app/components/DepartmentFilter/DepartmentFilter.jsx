@@ -6,8 +6,6 @@ import './DepartmentFilter.scss';
 import { departmentFilterItems } from '../../const/departmentFilterItems';
 
 const DepartmentFilter = () => {
-  console.log(departmentFilterItems);
-
   return (
     <div className='department-filter_component'>
       <div className='department-filter_layout'>
