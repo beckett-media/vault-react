@@ -18,6 +18,8 @@ import { getUser } from '../../services/user';
 import { formatPrice, trimString } from '../../utils/strings';
 import CollectionGallery from '../../components/CollectionGallery/CollectionGallery';
 import ListItem from '../../components/ListItem/ListItem';
+import { useMultiSelect } from '../../hooks/useMultiSelect';
+import { usePagination } from '../../hooks/usePagination';
 
 const Gallery = () => {
   //  INITIAL FETCH
@@ -65,21 +67,23 @@ const Gallery = () => {
     : filteredItems;
 
   // MULTISELECT
-  const [selectedItemIds, setSelectedItemIds] = useState([]);
+  // const [selectedItemIds, setSelectedItemIds] = useState([]);
 
-  const isSelected = (id) => selectedItemIds.includes(id);
+  // const isSelected = (id) => selectedItemIds.includes(id);
 
-  const handleItemSelection = (isChecked, id) => {
-    if (isChecked) {
-      setSelectedItemIds([...selectedItemIds, id]);
-    } else {
-      setSelectedItemIds(selectedItemIds.filter((itemId) => itemId !== id));
-    }
-  };
+  // const handleItemSelection = (isChecked, id) => {
+  //   if (isChecked) {
+  //     setSelectedItemIds([...selectedItemIds, id]);
+  //   } else {
+  //     setSelectedItemIds(selectedItemIds.filter((itemId) => itemId !== id));
+  //   }
+  // };
 
-  const clearSelections = () => {
-    setSelectedItemIds([]);
-  };
+  // const clearSelections = () => {
+  //   setSelectedItemIds([]);
+  // };
+
+  const { selectedItemIds, isSelected, handleItemSelection, clearSelections } = useMultiSelect();
 
   //  SELLING & WITHDRAWAL
   const [showConfirm, toggleConfirm] = useState(false);
@@ -122,34 +126,38 @@ const Gallery = () => {
   };
 
   //  PAGINATION
-  const [activePage, setActivePage] = useState(1);
+  // const [activePage, setActivePage] = useState(1);
 
-  const findPaginationCount = (totalItemCount, totalItemsPerPage) => {
-    return Math.ceil(totalItemCount / totalItemsPerPage);
-  };
+  // const findPaginationCount = (totalItemCount, totalItemsPerPage) => {
+  //   return Math.ceil(totalItemCount / totalItemsPerPage);
+  // };
 
-  const updatePage = () => {};
+  // const paginationItems = [];
 
-  const paginationItems = [];
+  // for (let i = 1; i <= findPaginationCount(sortedItems.length, 16); i++) {
+  //   paginationItems.push(
+  //     <Pagination.Item
+  //       key={'pagination_' + i}
+  //       active={i === activePage}
+  //       onClick={(e) => setActivePage(e.target.text - 0)}
+  //     >
+  //       {i}
+  //     </Pagination.Item>,
+  //   );
+  // }
+  //
+  // const updatePage = (array, pageNumber) => {
+  //   const upperBound = pageNumber * 16;
+  //   const lowerBound = upperBound - 16;
+  //   return array.slice(lowerBound, upperBound);
+  // };
 
-  for (let i = 1; i <= findPaginationCount(sortedItems.length, 16); i++) {
-    paginationItems.push(
-      <Pagination.Item
-        key={'pagination_' + i}
-        active={i === activePage}
-        onClick={(e) => setActivePage(e.target.text + 0)}
-      >
-        {i}
-      </Pagination.Item>,
-    );
-  }
-
-  console.log(paginationItems);
+  const { activePage, paginationItems, updatePage } = usePagination(sortedItems);
 
   //  Card component
-  const itemBox = sortedItems.map((item) => {
+  const itemBox = updatePage(sortedItems, activePage).map((item) => {
     return (
-      <div key={item.id}>
+      <div key={Math.random() * 10000}>
         <Modal show={showConfirm} onHide={cancelConfirm}>
           <Modal.Header closeButton>
             <Modal.Title id='contained-modal-title-center'>Sell this item?</Modal.Title>
@@ -266,7 +274,7 @@ const Gallery = () => {
               </div>
             </div>
           </div>
-          {/* <CollectionGallery data={sortedItems}></CollectionGallery> */}
+          <CollectionGallery data={items}></CollectionGallery>
         </>
       )}
       {showConfirmationPage && (
