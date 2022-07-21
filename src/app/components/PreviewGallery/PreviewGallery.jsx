@@ -19,7 +19,7 @@ const PreviewGallery = ({ data, title, link }, props) => {
         </div>
         <div className='preview-gallery_gallery-wrapper'>
           {data?.slice(0, 4).map((item, index) => (
-            <ItemCard data={item} key={'preview-gallery_' + index} />
+            <ItemCard item={item} key={'preview-gallery_' + index} />
           ))}
         </div>
       </div>

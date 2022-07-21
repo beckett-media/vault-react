@@ -5,17 +5,17 @@ import './ListItem.scss';
 
 import { trimString, formatPrice } from '../../utils/strings';
 
-const ListItem = ({ data }, props) => {
-  console.log(data);
+const ListItem = ({ item }, props) => {
+  console.log(item);
   return (
     <div className='list-item_component'>
-      <Link to={`/item/${data.id}`} className='w-100'>
+      <Link to={`/item/${item.id}`} className='w-100'>
         <div className='list-item_layout'>
-          <img className='list-item_image' src={data.img} alt='' />
-          <div>{trimString(data.title, 20)}</div>
-          <div>{trimString(data.description, 50)}</div>
-          <div className='text-end'>{data.grade}</div>
-          <div className='text-end'>{formatPrice(data.price)}</div>
+          <img className='list-item_image' src={item.img} alt='' />
+          <div>{trimString(item.title, 20)}</div>
+          <div>{trimString(item.description, 50)}</div>
+          <div className='text-end'>{item.grade}</div>
+          <div className='text-end'>{formatPrice(item.price)}</div>
         </div>
       </Link>
     </div>
