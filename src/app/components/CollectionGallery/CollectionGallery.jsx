@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
-import { Pagination } from 'react-bootstrap';
+import { Pagination, ToggleButton } from 'react-bootstrap';
+import { BsGrid3X2GapFill, BsList, BsCheck } from 'react-icons/bs';
 
 import './CollectionGallery.scss';
 
 import ItemCard from '../ItemCard/ItemCard';
 import ListItem from '../ListItem/ListItem';
-import GalleryFilter from '../GalleryFilter/GalleryFilter';
-import useToggle from '../../hooks/useToggle';
+import SubmitButton from '../Generic/SubmitButton';
+import Filter from '../Generic/Filter';
+
+import { useToggle } from '../../hooks/useToggle';
+import { useMultiSelect } from '../../hooks/useMultiSelect';
+import { usePagination } from '../../hooks/usePagination';
 
 const CollectionGallery = ({ data }) => {
   //  SEARCH & FILTRATION
@@ -15,7 +20,7 @@ const CollectionGallery = ({ data }) => {
 
   const searchValRegex = new RegExp(searchVal.toLowerCase(), 'g');
 
-  const filteredItems = items.filter((item) => searchValRegex.test(item.title.toLowerCase()));
+  const filteredItems = data.filter((item) => searchValRegex.test(item.title.toLowerCase()));
 
   const sortedItems = sortBy
     ? filteredItems.sort((itemA, itemB) => {
@@ -28,53 +33,80 @@ const CollectionGallery = ({ data }) => {
     : filteredItems;
 
   // MULTISELECT
-  const [selectedItemIds, setSelectedItemIds] = useState([]);
-
-  const isSelected = (id) => selectedItemIds.includes(id);
-
-  const handleItemSelection = (isChecked, id) => {
-    if (isChecked) {
-      setSelectedItemIds([...selectedItemIds, id]);
-    } else {
-      setSelectedItemIds(selectedItemIds.filter((itemId) => itemId !== id));
-    }
-  };
-
-  const clearSelections = () => {
-    setSelectedItemIds([]);
-  };
+  const { selectedItemIds, isSelected, handleItemSelection, clearSelections } = useMultiSelect();
 
   //  LIST VIEW TOGGLE
-  const { isToggled: isListVisible, toggle: toggleListView } = useToggle();
-
-  console.log(useToggle());
-  console.log(isListVisible);
+  const { isToggled: isListVisible, toggle: listToggleHandler } = useToggle();
 
   //  PAGINATION
-  const findPaginationCount = (totalItemCount, totalItemsPerPage) => {
-    return Math.ceil(totalItemCount / totalItemsPerPage);
-  };
-
-  const paginationItems = [];
-  for (let i = 1; i <= findPaginationCount(sortedItems.length, 16); i++) {
-    paginationItems.push(<Pagination.Item key={i}>{i}</Pagination.Item>);
-  }
+  const { activePage, paginationItems, updatePage } = usePagination(sortedItems);
 
   return (
-    <>
-      <GalleryFilter isListVisible={isListVisible} listToggleHandler={toggleListView} />
-      <div className='divider'></div>
-      <div
-        className={`collection-gallery_layout ${
-          isListVisible ? 'collection-gallery_layout-list' : 'collection-gallery_layout-grid'
-        }`}
-      >
-        {data.map((item, index) => (
-          <>
-            {isListVisible && <ListItem data={item} key={'collection-gallery_' + index} />}
-            {!isListVisible && <ItemCard data={item} key={'collection-gallery_' + index} />}
-          </>
-        ))}
+    <div className='w-100'>
+      <div className='gallery-filter_component'>
+        <div className='gallery-filter_divider' />
+        <div className='page-padding'>
+          <div className='container-large'>
+            <div className='gallery-filter_layout'>
+              <div className='gallery-filter_toggle-wrapper'>
+                <SubmitButton
+                  func={listToggleHandler}
+                  title={<BsGrid3X2GapFill />}
+                  bg={isListVisible ? 'dark border border-dark' : 'primary'}
+                />
+                <SubmitButton
+                  func={listToggleHandler}
+                  title={<BsList />}
+                  bg={!isListVisible ? 'dark border border-dark' : 'primary'}
+                />
+              </div>
+              <div className='d-flex gap-4'>
+                <Filter searchVal={searchVal} setSearchVal={setSearchVal} sortBy={sortBy} setSortBy={setSortBy} />
+                {selectedItemIds.length > 0 && (
+                  <div className='d-flex align-items-center'>
+                    <div className='me-2'>{selectedItemIds.length} item(s) selected</div>
+                    <SubmitButton func={clearSelections} title='Clear' />
+                    &nbsp;
+                    <SubmitButton id='withdraw' func={() => console.log('success!')} title='Withdraw' />
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className='gallery-filter_divider' />
+      </div>
+      <div className='page-padding'>
+        <div className='container-large'>
+          <div
+            className={`collection-gallery_layout ${
+              isListVisible ? 'collection-gallery_layout-list' : 'collection-gallery_layout-grid'
+            }`}
+          >
+            {updatePage(sortedItems, activePage).map((item, index) => (
+              <>
+                {isListVisible && <ListItem data={item} key={'collection-gallery_' + index} />}
+                {!isListVisible && (
+                  <div
+                    className={`collection-gallery_card-wrapper ${
+                      isSelected(item.id) && 'collection-gallery_card-selected'
+                    }`}
+                    key={'collection-gallery_' + index}
+                  >
+                    <div className='collection-gallery_card-overlay'></div>
+                    <div
+                      className='collection-gallery_overlay-button'
+                      onClick={(e) => handleItemSelection(e.currentTarget.checked, item.id)}
+                    >
+                      <BsCheck size={40} />
+                    </div>
+                    <ItemCard data={item} />
+                  </div>
+                )}
+              </>
+            ))}
+          </div>
+        </div>
       </div>
       <div className='collection_pagination'>
         <Pagination>
@@ -83,7 +115,7 @@ const CollectionGallery = ({ data }) => {
           <Pagination.Next />
         </Pagination>
       </div>
-    </>
+    </div>
   );
 };
 
