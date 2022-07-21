@@ -92,7 +92,7 @@ const CollectionGallery = ({ data }) => {
                 <div className='text-end'>Price</div>
               </div>
             )}
-            {(searchVal ? sortedItems : updatePage(sortedItems, activePage)).map((item, index) => (
+            {(searchVal ? sortedItems : updatePage(sortedItems, activePage))?.map((item, index) => (
               <>
                 {isListVisible && <ListItem item={item} key={'collection-gallery_' + index} />}
                 {!isListVisible && (

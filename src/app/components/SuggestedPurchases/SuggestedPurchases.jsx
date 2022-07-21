@@ -11,7 +11,7 @@ const SuggestedPurchases = ({ isOwner, data, addToCart }, props) => {
     <div className='suggested-purchases_component'>
       <div className='suggested-purchases_title'>Other sellers on Beckett</div>
       <div className='suggested-purchases_items-wrapper'>
-        {data?.slice(0, 4).map((item, index) => (
+        {data?.slice(0, 4)?.map((item, index) => (
           <>
             <div className='divider--grey'></div>
             <div className='suggested-purchase_component' key={'suggested-purchases_' + index}>

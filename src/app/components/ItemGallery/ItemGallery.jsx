@@ -16,7 +16,7 @@ const ItemGallery = ({ data, isInfinite }, props) => {
   return (
     <div className='item-gallery_component'>
       <div className='item-gallery_grid-wrapper'>
-        {filteredData.map((item, index) => (
+        {filteredData?.map((item, index) => (
           <ItemCard item={item} key={'item-gallery_' + index} />
         ))}
       </div>

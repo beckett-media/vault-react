@@ -57,7 +57,7 @@ const Gallery = () => {
 
   const confirmAction = async () => {
     if (withdrawOrList === 'withdraw') {
-      Promise.all([selectedItemIds.map((id) => withdrawItem(id))])
+      Promise.all([selectedItemIds?.map((id) => withdrawItem(id))])
         .then((alls) => {
           console.log('withdraw call result', alls);
 

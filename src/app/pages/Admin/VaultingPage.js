@@ -18,7 +18,7 @@ const VaultingPage = () => {
   const handleWithdrawClick = (id) => {
     withdrawItem(id)
       .then((data) => {
-        setItems(items.map((item) => (item.id === id ? data : item)));
+        setItems(items?.map((item) => (item.id === id ? data : item)));
       })
       .catch((e) => {
         console.error(`withdraw error`, e);
@@ -29,7 +29,7 @@ const VaultingPage = () => {
   return (
     <div className='page-wrapper'>
       <Row>
-        {items.map((item, index) => (
+        {items?.map((item, index) => (
           <Col key={Math.random() * 1000} className='col-sm-12 col-md-6'>
             <VaultingItem item={item} onWithdraw={handleWithdrawClick} />
           </Col>

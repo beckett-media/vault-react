@@ -40,7 +40,7 @@ const SubmissionHistory = () => {
         </Col>
         <Col xs={1} />
       </Row>
-      {submissions.map((sub) => {
+      {submissions?.map((sub) => {
         return (
           <div key={sub.submission_id}>
             <Row className='py-3 border' onClick={() => setSelected(sub.submission_id)}>

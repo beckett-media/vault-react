@@ -9,13 +9,13 @@ const DepartmentFilter = () => {
   return (
     <div className='department-filter_component'>
       <div className='department-filter_layout'>
-        {departmentFilterItems.map((item, index) => (
+        {departmentFilterItems?.map((item, index) => (
           <Link to={`/market/${item.toLocaleLowerCase()}`} key={'department-filter_' + index}>
             <div className='department-filter_item'>{item}</div>
           </Link>
         ))}
         <DropdownButton variant='outline-primary' title='Sort by'>
-          {departmentFilterItems.map((item, index) => (
+          {departmentFilterItems?.map((item, index) => (
             <Dropdown.Item
               href={`/market/${item.toLocaleLowerCase()}`}
               className='department-filter_item'
