@@ -17,7 +17,7 @@ const ItemGallery = ({ data, isInfinite }, props) => {
     <div className='item-gallery_component'>
       <div className='item-gallery_grid-wrapper'>
         {filteredData.map((item, index) => (
-          <ItemCard item={item} key={'item-gallery_' + index} />
+          <ItemCard data={item} key={'item-gallery_' + index} />
         ))}
       </div>
       {isInfinite && (
