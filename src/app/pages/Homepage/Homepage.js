@@ -55,8 +55,8 @@ const Homepage = () => {
                 </div>
               </Row>
               <Row className='home-content_cards-wrapper gy-4'>
-                {topStories.map((story, index) => (
-                  <Col key={index} sm={12} md={4}>
+                {topStories?.map((story, index) => (
+                  <Col key={'home-content_' + index} sm={12} md={4}>
                     <StoryCard title={story.title} body={story.body} cta={story.cta} />
                   </Col>
                 ))}

@@ -18,7 +18,7 @@ const SubmissionPage = () => {
   const handleApproveOrRejectClick = (subId, approve) => {
     approveRejectSubmissions(subId, approve)
       .then((data) => {
-        setSubmissions(submissions.map((sub) => (sub.id === subId ? data : sub)));
+        setSubmissions(submissions?.map((sub) => (sub.id === subId ? data : sub)));
       })
       .catch((e) => {
         console.error(`${approve ? 'approve' : 'reject'} error`, e);
@@ -29,8 +29,8 @@ const SubmissionPage = () => {
   return (
     <div className='page-wrapper'>
       <Row>
-        {submissions.map((submission, index) => (
-          <Col key={index} className='col-sm-12 col-md-6'>
+        {submissions?.map((submission, index) => (
+          <Col key={'submissions_' + index} className='col-sm-12 col-md-6'>
             <SubmissionItem
               item={submission}
               onApprove={(id) => handleApproveOrRejectClick(id, true)}

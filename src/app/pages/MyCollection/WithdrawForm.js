@@ -5,7 +5,7 @@ const WithdrawForm = (props) => {
   const [reason, setReason] = React.useState('');
 
   const formItems = () =>
-    props.itemsToWithdraw.map((item) => (
+    props.itemsToWithdraw?.map((item) => (
       <div key={item.id}>
         {item.id} - {item.title}
         <br />

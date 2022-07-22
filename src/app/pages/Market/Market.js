@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { getMarketItems } from '../../services/items';
-import Filter from '../../components/Generic/Filter';
 
 import PreviewGallery from '../../components/PreviewGallery/PreviewGallery';
 import StoriesGrid from '../../components/StoriesGrid/StoriesGrid';

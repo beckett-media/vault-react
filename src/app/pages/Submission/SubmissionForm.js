@@ -7,7 +7,7 @@ const SubmissionForm = ({ onAdd, removeItem, items }) => {
 
   useEffect(() => {
     setDisplayItems(
-      items.map((item, i) => {
+      items?.map((item, i) => {
         return (
           <Container key={i} className='m-2 p-3 border border rounded'>
             <Row>
