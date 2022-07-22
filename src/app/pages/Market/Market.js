@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getMarketItems } from '../../services/items';
-import Filter from '../../components/Generic/Filter';
+import { fetchMarketItems } from '../../services/items';
 
 import PreviewGallery from '../../components/PreviewGallery/PreviewGallery';
 import StoriesGrid from '../../components/StoriesGrid/StoriesGrid';
@@ -16,7 +15,11 @@ const Market = () => {
   const [marketplaceStoriesData, setMarketplaceStoriesData] = useState([]);
 
   useEffect(() => {
-    getMarketItems().then((data) => setItems(data));
+    fetchMarketItems().then((data) => {
+      if(data.status === 200){
+        return setItems(data.data)
+      }
+    });
     getMarketplaceTopStories().then((data) => setMarketplaceStoriesData(data));
   }, []);
 
@@ -39,6 +42,8 @@ const Market = () => {
       </div>
       <div className='section_market-categories'>
         <div className='page-padding'>
+        {
+          items.length !== 0 && 
           <div className='container-large'>
             <div className='market-categories_spacer'></div>
             <PreviewGallery title={'Basketball'} link={'/market/basketball'} data={items} />
@@ -48,6 +53,13 @@ const Market = () => {
             <PreviewGallery title={'Football'} link={'/market/football'} data={items} />
             <div className='market-categories_spacer'></div>
           </div>
+        }
+        {
+          items.length === 0 && 
+          <div className='p-5'>
+            <h3>Error loading marketplace items</h3>
+          </div>
+        }
         </div>
       </div>
     </div>

@@ -8,6 +8,7 @@
     height: 30rem;
     width: 20rem;
     margin: auto;
+    transition: all 0.2s ease-in-out;
   }
 
   &layout {
@@ -54,4 +55,8 @@
   &noselect {
     outline: 5px solid transparent;
   }
+}
+
+.item-card_component:hover .item-card_image {
+  transform: scale(0.97);
 }
