@@ -36,12 +36,12 @@ const InterestForm = (props) => {
         <div className='page-padding'>
           <div className='container-small'>
             <Form onSubmit={submitInterestForm}>
-              <Row className='justify-content-md-center mb-4'>
+              <Row className='justify-content-md-center'>
                 <Col align='center' style={{ color: 'white' }}>
                   <div className='interest-form_heading'>Fill out the form below to launch.</div>
                 </Col>
               </Row>
-              <Row className='justify-content-md-center mb-2'>
+              <Row className='justify-content-md-center'>
                 <Col className='p-1' sm={12} md={6}>
                   <input
                     id='first'
@@ -59,7 +59,7 @@ const InterestForm = (props) => {
                   />
                 </Col>
               </Row>
-              <Row className='justify-content-md-center mb-2'>
+              <Row className='justify-content-md-center'>
                 <Col className='p-1' sm={12} md={6}>
                   <input
                     id='email'
@@ -83,7 +83,7 @@ const InterestForm = (props) => {
                   />
                 </Col>
               </Row>
-              <Row className='justify-content-md-center mb-2'>
+              <Row className='justify-content-md-center'>
                 <Col className='p-1'>
                   <input
                     id='beckettId'
@@ -93,7 +93,7 @@ const InterestForm = (props) => {
                   />
                 </Col>
               </Row>
-              <Row className='justify-content-md-center pt-1 mb-4'>
+              <Row className='justify-content-md-center pt-1'>
                 <Col align='left' className='checkbox-array rounded-custom p-3'>
                   <Form.Check type='checkbox' align='left'>
                     <Form.Check.Input type='checkbox' id='checkbox1' />
