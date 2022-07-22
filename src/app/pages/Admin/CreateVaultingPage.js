@@ -5,7 +5,7 @@ import { getSingleSubmission } from '../../services/submission';
 import ImageUploader from '../../components/Generic/ImageUploader';
 import './CreateVaultingPage.scss';
 import SubmitButton from '../../components/Generic/SubmitButton';
-import { createVaulting } from '../../services/items';
+import { createVaulting, fetchItemBySubmission } from '../../services/items';
 
 function AdminCreateVaultingPage() {
   const { submissionId } = useParams();
@@ -13,6 +13,7 @@ function AdminCreateVaultingPage() {
   const [submission, setSubmission] = React.useState({});
   const [image, setImage] = React.useState({});
   const isValidId = submissionId && !isNaN(Number(submissionId));
+  const [isExisting, setIsExisting] = React.useState(false);
 
   React.useEffect(() => {
     // TODO: Check if vaulting is created already with this submissionId. Need API to check.
@@ -25,6 +26,14 @@ function AdminCreateVaultingPage() {
         .catch((err) => {
           alert(err.message);
         });
+
+      fetchItemBySubmission(submissionId)
+        .then((data) => {
+          setIsExisting(data && data.length > 0);
+        }).catch((err) => {
+          console.error('fetchItemBySubmission err', err);
+          setIsExisting(false);
+        });
     };
 
     if (isValidId) {
@@ -33,7 +42,7 @@ function AdminCreateVaultingPage() {
   }, [submissionId, isValidId]);
 
   if (!isValidId) {
-    return <Navigate to='/admin/submission' />;
+    return <Navigate to='/admin/submission' replace={true} />;
   }
 
   const handleCreateClick = () => {
@@ -64,7 +73,8 @@ function AdminCreateVaultingPage() {
           <p>{`Item Id: ${submission.item_id}, User: ${submission.user}`}</p>
         </Col>
         <Col className='right-align'>
-          <SubmitButton title='Create' bg='success' func={handleCreateClick} />
+          {isExisting ? <p className='existing-error'>Existing already</p> : null}
+          <SubmitButton title='Create' bg='success' func={handleCreateClick} disabled={isExisting}/>
         </Col>
       </Row>
       <Row className='mt-4'>
