@@ -45,11 +45,13 @@ export const mapCognitoToUser = (cognitoUser) => {
 };
 
 export const mapUserToCognito = (user) => {
-  return user.reduce((acc, attr) => {
-    const newName = userToCognito[attr.Name] ? userToCognito[attr.Name] : attr.Name;
-    acc[newName] = attr.Value;
-    return acc;
-  }, {});
+  return Object.keys(user).map((key) => {
+    const newName = userToCognito[key] ? userToCognito[key] : key;
+    return {
+      Name: newName,
+      Value: user[key],
+    };
+  });
 };
 
 export const getAdminUserGroups = (token) => {

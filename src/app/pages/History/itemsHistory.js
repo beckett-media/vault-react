@@ -7,7 +7,8 @@ export const itemsHistory = (props) => {
   const selected = props.selected;
   const setSelected = props.setSelected;
 
-  const mapHistoryComponents = (items) => items.map((item) => 
+  const mapHistoryComponents = (items) =>
+    items.map((item) => (
       <div key={item.id} id={item.id}>
         <Row className='py-3 border' onClick={() => setSelected(item.id)}>
           <Col xs={8} className='fw-bold'>
@@ -34,8 +35,6 @@ export const itemsHistory = (props) => {
           </Row>
         )}
       </div>
-    )
-  return (
-    historyItems && mapHistoryComponents(historyItems)
-  );
+    ));
+  return historyItems && mapHistoryComponents(historyItems);
 };

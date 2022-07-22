@@ -37,7 +37,7 @@ const Gallery = () => {
     const fetchSubmissions = async () =>
       submissionsObj().then((res) => setSubmissions(Array.isArray(res.data) ? res.data : []));
     user && fetchSubmissions();
-    console.log("fix for array error");
+    console.log('fix for array error');
   }, [user]);
 
   const [selectedItemIds, setSelectedItemIds] = useState([]);
