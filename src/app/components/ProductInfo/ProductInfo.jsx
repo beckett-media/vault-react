@@ -57,12 +57,15 @@ const ProductInfo = ({ isOwner, item, addToCart }) => {
               </div>
             ))}
           </div>*/}
-          <Button className='w-100' onClick={() => {listItem()}}>
-            Save
-          </Button>
-          <Button className='w-100' variant='outline-dark' onClick={() => setlistItemInitiated(false)}>
-            Cancel
-          </Button>
+          <br/>
+          <div className='product-info_buttons-wrapper'>
+            <Button className='w-100' onClick={() => {listItem()}}>
+              Save
+            </Button>
+            <Button className='w-100' variant='outline-dark' onClick={() => setlistItemInitiated(false)}>
+              Cancel
+            </Button>
+          </div>
         </Form> ) : (
         <>
           <div className='product-info_title'>{item.title}</div>
