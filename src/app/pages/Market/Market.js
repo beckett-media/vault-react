@@ -17,7 +17,6 @@ const Market = () => {
   useEffect(() => {
     fetchMarketItems().then((data) => {
       if(data.status === 200){
-        console.log(data.data)
         return setItems(data.data)
       }
     });
