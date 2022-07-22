@@ -8,7 +8,7 @@ const mockUser = {
   email: 'super@Man.com',
   img: 'https://www.sideshow.com/storage/product-images/907776/superman_dc-comics_square.jpg',
 };
-
+const nonMutableAttributes = new Set(['sub', 'email_verified']);
 const cognitoToUser = {
   'custom:given_name': 'givenName',
   'custom:family_name': 'familyName',
@@ -45,11 +45,16 @@ export const mapCognitoToUser = (cognitoUser) => {
 };
 
 export const mapUserToCognito = (user) => {
-  return user.reduce((acc, attr) => {
-    const newName = userToCognito[attr.Name] ? userToCognito[attr.Name] : attr.Name;
-    acc[newName] = attr.Value;
-    return acc;
-  }, {});
+  return Object.keys(user)
+    .map((key) => {
+      const newName = userToCognito[key] ? userToCognito[key] : key;
+      if (nonMutableAttributes.has(newName)) return null;
+      return {
+        Name: newName,
+        Value: user[key],
+      };
+    })
+    .filter((v) => v);
 };
 
 export const getAdminUserGroups = (token) => {
