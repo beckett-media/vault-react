@@ -4,7 +4,7 @@ import { Button, Form } from 'react-bootstrap';
 import './ProductInfo.scss';
 
 import { formatPrice } from '../../utils/strings';
-import { createItemListing } from '../../services/items';
+import { createItemListing, updateItemDetails } from '../../services/items';
 import { getUser } from '../../services/user';
 
 const ProductInfo = ({ isOwner, item, addToCart }) => {
@@ -23,7 +23,7 @@ const ProductInfo = ({ isOwner, item, addToCart }) => {
 
   const listItem = () => {
     if(item.name !== name){
-      updateItem({...item, title: name})
+      updateItemDetails({...item, title: name})
     }
     createItemListing({ vaulting_id: item.id, user: user.id, price: price}).then(res => console.log(res.data))
   }

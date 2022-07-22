@@ -343,6 +343,21 @@ export const fetchMarketItems = () => {
     .catch((err) => err);
 }
 
+export const fetchItemBySubmission = (submissionId) => {
+  return axios
+    .get(`${config.BASE_URL}/marketplace/vaulting/submission/${submissionId}`, {
+      headers: {
+        Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
+      },
+    })
+    .then((res) => {
+      if(res.status === 200){
+        return res;
+      }
+    })
+    .catch((err) => err);
+}
+
 export const createVaulting = (item) => {
   return axios
     .post(`${config.BASE_URL}/marketplace/vaulting`, item, {
