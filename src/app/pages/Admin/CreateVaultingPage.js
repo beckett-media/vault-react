@@ -30,7 +30,8 @@ function AdminCreateVaultingPage() {
       fetchItemBySubmission(submissionId)
         .then((data) => {
           setIsExisting(data && data.length > 0);
-        }).catch((err) => {
+        })
+        .catch((err) => {
           console.error('fetchItemBySubmission err', err);
           setIsExisting(false);
         });
@@ -74,7 +75,7 @@ function AdminCreateVaultingPage() {
         </Col>
         <Col className='right-align'>
           {isExisting ? <p className='existing-error'>Existing already</p> : null}
-          <SubmitButton title='Create' bg='success' func={handleCreateClick} disabled={isExisting}/>
+          <SubmitButton title='Create' bg='success' func={handleCreateClick} disabled={isExisting} />
         </Col>
       </Row>
       <Row className='mt-4'>

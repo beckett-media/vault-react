@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
+import React, { useEffect, useState } from 'react';
+import { Col, Container, Row } from 'react-bootstrap';
 import { itemsHistory } from './itemsHistory';
-import './History.scss'
+import './History.scss';
 import { getUser } from '../../services/user';
 import { getHistory } from '../../services/history';
 
@@ -20,38 +20,39 @@ const History = () => {
               setHistoryItems(res.data);
             }
           } else {
-            setHistoryItems([{
-              id: 's0',
-              title: 'No historyItems',
-              created_at: new Date(),
-              status_desc: 'none',
-              grading_company: 'none',
-              serial_number: 'none'
-            }]);
+            setHistoryItems([
+              {
+                id: 's0',
+                title: 'No historyItems',
+                created_at: new Date(),
+                status_desc: 'none',
+                grading_company: 'none',
+                serial_number: 'none',
+              },
+            ]);
           }
         })
         .catch((err) => {
-          setHistoryItems([{ 
-            id: 'none',
-            title: err.message, 
-            created_at: new Date(),
-            status_desc: 'none',
-            grading_company: 'none',
-            serial_number: 'none'
-          }]);
+          setHistoryItems([
+            {
+              id: 'none',
+              title: err.message,
+              created_at: new Date(),
+              status_desc: 'none',
+              grading_company: 'none',
+              serial_number: 'none',
+            },
+          ]);
         });
     });
   }, []);
-  let items = ([
-    ...itemsHistory({historyItems, selected, setSelected})
-  ])
+  let items = [...itemsHistory({ historyItems, selected, setSelected })];
   // TODO: Set searching and filtering items.
-  const sortedItems = items.sort((a,b)=> {
-    if(a.id < b.id){
-      return -1
-    }
-    else return 1
-  })
+  const sortedItems = items.sort((a, b) => {
+    if (a.id < b.id) {
+      return -1;
+    } else return 1;
+  });
   return (
     <Container className='py-2 sub-box'>
       <h2 className='fs-3 pb-3'>History</h2>
@@ -66,7 +67,7 @@ const History = () => {
       </Row>
       <>{sortedItems}</>
     </Container>
-  )
-}
+  );
+};
 
-export default History
+export default History;

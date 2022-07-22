@@ -49,8 +49,11 @@ export const AdminRoute = () => {
 
 export const OnlyUnathenticated = () => {
   const { authStatus } = useContext(AuthContext);
-  return [AuthStatus.SignedOut, AuthStatus.SetPassword].includes(authStatus) ?
-    <Outlet /> : <Navigate to='/' replace={true} />;
+  return [AuthStatus.SignedOut, AuthStatus.SetPassword].includes(authStatus) ? (
+    <Outlet />
+  ) : (
+    <Navigate to='/' replace={true} />
+  );
 };
 
 export const AuthIsNotSignedIn = ({ children }) => {
