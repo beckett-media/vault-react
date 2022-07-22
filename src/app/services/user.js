@@ -8,7 +8,7 @@ const mockUser = {
   email: 'super@Man.com',
   img: 'https://www.sideshow.com/storage/product-images/907776/superman_dc-comics_square.jpg',
 };
-
+const nonMutableAttributes = new Set(['sub', 'email_verified']);
 const cognitoToUser = {
   'custom:given_name': 'givenName',
   'custom:family_name': 'familyName',
@@ -26,7 +26,7 @@ const cognitoToUser = {
   'custom:ship_state': 'shipState',
   'custom:ship_zipcode': 'shipZipcode',
   'custom:profile': 'profile',
-  email_verified: 'emailVerified',
+  'email_verified': 'emailVerified',
 };
 
 const userToCognito = swapObjectKeyValue(cognitoToUser);
@@ -47,11 +47,12 @@ export const mapCognitoToUser = (cognitoUser) => {
 export const mapUserToCognito = (user) => {
   return Object.keys(user).map((key) => {
     const newName = userToCognito[key] ? userToCognito[key] : key;
+    if (nonMutableAttributes.has(newName)) return null;
     return {
       Name: newName,
       Value: user[key],
     };
-  });
+  }).filter(v => v);
 };
 
 export const getAdminUserGroups = (token) => {
