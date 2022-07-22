@@ -26,7 +26,7 @@ const cognitoToUser = {
   'custom:ship_state': 'shipState',
   'custom:ship_zipcode': 'shipZipcode',
   'custom:profile': 'profile',
-  'email_verified': 'emailVerified',
+  email_verified: 'emailVerified',
 };
 
 const userToCognito = swapObjectKeyValue(cognitoToUser);
@@ -45,14 +45,16 @@ export const mapCognitoToUser = (cognitoUser) => {
 };
 
 export const mapUserToCognito = (user) => {
-  return Object.keys(user).map((key) => {
-    const newName = userToCognito[key] ? userToCognito[key] : key;
-    if (nonMutableAttributes.has(newName)) return null;
-    return {
-      Name: newName,
-      Value: user[key],
-    };
-  }).filter(v => v);
+  return Object.keys(user)
+    .map((key) => {
+      const newName = userToCognito[key] ? userToCognito[key] : key;
+      if (nonMutableAttributes.has(newName)) return null;
+      return {
+        Name: newName,
+        Value: user[key],
+      };
+    })
+    .filter((v) => v);
 };
 
 export const getAdminUserGroups = (token) => {
