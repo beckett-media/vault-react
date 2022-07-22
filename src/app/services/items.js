@@ -483,18 +483,12 @@ export const fetchItemBySubmission = (submissionId) => {
       },
     })
     .then((res) => {
-<<<<<<< HEAD
       if(res.status === 200){
         return res;
       }
     })
     .catch((err) => err);
 }
-=======
-      return res.data;
-    });
-};
->>>>>>> 43cbc4db351699d48cc11645ccc5f152b0522c99
 
 export const createVaulting = (item) => {
   return axios

@@ -20,10 +20,12 @@ export const postSubmission = async (item) => {
   });
 };
 
-export const getSubmissions = async (status) => {
+export const getSubmissions = async (user,status) => {
   return axios
-    .get(`${config.BASE_URL}/marketplace/submission`, {
-      params: status ? { status } : undefined,
+    .get(`${config.BASE_URL}/marketplace/submission?user=${user}`, {
+      headers: {
+        Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
+      },
     })
     .then((res) => {
       return res.data;

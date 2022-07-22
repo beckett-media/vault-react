@@ -5,15 +5,20 @@ import SubmissionItem from './SubmissionItem';
 
 const SubmissionPage = () => {
   const [submissions, setSubmissions] = useState([]);
+  const [user, setUser] = useState([]);
+
+  useEffect(() => {
+    getUser().then((data) => setUser(data));
+  }, []);
+
   useEffect(() => {
     const fetch = () => {
-      getSubmissions().then((data) => {
+      getSubmissions(user.name).then((data) => {
         setSubmissions(data);
       });
     };
-
-    fetch();
-  }, []);
+    user && fetch();
+  }, [user]);
 
   const handleApproveOrRejectClick = (subId, approve) => {
     approveRejectSubmissions(subId, approve)
