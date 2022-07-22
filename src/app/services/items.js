@@ -1,4 +1,5 @@
 import axios from 'axios';
+import axiosRetry from 'axios-retry';
 import config from '../../config';
 
 export const VAULTING_STATUS = {
@@ -459,16 +460,20 @@ export const fetchItems = () => {
 };
 
 export const fetchMarketItems = () => {
+  axiosRetry(axios, { retries: 3 });
   return axios
-    .get(`${config.BASE_URL}/marketplace/listings`, {
+    .get(`${config.BASE_URL}/marketplace/listing`, {
       headers: {
         Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
       },
     })
     .then((res) => {
-      return res.data;
-    });
-};
+      if(res.status === 200){
+        return res;
+      }
+    })
+    .catch((err) => err);
+}
 
 export const fetchItemBySubmission = (submissionId) => {
   return axios
@@ -478,9 +483,18 @@ export const fetchItemBySubmission = (submissionId) => {
       },
     })
     .then((res) => {
+<<<<<<< HEAD
+      if(res.status === 200){
+        return res;
+      }
+    })
+    .catch((err) => err);
+}
+=======
       return res.data;
     });
 };
+>>>>>>> 43cbc4db351699d48cc11645ccc5f152b0522c99
 
 export const createVaulting = (item) => {
   return axios
@@ -493,6 +507,34 @@ export const createVaulting = (item) => {
       return res;
     });
 };
+export const createItemListing = ({id, userName, price}) => {
+  const listing = {vaulting_id: id, user: userName, price: price}
+  return axios
+    .post(`${config.BASE_URL}/marketplace/listing`, listing, {
+      headers: {
+        Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
+      },
+    })
+}
+
+export const updateItemDetails = ({item}) => {
+  // TODO: These are required fields to submit changes to item fields.
+  // "type": 1,
+  // "chain_id": 99,
+  // "item_uuid": "12345678-0000-0000-0000-000000000000",
+  // "burn_job_id": 1,
+  // "mint_tx_hash": "0x0000000000000000000000000000000000000000",
+  // "burn_tx_hash": "0x0000000000000000000000000000000000000000",
+  // "collection": "0x0000000000000000000000000000000000000000",
+  // "token_id": 1,
+  // "status": 1
+  return axios
+    .put(`${config.BASE_URL}/marketplace/vaulting`, item, {
+    headers: {
+      Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
+    }
+  })
+}
 
 export const withdrawItem = (id) => {
   return axios
