@@ -20,13 +20,18 @@ const ProductInfo = ({ isOwner, item, addToCart }) => {
   // TODO: Update items to include tags.
   const [ newTag, setNewTag ] = useState('')
 
-
   const listItem = () => {
     if(item.name !== name){
       updateItemDetails({...item, title: name})
     }
     createItemListing({ vaulting_id: item.id, user: user.id, price: price}).then(res => console.log(res.data))
   }
+
+  useEffect(() => {
+    setName(item.title),
+    setPrice(item.price)}
+  ,[item])
+
   return (
     <div className='product-info_component'>
       {
@@ -55,7 +60,7 @@ const ProductInfo = ({ isOwner, item, addToCart }) => {
           <Button className='w-100' onClick={() => {listItem()}}>
             Save
           </Button>
-          <Button className='w-100' variant='outline-dark' onClick={() => addToCart()}>
+          <Button className='w-100' variant='outline-dark' onClick={() => setlistItemInitiated(false)}>
             Cancel
           </Button>
         </Form> ) : (
