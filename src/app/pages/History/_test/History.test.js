@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import History from '../History';
-import { submissionHistory } from '../submissionHistory';
+import { itemsHistory } from '../itemsHistory';
 
 describe('To view History table rows', () => {
   it('renders without crashing', () => {
@@ -12,7 +12,7 @@ describe('To view History table rows', () => {
   it('map over the object array', () => {
     expect(
       JSON.stringify(
-        submissionHistory({
+        itemsHistory({
           historyItems: [
             {
               id: 1234,

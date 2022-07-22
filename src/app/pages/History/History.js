@@ -64,11 +64,7 @@ const History = () => {
         </Col>
         <Col xs={1} />
       </Row>
-<<<<<<< HEAD
-      <SubmissionHistory/>
-=======
       <>{sortedItems}</>
->>>>>>> 6ff93e9a0609babb1233a5e35afabaa27a32caec
     </Container>
   )
 }
