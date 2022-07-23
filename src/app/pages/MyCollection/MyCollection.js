@@ -27,7 +27,7 @@ const Gallery = () => {
   //  FETCH PAST SUBMISSIONS
   const [submissions, setSubmissions] = useState([]);
 
-  const submissionsObj = async () => await getSubmissions(user.name);
+  const submissionsObj = async () => await getSubmissions({ user: user.name });
   useEffect(() => {
     const fetchSubmissions = async () =>
       submissionsObj().then((res) => setSubmissions(Array.isArray(res.data) ? res.data : []));
