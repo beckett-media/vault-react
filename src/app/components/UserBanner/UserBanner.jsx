@@ -23,13 +23,13 @@ const UserBanner = () => {
               <img className='user-banner_image' src={user.img} />
             </div>
             <div className='user-banner_content-layout'>
-              <div className='user-banner_heading'>{user.name}</div>
-              <div className='user-banner_body'>Vaulted Items</div>
-              <div className='user-banner_body'>Vaulted Value</div>
+              <div className='user-banner_heading user-banner_grid-1'>{user.name}</div>
+              <div className='user-banner_body user-banner_grid-2'>Vaulted Items</div>
+              <div className='user-banner_body user-banner_grid-3'>Vaulted Value</div>
               {/* Todo: add dynamic date-joined field */}
-              <div className='user-banner_body'>joined June, 2022</div>
-              <div className='user-banner_stat-content'>14</div>
-              <div className='user-banner_stat-content'>$123,000</div>
+              <div className='user-banner_body user-banner_grid-4'>joined June, 2022</div>
+              <div className='user-banner_stat-content user-banner_grid-5'>14</div>
+              <div className='user-banner_stat-content user-banner_grid-6'>$123,000</div>
             </div>
           </div>
         </div>
