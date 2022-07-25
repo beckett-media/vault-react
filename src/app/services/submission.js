@@ -1,6 +1,6 @@
 const axios = require('axios');
 const axiosRetry = require('axios-retry');
-
+const { getItems } = require('./items');
 import config from '../../config';
 
 export const SUBMISSION_STATUS = {
@@ -21,7 +21,7 @@ export const postSubmission = async (item) => {
 };
 
 export const getSubmissions = async ({ user, status, offset, limit, order } = {}) => {
-  const params = {
+  /*const params = {
     user,
     status,
     offset,
@@ -36,6 +36,9 @@ export const getSubmissions = async ({ user, status, offset, limit, order } = {}
     .then((res) => {
       return res.data;
     });
+    */
+  const mockItems = await getItems();
+  return mockItems.slice(0, 8);
 };
 
 export const getSingleSubmission = async (submissionId) => {

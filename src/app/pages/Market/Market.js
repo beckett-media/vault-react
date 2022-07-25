@@ -16,8 +16,8 @@ const Market = () => {
 
   useEffect(() => {
     fetchMarketItems().then((data) => {
-      if(data.status === 200){
-        return setItems(data.data)
+      if (data.status === 200) {
+        return setItems(data.data);
       }
     });
     getMarketplaceTopStories().then((data) => setMarketplaceStoriesData(data));
@@ -42,24 +42,22 @@ const Market = () => {
       </div>
       <div className='section_market-categories'>
         <div className='page-padding'>
-        {
-          items.length !== 0 && 
-          <div className='container-large'>
-            <div className='market-categories_spacer'></div>
-            <PreviewGallery title={'Basketball'} link={'/market/basketball'} data={items} />
-            <div className='market-categories_spacer'></div>
-            <PreviewGallery title={'Baseball'} link={'/market/baseball'} data={items} />
-            <div className='market-categories_spacer'></div>
-            <PreviewGallery title={'Football'} link={'/market/football'} data={items} />
-            <div className='market-categories_spacer'></div>
-          </div>
-        }
-        {
-          items.length === 0 && 
-          <div className='p-5'>
-            <h3>Error loading marketplace items</h3>
-          </div>
-        }
+          {items.length !== 0 && (
+            <div className='container-large'>
+              <div className='market-categories_spacer'></div>
+              <PreviewGallery title={'Basketball'} link={'/market/basketball'} data={items} />
+              <div className='market-categories_spacer'></div>
+              <PreviewGallery title={'Baseball'} link={'/market/baseball'} data={items} />
+              <div className='market-categories_spacer'></div>
+              <PreviewGallery title={'Football'} link={'/market/football'} data={items} />
+              <div className='market-categories_spacer'></div>
+            </div>
+          )}
+          {items.length === 0 && (
+            <div className='p-5'>
+              <h3>Error loading marketplace items</h3>
+            </div>
+          )}
         </div>
       </div>
     </div>

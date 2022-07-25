@@ -60,7 +60,7 @@ const Item = () => {
                 <div className='item-details_image-wrapper'>
                   <div className='flip-card_component'>
                     <div className='flip-card_inner'>
-                      <img src={item.img} className='flip-card_front' alt={item.title} />
+                      <img src={item.image_url} className='flip-card_front' alt={item.title} />
                       <img src={item.imgRev} className='flip-card_back' alt={item.title} />
                     </div>
                   </div>
