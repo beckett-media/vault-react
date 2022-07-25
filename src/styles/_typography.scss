@@ -3,7 +3,19 @@
 @font-face {
   font-family: 'Alliance';
   src: url('../app/assets/fonts/Alliance-PlattBold.otf') format('truetype');
-  font-weight: normal;
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Alliance';
+  src: url('../app/assets/fonts/Alliance-PlattMedium.otf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Alliance';
+  src: url('../app/assets/fonts/Alliance-PlattRegular.otf') format('truetype');
+  font-weight: 400;
   font-style: normal;
 }
 
