@@ -5,6 +5,8 @@ import SubmitButton from './SubmitButton';
 import { AuthContext } from '../../contexts/auth';
 import { useCartContext } from '../../contexts/cart';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
+import Tooltip from 'react-bootstrap/Tooltip';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 
 const TopNav = () => {
   const authContext = useContext(AuthContext);
@@ -29,18 +31,27 @@ const TopNav = () => {
                 <NavLink to='/collection' className={({ isActive }) => (isActive ? 'active-nav m-2' : 'm-2')}>
                   My Collection
                 </NavLink>
-                <NavLink to='/market' className={({ isActive }) => (isActive ? 'active-nav m-2' : 'm-2')}>
-                  Marketplace
-                </NavLink>
+                <OverlayTrigger
+                  delay={{ hide: 450, show: 300 }}
+                  overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
+                  placement='bottom'
+                >
+                  <span class='nav-link'>Marketplace</span>
+                </OverlayTrigger>
+                {/*
+                  <NavLink to='/market' className={({ isActive }) => (isActive ? 'active-nav m-2' : 'm-2')}>
+                    Marketplace
+                  </NavLink>
+                */}
               </>
             )}
           </Nav>
           <Nav className='ml-auto'>
-            {authContext.isSignedIn && (
+            {/* authContext.isSignedIn && (
               <Link to='/submission'>
                 <SubmitButton size='sm' title='Submit Item' className='submit-nav' bg='primary' />
               </Link>
-            )}
+            ) */}
             <NavDropdown title={<i className='fa-solid fa-user'></i>} id='basic-nav-dropdown'>
               {authContext.isSignedIn ? (
                 <>
