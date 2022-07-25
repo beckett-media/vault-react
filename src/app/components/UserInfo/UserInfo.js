@@ -17,7 +17,8 @@ const UserInfo = () => {
         </div>
         <div className='profile-info_content-wrapper'>
           <div className='profile-info_heading'>{user.name}</div>
-          <div className='profile-info_body'>{user.email}</div>
+          {/* Todo: add dynamic date-joined field */}
+          <div className='profile-info_body'>joined June, 2022</div>
         </div>
       </div>
     </div>

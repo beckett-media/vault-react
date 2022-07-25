@@ -1,0 +1,65 @@
+.interest-form_ {
+  &section {
+    padding: 80px 0 160px 0;
+    width: 100%;
+    background-image: linear-gradient(to bottom, #000, #161618 50%, #170f36);
+
+    @media only screen and (max-width: 800px) {
+      padding: 40px 0;
+    }
+  }
+
+  &heading {
+    font-size: 70px;
+    font-weight: 500;
+    font-family: 'Alliance', sans-serif;
+    line-height: 110%;
+    background-image: linear-gradient(to right, #bbfde3, #d0dbff);
+    -webkit-background-clip: text;
+    color: transparent;
+    margin-bottom: 60px;
+
+    @media only screen and (max-width: 800px) {
+      font-size: 48px;
+    }
+  }
+}
+
+.fill-btn {
+  background: linear-gradient(to right, rgb(177, 228, 228) 30%, rgb(2, 165, 165));
+  color: black;
+  padding: 10px 40px;
+  transition: all 0.2s ease-in-out;
+  font-family: 'Alliance', sans-serif;
+  font-weight: 500;
+
+  &:hover {
+    box-shadow: 0 0 40px -5px rgba(#fff, 0.2);
+  }
+}
+
+.transparent-text-input {
+  background: #302b40;
+  width: 100%;
+  color: white;
+  min-height: 60px;
+  margin-bottom: 20px;
+
+  &::placeholder {
+    color: #fff;
+  }
+}
+
+.transparent-text-input::placeholder {
+  opacity: 1; /* Firefox */
+}
+
+.checkbox-array {
+  background: #302b40;
+
+  & > *:not(:last-child) {
+    margin-bottom: 20px;
+  }
+
+  margin-bottom: 60px;
+}
