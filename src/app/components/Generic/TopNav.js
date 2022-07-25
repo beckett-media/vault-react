@@ -23,9 +23,9 @@ const TopNav = () => {
           <Nav className='m-auto'>
             {authContext.isSignedIn && (
               <>
-                <NavLink to='/about' className={({ isActive }) => (isActive ? 'active-nav m-2' : 'm-2')}>
+                {/* <NavLink to='/about' className={({ isActive }) => (isActive ? 'active-nav m-2' : 'm-2')}>
                   About Vault
-                </NavLink>
+                </NavLink> */}
                 <NavLink to='/collection' className={({ isActive }) => (isActive ? 'active-nav m-2' : 'm-2')}>
                   My Collection
                 </NavLink>
