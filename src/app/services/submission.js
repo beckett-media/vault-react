@@ -20,17 +20,30 @@ export const postSubmission = async (item) => {
   });
 };
 
-export const getSubmissions = async (user,status) => {
+export const getSubmissions = async (user) => {
   return axios
-    .get(`${config.BASE_URL}/marketplace/submission?user=${user}`, {
+    .get(`${config.BASE_URL}/marketplace/submission`, {
       headers: {
         Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
       },
+      params: {
+        user: user
+      }
     })
-    .then((res) => {
-      return res.data;
-    });
 };
+
+export const getSubmissionsByStatus = async (user, status) => {
+  return axios
+    .get(`${config.BASE_URL}/marketplace/submission`, {
+      headers: {
+        Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
+      },
+      params: {
+        user: user,
+        status: status
+      }
+  })
+}
 
 export const getSingleSubmission = async (submissionId) => {
   return axios.get(`${config.BASE_URL}/marketplace/submission/${submissionId}`).then((res) => {
