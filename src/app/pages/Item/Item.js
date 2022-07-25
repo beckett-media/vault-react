@@ -73,7 +73,7 @@ const Item = () => {
               </div>
               <div className='item-details_actions-wrapper'>
                 <ProductInfo item={item} isOwner={isOwner} addToCart={addToCart} />
-                <SuggestedPurchases data={relatedItems} isOwner={isOwner} addToCart={addToCart} />
+                {/* <SuggestedPurchases data={relatedItems} isOwner={isOwner} addToCart={addToCart} /> */}
               </div>
             </div>
           </div>
