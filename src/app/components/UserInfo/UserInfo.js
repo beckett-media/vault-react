@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getUser } from '../../services/user';
 import './UserInfo.scss';
 
-const UserInfo = () => {
+const UserInfo = ({ userState = {} }) => {
   // todo: set is loading
   const [user, setUser] = useState([]);
   useEffect(() => {
@@ -16,9 +16,9 @@ const UserInfo = () => {
           <img className='profile-info_image' src={user.img} />
         </div>
         <div className='profile-info_content-wrapper'>
-          <div className='profile-info_heading'>{user.name}</div>
+          <div className='profile-info_heading'>{`${userState.familyName || ''} ${userState.givenName || ''}`}</div>
           {/* Todo: add dynamic date-joined field */}
-          <div className='profile-info_body'>joined June, 2022</div>
+          <div className='profile-info_body'>joined July, 2022</div>
         </div>
       </div>
     </div>
