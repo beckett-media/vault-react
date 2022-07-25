@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { trimString, formatPrice } from '../../utils/strings';
+import { formatPrice, trimString } from '../../utils/strings';
 
 import './ItemCard.scss';
 
@@ -10,11 +10,11 @@ const ItemCard = ({ item }, props) => {
       <div className='item-card_layout'>
         <Link to={`/item/${item.id}`}>
           <div className='item-card_image-wrapper'>
-            <img className='item-card_image' src={item.img} alt='' />
+            <img className='item-card_image' src={item.image_url} alt='' />
           </div>
           <div className='item-card_content-wrapper'>
             <div className='item-card_title'>{trimString(item.title, 20)}</div>
-            <div className='item-card_price'>{formatPrice(item.price)}</div>
+            <div className='item-card_price'>{formatPrice(+item.est_value)}</div>
           </div>
         </Link>
       </div>
