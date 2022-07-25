@@ -100,12 +100,24 @@ const ProductInfo = ({ isOwner, item, addToCart }) => {
               </>
             ) : (
               <>
-                <Button disabled className='w-100' onClick={() => addToCart()}>
-                  Buy Now
-                </Button>
-                <Button disabled className='w-100' variant='outline-dark' onClick={() => addToCart()}>
-                  Add To Cart
-                </Button>
+                <OverlayTrigger
+                    delay={{ hide: 450, show: 300 }}
+                    overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
+                    placement='bottom'
+                  >
+                  <Button disabled className='w-100' onClick={() => addToCart()}>
+                    Buy Now
+                  </Button>
+                </OverlayTrigger>
+                <OverlayTrigger
+                    delay={{ hide: 450, show: 300 }}
+                    overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
+                    placement='bottom'
+                  >
+                  <Button disabled className='w-100' variant='outline-dark' onClick={() => addToCart()}>
+                    Add To Cart
+                  </Button>
+                </OverlayTrigger>
               </>
             )}
           </div>
