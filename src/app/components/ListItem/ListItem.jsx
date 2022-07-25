@@ -11,11 +11,11 @@ const ListItem = ({ item }, props) => {
     <div className='list-item_component'>
       <Link to={`/item/${item.id}`} className='w-100'>
         <div className='list-item_layout'>
-          <img className='list-item_image' src={item.img} alt='' />
+          <img className='list-item_image' src={item.image_url} alt='' />
           <div>{trimString(item.title, 20)}</div>
           <div>{trimString(item.description, 50)}</div>
           <div className='text-end'>{item.grade}</div>
-          <div className='text-end'>{formatPrice(item.price)}</div>
+          <div className='text-end'>{formatPrice(+item.est_value)}</div>
         </div>
       </Link>
     </div>

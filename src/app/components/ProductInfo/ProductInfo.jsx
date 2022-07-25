@@ -8,42 +8,39 @@ import { createItemListing, updateItemDetails } from '../../services/items';
 import { getUser } from '../../services/user';
 
 const ProductInfo = ({ isOwner, item, addToCart }) => {
-
   const [user, setUser] = useState([]);
   useEffect(() => {
     getUser().then((data) => setUser(data));
   }, []);
 
-  const [ listItemInitiated, setlistItemInitiated ] = useState(false)
-  const [ name, setName ] = useState(item.title)
-  const [ price, setPrice ] = useState(item.price)
+  const [listItemInitiated, setlistItemInitiated] = useState(false);
+  const [name, setName] = useState(item.title);
+  const [price, setPrice] = useState(+item.est_value);
   // TODO: Update items to include tags.
-  const [ newTag, setNewTag ] = useState('')
+  const [newTag, setNewTag] = useState('');
 
   const listItem = () => {
-    if(item.name !== name){
-      updateItemDetails({...item, title: name})
+    if (item.name !== name) {
+      updateItemDetails({ ...item, title: name });
     }
-    createItemListing({ vaulting_id: item.id, user: user.id, price: price}).then(res => console.log(res.data))
-  }
+    createItemListing({ vaulting_id: item.id, user: user.id, price: price }).then((res) => console.log(res.data));
+  };
 
   useEffect(() => {
-    setName(item.title),
-    setPrice(item.price)}
-  ,[item])
+    setName(item.title), setPrice(+item.est_value);
+  }, [item]);
 
   return (
     <div className='product-info_component'>
-      {
-        listItemInitiated ?
-        ( <Form>
+      {listItemInitiated ? (
+        <Form>
           <Form.Group>
             <Form.Label>Card Name</Form.Label>
-            <Form.Control value={name} onChange={e => setName(e.target.value)}/>
+            <Form.Control value={name} onChange={(e) => setName(e.target.value)} />
           </Form.Group>
           <Form.Group>
             <Form.Label>Price</Form.Label>
-            <Form.Control value={price} onChange={e => setPrice(e.target.value)}/>
+            <Form.Control value={price} onChange={(e) => setPrice(+e.target.value)} />
           </Form.Group>
           {/* TODO: We need to add tags to the items. */}
           {/* <Form.Group>
@@ -57,20 +54,26 @@ const ProductInfo = ({ isOwner, item, addToCart }) => {
               </div>
             ))}
           </div>*/}
-          <br/>
+          <br />
           <div className='product-info_buttons-wrapper'>
-            <Button className='w-100' onClick={() => {listItem()}}>
+            <Button
+              className='w-100'
+              onClick={() => {
+                listItem();
+              }}
+            >
               Save
             </Button>
             <Button className='w-100' variant='outline-dark' onClick={() => setlistItemInitiated(false)}>
               Cancel
             </Button>
           </div>
-        </Form> ) : (
+        </Form>
+      ) : (
         <>
           <div className='product-info_title'>{item.title}</div>
           <div className='product-info_stats'>
-            <div>{formatPrice(item.price)}</div>
+            <div>{formatPrice(price)}</div>
             <div>{item.grade ? item.grade : 'Beckett 10'}</div>
           </div>
           {item.tags && (
