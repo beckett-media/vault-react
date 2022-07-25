@@ -100,10 +100,10 @@ const ProductInfo = ({ isOwner, item, addToCart }) => {
               </>
             ) : (
               <>
-                <Button className='w-100' onClick={() => addToCart()}>
+                <Button disabled className='w-100' onClick={() => addToCart()}>
                   Buy Now
                 </Button>
-                <Button className='w-100' variant='outline-dark' onClick={() => addToCart()}>
+                <Button disabled className='w-100' variant='outline-dark' onClick={() => addToCart()}>
                   Add To Cart
                 </Button>
               </>
