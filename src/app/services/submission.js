@@ -20,10 +20,18 @@ export const postSubmission = async (item) => {
   });
 };
 
-export const getSubmissions = async (status) => {
+export const getSubmissions = async ({ user, status, offset, limit, order } = {}) => {
+  const params = {
+    user,
+    status,
+    offset,
+    limit,
+    order,
+  };
+
   return axios
     .get(`${config.BASE_URL}/marketplace/submission`, {
-      params: status ? { status } : undefined,
+      params: Object.keys(params).length > 0 ? params : undefined,
     })
     .then((res) => {
       return res.data;
