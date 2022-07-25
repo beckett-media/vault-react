@@ -1,0 +1,72 @@
+.user-banner_ {
+  &component {
+    padding: 32px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  &bg-sphere {
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: translateX(30%);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  &layout {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    z-index: 1;
+  }
+
+  &content-layout {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    grid-column-gap: 104px;
+    align-items: flex-end;
+    grid-row-gap: 8px;
+    width: 100%;
+  }
+
+  &image-wrapper {
+    min-width: 160px;
+    height: 160px;
+    border-radius: 100%;
+    overflow: hidden;
+  }
+
+  &image {
+    height: 100%;
+    transition: all ease-in-out 0.2s;
+    transform: scale(1);
+  }
+
+  &heading {
+    width: 100%;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 100%;
+  }
+
+  &body {
+    font-size: 14px;
+  }
+
+  &stats-wrapper {
+    display: flex;
+    gap: 80px;
+  }
+
+  &stat-content {
+    font-size: 36px;
+    line-height: 100%;
+    font-weight: 600;
+    color: var(--primary);
+  }
+}
+
+.user-banner_component:hover .user-banner_image {
+  transform: scale(1.05);
+}
