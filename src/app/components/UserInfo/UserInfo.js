@@ -20,7 +20,7 @@ const UserInfo = () => {
           <img className='profile-info_image' src={user.img} />
         </div>
         <div className='profile-info_content-wrapper'>
-          <div className='profile-info_heading'>{getUserName(userState)}</div>
+          <div className='profile-info_heading'>{/*getUserName(userState)*/"@john_doe37"}</div>
           {/* Todo: add dynamic date-joined field */}
           <div className='profile-info_body'>joined July, 2022</div>
         </div>
