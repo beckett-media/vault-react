@@ -10,7 +10,7 @@ const PreviewGallery = ({ data, title, link }, props) => {
     <div className='preview-gallery_component'>
       <div className='preview-gallery_layout'>
         <div className='preview-gallery_text-wrapper'>
-          <div className='preview-gallery_heading'>{title}</div>
+          {title && <div className='preview-gallery_heading'>{title}</div>}
           {link && (
             <div className='preview-gallery_link-wrapper'>
               <Link to={link}>See more</Link>
