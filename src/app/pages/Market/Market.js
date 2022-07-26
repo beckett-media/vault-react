@@ -15,9 +15,9 @@ const Market = () => {
   const [marketplaceStoriesData, setMarketplaceStoriesData] = useState([]);
 
   useEffect(() => {
-    fetchMarketItems().then((data) => {
-      if (data.status === 200) {
-        return setItems(data.data);
+    fetchMarketItems().then((res) => {
+      if (res.status === 200) {
+        return setItems(res.data);
       }
     });
     getMarketplaceTopStories().then((data) => setMarketplaceStoriesData(data));
@@ -45,11 +45,11 @@ const Market = () => {
           {items.length !== 0 && (
             <div className='container-large'>
               <div className='market-categories_spacer'></div>
-              <PreviewGallery title={'Basketball'} link={'/market/basketball'} data={items} />
+              <PreviewGallery title={'Basketball'} link={'/market/basketball'} data={items.slice(0, 4)} />
               <div className='market-categories_spacer'></div>
-              <PreviewGallery title={'Baseball'} link={'/market/baseball'} data={items} />
+              <PreviewGallery title={'Baseball'} link={'/market/baseball'} data={items.slice(4, 8)} />
               <div className='market-categories_spacer'></div>
-              <PreviewGallery title={'Football'} link={'/market/football'} data={items} />
+              <PreviewGallery title={'Football'} link={'/market/football'} data={items.slice(8, 12)} />
               <div className='market-categories_spacer'></div>
             </div>
           )}

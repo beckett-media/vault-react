@@ -1,12 +1,9 @@
 import React, { useContext } from 'react';
 import { Nav, Navbar, NavDropdown, Container } from 'react-bootstrap';
 import './Nav.scss';
-import SubmitButton from './SubmitButton';
 import { AuthContext } from '../../contexts/auth';
 import { useCartContext } from '../../contexts/cart';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import Tooltip from 'react-bootstrap/Tooltip';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 
 const TopNav = () => {
   const authContext = useContext(AuthContext);
@@ -31,18 +28,9 @@ const TopNav = () => {
                 <NavLink to='/collection' className={({ isActive }) => (isActive ? 'active-nav m-2' : 'm-2')}>
                   My Collection
                 </NavLink>
-                <OverlayTrigger
-                  delay={{ hide: 450, show: 300 }}
-                  overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
-                  placement='bottom'
-                >
-                  <span class='nav-link'>Marketplace</span>
-                </OverlayTrigger>
-                {/*
-                  <NavLink to='/market' className={({ isActive }) => (isActive ? 'active-nav m-2' : 'm-2')}>
-                    Marketplace
-                  </NavLink>
-                */}
+                <NavLink to='/market' className={({ isActive }) => (isActive ? 'active-nav m-2' : 'm-2')}>
+                  Marketplace
+                </NavLink>
               </>
             )}
           </Nav>
