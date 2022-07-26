@@ -33,10 +33,11 @@ const History = () => {
           }
         })
         .catch((err) => {
+          console.log(err);
           setHistoryItems([
             {
-              id: 'none',
-              title: err.message,
+              id: 'e0',
+              title: 'No History Items',
               created_at: new Date(),
               status_desc: 'none',
               grading_company: 'none',

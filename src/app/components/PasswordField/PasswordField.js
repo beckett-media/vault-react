@@ -57,7 +57,6 @@ export const PasswordField = React.forwardRef((props, ref) => {
           onChange={props.onChange}
         />
       </InputGroup>
-      
     </FormControl>
   );
 });

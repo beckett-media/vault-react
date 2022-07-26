@@ -27,7 +27,6 @@ const Submission = () => {
 
   const submitAddedItem = (item) => {
     const newItems = [...items, item];
-    console.log('newItems', newItems);
     setItems(newItems);
   };
 
@@ -50,13 +49,11 @@ const Submission = () => {
         ),
       )
         .then((resp) => {
-          console.log('resp', resp);
           setSuccessfulSubmission(true);
         })
         .catch((e) => {
           // TODO
           console.error(e);
-          alert('there was an error');
         });
     }
   };

@@ -6,7 +6,6 @@ import './ListItem.scss';
 import { trimString, formatPrice } from '../../utils/strings';
 
 const ListItem = ({ item }, props) => {
-  console.log(item);
   return (
     <div className='list-item_component'>
       <Link to={`/item/${item.id}`} className='w-100'>
