@@ -16,7 +16,7 @@ const TopNav = () => {
       <Container>
         <Navbar.Brand>
           <Link to='/'>
-            <img src='/images/beckett-logo.svg' />
+            <img src={require('../../assets/beta-logo.png')} className='nav_logo' />
           </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
