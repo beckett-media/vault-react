@@ -23,7 +23,7 @@ const History = () => {
             setHistoryItems([
               {
                 id: 's0',
-                title: 'No historyItems',
+                title: 'No History Items',
                 created_at: new Date(),
                 status_desc: 'none',
                 grading_company: 'none',
