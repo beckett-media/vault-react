@@ -9,6 +9,100 @@ main {
 .right-align {
   text-align: right;
 }
+
 .info-box {
   color: lightgray;
+}
+
+.section-submission_ {
+  &form {
+    background-color: #fff;
+    color: #000;
+    height: 100%;
+    padding: 48px 0 96px 0;
+  }
+}
+
+.submission_ {
+  &container {
+    max-width: 640px;
+    width: 100%;
+    height: 100%;
+  }
+
+  &heading {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  &image-upload {
+    position: relative;
+    margin-bottom: 24px;
+
+    &-overlay {
+      background-color: #fff;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    &-content {
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+      outline: 1px solid #C5C5C5;
+      padding: 16px;
+      font-size: 14px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: #737375;
+    }
+
+    &-text {
+      margin-top: 4px;
+
+      &-small {
+        font-size: 12px;
+      }
+
+      &-highlight {
+        color: var(--green);
+        font-weight: 500;
+      }
+    }
+
+
+  }
+
+  &form {
+    border-radius: 8px;
+    outline: 1px solid #C5C5C5;
+
+    &-section {
+      padding: 24px;
+    }
+
+    &-button-wrapper {
+      width: 100%;
+      display: flex;
+      gap: 28px;
+      justify-content: end;
+    }
+  }
+
+  &divider {
+    height: 1px;
+    width: 100%;
+    background-color: #C5C5C5;
+  }
+
+
 }

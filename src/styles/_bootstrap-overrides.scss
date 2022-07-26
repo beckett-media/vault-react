@@ -11,3 +11,9 @@ $primary: #54c4c8;
   height: 16px !important;
   border-radius: 100%;
 }
+
+.btn {
+  &-primary {
+    color: #fff !important;
+  }
+}
