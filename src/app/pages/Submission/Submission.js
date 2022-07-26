@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Col, Row } from 'react-bootstrap';
 
 import './Submission.scss';
 

@@ -1,18 +1,18 @@
 {
   "dev": {
     "BASE_URL": "https://dev.beckett.com:3300",
-    "REACT_APP_USERPOOL_ID": "us-west-1_QgCMUGduZ",
-    "REACT_APP_CLIENT_ID": "30apj4knq7ps2qsaldr6clpr9p"
+    "REACT_APP_USERPOOL_ID": "us-west-1_rrW6uRNXW",
+    "REACT_APP_CLIENT_ID": "2cq0oolf1nuqjtk0snc29reeh5"
   },
   "qa": {
     "BASE_URL": "https://dev.beckett.com:3300",
-    "REACT_APP_USERPOOL_ID": "us-west-1_qQC4eXcaX",
-    "REACT_APP_CLIENT_ID": "6ffv987ic6cteava1v7mtmk61p"
+    "REACT_APP_USERPOOL_ID": "us-west-1_Gj8Gf2z4L",
+    "REACT_APP_CLIENT_ID": "rpopj2sqf6s8mvhsdbjc6d3gd"
   },
   "prod": {
     "BASE_URL": "https://vault.beckett.com",
-    "REACT_APP_USERPOOL_ID": "us-west-1_geFhzYc99",
-    "REACT_APP_CLIENT_ID": "1vlmqf10prof539ggufcaslafd"
+    "REACT_APP_USERPOOL_ID": "us-west-1_a6tXyUAld",
+    "REACT_APP_CLIENT_ID": "5kavtmkklfj406esvhbbi03soa"
   },
   "general": {}
 }
