@@ -90,15 +90,31 @@ const ProductInfo = ({ isOwner, item, addToCart }) => {
           <div className='product-info_buttons-wrapper'>
             {isOwner ? (
               <>
-                <Button className='w-100' onClick={() => setlistItemInitiated(true)}>
-                  Sell in Marketplace
-                </Button>
-                <Button className='w-100' variant='outline-dark' onClick={() => addToCart()}>
-                  Edit Card Details
-                </Button>
-                <Button className='text-start text-decoration-none' variant='link'>
-                  Remove From Beckett Vault
-                </Button>
+                <OverlayTrigger
+                  delay={{ hide: 450, show: 300 }}
+                  overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
+                  placement='bottom'
+                >
+                  <Button className='w-100'>Sell in Marketplace</Button>
+                </OverlayTrigger>
+                <OverlayTrigger
+                  delay={{ hide: 450, show: 300 }}
+                  overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
+                  placement='bottom'
+                >
+                  <Button className='w-100' variant='outline-dark'>
+                    Edit Card Details
+                  </Button>
+                </OverlayTrigger>
+                <OverlayTrigger
+                  delay={{ hide: 450, show: 300 }}
+                  overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
+                  placement='bottom'
+                >
+                  <Button className='text-start text-decoration-none' variant='link'>
+                    Remove From Beckett Vault
+                  </Button>
+                </OverlayTrigger>
               </>
             ) : (
               <>
