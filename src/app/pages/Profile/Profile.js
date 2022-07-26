@@ -43,7 +43,7 @@ const Profile = () => {
           <Col lg='6'>
             <Row className='mb-2'>
               <Col>
-                <UserInfo userState={userState} />
+                <UserInfo />
                 <hr className='m-2' />
               </Col>
             </Row>

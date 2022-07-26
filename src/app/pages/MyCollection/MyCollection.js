@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import { withdrawItem } from '../../services/items';
 import { Link } from 'react-router-dom';
@@ -9,15 +9,11 @@ import CollectionGallery from '../../components/CollectionGallery/CollectionGall
 import './MyCollection.scss';
 
 import { getSubmissions } from '../../services/submission';
-import { mapCognitoToUser } from '../../services/user';
 import { getUser } from '../../services/user';
-import { AuthContext } from '../../contexts/auth';
 
 const Gallery = () => {
   //  FETCH PAST SUBMISSIONS
   const [submissions, setSubmissions] = useState([]);
-  const authContext = useContext(AuthContext);
-  const userState = mapCognitoToUser(authContext.attrInfo);
 
   useEffect(() => {
     getUser()
@@ -74,7 +70,7 @@ const Gallery = () => {
           <div className='section-profile-info'>
             <div className='page-padding'>
               <div className='container-large'>
-                <UserInfo userState={userState} />
+                <UserInfo />
               </div>
             </div>
           </div>
