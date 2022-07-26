@@ -1,14 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../../contexts/auth';
+import { getUserName, mapCognitoToUser } from '../../services/user';
 
 import './UserBanner.scss';
 
-import UserInfo from '../UserInfo/UserInfo';
 
-import { getUser } from '../../services/user';
 import { ReactComponent as BgSphere } from '../../assets/bg-sphere.svg';
+import { getUser } from '../../services/user';
 
 const UserBanner = () => {
   const [user, setUser] = useState([]);
+  const authContext = useContext(AuthContext);
+  const userState = mapCognitoToUser(authContext.attrInfo);
+
   useEffect(() => {
     getUser().then((data) => setUser(data));
   }, []);
@@ -23,7 +27,7 @@ const UserBanner = () => {
               <img className='user-banner_image' src={user.img} />
             </div>
             <div className='user-banner_content-layout'>
-              <div className='user-banner_heading user-banner_grid-1'>{user.name}</div>
+              <div className='user-banner_heading user-banner_grid-1'>{getUserName(userState)}</div>
               <div className='user-banner_body user-banner_grid-2'>Vaulted Items</div>
               <div className='user-banner_body user-banner_grid-3'>Vaulted Value</div>
               {/* Todo: add dynamic date-joined field */}
