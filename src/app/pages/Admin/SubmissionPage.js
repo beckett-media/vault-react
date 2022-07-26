@@ -1,21 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { getSubmissions, approveRejectSubmissions } from '../../services/submission';
-import { getUser } from '../../services/user';
 import SubmissionItem from './SubmissionItem';
 
 const SubmissionPage = () => {
-  const [submissions, setSubmissions] = useState([]);
-  const [user, setUser] = useState([]);
-
-  useEffect(() => {
-    getUser().then((data) => setUser(data));
-  }, []);
+  const [submissions, setSubmissions] = useState([]); 
 
   useEffect(() => {
     const fetch = () => {
-      getSubmissions(user.name).then((data) => {
-        console.log(data)
+      getSubmissions().then((data) => {
         setSubmissions(data);
       });
     };
