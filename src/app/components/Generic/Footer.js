@@ -15,7 +15,7 @@ const Footer = () => {
         </Col>
         <Col>
           <Row>
-            <Col xs={4}>
+            <Col xs={3}>
               <Link to='/terms'>
                 <div className='text-muted fw-bold'>Terms of Service</div>
               </Link>
@@ -25,12 +25,12 @@ const Footer = () => {
                 <div className='text-muted fw-bold'>Privacy Policy</div>
               </Link>
             </Col>
-            <Col xs={2}>
+            <Col xs={3}>
               <Link to='/faq'>
                 <div className='text-muted fw-bold'>FAQ</div>
               </Link>
             </Col>
-            <Col xs={2}>
+            <Col xs={3}>
               <Link to='/support'>
                 <div className='text-muted fw-bold'>Support</div>
               </Link>
