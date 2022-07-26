@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
-import { approveRejectSubmissions, getSubmissions } from '../../services/submission';
+import { getSubmissions, approveRejectSubmissions } from '../../services/submission';
 import SubmissionItem from './SubmissionItem';
 
 const SubmissionPage = () => {
