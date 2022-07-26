@@ -33,6 +33,7 @@ const Market = () => {
           </div>
         </div>
       </div>
+      {/* TODO: removed for DEMO
       <div className='section_market-stories'>
         <div className='page-padding'>
           <div className='container-large'>
@@ -40,16 +41,17 @@ const Market = () => {
           </div>
         </div>
       </div>
+      */}
       <div className='section_market-categories'>
         <div className='page-padding'>
           {items.length !== 0 && (
             <div className='container-large'>
               <div className='market-categories_spacer'></div>
-              <PreviewGallery title={'Basketball'} link={'/market/basketball'} data={items.slice(0, 4)} />
+              <PreviewGallery data={items.slice(0, 4)} />
               <div className='market-categories_spacer'></div>
-              <PreviewGallery title={'Baseball'} link={'/market/baseball'} data={items.slice(4, 8)} />
+              <PreviewGallery data={items.slice(4, 8)} />
               <div className='market-categories_spacer'></div>
-              <PreviewGallery title={'Football'} link={'/market/football'} data={items.slice(8, 12)} />
+              <PreviewGallery data={items.slice(8, 12)} />
               <div className='market-categories_spacer'></div>
             </div>
           )}
