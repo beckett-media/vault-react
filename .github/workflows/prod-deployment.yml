@@ -8,8 +8,6 @@ on:
 jobs:
   deploy:
     name: Deploy PROD
-    if: github.event.base_ref == 'refs/heads/prod'
-    
     uses: beckett-media/vault-react/.github/workflows/cont-deployment.yml@main
     with:
       AWS_REGION: us-west-1
