@@ -1,6 +1,6 @@
 const axios = require('axios');
 const axiosRetry = require('axios-retry');
-
+const { getItems } = require('./items');
 import config from '../../config';
 
 export const SUBMISSION_STATUS = {
@@ -20,30 +20,26 @@ export const postSubmission = async (item) => {
   });
 };
 
-export const getSubmissions = async (user) => {
-  return axios
-    .get(`${config.BASE_URL}/marketplace/submission`, {
-      headers: {
-        Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
-      },
-      params: {
-        user: user
-      }
-    })
-};
+export const getSubmissions = async ({ user, status, offset, limit, order } = {}) => {
+  /*const params = {
+    user,
+    status,
+    offset,
+    limit,
+    order,
+  };
 
-export const getSubmissionsByStatus = async (user, status) => {
   return axios
     .get(`${config.BASE_URL}/marketplace/submission`, {
-      headers: {
-        Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
-      },
-      params: {
-        user: user,
-        status: status
-      }
-  })
-}
+      params: Object.keys(params).length > 0 ? params : undefined,
+    })
+    .then((res) => {
+      return res.data;
+    });
+    */
+  const mockItems = await getItems();
+  return mockItems.slice(0, 8);
+};
 
 export const getSingleSubmission = async (submissionId) => {
   return axios.get(`${config.BASE_URL}/marketplace/submission/${submissionId}`).then((res) => {
