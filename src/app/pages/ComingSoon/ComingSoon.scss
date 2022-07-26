@@ -1,0 +1,59 @@
+.coming-soon_ {
+  &component {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+  }
+
+  &image-wrapper {
+    background-color: #000;
+  }
+
+  &background- {
+    &wrapper {
+      z-index: 0;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &image {
+      position: relative;
+      z-index: 1;
+
+      &-wrapper {
+        background-color: #fff;
+      }
+    }
+
+    &overlay {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(#000, 0.5);
+      z-index: 2;
+    }
+  }
+
+  &content-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    z-index: 10;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &heading {
+    font-size: 54px;
+    background: linear-gradient(to bottom, #D0DBFF, white);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
