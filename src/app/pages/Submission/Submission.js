@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Col, Row } from 'react-bootstrap';
 
 import './Submission.scss';
 
@@ -28,7 +27,6 @@ const Submission = () => {
 
   const submitAddedItem = (item) => {
     const newItems = [...items, item];
-    console.log('newItems', newItems);
     setItems(newItems);
   };
 
@@ -51,13 +49,11 @@ const Submission = () => {
         ),
       )
         .then((resp) => {
-          console.log('resp', resp);
           setSuccessfulSubmission(true);
         })
         .catch((e) => {
           // TODO
           console.error(e);
-          alert('there was an error');
         });
     }
   };
@@ -71,34 +67,26 @@ const Submission = () => {
       {successfulSubmission ? (
         <SubmissionSuccess />
       ) : (
-        <>
+        <div className='h-100'>
           <UserBanner />
-          <Container>
-            <Row className='justify-content-md-center'>
-              <SubmissionForm items={items} removeItem={removeItem} onAdd={onAdd} />
-            </Row>
+          <section className='section-submission_form'>
+            <div className='page-padding'>
+              <div className='submission_container'>
+                <SubmissionAdd submitAddedItem={submitAddedItem} />
 
-            {add && <SubmissionAdd submitAddedItem={submitAddedItem} />}
-
-            {items.length !== 0 && (
-              <Row className='m-2'>
-                <Col xs={3}>
-                  <SubmitButton func={submitForm} title='Submit' size='lg' />
-                </Col>
-              </Row>
-            )}
-
-            <Row className='m-2'>
-              <Col xs={3}>
-                <Link to='/market'>
-                  <SubmitButton func={() => null} title='Cancel' bg='transparent border' />
-                </Link>
-              </Col>
-            </Row>
-          </Container>
+                {items.length !== 0 && (
+                  <Row className='m-2'>
+                    <Col xs={3}>
+                      <SubmitButton func={submitForm} title='Submit' size='lg' />
+                    </Col>
+                  </Row>
+                )}
+              </div>
+            </div>
+          </section>
 
           <SubmissionConfirmModal show={formSubmitted} setConfirm={submitFinalForm} />
-        </>
+        </div>
       )}
     </>
   );

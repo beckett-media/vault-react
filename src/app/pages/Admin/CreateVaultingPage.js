@@ -20,7 +20,6 @@ function AdminCreateVaultingPage() {
     const fetch = () => {
       getSingleSubmission(submissionId)
         .then((data) => {
-          console.log('single submission', data);
           setSubmission(data);
         })
         .catch((err) => {
@@ -32,7 +31,6 @@ function AdminCreateVaultingPage() {
           setIsExisting(data && data.length > 0);
         })
         .catch((err) => {
-          console.error('fetchItemBySubmission err', err);
           setIsExisting(false);
         });
     };

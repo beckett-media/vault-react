@@ -460,7 +460,7 @@ export const fetchItems = () => {
 };
 
 export const fetchMarketItems = () => {
-  axiosRetry(axios, { retries: 3 });
+  /*axiosRetry(axios, { retries: 3 });
   return axios
     .get(`${config.BASE_URL}/marketplace/listing`, {
       headers: {
@@ -473,6 +473,10 @@ export const fetchMarketItems = () => {
       }
     })
     .catch((err) => err);
+    */
+  return new Promise((res, rej) => {
+    res({ data: mockMarketItems, status: 200 });
+  });
 };
 
 export const fetchItemBySubmission = (submissionId) => {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Pagination, ToggleButton } from 'react-bootstrap';
+import { ButtonGroup, Pagination, ToggleButton } from 'react-bootstrap';
 import { BsGrid3X2GapFill, BsList, BsCheck } from 'react-icons/bs';
 
 import './CollectionGallery.scss';
@@ -49,16 +49,18 @@ const CollectionGallery = ({ data }) => {
           <div className='container-large'>
             <div className='gallery-filter_layout'>
               <div className='gallery-filter_toggle-wrapper'>
-                <SubmitButton
-                  func={listToggleHandler}
-                  title={<BsGrid3X2GapFill />}
-                  bg={isListVisible ? 'dark border border-dark' : 'primary'}
-                />
-                <SubmitButton
-                  func={listToggleHandler}
-                  title={<BsList />}
-                  bg={!isListVisible ? 'dark border border-dark' : 'primary'}
-                />
+                <ButtonGroup size='lg'>
+                  <SubmitButton
+                    func={listToggleHandler}
+                    title={<BsGrid3X2GapFill />}
+                    bg={isListVisible ? 'dark border border-dark' : 'primary'}
+                  />
+                  <SubmitButton
+                    func={listToggleHandler}
+                    title={<BsList />}
+                    bg={!isListVisible ? 'dark border border-dark' : 'primary'}
+                  />
+                </ButtonGroup>
               </div>
               <div className='d-flex gap-4'>
                 <Filter searchVal={searchVal} setSearchVal={setSearchVal} sortBy={sortBy} setSortBy={setSortBy} />

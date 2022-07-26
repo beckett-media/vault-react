@@ -4,7 +4,6 @@ import { getUserName, mapCognitoToUser } from '../../services/user';
 
 import './UserBanner.scss';
 
-
 import { ReactComponent as BgSphere } from '../../assets/bg-sphere.svg';
 import { getUser } from '../../services/user';
 

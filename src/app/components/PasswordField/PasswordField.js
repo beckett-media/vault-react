@@ -57,19 +57,6 @@ export const PasswordField = React.forwardRef((props, ref) => {
           onChange={props.onChange}
         />
       </InputGroup>
-      <HStack justify='flex-start' my={3}>
-        <Button
-          _focus={{ boxShadow: 'none' }}
-          variant='link'
-          colorScheme='blue'
-          size='sm'
-          onClick={() => {
-            window.location.href = '/reset-password';
-          }}
-        >
-          Forgot password?
-        </Button>
-      </HStack>
     </FormControl>
   );
 });

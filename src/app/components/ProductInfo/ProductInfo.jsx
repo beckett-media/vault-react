@@ -6,6 +6,8 @@ import './ProductInfo.scss';
 import { formatPrice } from '../../utils/strings';
 import { createItemListing, updateItemDetails } from '../../services/items';
 import { getUser } from '../../services/user';
+import Tooltip from 'react-bootstrap/Tooltip';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 
 const ProductInfo = ({ isOwner, item, addToCart }) => {
   const [user, setUser] = useState([]);
@@ -88,24 +90,52 @@ const ProductInfo = ({ isOwner, item, addToCart }) => {
           <div className='product-info_buttons-wrapper'>
             {isOwner ? (
               <>
-                <Button className='w-100' onClick={() => setlistItemInitiated(true)}>
-                  Sell in Marketplace
-                </Button>
-                <Button className='w-100' variant='outline-dark' onClick={() => addToCart()}>
-                  Edit Card Details
-                </Button>
-                <Button className='text-start text-decoration-none' variant='link'>
-                  Remove From Beckett Vault
-                </Button>
+                <OverlayTrigger
+                  delay={{ hide: 450, show: 300 }}
+                  overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
+                  placement='bottom'
+                >
+                  <Button className='w-100'>Sell in Marketplace</Button>
+                </OverlayTrigger>
+                <OverlayTrigger
+                  delay={{ hide: 450, show: 300 }}
+                  overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
+                  placement='bottom'
+                >
+                  <Button className='w-100' variant='outline-dark'>
+                    Edit Card Details
+                  </Button>
+                </OverlayTrigger>
+                <OverlayTrigger
+                  delay={{ hide: 450, show: 300 }}
+                  overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
+                  placement='bottom'
+                >
+                  <Button className='text-start text-decoration-none' variant='link'>
+                    Remove From Beckett Vault
+                  </Button>
+                </OverlayTrigger>
               </>
             ) : (
               <>
-                <Button className='w-100' onClick={() => addToCart()}>
-                  Buy Now
-                </Button>
-                <Button className='w-100' variant='outline-dark' onClick={() => addToCart()}>
-                  Add To Cart
-                </Button>
+                <OverlayTrigger
+                  delay={{ hide: 450, show: 300 }}
+                  overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
+                  placement='bottom'
+                >
+                  <Button disabled className='w-100' onClick={() => addToCart()}>
+                    Buy Now
+                  </Button>
+                </OverlayTrigger>
+                <OverlayTrigger
+                  delay={{ hide: 450, show: 300 }}
+                  overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
+                  placement='bottom'
+                >
+                  <Button disabled className='w-100' variant='outline-dark' onClick={() => addToCart()}>
+                    Add To Cart
+                  </Button>
+                </OverlayTrigger>
               </>
             )}
           </div>

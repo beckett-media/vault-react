@@ -5,9 +5,6 @@ import config from '../../config';
 const userPoolId = config.REACT_APP_USERPOOL_ID;
 const clientId = config.REACT_APP_CLIENT_ID;
 
-console.log(`userpool id=${userPoolId}`);
-console.log(`client id=${clientId}`);
-
 const poolData = {
   UserPoolId: `${userPoolId}`,
   ClientId: `${clientId}`,

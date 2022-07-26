@@ -4,13 +4,10 @@ on:
   push:
     tags:
       - 'v*'
-    branches:
-      - prod
     
 jobs:
   deploy:
     name: Deploy PROD
-    
     uses: beckett-media/vault-react/.github/workflows/cont-deployment.yml@main
     with:
       AWS_REGION: us-west-1

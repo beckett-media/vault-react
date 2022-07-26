@@ -47,11 +47,8 @@ const Gallery = () => {
     if (withdrawOrList === 'withdraw') {
       Promise.all([selectedItemIds?.map((id) => withdrawItem(id))])
         .then((alls) => {
-          console.log('withdraw call result', alls);
-
           setSelectedItemIds([]);
           toggleShowConfirmationPage(false);
-
           setSuccessMessage('Withdrawal successful');
         })
         .catch((err) => {
