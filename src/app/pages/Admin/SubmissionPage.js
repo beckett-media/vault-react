@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
-import { approveRejectSubmissions, getSubmissionsAdmin } from '../../services/submission';
+import { approveRejectSubmissions, getSubmissions } from '../../services/submission';
 import SubmissionItem from './SubmissionItem';
 
 const SubmissionPage = () => {
   const [submissions, setSubmissions] = useState([]);
   useEffect(() => {
     const fetch = () => {
-      getSubmissionsAdmin().then((data) => {
+      getSubmissions().then((data) => {
         setSubmissions(data);
       });
     };
