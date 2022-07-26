@@ -72,7 +72,7 @@ const Submission = () => {
         <SubmissionSuccess />
       ) : (
         <>
-          <UserBanner></UserBanner>
+          <UserBanner />
           <Container>
             <Row className='justify-content-md-center'>
               <SubmissionForm items={items} removeItem={removeItem} onAdd={onAdd} />
