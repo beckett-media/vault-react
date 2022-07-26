@@ -41,19 +41,6 @@ export const getSubmissions = async ({ user, status, offset, limit, order } = {}
   return mockItems.slice(0, 8);
 };
 
-export const getSubmissionsByStatus = async (user, status) => {
-  return axios
-    .get(`${config.BASE_URL}/marketplace/submission`, {
-      headers: {
-        Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
-      },
-      params: {
-        user: user,
-        status: status
-      }
-  })
-}
-
 export const getSingleSubmission = async (submissionId) => {
   return axios.get(`${config.BASE_URL}/marketplace/submission/${submissionId}`).then((res) => {
     return res.data;
