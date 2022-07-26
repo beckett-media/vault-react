@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
-import { Nav, Navbar, NavDropdown, Container } from 'react-bootstrap';
+import { Nav, Navbar, NavDropdown, Container, Button } from 'react-bootstrap';
 import './Nav.scss';
 import { AuthContext } from '../../contexts/auth';
 import { useCartContext } from '../../contexts/cart';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
+import Tooltip from 'react-bootstrap/Tooltip';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 
 const TopNav = () => {
   const authContext = useContext(AuthContext);
@@ -35,11 +37,17 @@ const TopNav = () => {
             )}
           </Nav>
           <Nav className='ml-auto'>
-            {/* authContext.isSignedIn && (
-              <Link to='/submission'>
-                <SubmitButton size='sm' title='Submit Item' className='submit-nav' bg='primary' />
-              </Link>
-            ) */}
+            {authContext.isSignedIn && (
+              <OverlayTrigger
+                delay={{ hide: 450, show: 300 }}
+                overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
+                placement='bottom'
+              >
+                <Button size='sm' className='bg submit-nav' variant='primary'>
+                  Submit Item
+                </Button>
+              </OverlayTrigger>
+            )}
             <NavDropdown title={<i className='fa-solid fa-user'></i>} id='basic-nav-dropdown'>
               {authContext.isSignedIn ? (
                 <>
