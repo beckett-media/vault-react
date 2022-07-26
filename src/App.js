@@ -26,8 +26,9 @@ import Department from './app/pages/Department/Department';
 import AuthProvider, { PrivateRoute, OnlyUnathenticated, AdminRoute } from './app/contexts/auth';
 import History from './app/pages/History/History';
 import CartProvider from './app/contexts/cart';
-import ComingSoon from './app/components/Generic/ComingSoon';
+// import ComingSoon from './app/components/Generic/ComingSoon';
 import InterestForm from './app/pages/InterestForm/InterestForm';
+import ComingSoon from './app/pages/ComingSoon/ComingSoon';
 
 // chakra uses a default theme, this will remove it.
 const emptyChakraTheme = extendTheme({
@@ -47,7 +48,7 @@ function App() {
         <CartProvider>
           <ChakraProvider theme={emptyChakraTheme}>
             <Header />
-            <main className=''>
+            <main className='w-100 h-100'>
               <Routes>
                 <Route exact path='/' element={<PrivateRoute />}>
                   <Route path='/submission' element={<Submission />} />
