@@ -75,7 +75,7 @@ const Submission = () => {
           <UserBanner />
           <section className='section-submission_form'>
             <div className='page-padding'>
-              <div className='container-small'>
+              <div className='submission_container'>
                 <SubmissionAdd submitAddedItem={submitAddedItem} />
 
                 {items.length !== 0 && (
@@ -85,14 +85,6 @@ const Submission = () => {
                     </Col>
                   </Row>
                 )}
-
-                <Row className='m-2'>
-                  <Col xs={3}>
-                    <Link to='/market'>
-                      <SubmitButton func={() => null} title='Cancel' bg='transparent border' />
-                    </Link>
-                  </Col>
-                </Row>
               </div>
             </div>
           </section>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Col, Container, Form, Row, Button } from 'react-bootstrap';
+import { Col, Form, Row, Button } from 'react-bootstrap';
 
 import ImageUploader from '../../components/Generic/ImageUploader';
 
@@ -30,7 +30,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
   const updateItem = (tempItem) => setItem({ ...item, ...tempItem });
 
   return (
-    <>
+    <div className='w-100'>
       <div className='submission_heading'>Add Items to Vault</div>
       <Row className='submission_image-upload'>
         <div className='submission_image-upload-overlay'>
@@ -56,7 +56,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
         />
       </Row>
       <Form onSubmit={submitAddItemFormSubmit} className='submission_form'>
-        <Row className='my-2'>
+        <Row className='submission_form-section'>
           <Col xs={12}>
             <Row>
               <Col sm={12} lg={12}>
@@ -168,22 +168,17 @@ const SubmissionAdd = ({ submitAddedItem }) => {
             </Row>
           </Col>
         </Row>
-        <Row className='mx-4 my-2'>
-          <Col xs={2}>
-            <Button type='submit' size='lg'>
-              Add
-            </Button>
-          </Col>
-        </Row>
-        <Row className='mx-4 my-2'>
-          <Col xs={2}>
-            <Button type='reset' bg='transparent' onClick={() => setItem({})}>
+        <div className='submission_divider'></div>
+        <Row className='submission_form-section'>
+          <div className='submission_form-button-wrapper'>
+            <Button type='reset' bg='transparent' variant='outline-primary' onClick={() => setItem({})}>
               Cancel
             </Button>
-          </Col>
+            <Button type='submit'>Add</Button>
+          </div>
         </Row>
       </Form>
-    </>
+    </div>
   );
 };
 
