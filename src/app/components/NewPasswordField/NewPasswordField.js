@@ -55,7 +55,6 @@ export const NewPasswordField = React.forwardRef((props, ref) => {
           {...props}
         />
       </InputGroup>
-      
     </FormControl>
   );
 });

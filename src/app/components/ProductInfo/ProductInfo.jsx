@@ -6,6 +6,8 @@ import './ProductInfo.scss';
 import { formatPrice } from '../../utils/strings';
 import { createItemListing, updateItemDetails } from '../../services/items';
 import { getUser } from '../../services/user';
+import Tooltip from 'react-bootstrap/Tooltip';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 
 const ProductInfo = ({ isOwner, item, addToCart }) => {
   const [user, setUser] = useState([]);
@@ -101,19 +103,19 @@ const ProductInfo = ({ isOwner, item, addToCart }) => {
             ) : (
               <>
                 <OverlayTrigger
-                    delay={{ hide: 450, show: 300 }}
-                    overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
-                    placement='bottom'
-                  >
+                  delay={{ hide: 450, show: 300 }}
+                  overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
+                  placement='bottom'
+                >
                   <Button disabled className='w-100' onClick={() => addToCart()}>
                     Buy Now
                   </Button>
                 </OverlayTrigger>
                 <OverlayTrigger
-                    delay={{ hide: 450, show: 300 }}
-                    overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
-                    placement='bottom'
-                  >
+                  delay={{ hide: 450, show: 300 }}
+                  overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
+                  placement='bottom'
+                >
                   <Button disabled className='w-100' variant='outline-dark' onClick={() => addToCart()}>
                     Add To Cart
                   </Button>
