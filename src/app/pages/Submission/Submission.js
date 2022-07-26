@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+
+import './Submission.scss';
+
 import SubmissionSuccess from '../Response/SubmissionSuccess';
 import SubmissionAdd from './SubmissionAdd';
 import SubmissionForm from './SubmissionForm';
 import SubmitButton from '../../components/Generic/SubmitButton';
 import SubmissionConfirmModal from './SubmissionConfirmModal';
-import './Submission.scss';
-import { Link } from 'react-router-dom';
+import UserBanner from '../../components/UserBanner/UserBanner';
+
 import { getUser } from '../../services/user';
 import { postSubmission } from '../../services/submission';
 import { formatSubmissionItem } from '../../utils/submissions';
@@ -68,6 +72,7 @@ const Submission = () => {
         <SubmissionSuccess />
       ) : (
         <>
+          <UserBanner />
           <Container>
             <Row className='justify-content-md-center'>
               <SubmissionForm items={items} removeItem={removeItem} onAdd={onAdd} />

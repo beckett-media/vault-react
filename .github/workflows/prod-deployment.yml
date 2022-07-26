@@ -1,0 +1,20 @@
+name: Continuous Deployment [PROD]
+
+on:
+  push:
+    tags:
+      - 'v*'
+    branches:
+      - prod
+    
+jobs:
+  deploy:
+    name: Deploy PROD
+    
+    uses: beckett-media/vault-react/.github/workflows/cont-deployment.yml@main
+    with:
+      AWS_REGION: us-west-1
+      AWS_BUCKET_NAME: prod-vulcan-beckettvaulting-assets-548281136650
+      CF_DISTRIBUTION_ID: E1HJ5EUFT0S6J3
+      ENV: prod
+    secrets: inherit
