@@ -79,7 +79,7 @@ function App() {
                 <Route path='/terms' element={<Terms />} />
                 <Route path='/beta-signup' element={<InterestForm />} />
                 <Route path='/coming-soon' element={<ComingSoon />} />
-                <Route path='/landing' element={<Landing />} />
+                {/* <Route path='/landing' element={<Landing />} /> */}
                 <Route path='/*' element={<Navigate to='/' replace={true} />} />
               </Routes>
             </main>
