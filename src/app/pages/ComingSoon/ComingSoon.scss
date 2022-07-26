@@ -55,5 +55,9 @@
     background: linear-gradient(to bottom, #D0DBFF, white);
     background-clip: text;
     -webkit-text-fill-color: transparent;
+
+    @media only screen and (max-width: 500px) {
+      font-size: 40px;
+    }
   }
 }
