@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { Col, Container, Form, Row, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import { Col, Container, Form, Row, Button } from 'react-bootstrap';
+
 import ImageUploader from '../../components/Generic/ImageUploader';
+
+import { ReactComponent as ImageUpload } from '../../assets/image-upload-icon.svg';
 
 const AddBeckettItem = (props) => {
   return (
@@ -27,41 +30,52 @@ const SubmissionAdd = ({ submitAddedItem }) => {
   const updateItem = (tempItem) => setItem({ ...item, ...tempItem });
 
   return (
-    <Container>
-      <Row className='justify-content-md-center'>
-        <h1>Add Item</h1>
+    <>
+      <div className='submission_heading'>Add Items to Vault</div>
+      <Row className='submission_image-upload'>
+        <div className='submission_image-upload-overlay'>
+          <div className='submission_image-upload-content'>
+            <ImageUpload />
+            <div className='submission_image-upload-text'>
+              <span className='submission_image-upload-text-highlight'>Click to upload</span>
+            </div>
+            <div className='submission_image-upload-text-small'>SVG, PNG, JPG or GIF (max. 800x400px)</div>
+          </div>
+        </div>
+        <ImageUploader
+          onFileChange={(obj) => {
+            if (obj) {
+              updateItem(obj);
+            } else {
+              updateItem({
+                imageFormat: null,
+                imageBase64: null,
+              });
+            }
+          }}
+        />
       </Row>
-      <Form onSubmit={submitAddItemFormSubmit}>
-        <Row className='m-2'>
+      <Form onSubmit={submitAddItemFormSubmit} className='submission_form'>
+        <Row className='my-2'>
           <Col xs={12}>
             <Row>
-              <ImageUploader
-                onFileChange={(obj) => {
-                  if (obj) {
-                    updateItem(obj);
-                  } else {
-                    updateItem({
-                      imageFormat: null,
-                      imageBase64: null,
-                    });
-                  }
-                }}
-              />
-            </Row>
-            <Row>
-              <Col sm={12} lg={4}>
+              <Col sm={12} lg={12}>
                 <Form.Group>
                   <Form.Label>Title</Form.Label>
                   <Form.Control type='text' onChange={(e) => updateItem({ title: e.target.value })} />
                 </Form.Group>
               </Col>
-              <Col sm={12} lg={4}>
+            </Row>
+            <Row>
+              <Col sm={12} lg={6}>
                 <Form.Group>
                   <Form.Label>Genre</Form.Label>
                   <Form.Control type='text' onChange={(e) => updateItem({ genre: e.target.value })} />
                 </Form.Group>
               </Col>
-              <Col sm={12} lg={4}>
+            </Row>
+            <Row>
+              <Col sm={12} lg={6}>
                 <Form.Group>
                   <Form.Label>Manufacturer</Form.Label>
                   <Form.Control type='text' onChange={(e) => updateItem({ manufacturer: e.target.value })} />
@@ -79,19 +93,23 @@ const SubmissionAdd = ({ submitAddedItem }) => {
             </Row>
 
             <Row>
-              <Col sm={12} lg={3}>
+              <Col sm={12} lg={6}>
                 <Form.Group>
                   <Form.Label>Grading Company</Form.Label>
                   <Form.Control type='text' onChange={(e) => updateItem({ gradingCompany: e.target.value })} />
                 </Form.Group>
               </Col>
-              <Col sm={12} lg={3}>
+            </Row>
+            <Row>
+              <Col sm={12} lg={6}>
                 <Form.Group>
                   <Form.Label>Serial Number</Form.Label>
                   <Form.Control type='text' onChange={(e) => updateItem({ serialNumber: e.target.value })} />
                 </Form.Group>
               </Col>
-              <Col sm={12} lg={3}>
+            </Row>
+            <Row>
+              <Col sm={12} lg={6}>
                 <Form.Group>
                   <Form.Label>Year</Form.Label>
                   <Form.Control
@@ -102,7 +120,9 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                   />
                 </Form.Group>
               </Col>
-              <Col sm={12} lg={3}>
+            </Row>
+            <Row>
+              <Col sm={12} lg={6}>
                 <Form.Group>
                   <Form.Label>Estimated value</Form.Label>
                   <Form.Control
@@ -115,25 +135,31 @@ const SubmissionAdd = ({ submitAddedItem }) => {
             </Row>
 
             <Row>
-              <Col sm={12} lg={3}>
+              <Col sm={12} lg={6}>
                 <Form.Group>
                   <Form.Label>Overall grade</Form.Label>
                   <Form.Control type='text' onChange={(e) => updateItem({ overallGrade: e.target.value })} />
                 </Form.Group>
               </Col>
-              <Col sm={12} lg={3}>
+            </Row>
+            <Row>
+              <Col sm={12} lg={6}>
                 <Form.Group>
                   <Form.Label>Sub grades</Form.Label>
                   <Form.Control type='text' onChange={(e) => updateItem({ subGrades: e.target.value })} />
                 </Form.Group>
               </Col>
-              <Col sm={12} lg={3}>
+            </Row>
+            <Row>
+              <Col sm={12} lg={6}>
                 <Form.Group>
                   <Form.Label>Auto graph</Form.Label>
                   <Form.Control type='text' onChange={(e) => updateItem({ autoGraph: e.target.value })} />
                 </Form.Group>
               </Col>
-              <Col sm={12} lg={3}>
+            </Row>
+            <Row>
+              <Col sm={12} lg={6}>
                 <Form.Group>
                   <Form.Label>Subject</Form.Label>
                   <Form.Control type='text' onChange={(e) => updateItem({ subject: e.target.value })} />
@@ -157,7 +183,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
           </Col>
         </Row>
       </Form>
-    </Container>
+    </>
   );
 };
 

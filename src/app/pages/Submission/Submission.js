@@ -71,34 +71,34 @@ const Submission = () => {
       {successfulSubmission ? (
         <SubmissionSuccess />
       ) : (
-        <>
-          <UserBanner></UserBanner>
-          <Container>
-            <Row className='justify-content-md-center'>
-              <SubmissionForm items={items} removeItem={removeItem} onAdd={onAdd} />
-            </Row>
+        <div className='h-100'>
+          <UserBanner />
+          <section className='section-submission_form'>
+            <div className='page-padding'>
+              <div className='container-small'>
+                <SubmissionAdd submitAddedItem={submitAddedItem} />
 
-            {add && <SubmissionAdd submitAddedItem={submitAddedItem} />}
+                {items.length !== 0 && (
+                  <Row className='m-2'>
+                    <Col xs={3}>
+                      <SubmitButton func={submitForm} title='Submit' size='lg' />
+                    </Col>
+                  </Row>
+                )}
 
-            {items.length !== 0 && (
-              <Row className='m-2'>
-                <Col xs={3}>
-                  <SubmitButton func={submitForm} title='Submit' size='lg' />
-                </Col>
-              </Row>
-            )}
-
-            <Row className='m-2'>
-              <Col xs={3}>
-                <Link to='/market'>
-                  <SubmitButton func={() => null} title='Cancel' bg='transparent border' />
-                </Link>
-              </Col>
-            </Row>
-          </Container>
+                <Row className='m-2'>
+                  <Col xs={3}>
+                    <Link to='/market'>
+                      <SubmitButton func={() => null} title='Cancel' bg='transparent border' />
+                    </Link>
+                  </Col>
+                </Row>
+              </div>
+            </div>
+          </section>
 
           <SubmissionConfirmModal show={formSubmitted} setConfirm={submitFinalForm} />
-        </>
+        </div>
       )}
     </>
   );
