@@ -52,7 +52,7 @@ function App() {
               <Routes>
                 <Route exact path='/' element={<PrivateRoute />}>
                   <Route path='/submission' element={<Submission />} />
-                  <Route path='/about' element={<Homepage />} />
+                  {/* <Route path='/about' element={<Homepage />} /> */}
                   <Route path='/collection' element={<MyCollection />} />
                   <Route path='/item/:id' element={<Item />} />
                   <Route path='/market' element={<Market />} />
@@ -63,7 +63,8 @@ function App() {
                   <Route exact path='/profile' element={<Profile />} />
                   <Route path='/history' element={<History />} />
                   <Route path='/support' element={<Support />} />
-                  <Route path='/' element={<Homepage />} />
+                  {/* <Route path='/' element={<Homepage />} /> */}
+                  <Route path='/' element={<Navigate to='/collection' />} />
                 </Route>
                 <Route path='/admin' element={<AdminRoute />}>
                   <Route exact path='' element={<AdminPage />} />
@@ -79,7 +80,7 @@ function App() {
                 <Route path='/terms' element={<Terms />} />
                 <Route path='/beta-signup' element={<InterestForm />} />
                 <Route path='/coming-soon' element={<ComingSoon />} />
-                <Route path='/landing' element={<Landing />} />
+                {/* <Route path='/landing' element={<Landing />} /> */}
                 <Route path='/*' element={<Navigate to='/' replace={true} />} />
               </Routes>
             </main>
