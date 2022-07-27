@@ -246,7 +246,7 @@ const SignIn = () => {
                     colorScheme='blue'
                     _focus={{ boxShadow: 'none' }}
                     onClick={() => {
-                      navigate('/signup');
+                      window.location.replace('https://www.beckettvault.com/');
                     }}
                   >
                     Join the waiting list
@@ -331,19 +331,6 @@ const SignIn = () => {
             </Stack>
           </Box>
         </Container>
-      </Box>
-      <Box
-        bg={'#0C0822'}
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          width: '100%',
-          height: '80px',
-        }}
-      >
-        <Box display={'flex'} justifyContent={'center'} alignItems={'center'} h={'100%'} w={'100%'}>
-          <Image src={require('../../assets/logoDown.png')} alt='logo' />
-        </Box>
       </Box>
     </Box>
   );
