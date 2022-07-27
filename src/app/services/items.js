@@ -71,7 +71,7 @@ const mockItems = [
     title: '1952  Mickey Mantle #311B DP',
     est_value: 180000,
     grade: 'BGS 3 Very Good',
-    description:	'The iconic Mickey Mantle Rookie Card',
+    description: 'The iconic Mickey Mantle Rookie Card',
     ownerId: 1,
     image_url: 'Card6/IMG_0741.JPG',
     imgRev: 'Card6/IMG_0742.JPG',
@@ -79,7 +79,7 @@ const mockItems = [
   },
   {
     id: 7,
-    title: '1833 Babe Ruth #181 Goudey',
+    title: '1933 Babe Ruth #181 Goudey',
     est_value: 90500,
     grade: 'BGS 2.5 Good',
     description: 'Iconic Babe Ruth Big League Chewing Gum Card',
@@ -167,7 +167,7 @@ const mockItems = [
   },
   {
     id: 15,
-    title: '1654 Hank Aaron #128 Topps',
+    title: '1954 Hank Aaron #128 Topps',
     est_value: 12600,
     grade: 'BGS 7 Near Mint',
     description: 'Henery Aaron Outfield Milwaukee Braves',

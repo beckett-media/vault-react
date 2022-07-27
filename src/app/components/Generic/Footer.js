@@ -1,76 +1,75 @@
 import React from 'react';
-import { Col, OverlayTrigger, Row, Tooltip } from 'react-bootstrap';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './Footer.scss';
 
 const Footer = () => {
   return (
-    <>
-      <hr />
-      <Row className='footer mb-2 py-5 mx-4 dark'>
-        <Col sm={2}>
-          <Link to='/'>
-            <span className='text-muted fs-5 fw-bold'>Beckett Vault</span>
-          </Link>
-        </Col>
-        <Col sm={6}>
-          <Row>
-            <Col xl={4} className='d-flex justify-content-center'>
-              <OverlayTrigger
-                delay={{ hide: 450, show: 300 }}
-                overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
-                placement='bottom'
-              >
-                {/* to='/terms' */}
-                 <Link to='#'>
-                  <div className='text-muted fw-bold'>Terms of Service</div>
-                </Link>
-              </OverlayTrigger>
-            </Col>
-            <Col xl={3} className='d-flex justify-content-center'>
-              <OverlayTrigger
-                delay={{ hide: 450, show: 300 }}
-                overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
-                placement='bottom'
-              >
-                {/* to='/privacy' */}
-                 <Link to='#'>
-                  <div className='text-muted fw-bold'>Privacy Policy</div>
-                </Link>
-              </OverlayTrigger>
-            </Col>
-            <Col xl={2} className='d-flex justify-content-center'>
-              <OverlayTrigger
-                delay={{ hide: 450, show: 300 }}
-                overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
-                placement='bottom'
-              >
-                 {/* to='/faq' */}
-                 <Link to='#'>
-                  <div className='text-muted fw-bold'>FAQ</div>
-                </Link>
-              </OverlayTrigger>
-            </Col>
-            <Col xl={2} className='d-flex justify-content-center'>
-              <OverlayTrigger
-                delay={{ hide: 450, show: 300 }}
-                overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
-                placement='bottom'
-              >
-                {/* to='/support' */}
-                 <Link to='#'>
-                  <div className='text-muted fw-bold'>Support</div>
-                </Link>
-              </OverlayTrigger>
-            </Col>
-          </Row>
-        </Col>
-        {/** TODO: Verify this should be 2021 */}
-        <Col sm={2}>
-          <div className='text-muted align-right'>&copy; Copyright © 2022, Beckett Collectibles, LLC. All rights reserved.</div>
-        </Col>
-      </Row>
-    </>
+    <footer className='footer_component'>
+      <div className='page-padding'>
+        <div className='container-large'>
+          <div className='footer_layout'>
+            <div className='footer_logo-wrapper'>
+              <Link to='/'>
+                <img src={require('../../assets/beta-logo.png')} alt='Beckett logo' className='footer_logo' />
+              </Link>
+            </div>
+            <div className='footer_links-wrapper'>
+              <div className='footer_link-wrapper'>
+                <OverlayTrigger
+                  delay={{ hide: 450, show: 300 }}
+                  overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
+                  placement='top'
+                >
+                  {/* to='/terms' */}
+                  <Link to='#'>
+                    <div className='footer_link'>Terms of Service</div>
+                  </Link>
+                </OverlayTrigger>
+              </div>
+              <div className='footer_link-wrapper'>
+                <OverlayTrigger
+                  delay={{ hide: 450, show: 300 }}
+                  overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
+                  placement='top'
+                >
+                  {/* to='/privacy' */}
+                  <Link to='#'>
+                    <div className='footer_link'>Privacy Policy</div>
+                  </Link>
+                </OverlayTrigger>
+              </div>
+              <div className='footer_link-wrapper'>
+                <OverlayTrigger
+                  delay={{ hide: 450, show: 300 }}
+                  overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
+                  placement='top'
+                >
+                  {/* to='/faq' */}
+                  <Link to='#'>
+                    <div className='footer_link'>FAQ</div>
+                  </Link>
+                </OverlayTrigger>
+              </div>
+              <div className='footer_link-wrapper'>
+                <OverlayTrigger
+                  delay={{ hide: 450, show: 300 }}
+                  overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
+                  placement='top'
+                >
+                  {/* to='/support' */}
+                  <Link to='#'>
+                    <div className='footer_link'>Support</div>
+                  </Link>
+                </OverlayTrigger>
+              </div>
+            </div>
+            {/** TODO: Verify this should be 2021 */}
+            <div className='footer_end'>© 2022 Beckett Collectibles, LLC</div>
+          </div>
+        </div>
+      </div>
+    </footer>
   );
 };
 

@@ -1,7 +1,61 @@
-footer {
-  height: 50px;
-  bottom: 0;
-  width: 100%;
+.footer_ {
+  &component {
+    width: 100%;
+    padding: 44px 0;
+    // background-color: rgba(#fff, 0.2);
+
+    @media only screen and (max-width: 850px) {
+      padding: 24px 0;
+    }
+  }
+
+  &layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 16px;
+
+    @media only screen and (max-width: 850px) {
+      grid-template-columns: 1fr;
+      justify-items: center;
+      grid-row-gap: 24px;
+    }
+  }
+
+  &logo {
+    width: 180px;
+
+    &-wrapper {}
+  }
+
+  &links-wrapper {
+    font-weight: 600;
+    justify-self: center;
+    display: flex;
+    gap: 32px;
+
+    @media only screen and (max-width: 1000px) {
+      gap: 16px;
+    }
+
+    @media only screen and (max-width: 550px) {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  &link {
+    white-space: nowrap;
+  }
+
+  &end {
+    justify-self: end;
+    white-space: nowrap;
+    font-size: 15px;
+
+    @media only screen and (max-width: 850px) {
+      justify-self: center;
+    }
+  }
 }
 
 .align-right {
