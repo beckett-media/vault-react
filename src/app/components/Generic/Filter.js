@@ -23,8 +23,8 @@ const Filter = (props) => {
           <option value='title-reverse'>Name Z-A</option>
           <option value='date'>Oldest</option>
           <option value='date-reverse'>Newest</option>
-          <option value='price-reverse'>Most Expensive</option>
-          <option value='price'>Least Expensive</option>
+          <option value='est_value-reverse'>Most Expensive</option>
+          <option value='est_value'>Least Expensive</option>
         </Form.Select>
       </Col>
     </Row>

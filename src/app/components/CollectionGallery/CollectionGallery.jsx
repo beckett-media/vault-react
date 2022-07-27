@@ -21,11 +21,12 @@ const CollectionGallery = ({ data }) => {
   const searchValRegex = new RegExp(searchVal.toLowerCase(), 'g');
 
   const filteredItems = data.filter((item) => searchValRegex.test(item.title.toLowerCase()));
-
+  console.log(sortBy, filteredItems)
   const sortedItems = sortBy
     ? filteredItems.sort((itemA, itemB) => {
         const sortVal = sortBy.split('-');
         const reverse = sortVal.length !== 1;
+        console.log(sortVal)
         if (itemA[`${sortVal[0]}`] <= itemB[`${sortVal[0]}`]) {
           return reverse ? 1 : -1;
         } else return reverse ? -1 : 1;
