@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { fetchMarketItems } from '../../services/items';
+import { fetchMarketItems, getItems } from '../../services/items';
 
 import PreviewGallery from '../../components/PreviewGallery/PreviewGallery';
 import StoriesGrid from '../../components/StoriesGrid/StoriesGrid';
@@ -15,7 +15,7 @@ const Market = () => {
   const [marketplaceStoriesData, setMarketplaceStoriesData] = useState([]);
 
   useEffect(() => {
-    fetchMarketItems().then((res) => {
+    getItems().then((res) => {
       if (res.status === 200) {
         return setItems(res.data);
       }
@@ -42,7 +42,7 @@ const Market = () => {
         </div>
       </div>
       */}
-      <div className='section_market-categories'>
+      {/* <div className='section_market-categories'>
         <div className='page-padding'>
           {items.length !== 0 && (
             <div className='container-large'>
@@ -61,8 +61,8 @@ const Market = () => {
             </div>
           )}
         </div>
-      </div>
-    </div>
+      </div>*/}
+    </div> 
   );
 };
 
