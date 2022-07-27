@@ -224,7 +224,8 @@ const SignIn = () => {
           {!(authContext.authStatus === AuthStatus.SetPassword) && (
             <Button
               onClick={signInClicked}
-              my={6}
+              mt={6}
+              mb={4}
               borderRadius={4}
               w={'100%'}
               h={12}

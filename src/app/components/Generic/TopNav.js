@@ -26,7 +26,7 @@ const TopNav = () => {
             <img src={require('../../assets/beta-logo.png')} className='nav_logo' />
           </Link>
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls='basic-navbar-nav' />
+        {!isSigninPage() && <Navbar.Toggle aria-controls='basic-navbar-nav' />}
         <Navbar.Collapse id='basic-navbar-nav'>
           <Nav className='m-auto'>
             {authContext.isSignedIn && (
