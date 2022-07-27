@@ -8,7 +8,6 @@ import {
   FormControl,
   FormLabel,
   Heading,
-  HStack,
   Input,
   Stack,
   Text,
@@ -197,19 +196,7 @@ const SignIn = () => {
           width: '100%',
           height: '80px',
         }}
-      >
-        <Box display={'flex'} justifyContent={'center'} alignItems={'center'} h={'100%'} w={'100%'}>
-          <Image
-            onClick={() => {
-              navigate('/');
-            }}
-            style={{ cursor: 'pointer' }}
-            src={require('../../assets/logoTop.png')}
-            alt='logo'
-            width={180}
-          />
-        </Box>
-      </Box>
+      ></Box>
       <Box
         w={'100%'}
         h={'100%'}
