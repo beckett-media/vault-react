@@ -19,8 +19,8 @@ const Filter = (props) => {
       <Col sm='4'>
         <Form.Select size='sm' className='rounded-pill' onChange={(e) => setSortBy(e.target.value)}>
           <option selected>Sort</option>
-          <option value='title'>Name A-Z</option>
-          <option value='title-reverse'>Name Z-A</option>
+          <option value='subject'>Name A-Z</option>
+          <option value='subject-reverse'>Name Z-A</option>
           <option value='date'>Oldest</option>
           <option value='date-reverse'>Newest</option>
           <option value='est_value-reverse'>Most Expensive</option>
