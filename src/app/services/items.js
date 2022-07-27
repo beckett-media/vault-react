@@ -1,5 +1,4 @@
 import axios from 'axios';
-import axiosRetry from 'axios-retry';
 import config from '../../config';
 
 export const VAULTING_STATUS = {
@@ -19,8 +18,8 @@ const mockItems = [
     grade: 'BGS 9 Mint',	
     description: '1/5 Autographed',
     ownerId: 1,
-    image_url: '../assets/Images/Card1/IMG_0042.JPG',
-    imgRev: '../assets/Images/Card1/IMG_0043.JPG',
+    image_url: 'Card1/IMG_0042.JPG',
+    imgRev: 'Card1/IMG_0043.JPG',
     date: new Date,
   },
   {
@@ -30,8 +29,8 @@ const mockItems = [
     grade: 'BGS 9.5 Gem Mint',	
     description: 'Autographed',
     ownerId: 1,
-    image_url: '../assets/Images/Card2/IMG_0050.JPG',
-    imgRev: '../assets/Images/Card2/IMG_0051.JPG',
+    image_url: 'Card2/IMG_0050.JPG',
+    imgRev: 'Card2/IMG_0051.JPG',
     date: new Date,
   },
   {
@@ -41,8 +40,8 @@ const mockItems = [
     grade: 'BGS 9 Mint', 
     description: '46/99 Autographed',
     ownerId: 1,
-    image_url: '../assets/Images/Card3/IMG_0235.JPG',
-    imgRev: '../assets/Images/Card3/IMG_0236.JPG',
+    image_url: 'Card3/IMG_0235.JPG',
+    imgRev: 'Card3/IMG_0236.JPG',
     date: new Date,
   },
   {
@@ -52,8 +51,8 @@ const mockItems = [
     grade: 'BGS 9.5 Gem Mint', 
     description: 'Lebron James Rookie Card',
     ownerId: 1,
-    image_url: '../assets/Images/Card4/IMG_0353.JPG',
-    imgRev: '../assets/Images/Card4/IMG_0354.JPG',
+    image_url: 'Card4/IMG_0353.JPG',
+    imgRev: 'Card4/IMG_0354.JPG',
     date: new Date,
   },
   {
@@ -63,8 +62,8 @@ const mockItems = [
     grade: 'BGS 9 Mint', 
     description: 'Autographed 09/10',
     ownerId: 1,
-    image_url: '../assets/Images/Card5/IMG_0651.JPG',
-    imgRev: '../assets/Images/Card5/IMG_0652.JPG',
+    image_url: 'Card5/IMG_0651.JPG',
+    imgRev: 'Card5/IMG_0652.JPG',
     date: new Date,
   },
   {
@@ -74,8 +73,8 @@ const mockItems = [
     grade: 'BGS 3 Very Good', 
     description:	'The iconic Mickey Mantle Rookie Card',
     ownerId: 1,
-    image_url: '../assets/Images/Card6/IMG_00741.JPG',
-    imgRev: '../assets/Images/Card6/IMG_0742.JPG',
+    image_url: 'Card6/IMG_0741.JPG',
+    imgRev: 'Card6/IMG_0742.JPG',
     date: new Date,
   },
   {
@@ -85,8 +84,8 @@ const mockItems = [
     grade: 'BGS 2.5 Good',
     description: 'Iconic Babe Ruth Big League Chewing Gum Card',
     ownerId: 1,
-    image_url: '../assets/Images/Card7/IMG_0767.JPG',
-    imgRev: '../assets/Images/Card7/IMG_0768.JPG',
+    image_url: 'Card7/IMG_0767.JPG',
+    imgRev: 'Card7/IMG_0768.JPG',
     date: new Date,
   },
   {
@@ -96,8 +95,8 @@ const mockItems = [
     grade: 'BGS 9.5 Gem Mint',
     description: 'Patrick Mahomes Rookie Jersey Card Autographed',
     ownerId: 1,
-    image_url: '../assets/Images/Card8/IMG_0805.JPG',
-    imgRev: '../assets/Images/Card8/IMG_0806.JPG',
+    image_url: 'Card8/IMG_0805.JPG',
+    imgRev: 'Card8/IMG_0806.JPG',
     date: new Date,
   },
   {
@@ -107,8 +106,8 @@ const mockItems = [
     grade: 'BGS 9.5 Gem Mint', 
     description:	'Zion William Rookie Card',
     ownerId: 1,
-    image_url: './assets/Images/Card9/IMG_0343.JPG',
-    imgRev: '../assets/Images/Card9/IMG_0044.JPG',
+    image_url: 'Card9/IMG_0343.JPG',
+    imgRev: 'Card9/IMG_0044.JPG',
     date: new Date,
   },
   {
@@ -118,8 +117,8 @@ const mockItems = [
     grade: 'BGS 9 Mint',
     description: 'LaMelo Ball Autographed Rookie Card 90/99',
     ownerId: 1,
-    image_url: '../assets/Images/Card10/IMG_0874.JPG',
-    imgRev: '../assets/Images/Card10/IMG_0875.JPG',
+    image_url: 'Card10/IMG_0874.JPG',
+    imgRev: 'Card10/IMG_0875.JPG',
     date: new Date,
   },
   {
@@ -129,8 +128,8 @@ const mockItems = [
     grade: 'BGS 7.5 Near Mint',
     description: 'Giannis Antetokounmpo Rookie Jersey Autographed card 02/25',
     ownerId: 1,
-    image_url: '../assets/Images/Card11/IMG_1008.JPG',
-    imgRev: '../assets/Images/Card11/IMG_1009.JPG',
+    image_url: 'Card11/IMG_1008.JPG',
+    imgRev: 'Card11/IMG_1009.JPG',
     date: new Date,
   },
   {
@@ -140,10 +139,10 @@ const mockItems = [
     grade: 'BGS 9.5 Gem Mint',
     description: 'Joe Burrow Rookie Jersey Card Autographed 46/99',
     ownerId: 1,
-    image_url: '../assets/Images/Card12/IMG_0853.JPG',
-    imgRev: '../assets/Images/Card12/IMG_0854.JPG',
+    image_url: 'Card12/IMG_0853.JPG',
+    imgRev: 'Card12/IMG_0854.JPG',
     date: new Date,
-  }
+  },
   {
     id: 13,
     title: '1980-81 Bird/Erving/Johnson Topps', 
@@ -151,10 +150,10 @@ const mockItems = [
     grade: 'BGS 9 Mint',
     description: 'Larry Bird, Julius Evering, Magic Johnson Tri-card',
     ownerId: 1,
-    image_url: '../assets/Images/Card13/IMG_0890.JPG',
-    imgRev: '../assets/Images/Card13/IMG_0891.JPG',
+    image_url: 'Card13/IMG_0890.JPG',
+    imgRev: 'Card13/IMG_0891.JPG',
     date: new Date,
-  }
+  },
   {
     id: 14,
     title: '2001 Tiger Woods #1 Upper Deck', 
@@ -162,8 +161,8 @@ const mockItems = [
     grade: 'BGS 10 Pristine',
     description: 'Tiger Woods Pristine 10 BGS Black Label',
     ownerId: 1,
-    image_url: '../assets/Images/Card14/IMG_0779.JPG',
-    imgRev: '../assets/Images/Card14/IMG_0780.JPG',
+    image_url: 'Card14/IMG_0779.JPG',
+    imgRev: 'Card14/IMG_0780.JPG',
     date: new Date,
   },
   {
@@ -173,8 +172,8 @@ const mockItems = [
     grade: 'BGS 7 Near Mint',
     description: 'Henery Aaron Outfield Milwaukee Braves',
     ownerId: 1,
-    image_url: '../assets/Images/Card15/IMG_0743.JPG',
-    imgRev: '../assets/Images/Card15/IMG_0744.JPG',
+    image_url: 'Card15/IMG_0743.JPG',
+    imgRev: 'Card15/IMG_0744.JPG',
     date: new Date,
   },
   {
@@ -184,8 +183,8 @@ const mockItems = [
     grade: 'BGS 8.5', 
     description: 'Near Mint	Wayne Gretzky Rookie Card Oilers',
     ownerId: 1,
-    image_url: '../assets/Images/Card16/IMG_0661.JPG',
-    imgRev: '../assets/Images/Card16/IMG_0662.JPG',
+    image_url: 'Card16/IMG_0661.JPG',
+    imgRev: 'Card16/IMG_0662.JPG',
     date: new Date,
   }
 ]

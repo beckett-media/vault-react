@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
-import { withdrawItem } from '../../services/items';
+import { getItems, withdrawItem } from '../../services/items';
 import { Link } from 'react-router-dom';
 
 import UserInfo from '../../components/UserInfo/UserInfo';
@@ -17,7 +17,7 @@ const Gallery = () => {
 
   useEffect(() => {
     getUser()
-      .then((user) => getSubmissions({ user: user.name }))
+      .then(() => getItems())
       .then((data) => {
         setSubmissions(Array.isArray(data) ? data : []);
       });
