@@ -74,8 +74,10 @@ const ProductInfo = ({ isOwner, item, addToCart }) => {
       ) : (
         <>
           <div className='product-info_title'>{item.title}</div>
-          <div className='product-info_stats'>
+          <div className='product-info_price'>
             <div>{formatPrice(price)}</div>
+          </div>
+          <div className='product-info_stats'>
             <div>{item.grade ? item.grade : 'Beckett 10'}</div>
           </div>
           {item.tags && (

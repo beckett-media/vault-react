@@ -22,6 +22,7 @@ const Item = () => {
   const [user, setUser] = useState([]);
   const [relatedItems, setRelatedItems] = useState([]);
 
+  console.log(id)
   useEffect(() => {
     getUser().then((data) => setUser(data));
   }, []);
@@ -50,7 +51,10 @@ const Item = () => {
 
   const isOwner = user && user.id == item.ownerId;
 
-  return (
+  const images = require.context('../../assets/Images', true);
+
+  return ( 
+    Object.keys(item).length &&
     <div className='page-wrapper'>
       <div className='section_item-details'>
         <div className='page-padding'>
@@ -60,8 +64,8 @@ const Item = () => {
                 <div className='item-details_image-wrapper'>
                   <div className='flip-card_component'>
                     <div className='flip-card_inner'>
-                      <img src={item.image_url} className='flip-card_front' alt={item.title} />
-                      <img src={item.imgRev} className='flip-card_back' alt={item.title} />
+                      <img src={images(`./${item.image_url}`)} className='flip-card_front' alt={item.title} />
+                      <img src={images(`./${item.imgRev}`)} className='flip-card_back' alt={item.title} />
                     </div>
                   </div>
                 </div>
