@@ -79,7 +79,7 @@ const mockItems = [
   },
   {
     id: 7,	
-    title: '1833 Babe Ruth #181 Goudey', 
+    title: '1933 Babe Ruth #181 Goudey', 
     est_value: 90500, 
     grade: 'BGS 2.5 Good',
     description: 'Iconic Babe Ruth Big League Chewing Gum Card',
@@ -104,10 +104,10 @@ const mockItems = [
     title: '2019-20 #209 Zion Willaims Panini Mosaic Fast Break Disco Pink', 
     est_value: 3000, 
     grade: 'BGS 9.5 Gem Mint', 
-    description:	'Zion William Rookie Card',
+    description: 'Zion William Rookie Card',
     ownerId: 1,
     image_url: 'Card9/IMG_0343.JPG',
-    imgRev: 'Card9/IMG_0044.JPG',
+    imgRev: 'Card9/IMG_0344.JPG',
     date: new Date,
   },
   {
@@ -167,7 +167,7 @@ const mockItems = [
   },
   {
     id: 15,
-    title: '1654 Hank Aaron #128 Topps', 
+    title: '1954 Hank Aaron #128 Topps', 
     est_value: 12600, 
     grade: 'BGS 7 Near Mint',
     description: 'Henery Aaron Outfield Milwaukee Braves',
