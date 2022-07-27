@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, OverlayTrigger, Row, Tooltip } from 'react-bootstrap';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './Footer.scss';
 
@@ -15,11 +15,11 @@ const Footer = () => {
               </Link>
             </div>
             <div className='footer_links-wrapper'>
-              <div xl={4} className='footer_link-wrapper'>
+              <div className='footer_link-wrapper'>
                 <OverlayTrigger
                   delay={{ hide: 450, show: 300 }}
                   overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
-                  placement='bottom'
+                  placement='top'
                 >
                   {/* to='/terms' */}
                   <Link to='#'>
@@ -27,11 +27,11 @@ const Footer = () => {
                   </Link>
                 </OverlayTrigger>
               </div>
-              <div xl={3} className='footer_link-wrapper'>
+              <div className='footer_link-wrapper'>
                 <OverlayTrigger
                   delay={{ hide: 450, show: 300 }}
                   overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
-                  placement='bottom'
+                  placement='top'
                 >
                   {/* to='/privacy' */}
                   <Link to='#'>
@@ -39,11 +39,11 @@ const Footer = () => {
                   </Link>
                 </OverlayTrigger>
               </div>
-              <div xl={2} className='footer_link-wrapper'>
+              <div className='footer_link-wrapper'>
                 <OverlayTrigger
                   delay={{ hide: 450, show: 300 }}
                   overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
-                  placement='bottom'
+                  placement='top'
                 >
                   {/* to='/faq' */}
                   <Link to='#'>
@@ -51,11 +51,11 @@ const Footer = () => {
                   </Link>
                 </OverlayTrigger>
               </div>
-              <div xl={2} className='footer_link-wrapper'>
+              <div className='footer_link-wrapper'>
                 <OverlayTrigger
                   delay={{ hide: 450, show: 300 }}
                   overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
-                  placement='bottom'
+                  placement='top'
                 >
                   {/* to='/support' */}
                   <Link to='#'>
