@@ -224,21 +224,13 @@ const SignIn = () => {
             </>
           )}
           {!(authContext.authStatus === AuthStatus.SetPassword) && (
-            <Button
+            <div
               onClick={signInClicked}
-              mt={6}
-              mb={4}
-              borderRadius={4}
-              w={'100%'}
-              h={12}
-              background='linear-gradient(to right, #C1F8E3, #6CD7D4)'
-              color={'black'}
-              fontWeight={'bold'}
-              _focus={{ boxShadow: 'none' }}
+              className='signin_button'
               isLoading={authContext.authStatus === AuthStatus.Loading}
             >
               Continue
-            </Button>
+            </div>
           )}
           {authContext.authStatus === AuthStatus.SetPassword && (
             <Button

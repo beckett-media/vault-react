@@ -64,4 +64,22 @@
       color: #a2a2a3;
     }
   }
+
+  &button {
+    margin-top: 24px;
+    margin-bottom: 18px;
+    width: 100%;
+    padding: 12px 0;
+    font-size: 18px;
+    font-weight: 500;
+    background-image: linear-gradient(to right, #C1F8E3, #6CD7D4);
+    cursor: pointer;
+    text-align: center;
+    border-radius: 4px;
+    transition: all 0.5s ease-in-out;
+
+    &:hover {
+      box-shadow: 0 0 30px -5px #6CD7D4;
+    }
+  }
 }
