@@ -177,6 +177,8 @@ const SignIn = () => {
             className='signin_link'
             variant='link'
             colorScheme='blue'
+            fontWeight='400'
+            fontSize='14px'
             textDecoration='underline'
             marginBottom='32px'
             _focus={{ boxShadow: 'none' }}
