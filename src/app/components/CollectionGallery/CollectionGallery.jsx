@@ -94,8 +94,8 @@ const CollectionGallery = ({ data }) => {
                 </div>
               )}
               {(searchVal ? sortedItems : updatePage(sortedItems, activePage))?.map((item, index) => (
-                <>
-                  {isListVisible && <ListItem item={item} key={'collection-gallery_' + index} />}
+                <div key={'collection-gallery_' + index}>
+                  {isListVisible && <ListItem item={item} />}
                   {!isListVisible && (
                     <div
                       className={`collection-gallery_card-wrapper ${
@@ -123,7 +123,7 @@ const CollectionGallery = ({ data }) => {
                       <ItemCard item={item} belongsToUser={true} />
                     </div>
                   )}
-                </>
+                </div>
               ))}
             </div>
           </div>
