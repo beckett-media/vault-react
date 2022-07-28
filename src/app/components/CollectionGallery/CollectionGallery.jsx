@@ -15,13 +15,12 @@ import { usePagination } from '../../hooks/usePagination';
 
 const CollectionGallery = ({ data }) => {
   //  SEARCH & FILTRATION
-  const [sortBy, setSortBy] = useState('title');
+  const [sortBy, setSortBy] = useState('subject');
   const [searchVal, setSearchVal] = useState('');
 
   const searchValRegex = new RegExp(searchVal.toLowerCase(), 'g');
 
   const filteredItems = data.filter((item) => searchValRegex.test(item.title.toLowerCase()));
-
   const sortedItems = sortBy
     ? filteredItems.sort((itemA, itemB) => {
         const sortVal = sortBy.split('-');
