@@ -1,18 +1,16 @@
 import {
-  Button,
   FormControl,
   FormLabel,
-  HStack,
   IconButton,
   Input,
   InputGroup,
-  InputProps,
   InputRightElement,
   useDisclosure,
   useMergeRefs,
 } from '@chakra-ui/react';
 import * as React from 'react';
 import { HiEye, HiEyeOff } from 'react-icons/hi';
+import { withTheme } from 'styled-components';
 
 export const PasswordField = React.forwardRef((props, ref) => {
   const { isOpen, onToggle } = useDisclosure();
@@ -26,15 +24,15 @@ export const PasswordField = React.forwardRef((props, ref) => {
     }
   };
 
-  const { value, onChange, prefix } = props;
+  const { value, onChange, label, color } = props;
 
   return (
     <FormControl>
-      <FormLabel htmlFor='password' color={'white'}>
-        {prefix} Password
+      <FormLabel htmlFor='password' color={color}>
+        {label}
       </FormLabel>
-      <InputGroup>
-        <InputRightElement>
+      <InputGroup display='flex' alignItems='center'>
+        <InputRightElement height='100%'>
           <IconButton
             variant='link'
             aria-label={isOpen ? 'Mask password' : 'Reveal password'}
@@ -43,10 +41,10 @@ export const PasswordField = React.forwardRef((props, ref) => {
           />
         </InputRightElement>
         <Input
-          borderColor={'transparent'}
+          borderRadius='2'
+          borderColor='#C5C5C5'
           h={12}
-          bg='#42404D'
-          color='#ffffff'
+          placeholder='Password*'
           id='password'
           ref={mergeRef}
           name='password'
@@ -60,5 +58,9 @@ export const PasswordField = React.forwardRef((props, ref) => {
     </FormControl>
   );
 });
+
+PasswordField.defaultProps = {
+  color: 'black',
+};
 
 PasswordField.displayName = 'PasswordField';
