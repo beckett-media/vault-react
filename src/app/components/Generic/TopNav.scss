@@ -18,6 +18,10 @@
     justify-self: center;
     display: flex;
     gap: 30px;
+
+    @media only screen and (max-width: 800px) {
+      display: none;
+    }
   }
 
   &end-wrapper {
@@ -25,6 +29,10 @@
     display: flex;
     align-items: center;
     gap: 12px;
+
+    @media only screen and (max-width: 800px) {
+      display: none;
+    }
   }
 
   &logo {
@@ -115,6 +123,88 @@
         color: white;
       }
     }
+  }
+
+  &mobile- {
+    &checkbox {
+      display: none;
+    }
+
+    &checkbox:checked~&bg {
+      transform: scale(80);
+    }
+
+    &checkbox:checked~&bg {
+      transform: scale(80);
+    }
+
+    &checkbox:checked+label &hamburger::before {
+      transform: rotate(43deg);
+    }
+
+    &checkbox:checked+label &hamburger::after {
+      transform: rotate(-43deg);
+    }
+
+    &checkbox:checked+label &hamburger {
+      background-color: transparent;
+    }
+
+    &hamburger {
+
+      &,
+      &::after,
+      &::before {
+        width: 100%;
+        height: 4px;
+        background-color: #FFFFFF;
+        transition: all 0.2s ease-in-out;
+      }
+
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        transform-origin: left;
+      }
+
+      &::before {
+        top: 0;
+      }
+
+      &::after {
+        bottom: 0;
+      }
+
+      &-wrapper {
+        position: relative;
+        width: 40px;
+        grid-column: 3/4;
+        justify-self: end;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        z-index: 999;
+      }
+    }
+
+    &bg {
+      position: absolute;
+      border-radius: 100%;
+      top: 0%;
+      right: 0%;
+      width: 40px;
+      height: 40px;
+      background: white;
+      opacity: 10%;
+      backdrop-filter: blur(100%);
+      z-index: 998;
+      transform: translate(100%, -100%);
+      transition: all 0.5s ease-in-out;
+    }
+
+    &menu {}
   }
 }
 
