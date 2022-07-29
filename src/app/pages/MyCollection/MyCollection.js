@@ -18,7 +18,7 @@ const Gallery = () => {
 
   useEffect(() => {
     getUser()
-      .then(() => getItems())
+      .then((user) => getSubmissions({ user: user.name }))
       .then((data) => {
         setSubmissions(Array.isArray(data) ? data : []);
       });
