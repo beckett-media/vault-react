@@ -13,38 +13,17 @@ const History = () => {
   useEffect(() => {
     getUser().then((userObject) => {
       setUser(userObject);
-      getHistory(user.name)
+      console.log(userObject)
+      getHistory(userObject.id)
         .then((res) => {
           if (res.status === 200) {
             if (res.data.length !== 0) {
               setHistoryItems(res.data);
             }
           } else {
-            setHistoryItems([
-              {
-                id: 's0',
-                title: 'No History Items',
-                created_at: new Date(),
-                status_desc: 'none',
-                grading_company: 'none',
-                serial_number: 'none',
-              },
-            ]);
+            setHistoryItems([res.data]);
           }
         })
-        .catch((err) => {
-          console.log(err);
-          setHistoryItems([
-            {
-              id: 'e0',
-              title: 'No History Items',
-              created_at: new Date(),
-              status_desc: 'none',
-              grading_company: 'none',
-              serial_number: 'none',
-            },
-          ]);
-        });
     });
   }, []);
   let items = [...itemsHistory({ historyItems, selected, setSelected })];

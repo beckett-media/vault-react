@@ -3,7 +3,7 @@ import config from '../../config';
 import { swapObjectKeyValue } from '../utils/strings';
 
 const mockUser = {
-  id: 1,
+  id: '00000001-0000-0000-0000-000000000000',
   name: 'Beckett SuperUser',
   email: 'super@Man.com',
   img: 'https://www.sideshow.com/storage/product-images/907776/superman_dc-comics_square.jpg',

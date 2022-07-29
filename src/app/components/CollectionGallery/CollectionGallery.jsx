@@ -39,7 +39,14 @@ const CollectionGallery = ({ data }) => {
 
   //  PAGINATION
   const { activePage, paginationItems, updatePage } = usePagination(sortedItems);
-
+  const sortOptions = [
+    {value:'subject', title: 'Name A-Z'},
+    {value:'subject-reverse', title: 'Name Z-A'},
+    {value:'date', title: 'Oldest'},
+    {value:'date-reverse', title: 'Newest'},
+    {value:'est_value-reverse', title: 'Most Expensive'},
+    {value:'est_value', title: 'Least Expensive'}
+  ]
   return (
     <div className='w-100'>
       <div className='gallery-filter_component'>
@@ -62,7 +69,7 @@ const CollectionGallery = ({ data }) => {
                 </ButtonGroup>
               </div>
               <div className='d-flex gap-4'>
-                <Filter searchVal={searchVal} setSearchVal={setSearchVal} sortBy={sortBy} setSortBy={setSortBy} />
+                <Filter searchVal={searchVal} setSearchVal={setSearchVal} sortBy={sortBy} setSortBy={setSortBy} sortOptions={sortOptions}/>
                 {selectedItemIds.length > 0 && (
                   <div className='d-flex align-items-center'>
                     <div className='me-2'>{selectedItemIds.length} item(s) selected</div>

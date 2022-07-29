@@ -2,7 +2,7 @@ import React from 'react';
 import { Col, Row, Form } from 'react-bootstrap';
 
 const Filter = (props) => {
-  const { searchVal, setSearchVal, setSortBy } = props;
+  const { searchVal, setSearchVal, setSortBy, sortOptions } = props;
   // add onSearch, onSort props.
   return (
     <Row className='row'>
@@ -19,12 +19,9 @@ const Filter = (props) => {
       <Col sm='4'>
         <Form.Select size='sm' className='rounded-pill' onChange={(e) => setSortBy(e.target.value)}>
           <option selected>Sort</option>
-          <option value='subject'>Name A-Z</option>
-          <option value='subject-reverse'>Name Z-A</option>
-          <option value='date'>Oldest</option>
-          <option value='date-reverse'>Newest</option>
-          <option value='est_value-reverse'>Most Expensive</option>
-          <option value='est_value'>Least Expensive</option>
+          {sortOptions.map((option) => 
+            <option value={option.value}>{option.title}</option>
+          )}
         </Form.Select>
       </Col>
     </Row>
