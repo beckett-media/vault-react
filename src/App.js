@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from './app/components/Generic/Header';
+import TopNav from './app/components/Generic/TopNav';
 import Footer from './app/components/Generic/Footer';
 import Faq from './app/components/Generic/Faq';
 import Privacy from './app/components/Generic/Privacy';
@@ -47,7 +47,7 @@ function App() {
       <AuthProvider>
         <CartProvider>
           <ChakraProvider theme={emptyChakraTheme}>
-            <Header />
+            <TopNav />
             <main className='w-100 h-100'>
               <Routes>
                 <Route exact path='/' element={<PrivateRoute />}>
