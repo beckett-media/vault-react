@@ -61,23 +61,15 @@ const Gallery = () => {
     }
   };
 
-  // OTHER
-  const calculateVaultedValue = (items) => {
-    let sum = 0;
-
-    items.forEach((item) => {
-      sum += item.est_value;
-    });
-
-    return sum;
-  };
-
   return (
     <div className='page-wrapper'>
       {!showConfirmationPage && (
         <>
           <div className='section-profile-info'>
-            <UserBanner vaultedItems={submissions?.length} vaultedValue={calculateVaultedValue(submissions)} />
+            <UserBanner
+              vaultedItems={submissions?.length}
+              vaultedValue={submissions.reduce((prev, cur) => prev + cur.est_value, 0)}
+            />
           </div>
           {!showConfirmationPage && submissions.filter((item) => item.minted_at === 0).length ? (
             <Row>
