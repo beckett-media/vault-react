@@ -452,23 +452,13 @@ export const fetchItems = () => {
 };
 
 export const fetchMarketItems = () => {
-  /*axiosRetry(axios, { retries: 3 });
   return axios
     .get(`${config.BASE_URL}/marketplace/listing`, {
       headers: {
         Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
       },
     })
-    .then((res) => {
-      if (res.status === 200) {
-        return res;
-      }
-    })
-    .catch((err) => err);
-    */
-  return new Promise((res, rej) => {
-    res({ data: mockMarketItems, status: 200 });
-  });
+    .then((res) => res.data);
 };
 
 export const fetchItemBySubmission = (submissionId) => {
@@ -478,11 +468,7 @@ export const fetchItemBySubmission = (submissionId) => {
         Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
       },
     })
-    .then((res) => {
-      if (res.status === 200) {
-        return res;
-      }
-    })
+    .then((res) => res.data)
     .catch((err) => err);
 };
 
