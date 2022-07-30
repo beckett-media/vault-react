@@ -10,17 +10,16 @@ export const getHistory = async (userName) => {
           return res;
         })
         .catch((err) => {
-          return ({
-            status: err.response.status,
+          return ([{
             data: {
               id: 's0',
-              title: err.response.status + ' - ' + err.response.data.error,
+              entity_type_desc: err.response.status + ' - ' + err.response.data.error,
               created_at: new Date(),
               status_desc: 'none',
               grading_company: 'none',
               serial_number: 'none',
             }
-          })
+          }])
         }
       )
     )

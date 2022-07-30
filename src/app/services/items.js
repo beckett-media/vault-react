@@ -461,6 +461,30 @@ export const fetchMarketItems = () => {
     .then((res) => res.data);
 };
 
+export const getSingleListing = (id) => {
+  return axios
+    .get(`${config.BASE_URL}/marketplace/listing/${id}`, {
+      headers: {
+        Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
+      },
+    })
+    .then((res) => {
+      console.log(res)
+      res.data});
+};
+
+export const getSingleVaulting = (id) => {
+  return axios
+    .get(`${config.BASE_URL}/marketplace/vaulting/${id}`, {
+      headers: {
+        Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
+      },
+    })
+    .then((res) => {
+      console.log(res)
+      res.data});
+};
+
 export const fetchItemBySubmission = (submissionId) => {
   return axios
     .get(`${config.BASE_URL}/marketplace/vaulting/submission/${submissionId}`, {
