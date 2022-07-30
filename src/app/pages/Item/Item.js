@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import requireContext from 'require-context.macro';
 
 import PreviewGallery from '../../components/PreviewGallery/PreviewGallery';
 import ProductInfo from '../../components/ProductInfo/ProductInfo';
@@ -12,6 +13,8 @@ import { useCartContext } from '../../contexts/cart';
 import { getMarketItems } from '../../services/items';
 
 import './Item.scss';
+
+const images = requireContext('../../assets/Images', true);
 
 const Item = () => {
   // see Profile component for creating a user
@@ -51,9 +54,9 @@ const Item = () => {
 
   const isOwner = user && user.id == item.ownerId;
 
-  const images = require.context('../../assets/Images', true);
+  
 
-  return ( 
+  return (
     Object.keys(item).length &&
     <div className='page-wrapper'>
       <div className='section_item-details'>
