@@ -41,9 +41,8 @@ const CollectionGallery = ({ data }) => {
   const { activePage, paginationItems, updatePage } = usePagination(sortedItems);
 
   return (
-    <div className='w-100'>
+    <div className='collection-gallery_component w-100'>
       <div className='gallery-filter_component'>
-        <div className='gallery-filter_divider' />
         <div className='page-padding'>
           <div className='container-large'>
             <div className='gallery-filter_layout'>
@@ -75,65 +74,68 @@ const CollectionGallery = ({ data }) => {
             </div>
           </div>
         </div>
-        <div className='gallery-filter_divider' />
       </div>
-      <div className='page-padding'>
-        <div className='container-large'>
-          <div
-            className={`collection-gallery_layout ${
-              isListVisible ? 'collection-gallery_layout-list' : 'collection-gallery_layout-grid'
-            }`}
-          >
-            {isListVisible && (
-              <div className='collection_list-item-layout mt-4 fw-bold'>
-                <div></div>
-                <div>Item</div>
-                <div>Details</div>
-                <div className='text-end'>Grade</div>
-                <div className='text-end'>Price</div>
-              </div>
-            )}
-            {(searchVal ? sortedItems : updatePage(sortedItems, activePage))?.map((item, index) => (
-              <>
-                {isListVisible && <ListItem item={item} key={'collection-gallery_' + index} />}
-                {!isListVisible && (
-                  <div
-                    className={`collection-gallery_card-wrapper ${
-                      isSelected(item.id) && 'collection-gallery_card-selected'
-                    }`}
-                    key={'collection-gallery_' + index}
-                  >
-                    <div className='collection-gallery_card-overlay'></div>
+      <div className='collection-gallery_gallery'>
+        <div className='page-padding'>
+          <div className='container-large'>
+            <div className='collection-gallery_heading'>My Collection</div>
+            <div
+              className={`collection-gallery_layout ${
+                isListVisible ? 'collection-gallery_layout-list' : 'collection-gallery_layout-grid'
+              }`}
+            >
+              {isListVisible && (
+                <div className='collection_list-item-layout mt-4 fw-bold'>
+                  <div></div>
+                  <div>Item</div>
+                  <div>Details</div>
+                  <div className='text-end'>Grade</div>
+                  <div className='text-end'>Price</div>
+                </div>
+              )}
+              {(searchVal ? sortedItems : updatePage(sortedItems, activePage))?.map((item, index) => (
+                <div key={'collection-gallery_' + index}>
+                  {isListVisible && <ListItem item={item} />}
+                  {!isListVisible && (
                     <div
-                      className={`collection-gallery_overlay-button ${
-                        isSelected(item.id) && 'collection-gallery_overlay-button-selected'
+                      className={`collection-gallery_card-wrapper ${
+                        isSelected(item.id) && 'collection-gallery_card-selected'
                       }`}
+                      key={'collection-gallery_' + index}
                     >
-                      <BsCheck size={40} />
-                      <ToggleButton
-                        className='collection-gallery_overlay-toggle'
-                        id={`toggled-${item.id}`}
-                        type='checkbox'
-                        variant='outline-primary'
-                        checked={isSelected(item.id)}
-                        value='1'
-                        onChange={(e) => handleItemSelection(e.currentTarget.checked, item.id)}
-                      />
+                      <div className='collection-gallery_card-overlay'></div>
+                      <div
+                        className={`collection-gallery_overlay-button ${
+                          isSelected(item.id) && 'collection-gallery_overlay-button-selected'
+                        }`}
+                      >
+                        <BsCheck size={40} />
+                        <ToggleButton
+                          className='collection-gallery_overlay-toggle'
+                          id={`toggled-${item.id}`}
+                          type='checkbox'
+                          variant='outline-primary'
+                          checked={isSelected(item.id)}
+                          value='1'
+                          onChange={(e) => handleItemSelection(e.currentTarget.checked, item.id)}
+                        />
+                      </div>
+                      <ItemCard item={item} belongsToUser={true} />
                     </div>
-                    <ItemCard item={item} />
-                  </div>
-                )}
-              </>
-            ))}
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-      <div className='collection_pagination'>
-        <Pagination>
-          <Pagination.Prev />
-          {paginationItems}
-          <Pagination.Next />
-        </Pagination>
+
+        <div className='collection_pagination'>
+          <Pagination>
+            <Pagination.Prev />
+            {paginationItems}
+            <Pagination.Next />
+          </Pagination>
+        </div>
       </div>
     </div>
   );

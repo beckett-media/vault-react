@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import UserInfo from '../../components/UserInfo/UserInfo';
 import CollectionGallery from '../../components/CollectionGallery/CollectionGallery';
+import UserBanner from '../../components/UserBanner/UserBanner';
 
 import './MyCollection.scss';
 
@@ -65,11 +66,10 @@ const Gallery = () => {
       {!showConfirmationPage && (
         <>
           <div className='section-profile-info'>
-            <div className='page-padding'>
-              <div className='container-large'>
-                <UserInfo />
-              </div>
-            </div>
+            <UserBanner
+              vaultedItems={submissions?.length}
+              vaultedValue={submissions.reduce((prev, cur) => prev + cur.est_value, 0)}
+            />
           </div>
           {!showConfirmationPage && submissions.filter((item) => item.minted_at === 0).length ? (
             <Row>
