@@ -1,27 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
-import { getItems, withdrawItem } from '../../services/items';
 import { Link } from 'react-router-dom';
 
+import { AuthContext } from '../../contexts/auth';
+import { withdrawItem } from '../../services/items';
+import { mapCognitoToUser } from '../../services/user';
 import UserInfo from '../../components/UserInfo/UserInfo';
 import CollectionGallery from '../../components/CollectionGallery/CollectionGallery';
+import UserBanner from '../../components/UserBanner/UserBanner';
 
 import './MyCollection.scss';
 
 import { getSubmissions } from '../../services/submission';
-import { getUser } from '../../services/user';
 
 const Gallery = () => {
+  const authContext = useContext(AuthContext);
+  const userState = mapCognitoToUser(authContext.attrInfo);
   //  FETCH PAST SUBMISSIONS
   const [submissions, setSubmissions] = useState([]);
 
   useEffect(() => {
-    getUser()
-      .then(() => getItems())
+    getSubmissions({ user: userState.sub })
       .then((data) => {
         setSubmissions(Array.isArray(data) ? data : []);
       });
-  }, []);
+  }, [userState.sub]);
 
   //  SELLING & WITHDRAWAL
   const [showConfirm, toggleConfirm] = useState(false);
@@ -65,11 +68,10 @@ const Gallery = () => {
       {!showConfirmationPage && (
         <>
           <div className='section-profile-info'>
-            <div className='page-padding'>
-              <div className='container-large'>
-                <UserInfo />
-              </div>
-            </div>
+            <UserBanner
+              vaultedItems={submissions?.length}
+              vaultedValue={submissions.reduce((prev, cur) => prev + cur.est_value, 0)}
+            />
           </div>
           {!showConfirmationPage && submissions.filter((item) => item.minted_at === 0).length ? (
             <Row>
