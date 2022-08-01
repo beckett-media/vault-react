@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import requireContext from 'require-context.macro';
 
 import './ListItem.scss';
 
-import { trimString, formatPrice } from '../../utils/strings';
+import { formatPrice, trimString } from '../../utils/strings';
 
-const images = require.context('../../assets/Images', true);
+const images = requireContext('../../assets/Images', true);
 
 const ListItem = ({ item }, props) => {
   return (
