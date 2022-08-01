@@ -9,7 +9,6 @@
 .section- {
   &profile-info {
     width: 100%;
-    padding: 40px 0 28px 0;
   }
 
   &collection {
@@ -22,7 +21,8 @@
     position: sticky;
     top: 54px;
     z-index: 9;
-    background-color: #161619;
+    background-color: #fff;
+    color: #000;
   }
 
   &divider {

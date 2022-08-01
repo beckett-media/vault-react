@@ -6,8 +6,9 @@ import './UserBanner.scss';
 
 import { ReactComponent as BgSphere } from '../../assets/bg-sphere.svg';
 import { getUser } from '../../services/user';
+import { formatPrice } from '../../utils/strings';
 
-const UserBanner = () => {
+const UserBanner = ({ vaultedItems = 0, vaultedValue = 0 }) => {
   const [user, setUser] = useState([]);
   const authContext = useContext(AuthContext);
   const userState = mapCognitoToUser(authContext.attrInfo);
@@ -31,8 +32,8 @@ const UserBanner = () => {
               <div className='user-banner_body user-banner_grid-3'>Vaulted Value</div>
               {/* Todo: add dynamic date-joined field */}
               <div className='user-banner_body user-banner_grid-4'>joined June, 2022</div>
-              <div className='user-banner_stat-content user-banner_grid-5'>14</div>
-              <div className='user-banner_stat-content user-banner_grid-6'>$123,000</div>
+              <div className='user-banner_stat-content user-banner_grid-5'>{vaultedItems}</div>
+              <div className='user-banner_stat-content user-banner_grid-6'>{formatPrice(vaultedValue)}</div>
             </div>
           </div>
         </div>
