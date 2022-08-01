@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, createRef, useCallback } from 'react';
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { NavDropdown } from 'react-bootstrap';
 import Tooltip from 'react-bootstrap/Tooltip';
@@ -19,6 +19,12 @@ const TopNav = () => {
   const isSigninPage = () => {
     return pathname === '/signin';
   };
+
+  const checkboxRef = createRef();
+
+  const toggleCheckbox = useCallback(() => {
+    checkboxRef.current.checked = false;
+  }, [checkboxRef]);
 
   return (
     <div className='nav_component'>
@@ -89,15 +95,45 @@ const TopNav = () => {
                 <></>
               )}
             </div>
-            {!isSigninPage() && (
-              <>
-                <input type='checkbox' className='nav_mobile-checkbox' id='navi-toggle' />
+            {authContext.isSignedIn && (
+              <div className='nav_mobile'>
+                <input type='checkbox' className='nav_mobile-checkbox' id='navi-toggle' ref={checkboxRef} />
                 <label htmlFor='navi-toggle' className='nav_mobile-hamburger-wrapper'>
                   <div className='nav_mobile-hamburger'></div>
                 </label>
                 <div className='nav_mobile-bg'></div>
-                <div className='nav_mobile-menu'></div>
-              </>
+                <div className='nav_mobile-menu'>
+                  <NavLink to='/collection' onClick={toggleCheckbox} className='nav_mobile-menu-item'>
+                    My Collection
+                  </NavLink>
+                  <NavLink to='/market' onClick={toggleCheckbox} className='nav_mobile-menu-item'>
+                    Marketplace
+                  </NavLink>
+                  <NavLink to='/profile' onClick={toggleCheckbox} className='nav_mobile-menu-item'>
+                    Profile
+                  </NavLink>
+                  <NavLink to='/history' onClick={toggleCheckbox} className='nav_mobile-menu-item'>
+                    History
+                  </NavLink>
+                  <OverlayTrigger
+                    delay={{ hide: 450, show: 300 }}
+                    overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
+                    placement='bottom'
+                  >
+                    <div className='nav_button'>Add Item</div>
+                  </OverlayTrigger>
+                  <NavLink
+                    to='/'
+                    onClick={async () => {
+                      authContext.signOut();
+                      navigate('/');
+                    }}
+                    className='nav_mobile-menu-item'
+                  >
+                    Logout
+                  </NavLink>
+                </div>
+              </div>
             )}
           </div>
         </div>
