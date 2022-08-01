@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
-import { getItems, withdrawItem } from '../../services/items';
 import { Link } from 'react-router-dom';
 
+import { AuthContext } from '../../contexts/auth';
+import { withdrawItem } from '../../services/items';
+import { mapCognitoToUser } from '../../services/user';
 import UserInfo from '../../components/UserInfo/UserInfo';
 import CollectionGallery from '../../components/CollectionGallery/CollectionGallery';
 import UserBanner from '../../components/UserBanner/UserBanner';
@@ -10,19 +12,19 @@ import UserBanner from '../../components/UserBanner/UserBanner';
 import './MyCollection.scss';
 
 import { getSubmissions } from '../../services/submission';
-import { getUser } from '../../services/user';
 
 const Gallery = () => {
+  const authContext = useContext(AuthContext);
+  const userState = mapCognitoToUser(authContext.attrInfo);
   //  FETCH PAST SUBMISSIONS
   const [submissions, setSubmissions] = useState([]);
 
   useEffect(() => {
-    getUser()
-      .then((user) => getSubmissions({ user: user.name }))
+    getSubmissions({ user: userState.sub })
       .then((data) => {
         setSubmissions(Array.isArray(data) ? data : []);
       });
-  }, []);
+  }, [userState.sub]);
 
   //  SELLING & WITHDRAWAL
   const [showConfirm, toggleConfirm] = useState(false);
