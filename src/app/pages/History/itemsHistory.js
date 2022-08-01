@@ -4,12 +4,12 @@ import './History.scss';
 
 export const itemsHistory = (props) => {
   const { 
-    historyItems,
+    sortedItems,
     setSelected,
     historyItemDetails 
   } = props;
   const mapHistoryComponents = (items) =>
-    items.map((item) => (
+    items?.map((item) => (
       <div key={item.id} id={item.id}>
         <Row className='py-3 border' onClick={() => 
           setSelected(`${item.entity}-${item.entity_type_desc}`)}
@@ -26,18 +26,24 @@ export const itemsHistory = (props) => {
         </Row>
         {historyItemDetails.id === Number(item.entity) && (
           <Row className='py-3 px-5 border'>
-            <Col lg={3}>
-              <div>Status: {historyItemDetails.status_desc}</div>
-            </Col>
-            <Col lg={5}>
-              <div>Grading Company: {historyItemDetails.grading_company}</div>
+            <Col lg={2}>
+              <div>{'Status: '}<br/>
+                <span className='fw-bold'>{historyItemDetails.status_desc}</span>
+              </div>
             </Col>
             <Col lg={2}>
-              <div>Serial Number: {historyItemDetails.serial_number}</div>
+              <div>{`${item.entity_type_desc} ID: `}<br/>
+                <span className='fw-bold'>{historyItemDetails.id}</span>
+              </div>
+            </Col>
+            <Col lg={8}>
+              <div>{'Item: '}<br/>
+                <span className='fw-bold'>{historyItemDetails.title}</span>
+              </div>
             </Col>
           </Row>
         )}
       </div>
     ));
-  return historyItems && mapHistoryComponents(historyItems);
+  return sortedItems && mapHistoryComponents(sortedItems);
 };

@@ -12,9 +12,12 @@ const History = () => {
   const [historyItems, setHistoryItems] = useState([]);
   const [selected, setSelected] = useState('');
   const [user, setUser] = useState({});
-  const [sortBy, setSortBy] = useState('subject');
+  const [sortBy, setSortBy] = useState('date');
+  const [filterBy, setFilterBy] = useState('all')
   const [searchVal, setSearchVal] = useState('');
   const [historyItemDetails, setHistoryItemDetails] = useState({})
+  const [sortedItems, setSortedItems] = useState([])
+  const [filteredItems, setFilteredItems] = useState([])
 
   useEffect(() => {
     getUser().then((userObject) => {
@@ -22,51 +25,101 @@ const History = () => {
       getHistory(userObject.id)
         .then((res) => {
               setHistoryItems(res.data)
+              setSortedItems(res.data)
+              setFilteredItems(res.data)
         })
     });
   }, []);
 
   useEffect(() => {
       const selectedArr = selected.split('-')
-      console.log(selectedArr)
       switch(selectedArr[1]?.toLowerCase()){
-        case 'submission':
-          getSingleSubmission(selectedArr[0])
-            .then((res) => {
-              setHistoryItemDetails(res)
-            })
         case 'listing':
           getSingleListing(selectedArr[0])
             .then((res) => {
               setHistoryItemDetails(res)
             })
-        case 'listing':
+          break;
+        case 'submission':
+          getSingleSubmission(selectedArr[0])
+            .then((res) => {
+              setHistoryItemDetails(res)
+            })
+            break;
+        case 'vaulting':
           getSingleVaulting(selectedArr[0])
             .then((res) => {
               setHistoryItemDetails(res)
             })
+            break;
       }
   }, [selected]);
 
-  let items = [...itemsHistory({ historyItems, historyItemDetails, setSelected })];
-  // TODO: Set searching and filtering items.
-  const sortedItems = items.sort((a, b) => {
-    if (a.id < b.id) {
-      return -1;
-    } else return 1;
-  });
+  useEffect(() => {
+    switch(filterBy){
+      case 'all':
+        setFilteredItems([...historyItems])
+        break;
+      case 'listing':
+        setFilteredItems(
+          historyItems.filter(item => item.entity_type_desc.toLowerCase() === 'listing')
+        )
+        break;
+      case 'submission':
+        setFilteredItems(
+          historyItems.filter(item => item.entity_type_desc.toLowerCase() === 'submission')
+        )
+        break;
+      case 'vaulting':
+        setFilteredItems(
+          historyItems.filter(item => item.entity_type_desc.toLowerCase() === 'vaulting')
+        )
+        break;
+    }
+}, [filterBy]);
+
+  useEffect(() => {
+    if(sortBy === 'date'){
+      setSortedItems(filteredItems.sort((a, b) => {
+        if (a.created_at < b.created_at) {
+          return -1;
+        } else return 1;
+        }
+      ))
+    }
+    else if(sortBy === 'date-reverse'){
+      setSortedItems(filteredItems.sort((a, b) => {
+        if (a.created_at > b.created_at) {
+          return -1;
+        } else return 1;
+        }
+      ))
+    }
+  },[sortBy, filteredItems])
+
   const sortOptions = [
-    {value:'subject', title: 'Name A-Z'},
-    {value:'subject-reverse', title: 'Name Z-A'},
     {value:'date', title: 'Oldest'},
     {value:'date-reverse', title: 'Newest'},
-    {value:'est_value-reverse', title: 'Most Expensive'},
-    {value:'est_value', title: 'Least Expensive'}
   ]
+  const filterOptions = [
+    {value: 'all', title: 'All'},
+    {value: 'submission', title: 'Submission'},
+    {value: 'vaulting', title: 'Vaulted'},
+    {value: 'listing', title: 'Market'}
+  ]
+  let items = [...itemsHistory({ sortedItems, historyItemDetails, setSelected })]
   return (
     <Container className='py-2 sub-box'>
       <h2 className='fs-3 pb-3'>History</h2>
-      <Filter searchVal={searchVal} setSearchVal={setSearchVal} sortBy={sortBy} setSortBy={setSortBy} sortOptions={sortOptions}/>
+      <Filter 
+        searchVal={searchVal} 
+        setSearchVal={setSearchVal} 
+        sortBy={sortBy} 
+        setSortBy={setSortBy} 
+        sortOptions={sortOptions}
+        filterBy={filterBy}
+        setFilterBy={setFilterBy} 
+        filterOptions={filterOptions}/>
       <Row>
         <Col xs={8}>
           <h3 className='fs-4'>Title</h3>
@@ -76,7 +129,7 @@ const History = () => {
         </Col>
         <Col xs={1} />
       </Row>
-      <>{sortedItems}</>
+      <>{items}</>
     </Container>
   );
 };
