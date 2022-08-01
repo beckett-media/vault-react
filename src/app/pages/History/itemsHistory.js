@@ -8,23 +8,28 @@ export const itemsHistory = (props) => {
     setSelected,
     historyItemDetails 
   } = props;
+
   const mapHistoryComponents = (items) =>
-    items?.map((item) => (
-      <div key={item.id} id={item.id}>
+    items?.map((item) => {
+      const isSelected = historyItemDetails.id === Number(item.entity)
+      return(<div key={item.id} id={item.id}>
         <Row className='py-3 border' onClick={() => 
           setSelected(`${item.entity}-${item.entity_type_desc}`)}
         >
           <Col xs={8} className='fw-bold'>
-            <div>{item.type_desc}</div>
+            <div>{item.type_desc} - {item.id}</div>
           </Col>
           <Col xs={3}>
             <div>{new Date(item.created_at).toLocaleDateString()}</div>
           </Col>
-          <Col xs={1} className='right-align px-4'>
+          {isSelected ? <Col xs={1} className='right-align px-4'>
             &and;
-          </Col>
+          </Col> :
+          <Col xs={1} className='right-align px-4'>
+            &or;
+          </Col>}
         </Row>
-        {historyItemDetails.id === Number(item.entity) && (
+        {isSelected && (
           <Row className='py-3 px-5 border'>
             <Col lg={2}>
               <div>{'Status: '}<br/>
@@ -44,6 +49,6 @@ export const itemsHistory = (props) => {
           </Row>
         )}
       </div>
-    ));
+    )});
   return sortedItems && mapHistoryComponents(sortedItems);
 };

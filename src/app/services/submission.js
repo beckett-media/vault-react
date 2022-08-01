@@ -28,7 +28,6 @@ export const getSubmissions = async ({ user, status, offset, limit, order } = {}
     limit,
     order,
   };
-
   return axios
     .get(`${config.BASE_URL}/marketplace/submission`, {
       params: Object.keys(params).length > 0 ? params : undefined,

@@ -5,8 +5,8 @@ import './History.scss';
 import { getUser } from '../../services/user';
 import { getHistory } from '../../services/history';
 import Filter from '../../components/Generic/Filter';
-import { getSingleSubmission } from '../../services/submission';
-import { getSingleListing, getSingleVaulting } from '../../services/items';
+import { getSingleSubmission, getSubmissions } from '../../services/submission';
+import { fetchItems, fetchItemsByUser, getSingleListing, getSingleVaulting } from '../../services/items';
 
 const History = () => {
   const [historyItems, setHistoryItems] = useState([]);
@@ -18,41 +18,56 @@ const History = () => {
   const [historyItemDetails, setHistoryItemDetails] = useState({})
   const [sortedItems, setSortedItems] = useState([])
   const [filteredItems, setFilteredItems] = useState([])
-
+  const [submissions, setSubmissions] = useState([])
   useEffect(() => {
     getUser().then((userObject) => {
       setUser(userObject);
       getHistory(userObject.id)
         .then((res) => {
-              setHistoryItems(res.data)
-              setSortedItems(res.data)
-              setFilteredItems(res.data)
+          setHistoryItems(res.data)
+          setSortedItems(res.data)
+          setFilteredItems(res.data)
+        })
+      getSubmissions({user: userObject.id})
+        .then((res) => {
+          setSubmissions(res)
         })
     });
   }, []);
 
   useEffect(() => {
-      const selectedArr = selected.split('-')
-      switch(selectedArr[1]?.toLowerCase()){
-        case 'listing':
-          getSingleListing(selectedArr[0])
-            .then((res) => {
-              setHistoryItemDetails(res)
-            })
+    let matches = []
+    if(searchVal?.length){
+      matches = submissions.filter(item => item.title.toLowerCase().search(String(searchVal).toLowerCase()) > 0)
+      let items = matches.map(item => item.id)
+      let results = historyItems.filter(item => items.includes(Number(item.entity) || String(item.id) === searchVal))
+      setFilteredItems([...results])
+    }
+    else{setSortedItems([...historyItems])}
+  },[searchVal])
+
+  useEffect(() => {
+    const selectedArr = selected.split('-')
+    switch(selectedArr[1]?.toLowerCase()){
+      case 'listing':
+        getSingleListing(selectedArr[0])
+          .then((res) => {
+            setHistoryItemDetails(res)
+          })
+        break;
+      case 'submission':
+        getSingleSubmission(selectedArr[0])
+          .then((res) => {
+            setHistoryItemDetails(res)
+          })
           break;
-        case 'submission':
-          getSingleSubmission(selectedArr[0])
-            .then((res) => {
-              setHistoryItemDetails(res)
-            })
-            break;
-        case 'vaulting':
-          getSingleVaulting(selectedArr[0])
-            .then((res) => {
-              setHistoryItemDetails(res)
-            })
-            break;
-      }
+      case 'vaulting':
+        getSingleVaulting(selectedArr[0])
+          .then((res) => {
+            setHistoryItemDetails(res)
+          })
+          break;
+    }
   }, [selected]);
 
   useEffect(() => {
