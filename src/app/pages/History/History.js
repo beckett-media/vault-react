@@ -51,7 +51,7 @@ const History = () => {
       }
       setFilteredItems([...results])
     }
-    else{setSortedItems([...historyItems])}
+    else{setFilteredItems([...historyItems])}
   },[searchVal])
 
   useEffect(() => {
@@ -79,25 +79,13 @@ const History = () => {
   }, [selected]);
 
   useEffect(() => {
-    switch(filterBy){
-      case ALL:
-        setFilteredItems([...historyItems])
-        break;
-      case LISTING:
-        setFilteredItems(
-          historyItems.filter(item => item.entity_type_desc.toLowerCase() === 'listing')
-        )
-        break;
-      case SUBMISSION:
-        setFilteredItems(
-          historyItems.filter(item => item.entity_type_desc.toLowerCase() === 'submission')
-        )
-        break;
-      case VAULTING:
-        setFilteredItems(
-          historyItems.filter(item => item.entity_type_desc.toLowerCase() === 'vaulting')
-        )
-        break;
+    if(filterBy === ALL){
+      setFilteredItems([...historyItems])
+    }
+    else {
+      setFilteredItems(
+        [...historyItems.filter(item => item.entity_type_desc.toLowerCase() === filterBy)]
+      )
     }
 }, [filterBy]);
 
