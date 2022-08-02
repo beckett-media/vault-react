@@ -12,10 +12,11 @@ import Filter from '../Generic/Filter';
 import { useToggle } from '../../hooks/useToggle';
 import { useMultiSelect } from '../../hooks/useMultiSelect';
 import { usePagination } from '../../hooks/usePagination';
+import { DATE, DATE_REVERSE, EST_VALUE, EST_VALUE_REVERSE, SUBJECT, SUBJECT_REVERSE } from '../../const/FiltersEnums';
 
 const CollectionGallery = ({ data }) => {
   //  SEARCH & FILTRATION
-  const [sortBy, setSortBy] = useState('subject');
+  const [sortBy, setSortBy] = useState(SUBJECT);
   const [searchVal, setSearchVal] = useState('');
 
   const searchValRegex = new RegExp(searchVal.toLowerCase(), 'g');
@@ -40,12 +41,12 @@ const CollectionGallery = ({ data }) => {
   //  PAGINATION
   const { activePage, paginationItems, updatePage } = usePagination(sortedItems);
   const sortOptions = [
-    {value:'subject', title: 'Name A-Z'},
-    {value:'subject-reverse', title: 'Name Z-A'},
-    {value:'date', title: 'Oldest'},
-    {value:'date-reverse', title: 'Newest'},
-    {value:'est_value-reverse', title: 'Most Expensive'},
-    {value:'est_value', title: 'Least Expensive'}
+    {value: SUBJECT, title: 'Name A-Z'},
+    {value: SUBJECT_REVERSE, title: 'Name Z-A'},
+    {value: DATE, title: 'Oldest'},
+    {value: DATE_REVERSE, title: 'Newest'},
+    {value: EST_VALUE_REVERSE, title: 'Most Expensive'},
+    {value: EST_VALUE, title: 'Least Expensive'}
   ]
   return (
     <div className='collection-gallery_component w-100'>

@@ -6,14 +6,15 @@ import { getUser } from '../../services/user';
 import { getHistory } from '../../services/history';
 import Filter from '../../components/Generic/Filter';
 import { getSingleSubmission, getSubmissions } from '../../services/submission';
-import { fetchItems, fetchItemsByUser, getSingleListing, getSingleVaulting } from '../../services/items';
+import { getSingleListing, getSingleVaulting } from '../../services/items';
+import { ALL, DATE, DATE_REVERSE, LISTING, NONE, SUBMISSION, VAULTING } from '../../const/FiltersEnums';
 
 const History = () => {
   const [historyItems, setHistoryItems] = useState([]);
   const [selected, setSelected] = useState('');
   const [user, setUser] = useState({});
   const [sortBy, setSortBy] = useState('date');
-  const [filterBy, setFilterBy] = useState('all')
+  const [filterBy, setFilterBy] = useState(ALL)
   const [searchVal, setSearchVal] = useState('');
   const [historyItemDetails, setHistoryItemDetails] = useState({})
   const [sortedItems, setSortedItems] = useState([])
@@ -79,20 +80,20 @@ const History = () => {
 
   useEffect(() => {
     switch(filterBy){
-      case 'all':
+      case ALL:
         setFilteredItems([...historyItems])
         break;
-      case 'listing':
+      case LISTING:
         setFilteredItems(
           historyItems.filter(item => item.entity_type_desc.toLowerCase() === 'listing')
         )
         break;
-      case 'submission':
+      case SUBMISSION:
         setFilteredItems(
           historyItems.filter(item => item.entity_type_desc.toLowerCase() === 'submission')
         )
         break;
-      case 'vaulting':
+      case VAULTING:
         setFilteredItems(
           historyItems.filter(item => item.entity_type_desc.toLowerCase() === 'vaulting')
         )
@@ -101,33 +102,33 @@ const History = () => {
 }, [filterBy]);
 
   useEffect(() => {
-    if(sortBy === 'date'){
-      setSortedItems(filteredItems.sort((a, b) => {
+    if(sortBy === DATE){
+      setSortedItems([...filteredItems.sort((a, b) => {
         if (a.created_at < b.created_at) {
           return -1;
         } else return 1;
         }
-      ))
+      )])
     }
-    else if(sortBy === 'date-reverse'){
-      setSortedItems(filteredItems.sort((a, b) => {
+    else if(sortBy === DATE_REVERSE){
+      setSortedItems([...filteredItems.sort((a, b) => {
         if (a.created_at > b.created_at) {
           return -1;
         } else return 1;
         }
-      ))
+      )])
     }
   },[sortBy, filteredItems])
 
   const sortOptions = [
-    {value:'date', title: 'Oldest'},
-    {value:'date-reverse', title: 'Newest'},
+    {value: DATE, title: 'Oldest'},
+    {value: DATE_REVERSE, title: 'Newest'},
   ]
   const filterOptions = [
-    {value: 'all', title: 'All'},
-    {value: 'submission', title: 'Submission'},
-    {value: 'vaulting', title: 'Vaulted'},
-    {value: 'listing', title: 'Market'}
+    {value: ALL, title: 'All'},
+    {value: SUBMISSION, title: 'Submission'},
+    {value: VAULTING, title: 'Vaulted'},
+    {value: LISTING, title: 'Market'}
   ]
   let items = [...itemsHistory({ sortedItems, historyItemDetails, setSelected })]
   return (
