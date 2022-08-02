@@ -3,7 +3,7 @@ import { Col, Row } from 'react-bootstrap';
 
 import './Submission.scss';
 
-import SubmissionSuccess from '../Response/SubmissionSuccess';
+import SubmissionResponse from './SubmissionResponse';
 import SubmissionAdd from './SubmissionAdd';
 import SubmissionForm from './SubmissionForm';
 import SubmitButton from '../../components/Generic/SubmitButton';
@@ -18,7 +18,7 @@ const Submission = () => {
   const [items, setItems] = useState([]);
   const [add, onAdd] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const [successfulSubmission, setSuccessfulSubmission] = useState(false);
+  const [submissionResponse, setSubmissionResponse] = useState('This is a test');
   const [user, setUser] = useState([]);
 
   useEffect(() => {
@@ -49,11 +49,12 @@ const Submission = () => {
         ),
       )
         .then((resp) => {
-          setSuccessfulSubmission(true);
+          setSubmissionResponse(resp);
         })
         .catch((e) => {
           // TODO
           console.error(e);
+          setSubmissionResponse(e);
         });
     }
   };
@@ -63,32 +64,37 @@ const Submission = () => {
   };
 
   return (
-    <>
-      {successfulSubmission ? (
-        <SubmissionSuccess />
-      ) : (
-        <div className='h-100'>
-          <UserBanner />
-          <section className='section-submission_form'>
-            <div className='page-padding'>
-              <div className='submission_container'>
-                <SubmissionAdd submitAddedItem={submitAddedItem} />
+    <div className='page-wrapper'>
+      <div className='h-100 w-100'>
+        <UserBanner />
+        <section className='section-submission_form'>
+          <div className='page-padding'>
+            <div className='submission_container'>
+              {submissionResponse ? (
+                <SubmissionResponse
+                  submissionResponse={submissionResponse}
+                  setSubmissionResponse={setSubmissionResponse}
+                />
+              ) : (
+                <>
+                  <SubmissionAdd submitAddedItem={submitAddedItem} />
 
-                {items.length !== 0 && (
-                  <Row className='m-2'>
-                    <Col xs={3}>
-                      <SubmitButton func={submitForm} title='Submit' size='lg' />
-                    </Col>
-                  </Row>
-                )}
-              </div>
+                  {items.length !== 0 && (
+                    <Row className='m-2'>
+                      <Col xs={3}>
+                        <SubmitButton func={submitForm} title='Submit' size='lg' />
+                      </Col>
+                    </Row>
+                  )}
+                </>
+              )}
             </div>
-          </section>
+          </div>
+        </section>
 
-          <SubmissionConfirmModal show={formSubmitted} setConfirm={submitFinalForm} />
-        </div>
-      )}
-    </>
+        <SubmissionConfirmModal show={formSubmitted} setConfirm={submitFinalForm} />
+      </div>
+    </div>
   );
 };
 

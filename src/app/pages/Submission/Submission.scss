@@ -94,6 +94,12 @@ main {
       gap: 28px;
       justify-content: end;
     }
+
+    &-response {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
   }
 
   &divider {
