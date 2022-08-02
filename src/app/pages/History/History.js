@@ -37,10 +37,18 @@ const History = () => {
 
   useEffect(() => {
     let matches = []
+    console.log(historyItems.filter(item => String(item.id) === searchVal))
     if(searchVal?.length){
       matches = submissions.filter(item => item.title.toLowerCase().search(String(searchVal).toLowerCase()) > 0)
       let items = matches.map(item => item.id)
-      let results = historyItems.filter(item => items.includes(Number(item.entity) || String(item.id) === searchVal))
+      let matchById = historyItems.filter(item => String(item.id) === searchVal)
+      let results = []
+      if(matchById.length){
+        results = [...matchById]
+      }
+      else {
+        results = [...historyItems.filter(item => (items.includes(Number(item.entity))))]
+      }
       setFilteredItems([...results])
     }
     else{setSortedItems([...historyItems])}
