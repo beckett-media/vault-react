@@ -1,8 +1,5 @@
 import React, { useContext, createRef, useCallback } from 'react';
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
-import { NavDropdown } from 'react-bootstrap';
-import Tooltip from 'react-bootstrap/Tooltip';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 
 import './TopNav.scss';
 
@@ -54,13 +51,9 @@ const TopNav = () => {
             </div>
             <div className='nav_end-wrapper'>
               {authContext.isSignedIn && (
-                <OverlayTrigger
-                  delay={{ hide: 450, show: 300 }}
-                  overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
-                  placement='bottom'
-                >
+                <Link to='/submission'>
                   <div className='nav_button'>Add Item</div>
-                </OverlayTrigger>
+                </Link>
               )}
               {!isSigninPage() && (
                 <div className='nav_user-dropdown'>
@@ -115,13 +108,9 @@ const TopNav = () => {
                   <NavLink to='/history' onClick={toggleCheckbox} className='nav_mobile-menu-item'>
                     History
                   </NavLink>
-                  <OverlayTrigger
-                    delay={{ hide: 450, show: 300 }}
-                    overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
-                    placement='bottom'
-                  >
+                  <Link to='/submission'>
                     <div className='nav_button'>Add Item</div>
-                  </OverlayTrigger>
+                  </Link>
                   <NavLink
                     to='/'
                     onClick={async () => {
