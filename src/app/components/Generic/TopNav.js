@@ -19,9 +19,12 @@ const TopNav = () => {
 
   const checkboxRef = createRef();
 
-  const toggleCheckbox = useCallback(() => {
-    checkboxRef.current.checked = false;
-  }, [checkboxRef]);
+  const toggleCheckbox = useCallback(
+    (bool) => {
+      checkboxRef.current.checked = bool;
+    },
+    [checkboxRef],
+  );
 
   return (
     <div className='nav_component'>
@@ -96,20 +99,22 @@ const TopNav = () => {
                 </label>
                 <div className='nav_mobile-bg'></div>
                 <div className='nav_mobile-menu'>
-                  <NavLink to='/collection' onClick={toggleCheckbox} className='nav_mobile-menu-item'>
+                  <NavLink to='/collection' onClick={() => toggleCheckbox(false)} className='nav_mobile-menu-item'>
                     My Collection
                   </NavLink>
-                  <NavLink to='/market' onClick={toggleCheckbox} className='nav_mobile-menu-item'>
+                  <NavLink to='/market' onClick={() => toggleCheckbox(false)} className='nav_mobile-menu-item'>
                     Marketplace
                   </NavLink>
-                  <NavLink to='/profile' onClick={toggleCheckbox} className='nav_mobile-menu-item'>
+                  <NavLink to='/profile' onClick={() => toggleCheckbox(false)} className='nav_mobile-menu-item'>
                     Profile
                   </NavLink>
-                  <NavLink to='/history' onClick={toggleCheckbox} className='nav_mobile-menu-item'>
+                  <NavLink to='/history' onClick={() => toggleCheckbox(false)} className='nav_mobile-menu-item'>
                     History
                   </NavLink>
                   <Link to='/submission'>
-                    <div className='nav_button'>Add Item</div>
+                    <div className='nav_button' onClick={() => toggleCheckbox(false)}>
+                      Add Item
+                    </div>
                   </Link>
                   <NavLink
                     to='/'
