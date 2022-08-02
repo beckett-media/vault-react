@@ -453,8 +453,8 @@ export const fetchMarketItems = () => {
 };
 
 export const getSingleListing = (id) => {
-  return axios
-    .get(`${config.BASE_URL}/marketplace/listing/${id}`, {
+  return axiosClient
+    .get(`/marketplace/listing/${id}`, {
       headers: {
         Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
       },
@@ -465,8 +465,8 @@ export const getSingleListing = (id) => {
 };
 
 export const getSingleVaulting = (id) => {
-  return axios
-    .get(`${config.BASE_URL}/marketplace/vaulting/${id}`, {
+  return axiosClient
+    .get(`/marketplace/vaulting/${id}`, {
       headers: {
         Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
       },
