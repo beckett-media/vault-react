@@ -1,7 +1,6 @@
-const axios = require('axios');
-const axiosRetry = require('axios-retry');
+import { axiosClient } from './index';
 const { getItems } = require('./items');
-import config from '../../config';
+
 
 export const SUBMISSION_STATUS = {
   Failed: 0,
@@ -14,8 +13,7 @@ export const SUBMISSION_STATUS = {
 
 export const postSubmission = async (item) => {
   // TODO: validate item
-  axiosRetry(axios, { retries: 3 });
-  return axios.post(`${config.BASE_URL}/marketplace/submission`, item).then((res) => {
+  return axiosClient.post(`/marketplace/submission`, item).then((res) => {
     return res;
   });
 };
@@ -28,8 +26,9 @@ export const getSubmissions = async ({ user, status, offset, limit, order } = {}
     limit,
     order,
   };
-  return axios
-    .get(`${config.BASE_URL}/marketplace/submission`, {
+
+  return axiosClient
+    .get(`/marketplace/submission`, {
       params: Object.keys(params).length > 0 ? params : undefined,
     })
     .then((res) => {
@@ -38,14 +37,14 @@ export const getSubmissions = async ({ user, status, offset, limit, order } = {}
 };
 
 export const getSingleSubmission = async (submissionId) => {
-  return axios.get(`${config.BASE_URL}/marketplace/submission/${submissionId}`).then((res) => {
+  return axiosClient.get(`/marketplace/submission/${submissionId}`).then((res) => {
     return res.data;
   });
 };
 
 export const approveRejectSubmissions = (subId, approve = true) => {
-  return axios
-    .put(`${config.BASE_URL}/marketplace/submission/${subId}`, {
+  return axiosClient
+    .put(`/marketplace/submission/${subId}`, {
       status: approve ? SUBMISSION_STATUS.Approved : SUBMISSION_STATUS.Rejected,
     })
     .then((res) => {
