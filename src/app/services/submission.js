@@ -1,7 +1,6 @@
 import { axiosClient } from './index';
 const { getItems } = require('./items');
 
-
 export const SUBMISSION_STATUS = {
   Failed: 0,
   Submitted: 1,

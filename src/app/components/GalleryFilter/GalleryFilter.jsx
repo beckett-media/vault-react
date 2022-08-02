@@ -8,13 +8,13 @@ import { DATE, DATE_REVERSE, EST_VALUE, EST_VALUE_REVERSE, SUBJECT, SUBJECT_REVE
 
 const GalleryFilter = ({ isListVisible, listToggleHandler }) => {
   const sortOptions = [
-    {value: SUBJECT, title: 'Name A-Z'},
-    {value: SUBJECT_REVERSE, title: 'Name Z-A'},
-    {value: DATE, title: 'Oldest'},
-    {value: DATE_REVERSE, title: 'Newest'},
-    {value: EST_VALUE_REVERSE, title: 'Most Expensive'},
-    {value: EST_VALUE, title: 'Least Expensive'}
-  ]
+    { value: SUBJECT, title: 'Name A-Z' },
+    { value: SUBJECT_REVERSE, title: 'Name Z-A' },
+    { value: DATE, title: 'Oldest' },
+    { value: DATE_REVERSE, title: 'Newest' },
+    { value: EST_VALUE_REVERSE, title: 'Most Expensive' },
+    { value: EST_VALUE, title: 'Least Expensive' },
+  ];
   return (
     <div className='gallery-filter_component'>
       <div className='gallery-filter_divider' />
@@ -34,7 +34,13 @@ const GalleryFilter = ({ isListVisible, listToggleHandler }) => {
               />
             </div>
             <div className='d-flex gap-4'>
-              <Filter searchVal={searchVal} setSearchVal={setSearchVal} sortBy={sortBy} setSortBy={setSortBy} sortOptions={sortOptions} />
+              <Filter
+                searchVal={searchVal}
+                setSearchVal={setSearchVal}
+                sortBy={sortBy}
+                setSortBy={setSortBy}
+                sortOptions={sortOptions}
+              />
               {selectedItemIds.length > 0 && (
                 <div className='d-flex align-items-center'>
                   <div className='me-2'>{selectedItemIds.length} item(s) selected</div>

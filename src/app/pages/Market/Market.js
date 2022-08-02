@@ -62,7 +62,7 @@ const Market = () => {
           )}
         </div>
       </div>*/}
-    </div> 
+    </div>
   );
 };
 
