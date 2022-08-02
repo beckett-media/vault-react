@@ -37,7 +37,6 @@ const History = () => {
 
   useEffect(() => {
     let matches = []
-    console.log(historyItems.filter(item => String(item.id) === searchVal))
     if(searchVal?.length){
       matches = submissions.filter(item => item.title.toLowerCase().search(String(searchVal).toLowerCase()) > 0)
       let items = matches.map(item => item.id)
