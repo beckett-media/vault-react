@@ -1,5 +1,4 @@
-import axios from 'axios';
-import config from '../../config';
+import { axiosClient } from './index';
 import { swapObjectKeyValue } from '../utils/strings';
 
 const mockUser = {
@@ -62,8 +61,8 @@ export const mapUserToCognito = (user) => {
 };
 
 export const getAdminUserGroups = (token) => {
-  return axios
-    .get(`${config.BASE_URL}/auth/admin`, {
+  return axiosClient
+    .get(`/auth/admin`, {
       headers: {
         Authorization: `Bearer ${token || window.localStorage.getItem('accessToken')}`,
       },
