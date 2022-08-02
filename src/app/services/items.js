@@ -1,5 +1,4 @@
-import axios from 'axios';
-import config from '../../config';
+import { axiosClient } from './index';
 
 export const VAULTING_STATUS = {
   NotMinted: 0,
@@ -440,56 +439,36 @@ export const getMarketItems = async () => {
 };
 
 export const fetchItems = () => {
-  return axios
-    .get(`${config.BASE_URL}/marketplace/vaulting`, {
-      headers: {
-        Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
-      },
-    })
+  return axiosClient
+    .get(`/marketplace/vaulting`)
     .then((res) => {
       return res.data;
     });
 };
 
 export const fetchMarketItems = () => {
-  return axios
-    .get(`${config.BASE_URL}/marketplace/listing`, {
-      headers: {
-        Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
-      },
-    })
+  return axiosClient
+    .get(`/marketplace/listing`)
     .then((res) => res.data);
 };
 
 export const fetchItemBySubmission = (submissionId) => {
-  return axios
-    .get(`${config.BASE_URL}/marketplace/vaulting/submission/${submissionId}`, {
-      headers: {
-        Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
-      },
-    })
+  return axiosClient
+    .get(`/marketplace/vaulting/submission/${submissionId}`)
     .then((res) => res.data)
     .catch((err) => err);
 };
 
 export const createVaulting = (item) => {
-  return axios
-    .post(`${config.BASE_URL}/marketplace/vaulting`, item, {
-      headers: {
-        Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
-      },
-    })
+  return axiosClient
+    .post(`/marketplace/vaulting`, item)
     .then((res) => {
       return res;
     });
 };
 export const createItemListing = ({ id, userName, price }) => {
   const listing = { vaulting_id: id, user: userName, est_value: price };
-  return axios.post(`${config.BASE_URL}/marketplace/listing`, listing, {
-    headers: {
-      Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
-    },
-  });
+  return axiosClient.post(`/marketplace/listing`, listing);
 };
 
 export const updateItemDetails = ({ item }) => {
@@ -503,20 +482,12 @@ export const updateItemDetails = ({ item }) => {
   // "collection": "0x0000000000000000000000000000000000000000",
   // "token_id": 1,
   // "status": 1
-  return axios.put(`${config.BASE_URL}/marketplace/vaulting`, item, {
-    headers: {
-      Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
-    },
-  });
+  return axiosClient.put(`/marketplace/vaulting`, item);
 };
 
 export const withdrawItem = (id) => {
-  return axios
-    .delete(`${config.BASE_URL}/marketplace/vaulting/${id}`, {
-      headers: {
-        Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
-      },
-    })
+  return axiosClient
+    .delete(`/marketplace/vaulting/${id}`)
     .then((res) => {
       return res.data;
     });
