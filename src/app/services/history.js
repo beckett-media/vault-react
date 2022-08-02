@@ -1,12 +1,10 @@
-import config from '../../config';
-
-const axios = require('axios');
+import { axiosClient } from './index';
 
 export const getHistory = async (userName) => {
   return (
     userName &&
-    axios
-      .get(`${config.BASE_URL}/marketplace/action/user/${userName}`)
+    axiosClient
+      .get(`/marketplace/action/user/${userName}`)
       .then((res) => {
         return res;
       })

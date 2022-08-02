@@ -1,5 +1,7 @@
+import { axiosClient } from './index';
+
 export const postInterestForm = async (formData) => {
-  return axios.post(`${config.BASE_URL}/interest-form/submission`, final).then((res) => {
+  return axiosClient.post(`/interest-form/submission`, formData).then((res) => {
     return res;
   });
 };
