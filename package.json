@@ -85,7 +85,8 @@
   "homepage": "/",
   "jest": {
     "collectCoverageFrom": [
-      "./src/**"
+      "./src/app/**",
+      "./src/*.js"
     ],
     "moduleNameMapper": {
       "^.+\\.(css|less|scss)$": "<rootDir>/config/CSSStub.js",
