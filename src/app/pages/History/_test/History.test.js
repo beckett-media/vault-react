@@ -13,20 +13,21 @@ describe('To view History table rows', () => {
     expect(
       JSON.stringify(
         itemsHistory({
-          historyItems: [
+          sortedItems: [
             {
-              id: 1234,
-              title: 'TEST',
+              id: '1234',
+              type_desc: 'TEST',
               created_at: new Date(),
-              status: 'pending',
-              grading_company: 'BGS',
-              serial_number: '10101010',
+              type_desc: 'submission',
             },
           ],
-          selected: 1234,
+          historyItemDetails: {
+            title: 'test',
+            id: '123',
+          },
           setSelected: () => {},
         }),
       ),
-    ).toContain('10101010');
+    ).toContain('submission');
   });
 });

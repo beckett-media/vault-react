@@ -1,9 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { DropdownButton, Dropdown } from 'react-bootstrap';
+import { Dropdown, DropdownButton } from 'react-bootstrap';
 
-import './DepartmentFilter.scss';
 import { departmentFilterItems } from '../../const/departmentFilterItems';
+import './DepartmentFilter.scss';
 
 const DepartmentFilter = () => {
   /* 
@@ -16,7 +15,9 @@ const DepartmentFilter = () => {
     <div className='department-filter_component'>
       <div className='department-filter_layout'>
         {departmentFilterItems?.map((item, index) => (
-          <div className='department-filter_item'>{item}</div>
+          <div className='department-filter_item' key={index}>
+            {item}
+          </div>
         ))}
         <DropdownButton variant='outline-primary' title='Sort by'>
           {departmentFilterItems?.map((item, index) => (

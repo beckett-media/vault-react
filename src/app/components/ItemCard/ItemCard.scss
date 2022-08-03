@@ -12,7 +12,8 @@
     transition: all 0.2s ease-in-out;
   }
 
-  &layout {}
+  &layout {
+  }
 
   &image-wrapper {
     height: 400px;
@@ -23,7 +24,7 @@
     align-items: center;
     justify-content: center;
     border-radius: 8px 8px 0 0;
-    outline: 1px solid #D9DADD;
+    outline: 1px solid #d9dadd;
   }
 
   &image {
@@ -47,10 +48,11 @@
   &category {
     font-size: 14px;
     letter-spacing: 0.4px;
-    color: #54C4C8;
+    color: #54c4c8;
   }
 
-  &price {}
+  &price {
+  }
 
   &select-wrapper {
     padding: 8px 16px;

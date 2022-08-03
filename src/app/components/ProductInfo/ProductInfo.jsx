@@ -1,31 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 
 import './ProductInfo.scss';
 
 import { formatPrice } from '../../utils/strings';
 import { createItemListing, updateItemDetails } from '../../services/items';
-import { getUser } from '../../services/user';
+import { mapCognitoToUser } from '../../services/user';
 import Tooltip from 'react-bootstrap/Tooltip';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import { AuthContext } from '../../contexts/auth';
 
 const ProductInfo = ({ isOwner, item, addToCart }) => {
-  const [user, setUser] = useState([]);
-  useEffect(() => {
-    getUser().then((data) => setUser(data));
-  }, []);
-
   const [listItemInitiated, setlistItemInitiated] = useState(false);
   const [name, setName] = useState(item.title);
   const [price, setPrice] = useState(+item.est_value);
   // TODO: Update items to include tags.
   const [newTag, setNewTag] = useState('');
+  const authContext = useContext(AuthContext);
+  const userState = mapCognitoToUser(authContext.attrInfo);
 
   const listItem = () => {
     if (item.name !== name) {
       updateItemDetails({ ...item, title: name });
     }
-    createItemListing({ vaulting_id: item.id, user: user.id, price: price }).then((res) => console.log(res.data));
+    createItemListing({ vaulting_id: item.id, user: userState.sub, price: price }).then((res) => console.log(res.data));
   };
 
   useEffect(() => {

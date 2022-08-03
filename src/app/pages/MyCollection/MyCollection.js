@@ -20,10 +20,9 @@ const Gallery = () => {
   const [submissions, setSubmissions] = useState([]);
 
   useEffect(() => {
-    getSubmissions({ user: userState.sub })
-      .then((data) => {
-        setSubmissions(Array.isArray(data) ? data : []);
-      });
+    getSubmissions({ user: userState.sub }).then((data) => {
+      setSubmissions(Array.isArray(data) ? data : []);
+    });
   }, [userState.sub]);
 
   //  SELLING & WITHDRAWAL

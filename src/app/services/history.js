@@ -8,6 +8,19 @@ export const getHistory = async (userName) => {
       .then((res) => {
         return res;
       })
-      .catch((err) => console.log('ran and got: ', userName, err))
+      .catch((err) => {
+        return [
+          {
+            data: {
+              id: 's0',
+              entity_type_desc: err.response.status + ' - ' + err.response.data.error,
+              created_at: new Date(),
+              status_desc: 'none',
+              title: 'none',
+              serial_number: 'none',
+            },
+          },
+        ];
+      })
   );
 };
