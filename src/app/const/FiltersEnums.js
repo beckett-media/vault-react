@@ -1,3 +1,6 @@
+// TODO: we might want to turn these into objects
+// {field: field, direction: ASC}
+
 export const NONE = undefined;
 export const NAME_A = 'title';
 export const NAME_Z = 'title-reverse';

@@ -2,9 +2,7 @@ import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import './History.scss';
 
-export const itemsHistory = (props) => {
-  const { sortedItems, setSelected, historyItemDetails } = props;
-
+export const itemsHistory = ({ sortedItems, setSelected, historyItemDetails }) => {
   const mapHistoryComponents = (items) =>
     items?.map((item) => {
       const isSelected = historyItemDetails.id === Number(item.entity);

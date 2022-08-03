@@ -1,8 +1,7 @@
 import React from 'react';
 import { Col, Row, Form } from 'react-bootstrap';
 
-const Filter = (props) => {
-  const { searchVal, setSearchVal, setSortBy, sortOptions, setFilterBy, filterOptions } = props;
+const Filter = ({ searchVal, setSearchVal, setSortBy, sortOptions, setFilterBy, filterOptions }) => {
   // add onSearch, onSort props.
   return (
     <Row className='row'>
@@ -23,7 +22,9 @@ const Filter = (props) => {
           <Form.Select size='sm' className='rounded-pill' onChange={(e) => setSortBy(e.target.value)}>
             <option selected>Sort</option>
             {sortOptions.map((option) => (
-              <option value={option.value}>{option.title}</option>
+              <option value={option.value} key={option.value}>
+                {option.title}
+              </option>
             ))}
           </Form.Select>
         </Col>
@@ -33,7 +34,9 @@ const Filter = (props) => {
           <Form.Select size='sm' className='rounded-pill' onChange={(e) => setFilterBy(e.target.value)}>
             <option selected>Filter</option>
             {filterOptions.map((option) => (
-              <option value={option.value}>{option.title}</option>
+              <option value={option.value} key={option.value}>
+                {option.title}
+              </option>
             ))}
           </Form.Select>
         </Col>
