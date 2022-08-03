@@ -7,7 +7,7 @@ const UserInfo = () => {
   // todo: set is loading
   const authContext = useContext(AuthContext);
   const userState = mapCognitoToUser(authContext.attrInfo);
-  console.log(userState)
+
   return (
     <div className='profile-info_component'>
       <div className='profile-info_layout'>
