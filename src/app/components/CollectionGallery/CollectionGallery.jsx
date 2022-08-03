@@ -24,7 +24,7 @@ const CollectionGallery = ({ data }) => {
 
   const filteredItems = data.filter((item) => searchValRegex.test(item.title.toLowerCase()));
   const sortedItems = sortBy
-    ? filteredItems.sort(sortByAttribute(sortBy.split('-')[0], sortVal.length !== 1 ? ASC : DESC))
+    ? filteredItems.sort(sortByAttribute(sortBy.split('-')[0], sortBy.split('-').length > 1 ? DESC : ASC))
     : filteredItems;
 
   // MULTISELECT

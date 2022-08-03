@@ -11,6 +11,8 @@ export const sortByAttribute = (attribute, dir = ASC) => {
 };
 
 const sortValue = (a, b, dir) => {
-  if (a == b) return 0;
-  return dir === ASC ? a - b : b - a;
+  const adjustor = dir === ASC ? 1 : -1;
+  if (a < b) return -1 * adjustor;
+  if (a > b) return 1 * adjustor;
+  return 0;
 };
