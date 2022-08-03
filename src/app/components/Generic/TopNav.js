@@ -36,13 +36,9 @@ const TopNav = () => {
                 <img src={require('../../assets/beta-logo.png')} className='nav_logo' />
               </Link>
             </div>
-            {/* {!isSigninPage() && <Navbar.Toggle aria-controls='basic-navbar-nav' />} */}
             <div className='nav_center-wrapper'>
               {authContext.isSignedIn && (
                 <>
-                  {/* <NavLink to='/about' className={({ isActive }) => (isActive ? 'active-nav m-2' : 'm-2')}>
-                  About Vault
-                </NavLink> */}
                   <NavLink to='/collection' className={({ isActive }) => (isActive ? 'nav_link--active' : 'nav_link')}>
                     My Collection
                   </NavLink>
