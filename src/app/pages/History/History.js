@@ -9,11 +9,12 @@ import { getSingleListing, getSingleVaulting } from '../../services/items';
 import { ALL, DATE, DATE_REVERSE, LISTING, NONE, SUBMISSION, VAULTING } from '../../const/FiltersEnums';
 import { mapCognitoToUser } from '../../services/user';
 import { AuthContext } from '../../contexts/auth';
+import { sortByAttribute } from '../../utils/sort';
 
 const History = () => {
   const [historyItems, setHistoryItems] = useState([]);
   const [selected, setSelected] = useState('');
-  const [sortBy, setSortBy] = useState('date');
+  const [sortBy, setSortBy] = useState(DATE_REVERSE);
   const [filterBy, setFilterBy] = useState(ALL);
   const [searchVal, setSearchVal] = useState('');
   const [historyItemDetails, setHistoryItemDetails] = useState({});
@@ -22,6 +23,7 @@ const History = () => {
   const [submissions, setSubmissions] = useState([]);
   const authContext = useContext(AuthContext);
   const userState = mapCognitoToUser(authContext.attrInfo);
+
   useEffect(() => {
     getHistory(userState.sub).then((res) => {
       setHistoryItems(res.data);
@@ -82,21 +84,9 @@ const History = () => {
 
   useEffect(() => {
     if (sortBy === DATE) {
-      setSortedItems([
-        ...filteredItems.sort((a, b) => {
-          if (a.created_at < b.created_at) {
-            return -1;
-          } else return 1;
-        }),
-      ]);
+      setSortedItems([...filteredItems.sort(sortByAttribute('created_at', 'asc'))]);
     } else if (sortBy === DATE_REVERSE) {
-      setSortedItems([
-        ...filteredItems.sort((a, b) => {
-          if (a.created_at > b.created_at) {
-            return -1;
-          } else return 1;
-        }),
-      ]);
+      setSortedItems([...filteredItems.sort(sortByAttribute('created_at', 'desc'))]);
     }
   }, [sortBy, filteredItems]);
 
@@ -110,7 +100,9 @@ const History = () => {
     { value: VAULTING, title: 'Vaulted' },
     { value: LISTING, title: 'Market' },
   ];
+
   let items = [...itemsHistory({ sortedItems, historyItemDetails, setSelected })];
+
   return (
     <Container className='py-2 sub-box'>
       <h2 className='fs-3 pb-3'>History</h2>
