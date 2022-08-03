@@ -1,12 +1,16 @@
-**INTRO**
+## INTRO
 The frontend is a React/Redux/Bootstrap/SASS app, using axios for network calls.
 
 The project is brokendown into component folders with a flat file structure. 
 
-**STRUCTURE**
+## ENVIRONMENT
+
+Please install [`nvm`](https://github.com/nvm-sh/nvm) (node version manager) in your local environment. We're using node.js `v16.14.x`.
+
+## STRUCTURE
 Within the components folder you can find all of the components, services for api calls by component, and some generic components in the Generic folder.
 
-**STATE**
+## STATE
 
 The state folder contains the entirety of the redux structure. To add or alter defaults, make changes in the initalState in the rootReducer file.
 
@@ -20,7 +24,7 @@ The general flow for adding and removing objects from state is to pass a single 
 
 The plural actions are generally used to set entire arrays, for example in a select all, or when a form is being generated from multiple selected items.
 
-**API**
+## API
 
 The API path is http://dev.beckettvault.com/api.
 
