@@ -20,7 +20,7 @@ const mockItems = [
     ownerId: 1,
     image_url: 'Card1/IMG_0042.JPG',
     imgRev: 'Card1/IMG_0043.JPG',
-    date: new Date,
+    date: new Date(),
   },
   {
     id: 2,
@@ -32,7 +32,7 @@ const mockItems = [
     ownerId: 1,
     image_url: 'Card2/IMG_0050.JPG',
     imgRev: 'Card2/IMG_0051.JPG',
-    date: new Date,
+    date: new Date(),
   },
   {
     id: 3,
@@ -44,7 +44,7 @@ const mockItems = [
     ownerId: 1,
     image_url: 'Card3/IMG_0235.JPG',
     imgRev: 'Card3/IMG_0236.JPG',
-    date: new Date,
+    date: new Date(),
   },
   {
     id: 4,
@@ -56,7 +56,7 @@ const mockItems = [
     ownerId: 1,
     image_url: 'Card4/IMG_0353.JPG',
     imgRev: 'Card4/IMG_0354.JPG',
-    date: new Date,
+    date: new Date(),
   },
   {
     id: 5,
@@ -68,7 +68,7 @@ const mockItems = [
     ownerId: 1,
     image_url: 'Card5/IMG_0651.JPG',
     imgRev: 'Card5/IMG_0652.JPG',
-    date: new Date,
+    date: new Date(),
   },
   {
     id: 6,
@@ -80,7 +80,7 @@ const mockItems = [
     ownerId: 1,
     image_url: 'Card6/IMG_0741.JPG',
     imgRev: 'Card6/IMG_0742.JPG',
-    date: new Date,
+    date: new Date(),
   },
   {
     id: 7,
@@ -92,7 +92,7 @@ const mockItems = [
     ownerId: 1,
     image_url: 'Card7/IMG_0767.JPG',
     imgRev: 'Card7/IMG_0768.JPG',
-    date: new Date,
+    date: new Date(),
   },
   {
     id: 8,
@@ -104,7 +104,7 @@ const mockItems = [
     ownerId: 1,
     image_url: 'Card8/IMG_0805.JPG',
     imgRev: 'Card8/IMG_0806.JPG',
-    date: new Date,
+    date: new Date(),
   },
   {
     id: 9,
@@ -116,7 +116,7 @@ const mockItems = [
     ownerId: 1,
     image_url: 'Card9/IMG_0343.JPG',
     imgRev: 'Card9/IMG_0344.JPG',
-    date: new Date,
+    date: new Date(),
   },
   {
     id: 10,
@@ -128,7 +128,7 @@ const mockItems = [
     ownerId: 1,
     image_url: 'Card10/IMG_0874.JPG',
     imgRev: 'Card10/IMG_0875.JPG',
-    date: new Date,
+    date: new Date(),
   },
   {
     id: 11,
@@ -140,7 +140,7 @@ const mockItems = [
     ownerId: 1,
     image_url: 'Card11/IMG_1008.JPG',
     imgRev: 'Card11/IMG_1009.JPG',
-    date: new Date,
+    date: new Date(),
   },
   {
     id: 12,
@@ -152,7 +152,7 @@ const mockItems = [
     ownerId: 1,
     image_url: 'Card12/IMG_0853.JPG',
     imgRev: 'Card12/IMG_0854.JPG',
-    date: new Date,
+    date: new Date(),
   },
   {
     id: 13,
@@ -164,7 +164,7 @@ const mockItems = [
     ownerId: 1,
     image_url: 'Card13/IMG_0890.JPG',
     imgRev: 'Card13/IMG_0891.JPG',
-    date: new Date,
+    date: new Date(),
   },
   {
     id: 14,
@@ -176,7 +176,7 @@ const mockItems = [
     ownerId: 1,
     image_url: 'Card14/IMG_0779.JPG',
     imgRev: 'Card14/IMG_0780.JPG',
-    date: new Date,
+    date: new Date(),
   },
   {
     id: 15,
@@ -188,7 +188,7 @@ const mockItems = [
     ownerId: 1,
     image_url: 'Card15/IMG_0743.JPG',
     imgRev: 'Card15/IMG_0744.JPG',
-    date: new Date,
+    date: new Date(),
   },
   {
     id: 16,
@@ -200,7 +200,7 @@ const mockItems = [
     ownerId: 1,
     image_url: 'Card16/IMG_0661.JPG',
     imgRev: 'Card16/IMG_0662.JPG',
-    date: new Date,
+    date: new Date(),
   },
 ];
 
@@ -439,17 +439,39 @@ export const getMarketItems = async () => {
 };
 
 export const fetchItems = () => {
-  return axiosClient
-    .get(`/marketplace/vaulting`)
-    .then((res) => {
-      return res.data;
-    });
+  return axiosClient.get(`/marketplace/vaulting`).then((res) => {
+    return res.data;
+  });
 };
 
 export const fetchMarketItems = () => {
+  return axiosClient.get(`/marketplace/listing`).then((res) => res.data);
+};
+
+export const getSingleListing = (id) => {
   return axiosClient
-    .get(`/marketplace/listing`)
-    .then((res) => res.data);
+    .get(`/marketplace/listing/${id}`, {
+      headers: {
+        Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
+      },
+    })
+    .then((res) => {
+      console.log(res);
+      res.data;
+    });
+};
+
+export const getSingleVaulting = (id) => {
+  return axiosClient
+    .get(`/marketplace/vaulting/${id}`, {
+      headers: {
+        Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
+      },
+    })
+    .then((res) => {
+      console.log(res);
+      res.data;
+    });
 };
 
 export const fetchItemBySubmission = (submissionId) => {
@@ -460,11 +482,9 @@ export const fetchItemBySubmission = (submissionId) => {
 };
 
 export const createVaulting = (item) => {
-  return axiosClient
-    .post(`/marketplace/vaulting`, item)
-    .then((res) => {
-      return res;
-    });
+  return axiosClient.post(`/marketplace/vaulting`, item).then((res) => {
+    return res;
+  });
 };
 export const createItemListing = ({ id, userName, price }) => {
   const listing = { vaulting_id: id, user: userName, est_value: price };
@@ -486,9 +506,7 @@ export const updateItemDetails = ({ item }) => {
 };
 
 export const withdrawItem = (id) => {
-  return axiosClient
-    .delete(`/marketplace/vaulting/${id}`)
-    .then((res) => {
-      return res.data;
-    });
+  return axiosClient.delete(`/marketplace/vaulting/${id}`).then((res) => {
+    return res.data;
+  });
 };

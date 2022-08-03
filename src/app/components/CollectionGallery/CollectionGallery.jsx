@@ -12,10 +12,11 @@ import Filter from '../Generic/Filter';
 import { useToggle } from '../../hooks/useToggle';
 import { useMultiSelect } from '../../hooks/useMultiSelect';
 import { usePagination } from '../../hooks/usePagination';
+import { DATE, DATE_REVERSE, EST_VALUE, EST_VALUE_REVERSE, SUBJECT, SUBJECT_REVERSE } from '../../const/FiltersEnums';
 
 const CollectionGallery = ({ data }) => {
   //  SEARCH & FILTRATION
-  const [sortBy, setSortBy] = useState('subject');
+  const [sortBy, setSortBy] = useState(SUBJECT);
   const [searchVal, setSearchVal] = useState('');
 
   const searchValRegex = new RegExp(searchVal.toLowerCase(), 'g');
@@ -39,7 +40,14 @@ const CollectionGallery = ({ data }) => {
 
   //  PAGINATION
   const { activePage, paginationItems, updatePage } = usePagination(sortedItems);
-
+  const sortOptions = [
+    { value: SUBJECT, title: 'Name A-Z' },
+    { value: SUBJECT_REVERSE, title: 'Name Z-A' },
+    { value: DATE, title: 'Oldest' },
+    { value: DATE_REVERSE, title: 'Newest' },
+    { value: EST_VALUE_REVERSE, title: 'Most Expensive' },
+    { value: EST_VALUE, title: 'Least Expensive' },
+  ];
   return (
     <div className='collection-gallery_component w-100'>
       <div className='gallery-filter_component'>
@@ -61,7 +69,13 @@ const CollectionGallery = ({ data }) => {
                 </ButtonGroup>
               </div>
               <div className='d-flex gap-4'>
-                <Filter searchVal={searchVal} setSearchVal={setSearchVal} sortBy={sortBy} setSortBy={setSortBy} />
+                <Filter
+                  searchVal={searchVal}
+                  setSearchVal={setSearchVal}
+                  sortBy={sortBy}
+                  setSortBy={setSortBy}
+                  sortOptions={sortOptions}
+                />
                 {selectedItemIds.length > 0 && (
                   <div className='d-flex align-items-center'>
                     <div className='me-2'>{selectedItemIds.length} item(s) selected</div>
