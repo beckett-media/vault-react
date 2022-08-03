@@ -99,7 +99,27 @@ main {
       display: flex;
       flex-direction: column;
       align-items: center;
+      text-align: center;
     }
+  }
+
+  &response {
+    &-heading {
+      font-size: 24px;
+    }
+
+    &-body {
+      margin-bottom: 16px;
+    }
+
+    &-image-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    &-image {}
   }
 
   &divider {
