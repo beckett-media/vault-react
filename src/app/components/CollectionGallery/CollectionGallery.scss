@@ -1,6 +1,6 @@
 .collection-gallery_ {
   &component {
-    background-color: #F2F2F2;
+    background-color: #f2f2f2;
     color: #000;
   }
 
@@ -69,7 +69,8 @@
     transition: all 0.2s ease-in-out;
   }
 
-  &card-wrapper {}
+  &card-wrapper {
+  }
 
   &card-selected {
     outline: 5px solid #54c4c8;

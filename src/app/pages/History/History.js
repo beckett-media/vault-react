@@ -4,59 +4,127 @@ import { itemsHistory } from './itemsHistory';
 import './History.scss';
 import { getUser } from '../../services/user';
 import { getHistory } from '../../services/history';
+import Filter from '../../components/Generic/Filter';
+import { getSingleSubmission, getSubmissions } from '../../services/submission';
+import { getSingleListing, getSingleVaulting } from '../../services/items';
+import { ALL, DATE, DATE_REVERSE, LISTING, NONE, SUBMISSION, VAULTING } from '../../const/FiltersEnums';
 
 const History = () => {
   const [historyItems, setHistoryItems] = useState([]);
   const [selected, setSelected] = useState('');
   const [user, setUser] = useState({});
-
+  const [sortBy, setSortBy] = useState('date');
+  const [filterBy, setFilterBy] = useState(ALL);
+  const [searchVal, setSearchVal] = useState('');
+  const [historyItemDetails, setHistoryItemDetails] = useState({});
+  const [sortedItems, setSortedItems] = useState([]);
+  const [filteredItems, setFilteredItems] = useState([]);
+  const [submissions, setSubmissions] = useState([]);
   useEffect(() => {
     getUser().then((userObject) => {
       setUser(userObject);
-      getHistory(user.name)
-        .then((res) => {
-          if (res.status === 200) {
-            if (res.data.length !== 0) {
-              setHistoryItems(res.data);
-            }
-          } else {
-            setHistoryItems([
-              {
-                id: 's0',
-                title: 'No History Items',
-                created_at: new Date(),
-                status_desc: 'none',
-                grading_company: 'none',
-                serial_number: 'none',
-              },
-            ]);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          setHistoryItems([
-            {
-              id: 'e0',
-              title: 'No History Items',
-              created_at: new Date(),
-              status_desc: 'none',
-              grading_company: 'none',
-              serial_number: 'none',
-            },
-          ]);
-        });
+      getHistory(userObject.id).then((res) => {
+        setHistoryItems(res.data);
+        setSortedItems(res.data);
+        setFilteredItems(res.data);
+      });
+      getSubmissions({ user: userObject.id }).then((res) => {
+        setSubmissions(res);
+      });
     });
   }, []);
-  let items = [...itemsHistory({ historyItems, selected, setSelected })];
-  // TODO: Set searching and filtering items.
-  const sortedItems = items.sort((a, b) => {
-    if (a.id < b.id) {
-      return -1;
-    } else return 1;
-  });
+
+  useEffect(() => {
+    let matches = [];
+    if (searchVal?.length) {
+      matches = submissions.filter((item) => item.title.toLowerCase().search(String(searchVal).toLowerCase()) > 0);
+      let items = matches.map((item) => item.id);
+      let matchById = historyItems.filter((item) => String(item.id) === searchVal);
+      let results = [];
+      if (matchById.length) {
+        results = [...matchById];
+      } else {
+        results = [...historyItems.filter((item) => items.includes(Number(item.entity)))];
+      }
+      setFilteredItems([...results]);
+    } else {
+      setFilteredItems([...historyItems]);
+    }
+  }, [searchVal]);
+
+  useEffect(() => {
+    const selectedArr = selected.split('-');
+    switch (selectedArr[1]?.toLowerCase()) {
+      case 'listing':
+        getSingleListing(selectedArr[0]).then((res) => {
+          setHistoryItemDetails(res);
+        });
+        break;
+      case 'submission':
+        getSingleSubmission(selectedArr[0]).then((res) => {
+          setHistoryItemDetails(res);
+        });
+        break;
+      case 'vaulting':
+        getSingleVaulting(selectedArr[0]).then((res) => {
+          setHistoryItemDetails(res);
+        });
+        break;
+    }
+  }, [selected]);
+
+  useEffect(() => {
+    if (filterBy === ALL) {
+      setFilteredItems([...historyItems]);
+    } else {
+      setFilteredItems([...historyItems.filter((item) => item.entity_type_desc.toLowerCase() === filterBy)]);
+    }
+  }, [filterBy]);
+
+  useEffect(() => {
+    if (sortBy === DATE) {
+      setSortedItems([
+        ...filteredItems.sort((a, b) => {
+          if (a.created_at < b.created_at) {
+            return -1;
+          } else return 1;
+        }),
+      ]);
+    } else if (sortBy === DATE_REVERSE) {
+      setSortedItems([
+        ...filteredItems.sort((a, b) => {
+          if (a.created_at > b.created_at) {
+            return -1;
+          } else return 1;
+        }),
+      ]);
+    }
+  }, [sortBy, filteredItems]);
+
+  const sortOptions = [
+    { value: DATE, title: 'Oldest' },
+    { value: DATE_REVERSE, title: 'Newest' },
+  ];
+  const filterOptions = [
+    { value: ALL, title: 'All' },
+    { value: SUBMISSION, title: 'Submission' },
+    { value: VAULTING, title: 'Vaulted' },
+    { value: LISTING, title: 'Market' },
+  ];
+  let items = [...itemsHistory({ sortedItems, historyItemDetails, setSelected })];
   return (
     <Container className='py-2 sub-box'>
       <h2 className='fs-3 pb-3'>History</h2>
+      <Filter
+        searchVal={searchVal}
+        setSearchVal={setSearchVal}
+        sortBy={sortBy}
+        setSortBy={setSortBy}
+        sortOptions={sortOptions}
+        filterBy={filterBy}
+        setFilterBy={setFilterBy}
+        filterOptions={filterOptions}
+      />
       <Row>
         <Col xs={8}>
           <h3 className='fs-4'>Title</h3>
@@ -66,7 +134,7 @@ const History = () => {
         </Col>
         <Col xs={1} />
       </Row>
-      <>{sortedItems}</>
+      <>{items}</>
     </Container>
   );
 };
