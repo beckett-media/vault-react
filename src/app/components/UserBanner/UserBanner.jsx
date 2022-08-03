@@ -1,21 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { AuthContext } from '../../contexts/auth';
 import { getUserName, mapCognitoToUser } from '../../services/user';
 
 import './UserBanner.scss';
 
 import { ReactComponent as BgSphere } from '../../assets/bg-sphere.svg';
-import { getUser } from '../../services/user';
 import { formatPrice } from '../../utils/strings';
 
 const UserBanner = ({ vaultedItems = 0, vaultedValue = 0 }) => {
-  const [user, setUser] = useState([]);
   const authContext = useContext(AuthContext);
   const userState = mapCognitoToUser(authContext.attrInfo);
-
-  useEffect(() => {
-    getUser().then((data) => setUser(data));
-  }, []);
 
   return (
     <div className='user-banner_component'>
@@ -24,7 +18,10 @@ const UserBanner = ({ vaultedItems = 0, vaultedValue = 0 }) => {
         <div className='container-large'>
           <div className='user-banner_layout'>
             <div className='user-banner_image-wrapper'>
-              <img className='user-banner_image' src={user.img} />
+              <img
+                className='user-banner_image'
+                src={'https://www.sideshow.com/storage/product-images/907776/superman_dc-comics_square.jpg'}
+              />
             </div>
             <div className='user-banner_content-layout'>
               <div className='user-banner_heading user-banner_grid-1'>{getUserName(userState)}</div>

@@ -1,12 +1,6 @@
 import { axiosClient } from './index';
 import { swapObjectKeyValue } from '../utils/strings';
 
-const mockUser = {
-  id: 'bfa700b5-5ac9-4574-b989-b6513d077f35',
-  name: 'Beckett SuperUser',
-  email: 'super@Man.com',
-  img: 'https://www.sideshow.com/storage/product-images/907776/superman_dc-comics_square.jpg',
-};
 const nonMutableAttributes = new Set(['sub', 'email_verified']);
 const cognitoToUser = {
   'custom:given_name': 'givenName',
@@ -29,11 +23,6 @@ const cognitoToUser = {
 };
 
 const userToCognito = swapObjectKeyValue(cognitoToUser);
-
-export const getUser = async () => {
-  // get the real user here
-  return mockUser;
-};
 
 export const mapCognitoToUser = (cognitoUser) => {
   return cognitoUser.reduce((acc, attr) => {

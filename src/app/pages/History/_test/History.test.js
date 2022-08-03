@@ -23,7 +23,7 @@ describe('To view History table rows', () => {
           ],
           historyItemDetails: {
             title: 'test',
-            id: '123'
+            id: '123',
           },
           setSelected: () => {},
         }),

@@ -1,26 +1,24 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import { AuthContext } from '../../contexts/auth';
-import { getUser, getUserName, mapCognitoToUser } from '../../services/user';
+import { getUserName, mapCognitoToUser } from '../../services/user';
 import './UserInfo.scss';
 
 const UserInfo = () => {
   // todo: set is loading
-  const [user, setUser] = useState([]);
   const authContext = useContext(AuthContext);
   const userState = mapCognitoToUser(authContext.attrInfo);
-
-  useEffect(() => {
-    getUser().then((data) => setUser(data));
-  }, []);
 
   return (
     <div className='profile-info_component'>
       <div className='profile-info_layout'>
         <div className='profile-info_image-wrapper'>
-          <img className='profile-info_image' src={user.img} />
+          <img
+            className='profile-info_image'
+            src={'https://www.sideshow.com/storage/product-images/907776/superman_dc-comics_square.jpg'}
+          />
         </div>
         <div className='profile-info_content-wrapper'>
-          <div className='profile-info_heading'>{/*getUserName(userState)*/ '@super_user37'}</div>
+          <div className='profile-info_heading'>{getUserName(userState)}</div>
           {/* Todo: add dynamic date-joined field */}
           <div className='profile-info_body'>joined July, 2022</div>
         </div>
