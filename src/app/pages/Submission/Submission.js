@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 
 import './Submission.scss';
 
 import SubmissionSuccess from '../Response/SubmissionSuccess';
 import SubmissionAdd from './SubmissionAdd';
-import SubmissionForm from './SubmissionForm';
 import SubmitButton from '../../components/Generic/SubmitButton';
 import SubmissionConfirmModal from './SubmissionConfirmModal';
 import UserBanner from '../../components/UserBanner/UserBanner';
@@ -15,7 +14,6 @@ import { formatSubmissionItem } from '../../utils/submissions';
 
 const Submission = () => {
   const [items, setItems] = useState([]);
-  const [add, onAdd] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [successfulSubmission, setSuccessfulSubmission] = useState(false);
 

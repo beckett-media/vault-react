@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { AuthContext } from '../../contexts/auth';
 import { getUserName, mapCognitoToUser } from '../../services/user';
 
@@ -11,7 +11,6 @@ const UserBanner = ({ vaultedItems = 0, vaultedValue = 0 }) => {
   const authContext = useContext(AuthContext);
   const userState = mapCognitoToUser(authContext.attrInfo);
 
-
   return (
     <div className='user-banner_component'>
       <BgSphere className='user-banner_bg-sphere z-index-0' />
@@ -19,9 +18,9 @@ const UserBanner = ({ vaultedItems = 0, vaultedValue = 0 }) => {
         <div className='container-large'>
           <div className='user-banner_layout'>
             <div className='user-banner_image-wrapper'>
-              <img 
-                className='user-banner_image' 
-                src={'https://www.sideshow.com/storage/product-images/907776/superman_dc-comics_square.jpg'} 
+              <img
+                className='user-banner_image'
+                src={'https://www.sideshow.com/storage/product-images/907776/superman_dc-comics_square.jpg'}
               />
             </div>
             <div className='user-banner_content-layout'>
