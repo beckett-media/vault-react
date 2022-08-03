@@ -16,11 +16,6 @@ const Submission = () => {
   const [items, setItems] = useState([]);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [submissionResponse, setSubmissionResponse] = useState('This is a test');
-  const [user, setUser] = useState([]);
-
-  useEffect(() => {
-    getUser().then((data) => setUser(data));
-  }, []);
 
   const submitAddedItem = (item) => {
     const newItems = [...items, item];
