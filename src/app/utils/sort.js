@@ -5,9 +5,7 @@ export const sortByAttribute = (attribute, dir = ASC) => {
   // asc or desc
   return (aObj, bObj) => {
     if (!isObject(aObj) || !isObject(bObj)) return 0;
-    const a = aObj[attribute];
-    const b = bObj[attribute];
-    return sortValue(a, b, dir);
+    return sortValue(aObj[attribute], bObj[attribute], dir);
   };
 };
 
