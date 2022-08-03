@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { itemsHistory } from './itemsHistory';
 import './History.scss';
@@ -7,6 +7,8 @@ import Filter from '../../components/Generic/Filter';
 import { getSingleSubmission, getSubmissions } from '../../services/submission';
 import { getSingleListing, getSingleVaulting } from '../../services/items';
 import { ALL, DATE, DATE_REVERSE, LISTING, NONE, SUBMISSION, VAULTING } from '../../const/FiltersEnums';
+import { mapCognitoToUser } from '../../services/user';
+import { AuthContext } from '../../contexts/auth';
 
 const History = () => {
   const [historyItems, setHistoryItems] = useState([]);
