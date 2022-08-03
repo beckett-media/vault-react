@@ -8,7 +8,7 @@ import SuggestedPurchases from '../../components/SuggestedPurchases/SuggestedPur
 
 import { getItem } from '../../services/items';
 import { AuthContext } from '../../contexts/auth';
-import { getUser, mapCognitoToUser } from '../../services/user';
+import { mapCognitoToUser } from '../../services/user';
 import { useCartContext } from '../../contexts/cart';
 import { getMarketItems } from '../../services/items';
 
@@ -21,15 +21,9 @@ const Item = () => {
   const cartContext = useCartContext();
   const { id } = useParams();
   const [item, setItem] = useState({});
-  const [user, setUser] = useState([]);
   const [relatedItems, setRelatedItems] = useState([]);
   const authContext = useContext(AuthContext);
   const userState = mapCognitoToUser(authContext.attrInfo);
-
-  console.log(id);
-  useEffect(() => {
-    getUser().then((data) => setUser(data));
-  }, []);
 
   useEffect(() => {
     getMarketItems().then((data) => setRelatedItems(data));

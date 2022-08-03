@@ -10,7 +10,6 @@ import SubmitButton from '../../components/Generic/SubmitButton';
 import SubmissionConfirmModal from './SubmissionConfirmModal';
 import UserBanner from '../../components/UserBanner/UserBanner';
 
-import { getUser } from '../../services/user';
 import { postSubmission } from '../../services/submission';
 import { formatSubmissionItem } from '../../utils/submissions';
 
@@ -19,11 +18,6 @@ const Submission = () => {
   const [add, onAdd] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [successfulSubmission, setSuccessfulSubmission] = useState(false);
-  const [user, setUser] = useState([]);
-
-  useEffect(() => {
-    getUser().then((data) => setUser(data));
-  }, []);
 
   const submitAddedItem = (item) => {
     const newItems = [...items, item];

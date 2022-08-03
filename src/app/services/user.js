@@ -24,11 +24,6 @@ const cognitoToUser = {
 
 const userToCognito = swapObjectKeyValue(cognitoToUser);
 
-export const getUser = async () => {
-  // get the real user here
-  return mockUser;
-};
-
 export const mapCognitoToUser = (cognitoUser) => {
   return cognitoUser.reduce((acc, attr) => {
     const newName = cognitoToUser[attr.Name] ? cognitoToUser[attr.Name] : attr.Name;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../../contexts/auth';
-import { getUser, getUserName, mapCognitoToUser } from '../../services/user';
+import { getUserName, mapCognitoToUser } from '../../services/user';
 import './UserInfo.scss';
 
 const UserInfo = () => {

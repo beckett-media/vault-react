@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { itemsHistory } from './itemsHistory';
 import './History.scss';
-import { getUser } from '../../services/user';
 import { getHistory } from '../../services/history';
 import Filter from '../../components/Generic/Filter';
 import { getSingleSubmission, getSubmissions } from '../../services/submission';
@@ -12,7 +11,6 @@ import { ALL, DATE, DATE_REVERSE, LISTING, NONE, SUBMISSION, VAULTING } from '..
 const History = () => {
   const [historyItems, setHistoryItems] = useState([]);
   const [selected, setSelected] = useState('');
-  const [user, setUser] = useState({});
   const [sortBy, setSortBy] = useState('date');
   const [filterBy, setFilterBy] = useState(ALL);
   const [searchVal, setSearchVal] = useState('');
@@ -20,17 +18,16 @@ const History = () => {
   const [sortedItems, setSortedItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [submissions, setSubmissions] = useState([]);
+  const authContext = useContext(AuthContext);
+  const userState = mapCognitoToUser(authContext.attrInfo);
   useEffect(() => {
-    getUser().then((userObject) => {
-      setUser(userObject);
-      getHistory(userObject.id).then((res) => {
-        setHistoryItems(res.data);
-        setSortedItems(res.data);
-        setFilteredItems(res.data);
-      });
-      getSubmissions({ user: userObject.id }).then((res) => {
-        setSubmissions(res);
-      });
+    getHistory(userState.sub).then((res) => {
+      setHistoryItems(res.data);
+      setSortedItems(res.data);
+      setFilteredItems(res.data);
+    });
+    getSubmissions({ user: userState.sub }).then((res) => {
+      setSubmissions(res);
     });
   }, []);
 

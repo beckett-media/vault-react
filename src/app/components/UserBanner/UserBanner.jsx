@@ -5,17 +5,12 @@ import { getUserName, mapCognitoToUser } from '../../services/user';
 import './UserBanner.scss';
 
 import { ReactComponent as BgSphere } from '../../assets/bg-sphere.svg';
-import { getUser } from '../../services/user';
 import { formatPrice } from '../../utils/strings';
 
 const UserBanner = ({ vaultedItems = 0, vaultedValue = 0 }) => {
-  const [user, setUser] = useState([]);
   const authContext = useContext(AuthContext);
   const userState = mapCognitoToUser(authContext.attrInfo);
 
-  useEffect(() => {
-    getUser().then((data) => setUser(data));
-  }, []);
 
   return (
     <div className='user-banner_component'>
