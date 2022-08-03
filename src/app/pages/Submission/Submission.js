@@ -63,11 +63,11 @@ const Submission = () => {
   };
 
   return (
-    <>
+    <div className='page-wrapper'>
       {successfulSubmission ? (
         <SubmissionSuccess />
       ) : (
-        <div className='h-100'>
+        <div className='h-100 w-100'>
           <UserBanner />
           <section className='section-submission_form'>
             <div className='page-padding'>
@@ -88,7 +88,7 @@ const Submission = () => {
           <SubmissionConfirmModal show={formSubmitted} setConfirm={submitFinalForm} />
         </div>
       )}
-    </>
+    </div>
   );
 };
 
