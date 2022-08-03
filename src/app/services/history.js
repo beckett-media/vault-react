@@ -16,7 +16,7 @@ export const getHistory = async (userName) => {
               entity_type_desc: err.response.status + ' - ' + err.response.data.error,
               created_at: new Date(),
               status_desc: 'none',
-              grading_company: 'none',
+              title: 'none',
               serial_number: 'none',
             },
           },
