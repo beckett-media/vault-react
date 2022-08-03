@@ -1,5 +1,6 @@
 import { isObject } from './objects';
-const ASC = 'asc';
+export const ASC = 'asc';
+export const DESC = 'desc';
 
 export const sortByAttribute = (attribute, dir = ASC) => {
   // asc or desc

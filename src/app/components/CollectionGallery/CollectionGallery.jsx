@@ -13,6 +13,7 @@ import { useToggle } from '../../hooks/useToggle';
 import { useMultiSelect } from '../../hooks/useMultiSelect';
 import { usePagination } from '../../hooks/usePagination';
 import { DATE, DATE_REVERSE, EST_VALUE, EST_VALUE_REVERSE, SUBJECT, SUBJECT_REVERSE } from '../../const/FiltersEnums';
+import { ASC, DESC, sortByAttribute } from '../../utils/sort';
 
 const CollectionGallery = ({ data }) => {
   //  SEARCH & FILTRATION
@@ -23,13 +24,7 @@ const CollectionGallery = ({ data }) => {
 
   const filteredItems = data.filter((item) => searchValRegex.test(item.title.toLowerCase()));
   const sortedItems = sortBy
-    ? filteredItems.sort((itemA, itemB) => {
-        const sortVal = sortBy.split('-');
-        const reverse = sortVal.length !== 1;
-        if (itemA[`${sortVal[0]}`] <= itemB[`${sortVal[0]}`]) {
-          return reverse ? 1 : -1;
-        } else return reverse ? -1 : 1;
-      })
+    ? filteredItems.sort(sortByAttribute(sortBy.split('-')[0], sortVal.length !== 1 ? ASC : DESC))
     : filteredItems;
 
   // MULTISELECT
