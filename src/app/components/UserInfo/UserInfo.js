@@ -5,13 +5,8 @@ import './UserInfo.scss';
 
 const UserInfo = () => {
   // todo: set is loading
-  const [user, setUser] = useState([]);
   const authContext = useContext(AuthContext);
   const userState = mapCognitoToUser(authContext.attrInfo);
-
-  useEffect(() => {
-    getUser().then((data) => setUser(data));
-  }, []);
 
   return (
     <div className='profile-info_component'>

@@ -8,7 +8,7 @@ import SuggestedPurchases from '../../components/SuggestedPurchases/SuggestedPur
 
 import { getItem } from '../../services/items';
 import { AuthContext } from '../../contexts/auth';
-import { getUser } from '../../services/user';
+import { getUser, mapCognitoToUser } from '../../services/user';
 import { useCartContext } from '../../contexts/cart';
 import { getMarketItems } from '../../services/items';
 
@@ -18,12 +18,13 @@ const images = requireContext('../../assets/Images', true);
 
 const Item = () => {
   // see Profile component for creating a user
-  const authContext = useContext(AuthContext);
   const cartContext = useCartContext();
   const { id } = useParams();
   const [item, setItem] = useState({});
   const [user, setUser] = useState([]);
   const [relatedItems, setRelatedItems] = useState([]);
+  const authContext = useContext(AuthContext);
+  const userState = mapCognitoToUser(authContext.attrInfo);
 
   console.log(id);
   useEffect(() => {
@@ -52,7 +53,7 @@ const Item = () => {
     navigate('/cart');
   };
 
-  const isOwner = user && user.id == item.ownerId;
+  const isOwner = userState && userState.sub == item.ownerId;
 
   return (
     Object.keys(item).length && (

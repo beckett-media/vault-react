@@ -44,7 +44,7 @@ const Submission = () => {
         items.map((item) =>
           postSubmission({
             ...formatSubmissionItem(item),
-            user: user.name,
+            user: userState.sub,
           }),
         ),
       )
