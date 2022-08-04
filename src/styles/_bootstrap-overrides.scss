@@ -13,7 +13,13 @@ $primary: #54c4c8;
 }
 
 .btn {
+  font-weight: 500 !important;
+
   &-primary {
+    color: #fff !important;
+  }
+
+  &-outline-primary:hover {
     color: #fff !important;
   }
 }
