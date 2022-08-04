@@ -14,7 +14,7 @@ const UserInfo = () => {
         <div className='profile-info_image-wrapper'>
           <img
             className='profile-info_image'
-            src={'https://www.sideshow.com/storage/product-images/907776/superman_dc-comics_square.jpg'}
+            src={'https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg'}
           />
         </div>
         <div className='profile-info_content-wrapper'>
