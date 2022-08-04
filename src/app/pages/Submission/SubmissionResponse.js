@@ -15,7 +15,7 @@ const SubmissionResponse = ({ submissionResponse, setSubmissionResponse }) => {
   const heading = success ? 'Success!' : 'Error';
   const body = success
     ? 'Your card has been submitted.'
-    : `${response.statusCode}, ${response?.message.toLocaleLowerCase()}.`;
+    : `${response?.statusCode}, ${response?.message.toLocaleLowerCase()}.`;
 
   return (
     <div className='w-100 h-100'>
