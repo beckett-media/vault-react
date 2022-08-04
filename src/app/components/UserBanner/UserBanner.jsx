@@ -20,7 +20,7 @@ const UserBanner = ({ vaultedItems = 0, vaultedValue = 0 }) => {
             <div className='user-banner_image-wrapper'>
               <img
                 className='user-banner_image'
-                src={'https://www.sideshow.com/storage/product-images/907776/superman_dc-comics_square.jpg'}
+                src={userState.profile}
               />
             </div>
             <div className='user-banner_content-layout'>
