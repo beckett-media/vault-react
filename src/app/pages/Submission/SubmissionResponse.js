@@ -4,12 +4,9 @@ import { ReactComponent as SuccessSVG } from '../../assets/beckett-check-icon.sv
 import { ReactComponent as ErrorSVG } from '../../assets/beckett-error-icon.svg';
 
 const SubmissionResponse = ({ submissionResponse, setSubmissionResponse }) => {
-  // const response = JSON.parse(submissionResponse);
-  const response = { statusCode: 404, message: 'Submission not found', error: 'Not Found' };
+  const response = JSON.parse(submissionResponse);
 
-  console.log(response);
-
-  const success = response.statusCode === 200;
+  const success = response?.statusCode === 200;
   const image = success ? (
     <SuccessSVG className='submission_response-image' />
   ) : (
@@ -18,7 +15,7 @@ const SubmissionResponse = ({ submissionResponse, setSubmissionResponse }) => {
   const heading = success ? 'Success!' : 'Error';
   const body = success
     ? 'Your card has been submitted.'
-    : `${response.statusCode}, ${response.message.toLocaleLowerCase()}.`;
+    : `${response.statusCode}, ${response?.message.toLocaleLowerCase()}.`;
 
   return (
     <div className='w-100 h-100'>

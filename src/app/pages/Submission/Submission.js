@@ -15,7 +15,7 @@ import { formatSubmissionItem } from '../../utils/submissions';
 const Submission = () => {
   const [items, setItems] = useState([]);
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const [submissionResponse, setSubmissionResponse] = useState('This is a test');
+  const [submissionResponse, setSubmissionResponse] = useState(null);
 
   const submitAddedItem = (item) => {
     const newItems = [...items, item];
