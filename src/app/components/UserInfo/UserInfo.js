@@ -14,7 +14,7 @@ const UserInfo = () => {
         <div className='profile-info_image-wrapper'>
           <img
             className='profile-info_image'
-            src={'https://www.sideshow.com/storage/product-images/907776/superman_dc-comics_square.jpg'}
+            src={require('../../assets/stockImage.jpeg')}
           />
         </div>
         <div className='profile-info_content-wrapper'>
