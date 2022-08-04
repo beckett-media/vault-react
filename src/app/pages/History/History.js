@@ -66,9 +66,10 @@ const History = () => {
           });
           break;
         case 'submission':
-          getSingleSubmission(selectedArr[0]).then((res) => {
-            setHistoryItemDetails(res);
-          });
+          setHistoryItemDetails(
+            submissions.filter(submission => 
+              String(submission.id) === selectedArr[0])[0]
+          )
           break;
         case 'vaulting':
           getSingleVaulting(selectedArr[0]).then((res) => {
