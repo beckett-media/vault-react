@@ -1,3 +1,5 @@
+import requireContext from 'require-context.macro';
+
 export function blobToBase64(blobUrl) {
   return new Promise(async (resolve, reject) => {
     // do a request to the blob uri
@@ -16,3 +18,15 @@ export function blobToBase64(blobUrl) {
     reader.readAsDataURL(blob);
   });
 }
+
+const images = requireContext('../assets/Images', true);
+
+export const getImageAssetUrl = (url) => {
+  if (!url) {
+    return '';
+  }
+
+  return url.startsWith('http://') || url.startsWith('https://')
+      ? url
+      : images(`./${url}`);
+};
