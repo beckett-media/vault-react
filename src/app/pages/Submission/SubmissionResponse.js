@@ -27,16 +27,12 @@ const SubmissionResponse = ({ submissionResponse, setSubmissionResponse }) => {
               <div className='submission_response-heading'>{heading}</div>
               <div className='submission_response-body'>{body}</div>
             </div>
-            <Button onClick={() => setSubmissionResponse('')}>OK</Button>
+            <Button onClick={() => setSubmissionResponse(null)}>OK</Button>
           </div>
         </div>
       </div>
     </div>
   );
-};
-
-SubmissionResponse.defaults = {
-  submissionResponse: { statusCode: 404, message: 'Submission not found', error: 'Not Found' },
 };
 
 export default SubmissionResponse;
