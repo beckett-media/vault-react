@@ -54,7 +54,7 @@ function App() {
                   <Route path='/submission' element={<Submission />} />
                   {/* <Route path='/about' element={<Homepage />} /> */}
                   <Route path='/collection' element={<MyCollection />} />
-                  <Route path='/item/:id' element={<Item />} />
+                  <Route path='/my-collection/item/:id' element={<Item />} />
                   <Route path='/market' element={<Market />} />
                   <Route path='/market/:department' element={<Department />} />
 

@@ -11,7 +11,7 @@ const images = requireContext('../../assets/Images', true);
 const ListItem = ({ item }, props) => {
   return (
     <div className='list-item_component'>
-      <Link to={`/item/${item.id}`} className='w-100'>
+      <Link to={`/my-collection/item/${item.id}`} className='w-100'>
         <div className='list-item_layout'>
           <img className='list-item_image' src={images(`./${item.image_url}`)} alt='' />
           <div>{trimString(item.title, 20)}</div>
