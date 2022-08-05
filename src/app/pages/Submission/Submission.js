@@ -64,7 +64,7 @@ const Submission = () => {
             <div className='submission_container'>
               {submissionResponse ? (
                 <SubmissionResponse
-                  submissionResponse={submissionResponse}
+                  submissionResponse={JSON.stringify(submissionResponse)}
                   setSubmissionResponse={setSubmissionResponse}
                 />
               ) : (
