@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import requireContext from 'require-context.macro';
 
 import PreviewGallery from '../../components/PreviewGallery/PreviewGallery';
 import ProductInfo from '../../components/ProductInfo/ProductInfo';
@@ -13,8 +12,9 @@ import { useCartContext } from '../../contexts/cart';
 import { getMarketItems } from '../../services/items';
 
 import './Item.scss';
+import { getSingleSubmission } from '../../services/submission';
+import { getImageAssetUrl } from '../../utils/image';
 
-const images = requireContext('../../assets/Images', true);
 
 const Item = () => {
   // see Profile component for creating a user
@@ -26,12 +26,13 @@ const Item = () => {
   const userState = mapCognitoToUser(authContext.attrInfo);
 
   useEffect(() => {
-    getMarketItems().then((data) => setRelatedItems(data));
+    // TODO: Replace with backend call
+    // getMarketItems().then((data) => setRelatedItems(data));
   }, []);
 
   useEffect(() => {
     // TODO: throw an error / redirect if we can't find the item?
-    getItem(id).then((data) => setItem(data));
+    getSingleSubmission(id).then((data) => setItem(data));
   }, [id]);
   const navigate = useNavigate();
 
@@ -48,6 +49,8 @@ const Item = () => {
   };
 
   const isOwner = userState && userState.sub == item.ownerId;
+  const imageUrl = getImageAssetUrl(item.image_url);
+  const imageRevUrl = getImageAssetUrl(item.image_rev_url);
 
   return (
     Object.keys(item).length && (
@@ -60,8 +63,8 @@ const Item = () => {
                   <div className='item-details_image-wrapper'>
                     <div className='flip-card_component'>
                       <div className='flip-card_inner'>
-                        <img src={images(`./${item.image_url}`)} className='flip-card_front' alt={item.title} />
-                        <img src={images(`./${item.imgRev}`)} className='flip-card_back' alt={item.title} />
+                        <img src={imageUrl} className='flip-card_front' alt={item.title} />
+                        <img src={imageRevUrl} className='flip-card_back' alt={item.title} />
                       </div>
                     </div>
                   </div>
@@ -79,7 +82,7 @@ const Item = () => {
             </div>
           </div>
         </div>
-        {!isOwner && (
+        {/* {!isOwner && (
           <div className='section_item-related'>
             <div className='page-padding'>
               <div className='container-large'>
@@ -90,7 +93,7 @@ const Item = () => {
               </div>
             </div>
           </div>
-        )}
+        )} */}
       </div>
     )
   );

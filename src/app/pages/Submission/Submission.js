@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Col, Row } from 'react-bootstrap';
+import { AuthContext } from '../../contexts/auth';
+import { mapCognitoToUser } from '../../services/user';
 
 import './Submission.scss';
 
-import SubmissionSuccess from '../Response/SubmissionSuccess';
+import SubmissionResponse from './SubmissionResponse';
 import SubmissionAdd from './SubmissionAdd';
 import SubmitButton from '../../components/Generic/SubmitButton';
 import SubmissionConfirmModal from './SubmissionConfirmModal';
@@ -13,9 +15,11 @@ import { postSubmission } from '../../services/submission';
 import { formatSubmissionItem } from '../../utils/submissions';
 
 const Submission = () => {
+  const authContext = useContext(AuthContext);
+  const userState = mapCognitoToUser(authContext.attrInfo);
   const [items, setItems] = useState([]);
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const [successfulSubmission, setSuccessfulSubmission] = useState(false);
+  const [submissionResponse, setSubmissionResponse] = useState(null);
 
   const submitAddedItem = (item) => {
     const newItems = [...items, item];
@@ -41,11 +45,12 @@ const Submission = () => {
         ),
       )
         .then((resp) => {
-          setSuccessfulSubmission(true);
+          setSubmissionResponse(resp);
         })
         .catch((e) => {
           // TODO
           console.error(e);
+          setSubmissionResponse(e);
         });
     }
   };
@@ -56,30 +61,35 @@ const Submission = () => {
 
   return (
     <div className='page-wrapper'>
-      {successfulSubmission ? (
-        <SubmissionSuccess />
-      ) : (
-        <div className='h-100 w-100'>
-          <UserBanner />
-          <section className='section-submission_form'>
-            <div className='page-padding'>
-              <div className='submission_container'>
-                <SubmissionAdd submitAddedItem={submitAddedItem} />
+      <div className='h-100 w-100'>
+        <UserBanner />
+        <section className='section-submission_form'>
+          <div className='page-padding'>
+            <div className='submission_container'>
+              {submissionResponse ? (
+                <SubmissionResponse
+                  submissionResponse={JSON.stringify(submissionResponse)}
+                  setSubmissionResponse={setSubmissionResponse}
+                />
+              ) : (
+                <>
+                  <SubmissionAdd submitAddedItem={submitAddedItem} />
 
-                {items.length !== 0 && (
-                  <Row className='m-2'>
-                    <Col xs={3}>
-                      <SubmitButton func={submitForm} title='Submit' size='lg' />
-                    </Col>
-                  </Row>
-                )}
-              </div>
+                  {items.length !== 0 && (
+                    <Row className='m-2'>
+                      <Col xs={3}>
+                        <SubmitButton func={submitForm} title='Submit' size='lg' />
+                      </Col>
+                    </Row>
+                  )}
+                </>
+              )}
             </div>
-          </section>
+          </div>
+        </section>
 
-          <SubmissionConfirmModal show={formSubmitted} setConfirm={submitFinalForm} />
-        </div>
-      )}
+        <SubmissionConfirmModal show={formSubmitted} setConfirm={submitFinalForm} />
+      </div>
     </div>
   );
 };
