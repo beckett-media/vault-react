@@ -183,7 +183,7 @@ const SignIn = () => {
             marginBottom='32px'
             _focus={{ boxShadow: 'none' }}
             onClick={() => {
-              window.location.replace('https://www.beckettvault.com/');
+              window.open('https://www.beckettvault.com/');
             }}
           >
             Join the early access

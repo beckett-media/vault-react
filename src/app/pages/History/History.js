@@ -54,23 +54,27 @@ const History = () => {
   }, [searchVal]);
 
   useEffect(() => {
-    const selectedArr = selected.split('-');
-    switch (selectedArr[1]?.toLowerCase()) {
-      case 'listing':
-        getSingleListing(selectedArr[0]).then((res) => {
-          setHistoryItemDetails(res);
-        });
-        break;
-      case 'submission':
-        getSingleSubmission(selectedArr[0]).then((res) => {
-          setHistoryItemDetails(res);
-        });
-        break;
-      case 'vaulting':
-        getSingleVaulting(selectedArr[0]).then((res) => {
-          setHistoryItemDetails(res);
-        });
-        break;
+    if (!selected.length) {
+      setHistoryItemDetails({});
+    } else {
+      const selectedArr = selected.split('-');
+      switch (selectedArr[1]?.toLowerCase()) {
+        case 'listing':
+          getSingleListing(selectedArr[0]).then((res) => {
+            setHistoryItemDetails(res);
+          });
+          break;
+        case 'submission':
+          getSingleSubmission(selectedArr[0]).then((res) => {
+            setHistoryItemDetails(res);
+          });
+          break;
+        case 'vaulting':
+          getSingleVaulting(selectedArr[0]).then((res) => {
+            setHistoryItemDetails(res);
+          });
+          break;
+      }
     }
   }, [selected]);
 
@@ -101,7 +105,7 @@ const History = () => {
     { value: LISTING, title: 'Market' },
   ];
 
-  let items = [...itemsHistory({ sortedItems, historyItemDetails, setSelected })];
+  let items = [...itemsHistory({ sortedItems, selected, setSelected, historyItemDetails })];
 
   return (
     <Container className='py-2 sub-box'>

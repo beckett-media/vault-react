@@ -18,10 +18,7 @@ const UserBanner = ({ vaultedItems = 0, vaultedValue = 0 }) => {
         <div className='container-large'>
           <div className='user-banner_layout'>
             <div className='user-banner_image-wrapper'>
-              <img
-                className='user-banner_image'
-                src={'https://www.sideshow.com/storage/product-images/907776/superman_dc-comics_square.jpg'}
-              />
+              <img className='user-banner_image' src={userState.profile || require('../../assets/stockImage.jpeg')} />
             </div>
             <div className='user-banner_content-layout'>
               <div className='user-banner_heading user-banner_grid-1'>{getUserName(userState)}</div>
