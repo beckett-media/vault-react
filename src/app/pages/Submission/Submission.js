@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Col, Row } from 'react-bootstrap';
+import { AuthContext } from '../../contexts/auth';
+import { mapCognitoToUser } from '../../services/user';
 
 import './Submission.scss';
 
@@ -13,6 +15,8 @@ import { postSubmission } from '../../services/submission';
 import { formatSubmissionItem } from '../../utils/submissions';
 
 const Submission = () => {
+  const authContext = useContext(AuthContext);
+  const userState = mapCognitoToUser(authContext.attrInfo);
   const [items, setItems] = useState([]);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [submissionResponse, setSubmissionResponse] = useState(null);
