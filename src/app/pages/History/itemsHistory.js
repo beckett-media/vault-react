@@ -3,8 +3,8 @@ import { Col, Row } from 'react-bootstrap';
 import './History.scss';
 
 export const itemsHistory = ({ sortedItems, selected, setSelected, historyItemDetails }) => {
-  const toggleIsSelected = (entity, entity_type_desc) => 
-    selected.split('-')[0] === entity ? setSelected('') : setSelected(`${entity}-${entity_type_desc}`)
+  const toggleIsSelected = (entity, entity_type_desc) =>
+    selected.split('-')[0] === entity ? setSelected('') : setSelected(`${entity}-${entity_type_desc}`);
   const mapHistoryComponents = (items) =>
     items?.map((item) => {
       const isSelected = historyItemDetails.id === Number(item.entity);

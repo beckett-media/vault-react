@@ -13,7 +13,22 @@ $primary: #54c4c8;
 }
 
 .btn {
+  font-weight: 500 !important;
+
   &-primary {
     color: #fff !important;
   }
+
+  &-outline-primary:hover {
+    color: #fff !important;
+  }
+}
+
+.form-label {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.form-control {
+  margin-bottom: 16px;
 }
