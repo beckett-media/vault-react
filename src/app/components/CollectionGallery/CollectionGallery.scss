@@ -21,6 +21,12 @@
       display: flex;
       flex-direction: column;
       flex-wrap: wrap;
+      background-color: #fff;
+      font-size: 14px;
+      border: 1px solid #C5C5C5;
+      box-shadow: 0px 1px 3px rgb(16 24 40 / 10%), 0px 1px 2px rgb(16 24 40 / 6%);
+      border-radius: 4px;
+      overflow: hidden;
     }
 
     &-grid {
@@ -69,8 +75,7 @@
     transition: all 0.2s ease-in-out;
   }
 
-  &card-wrapper {
-  }
+  &card-wrapper {}
 
   &card-selected {
     outline: 5px solid #54c4c8;
@@ -106,5 +111,22 @@
     height: 100%;
     z-index: 3;
     opacity: 0;
+  }
+}
+
+.collection_ {
+  &pagination {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+  }
+
+  &list-item-layout {
+    display: grid;
+    grid-column-gap: 16px;
+    grid-template-columns: 50px 45% 25% 1fr 1fr;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
   }
 }
