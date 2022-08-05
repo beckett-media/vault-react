@@ -1,20 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import requireContext from 'require-context.macro';
 
 import './ItemCard.scss';
 
+import { getImageAssetUrl } from '../../utils/image';
 import { formatPrice } from '../../utils/strings';
-const images = requireContext('../../assets/Images', true);
 
 const ItemCard = ({ item, shouldLink = true, belongsToUser }, props) => {
   const link = shouldLink ? `/item/${item.id}` : '';
   const price = item.est_value || item.price;
 
-  const imageUrl =
-    item.image_url.startsWith('http://') || item.image_url.startsWith('https://')
-      ? item.image_url
-      : images(`./${item.image_url}`);
+  const imageUrl = getImageAssetUrl(item.image_url);
 
   return (
     <div className={`item-card_component`}>

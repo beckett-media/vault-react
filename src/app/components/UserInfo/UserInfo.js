@@ -12,10 +12,7 @@ const UserInfo = () => {
     <div className='profile-info_component'>
       <div className='profile-info_layout'>
         <div className='profile-info_image-wrapper'>
-          <img
-            className='profile-info_image'
-            src={'https://www.sideshow.com/storage/product-images/907776/superman_dc-comics_square.jpg'}
-          />
+          <img className='profile-info_image' src={require('../../assets/stockImage.jpeg')} />
         </div>
         <div className='profile-info_content-wrapper'>
           <div className='profile-info_heading'>{getUserName(userState)}</div>
