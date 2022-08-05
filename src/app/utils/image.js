@@ -26,7 +26,5 @@ export const getImageAssetUrl = (url) => {
     return '';
   }
 
-  return url.startsWith('http://') || url.startsWith('https://')
-      ? url
-      : images(`./${url}`);
+  return url.startsWith('http://') || url.startsWith('https://') ? url : images(`./${url}`);
 };
