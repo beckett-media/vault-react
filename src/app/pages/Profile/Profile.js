@@ -2,8 +2,8 @@ import React, { useState, useContext } from 'react';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 import { mapCognitoToUser, mapUserToCognito } from '../../services/user';
 import './Profile.scss';
-import UserInfo from '../../components/UserInfo/UserInfo';
 import { AuthContext } from '../../contexts/auth';
+import UserBanner from '../../components/UserBanner/UserBanner';
 
 const Profile = () => {
   const authContext = useContext(AuthContext);
@@ -43,7 +43,7 @@ const Profile = () => {
           <Col lg='6'>
             <Row className='mb-2'>
               <Col>
-                <UserInfo />
+                <UserBanner />
                 <hr className='m-2' />
               </Col>
             </Row>

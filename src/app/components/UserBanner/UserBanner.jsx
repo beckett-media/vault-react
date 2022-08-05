@@ -10,10 +10,28 @@ import { formatPrice } from '../../utils/strings';
 const UserBanner = ({ vaultedItems = 0, vaultedValue = 0 }) => {
   const authContext = useContext(AuthContext);
   const userState = mapCognitoToUser(authContext.attrInfo);
+  const isProfilePage = window.location.pathname === '/profile';
 
   return (
-    <div className='user-banner_component'>
-      <BgSphere className='user-banner_bg-sphere z-index-0' />
+    <div className= {isProfilePage ? 'user-info_component' : 'profile-banner_component'}>
+      {isProfilePage && 
+      <div className='profile-info_layout'>
+        <div className='profile-info_image-wrapper'>
+          <img
+            className='profile-info_image'
+            src={'https://www.sideshow.com/storage/product-images/907776/superman_dc-comics_square.jpg'}
+          />
+        </div>
+        <div className='profile-info_content-wrapper'>
+          <div className='profile-info_heading'>{getUserName(userState)}</div>
+          {/* Todo: add dynamic date-joined field */}
+          <div className='profile-info_body'>joined July, 2022</div>
+        </div>
+      </div>}
+
+      {!isProfilePage && <BgSphere className='user-banner_bg-sphere z-index-0' />}
+
+      {!isProfilePage && 
       <div className='page-padding z-index-1 position-relative'>
         <div className='container-large'>
           <div className='user-banner_layout'>
@@ -34,7 +52,7 @@ const UserBanner = ({ vaultedItems = 0, vaultedValue = 0 }) => {
             </div>
           </div>
         </div>
-      </div>
+      </div>}
     </div>
   );
 };
