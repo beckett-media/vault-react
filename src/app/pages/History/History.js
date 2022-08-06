@@ -54,10 +54,9 @@ const History = () => {
   }, [searchVal]);
 
   useEffect(() => {
-    if(!selected.length){
-      setHistoryItemDetails({})
-    }
-    else {
+    if (!selected.length) {
+      setHistoryItemDetails({});
+    } else {
       const selectedArr = selected.split('-');
       switch (selectedArr[1]?.toLowerCase()) {
         case 'listing':
