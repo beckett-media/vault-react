@@ -54,10 +54,10 @@ const History = () => {
   }, [searchVal]);
 
   useEffect(() => {
-    if (!selected.length) {
-      setHistoryItemDetails({});
+    const selectedArr = selected.split('-');
+    if (selectedArr?.[0] === String(historyItemDetails?.id)) {
+      setHistoryItemDetails({...historyItemDetails})
     } else {
-      const selectedArr = selected.split('-');
       switch (selectedArr[1]?.toLowerCase()) {
         case 'listing':
           getSingleListing(selectedArr[0]).then((res) => {
@@ -105,8 +105,10 @@ const History = () => {
     { value: VAULTING, title: 'Vaulted' },
     { value: LISTING, title: 'Market' },
   ];
-
-  let items = [...itemsHistory({ sortedItems, selected, setSelected, historyItemDetails })];
+  console.log(historyItemDetails)
+  let items = selected.length ? 
+    [...itemsHistory({ sortedItems, selected, setSelected, historyItemDetails })] :
+    [...itemsHistory({ sortedItems, selected, setSelected, historyItemDetails: [{}] })]
 
   return (
     <Container className='py-2 sub-box'>
