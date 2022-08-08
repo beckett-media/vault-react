@@ -94,12 +94,12 @@ const CollectionGallery = ({ data }) => {
               }`}
             >
               {isListVisible && (
-                <div className='collection_list-item-layout mt-4 fw-bold'>
+                <div className='collection_list-item-layout my-2'>
                   <div></div>
                   <div>Item</div>
                   <div>Details</div>
-                  <div className='text-end'>Grade</div>
-                  <div className='text-end'>Price</div>
+                  <div>Grade</div>
+                  <div>Price</div>
                 </div>
               )}
               {(searchVal ? sortedItems : updatePage(sortedItems, activePage))?.map((item, index) => (
