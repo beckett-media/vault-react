@@ -2,10 +2,6 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Col, Form, Row, Button } from 'react-bootstrap';
 
-import ImageUploader from '../../components/Generic/ImageUploader';
-
-import { ReactComponent as ImageUpload } from '../../assets/image-upload-icon.svg';
-
 const AddBeckettItem = (props) => {
   return (
     <Form.Group className='md-5'>
@@ -19,14 +15,6 @@ const SubmissionAdd = ({ submitAddedItem }) => {
   const [item, setItem] = useState({});
   const submitAddItemFormSubmit = (e) => {
     e.preventDefault();
-    if (!item.imageBase64 || !item.imageFormat) {
-      alert('image is empty');
-      return;
-    }
-    if (!item.imageRevBase64 || !item.imageRevFormat) {
-      alert('rev image is empty');
-      return;
-    }
     submitAddedItem(item);
     setItem({});
     e.target.reset();
@@ -36,38 +24,6 @@ const SubmissionAdd = ({ submitAddedItem }) => {
   return (
     <div className='w-100'>
       <div className='submission_heading'>Add Items to Vault</div>
-      <ImageUploader
-        heading={'Click to upload front image'}
-        subHeading={'SVG, PNG, JPG or GIF (max. 800x400px)'}
-        onFileChange={(obj) => {
-          if (obj) {
-            updateItem(obj);
-          } else {
-            updateItem({
-              imageFormat: null,
-              imageBase64: null,
-            });
-          }
-        }}
-      />
-      <ImageUploader
-        heading={'Click to upload back image'}
-        subHeading={'SVG, PNG, JPG or GIF (max. 800x400px)'}
-        onFileChange={(obj) => {
-          if (obj) {
-            updateItem({
-              previewRevUrl: obj.previewUrl,
-              imageRevFormat: obj.imageFormat,
-              imageRevBase64: obj.imageBase64,
-            });
-          } else {
-            updateItem({
-              imageRevFormat: null,
-              imageRevBase64: null,
-            });
-          }
-        }}
-      />
       <Form onSubmit={submitAddItemFormSubmit} className='submission_form'>
         <Row className='submission_form-section'>
           <Col xs={12}>
