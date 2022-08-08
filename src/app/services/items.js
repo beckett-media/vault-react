@@ -447,6 +447,23 @@ export const fetchItems = () => {
 export const fetchMarketItems = () => {
   return axiosClient.get(`/marketplace/listing`).then((res) => res.data);
 };
+export const getListings = async ({ user, status, offset, limit, order } = {}) => {
+  const params = {
+    user,
+    status,
+    offset,
+    limit,
+    order,
+  };
+
+  return axiosClient
+    .get(`/marketplace/listing`, {
+      params: Object.keys(params).length > 0 ? params : undefined,
+    })
+    .then((res) => {
+      return res.data;
+    });
+};
 
 export const getSingleListing = (id) => {
   return axiosClient
@@ -458,6 +475,24 @@ export const getSingleListing = (id) => {
     .then((res) => {
       console.log(res);
       res.data;
+    });
+};
+
+export const getVaulting = async ({ user, status, offset, limit, order } = {}) => {
+  const params = {
+    user,
+    status,
+    offset,
+    limit,
+    order,
+  };
+
+  return axiosClient
+    .get(`/marketplace/vaulting`, {
+      params: Object.keys(params).length > 0 ? params : undefined,
+    })
+    .then((res) => {
+      return res.data;
     });
 };
 
