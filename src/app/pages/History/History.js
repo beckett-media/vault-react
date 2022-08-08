@@ -4,8 +4,8 @@ import { itemsHistory } from './itemsHistory';
 import './History.scss';
 import { getHistory } from '../../services/history';
 import Filter from '../../components/Generic/Filter';
-import { getSingleSubmission, getSubmissions } from '../../services/submission';
-import { getSingleListing, getSingleVaulting } from '../../services/items';
+import { getSubmissions } from '../../services/submission';
+import { getListings, getVaulting } from '../../services/items';
 import { ALL, DATE, DATE_REVERSE, LISTING, NONE, SUBMISSION, VAULTING } from '../../const/FiltersEnums';
 import { mapCognitoToUser } from '../../services/user';
 import { AuthContext } from '../../contexts/auth';
@@ -21,6 +21,8 @@ const History = () => {
   const [sortedItems, setSortedItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [submissions, setSubmissions] = useState([]);
+  const [listings, setListings] = useState([]);
+  const [vaulting, setVaulting] = useState([]);
   const authContext = useContext(AuthContext);
   const userState = mapCognitoToUser(authContext.attrInfo);
 
@@ -33,12 +35,19 @@ const History = () => {
     getSubmissions({ user: userState.sub }).then((res) => {
       setSubmissions(res);
     });
+    getListings({ user: userState.sub }).then((res) => {
+      setListings(res);
+    });
+    getVaulting({ user: userState.sub }).then((res) => {
+      setVaulting(res);
+    });
   }, []);
 
   useEffect(() => {
     let matches = [];
     if (searchVal?.length) {
-      matches = submissions.filter((item) => item.title.toLowerCase().search(String(searchVal).toLowerCase()) > 0);
+      let allItems = [...submissions, ...listings, ...vaulting]
+      matches = allItems.filter((item) => item.title.toLowerCase().search(String(searchVal).toLowerCase()) > 0);
       let items = matches.map((item) => item.id);
       let matchById = historyItems.filter((item) => String(item.id) === searchVal);
       let results = [];
@@ -54,25 +63,25 @@ const History = () => {
   }, [searchVal]);
 
   useEffect(() => {
-    if (!selected.length) {
-      setHistoryItemDetails({});
+    const selectedArr = selected.split('-');
+    if (selectedArr?.[0] === String(historyItemDetails?.id)) {
+      setHistoryItemDetails({ ...historyItemDetails });
     } else {
-      const selectedArr = selected.split('-');
       switch (selectedArr[1]?.toLowerCase()) {
         case 'listing':
-          getSingleListing(selectedArr[0]).then((res) => {
-            setHistoryItemDetails(res);
-          });
+          setHistoryItemDetails(
+            listings.filter(listing => 
+              String(listing.id) === selectedArr[0])[0]
+          )
           break;
         case 'submission':
-          getSingleSubmission(selectedArr[0]).then((res) => {
-            setHistoryItemDetails(res);
-          });
+          setHistoryItemDetails(submissions.filter((submission) => String(submission.id) === selectedArr[0])[0]);
           break;
         case 'vaulting':
-          getSingleVaulting(selectedArr[0]).then((res) => {
-            setHistoryItemDetails(res);
-          });
+          setHistoryItemDetails(
+            vaulting.filter(vaulting => 
+              String(vaulting.id) === selectedArr[0])[0]
+          )
           break;
       }
     }
@@ -105,7 +114,9 @@ const History = () => {
     { value: LISTING, title: 'Market' },
   ];
 
-  let items = [...itemsHistory({ sortedItems, selected, setSelected, historyItemDetails })];
+  let items = selected.length
+    ? [...itemsHistory({ sortedItems, selected, setSelected, historyItemDetails })]
+    : [...itemsHistory({ sortedItems, selected, setSelected, historyItemDetails: [{}] })];
 
   return (
     <Container className='py-2 sub-box'>
