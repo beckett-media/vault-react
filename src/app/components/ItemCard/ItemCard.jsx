@@ -7,7 +7,7 @@ import { getImageAssetUrl } from '../../utils/image';
 import { formatPrice } from '../../utils/strings';
 
 const ItemCard = ({ item, shouldLink = true, belongsToUser }, props) => {
-  const link = shouldLink ? `/item/${item.id}` : '';
+  const link = shouldLink ? `/my-collection/item/${item.id}` : '';
   const price = item.est_value || item.price;
 
   const imageUrl = getImageAssetUrl(item.image_url);

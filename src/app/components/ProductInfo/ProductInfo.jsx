@@ -90,13 +90,13 @@ const ProductInfo = ({ isOwner, item, addToCart }) => {
           <div className='product-info_buttons-wrapper'>
             {isOwner ? (
               <>
-                <OverlayTrigger
+                {/* <OverlayTrigger
                   delay={{ hide: 450, show: 300 }}
                   overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
                   placement='bottom'
                 >
                   <Button className='w-100'>Sell in Marketplace</Button>
-                </OverlayTrigger>
+                </OverlayTrigger> */}
                 <OverlayTrigger
                   delay={{ hide: 450, show: 300 }}
                   overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
@@ -118,7 +118,7 @@ const ProductInfo = ({ isOwner, item, addToCart }) => {
               </>
             ) : (
               <>
-                <OverlayTrigger
+                {/* <OverlayTrigger
                   delay={{ hide: 450, show: 300 }}
                   overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
                   placement='bottom'
@@ -135,9 +135,10 @@ const ProductInfo = ({ isOwner, item, addToCart }) => {
                   <Button disabled className='w-100' variant='outline-dark' onClick={() => addToCart()}>
                     Add To Cart
                   </Button>
-                </OverlayTrigger>
+                </OverlayTrigger> */}
               </>
-            )}
+              )
+            }
           </div>
         </>
       )}
