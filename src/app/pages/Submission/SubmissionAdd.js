@@ -36,56 +36,38 @@ const SubmissionAdd = ({ submitAddedItem }) => {
   return (
     <div className='w-100'>
       <div className='submission_heading'>Add Items to Vault</div>
-      <Row className='submission_image-upload'>
-        <div className='submission_image-upload-overlay'>
-          <div className='submission_image-upload-content'>
-            <ImageUpload />
-            <div className='submission_image-upload-text'>
-              <span className='submission_image-upload-text-highlight'>Click to upload front image</span>
-            </div>
-            <div className='submission_image-upload-text-small'>SVG, PNG, JPG or GIF (max. 800x400px)</div>
-          </div>
-        </div>
-        <ImageUploader
-          onFileChange={(obj) => {
-            if (obj) {
-              updateItem(obj);
-            } else {
-              updateItem({
-                imageFormat: null,
-                imageBase64: null,
-              });
-            }
-          }}
-        />
-      </Row>
-      <Row className='submission_image-upload'>
-        <div className='submission_image-upload-overlay'>
-          <div className='submission_image-upload-content'>
-            <ImageUpload />
-            <div className='submission_image-upload-text'>
-              <span className='submission_image-upload-text-highlight'>Click to upload back image</span>
-            </div>
-            <div className='submission_image-upload-text-small'>SVG, PNG, JPG or GIF (max. 800x400px)</div>
-          </div>
-        </div>
-        <ImageUploader
-          onFileChange={(obj) => {
-            if (obj) {
-              updateItem({
-                previewRevUrl: obj.previewUrl,
-                imageRevFormat: obj.imageFormat,
-                imageRevBase64: obj.imageBase64,
-              });
-            } else {
-              updateItem({
-                imageRevFormat: null,
-                imageRevBase64: null,
-              });
-            }
-          }}
-        />
-      </Row>
+      <ImageUploader
+        heading={'Click to upload front image'}
+        subHeading={'SVG, PNG, JPG or GIF (max. 800x400px)'}
+        onFileChange={(obj) => {
+          if (obj) {
+            updateItem(obj);
+          } else {
+            updateItem({
+              imageFormat: null,
+              imageBase64: null,
+            });
+          }
+        }}
+      />
+      <ImageUploader
+        heading={'Click to upload back image'}
+        subHeading={'SVG, PNG, JPG or GIF (max. 800x400px)'}
+        onFileChange={(obj) => {
+          if (obj) {
+            updateItem({
+              previewRevUrl: obj.previewUrl,
+              imageRevFormat: obj.imageFormat,
+              imageRevBase64: obj.imageBase64,
+            });
+          } else {
+            updateItem({
+              imageRevFormat: null,
+              imageRevBase64: null,
+            });
+          }
+        }}
+      />
       <Form onSubmit={submitAddItemFormSubmit} className='submission_form'>
         <Row className='submission_form-section'>
           <Col xs={12}>
