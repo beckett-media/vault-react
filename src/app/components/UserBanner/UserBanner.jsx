@@ -13,7 +13,7 @@ const UserBanner = ({ vaultedItems = 0, vaultedValue = 0 }) => {
   const isProfilePage = window.location.pathname === '/profile';
 
   return (
-    <div className= {isProfilePage ? 'user-info_component' : 'profile-banner_component'}>
+    <div className= {isProfilePage ? 'profile-info_component' : 'user-banner_component'}>
       {isProfilePage && 
       <div className='profile-info_layout'>
         <div className='profile-info_image-wrapper'>
