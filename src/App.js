@@ -53,7 +53,7 @@ function App() {
                 <Route exact path='/' element={<PrivateRoute />}>
                   <Route path='/submission' element={<Submission />} />
                   {/* <Route path='/about' element={<Homepage />} /> */}
-                  <Route path='/collection' element={<MyCollection />} />
+                  <Route path='/my-collection' element={<MyCollection />} />
                   <Route path='/my-collection/item/:id' element={<Item />} />
                   <Route path='/market' element={<Market />} />
                   <Route path='/market/:department' element={<Department />} />
@@ -64,7 +64,7 @@ function App() {
                   <Route path='/history' element={<History />} />
                   <Route path='/support' element={<Support />} />
                   {/* <Route path='/' element={<Homepage />} /> */}
-                  <Route path='/' element={<Navigate to='/collection' />} />
+                  <Route path='/' element={<Navigate to='/my-collection' />} />
                 </Route>
                 <Route path='/admin' element={<AdminRoute />}>
                   <Route exact path='' element={<AdminPage />} />

@@ -39,7 +39,7 @@ const TopNav = () => {
             <div className='nav_center-wrapper'>
               {authContext.isSignedIn && (
                 <>
-                  <NavLink to='/collection' className={({ isActive }) => (isActive ? 'nav_link--active' : 'nav_link')}>
+                  <NavLink to='/my-collection' className={({ isActive }) => (isActive ? 'nav_link--active' : 'nav_link')}>
                     My Collection
                   </NavLink>
                   <NavLink to='/market' className={({ isActive }) => (isActive ? 'nav_link--active' : 'nav_link')}>
@@ -95,7 +95,7 @@ const TopNav = () => {
                 </label>
                 <div className='nav_mobile-bg'></div>
                 <div className='nav_mobile-menu'>
-                  <NavLink to='/collection' onClick={() => toggleCheckbox(false)} className='nav_mobile-menu-item'>
+                  <NavLink to='/my-collection' onClick={() => toggleCheckbox(false)} className='nav_mobile-menu-item'>
                     My Collection
                   </NavLink>
                   <NavLink to='/market' onClick={() => toggleCheckbox(false)} className='nav_mobile-menu-item'>
