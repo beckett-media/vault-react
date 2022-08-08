@@ -16,7 +16,7 @@ const SuggestedPurchases = ({ isOwner, data, addToCart }, props) => {
             <div className='divider--grey'></div>
             <div className='suggested-purchase_component' key={'suggested-purchases_' + index}>
               <div className='suggested-purchase_content-wrapper'>
-                <Link to={`/item/${item.id}`}>
+                <Link to={`/my-collection/item/${item.id}`}>
                   <div className='suggested-purchase_title ellipses_wrapper'>
                     <span className='ellipses_child'>{formatPrice(item.price) + ' - ' + item.title}</span>
                   </div>

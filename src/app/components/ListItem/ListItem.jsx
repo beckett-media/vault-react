@@ -14,7 +14,7 @@ const ListItem = ({ item }, props) => {
 
   return (
     <div className='list-item_component'>
-      <Link to={`/item/${item.id}`} className='w-100'>
+      <Link to={`/my-collection/item/${item.id}`} className='w-100'>
         <div className='list-item_layout'>
           <img className='list-item_image' src={imageUrl} alt='' />
           <div className='ellipses_wrapper'>
