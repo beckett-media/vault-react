@@ -15,7 +15,6 @@ import './Item.scss';
 import { getSingleSubmission } from '../../services/submission';
 import { getImageAssetUrl } from '../../utils/image';
 
-
 const Item = () => {
   // see Profile component for creating a user
   const cartContext = useCartContext();

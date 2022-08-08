@@ -456,7 +456,6 @@ export const getSingleListing = (id) => {
       },
     })
     .then((res) => {
-      console.log(res);
       res.data;
     });
 };
@@ -469,7 +468,6 @@ export const getSingleVaulting = (id) => {
       },
     })
     .then((res) => {
-      console.log(res);
       res.data;
     });
 };
