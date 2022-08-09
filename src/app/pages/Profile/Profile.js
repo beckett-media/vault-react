@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 import { mapCognitoToUser, mapUserToCognito } from '../../services/user';
 import './Profile.scss';
-import UserInfo from '../../components/UserInfo/UserInfo';
+import UserBanner from '../../components/UserBanner/UserBanner';
 import { AuthContext } from '../../contexts/auth';
 
 const Profile = () => {
@@ -38,15 +38,10 @@ const Profile = () => {
 
   return (
     <Container>
+      <UserBanner />
       <Form noValidate onSubmit={submitUpdateUser}>
         <Row className='justify-content-center m-2'>
           <Col lg='6'>
-            <Row className='mb-2'>
-              <Col>
-                <UserInfo />
-                <hr className='m-2' />
-              </Col>
-            </Row>
             <Row>
               <Card bg='Light' text='dark'>
                 <Card.Header>
