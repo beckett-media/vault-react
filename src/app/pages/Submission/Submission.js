@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { AuthContext } from '../../contexts/auth';
-import { getUserName, mapCognitoToUser } from '../../services/user';
+import { mapCognitoToUser } from '../../services/user';
 
 import './Submission.scss';
 
@@ -58,17 +58,11 @@ const Submission = () => {
   const submitFinalForm = async () => {
     await handleSubmitForm(items);
   };
-  const bannerDetails = (<div className='user-banner_content-layout'>
-    <div className='user-banner_heading user-banner_grid-1'>{getUserName(userState)}</div>
-    {/* Todo: add dynamic date-joined field */}
-    <div></div>
-    <div></div>
-    <div className='user-banner_body user-banner_grid-4'>joined June, 2022</div>
-  </div>)
+
   return (
     <div className='page-wrapper'>
       <div className='h-100 w-100'>
-        <UserBanner bannerDetails={bannerDetails}/>
+        <UserBanner />
         <section className='section-submission_form'>
           <div className='page-padding'>
             <div className='submission_container'>
