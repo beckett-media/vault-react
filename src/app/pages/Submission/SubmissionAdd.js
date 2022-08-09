@@ -28,64 +28,10 @@ const SubmissionAdd = ({ submitAddedItem }) => {
         <Row className='submission_form-section'>
           <Col xs={12}>
             <Row>
-              <Col sm={12} lg={12}>
+              <Col sm={12} lg={6}>
                 <Form.Group>
-                  <Form.Label>Title</Form.Label>
+                  <Form.Label>Sport</Form.Label>
                   <Form.Control type='text' onChange={(e) => updateItem({ title: e.target.value })} />
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row>
-              <Col sm={12} lg={6}>
-                <Form.Group>
-                  <Form.Label>Subject</Form.Label>
-                  <Form.Control type='text' onChange={(e) => updateItem({ subject: e.target.value })} />
-                </Form.Group>
-              </Col>
-              <Col sm={12} lg={6}>
-                <Form.Group>
-                  <Form.Label>Genre</Form.Label>
-                  <Form.Control type='text' onChange={(e) => updateItem({ genre: e.target.value })} />
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row>
-              <Col sm={12}>
-                <Form.Group>
-                  <Form.Label>Description</Form.Label>
-                  <Form.Control as='textarea' onChange={(e) => updateItem({ description: e.target.value })} />
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row>
-              <Col sm={12} lg={6}>
-                <Form.Group>
-                  <Form.Label>Overall grade</Form.Label>
-                  <Form.Control type='text' onChange={(e) => updateItem({ overallGrade: e.target.value })} />
-                </Form.Group>
-              </Col>
-              <Col sm={12} lg={6}>
-                <Form.Group>
-                  <Form.Label>Sub grades</Form.Label>
-                  <Form.Control type='text' onChange={(e) => updateItem({ subGrades: e.target.value })} />
-                </Form.Group>
-              </Col>
-              <Col sm={12} lg={6}>
-                <Form.Group>
-                  <Form.Label>Manufacturer</Form.Label>
-                  <Form.Control type='text' onChange={(e) => updateItem({ manufacturer: e.target.value })} />
-                </Form.Group>
-              </Col>
-              <Col sm={12} lg={6}>
-                <Form.Group>
-                  <Form.Label>Grading Company</Form.Label>
-                  <Form.Control type='text' onChange={(e) => updateItem({ gradingCompany: e.target.value })} />
-                </Form.Group>
-              </Col>
-              <Col sm={12} lg={6}>
-                <Form.Group>
-                  <Form.Label>Serial Number</Form.Label>
-                  <Form.Control type='text' onChange={(e) => updateItem({ serialNumber: e.target.value })} />
                 </Form.Group>
               </Col>
               <Col sm={12} lg={6}>
@@ -99,20 +45,54 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                   />
                 </Form.Group>
               </Col>
+            </Row>
+            <Row>
               <Col sm={12} lg={6}>
                 <Form.Group>
-                  <Form.Label>Estimated value</Form.Label>
-                  <Form.Control
-                    type='number'
-                    min={1}
-                    onChange={(e) => updateItem({ estimatedValue: Number(e.target.value) })}
-                  />
+                  <Form.Label>Setname</Form.Label>
+                  <Form.Control type='text' onChange={(e) => updateItem({ setname: e.target.value })} />
                 </Form.Group>
               </Col>
               <Col sm={12} lg={6}>
                 <Form.Group>
-                  <Form.Label>Auto graph</Form.Label>
-                  <Form.Control type='text' onChange={(e) => updateItem({ autoGraph: e.target.value })} />
+                  <Form.Label>Player</Form.Label>
+                  <Form.Control type='text' onChange={(e) => updateItem({ player: e.target.value })} />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col sm={12} lg={6}>
+                <Form.Group>
+                  <Form.Label>Card number</Form.Label>
+                  <Form.Control type='text' onChange={(e) => updateItem({ cardNumber: e.target.value })} />
+                </Form.Group>
+              </Col>
+              <Col sm={12} lg={6}>
+                <Form.Group>
+                  <Form.Label>Grading company</Form.Label>
+                  <Form.Control type='text' onChange={(e) => updateItem({ gradingCompany: e.target.value })} />
+                </Form.Group>
+              </Col>
+              <Col sm={12} lg={6}>
+                <Form.Group>
+                  <Form.Label>Grade</Form.Label>
+                  <Form.Control type='text' onChange={(e) => updateItem({ grade: e.target.value })} />
+                </Form.Group>
+              </Col>
+              <Col sm={12} lg={6}>
+                <Form.Group>
+                  <Form.Label>Serial number</Form.Label>
+                  <Form.Control type='text' onChange={(e) => updateItem({ serialNumber: e.target.value })} />
+                </Form.Group>
+              </Col>
+              <Col sm={12} lg={6}>
+                <Form.Group>
+                  <Form.Label>Declared value</Form.Label>
+                  <Form.Control
+                    type='number'
+                    min={1}
+                    onChange={(e) => updateItem({ declaredValue: Number(e.target.value) })}
+                  />
                 </Form.Group>
               </Col>
             </Row>
