@@ -13,20 +13,20 @@ const UserBanner = ({ vaultedItems = 0, vaultedValue = 0 }) => {
   const bannerDetails = vaultedItems ? (
     <div className='user-banner_content-layout'>
       <div className='user-banner_heading user-banner_grid-1'>{getUserName(userState)}</div>
-      {/* Todo: add dynamic date-joined field */}
-      <div></div>
-      <div></div>
-      <div className='user-banner_body user-banner_grid-4'>joined June, 2022</div>
-    </div>
-  ) : (
-    <div className='user-banner_content-layout'>
-      <div className='user-banner_heading user-banner_grid-1'>{getUserName(userState)}</div>
       <div className='user-banner_body user-banner_grid-2'>Vaulted Items</div>
       <div className='user-banner_body user-banner_grid-3'>Vaulted Value</div>
       {/* Todo: add dynamic date-joined field */}
       <div className='user-banner_body user-banner_grid-4'>joined June, 2022</div>
       <div className='user-banner_stat-content user-banner_grid-5'>{vaultedItems}</div>
       <div className='user-banner_stat-content user-banner_grid-6'>{formatPrice(vaultedValue)}</div>
+    </div>
+  ) : (
+    <div className='user-banner_content-layout'>
+      <div className='user-banner_heading user-banner_grid-1'>{getUserName(userState)}</div>
+      {/* Todo: add dynamic date-joined field */}
+      <div></div>
+      <div></div>
+      <div className='user-banner_body user-banner_grid-4'>joined June, 2022</div>
     </div>
   );
   return (

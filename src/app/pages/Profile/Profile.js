@@ -38,15 +38,10 @@ const Profile = () => {
 
   return (
     <Container>
+      <UserBanner />
       <Form noValidate onSubmit={submitUpdateUser}>
         <Row className='justify-content-center m-2'>
           <Col lg='6'>
-            <Row className='mb-2'>
-              <Col>
-                <UserBanner />
-                <hr className='m-2' />
-              </Col>
-            </Row>
             <Row>
               <Card bg='Light' text='dark'>
                 <Card.Header>
