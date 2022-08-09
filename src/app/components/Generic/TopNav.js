@@ -14,7 +14,7 @@ const TopNav = () => {
   const { pathname } = useLocation();
 
   const isSigninPage = () => {
-    return pathname === '/signin';
+    return pathname === '/signin' || pathname === '/signup';
   };
 
   const checkboxRef = createRef();
@@ -39,7 +39,10 @@ const TopNav = () => {
             <div className='nav_center-wrapper'>
               {authContext.isSignedIn && (
                 <>
-                  <NavLink to='/my-collection' className={({ isActive }) => (isActive ? 'nav_link--active' : 'nav_link')}>
+                  <NavLink
+                    to='/my-collection'
+                    className={({ isActive }) => (isActive ? 'nav_link--active' : 'nav_link')}
+                  >
                     My Collection
                   </NavLink>
                   <NavLink to='/market' className={({ isActive }) => (isActive ? 'nav_link--active' : 'nav_link')}>
@@ -49,10 +52,19 @@ const TopNav = () => {
               )}
             </div>
             <div className='nav_end-wrapper'>
-              {authContext.isSignedIn && (
+              {authContext.isSignedIn ? (
                 <Link to='/submission'>
                   <div className='nav_button'>Add Item</div>
                 </Link>
+              ) : (
+                <>
+                  <NavLink to='/signin' className='nav_link'>
+                    Log In
+                  </NavLink>
+                  <NavLink to='/signup' className='nav_link'>
+                    Sign Up
+                  </NavLink>
+                </>
               )}
               {!isSigninPage() && (
                 <div className='nav_user-dropdown'>

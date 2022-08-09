@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
-import { Button, FormControl, Checkbox, Input, Text } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
+import { Button, FormControl, Checkbox, Input } from '@chakra-ui/react';
 
 import './SignIn.scss';
 
@@ -172,27 +172,6 @@ const SignIn = () => {
         <SigninBg className='signin_bg'></SigninBg>
         <div className='signin_modal'>
           <div className='signin_heading'>Login</div>
-          <div className='signin_sub-heading'>{`Don't have an account?`}</div>
-          <Button
-            className='signin_link'
-            variant='link'
-            colorScheme='blue'
-            fontWeight='400'
-            fontSize='14px'
-            textDecoration='underline'
-            marginBottom='32px'
-            _focus={{ boxShadow: 'none' }}
-            onClick={() => {
-              window.open('https://www.beckettvault.com/');
-            }}
-          >
-            Join the early access
-          </Button>
-          {error && (
-            <Text color='red.500' fontSize='sm'>
-              {error}
-            </Text>
-          )}
           {!(authContext.authStatus === AuthStatus.SetPassword) && (
             <>
               <FormControl>
@@ -253,7 +232,6 @@ const SignIn = () => {
           <Button
             className='signin_link'
             variant='link'
-            textDecoration='underline'
             color='#BDBDBD'
             fontWeight='400'
             fontSize='14px'
@@ -264,6 +242,11 @@ const SignIn = () => {
           >
             Forgot Password
           </Button>
+          <div>
+            <Link to='/signup' className='signin_link'>
+              Sign Up
+            </Link>
+          </div>
         </div>
       </section>
     </div>

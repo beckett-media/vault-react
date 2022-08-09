@@ -5,7 +5,8 @@ import Faq from './app/components/Generic/Faq';
 import Privacy from './app/components/Generic/Privacy';
 import Support from './app/components/Generic/Support';
 import Terms from './app/components/Generic/Terms';
-import Homepage from './app/pages/Homepage/Homepage';
+import SignUp from './app/pages/SignUp/SignUp';
+import SignIn from './app/pages/SignIn/SignIn';
 import AdminPage from './app/pages/Admin/AdminPage';
 import AdminSubmissionPage from './app/pages/Admin/SubmissionPage';
 import AdminVaultingPage from './app/pages/Admin/VaultingPage';
@@ -17,8 +18,6 @@ import Withdraw from './app/pages/Withdraw/Withdraw';
 import Market from './app/pages/Market/Market';
 import Profile from './app/pages/Profile/Profile';
 import Cart from './app/pages/Cart/Cart';
-import SignIn from './app/pages/SignIn/SignIn';
-import Landing from './app/pages/Landing/Landing';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import './index.scss';
@@ -80,7 +79,7 @@ function App() {
                 <Route path='/terms' element={<Terms />} />
                 <Route path='/beta-signup' element={<InterestForm />} />
                 <Route path='/coming-soon' element={<ComingSoon />} />
-                {/* <Route path='/landing' element={<Landing />} /> */}
+                <Route path='/signup' element={<SignUp />} />
                 <Route path='/*' element={<Navigate to='/' replace={true} />} />
               </Routes>
             </main>
