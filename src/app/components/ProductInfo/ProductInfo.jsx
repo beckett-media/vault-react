@@ -137,8 +137,7 @@ const ProductInfo = ({ isOwner, item, addToCart }) => {
                   </Button>
                 </OverlayTrigger> */}
               </>
-              )
-            }
+            )}
           </div>
         </>
       )}

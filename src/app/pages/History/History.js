@@ -46,7 +46,7 @@ const History = () => {
   useEffect(() => {
     let matches = [];
     if (searchVal?.length) {
-      let allItems = [...submissions, ...listings, ...vaulting]
+      let allItems = [...submissions, ...listings, ...vaulting];
       matches = allItems.filter((item) => item.title.toLowerCase().search(String(searchVal).toLowerCase()) > 0);
       let items = matches.map((item) => item.id);
       let matchById = historyItems.filter((item) => String(item.id) === searchVal);
@@ -69,19 +69,13 @@ const History = () => {
     } else {
       switch (selectedArr[1]?.toLowerCase()) {
         case 'listing':
-          setHistoryItemDetails(
-            listings.filter(listing => 
-              String(listing.id) === selectedArr[0])[0]
-          )
+          setHistoryItemDetails(listings.filter((listing) => String(listing.id) === selectedArr[0])[0]);
           break;
         case 'submission':
           setHistoryItemDetails(submissions.filter((submission) => String(submission.id) === selectedArr[0])[0]);
           break;
         case 'vaulting':
-          setHistoryItemDetails(
-            vaulting.filter(vaulting => 
-              String(vaulting.id) === selectedArr[0])[0]
-          )
+          setHistoryItemDetails(vaulting.filter((vaulting) => String(vaulting.id) === selectedArr[0])[0]);
           break;
       }
     }

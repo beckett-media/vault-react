@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/auth';
 import { withdrawItem } from '../../services/items';
 import { mapCognitoToUser } from '../../services/user';
-import UserInfo from '../../components/UserInfo/UserInfo';
 import CollectionGallery from '../../components/CollectionGallery/CollectionGallery';
 import UserBanner from '../../components/UserBanner/UserBanner';
 
