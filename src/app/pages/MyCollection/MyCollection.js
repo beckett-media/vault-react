@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { AuthContext } from '../../contexts/auth';
 import { withdrawItem } from '../../services/items';
-import { mapCognitoToUser } from '../../services/user';
+import { getUserName, mapCognitoToUser } from '../../services/user';
 import UserInfo from '../../components/UserInfo/UserInfo';
 import CollectionGallery from '../../components/CollectionGallery/CollectionGallery';
 import UserBanner from '../../components/UserBanner/UserBanner';
@@ -12,6 +12,7 @@ import UserBanner from '../../components/UserBanner/UserBanner';
 import './MyCollection.scss';
 
 import { getSubmissions } from '../../services/submission';
+import { formatPrice } from '../../utils/strings';
 
 const Gallery = () => {
   const authContext = useContext(AuthContext);
@@ -61,15 +62,24 @@ const Gallery = () => {
       // List
     }
   };
-
+  const bannerDetails = (<div className='user-banner_content-layout'>
+    <div className='user-banner_heading user-banner_grid-1'>{getUserName(userState)}</div>
+    <div className='user-banner_body user-banner_grid-2'>Vaulted Items</div>
+    <div className='user-banner_body user-banner_grid-3'>Vaulted Value</div>
+    {/* Todo: add dynamic date-joined field */}
+    <div className='user-banner_body user-banner_grid-4'>joined June, 2022</div>
+    <div className='user-banner_stat-content user-banner_grid-5'>{submissions?.length}</div>
+    <div className='user-banner_stat-content user-banner_grid-6'>
+      {formatPrice(submissions.reduce((prev, cur) => prev + cur.est_value, 0))}
+    </div>
+  </div>)
   return (
     <div className='page-wrapper'>
       {!showConfirmationPage && (
         <>
           <div className='section-profile-info'>
             <UserBanner
-              vaultedItems={submissions?.length}
-              vaultedValue={submissions.reduce((prev, cur) => prev + cur.est_value, 0)}
+              bannerDetails={bannerDetails}
             />
           </div>
           {!showConfirmationPage && submissions.filter((item) => item.minted_at === 0).length ? (

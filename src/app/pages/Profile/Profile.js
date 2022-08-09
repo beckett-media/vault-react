@@ -1,9 +1,9 @@
 import React, { useState, useContext } from 'react';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
-import { mapCognitoToUser, mapUserToCognito } from '../../services/user';
+import { getUserName, mapCognitoToUser, mapUserToCognito } from '../../services/user';
 import './Profile.scss';
-import UserInfo from '../../components/UserInfo/UserInfo';
 import { AuthContext } from '../../contexts/auth';
+import UserBanner from '../../components/UserBanner/UserBanner';
 
 const Profile = () => {
   const authContext = useContext(AuthContext);
@@ -35,7 +35,13 @@ const Profile = () => {
     // TODO: on error?
     await authContext.setAttributes(mapUserToCognito(userState));
   };
-
+  const bannerDetails = (<div className='user-banner_content-layout'>
+    <div className='user-banner_heading user-banner_grid-1'>{getUserName(userState)}</div>
+    {/* Todo: add dynamic date-joined field */}
+    <div></div>
+    <div></div>
+    <div className='user-banner_body user-banner_grid-4'>joined June, 2022</div>
+  </div>)
   return (
     <Container>
       <Form noValidate onSubmit={submitUpdateUser}>
@@ -43,7 +49,7 @@ const Profile = () => {
           <Col lg='6'>
             <Row className='mb-2'>
               <Col>
-                <UserInfo />
+                <UserBanner bannerDetails = {bannerDetails} />
                 <hr className='m-2' />
               </Col>
             </Row>
