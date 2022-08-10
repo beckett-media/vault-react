@@ -89,7 +89,7 @@ export async function signUpUser(username, password, preferred_username, email, 
       new CognitoUserAttribute({
         Name: 'family_name',
         Value: family_name,
-      })
+      }),
     ];
 
     userPool.signUp(username, password, attributeList, [], function (err, res) {

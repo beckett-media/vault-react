@@ -23,6 +23,10 @@ const cognitoToUser = {
 };
 
 const userToCognito = swapObjectKeyValue(cognitoToUser);
+export const requiredNewUserProperties = ['userName', 'email', 'password', 'phone', 'firstName', 'lastName'];
+export const defaultNewUser = requiredNewUserProperties.reduce((map, cur) => {
+  return { ...map, [cur]: '' };
+}, {});
 
 export const mapCognitoToUser = (cognitoUser) => {
   return cognitoUser.reduce((acc, attr) => {
@@ -57,4 +61,11 @@ export const getAdminUserGroups = (token) => {
       },
     })
     .then((res) => res.data);
+};
+
+export const submitNewUser = async (newUser) => {
+  await authContext
+    .signUpUser(newUser.userName, newUser.password, newUser.email, newUser.phone, newUser.firstName, newUser.lastName)
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err));
 };

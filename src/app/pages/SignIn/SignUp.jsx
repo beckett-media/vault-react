@@ -1,39 +1,107 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import { PasswordField } from '../../components/PasswordField/PasswordField';
 import { NewPasswordField } from '../../components/NewPasswordField/NewPasswordField';
 import { ReactComponent as SigninBg } from '../../assets/bg-sphere--large.svg';
-import { Button, FormControl, Checkbox, Input } from '@chakra-ui/react';
-
+import { Button, FormControl, Input } from '@chakra-ui/react';
+import { defaultNewUser, requiredNewUserProperties } from '../../services/user';
 import './SignIn.scss';
 
 const SignUp = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  // EXAMPLE OF HOW TO SIGNUP USER
-  // const username= "testUser"
-  // await authContext.signUpUser(username, "test123!", username, "test@beckett.com", "+44111222333", "FirstName", "LastName")
-
+  const [newUser, setNewUser] = useState(defaultNewUser);
+  const [confirmPassword, setConfirmPassword] = React.useState('');
+  const [error, setError] = React.useState(undefined);
+  const submitSignUpForm = async () => {
+    setError(undefined);
+    if (newUser.password != confirmPassword) {
+      setError('Passwords must match');
+    } else if (!hasRequiredProperties(newUser, requiredNewUserProperties)) {
+      setError('all Fields are required');
+    } else {
+      await submitNewUser(newUser);
+      <Navigate to='/signin' />;
+    }
+  };
 
   return (
     <div className='page-wrapper vh-100'>
       <section className='section_signin'>
+        {error && <div className='signin_error'>{error}</div>}
         <SigninBg className='signin_bg'></SigninBg>
         <div className='signin_modal'>
           <div className='signin_heading'>Sign Up</div>
-            <FormControl>
-              <Input
-                borderRadius='2'
-                borderColor='#C5C5C5'
-                id='email'
-                type='email'
-                placeholder='Email Address*'
-                h={12}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </FormControl>
-            <PasswordField value={password} onChange={(e) => setPassword(e.target.value)} />
+          <FormControl>
+            <Input
+              borderRadius='2'
+              borderColor='#C5C5C5'
+              id='email'
+              type='email'
+              placeholder='Email Address*'
+              h={12}
+              value={newUser.email}
+              onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
+            />
+            <Input
+              borderRadius='2'
+              borderColor='#C5C5C5'
+              id='userName'
+              type='userName'
+              placeholder='UserName*'
+              h={12}
+              value={newUser.userName}
+              onChange={(e) => setNewUser({ ...newUser, userName: e.target.value })}
+            />
+            <Input
+              borderRadius='2'
+              borderColor='#C5C5C5'
+              id='phone'
+              type='phone'
+              placeholder='phone*'
+              h={12}
+              value={newUser.phone}
+              onChange={(e) => setNewUser({ ...newUser, phone: e.target.value })}
+            />
+            <Input
+              borderRadius='2'
+              borderColor='#C5C5C5'
+              id='firstName'
+              type='firstName'
+              placeholder='firstName*'
+              h={12}
+              value={newUser.firstName}
+              onChange={(e) => setNewUser({ ...newUser, firstName: e.target.value })}
+            />
+            <Input
+              borderRadius='2'
+              borderColor='#C5C5C5'
+              id='lastName'
+              type='lastName'
+              placeholder='lastName*'
+              h={12}
+              value={newUser.lastName}
+              onChange={(e) => setNewUser({ ...newUser, lastName: e.target.value })}
+            />
+          </FormControl>
+          <PasswordField
+            value={newUser.password}
+            onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
+          />
+          <NewPasswordField value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+          <Button
+            onClick={() => {
+              submitSignUpForm();
+            }}
+            my={6}
+            borderRadius={100}
+            w={200}
+            h={12}
+            background='linear-gradient(to right, #C1F8E3, #6CD7D4)'
+            color={'black'}
+            fontWeight={'bold'}
+            _focus={{ boxShadow: 'none' }}
+          >
+            Sign Up!
+          </Button>
         </div>
       </section>
     </div>
