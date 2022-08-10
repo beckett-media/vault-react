@@ -12,14 +12,16 @@ const AddBeckettItem = (props) => {
 };
 
 const SubmissionAdd = ({ submitAddedItem }) => {
-  const [type, setType] = useState('card');
-  const [item, setItem] = useState({});
+  const [type, setType] = useState(1);
+  const [item, setItem] = useState({ type: 1, gradingCompany: 'bgs' });
+
+  console.log(item);
 
   const submitAddItemFormSubmit = (e) => {
     e.preventDefault();
-    submitAddedItem(item);
-    setItem({});
-    setType('card');
+    { Object.keys(item).length > 2 && submitAddedItem(item); }
+    setItem({ type: 1, gradingCompany: 'bgs' });
+    setType(1);
     e.target.reset();
   };
   const updateItem = (tempItem) => setItem({ ...item, ...tempItem });
@@ -36,19 +38,19 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                   <Form.Label>Type</Form.Label>
                   <Form.Select
                     onChange={(e) => {
-                      console.log(e.target.value);
-                      setType(e.target.value);
-                      updateItem({ type: e.target.value });
+                      console.log(e.target.value - 0);
                       setItem({});
+                      setType(e.target.value - 0);
+                      updateItem({ type: e.target.value - 0 });
                     }}
                   >
-                    <option value='card'>Trading Card</option>
-                    <option value='comic'>Comic</option>
+                    <option value='1'>Trading Card</option>
+                    <option value='2'>Comic</option>
                   </Form.Select>
                 </Form.Group>
               </Col>
             </Row>
-            {type === 'card' ? (
+            {type === 1 ? (
               <>
                 <Row>
                   <Col sm={12} lg={6}>
@@ -78,8 +80,8 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                   </Col>
                   <Col sm={12} lg={6}>
                     <Form.Group>
-                      <Form.Label>Setname</Form.Label>
-                      <Form.Control type='text' onChange={(e) => updateItem({ setname: e.target.value })} />
+                      <Form.Label>Set name</Form.Label>
+                      <Form.Control type='text' onChange={(e) => updateItem({ setName: e.target.value })} />
                     </Form.Group>
                   </Col>
                 </Row>
@@ -123,7 +125,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                       <Form.Control
                         type='number'
                         min={1}
-                        onChange={(e) => updateItem({ declaredValue: Number(e.target.value) })}
+                        onChange={(e) => updateItem({ estimatedValue: Number(e.target.value) })}
                       />
                     </Form.Group>
                   </Col>
@@ -154,7 +156,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                   <Col sm={12} lg={6}>
                     <Form.Group>
                       <Form.Label>Issue #</Form.Label>
-                      <Form.Control type='text' onChange={(e) => updateItem({ issueNo: e.target.value })} />
+                      <Form.Control type='text' onChange={(e) => updateItem({ issue: e.target.value })} />
                     </Form.Group>
                   </Col>
                   <Col sm={12} lg={6}>
@@ -198,7 +200,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                       <Form.Control
                         type='number'
                         min={1}
-                        onChange={(e) => updateItem({ declaredValue: Number(e.target.value) })}
+                        onChange={(e) => updateItem({ estimatedValue: Number(e.target.value) })}
                       />
                     </Form.Group>
                   </Col>

@@ -1,7 +1,9 @@
 import React, { useState, useContext } from 'react';
-import { Col, Row, Button } from 'react-bootstrap';
+import { Col, Row, Button, Modal } from 'react-bootstrap';
 import { AuthContext } from '../../contexts/auth';
 import { mapCognitoToUser } from '../../services/user';
+import { v4 as uuidv4 } from 'uuid';
+import { useNavigate } from 'react-router-dom';
 
 import './Submission.scss';
 
@@ -21,6 +23,9 @@ const Submission = () => {
   const [items, setItems] = useState([]);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [submissionResponse, setSubmissionResponse] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
+  const navigate = useNavigate();
 
   const submitAddedItem = (item) => {
     const newItems = [...items, item];
@@ -37,27 +42,29 @@ const Submission = () => {
   };
 
   const handleSubmitForm = async () => {
-    if (formSubmitted) {
-      Promise.allSettled(
-        items.map((item) =>
-          postSubmission({
-            ...formatSubmissionItem(item),
-            user: userState.sub,
-          }),
-        ),
-      )
-        .then((resp) => {
-          setSubmissionResponse(resp);
-        })
-        .catch((e) => {
-          // TODO
-          console.error(e);
-          setSubmissionResponse(e);
-        });
-    }
+    const uuid = uuidv4();
+    // items.map((item) => console.log({ ...formatSubmissionItem(item, uuid), user: userState.sub }));
+    Promise.allSettled(
+      items.map((item) =>
+        postSubmission({
+          ...formatSubmissionItem(item, uuid),
+          user: userState.sub,
+        }),
+      ),
+    )
+      .then((resp) => {
+        navigate(`/order-details/${resp.order_id}`)
+      })
+      .catch((e) => {
+        // TODO
+        console.error(e);
+        setSubmissionResponse(e);
+        setShowModal(false);
+      });
   };
 
   const submitFinalForm = async () => {
+    console.log('submitting');
     await handleSubmitForm(items);
   };
 
@@ -110,7 +117,7 @@ const Submission = () => {
                         </div>
                         <Row className='m-2'>
                           <Col xs={3}>
-                            <SubmitButton func={submitForm} title='Submit' size='lg' />
+                            <Button onClick={() => setShowModal(true)}>Submit</Button>
                           </Col>
                         </Row>
                       </>
@@ -122,7 +129,20 @@ const Submission = () => {
           </div>
         </section>
 
-        <SubmissionConfirmModal show={formSubmitted} setConfirm={submitFinalForm} />
+        <Modal className='text-body' show={showModal} onHide={() => setShowModal(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Are you sure you'd like to submit?</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Once submitted, your items will be staged for vaulting.</Modal.Body>
+          <Modal.Footer>
+            <Button variant='secondary' onClick={() => setShowModal(false)}>
+              Cancel
+            </Button>
+            <Button variant='primary' onClick={() => { submitFinalForm() }}>
+              Confirm submit
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     </div>
   );
