@@ -95,7 +95,7 @@ const Submission = () => {
                                   <div className='ellipses_child'>{item.year}</div>
                                 </div>
                                 <div className='ellipses_wrapper'>
-                                  <div className='ellipses_child'>{item.player}</div>
+                                  <div className='ellipses_child'>{item.player || item.title}</div>
                                 </div>
                                 <Button
                                   onClick={() => {
