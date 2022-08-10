@@ -5,7 +5,7 @@ import Faq from './app/components/Generic/Faq';
 import Privacy from './app/components/Generic/Privacy';
 import Support from './app/components/Generic/Support';
 import Terms from './app/components/Generic/Terms';
-import SignUp from './app/pages/SignUp/SignUp';
+import SignUp from './app/pages/SignIn/SignUp';
 import SignIn from './app/pages/SignIn/SignIn';
 import AdminPage from './app/pages/Admin/AdminPage';
 import AdminSubmissionPage from './app/pages/Admin/SubmissionPage';
