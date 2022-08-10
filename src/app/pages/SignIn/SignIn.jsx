@@ -166,6 +166,11 @@ const SignIn = () => {
     navigate('requestcode');
   };
 
+  // EXAMPLE OF HOW TO SIGNUP USER
+  // const username= "testUser"
+  // await authContext.signUpUser(username, "test123!", username, "test@beckett.com", "+44111222333", "FirstName", "LastName")
+
+
   return (
     <div className='page-wrapper vh-100'>
       <section className='section_signin'>

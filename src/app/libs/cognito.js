@@ -67,6 +67,43 @@ export async function signUpUserWithEmail(username, email, password) {
   });
 }
 
+export async function signUpUser(username, password, preferred_username, email, phone_number, given_name, family_name) {
+  return new Promise(function (resolve, reject) {
+    const attributeList = [
+      new CognitoUserAttribute({
+        Name: 'email',
+        Value: email,
+      }),
+      new CognitoUserAttribute({
+        Name: 'preferred_username',
+        Value: preferred_username,
+      }),
+      new CognitoUserAttribute({
+        Name: 'phone_number',
+        Value: phone_number,
+      }),
+      new CognitoUserAttribute({
+        Name: 'given_name',
+        Value: given_name,
+      }),
+      new CognitoUserAttribute({
+        Name: 'family_name',
+        Value: family_name,
+      })
+    ];
+
+    userPool.signUp(username, password, attributeList, [], function (err, res) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(res);
+      }
+    });
+  }).catch((err) => {
+    throw err;
+  });
+}
+
 export async function verifyCode(username, code) {
   return new Promise(function (resolve, reject) {
     const cognitoUser = getCognitoUser(username);
