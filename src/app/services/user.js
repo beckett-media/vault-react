@@ -3,15 +3,12 @@ import { swapObjectKeyValue } from '../utils/strings';
 
 const nonMutableAttributes = new Set(['sub', 'email_verified']);
 const cognitoToUser = {
-  'given_name': 'givenName',
-  'family_name': 'familyName',
   'custom:country': 'country',
   'custom:address_line_1': 'addressLine1',
   'custom:address_line_2': 'addressLine2',
   'custom:city': 'city',
   'custom:state': 'state',
   'custom:zipcode': 'zipcode',
-  'phone_number': 'phone',
   'custom:ship_country': 'shipCountry',
   'custom:ship_address_line_1': 'shipAddressLine1',
   'custom:ship_address_line_2': 'shipAddressLine2',
@@ -20,6 +17,9 @@ const cognitoToUser = {
   'custom:ship_zipcode': 'shipZipcode',
   'custom:profile_img': 'profile',
   email_verified: 'emailVerified',
+  given_name: 'givenName',
+  family_name: 'familyName',
+  phone_number: 'phone',
 };
 
 const userToCognito = swapObjectKeyValue(cognitoToUser);
