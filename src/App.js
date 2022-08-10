@@ -53,7 +53,7 @@ function App() {
               <Routes>
                 <Route exact path='/' element={<PrivateRoute />}>
                   <Route path='/submission' element={<Submission />} />
-                  <Route path='/order-details/:orderId' element={<OrderDetails />} />
+                  <Route path='/order-details' element={<OrderDetails />} />
                   {/* <Route path='/about' element={<Homepage />} /> */}
                   <Route path='/my-collection' element={<MyCollection />} />
                   <Route path='/my-collection/item/:id' element={<Item />} />

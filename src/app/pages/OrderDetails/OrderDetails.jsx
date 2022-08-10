@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 
 import './OrderDetails.scss';
 
-const Print = () => {
+const OrderDetails = () => {
   const [order, setOrder] = useState();
   const { orderId } = useParams;
 
@@ -41,4 +41,4 @@ const Print = () => {
   );
 };
 
-export default Print;
+export default OrderDetails;
