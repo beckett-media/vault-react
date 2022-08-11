@@ -10,7 +10,7 @@ export const getOrders = async ({ user, status, offset, limit, order } = {}) => 
     };
 
     return axiosClient
-        .get(`/marketplace/order`, {
+        .get(`/marketplace/submission/order`, {
             params: Object.keys(params).length > 0 ? params : undefined,
         })
         .then((res) => {
@@ -19,7 +19,7 @@ export const getOrders = async ({ user, status, offset, limit, order } = {}) => 
 };
 
 export const getSingleOrder = async (orderId) => {
-    return axiosClient.get(`/marketplace/order/${orderId}`).then((res) => {
+    return axiosClient.get(`/marketplace/submission/order/${orderId}`).then((res) => {
         return res.data;
     });
 };
