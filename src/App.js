@@ -10,6 +10,7 @@ import AdminPage from './app/pages/Admin/AdminPage';
 import AdminSubmissionPage from './app/pages/Admin/SubmissionPage';
 import AdminVaultingPage from './app/pages/Admin/VaultingPage';
 import AdminCreateVaultingPage from './app/pages/Admin/CreateVaultingPage';
+import AdminEditSubmissionPage from './app/pages/Admin/EditSubmissionPage';
 import Submission from './app/pages/Submission/Submission';
 import MyCollection from './app/pages/MyCollection/MyCollection';
 import Item from './app/pages/Item/Item';
@@ -68,7 +69,8 @@ function App() {
                 </Route>
                 <Route path='/admin' element={<AdminRoute />}>
                   <Route exact path='' element={<AdminPage />} />
-                  <Route exact path='submission/:submissionId' element={<AdminCreateVaultingPage />} />
+                  <Route exact path='submission/edit/:submissionId' element={<AdminEditSubmissionPage />} />
+                  <Route exact path='submission/vaulting/:submissionId' element={<AdminCreateVaultingPage />} />
                   <Route exact path='submission' element={<AdminSubmissionPage />} />
                   <Route exact path='vaulting' element={<AdminVaultingPage />} />
                 </Route>

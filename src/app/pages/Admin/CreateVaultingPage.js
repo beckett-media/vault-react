@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
-import { getSingleSubmission } from '../../services/submission';
+import { getSingleSubmission, SUBMISSION_STATUS } from '../../services/submission';
 import ImageUploader from '../../components/Generic/ImageUploader';
 import './CreateVaultingPage.scss';
 import SubmitButton from '../../components/Generic/SubmitButton';
@@ -14,16 +14,22 @@ function AdminCreateVaultingPage() {
   const [image, setImage] = React.useState({});
   const isValidId = submissionId && !isNaN(Number(submissionId));
   const [isExisting, setIsExisting] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   React.useEffect(() => {
     // TODO: Check if vaulting is created already with this submissionId. Need API to check.
     const fetch = () => {
+      setIsLoading(true);
+
       getSingleSubmission(submissionId)
         .then((data) => {
           setSubmission(data);
         })
         .catch((err) => {
           alert(err.message);
+        })
+        .finally(() => {
+          setIsLoading(false);
         });
 
       fetchItemBySubmission(submissionId)
@@ -61,42 +67,56 @@ function AdminCreateVaultingPage() {
       });
   };
 
+  const isNotApproved = submission.status !== SUBMISSION_STATUS.Approved;
+
   return (
     <div className='create-vaulting-box'>
       <Row className='mb-4'>
         <h2>Create vaulting</h2>
       </Row>
-      <Row>
-        <Col>
-          <h1>{submission.id}</h1>
-          <p>{`Item Id: ${submission.item_id}, User: ${submission.user}`}</p>
-        </Col>
-        <Col className='right-align'>
-          {isExisting ? <p className='existing-error'>Existing already</p> : null}
-          <SubmitButton title='Create' bg='success' func={handleCreateClick} disabled={isExisting} />
-        </Col>
-      </Row>
-      <Row className='mt-4'>
-        <Col className='col-md-6 col-sm-12'>
-          <ImageUploader
-            onFileChange={(obj) => {
-              if (obj) {
-                setImage(obj);
-              } else {
-                setImage({
-                  imageFormat: null,
-                  imageBase64: null,
-                });
-              }
-            }}
-          />
-        </Col>
-        <Col className='col-md-6 col-sm-12'>
-          {image.imageBase64 && image.previewUrl ? (
-            <img src={image.previewUrl} alt='Vaulting preview' width={400} />
-          ) : null}
-        </Col>
-      </Row>
+      {isLoading ? (
+        <Row>Loading...</Row>
+      ) : (
+        <>
+          <Row>
+            <Col>
+              <h1>{submission.id}</h1>
+              <p>{`Item Id: ${submission.item_id}, User: ${submission.user}`}</p>
+            </Col>
+            <Col className='right-align'>
+              {isExisting ? <p className='existing-error'>Existing already</p> : null}
+              {isNotApproved ? <p className='existing-error'>Submission is not approved</p> : null}
+              <SubmitButton
+                title='Create'
+                bg='success'
+                func={handleCreateClick}
+                disabled={isExisting || isNotApproved}
+              />
+            </Col>
+          </Row>
+          <Row className='mt-4'>
+            <Col className='col-md-6 col-sm-12'>
+              <ImageUploader
+                onFileChange={(obj) => {
+                  if (obj) {
+                    setImage(obj);
+                  } else {
+                    setImage({
+                      imageFormat: null,
+                      imageBase64: null,
+                    });
+                  }
+                }}
+              />
+            </Col>
+            <Col className='col-md-6 col-sm-12'>
+              {image.imageBase64 && image.previewUrl ? (
+                <img src={image.previewUrl} alt='Vaulting preview' width={400} />
+              ) : null}
+            </Col>
+          </Row>
+        </>
+      )}
     </div>
   );
 }
