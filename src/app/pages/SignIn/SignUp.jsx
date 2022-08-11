@@ -13,7 +13,7 @@ const SignUp = () => {
   const [error, setError] = React.useState(undefined);
   const navigate = useNavigate();
   const submitSignUpForm = async () => {
-    setError(undefined);
+    setError('');
     if (newUser.password != confirmPassword) {
       setError('Passwords must match');
     } else if (!hasRequiredProperties(newUser, requiredNewUserProperties)) {
