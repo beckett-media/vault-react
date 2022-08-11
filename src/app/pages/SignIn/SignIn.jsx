@@ -179,8 +179,6 @@ const SignIn = () => {
             <>
               <FormControl>
                 <Input
-                  borderRadius='2'
-                  borderColor='#C5C5C5'
                   id='email'
                   type='email'
                   placeholder='Email Address*'

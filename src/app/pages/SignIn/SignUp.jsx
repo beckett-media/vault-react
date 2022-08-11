@@ -26,15 +26,13 @@ const SignUp = () => {
 
   return (
     <div className='page-wrapper vh-100'>
-      <section className='section_signin'>
+      <section className='section_signin section_signup'>
         {error && <div className='signin_error'>{error}</div>}
         <SigninBg className='signin_bg'></SigninBg>
         <div className='signin_modal'>
           <div className='signin_heading'>Sign Up</div>
           <FormControl>
             <Input
-              borderRadius='2'
-              borderColor='#C5C5C5'
               id='email'
               type='email'
               placeholder='Email Address*'
@@ -43,8 +41,6 @@ const SignUp = () => {
               onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
             />
             <Input
-              borderRadius='2'
-              borderColor='#C5C5C5'
               id='userName'
               type='userName'
               placeholder='UserName*'
@@ -53,8 +49,6 @@ const SignUp = () => {
               onChange={(e) => setNewUser({ ...newUser, userName: e.target.value })}
             />
             <Input
-              borderRadius='2'
-              borderColor='#C5C5C5'
               id='phone'
               type='phone'
               placeholder='phone*'
@@ -63,8 +57,6 @@ const SignUp = () => {
               onChange={(e) => setNewUser({ ...newUser, phone: e.target.value })}
             />
             <Input
-              borderRadius='2'
-              borderColor='#C5C5C5'
               id='firstName'
               type='firstName'
               placeholder='firstName*'
@@ -73,8 +65,6 @@ const SignUp = () => {
               onChange={(e) => setNewUser({ ...newUser, firstName: e.target.value })}
             />
             <Input
-              borderRadius='2'
-              borderColor='#C5C5C5'
               id='lastName'
               type='lastName'
               placeholder='lastName*'
@@ -88,6 +78,7 @@ const SignUp = () => {
             onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
           />
           <NewPasswordField value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+          {/* TODO: move the CSS below into the style sheet */}
           <Button
             onClick={() => {
               submitSignUpForm();

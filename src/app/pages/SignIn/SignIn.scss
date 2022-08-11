@@ -45,6 +45,8 @@
 
     input {
       margin: 3px;
+      border-radius: 2px;
+      border-color: #c5c5c5;
     }
   }
 
@@ -91,5 +93,11 @@
     &:hover {
       box-shadow: 0 0 30px -5px #ab8dff;
     }
+  }
+}
+
+.section_signup {
+  .confirm_password_label {
+    display: none;
   }
 }
