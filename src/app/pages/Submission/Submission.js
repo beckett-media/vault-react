@@ -53,7 +53,7 @@ const Submission = () => {
       ),
     )
       .then((resp) => {
-        navigate(`/order-details/${resp.order_id}`)
+        navigate(`/order-details/${resp.order_uuid}`)
       })
       .catch((e) => {
         // TODO
