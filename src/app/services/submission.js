@@ -14,7 +14,7 @@ export const postSubmission = async (item) => {
   // TODO: validate item
   return axiosClient.post(`/marketplace/submission`, item).then((res) => {
     return res;
-  });
+  })
 };
 
 export const getSubmissions = async ({ user, status, offset, limit, order } = {}) => {

@@ -1,7 +1,9 @@
-import React, { useState, useContext } from 'react';
-import { Col, Row } from 'react-bootstrap';
+import React, { useState, useContext, useEffect } from 'react';
+import { Col, Row, Button, Modal } from 'react-bootstrap';
 import { AuthContext } from '../../contexts/auth';
 import { mapCognitoToUser } from '../../services/user';
+import { v4 as uuidv4 } from 'uuid';
+import { useNavigate } from 'react-router-dom';
 
 import './Submission.scss';
 
@@ -10,6 +12,7 @@ import SubmissionAdd from './SubmissionAdd';
 import SubmitButton from '../../components/Generic/SubmitButton';
 import SubmissionConfirmModal from './SubmissionConfirmModal';
 import UserBanner from '../../components/UserBanner/UserBanner';
+import ListItem from '../../components/ListItem/ListItem';
 
 import { postSubmission } from '../../services/submission';
 import { formatSubmissionItem } from '../../utils/submissions';
@@ -20,10 +23,18 @@ const Submission = () => {
   const [items, setItems] = useState([]);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [submissionResponse, setSubmissionResponse] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
+  console.log(submissionResponse)
+
+  // useEffect(), [submissionResponse]
+
+  const navigate = useNavigate();
 
   const submitAddedItem = (item) => {
     const newItems = [...items, item];
     setItems(newItems);
+    console.log(items);
   };
 
   const removeItem = (removedItem) => {
@@ -34,25 +45,27 @@ const Submission = () => {
     setFormSubmitted(true);
   };
 
-  const handleSubmitForm = async () => {
-    if (formSubmitted) {
-      Promise.allSettled(
-        items.map((item) =>
-          postSubmission({
-            ...formatSubmissionItem(item),
-            user: userState.sub,
-          }),
-        ),
-      )
-        .then((resp) => {
-          setSubmissionResponse(resp);
-        })
-        .catch((e) => {
-          // TODO
-          console.error(e);
-          setSubmissionResponse(e);
-        });
-    }
+  const handleSubmitForm = () => {
+    const uuid = uuidv4();
+
+    Promise.all(
+      items.map((item) =>
+        postSubmission({
+          ...formatSubmissionItem(item, uuid),
+          user: userState.sub,
+        }),
+      ),
+    )
+      .then((resp) => {
+        console.log(resp)
+        console.log('success')
+        console.log(resp[0].data.order_id)
+        navigate(`/order-details/${resp[0].data.order_id}`)
+      })
+      .catch(e => {
+        setSubmissionResponse(e)
+        setShowModal(false)
+      })
   };
 
   const submitFinalForm = async () => {
@@ -65,30 +78,76 @@ const Submission = () => {
         <UserBanner />
         <section className='section-submission_form'>
           <div className='page-padding'>
-            <div className='submission_container'>
-              {submissionResponse ? (
-                <SubmissionResponse
-                  submissionResponse={JSON.stringify(submissionResponse)}
-                  setSubmissionResponse={setSubmissionResponse}
-                />
-              ) : (
-                <>
-                  <SubmissionAdd submitAddedItem={submitAddedItem} />
+            <div className='container-large'>
+              <div className='submission_layout'>
+                {submissionResponse ? (
+                  <div className='submission_container'>
+                    <SubmissionResponse
+                      submissionResponse={submissionResponse}
+                      setSubmissionResponse={setSubmissionResponse}
+                      body='Please try again.'
+                    />
+                  </div>
+                ) : (
+                  <>
+                    <div className='submission_container'>
+                      <SubmissionAdd submitAddedItem={submitAddedItem} />
+                    </div>
 
-                  {items.length !== 0 && (
-                    <Row className='m-2'>
-                      <Col xs={3}>
-                        <SubmitButton func={submitForm} title='Submit' size='lg' />
-                      </Col>
-                    </Row>
-                  )}
-                </>
-              )}
+                    {items.length !== 0 && (
+                      <>
+                        <div className='submission_container mt-4'>
+                          <div className='submission_heading'>My items to submit</div>
+                        </div>
+                        <div className='submission_items'>
+                          {items.map((item, index) => (
+                            <div key={`submission_${index}`} className='submission-item_component'>
+                              <div className='submission-item_layout'>
+                                <div className='ellipses_wrapper'>
+                                  <div className='ellipses_child'>{item.year}</div>
+                                </div>
+                                <div className='ellipses_wrapper'>
+                                  <div className='ellipses_child'>{item.player || item.title}</div>
+                                </div>
+                                <Button
+                                  onClick={() => {
+                                    setItems(items.filter((item, i) => i !== index));
+                                  }}
+                                >
+                                  Remove
+                                </Button>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        <Row className='m-2'>
+                          <Col xs={3}>
+                            <Button onClick={() => setShowModal(true)}>Submit</Button>
+                          </Col>
+                        </Row>
+                      </>
+                    )}
+                  </>
+                )}
+              </div>
             </div>
           </div>
         </section>
 
-        <SubmissionConfirmModal show={formSubmitted} setConfirm={submitFinalForm} />
+        <Modal className='text-body' show={showModal} onHide={() => setShowModal(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Are you sure you'd like to submit?</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Once submitted, your items will be staged for vaulting.</Modal.Body>
+          <Modal.Footer>
+            <Button variant='secondary' onClick={() => setShowModal(false)}>
+              Cancel
+            </Button>
+            <Button variant='primary' onClick={() => { submitFinalForm() }}>
+              Confirm submit
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     </div>
   );
