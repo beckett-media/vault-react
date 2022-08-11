@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import * as yup from 'yup';
 import { Button, FormControl, Checkbox, Input } from '@chakra-ui/react';
 
@@ -128,7 +128,8 @@ const SignIn = () => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = React.useState('');
   const [error, setError] = useState('');
-
+  const { msg } = useLocation();
+  const [message, setMessage] = useState(msg);
   const isValid = !emailIsValid || email.length === 0 || !passwordIsValid || password.length === 0;
 
   const navigate = useNavigate();
@@ -136,6 +137,7 @@ const SignIn = () => {
   const authContext = useContext(AuthContext);
 
   const signInClicked = async () => {
+    setMessage('');
     try {
       await authContext.signInWithEmail(email, password);
     } catch (err) {
@@ -169,6 +171,7 @@ const SignIn = () => {
   return (
     <div className='page-wrapper vh-100'>
       <section className='section_signin'>
+        {message && <div className='signin_message'>{message}</div>}
         <SigninBg className='signin_bg'></SigninBg>
         <div className='signin_modal'>
           <div className='signin_heading'>Login</div>

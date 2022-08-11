@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { PasswordField } from '../../components/PasswordField/PasswordField';
 import { NewPasswordField } from '../../components/NewPasswordField/NewPasswordField';
 import { ReactComponent as SigninBg } from '../../assets/bg-sphere--large.svg';
@@ -11,6 +11,7 @@ const SignUp = () => {
   const [newUser, setNewUser] = useState(defaultNewUser);
   const [confirmPassword, setConfirmPassword] = React.useState('');
   const [error, setError] = React.useState(undefined);
+  const navigate = useNavigate();
   const submitSignUpForm = async () => {
     setError(undefined);
     if (newUser.password != confirmPassword) {
@@ -19,7 +20,7 @@ const SignUp = () => {
       setError('all Fields are required');
     } else {
       await submitNewUser(newUser);
-      <Navigate to='/signin' />;
+      navigate('/signin', { msg: 'Check your email to verify your account, then login' });
     }
   };
 
