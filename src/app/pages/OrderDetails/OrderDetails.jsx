@@ -1,16 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Button } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import {Outlet } from 'react-router-dom';
 
 import './OrderDetails.scss';
 
 const OrderDetails = () => {
-  const [order, setOrder] = useState();
-  const { orderId } = useParams;
-
-  useEffect(() => {
-    // TODO: get order data.
-  }, [orderId]);
 
   const printSection = (elementId) => {
     const printwin = window.open('');
@@ -26,7 +20,7 @@ const OrderDetails = () => {
         <div className='container-large'>
           <div className='w-100 d-flex flex-column align-items-center mt-4' id='print-area'>
             <h2>Order Confirmation</h2>
-            <div className='mt-4'>Order info goes here</div>
+            <div className='mt-4'><Outlet/></div>
             <div className='w-50 text-center mt-4'>
               To send your order to Beckett Vault, please click the button below to print your order confirmation and
               include it in your shipping box.
