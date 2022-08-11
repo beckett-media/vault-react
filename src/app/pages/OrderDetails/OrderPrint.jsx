@@ -18,7 +18,12 @@ const OrderPrint = () => {
 
   return (
     <div>
-      {isLoading && (<LoadingSpinner/>)}
+      {isLoading && (
+      <div className='d-flex flex-column align-items-center'>
+      <LoadingSpinner/> 
+      <div>order loading</div>
+      </div>
+      )}
       {order && 'test'}
     </div>
   )
