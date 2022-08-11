@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Col, Row, Button, Modal } from 'react-bootstrap';
 import { AuthContext } from '../../contexts/auth';
 import { mapCognitoToUser } from '../../services/user';
@@ -25,6 +25,10 @@ const Submission = () => {
   const [submissionResponse, setSubmissionResponse] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
+  console.log(submissionResponse)
+
+  // useEffect(), [submissionResponse]
+
   const navigate = useNavigate();
 
   const submitAddedItem = (item) => {
@@ -41,10 +45,10 @@ const Submission = () => {
     setFormSubmitted(true);
   };
 
-  const handleSubmitForm = async () => {
+  const handleSubmitForm = () => {
     const uuid = uuidv4();
-    // items.map((item) => console.log({ ...formatSubmissionItem(item, uuid), user: userState.sub }));
-    Promise.allSettled(
+
+    Promise.all(
       items.map((item) =>
         postSubmission({
           ...formatSubmissionItem(item, uuid),
@@ -53,18 +57,18 @@ const Submission = () => {
       ),
     )
       .then((resp) => {
-        navigate(`/order-details/${resp.order_uuid}`)
+        console.log(resp)
+        console.log('success')
+        console.log(resp[0].data.order_id)
+        navigate(`/order-details/${resp[0].data.order_id}`)
       })
-      .catch((e) => {
-        // TODO
-        console.error(e);
-        setSubmissionResponse(e);
-        setShowModal(false);
-      });
+      .catch(e => {
+        setSubmissionResponse(e)
+        setShowModal(false)
+      })
   };
 
   const submitFinalForm = async () => {
-    console.log('submitting');
     await handleSubmitForm(items);
   };
 
@@ -79,8 +83,9 @@ const Submission = () => {
                 {submissionResponse ? (
                   <div className='submission_container'>
                     <SubmissionResponse
-                      submissionResponse={JSON.stringify(submissionResponse)}
+                      submissionResponse={submissionResponse}
                       setSubmissionResponse={setSubmissionResponse}
+                      body='Please try again.'
                     />
                   </div>
                 ) : (

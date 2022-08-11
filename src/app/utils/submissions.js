@@ -27,6 +27,7 @@ const defaultSub = {
 export const formatSubmissionItem = (item, uuid) => {
   return {
     uuid,
+    order_uuid: uuid,
     type: item.type || defaultSub.type,
     player: item.player || defaultSub.player,
     sport: item.sport || defaultSub.sport,
