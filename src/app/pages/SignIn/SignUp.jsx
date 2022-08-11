@@ -19,8 +19,9 @@ const SignUp = () => {
     } else if (!hasRequiredProperties(newUser, requiredNewUserProperties)) {
       setError('all Fields are required');
     } else {
-      await submitNewUser(newUser);
-      navigate('/signin', { msg: 'Check your email to verify your account, then login' });
+      submitNewUser(newUser)
+        .then(navigate('/signin', { msg: 'Check your email to verify your account, then login' }))
+        .catch((err) => setError(err));
     }
   };
 
