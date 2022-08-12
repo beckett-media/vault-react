@@ -32,6 +32,7 @@ const History = () => {
       setFilteredItems(res.data);
     });
     getSubmissions({ user: userState.sub }).then((res) => {
+      console.log(res)
       setSubmissions(res);
     });
     getListings({ user: userState.sub }).then((res) => {
@@ -51,31 +52,16 @@ const History = () => {
           String(JSON.parse(item.extra).player).toLowerCase().indexOf(String(searchVal).toLowerCase()) !== -1
         )
       });
-      let matchById = historyItems.filter((item) => String(JSON.parse(item.extra).uuid).indexOf(searchVal) !== -1);
+      let matchById = historyItems.filter((item) => {
+        return(
+          String(JSON.parse(item.extra).uuid).indexOf(searchVal) !== -1 ||
+          item.order_id === searchVal
+    )})
       setFilteredItems([...matchById, ...matches]);
     } else {
       setFilteredItems([...historyItems]);
     }
   }, [searchVal]);
-
-  useEffect(() => {
-    const selectedArr = selected.split('-');
-    if (selectedArr?.[0] === String(historyItemDetails?.id)) {
-      setHistoryItemDetails({ ...historyItemDetails });
-    } else {
-      switch (selectedArr[1]?.toLowerCase()) {
-        case 'listing':
-          setHistoryItemDetails(listings.filter((listing) => String(listing.id) === selectedArr[0])[0]);
-          break;
-        case 'submission':
-          setHistoryItemDetails(submissions.filter((submission) => String(submission.id) === selectedArr[0])[0]);
-          break;
-        case 'vaulting':
-          setHistoryItemDetails(vaulting.filter((vaulting) => String(vaulting.id) === selectedArr[0])[0]);
-          break;
-      }
-    }
-  }, [selected]);
 
   useEffect(() => {
     if (filterBy === ALL) {
@@ -126,7 +112,7 @@ const History = () => {
         </Col>
         <Col xs={1} />
       </Row>
-      <ItemsHistory sortedItems={sortedItems} historyItemDetails={[{}]} />
+      <ItemsHistory sortedItems={sortedItems} listings={listings} submissions={submissions} vaulting={vaulting} />
     </Container>
   );
 };

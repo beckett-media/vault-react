@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Button, Col, Row } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
 import SubmitButton from '../../components/Generic/SubmitButton';
 import './History.scss';
 
-const ItemsHistory = ({sortedItems, historyItemDetails}) => {
+const ItemsHistory = ({sortedItems, listings, submissions, vaulting}) => {
   const [selected, setSelected] = useState('')
   const [groups,setGroups] = useState({})
+  const [statuses, setStatuses] = useState({})
+  const navigate = useNavigate()
   useEffect(()=> {
     const groupings = {}
     sortedItems.map(item => {
@@ -13,10 +16,32 @@ const ItemsHistory = ({sortedItems, historyItemDetails}) => {
       if(Object.keys(groupings).includes(extra.uuid)){
         groupings[`${extra.uuid}`].push({...item,...extra})
       }
-      else if(extra.uuid !== undefined){groupings[`${extra.uuid}`] = [{...item, ...extra}]}
+      else if(extra.uuid !== undefined && extra.uuid !== ''){groupings[`${extra.uuid}`] = [{...item, ...extra}]}
     })
     setGroups(groupings)
   },[sortedItems])
+  console.log(groups)
+  useEffect(() => {
+    console.log(submissions, selected && JSON.parse(groups[selected][0].extra), selected && groups[selected])
+    console.log(selected && groups[selected].map(select =>select.id))
+    const items = submissions.filter((submission) => selected && groups[selected].map(select =>select.entity).includes(String(submission.item_id)))
+    const updatedArr = []
+    selected && groups[selected].map((item, i) => items.map(a => item.entity === String(a.item_id) ? updatedArr.push({...item, status_desc: a.status_desc}) : console.log('false')))
+    setGroups({...groups, [selected]: updatedArr})
+    console.log(groups[selected])
+      // switch (selected) {
+
+      //   case 'listing':
+      //     setHistoryItemDetails(listings.filter((listing) => String(listing.id) === selectedArr[0])[0]);
+      //     break;
+      //   case 'submission':
+      //     setHistoryItemDetails(submissions.filter((submission) => String(submission.id) === selectedArr[0])[0]);
+      //     break;
+      //   case 'vaulting':
+      //     setHistoryItemDetails(vaulting.filter((vaulting) => String(vaulting.id) === selectedArr[0])[0]);
+      //     break;
+      // }
+  }, [selected]);
   const rowClicked = (identifier,item) => {
     if(identifier.indexOf('btn') === -1){
       !selected.length ||
@@ -25,6 +50,7 @@ const ItemsHistory = ({sortedItems, historyItemDetails}) => {
         setSelected('')
     }
   }
+  const printDetails = (order_id) => console.log(order_id,`/order-details/${order_id}`)
   return (
     <>
       {Object.keys(groups)?.map(group => {
@@ -34,17 +60,17 @@ const ItemsHistory = ({sortedItems, historyItemDetails}) => {
           <Row className='py-3 px-5 border' onClick = {(e)=> rowClicked(e.target.className, group)}>
             <Col xs={8}>
               <div>
-              {`${groups[group][0].type_desc}:`}
+              {`${groups[group][0]?.type_desc}:`}
               </div>
               <div className='fw-bold'>
                 {group}
               </div>
             </Col>
             <Col xs={1}>
-              <SubmitButton title={'print'} onClick={()=>{}}/>
+              <Button onClick={()=>printDetails(groups[group][0])}>Print</Button>
             </Col>
             <Col xs={2}>
-              <div>{new Date(groups[group][0].created_at).toLocaleDateString()}</div>
+              <div>{new Date(groups[group][0]?.created_at).toLocaleDateString()}</div>
             </Col>
             {isSelected ? (
               <Col xs={1} className='right-align px-4'>
@@ -62,7 +88,7 @@ const ItemsHistory = ({sortedItems, historyItemDetails}) => {
                 <div>
                   {'Status: '}
                   <br />
-                  <span className='fw-bold'>Need to get status</span>
+                  <span className='fw-bold'>{item.status_desc}</span>
                 </div>
               </Col>
               <Col lg={6}>
