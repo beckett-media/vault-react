@@ -60,11 +60,11 @@ function AdminEditSubmissionPage() {
 
     console.log('update submission payload', payload);
     updateSubmission(submission.id, payload)
-    .then((res) => console.log('update submission success', res))
-    .catch((err) => {
-      console.error('update submission failed', err);
-      alert(err);
-    });
+      .then((res) => console.log('update submission success', res))
+      .catch((err) => {
+        console.error('update submission failed', err);
+        alert(err);
+      });
 
     e.target.reset();
   };
@@ -83,20 +83,15 @@ function AdminEditSubmissionPage() {
         </Col>
       </Row>
       <Row className='submission_image-upload'>
-        <div className='submission_image-upload-overlay'>
-          <div className='submission_image-upload-content'>
-            {submission.image_url && !item.imageBase64 ? (
-              <img src={submission.image_url} width={40} height={80} alt='current front' />
-            ) : null}
-            <ImageUpload />
-            <div className='submission_image-upload-text'>
-              <span className='submission_image-upload-text-highlight'>Click to upload front image</span>
-            </div>
-            <div className='submission_image-upload-text-small'>SVG, PNG, JPG or GIF (max. 800x400px)</div>
-          </div>
+        <div className='submission_image-upload-content'>
+          {submission.image_url && !item.imageBase64 ? (
+            <img src={submission.image_url} width={40} height={80} alt='current front' />
+          ) : null}
         </div>
         <ImageUploader
           initialFiles={initialFile ? [initialFile] : undefined}
+          heading='Click to upload front image'
+          subHeading='SVG, PNG, JPG or GIF (max. 800x400px)'
           onFileChange={(obj) => {
             if (obj) {
               updateItem(obj);
@@ -110,19 +105,14 @@ function AdminEditSubmissionPage() {
         />
       </Row>
       <Row className='submission_image-upload'>
-        <div className='submission_image-upload-overlay'>
-          <div className='submission_image-upload-content'>
-            {submission.image_rev_url && !item.imageRevBase64 ? (
-              <img src={submission.image_rev_url} width={40} height={80} alt='current front' />
-            ) : null}
-            <ImageUpload />
-            <div className='submission_image-upload-text'>
-              <span className='submission_image-upload-text-highlight'>Click to upload back image</span>
-            </div>
-            <div className='submission_image-upload-text-small'>SVG, PNG, JPG or GIF (max. 800x400px)</div>
-          </div>
+        <div className='submission_image-upload-content'>
+          {submission.image_rev_url && !item.imageRevBase64 ? (
+            <img src={submission.image_rev_url} width={40} height={80} alt='current front' />
+          ) : null}
         </div>
         <ImageUploader
+          heading='Click to upload back image'
+          subHeading='SVG, PNG, JPG or GIF (max. 800x400px)'
           initialFiles={initialRevFile ? [initialRevFile] : undefined}
           onFileChange={(obj) => {
             if (obj) {
