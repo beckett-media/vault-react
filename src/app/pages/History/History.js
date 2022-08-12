@@ -129,7 +129,7 @@ const History = () => {
         </Col>
         <Col xs={1} />
       </Row>
-      <ItemsHistory sortedItems={sortedItems} selected={selected} setSelected={setSelected} historyItemDetails={[{}]} />
+      <ItemsHistory sortedItems={sortedItems} historyItemDetails={[{}]} />
     </Container>
   );
 };
