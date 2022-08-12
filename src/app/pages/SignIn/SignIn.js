@@ -227,7 +227,6 @@ const SignIn = () => {
             <div
               onClick={signInClicked}
               className='signin_button'
-              isLoading={authContext.authStatus === AuthStatus.Loading}
             >
               Continue
             </div>
