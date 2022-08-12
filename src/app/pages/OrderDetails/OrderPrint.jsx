@@ -7,6 +7,7 @@ import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 
 import { AuthContext } from '../../contexts/auth';
 import { mapCognitoToUser } from '../../services/user';
+import { formatPrice } from '../../utils/strings';
 
 const OrderPrint = () => {
   const authContext = useContext(AuthContext);
@@ -30,7 +31,6 @@ const OrderPrint = () => {
 
   console.log(order);
   console.log(user);
-  console.log(order.submissions);
 
   return (
     <div>
@@ -63,10 +63,19 @@ const OrderPrint = () => {
             <b>Number of cards:</b> {order.submissions.length}
           </div>
           <div>
-            <b>Autograph cards:</b>
+            <b>Autograph cards:</b>{' '}
+            {order.submissions?.reduce((p, c) => {
+              return p + (c.autograph - 0);
+            }, 0)}
           </div>
           <div>
-            <b>Declared value:</b>{' '}
+            <b>Declared value:</b>
+            {' ' +
+              formatPrice(
+                order.submissions?.reduce((p, c) => {
+                  return p + (c.est_value - 0);
+                }, 0),
+              )}
           </div>
           <div>
             <b>Card details:</b>
