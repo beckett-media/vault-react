@@ -4,7 +4,7 @@ import Dropzone from 'react-dropzone-uploader';
 import { blobToBase64 } from '../../utils/image';
 
 // https://react-dropzone-uploader.js.org/docs/customization
-const ImageUploader = ({ onFileChange }) => {
+const ImageUploader = ({ onFileChange, initialFiles }) => {
   const [dropStatus, setDropStatus] = React.useState('');
 
   // called every time a file's `status` changes
@@ -29,6 +29,7 @@ const ImageUploader = ({ onFileChange }) => {
         onChangeStatus={handleChangeStatus}
         accept='image/*'
         maxFiles={1}
+        initialFiles={initialFiles}
         multiple={false}
         canCancel={false}
         inputContent='Drag image or Click to Browse'

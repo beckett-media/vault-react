@@ -1,5 +1,4 @@
 import { axiosClient } from './index';
-const { getItems } = require('./items');
 
 export const SUBMISSION_STATUS = {
   Failed: 0,
@@ -13,6 +12,13 @@ export const SUBMISSION_STATUS = {
 export const postSubmission = async (item) => {
   // TODO: validate item
   return axiosClient.post(`/marketplace/submission`, item).then((res) => {
+    return res;
+  });
+};
+
+export const updateSubmission = async (id, item) => {
+  // TODO: validate item
+  return axiosClient.put(`/marketplace/submission/${id}`, item).then((res) => {
     return res;
   });
 };
