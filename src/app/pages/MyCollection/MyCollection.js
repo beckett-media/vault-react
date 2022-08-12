@@ -10,17 +10,17 @@ import UserBanner from '../../components/UserBanner/UserBanner';
 
 import './MyCollection.scss';
 
-import { getSubmissions } from '../../services/submission';
+import { getVaulting } from '../../services/items';
 
 const Gallery = () => {
   const authContext = useContext(AuthContext);
   const userState = mapCognitoToUser(authContext.attrInfo);
-  //  FETCH PAST SUBMISSIONS
-  const [submissions, setSubmissions] = useState([]);
+  //  FETCH PAST vaultings
+  const [vaultings, setValutings] = useState([]);
 
   useEffect(() => {
-    getSubmissions({ user: userState.sub }).then((data) => {
-      setSubmissions(Array.isArray(data) ? data : []);
+    getVaulting({ user: userState.sub }).then((data) => {
+      setValutings(Array.isArray(data) ? data : []);
     });
   }, [userState.sub]);
 
@@ -67,11 +67,11 @@ const Gallery = () => {
         <>
           <div className='section-profile-info'>
             <UserBanner
-              vaultedItems={submissions?.length}
-              vaultedValue={submissions.reduce((prev, cur) => prev + cur.est_value, 0)}
+              vaultedItems={vaultings?.length}
+              vaultedValue={vaultings.reduce((prev, cur) => prev + cur.est_value, 0)}
             />
           </div>
-          {!showConfirmationPage && submissions.filter((item) => item.minted_at === 0).length ? (
+          {!showConfirmationPage && vaultings.filter((item) => item.minted_at === 0).length ? (
             <Row>
               <Col>
                 <Link to='/history'>
@@ -84,7 +84,7 @@ const Gallery = () => {
           )}
 
           <div className='section-collection'>
-            <CollectionGallery data={submissions} />
+            <CollectionGallery data={vaultings} />
           </div>
         </>
       )}
