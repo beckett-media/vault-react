@@ -15,8 +15,8 @@ const SubmissionPage = () => {
     fetch();
   }, []);
 
-  const handleApproveOrRejectClick = (subId, approve) => {
-    approveRejectSubmissions(subId, approve)
+  const handleApproveOrRejectClick = (subId, type, approve) => {
+    approveRejectSubmissions(subId, type, approve)
       .then((data) => {
         setSubmissions(submissions?.map((sub) => (sub.id === subId ? data : sub)));
       })
@@ -33,8 +33,8 @@ const SubmissionPage = () => {
           <Col key={'submissions_' + index} className='col-sm-12 col-md-4'>
             <SubmissionItem
               item={submission}
-              onApprove={(id) => handleApproveOrRejectClick(id, true)}
-              onReject={(id) => handleApproveOrRejectClick(id, false)}
+              onApprove={(id) => handleApproveOrRejectClick(id, submission.type, true)}
+              onReject={(id) => handleApproveOrRejectClick(id, submission.type, false)}
             />
           </Col>
         ))}
