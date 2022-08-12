@@ -43,19 +43,16 @@ const History = () => {
   }, []);
 
   useEffect(() => {
-    let matches = [];
     if (searchVal?.length) {
-      let allItems = [...submissions, ...listings, ...vaulting];
-      matches = allItems.filter((item) => item.title.toLowerCase().search(String(searchVal).toLowerCase()) > 0);
-      let items = matches.map((item) => item.id);
-      let matchById = historyItems.filter((item) => String(item.id) === searchVal);
-      let results = [];
-      if (matchById.length) {
-        results = [...matchById];
-      } else {
-        results = [...historyItems.filter((item) => items.includes(Number(item.entity)))];
-      }
-      setFilteredItems([...results]);
+      let matches = historyItems.filter((item) => {
+        return(
+          String(JSON.parse(item.extra).title).toLowerCase().indexOf(String(searchVal).toLowerCase()) !== -1 ||
+          String(JSON.parse(item.extra).subject).toLowerCase().indexOf(String(searchVal).toLowerCase()) !== -1 ||
+          String(JSON.parse(item.extra).player).toLowerCase().indexOf(String(searchVal).toLowerCase()) !== -1
+        )
+      });
+      let matchById = historyItems.filter((item) => String(JSON.parse(item.extra).uuid).indexOf(searchVal) !== -1);
+      setFilteredItems([...matchById, ...matches]);
     } else {
       setFilteredItems([...historyItems]);
     }
