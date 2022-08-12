@@ -32,7 +32,6 @@ const ItemsHistory = (props) => {
     <>
       {Object.keys(groups)?.map(group => {
         const isSelected = group === selected
-        console.log(group, groups, groups[group][0])
         return (
           <>
           <Row className='py-3 px-5 border' onClick = {(e)=> rowClicked(e.target.className, group)}>
