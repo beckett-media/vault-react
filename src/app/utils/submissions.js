@@ -54,3 +54,16 @@ export const formatSubmissionItem = (item, uuid) => {
     image_rev_format: item.imageRevFormat || defaultSub.image_rev_format,
   };
 };
+
+export const extractUpdatedParts = (src, dst) => {
+  const keys = Object.keys(src);
+  const result = {};
+
+  for (const key of keys) {
+    if (src[key] !== dst[key]) {
+      result[key] = dst[key];
+    }
+  }
+
+  return result;
+};

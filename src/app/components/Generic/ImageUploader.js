@@ -7,7 +7,7 @@ import './ImageUpload.scss';
 import { Row } from 'react-bootstrap';
 
 // https://react-dropzone-uploader.js.org/docs/customization
-const ImageUploader = ({ onFileChange, heading, subHeading }) => {
+const ImageUploader = ({ onFileChange, heading, subHeading, initialFiles }) => {
   const [dropStatus, setDropStatus] = React.useState('');
 
   // called every time a file's `status` changes
@@ -44,6 +44,7 @@ const ImageUploader = ({ onFileChange, heading, subHeading }) => {
           accept='image/*'
           maxFiles={1}
           multiple={false}
+          initialFiles={initialFiles}
           canCancel={false}
           inputContent='Drag image or Click to Browse'
           submitButtonDisabled

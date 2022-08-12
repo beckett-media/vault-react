@@ -39,6 +39,14 @@ const TopNav = () => {
             <div className='nav_center-wrapper'>
               {authContext.isSignedIn && (
                 <>
+                  {authContext.isAdmin && (
+                    <NavLink
+                      to='/admin'
+                      className={({ isActive }) => (isActive ? 'nav_link--active' : 'nav_link')}
+                    >
+                      Admin
+                    </NavLink>
+                  )}
                   <NavLink
                     to='/my-collection'
                     className={({ isActive }) => (isActive ? 'nav_link--active' : 'nav_link')}
