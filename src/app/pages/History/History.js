@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import { itemsHistory } from './itemsHistory';
+import ItemsHistory from './itemsHistory';
 import './History.scss';
 import { getHistory } from '../../services/history';
 import Filter from '../../components/Generic/Filter';
@@ -25,7 +25,6 @@ const History = () => {
   const [vaulting, setVaulting] = useState([]);
   const authContext = useContext(AuthContext);
   const userState = mapCognitoToUser(authContext.attrInfo);
-
   useEffect(() => {
     getHistory(userState.sub).then((res) => {
       setHistoryItems(res.data);
@@ -108,10 +107,6 @@ const History = () => {
     { value: LISTING, title: 'Market' },
   ];
 
-  let items = selected.length
-    ? [...itemsHistory({ sortedItems, selected, setSelected, historyItemDetails })]
-    : [...itemsHistory({ sortedItems, selected, setSelected, historyItemDetails: [{}] })];
-
   return (
     <Container className='py-2 sub-box'>
       <h2 className='fs-3 pb-3'>History</h2>
@@ -126,15 +121,15 @@ const History = () => {
         filterOptions={filterOptions}
       />
       <Row>
-        <Col xs={8}>
+        <Col xs={9}>
           <h3 className='fs-4'>Title</h3>
         </Col>
         <Col xs={3}>
-          <h3 className='fs-4'>Date Created</h3>
+          <h3 className='fs-4'>Date</h3>
         </Col>
         <Col xs={1} />
       </Row>
-      <>{items}</>
+      <ItemsHistory sortedItems={sortedItems} selected={selected} setSelected={setSelected} historyItemDetails={[{}]} />
     </Container>
   );
 };
