@@ -47,10 +47,22 @@ export const getSingleSubmission = async (submissionId) => {
   });
 };
 
-export const approveRejectSubmissions = (subId, approve = true) => {
+export const approveRejectSubmissions = (subId, type, approve = true) => {
   return axiosClient
     .put(`/marketplace/submission/${subId}`, {
+      type,
       status: approve ? SUBMISSION_STATUS.Approved : SUBMISSION_STATUS.Rejected,
+    })
+    .then((res) => {
+      return res.data;
+    });
+};
+
+export const confirmSubmissionReceipt = (subId, type) => {
+  return axiosClient
+    .put(`/marketplace/submission/${subId}`, {
+      type,
+      status: SUBMISSION_STATUS.Received,
     })
     .then((res) => {
       return res.data;

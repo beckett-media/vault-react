@@ -106,6 +106,11 @@ const TopNav = () => {
                 </label>
                 <div className='nav_mobile-bg'></div>
                 <div className='nav_mobile-menu'>
+                  {authContext.isAdmin && (
+                    <NavLink to='/admin' onClick={() => toggleCheckbox(false)} className='nav_mobile-menu-item'>
+                    Admin
+                  </NavLink>
+                  )}
                   <NavLink to='/my-collection' onClick={() => toggleCheckbox(false)} className='nav_mobile-menu-item'>
                     My Collection
                   </NavLink>

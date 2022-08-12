@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
-import { getSubmissions, approveRejectSubmissions } from '../../services/submission';
+import { getSubmissions, approveRejectSubmissions, confirmSubmissionReceipt } from '../../services/submission';
 import SubmissionItem from './SubmissionItem';
 
 const SubmissionPage = () => {
@@ -15,13 +15,24 @@ const SubmissionPage = () => {
     fetch();
   }, []);
 
-  const handleApproveOrRejectClick = (subId, approve) => {
-    approveRejectSubmissions(subId, approve)
+  const handleApproveOrRejectClick = (subId, type, approve) => {
+    approveRejectSubmissions(subId, type, approve)
       .then((data) => {
         setSubmissions(submissions?.map((sub) => (sub.id === subId ? data : sub)));
       })
       .catch((e) => {
         console.error(`${approve ? 'approve' : 'reject'} error`, e);
+        alert(e.message);
+      });
+  };
+
+  const handleConfirmReceiptClick = (subId, type) => {
+    confirmSubmissionReceipt(subId, type)
+      .then((data) => {
+        setSubmissions(submissions?.map((sub) => (sub.id === subId ? data : sub)));
+      })
+      .catch((e) => {
+        console.error(`confirm receipt error`, e);
         alert(e.message);
       });
   };
@@ -33,8 +44,9 @@ const SubmissionPage = () => {
           <Col key={'submissions_' + index} className='col-sm-12 col-md-4'>
             <SubmissionItem
               item={submission}
-              onApprove={(id) => handleApproveOrRejectClick(id, true)}
-              onReject={(id) => handleApproveOrRejectClick(id, false)}
+              onConfimReceipt={() => handleConfirmReceiptClick(submission.id, submission.type)}
+              onApprove={() => handleApproveOrRejectClick(submission.id, submission.type, true)}
+              onReject={() => handleApproveOrRejectClick(submission.id, submission.type, false)}
             />
           </Col>
         ))}
