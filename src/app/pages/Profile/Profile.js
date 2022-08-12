@@ -37,11 +37,11 @@ const Profile = () => {
   };
 
   return (
-    <Container>
+    <div className='page-wrapper'>
       <UserBanner />
       <Form noValidate onSubmit={submitUpdateUser}>
         <Row className='justify-content-center m-2'>
-          <Col lg='6'>
+          <Col>
             <Row>
               <Card bg='Light' text='dark'>
                 <Card.Header>
@@ -224,7 +224,7 @@ const Profile = () => {
           </Col>
         </Row>
       </Form>
-    </Container>
+    </div>
   );
 };
 
