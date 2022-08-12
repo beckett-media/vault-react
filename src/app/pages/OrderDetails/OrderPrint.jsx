@@ -29,8 +29,7 @@ const OrderPrint = () => {
       });
   }, [orderId]);
 
-  console.log(order);
-  console.log(user);
+  const sumObject = (property) => {};
 
   return (
     <div>
@@ -61,12 +60,6 @@ const OrderPrint = () => {
           )}
           <div>
             <b>Number of cards:</b> {order.submissions.length}
-          </div>
-          <div>
-            <b>Autograph cards:</b>{' '}
-            {order.submissions?.reduce((p, c) => {
-              return p + (c.autograph - 0);
-            }, 0)}
           </div>
           <div>
             <b>Declared value:</b>
