@@ -1,11 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { getSingleOrder } from '../../services/order';
 
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 
+import { AuthContext } from '../../contexts/auth';
+import { mapCognitoToUser } from '../../services/user';
+
 const OrderPrint = () => {
+  const authContext = useContext(AuthContext);
+  const user = mapCognitoToUser(authContext.attrInfo);
   const [order, setOrder] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -24,6 +29,8 @@ const OrderPrint = () => {
   }, [orderId]);
 
   console.log(order);
+  console.log(user);
+  console.log(order.submissions);
 
   return (
     <div>
@@ -39,7 +46,40 @@ const OrderPrint = () => {
           <Button onClick={() => setError(false)}>OK</Button>
         </div>
       )}
-      {order && 'test'}
+      {order && (
+        <>
+          <div>
+            <b>Order date:</b> {Date(order.created_at).toLocaleString()}
+          </div>
+          <div>
+            <b>Email address:</b> {user.email}
+          </div>
+          {user.phone && (
+            <div>
+              <b>Phone number:</b> {user.phone}
+            </div>
+          )}
+          <div>
+            <b>Number of cards:</b> {order.submissions.length}
+          </div>
+          <div>
+            <b>Autograph cards:</b>
+          </div>
+          <div>
+            <b>Declared value:</b>{' '}
+          </div>
+          <div>
+            <b>Card details:</b>
+          </div>
+          {order.submissions.map((item) => (
+            <div>
+              <div>
+                {item.year} {item.title || item.player}
+              </div>
+            </div>
+          ))}
+        </>
+      )}
     </div>
   );
 };
