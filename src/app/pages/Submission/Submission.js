@@ -25,7 +25,7 @@ const Submission = () => {
   const [submissionResponse, setSubmissionResponse] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
-  console.log(submissionResponse)
+  console.log(submissionResponse);
 
   // useEffect(), [submissionResponse]
 
@@ -57,15 +57,15 @@ const Submission = () => {
       ),
     )
       .then((resp) => {
-        console.log(resp)
-        console.log('success')
-        console.log(resp[0].data.order_id)
-        navigate(`/order-details/${resp[0].data.order_id}`)
+        console.log(resp);
+        console.log('success');
+        console.log(resp[0].data.order_id);
+        navigate(`/order-details/${resp[0].data.order_id}`);
       })
-      .catch(e => {
-        setSubmissionResponse(e)
-        setShowModal(false)
-      })
+      .catch((e) => {
+        setSubmissionResponse(e);
+        setShowModal(false);
+      });
   };
 
   const submitFinalForm = async () => {
@@ -143,7 +143,12 @@ const Submission = () => {
             <Button variant='secondary' onClick={() => setShowModal(false)}>
               Cancel
             </Button>
-            <Button variant='primary' onClick={() => { submitFinalForm() }}>
+            <Button
+              variant='primary'
+              onClick={() => {
+                submitFinalForm();
+              }}
+            >
               Confirm submit
             </Button>
           </Modal.Footer>

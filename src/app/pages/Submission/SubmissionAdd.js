@@ -19,7 +19,9 @@ const SubmissionAdd = ({ submitAddedItem }) => {
 
   const submitAddItemFormSubmit = (e) => {
     e.preventDefault();
-    { Object.keys(item).length > 2 && submitAddedItem(item); }
+    {
+      Object.keys(item).length > 2 && submitAddedItem(item);
+    }
     setItem({ type: 1, gradingCompany: 'bgs' });
     setType(1);
     e.target.reset();

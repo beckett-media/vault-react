@@ -4,7 +4,6 @@ import { ReactComponent as SuccessSVG } from '../../assets/beckett-check-icon.sv
 import { ReactComponent as ErrorSVG } from '../../assets/beckett-error-icon.svg';
 
 const SubmissionResponse = ({ submissionResponse, setSubmissionResponse, body }) => {
-
   const success = false;
   const image = success ? (
     <SuccessSVG className='submission_response-image' />
