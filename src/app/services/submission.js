@@ -1,5 +1,4 @@
 import { axiosClient } from './index';
-const { getItems } = require('./items');
 
 export const SUBMISSION_STATUS = {
   Failed: 0,
@@ -15,6 +14,13 @@ export const postSubmission = async (item) => {
   return axiosClient.post(`/marketplace/submission`, item).then((res) => {
     return res;
   })
+};
+
+export const updateSubmission = async (id, item) => {
+  // TODO: validate item
+  return axiosClient.put(`/marketplace/submission/${id}`, item).then((res) => {
+    return res;
+  });
 };
 
 export const getSubmissions = async ({ user, status, offset, limit, order } = {}) => {
@@ -41,10 +47,22 @@ export const getSingleSubmission = async (submissionId) => {
   });
 };
 
-export const approveRejectSubmissions = (subId, approve = true) => {
+export const approveRejectSubmissions = (subId, type, approve = true) => {
   return axiosClient
     .put(`/marketplace/submission/${subId}`, {
+      type,
       status: approve ? SUBMISSION_STATUS.Approved : SUBMISSION_STATUS.Rejected,
+    })
+    .then((res) => {
+      return res.data;
+    });
+};
+
+export const confirmSubmissionReceipt = (subId, type) => {
+  return axiosClient
+    .put(`/marketplace/submission/${subId}`, {
+      type,
+      status: SUBMISSION_STATUS.Received,
     })
     .then((res) => {
       return res.data;

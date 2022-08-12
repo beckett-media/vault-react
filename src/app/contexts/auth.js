@@ -14,20 +14,20 @@ export const AuthStatus = {
 const defaultState = {
   sessionInfo: {},
   isAdmin: false,
-  adminGroups: null,
+  adminGroups: [],
   authStatus: AuthStatus.Loading,
 };
 
 export const AuthContext = React.createContext(defaultState);
 
-export const AuthIsSignedIn = ({ children }) => {
-  const { authStatus } = useContext(AuthContext);
-
-  return <>{authStatus === AuthStatus.SignedIn ? children : null}</>;
-};
+export const Loading = () => <div>Loading...</div>;
 
 export const PrivateRoute = () => {
   const { authStatus } = useContext(AuthContext);
+
+  if (authStatus === AuthStatus.Loading) {
+    return <Loading />;
+  }
 
   // If authorized, return an outlet that will render child elements
   // If not, return element that will navigate to login page
@@ -35,11 +35,10 @@ export const PrivateRoute = () => {
 };
 
 export const AdminRoute = () => {
-  const { isAdmin, adminGroups } = useContext(AuthContext);
+  const { isAdmin, authStatus } = useContext(AuthContext);
 
-  // TODO: AuthContext - Fix adminGroups becomes `null` twice.
-  if (adminGroups === null) {
-    return <div>Loading</div>;
+  if (authStatus === AuthStatus.Loading) {
+    return <Loading />;
   }
 
   // If authorized, return an outlet that will render child elements
@@ -49,6 +48,10 @@ export const AdminRoute = () => {
 
 export const OnlyUnathenticated = () => {
   const { authStatus } = useContext(AuthContext);
+  if (authStatus === AuthStatus.Loading) {
+    return <Loading />;
+  }
+
   return [AuthStatus.SignedOut, AuthStatus.SetPassword].includes(authStatus) ? (
     <Outlet />
   ) : (
@@ -56,60 +59,51 @@ export const OnlyUnathenticated = () => {
   );
 };
 
-export const AuthIsNotSignedIn = ({ children }) => {
-  const { authStatus } = useContext(AuthContext);
-
-  return <>{authStatus === AuthStatus.SignedOut ? children : null}</>;
-};
-
 const AuthProvider = ({ children }) => {
   const [authStatus, setAuthStatus] = useState(AuthStatus.Loading);
-  const [adminGroups, setAdminGroups] = useState(null);
+  const [adminGroups, setAdminGroups] = useState([]);
   const [sessionInfo, setSessionInfo] = useState({});
   const [attrInfo, setAttrInfo] = useState([]);
-  const [isSignedIn, setIsSignedIn] = useState(false);
 
   useEffect(() => {
-    async function getSessionInfo() {
-      setIsSignedIn(authStatus === AuthStatus.SignedIn);
-      if (authStatus !== AuthStatus.SetPassword) {
-        try {
-          const session = await getSession();
-          setSessionInfo({
-            accessToken: session.accessToken.jwtToken,
-            refreshToken: session.refreshToken.token,
-          });
-          window.localStorage.setItem('accessToken', `${session.accessToken.jwtToken}`);
-          window.localStorage.setItem('refreshToken', `${session.refreshToken.token}`);
-
-          const attr = await getAttributes();
-          setAttrInfo(attr);
-
-          setAdminGroups(null);
-          getAdminUserGroups(session.accessToken.jwtToken)
-            .then((data) => setAdminGroups(data.groups || []))
-            .catch((err) => {
-              console.log('getAdminUserGroups', err);
-              setAdminGroups([]);
-            });
-
-          setAuthStatus(AuthStatus.SignedIn);
-        } catch (err) {
-          setAuthStatus(AuthStatus.SignedOut);
-        }
-      }
-    }
     getSessionInfo();
-  }, [setAuthStatus, authStatus]);
+  }, []);
 
-  if (authStatus === AuthStatus.Loading) {
-    return null;
+  async function getSessionInfo() {
+    setAuthStatus(AuthStatus.Loading);
+
+    try {
+      const session = await getSession();
+      setSessionInfo({
+        accessToken: session.accessToken.jwtToken,
+        refreshToken: session.refreshToken.token,
+      });
+      window.localStorage.setItem('accessToken', `${session.accessToken.jwtToken}`);
+      window.localStorage.setItem('refreshToken', `${session.refreshToken.token}`);
+
+      const attr = await getAttributes();
+      setAttrInfo(attr);
+
+      try {
+        const data = await getAdminUserGroups(session.accessToken.jwtToken);
+        setAdminGroups(data.groups || []);
+      } catch (err) {
+        setAdminGroups([]);
+        console.error('getAdminUserGroups', err);
+      }
+
+      setAuthStatus(AuthStatus.SignedIn);
+    } catch (err) {
+      setAuthStatus(AuthStatus.SignedOut);
+    }
   }
 
   async function signInWithEmail(username, password, setPassword = null) {
     try {
       const [status, res] = await cognito.signInWithEmail(username, password, setPassword);
-      status === 'NEW_PASSWORD' ? setAuthStatus(AuthStatus.SetPassword) : setAuthStatus(AuthStatus.SignedIn);
+      if (status !== 'NEW_PASSWORD') {
+        getSessionInfo();
+      }
     } catch (err) {
       setAuthStatus(AuthStatus.SignedOut);
       throw err;
@@ -127,6 +121,8 @@ const AuthProvider = ({ children }) => {
   function signOut() {
     cognito.signOut();
     setAuthStatus(AuthStatus.SignedOut);
+    setAdminGroups([]);
+    setSessionInfo({});
   }
 
   async function verifyCode(username, code) {
@@ -197,7 +193,7 @@ const AuthProvider = ({ children }) => {
     adminGroups,
     sessionInfo,
     attrInfo,
-    isSignedIn,
+    isSignedIn: authStatus === AuthStatus.SignedIn,
     isAdmin: (adminGroups || []).includes('admin'),
     signUpWithEmail,
     signInWithEmail,
