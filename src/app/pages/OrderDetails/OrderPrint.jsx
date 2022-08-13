@@ -39,7 +39,7 @@ const OrderPrint = () => {
           <div>order loading</div>
         </div>
       )}
-      {error && (
+      {!!error && (
         <div className='d-flex flex-column align-items-center'>
           <div>There was an error retrieving this order.</div>
           <Button onClick={() => setError(false)}>OK</Button>
