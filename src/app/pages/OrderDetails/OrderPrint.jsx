@@ -45,7 +45,7 @@ const OrderPrint = () => {
           <Button onClick={() => setError(false)}>OK</Button>
         </div>
       )}
-      {order && (
+      {!!order && (
         <>
           <div>
             <b>Order date:</b> {Date(order.created_at).toLocaleString()}
