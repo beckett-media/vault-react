@@ -75,9 +75,7 @@ const OrderPrint = () => {
           </div>
           {order.submissions.map((item, index) => (
             <div key={`ordeer-items_${index}`}>
-              <div>
-                {item.year} {item.title || item.player}
-              </div>
+              {item.year} {item.title || item.player}
             </div>
           ))}
         </>
