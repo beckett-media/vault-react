@@ -12,10 +12,8 @@ function SubmissionItem({ onApprove, onReject, onConfimReceipt, item }) {
     item.status === SUBMISSION_STATUS.Approved ||
     item.status === SUBMISSION_STATUS.Rejected;
   const shouldEnableApproveButton =
-    item.status === SUBMISSION_STATUS.Received ||
-    item.status === SUBMISSION_STATUS.Rejected;
-  const shouldEnableRejectButton =
-    item.status === SUBMISSION_STATUS.Approved;
+    item.status === SUBMISSION_STATUS.Received || item.status === SUBMISSION_STATUS.Rejected;
+  const shouldEnableRejectButton = item.status === SUBMISSION_STATUS.Approved;
 
   return (
     <div className='m-4'>

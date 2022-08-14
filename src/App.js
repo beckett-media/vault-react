@@ -6,6 +6,8 @@ import Privacy from './app/components/Generic/Privacy';
 import Support from './app/components/Generic/Support';
 import Terms from './app/components/Generic/Terms';
 import Homepage from './app/pages/Homepage/Homepage';
+import OrderDetails from './app/pages/OrderDetails/OrderDetails';
+import OrderPrint from './app/pages/OrderDetails/OrderPrint';
 import AdminPage from './app/pages/Admin/AdminPage';
 import AdminSubmissionPage from './app/pages/Admin/SubmissionPage';
 import AdminVaultingPage from './app/pages/Admin/VaultingPage';
@@ -53,6 +55,9 @@ function App() {
               <Routes>
                 <Route exact path='/' element={<PrivateRoute />}>
                   <Route path='/submission' element={<Submission />} />
+                  <Route path='/order-details' element={<OrderDetails />}>
+                    <Route path='/order-details/:orderId' element={<OrderPrint />} />
+                  </Route>
                   {/* <Route path='/about' element={<Homepage />} /> */}
                   <Route path='/my-collection' element={<MyCollection />} />
                   <Route path='/my-collection/item/:id' element={<Item />} />

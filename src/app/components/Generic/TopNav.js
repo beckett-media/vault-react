@@ -40,10 +40,7 @@ const TopNav = () => {
               {authContext.isSignedIn && (
                 <>
                   {authContext.isAdmin && (
-                    <NavLink
-                      to='/admin'
-                      className={({ isActive }) => (isActive ? 'nav_link--active' : 'nav_link')}
-                    >
+                    <NavLink to='/admin' className={({ isActive }) => (isActive ? 'nav_link--active' : 'nav_link')}>
                       Admin
                     </NavLink>
                   )}
@@ -108,8 +105,8 @@ const TopNav = () => {
                 <div className='nav_mobile-menu'>
                   {authContext.isAdmin && (
                     <NavLink to='/admin' onClick={() => toggleCheckbox(false)} className='nav_mobile-menu-item'>
-                    Admin
-                  </NavLink>
+                      Admin
+                    </NavLink>
                   )}
                   <NavLink to='/my-collection' onClick={() => toggleCheckbox(false)} className='nav_mobile-menu-item'>
                     My Collection
