@@ -26,7 +26,7 @@ const ItemsHistory = ({sortedItems, listings, submissions, vaulting}) => {
     console.log(selected && groups[selected].map(select =>select.id))
     const items = submissions.filter((submission) => selected && groups[selected].map(select =>select.entity).includes(String(submission.item_id)))
     const updatedArr = []
-    selected && groups[selected].map((item, i) => items.map(a => item.entity === String(a.item_id) ? updatedArr.push({...item, status_desc: a.status_desc}) : console.log('false')))
+    selected && groups[selected].map((item, i) => items.map(a => item.entity === String(a.item_id) ? updatedArr.push({...item, status_desc: a.status_desc, order_id: a.order_id}) : console.log('false')))
     setGroups({...groups, [selected]: updatedArr})
     console.log(groups[selected])
       // switch (selected) {
@@ -50,7 +50,7 @@ const ItemsHistory = ({sortedItems, listings, submissions, vaulting}) => {
         setSelected('')
     }
   }
-  const printDetails = (order_id) => console.log(order_id,`/order-details/${order_id}`)
+  const printDetails = (order_id) => navigate(`/order-details/${order_id}`)
   return (
     <>
       {Object.keys(groups)?.map(group => {
@@ -67,7 +67,7 @@ const ItemsHistory = ({sortedItems, listings, submissions, vaulting}) => {
               </div>
             </Col>
             <Col xs={1}>
-              <Button onClick={()=>printDetails(groups[group][0])}>Print</Button>
+              <Button onClick={()=>printDetails(groups[group][0]?.order_id)}>Print</Button>
             </Col>
             <Col xs={2}>
               <div>{new Date(groups[group][0]?.created_at).toLocaleDateString()}</div>
