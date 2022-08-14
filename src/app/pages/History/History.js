@@ -32,7 +32,6 @@ const History = () => {
       setFilteredItems(res.data);
     });
     getSubmissions({ user: userState.sub }).then((res) => {
-      console.log(res);
       setSubmissions(res);
     });
     getListings({ user: userState.sub }).then((res) => {

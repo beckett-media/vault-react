@@ -21,10 +21,8 @@ const ItemsHistory = ({ sortedItems, listings, submissions, vaulting }) => {
     });
     setGroups(groupings);
   }, [sortedItems]);
-  console.log(groups);
+
   useEffect(() => {
-    console.log(submissions, selected && JSON.parse(groups[selected][0].extra), selected && groups[selected]);
-    console.log(selected && groups[selected].map((select) => select.id));
     const items = submissions.filter(
       (submission) => selected && groups[selected].map((select) => select.entity).includes(String(submission.item_id)),
     );
@@ -38,7 +36,6 @@ const ItemsHistory = ({ sortedItems, listings, submissions, vaulting }) => {
         ),
       );
     setGroups({ ...groups, [selected]: updatedArr });
-    console.log(groups[selected]);
     // switch (selected) {
 
     //   case 'listing':
