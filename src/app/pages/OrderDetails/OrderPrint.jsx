@@ -29,7 +29,7 @@ const OrderPrint = () => {
       });
   }, [orderId]);
 
-  const sumObject = (property) => {};
+  const sumObject = (property) => { };
 
   return (
     <div>
@@ -47,6 +47,9 @@ const OrderPrint = () => {
       )}
       {!!order && (
         <>
+          <div>
+            <b>Order ID:</b> {order.id}
+          </div>
           <div>
             <b>Order date:</b> {Date(order.created_at).toLocaleString()}
           </div>
@@ -75,6 +78,8 @@ const OrderPrint = () => {
           </div>
           {order.submissions.map((item, index) => (
             <div key={`ordeer-items_${index}`}>
+              ----- <br/>
+              Submission ID: {item.id}<br/>
               {item.year} {item.title || item.player}
             </div>
           ))}

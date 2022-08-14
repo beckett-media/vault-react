@@ -16,11 +16,11 @@ const Gallery = () => {
   const authContext = useContext(AuthContext);
   const userState = mapCognitoToUser(authContext.attrInfo);
   //  FETCH PAST vaultings
-  const [vaultings, setValutings] = useState([]);
+  const [vaultings, setVaultings] = useState([]);
 
   useEffect(() => {
     getVaulting({ user: userState.sub }).then((data) => {
-      setValutings(Array.isArray(data) ? data : []);
+      setVaultings(Array.isArray(data) ? data : []);
     });
   }, [userState.sub]);
 

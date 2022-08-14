@@ -17,7 +17,7 @@ const AdminPage = () => {
     <div className='page-wrapper'>
       <Row>
         <SubmitButton bg='link' func={handleOpenSubmissionsClick} title='Submissions' />
-        <SubmitButton bg='link' func={handleOpenVaultingClick} title='Valuting' />
+        <SubmitButton bg='link' func={handleOpenVaultingClick} title='Vaulting' />
       </Row>
       <div>
         <Outlet />

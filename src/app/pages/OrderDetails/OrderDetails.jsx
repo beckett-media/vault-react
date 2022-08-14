@@ -26,7 +26,7 @@ const OrderDetails = () => {
           <div className='mt-4 w-100 d-flex flex-column align-items-center'>
             <div className='w-75 text-center mb-4'>
               To send your order to Beckett Vault, please click the button below to print your order confirmation and
-              include it in your shipping box.
+              <strong> include it in your shipping box.</strong>
             </div>
             <Button className='mb-4' onClick={() => printSection('print-area')}>
               Print order form
