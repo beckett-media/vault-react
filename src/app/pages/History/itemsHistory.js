@@ -7,7 +7,6 @@ import './History.scss';
 const ItemsHistory = ({ sortedItems, listings, submissions, vaulting }) => {
   const [selected, setSelected] = useState('');
   const [groups, setGroups] = useState({});
-  const [statuses, setStatuses] = useState({});
   const navigate = useNavigate();
   useEffect(() => {
     const groupings = {};
@@ -32,22 +31,10 @@ const ItemsHistory = ({ sortedItems, listings, submissions, vaulting }) => {
         items.map((a) =>
           item.entity === String(a.item_id)
             ? updatedArr.push({ ...item, status_desc: a.status_desc, order_id: a.order_id })
-            : console.log('false'),
+            : console.log('Not Found'),
         ),
       );
     setGroups({ ...groups, [selected]: updatedArr });
-    // switch (selected) {
-
-    //   case 'listing':
-    //     setHistoryItemDetails(listings.filter((listing) => String(listing.id) === selectedArr[0])[0]);
-    //     break;
-    //   case 'submission':
-    //     setHistoryItemDetails(submissions.filter((submission) => String(submission.id) === selectedArr[0])[0]);
-    //     break;
-    //   case 'vaulting':
-    //     setHistoryItemDetails(vaulting.filter((vaulting) => String(vaulting.id) === selectedArr[0])[0]);
-    //     break;
-    // }
   }, [selected]);
   const rowClicked = (identifier, item) => {
     if (identifier.indexOf('btn') === -1) {
@@ -56,7 +43,7 @@ const ItemsHistory = ({ sortedItems, listings, submissions, vaulting }) => {
   };
   const printDetails = (group) => {
     let order_id;
-    if (groups[group][0]?.order_id === undefined) {
+    if (groups[group][0].order_id === undefined) {
       const items = submissions.filter((submission) =>
         groups[group].map((select) => select.entity).includes(String(submission.item_id)),
       );
@@ -66,6 +53,7 @@ const ItemsHistory = ({ sortedItems, listings, submissions, vaulting }) => {
         }
       });
     }
+    else order_id = groups[group][0].order_id
     navigate(`/order-details/${order_id}`);
   };
   return (
