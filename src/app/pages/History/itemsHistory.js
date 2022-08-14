@@ -5,6 +5,7 @@ import SubmitButton from '../../components/Generic/SubmitButton';
 import './History.scss';
 
 const ItemsHistory = ({ sortedItems, listings, submissions, vaulting }) => {
+  console.log(sortedItems, submissions)
   const [selected, setSelected] = useState('');
   const [groups, setGroups] = useState({});
   const navigate = useNavigate();
