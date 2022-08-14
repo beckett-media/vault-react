@@ -32,7 +32,7 @@ const History = () => {
       setFilteredItems(res.data);
     });
     getSubmissions({ user: userState.sub }).then((res) => {
-      console.log(res)
+      console.log(res);
       setSubmissions(res);
     });
     getListings({ user: userState.sub }).then((res) => {
@@ -46,17 +46,15 @@ const History = () => {
   useEffect(() => {
     if (searchVal?.length) {
       let matches = historyItems.filter((item) => {
-        return(
+        return (
           String(JSON.parse(item.extra).title).toLowerCase().indexOf(String(searchVal).toLowerCase()) !== -1 ||
           String(JSON.parse(item.extra).subject).toLowerCase().indexOf(String(searchVal).toLowerCase()) !== -1 ||
           String(JSON.parse(item.extra).player).toLowerCase().indexOf(String(searchVal).toLowerCase()) !== -1
-        )
+        );
       });
       let matchById = historyItems.filter((item) => {
-        return(
-          String(JSON.parse(item.extra).uuid).indexOf(searchVal) !== -1 ||
-          item.order_id === searchVal
-    )})
+        return String(JSON.parse(item.extra).uuid).indexOf(searchVal) !== -1 || item.order_id === searchVal;
+      });
       setFilteredItems([...matchById, ...matches]);
     } else {
       setFilteredItems([...historyItems]);
