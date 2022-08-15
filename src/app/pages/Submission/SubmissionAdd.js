@@ -2,10 +2,6 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Col, Form, Row, Button } from 'react-bootstrap';
 
-import ImageUploader from '../../components/Generic/ImageUploader';
-
-import { ReactComponent as ImageUpload } from '../../assets/image-upload-icon.svg';
-
 const AddBeckettItem = (props) => {
   return (
     <Form.Group className='md-5'>
@@ -16,19 +12,18 @@ const AddBeckettItem = (props) => {
 };
 
 const SubmissionAdd = ({ submitAddedItem }) => {
-  const [item, setItem] = useState({});
+  const [type, setType] = useState(1);
+  const [item, setItem] = useState({ type: 1, gradingCompany: 'bgs' });
+
+  console.log(item);
+
   const submitAddItemFormSubmit = (e) => {
     e.preventDefault();
-    if (!item.imageBase64 || !item.imageFormat) {
-      alert('image is empty');
-      return;
+    {
+      Object.keys(item).length > 2 && submitAddedItem(item);
     }
-    if (!item.imageRevBase64 || !item.imageRevFormat) {
-      alert('rev image is empty');
-      return;
-    }
-    submitAddedItem(item);
-    setItem({});
+    setItem({ type: 1, gradingCompany: 'bgs' });
+    setType(1);
     e.target.reset();
   };
   const updateItem = (tempItem) => setItem({ ...item, ...tempItem });
@@ -36,148 +31,184 @@ const SubmissionAdd = ({ submitAddedItem }) => {
   return (
     <div className='w-100'>
       <div className='submission_heading'>Add Items to Vault</div>
-      <Row className='submission_image-upload'>
-        <div className='submission_image-upload-overlay'>
-          <div className='submission_image-upload-content'>
-            <ImageUpload />
-            <div className='submission_image-upload-text'>
-              <span className='submission_image-upload-text-highlight'>Click to upload front image</span>
-            </div>
-            <div className='submission_image-upload-text-small'>SVG, PNG, JPG or GIF (max. 800x400px)</div>
-          </div>
-        </div>
-        <ImageUploader
-          onFileChange={(obj) => {
-            if (obj) {
-              updateItem(obj);
-            } else {
-              updateItem({
-                imageFormat: null,
-                imageBase64: null,
-              });
-            }
-          }}
-        />
-      </Row>
-      <Row className='submission_image-upload'>
-        <div className='submission_image-upload-overlay'>
-          <div className='submission_image-upload-content'>
-            <ImageUpload />
-            <div className='submission_image-upload-text'>
-              <span className='submission_image-upload-text-highlight'>Click to upload back image</span>
-            </div>
-            <div className='submission_image-upload-text-small'>SVG, PNG, JPG or GIF (max. 800x400px)</div>
-          </div>
-        </div>
-        <ImageUploader
-          onFileChange={(obj) => {
-            if (obj) {
-              updateItem({
-                previewRevUrl: obj.previewUrl,
-                imageRevFormat: obj.imageFormat,
-                imageRevBase64: obj.imageBase64,
-              });
-            } else {
-              updateItem({
-                imageRevFormat: null,
-                imageRevBase64: null,
-              });
-            }
-          }}
-        />
-      </Row>
       <Form onSubmit={submitAddItemFormSubmit} className='submission_form'>
         <Row className='submission_form-section'>
           <Col xs={12}>
             <Row>
-              <Col sm={12} lg={12}>
+              <Col sm={12} lg={6}>
                 <Form.Group>
-                  <Form.Label>Title</Form.Label>
-                  <Form.Control type='text' onChange={(e) => updateItem({ title: e.target.value })} />
+                  <Form.Label>Type</Form.Label>
+                  <Form.Select
+                    onChange={(e) => {
+                      console.log(e.target.value - 0);
+                      setItem({});
+                      setType(e.target.value - 0);
+                      updateItem({ type: e.target.value - 0 });
+                    }}
+                  >
+                    <option value='1'>Trading Card</option>
+                    <option value='2'>Comic</option>
+                  </Form.Select>
                 </Form.Group>
               </Col>
             </Row>
-            <Row>
-              <Col sm={12} lg={6}>
-                <Form.Group>
-                  <Form.Label>Subject</Form.Label>
-                  <Form.Control type='text' onChange={(e) => updateItem({ subject: e.target.value })} />
-                </Form.Group>
-              </Col>
-              <Col sm={12} lg={6}>
-                <Form.Group>
-                  <Form.Label>Genre</Form.Label>
-                  <Form.Control type='text' onChange={(e) => updateItem({ genre: e.target.value })} />
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row>
-              <Col sm={12}>
-                <Form.Group>
-                  <Form.Label>Description</Form.Label>
-                  <Form.Control as='textarea' onChange={(e) => updateItem({ description: e.target.value })} />
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row>
-              <Col sm={12} lg={6}>
-                <Form.Group>
-                  <Form.Label>Overall grade</Form.Label>
-                  <Form.Control type='text' onChange={(e) => updateItem({ overallGrade: e.target.value })} />
-                </Form.Group>
-              </Col>
-              <Col sm={12} lg={6}>
-                <Form.Group>
-                  <Form.Label>Sub grades</Form.Label>
-                  <Form.Control type='text' onChange={(e) => updateItem({ subGrades: e.target.value })} />
-                </Form.Group>
-              </Col>
-              <Col sm={12} lg={6}>
-                <Form.Group>
-                  <Form.Label>Manufacturer</Form.Label>
-                  <Form.Control type='text' onChange={(e) => updateItem({ manufacturer: e.target.value })} />
-                </Form.Group>
-              </Col>
-              <Col sm={12} lg={6}>
-                <Form.Group>
-                  <Form.Label>Grading Company</Form.Label>
-                  <Form.Control type='text' onChange={(e) => updateItem({ gradingCompany: e.target.value })} />
-                </Form.Group>
-              </Col>
-              <Col sm={12} lg={6}>
-                <Form.Group>
-                  <Form.Label>Serial Number</Form.Label>
-                  <Form.Control type='text' onChange={(e) => updateItem({ serialNumber: e.target.value })} />
-                </Form.Group>
-              </Col>
-              <Col sm={12} lg={6}>
-                <Form.Group>
-                  <Form.Label>Year</Form.Label>
-                  <Form.Control
-                    type='number'
-                    min={1900}
-                    max={2050}
-                    onChange={(e) => updateItem({ year: Number(e.target.value) })}
-                  />
-                </Form.Group>
-              </Col>
-              <Col sm={12} lg={6}>
-                <Form.Group>
-                  <Form.Label>Estimated value</Form.Label>
-                  <Form.Control
-                    type='number'
-                    min={1}
-                    onChange={(e) => updateItem({ estimatedValue: Number(e.target.value) })}
-                  />
-                </Form.Group>
-              </Col>
-              <Col sm={12} lg={6}>
-                <Form.Group>
-                  <Form.Label>Auto graph</Form.Label>
-                  <Form.Control type='text' onChange={(e) => updateItem({ autoGraph: e.target.value })} />
-                </Form.Group>
-              </Col>
-            </Row>
+            {type === 1 ? (
+              <>
+                <Row>
+                  <Col sm={12} lg={6}>
+                    <Form.Group>
+                      <Form.Label>Year</Form.Label>
+                      <Form.Control
+                        type='number'
+                        min={1900}
+                        max={2050}
+                        onChange={(e) => updateItem({ year: Number(e.target.value) })}
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col sm={12} lg={6}>
+                    <Form.Group>
+                      <Form.Label>Player</Form.Label>
+                      <Form.Control type='text' onChange={(e) => updateItem({ player: e.target.value })} />
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col sm={12} lg={6}>
+                    <Form.Group>
+                      <Form.Label>Sport</Form.Label>
+                      <Form.Control type='text' onChange={(e) => updateItem({ sport: e.target.value })} />
+                    </Form.Group>
+                  </Col>
+                  <Col sm={12} lg={6}>
+                    <Form.Group>
+                      <Form.Label>Set name</Form.Label>
+                      <Form.Control type='text' onChange={(e) => updateItem({ setName: e.target.value })} />
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col sm={12} lg={6}>
+                    <Form.Group>
+                      <Form.Label>Card number</Form.Label>
+                      <Form.Control type='text' onChange={(e) => updateItem({ cardNumber: e.target.value })} />
+                    </Form.Group>
+                  </Col>
+                  <Col sm={12} lg={6}>
+                    <Form.Group>
+                      <Form.Label>Grading company</Form.Label>
+                      <Form.Select
+                        onChange={(e) => {
+                          updateItem({ gradingCompany: e.target.value });
+                        }}
+                      >
+                        <option value='bgs'>BGS</option>
+                        <option value='psa'>PSA</option>
+                        <option value='sgc'>SGC</option>
+                        <option value='other'>Other</option>
+                      </Form.Select>
+                    </Form.Group>
+                  </Col>
+                  <Col sm={12} lg={6}>
+                    <Form.Group>
+                      <Form.Label>Grade</Form.Label>
+                      <Form.Control type='text' onChange={(e) => updateItem({ grade: e.target.value })} />
+                    </Form.Group>
+                  </Col>
+                  <Col sm={12} lg={6}>
+                    <Form.Group>
+                      <Form.Label>Serial number</Form.Label>
+                      <Form.Control type='text' onChange={(e) => updateItem({ serialNumber: e.target.value })} />
+                    </Form.Group>
+                  </Col>
+                  <Col sm={12} lg={6}>
+                    <Form.Group>
+                      <Form.Label>Declared value</Form.Label>
+                      <Form.Control
+                        type='number'
+                        min={1}
+                        onChange={(e) => updateItem({ estimatedValue: Number(e.target.value) })}
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
+              </>
+            ) : (
+              <>
+                <Row>
+                  <Col sm={12} lg={6}>
+                    <Form.Group>
+                      <Form.Label>Year</Form.Label>
+                      <Form.Control
+                        type='number'
+                        min={1900}
+                        max={2050}
+                        onChange={(e) => updateItem({ year: Number(e.target.value) })}
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col sm={12} lg={6}>
+                    <Form.Group>
+                      <Form.Label>Title</Form.Label>
+                      <Form.Control type='text' onChange={(e) => updateItem({ title: e.target.value })} />
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col sm={12} lg={6}>
+                    <Form.Group>
+                      <Form.Label>Issue #</Form.Label>
+                      <Form.Control type='text' onChange={(e) => updateItem({ issue: e.target.value })} />
+                    </Form.Group>
+                  </Col>
+                  <Col sm={12} lg={6}>
+                    <Form.Group>
+                      <Form.Label>Publisher</Form.Label>
+                      <Form.Control type='text' onChange={(e) => updateItem({ publisher: e.target.value })} />
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col sm={12} lg={6}>
+                    <Form.Group>
+                      <Form.Label>Grading company</Form.Label>
+                      <Form.Select
+                        onChange={(e) => {
+                          updateItem({ gradingCompany: e.target.value });
+                        }}
+                      >
+                        <option value='bgs'>BGS</option>
+                        <option value='psa'>PSA</option>
+                        <option value='sgc'>SGC</option>
+                        <option value='other'>Other</option>
+                      </Form.Select>
+                    </Form.Group>
+                  </Col>
+                  <Col sm={12} lg={6}>
+                    <Form.Group>
+                      <Form.Label>Grade</Form.Label>
+                      <Form.Control type='text' onChange={(e) => updateItem({ grade: e.target.value })} />
+                    </Form.Group>
+                  </Col>
+                  <Col sm={12} lg={6}>
+                    <Form.Group>
+                      <Form.Label>Serial number</Form.Label>
+                      <Form.Control type='text' onChange={(e) => updateItem({ serialNumber: e.target.value })} />
+                    </Form.Group>
+                  </Col>
+                  <Col sm={12} lg={6}>
+                    <Form.Group>
+                      <Form.Label>Declared value</Form.Label>
+                      <Form.Control
+                        type='number'
+                        min={1}
+                        onChange={(e) => updateItem({ estimatedValue: Number(e.target.value) })}
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
+              </>
+            )}
           </Col>
         </Row>
         <div className='submission_divider'></div>

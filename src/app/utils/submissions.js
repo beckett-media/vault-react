@@ -1,4 +1,11 @@
 const defaultSub = {
+  type: 1,
+  card_number: '',
+  player: '',
+  sport: '',
+  set_name: '',
+  issue: '',
+  publisher: '',
   grading_company: '',
   serial_number: '',
   title: '',
@@ -17,8 +24,17 @@ const defaultSub = {
   image_rev_format: 'img/png',
 };
 
-export const formatSubmissionItem = (item) => {
+export const formatSubmissionItem = (item, uuid) => {
   return {
+    uuid,
+    order_uuid: uuid,
+    type: item.type || defaultSub.type,
+    player: item.player || defaultSub.player,
+    sport: item.sport || defaultSub.sport,
+    issue: item.issue || defaultSub.issue,
+    card_number: item.cardNumber || defaultSub.card_number,
+    publisher: item.publisher || defaultSub.publisher,
+    set_name: item.setname || defaultSub.set_name,
     grading_company: item.gradingCompany || defaultSub.grading_company,
     serial_number: item.serialNumber || defaultSub.serial_number,
     title: item.title || defaultSub.title,
@@ -31,10 +47,23 @@ export const formatSubmissionItem = (item) => {
     autograph: item.autoGraph || defaultSub.autograph,
     subject: item.subject || defaultSub.subject,
     est_value: item.estimatedValue || defaultSub.est_value,
-    image_base64: item.imageBase64.split(`data:${item.imageFormat};base64,`)[1] || defaultSub.image_base64,
+    image_base64: item.imageBase64?.split(`data:${item.imageFormat};base64,`)[1] || defaultSub.image_base64,
     image_format: item.imageFormat || defaultSub.image_format,
     image_rev_base64:
-      item.imageRevBase64.split(`data:${item.imageRevFormat};base64,`)[1] || defaultSub.image_rev_base64,
+      item.imageRevBase64?.split(`data:${item.imageRevFormat};base64,`)[1] || defaultSub.image_rev_base64,
     image_rev_format: item.imageRevFormat || defaultSub.image_rev_format,
   };
+};
+
+export const extractUpdatedParts = (src, dst) => {
+  const keys = Object.keys(src);
+  const result = {};
+
+  for (const key of keys) {
+    if (src[key] !== dst[key]) {
+      result[key] = dst[key];
+    }
+  }
+
+  return result;
 };

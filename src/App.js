@@ -7,10 +7,13 @@ import Support from './app/components/Generic/Support';
 import Terms from './app/components/Generic/Terms';
 import SignUp from './app/pages/SignIn/SignUp';
 import SignIn from './app/pages/SignIn/SignIn';
+import OrderDetails from './app/pages/OrderDetails/OrderDetails';
+import OrderPrint from './app/pages/OrderDetails/OrderPrint';
 import AdminPage from './app/pages/Admin/AdminPage';
 import AdminSubmissionPage from './app/pages/Admin/SubmissionPage';
 import AdminVaultingPage from './app/pages/Admin/VaultingPage';
 import AdminCreateVaultingPage from './app/pages/Admin/CreateVaultingPage';
+import AdminEditSubmissionPage from './app/pages/Admin/EditSubmissionPage';
 import Submission from './app/pages/Submission/Submission';
 import MyCollection from './app/pages/MyCollection/MyCollection';
 import Item from './app/pages/Item/Item';
@@ -51,6 +54,9 @@ function App() {
               <Routes>
                 <Route exact path='/' element={<PrivateRoute />}>
                   <Route path='/submission' element={<Submission />} />
+                  <Route path='/order-details' element={<OrderDetails />}>
+                    <Route path='/order-details/:orderId' element={<OrderPrint />} />
+                  </Route>
                   {/* <Route path='/about' element={<Homepage />} /> */}
                   <Route path='/my-collection' element={<MyCollection />} />
                   <Route path='/my-collection/item/:id' element={<Item />} />
@@ -67,7 +73,8 @@ function App() {
                 </Route>
                 <Route path='/admin' element={<AdminRoute />}>
                   <Route exact path='' element={<AdminPage />} />
-                  <Route exact path='submission/:submissionId' element={<AdminCreateVaultingPage />} />
+                  <Route exact path='submission/edit/:submissionId' element={<AdminEditSubmissionPage />} />
+                  <Route exact path='submission/vaulting/:submissionId' element={<AdminCreateVaultingPage />} />
                   <Route exact path='submission' element={<AdminSubmissionPage />} />
                   <Route exact path='vaulting' element={<AdminVaultingPage />} />
                 </Route>

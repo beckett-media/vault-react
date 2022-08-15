@@ -204,11 +204,7 @@ const SignIn = () => {
             </>
           )}
           {!(authContext.authStatus === AuthStatus.SetPassword) && (
-            <div
-              onClick={signInClicked}
-              className='signin_button'
-              isLoading={authContext.authStatus === AuthStatus.Loading}
-            >
+            <div onClick={signInClicked} className='signin_button'>
               Continue
             </div>
           )}
