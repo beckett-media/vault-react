@@ -56,7 +56,7 @@ function AdminCreateVaultingPage() {
       user: submission.user,
       submission_id: submission.id,
       image_base64: image.imageBase64,
-      image_format: image.imageFormat,
+      image_format: image.imageFormat.split('/')[1] || 'png',
     })
       .then((res) => {
         alert('Vaulting created');
