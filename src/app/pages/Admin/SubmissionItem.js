@@ -20,6 +20,8 @@ function SubmissionItem({ onApprove, onReject, onConfimReceipt, item }) {
       <Row className='mt-4 mb-2'>
         <ItemCard item={item} shouldLink={false} belongsToUser={false} />
         <p>
+          Submission ID: <b>{item.id}</b><br/>
+          Order ID: <b>{item.order_id}</b><br/>
           Status: <b>{item.status_desc}</b>
         </p>
       </Row>
