@@ -90,10 +90,6 @@ const Submission = () => {
                   </div>
                 ) : (
                   <>
-                    <div className='submission_container'>
-                      <SubmissionAdd submitAddedItem={submitAddedItem} />
-                    </div>
-
                     {items.length !== 0 && (
                       <>
                         <div className='submission_container mt-4'>
@@ -103,13 +99,20 @@ const Submission = () => {
                           {items.map((item, index) => (
                             <div key={`submission_${index}`} className='submission-item_component'>
                               <div className='submission-item_layout'>
-                                <div className='ellipses_wrapper'>
+                                <div className='ellipses_wrapper submission-item_item'>
                                   <div className='ellipses_child'>{item.year}</div>
                                 </div>
-                                <div className='ellipses_wrapper'>
-                                  <div className='ellipses_child'>{item.player || item.title}</div>
+                                <div className='ellipses_wrapper submission-item_item'>
+                                  <div className='ellipses_child'>{item.setName || item.title}</div>
+                                </div>
+                                <div className='ellipses_wrapper submission-item_item'>
+                                  <div className='ellipses_child'>{item.player || item.issue}</div>
+                                </div>
+                                <div className='ellipses_wrapper submission-item_item'>
+                                  <div className='ellipses_child'>{item.cardNumber || item.publisher}</div>
                                 </div>
                                 <Button
+                                  className='ms-auto'
                                   onClick={() => {
                                     setItems(items.filter((item, i) => i !== index));
                                   }}
@@ -120,6 +123,15 @@ const Submission = () => {
                             </div>
                           ))}
                         </div>
+                      </>
+                    )}
+
+                    <div className='submission_container my-4'>
+                      <SubmissionAdd submitAddedItem={submitAddedItem} />
+                    </div>
+
+                    {items.length !== 0 && (
+                      <>
                         <Row className='m-2'>
                           <Col xs={3}>
                             <Button onClick={() => setShowModal(true)}>Submit</Button>
