@@ -5,6 +5,8 @@ import { NewPasswordField } from '../../components/NewPasswordField/NewPasswordF
 import { ReactComponent as SigninBg } from '../../assets/bg-sphere--large.svg';
 import { Button, FormControl, Input } from '@chakra-ui/react';
 import { defaultNewUser, requiredNewUserProperties } from '../../services/user';
+import { hasRequiredProperties } from '../../utils/objects';
+import { submitNewUser } from '../../services/user';
 import './SignIn.scss';
 
 const SignUp = () => {
