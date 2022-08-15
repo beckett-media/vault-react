@@ -1,9 +1,9 @@
 import React from 'react';
-import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './Footer.scss';
 
-const Footer = () => {
+const Footer = ({setShowFooterModal}) => {
   return (
     <footer className='footer_component'>
       <div className='page-padding'>
@@ -27,17 +27,11 @@ const Footer = () => {
                   </Link>
                 </OverlayTrigger>
               </div>
-              <div className='footer_link-wrapper'>
-                <OverlayTrigger
-                  delay={{ hide: 450, show: 300 }}
-                  overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
-                  placement='top'
-                >
+              <div className='footer_link-wrapper' onClick={()=> setShowFooterModal('privacy')}>
                   {/* to='/privacy' */}
-                  <Link to='#'>
+                  <div className='footer_link-div'>
                     <div className='footer_link'>Privacy Policy</div>
-                  </Link>
-                </OverlayTrigger>
+                  </div>
               </div>
               <div className='footer_link-wrapper'>
                 <OverlayTrigger

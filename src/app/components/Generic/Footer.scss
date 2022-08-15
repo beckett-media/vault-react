@@ -47,6 +47,10 @@
   &link {
     white-space: nowrap;
   }
+  &link-div:hover{
+    cursor: pointer;
+    color: #439DA0;
+  }
 
   &end {
     justify-self: end;
