@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TopNav from './app/components/Generic/TopNav';
 import Footer from './app/components/Generic/Footer';
 import Faq from './app/components/Generic/Faq';
@@ -31,6 +31,7 @@ import CartProvider from './app/contexts/cart';
 // import ComingSoon from './app/components/Generic/ComingSoon';
 import InterestForm from './app/pages/InterestForm/InterestForm';
 import ComingSoon from './app/pages/ComingSoon/ComingSoon';
+import FooterModal from './app/components/FooterModal/FooterModal';
 
 // chakra uses a default theme, this will remove it.
 const emptyChakraTheme = extendTheme({
@@ -44,6 +45,8 @@ const emptyChakraTheme = extendTheme({
   },
 });
 function App() {
+  const [showFooterModal, setShowFooterModal] = useState('')
+  const dismissModal = () => setShowFooterModal('')
   return (
     <>
       <AuthProvider>
@@ -90,7 +93,8 @@ function App() {
                 <Route path='/*' element={<Navigate to='/' replace={true} />} />
               </Routes>
             </main>
-            <Footer />
+            <Footer setShowFooterModal={setShowFooterModal}/>
+            <FooterModal showFooterModal={showFooterModal} openModal={showFooterModal.length} dismissModal={dismissModal}/>
           </ChakraProvider>
         </CartProvider>
       </AuthProvider>

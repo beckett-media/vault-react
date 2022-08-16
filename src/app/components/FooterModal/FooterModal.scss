@@ -1,0 +1,77 @@
+h2 {
+  color: teal
+}
+h4 {
+  color: teal;
+  font-weight: bold;
+  font-size: 12px;
+}
+hr {
+  border-top: solid teal 1px;
+  background: teal;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+
+.modal-body {
+  height: 80vh;
+  overflow-y: scroll;
+}
+
+.u-list_ {
+  &0 {
+    color: black;
+    list-style-type: disc;
+    margin-left: 1em;
+  }
+  &1 {
+    color: black;
+    list-style-type: circle;
+    margin-left: 2em;
+  }
+}
+
+.paragraph {
+  color: black;
+}
+
+.o-list_ {
+  margin-left: 4em;
+  &0 {
+    color: black;
+    text-indent: -4em;
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+  &1 {
+    text-indent: -4em;
+    margin-bottom: 8px;
+    color: black;
+    font-weight: bold;
+  }
+  &2 {
+    text-indent: -2em;
+    margin: 0 0 1em 1em;
+    color: black;
+  }
+  &p {
+    margin-left: -4em;
+    margin-bottom: 8px;
+    color: black;
+  }
+  &b {
+    margin-left: -1em;
+    margin-bottom: 5px;
+    text-indent: -1.75em;
+    color: black;
+  }
+  &h {
+    margin-left: -4rem;
+    margin-bottom: 5px;
+    color: black;
+    font-weight: bold;
+  }
+}
