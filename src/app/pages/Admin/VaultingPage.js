@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { fetchItems, withdrawItem } from '../../services/items';
 import VaultingItem from './VaultingItem';
+import { getInventory, postInventory, updateInventory } from '../../services/inventory';
 
 const VaultingPage = () => {
   const [items, setItems] = useState([]);
+
   useEffect(() => {
     const fetch = () => {
       fetchItems().then((data) => {
@@ -14,6 +16,7 @@ const VaultingPage = () => {
 
     fetch();
   }, []);
+
 
   const handleWithdrawClick = (id) => {
     withdrawItem(id)
