@@ -41,8 +41,6 @@ export const PasswordField = React.forwardRef((props, ref) => {
           />
         </InputRightElement>
         <Input
-          borderRadius='2'
-          borderColor='#C5C5C5'
           h={12}
           placeholder='Password*'
           id='password'

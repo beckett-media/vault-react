@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import * as yup from 'yup';
-import { Button, FormControl, Checkbox, Input, Text } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
+import { Button, FormControl, Checkbox, Input } from '@chakra-ui/react';
 
 import './SignIn.scss';
 
@@ -128,7 +128,8 @@ const SignIn = () => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = React.useState('');
   const [error, setError] = useState('');
-
+  const { msg } = useLocation();
+  const [message, setMessage] = useState(msg);
   const isValid = !emailIsValid || email.length === 0 || !passwordIsValid || password.length === 0;
 
   const navigate = useNavigate();
@@ -136,6 +137,7 @@ const SignIn = () => {
   const authContext = useContext(AuthContext);
 
   const signInClicked = async () => {
+    setMessage('');
     try {
       await authContext.signInWithEmail(email, password);
     } catch (err) {
@@ -169,36 +171,14 @@ const SignIn = () => {
   return (
     <div className='page-wrapper vh-100'>
       <section className='section_signin'>
+        {message && <div className='signin_message'>{message}</div>}
         <SigninBg className='signin_bg'></SigninBg>
         <div className='signin_modal'>
           <div className='signin_heading'>Login</div>
-          <div className='signin_sub-heading'>{`Don't have an account?`}</div>
-          <Button
-            className='signin_link'
-            variant='link'
-            colorScheme='blue'
-            fontWeight='400'
-            fontSize='14px'
-            textDecoration='underline'
-            marginBottom='32px'
-            _focus={{ boxShadow: 'none' }}
-            onClick={() => {
-              window.open('https://www.beckettvault.com/');
-            }}
-          >
-            Join the early access
-          </Button>
-          {error && (
-            <Text color='red.500' fontSize='sm'>
-              {error}
-            </Text>
-          )}
           {!(authContext.authStatus === AuthStatus.SetPassword) && (
             <>
               <FormControl>
                 <Input
-                  borderRadius='2'
-                  borderColor='#C5C5C5'
                   id='email'
                   type='email'
                   placeholder='Email Address*'
@@ -249,7 +229,6 @@ const SignIn = () => {
           <Button
             className='signin_link'
             variant='link'
-            textDecoration='underline'
             color='#BDBDBD'
             fontWeight='400'
             fontSize='14px'
@@ -260,6 +239,11 @@ const SignIn = () => {
           >
             Forgot Password
           </Button>
+          <div>
+            <Link to='/signup' className='signin_link'>
+              Sign Up
+            </Link>
+          </div>
         </div>
       </section>
     </div>

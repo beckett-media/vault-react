@@ -118,6 +118,14 @@ const AuthProvider = ({ children }) => {
     }
   }
 
+  async function signUpUser(username, password, preferred_username, email, phone_number, given_name, family_name) {
+    try {
+      await cognito.signUpUser(username, password, preferred_username, email, phone_number, given_name, family_name);
+    } catch (err) {
+      throw err;
+    }
+  }
+
   function signOut() {
     cognito.signOut();
     setAuthStatus(AuthStatus.SignedOut);
@@ -195,6 +203,7 @@ const AuthProvider = ({ children }) => {
     attrInfo,
     isSignedIn: authStatus === AuthStatus.SignedIn,
     isAdmin: (adminGroups || []).includes('admin'),
+    signUpUser,
     signUpWithEmail,
     signInWithEmail,
     signOut,
