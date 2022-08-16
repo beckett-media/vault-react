@@ -1,6 +1,5 @@
 import React from 'react';
 import { CloseButton, Modal } from 'react-bootstrap';
-import { act } from 'react-dom/test-utils';
 import { privacyPolicy } from '../../assets/static-content/privacy-policy';
 import './FooterModal.scss';
 
@@ -18,28 +17,26 @@ const FooterModal = ({ showFooterModal, openModal, dismissModal }) => {
           {sectionTitles.map((section, i) => {
             const sectionType = sectionContent[i].type;
             return (
-              <div>
+              <div key={section}>
                 <h4>{section}</h4>
                 <hr/>
                 <br/>
                 {sectionType == 'p' &&
-                  sectionContent[i].content.map((content) => {
-                    return <span className='paragraph'>{content}</span>;
+                  sectionContent[i].content.map((content, j) => {
+                    return <span key={section + String(j) + String(i)} className='paragraph'>{content}</span>;
                   })}
                 {sectionType == 'ul' && (
                   <ul>
                     {sectionContent[i].content.map((content, j) => {
-                      console.log(content);
-                      return <li className={`u-list_${content.level}`}>{content.text}</li>;
+                      return <li key={section + String(j) + String(i)} className={`u-list_${content.level}`}>{content.text}</li>;
                     })}
                   </ul>
                 )}
                 {sectionType == 'ol' && (
                   <div className='o-list_'>
                     {sectionContent[i].content.map((content, j) => {
-                      console.log(content.level);
                       return (
-                        <div className={`o-list_${content.level}`}>
+                        <div key={section + String(j) + String(i)} className={`o-list_${content.level}`}>
                           {content.label === 'bullet' && <>&bull; &emsp;</>} 
                           {content.label !== (undefined || 'bullet' )&& <>{content.label} &ensp;</>}
                           {content.text}
