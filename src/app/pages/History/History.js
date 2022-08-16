@@ -27,9 +27,11 @@ const History = () => {
   const userState = mapCognitoToUser(authContext.attrInfo);
   useEffect(() => {
     getHistory(userState.sub).then((res) => {
-      setHistoryItems(res.data);
-      setSortedItems(res.data);
-      setFilteredItems(res.data);
+      if(res.status === 200){
+        setHistoryItems(res.data);
+        setSortedItems(res.data);
+        setFilteredItems(res.data);
+      }
     });
     getSubmissions({ user: userState.sub }).then((res) => {
       setSubmissions(res);
@@ -44,14 +46,14 @@ const History = () => {
 
   useEffect(() => {
     if (searchVal?.length) {
-      let matches = historyItems.filter((item) => {
+      let matches = historyItems?.filter((item) => {
         return (
           String(JSON.parse(item.extra).title).toLowerCase().indexOf(String(searchVal).toLowerCase()) !== -1 ||
           String(JSON.parse(item.extra).subject).toLowerCase().indexOf(String(searchVal).toLowerCase()) !== -1 ||
           String(JSON.parse(item.extra).player).toLowerCase().indexOf(String(searchVal).toLowerCase()) !== -1
         );
       });
-      let matchById = historyItems.filter((item) => {
+      let matchById = historyItems?.filter((item) => {
         return String(JSON.parse(item.extra).uuid).indexOf(searchVal) !== -1 || item.order_id === searchVal;
       });
       setFilteredItems([...matchById, ...matches]);
@@ -70,9 +72,9 @@ const History = () => {
 
   useEffect(() => {
     if (sortBy === DATE) {
-      setSortedItems([...filteredItems.sort(sortByAttribute('created_at', 'asc'))]);
+      filteredItems?.length && setSortedItems([...filteredItems.sort(sortByAttribute('created_at', 'asc'))]);
     } else if (sortBy === DATE_REVERSE) {
-      setSortedItems([...filteredItems.sort(sortByAttribute('created_at', 'desc'))]);
+      filteredItems?.length && setSortedItems([...filteredItems.sort(sortByAttribute('created_at', 'desc'))]);
     }
   }, [sortBy, filteredItems]);
 
@@ -109,7 +111,8 @@ const History = () => {
         </Col>
         <Col xs={1} />
       </Row>
-      <ItemsHistory sortedItems={sortedItems} listings={listings} submissions={submissions} vaulting={vaulting} />
+      {sortedItems?.length !== 0 && <ItemsHistory sortedItems={sortedItems} listings={listings} submissions={submissions} vaulting={vaulting} />}
+      {sortedItems?.length === 0 && <div>No items in History</div>}
     </Container>
   );
 };
