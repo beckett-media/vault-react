@@ -2,30 +2,25 @@ import React, { useState } from 'react';
 import { Col, Form, Row, Button } from 'react-bootstrap';
 import { Navigate, useParams } from 'react-router-dom';
 import { getSingleSubmission } from '../../services/submission';
-import ImageUploader from '../../components/Generic/ImageUploader';
 import './CreateVaultingPage.scss';
 import { updateSubmission } from '../../services/submission';
-import { ReactComponent as ImageUpload } from '../../assets/image-upload-icon.svg';
 import { extractUpdatedParts } from '../../utils/submissions';
-import { urlToFile } from '../../utils/image';
 
 function AdminEditSubmissionPage() {
   const { submissionId } = useParams();
   const [submission, setSubmission] = React.useState({});
   const [item, setItem] = useState({});
-  const [initialFile, setInitialFile] = useState();
-  const [initialRevFile, setInitialRevFile] = useState();
   const isValidId = submissionId && !isNaN(Number(submissionId));
 
   React.useEffect(() => {
     const fetch = () => {
       getSingleSubmission(submissionId)
         .then(async (data) => {
+          data.image_path = data.image_url;
+          data.image_rev_path = data.image_rev_url;
+
           setSubmission(data);
           setItem(data);
-
-          // setInitialFile(await urlToFile(data.image_url));
-          // setInitialRevFile(await urlToFile(data.image_rev_url));
         })
         .catch((err) => {
           alert(err.message);
@@ -45,16 +40,6 @@ function AdminEditSubmissionPage() {
     e.preventDefault();
 
     const payload = extractUpdatedParts(submission, item);
-
-    if (item.imageBase64) {
-      payload.image_base64 = item.imageBase64;
-      payload.image_format = item.imageFormat;
-    }
-
-    if (item.imageRevBase64) {
-      payload.image_rev_base64 = item.imageRevBase64;
-      payload.image_rev_format = item.imageRevFormat;
-    }
 
     payload.type = submission.type;
 
@@ -81,54 +66,6 @@ function AdminEditSubmissionPage() {
           <h1>{submission.id}</h1>
           <p>{`Item Id: ${submission.item_id}, User: ${submission.user}`}</p>
         </Col>
-      </Row>
-      <Row className='submission_image-upload'>
-        <div className='submission_image-upload-content'>
-          {submission.image_url && !item.imageBase64 ? (
-            <img src={submission.image_url} width={40} height={80} alt='current front' />
-          ) : null}
-        </div>
-        <ImageUploader
-          initialFiles={initialFile ? [initialFile] : undefined}
-          heading='Click to upload front image'
-          subHeading='SVG, PNG, JPG or GIF (max. 800x400px)'
-          onFileChange={(obj) => {
-            if (obj) {
-              updateItem(obj);
-            } else {
-              updateItem({
-                imageFormat: null,
-                imageBase64: null,
-              });
-            }
-          }}
-        />
-      </Row>
-      <Row className='submission_image-upload'>
-        <div className='submission_image-upload-content'>
-          {submission.image_rev_url && !item.imageRevBase64 ? (
-            <img src={submission.image_rev_url} width={40} height={80} alt='current front' />
-          ) : null}
-        </div>
-        <ImageUploader
-          heading='Click to upload back image'
-          subHeading='SVG, PNG, JPG or GIF (max. 800x400px)'
-          initialFiles={initialRevFile ? [initialRevFile] : undefined}
-          onFileChange={(obj) => {
-            if (obj) {
-              updateItem({
-                previewRevUrl: obj.previewUrl,
-                imageRevFormat: obj.imageFormat,
-                imageRevBase64: obj.imageBase64,
-              });
-            } else {
-              updateItem({
-                imageRevFormat: null,
-                imageRevBase64: null,
-              });
-            }
-          }}
-        />
       </Row>
       <Form onSubmit={updateItemFormSubmit} className='submission_form'>
         <Row className='submission_form-section'>
@@ -260,6 +197,26 @@ function AdminEditSubmissionPage() {
                     type='text'
                     onChange={(e) => updateItem({ autograph: e.target.value })}
                     value={item.autograph}
+                  />
+                </Form.Group>
+              </Col>
+              <Col sm={12} lg={6}>
+                <Form.Group>
+                  <Form.Label>Front image URL</Form.Label>
+                  <Form.Control
+                    type='text'
+                    onChange={(e) => updateItem({ image_path: e.target.value })}
+                    value={item.image_path}
+                  />
+                </Form.Group>
+              </Col>
+              <Col sm={12} lg={6}>
+                <Form.Group>
+                  <Form.Label>Back image URL</Form.Label>
+                  <Form.Control
+                    type='text'
+                    onChange={(e) => updateItem({ image_rev_path: e.target.value })}
+                    value={item.image_rev_path}
                   />
                 </Form.Group>
               </Col>
