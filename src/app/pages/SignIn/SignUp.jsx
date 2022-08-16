@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PasswordField } from '../../components/PasswordField/PasswordField';
 import { NewPasswordField } from '../../components/NewPasswordField/NewPasswordField';
@@ -8,29 +8,50 @@ import { defaultNewUser, requiredNewUserProperties } from '../../services/user';
 import { hasRequiredProperties } from '../../utils/objects';
 import { submitNewUser } from '../../services/user';
 import './SignIn.scss';
+import { AuthContext } from '../../contexts/auth';
+import { validPhone } from '../../utils/validationRegex';
 
 const SignUp = () => {
+  const authContext = useContext(AuthContext)
   const [newUser, setNewUser] = useState(defaultNewUser);
   const [confirmPassword, setConfirmPassword] = React.useState('');
   const [error, setError] = React.useState(undefined);
   const navigate = useNavigate();
-  const submitSignUpForm = async () => {
+
+  const formatPhoneNumber = (phone) => {
+    if(phone.slice(0,2) !== '+1'){
+      if(validPhone.test(phone)){
+        return '+1' + phone
+      }
+    }
+    else if(!validPhone.test(newUser.phone.slice(2))){
+      setError({message: 'Invalid phone number format.'})
+    }
+    else return phone
+  }
+  
+  const submitSignUpForm = () => {
+    const phone = formatPhoneNumber(newUser.phone)
     setError('');
     if (newUser.password != confirmPassword) {
       setError('Passwords must match');
     } else if (!hasRequiredProperties(newUser, requiredNewUserProperties)) {
       setError('all Fields are required');
     } else {
-      submitNewUser(newUser)
-        .then(navigate('/signin', { msg: 'Check your email to verify your account, then login' }))
-        .catch((err) => setError(err));
+      submitNewUser({...newUser, phone: phone}, authContext)
+        .then((res) => {
+          console.log('what is it?',res?.user?.username)
+          if(res?.user?.username){ 
+            navigate('/signin', { msg: 'Check your email to verify your account, then login' })
+          }
+          else setError(res)
+        })
     }
   };
-
   return (
     <div className='page-wrapper vh-100'>
       <section className='section_signin section_signup'>
-        {error && <div className='signin_error'>{error}</div>}
+        {error && <div className='signin_error'>{error.message}</div>}
         <SigninBg className='signin_bg'></SigninBg>
         <div className='signin_modal'>
           <div className='signin_heading'>Sign Up</div>
