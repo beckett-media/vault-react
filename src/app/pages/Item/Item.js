@@ -5,14 +5,13 @@ import PreviewGallery from '../../components/PreviewGallery/PreviewGallery';
 import ProductInfo from '../../components/ProductInfo/ProductInfo';
 import SuggestedPurchases from '../../components/SuggestedPurchases/SuggestedPurchases';
 
-import { getItem } from '../../services/items';
+import { getItem, getSingleVaulting } from '../../services/items';
 import { AuthContext } from '../../contexts/auth';
 import { mapCognitoToUser } from '../../services/user';
 import { useCartContext } from '../../contexts/cart';
 import { getMarketItems } from '../../services/items';
 
 import './Item.scss';
-import { getSingleSubmission } from '../../services/submission';
 import { getImageAssetUrl } from '../../utils/image';
 
 const Item = () => {
@@ -31,7 +30,7 @@ const Item = () => {
 
   useEffect(() => {
     // TODO: throw an error / redirect if we can't find the item?
-    getSingleSubmission(id).then((data) => setItem(data));
+    getSingleVaulting(id).then((data) => setItem(data));
   }, [id]);
   const navigate = useNavigate();
 
