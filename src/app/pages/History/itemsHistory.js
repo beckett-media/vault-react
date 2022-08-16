@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import SubmitButton from '../../components/Generic/SubmitButton';
-import { getFormattedDate } from '../../utils/objects';
+import { getFormattedDate } from '../../utils/date';
 import './History.scss';
 
 const ItemsHistory = ({ sortedItems, listings, submissions, vaulting }) => {
