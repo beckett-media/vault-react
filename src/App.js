@@ -48,6 +48,7 @@ const emptyChakraTheme = extendTheme({
 function App() {
   const [showFooterModal, setShowFooterModal] = useState('')
   const openModal = showFooterModal.length !== 0 ? true : false;
+  const dismissModal = () => setShowFooterModal('')
   return (
     <>
       <AuthProvider>
@@ -95,7 +96,7 @@ function App() {
               </Routes>
             </main>
             <Footer setShowFooterModal={setShowFooterModal}/>
-            <FooterModal showFooterModal={showFooterModal} openModal={openModal}/>
+            <FooterModal showFooterModal={showFooterModal} openModal={openModal} dismissModal={dismissModal}/>
           </ChakraProvider>
         </CartProvider>
       </AuthProvider>
