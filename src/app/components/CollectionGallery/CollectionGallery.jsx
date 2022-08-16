@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ButtonGroup, Pagination, ToggleButton } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { BsGrid3X2GapFill, BsList, BsCheck } from 'react-icons/bs';
 
 import './CollectionGallery.scss';
@@ -14,6 +15,7 @@ import { useMultiSelect } from '../../hooks/useMultiSelect';
 import { usePagination } from '../../hooks/usePagination';
 import { DATE, DATE_REVERSE, EST_VALUE, EST_VALUE_REVERSE, SUBJECT, SUBJECT_REVERSE } from '../../const/FiltersEnums';
 import { ASC, DESC, sortByAttribute } from '../../utils/sort';
+import { ReactComponent as EmptyCard } from '../../assets/beckett-card-placeholder.svg';
 
 const CollectionGallery = ({ data }) => {
   //  SEARCH & FILTRATION
@@ -88,63 +90,84 @@ const CollectionGallery = ({ data }) => {
         <div className='page-padding'>
           <div className='container-large'>
             <div className='collection-gallery_heading'>My Collection</div>
-            <div
-              className={`collection-gallery_layout ${
-                isListVisible ? 'collection-gallery_layout-list' : 'collection-gallery_layout-grid'
-              }`}
-            >
-              {isListVisible && (
-                <div className='collection_list-item-layout my-2'>
-                  <div></div>
-                  <div>Item</div>
-                  <div>Details</div>
-                  <div>Grade</div>
-                  <div>Price</div>
-                </div>
-              )}
-              {(searchVal ? sortedItems : updatePage(sortedItems, activePage))?.map((item, index) => (
-                <div key={'collection-gallery_' + index}>
-                  {isListVisible && <ListItem item={item} />}
-                  {!isListVisible && (
-                    <div
-                      className={`collection-gallery_card-wrapper ${
-                        isSelected(item.id) && 'collection-gallery_card-selected'
-                      }`}
-                      key={'collection-gallery_' + index}
-                    >
-                      <div className='collection-gallery_card-overlay'></div>
+            {data.length > 0 && (
+              <div
+                className={`collection-gallery_layout ${
+                  isListVisible ? 'collection-gallery_layout-list' : 'collection-gallery_layout-grid'
+                }`}
+              >
+                {isListVisible && (
+                  <div className='collection_list-item-layout my-2'>
+                    <div></div>
+                    <div>Item</div>
+                    <div>Details</div>
+                    <div>Grade</div>
+                    <div>Price</div>
+                  </div>
+                )}
+                {(searchVal ? sortedItems : updatePage(sortedItems, activePage))?.map((item, index) => (
+                  <div key={'collection-gallery_' + index}>
+                    {isListVisible && <ListItem item={item} />}
+                    {!isListVisible && (
                       <div
-                        className={`collection-gallery_overlay-button ${
-                          isSelected(item.id) && 'collection-gallery_overlay-button-selected'
+                        className={`collection-gallery_card-wrapper ${
+                          isSelected(item.id) && 'collection-gallery_card-selected'
                         }`}
+                        key={'collection-gallery_' + index}
                       >
-                        <BsCheck size={40} />
-                        <ToggleButton
-                          className='collection-gallery_overlay-toggle'
-                          id={`toggled-${item.id}`}
-                          type='checkbox'
-                          variant='outline-primary'
-                          checked={isSelected(item.id)}
-                          value='1'
-                          onChange={(e) => handleItemSelection(e.currentTarget.checked, item.id)}
-                        />
+                        <div className='collection-gallery_card-overlay'></div>
+                        <div
+                          className={`collection-gallery_overlay-button ${
+                            isSelected(item.id) && 'collection-gallery_overlay-button-selected'
+                          }`}
+                        >
+                          <BsCheck size={40} />
+                          <ToggleButton
+                            className='collection-gallery_overlay-toggle'
+                            id={`toggled-${item.id}`}
+                            type='checkbox'
+                            variant='outline-primary'
+                            checked={isSelected(item.id)}
+                            value='1'
+                            onChange={(e) => handleItemSelection(e.currentTarget.checked, item.id)}
+                          />
+                        </div>
+                        <ItemCard item={item} belongsToUser={true} />
                       </div>
-                      <ItemCard item={item} belongsToUser={true} />
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
-        <div className='collection_pagination'>
-          <Pagination>
-            <Pagination.Prev />
-            {paginationItems}
-            <Pagination.Next />
-          </Pagination>
-        </div>
+        {data.length > 0 && (
+          <div className='collection_pagination'>
+            <Pagination>
+              <Pagination.Prev />
+              {paginationItems}
+              <Pagination.Next />
+            </Pagination>
+          </div>
+        )}
+
+        {data.length === 0 && (
+          <div className='page-padding mt-4'>
+            <div className='container-large'>
+              <div className='collection-gallery_empty'>
+                <EmptyCard />
+                <div className='collection-gallery_empty-content my-2'>
+                  <div className='collection-gallery_empty-heading'>Looks like your collection is empty!</div>
+                  <div className='collection-gallery_empty-body'>Add an item to get started:</div>
+                </div>
+                <Link to='/submission'>
+                  <div className='nav_button'>Add Item</div>
+                </Link>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

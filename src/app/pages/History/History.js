@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import { itemsHistory } from './itemsHistory';
+import ItemsHistory from './itemsHistory';
 import './History.scss';
 import { getHistory } from '../../services/history';
 import Filter from '../../components/Generic/Filter';
@@ -25,7 +25,6 @@ const History = () => {
   const [vaulting, setVaulting] = useState([]);
   const authContext = useContext(AuthContext);
   const userState = mapCognitoToUser(authContext.attrInfo);
-
   useEffect(() => {
     getHistory(userState.sub).then((res) => {
       setHistoryItems(res.data);
@@ -44,42 +43,22 @@ const History = () => {
   }, []);
 
   useEffect(() => {
-    let matches = [];
     if (searchVal?.length) {
-      let allItems = [...submissions, ...listings, ...vaulting];
-      matches = allItems.filter((item) => item.title.toLowerCase().search(String(searchVal).toLowerCase()) > 0);
-      let items = matches.map((item) => item.id);
-      let matchById = historyItems.filter((item) => String(item.id) === searchVal);
-      let results = [];
-      if (matchById.length) {
-        results = [...matchById];
-      } else {
-        results = [...historyItems.filter((item) => items.includes(Number(item.entity)))];
-      }
-      setFilteredItems([...results]);
+      let matches = historyItems.filter((item) => {
+        return (
+          String(JSON.parse(item.extra).title).toLowerCase().indexOf(String(searchVal).toLowerCase()) !== -1 ||
+          String(JSON.parse(item.extra).subject).toLowerCase().indexOf(String(searchVal).toLowerCase()) !== -1 ||
+          String(JSON.parse(item.extra).player).toLowerCase().indexOf(String(searchVal).toLowerCase()) !== -1
+        );
+      });
+      let matchById = historyItems.filter((item) => {
+        return String(JSON.parse(item.extra).uuid).indexOf(searchVal) !== -1 || item.order_id === searchVal;
+      });
+      setFilteredItems([...matchById, ...matches]);
     } else {
       setFilteredItems([...historyItems]);
     }
   }, [searchVal]);
-
-  useEffect(() => {
-    const selectedArr = selected.split('-');
-    if (selectedArr?.[0] === String(historyItemDetails?.id)) {
-      setHistoryItemDetails({ ...historyItemDetails });
-    } else {
-      switch (selectedArr[1]?.toLowerCase()) {
-        case 'listing':
-          setHistoryItemDetails(listings.filter((listing) => String(listing.id) === selectedArr[0])[0]);
-          break;
-        case 'submission':
-          setHistoryItemDetails(submissions.filter((submission) => String(submission.id) === selectedArr[0])[0]);
-          break;
-        case 'vaulting':
-          setHistoryItemDetails(vaulting.filter((vaulting) => String(vaulting.id) === selectedArr[0])[0]);
-          break;
-      }
-    }
-  }, [selected]);
 
   useEffect(() => {
     if (filterBy === ALL) {
@@ -108,10 +87,6 @@ const History = () => {
     { value: LISTING, title: 'Market' },
   ];
 
-  let items = selected.length
-    ? [...itemsHistory({ sortedItems, selected, setSelected, historyItemDetails })]
-    : [...itemsHistory({ sortedItems, selected, setSelected, historyItemDetails: [{}] })];
-
   return (
     <Container className='py-2 sub-box'>
       <h2 className='fs-3 pb-3'>History</h2>
@@ -126,15 +101,15 @@ const History = () => {
         filterOptions={filterOptions}
       />
       <Row>
-        <Col xs={8}>
+        <Col xs={9}>
           <h3 className='fs-4'>Title</h3>
         </Col>
         <Col xs={3}>
-          <h3 className='fs-4'>Date Created</h3>
+          <h3 className='fs-4'>Date</h3>
         </Col>
         <Col xs={1} />
       </Row>
-      <>{items}</>
+      <ItemsHistory sortedItems={sortedItems} listings={listings} submissions={submissions} vaulting={vaulting} />
     </Container>
   );
 };

@@ -497,14 +497,8 @@ export const getVaulting = async ({ user, status, offset, limit, order } = {}) =
 
 export const getSingleVaulting = (id) => {
   return axiosClient
-    .get(`/marketplace/vaulting/${id}`, {
-      headers: {
-        Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
-      },
-    })
-    .then((res) => {
-      res.data;
-    });
+    .get(`/marketplace/vaulting/${id}`)
+    .then((res) => res.data);
 };
 
 export const fetchItemBySubmission = (submissionId) => {
