@@ -51,7 +51,7 @@ const Item = () => {
   const imageRevUrl = getImageAssetUrl(item.image_rev_url);
 
   return (
-    Object.keys(item).length && (
+    Object.keys(item).length > 0 ? (
       <div className='page-wrapper'>
         <div className='section_item-details'>
           <div className='page-padding'>
@@ -93,7 +93,7 @@ const Item = () => {
           </div>
         )} */}
       </div>
-    )
+    ) : null
   );
 };
 
