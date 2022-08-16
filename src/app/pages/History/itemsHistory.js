@@ -61,7 +61,6 @@ const ItemsHistory = ({ sortedItems, listings, submissions, vaulting }) => {
     <>
       {Object.keys(groups)?.map((group) => {
         const isSelected = group === selected;
-        console.log(groups[group][0]?.created_at)
         return (
           <>
             <Row className='py-3 px-5 border' onClick={(e) => rowClicked(e.target.className, group)}>
