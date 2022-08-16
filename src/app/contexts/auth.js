@@ -120,7 +120,7 @@ const AuthProvider = ({ children }) => {
 
   async function signUpUser(username, password, preferred_username, email, phone_number, given_name, family_name) {
     try {
-      await cognito.signUpUser(username, password, preferred_username, email, phone_number, given_name, family_name);
+      return await cognito.signUpUser(username, password, preferred_username, email, phone_number, given_name, family_name);
     } catch (err) {
       throw err;
     }
