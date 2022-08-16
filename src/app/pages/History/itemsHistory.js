@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import SubmitButton from '../../components/Generic/SubmitButton';
+import { getFormattedDate } from '../../utils/objects';
 import './History.scss';
 
 const ItemsHistory = ({ sortedItems, listings, submissions, vaulting }) => {
@@ -60,6 +61,7 @@ const ItemsHistory = ({ sortedItems, listings, submissions, vaulting }) => {
     <>
       {Object.keys(groups)?.map((group) => {
         const isSelected = group === selected;
+        console.log(groups[group][0]?.created_at)
         return (
           <>
             <Row className='py-3 px-5 border' onClick={(e) => rowClicked(e.target.className, group)}>
@@ -71,7 +73,7 @@ const ItemsHistory = ({ sortedItems, listings, submissions, vaulting }) => {
                 <Button onClick={() => printDetails(group)}>Print</Button>
               </Col>
               <Col xs={2}>
-                <div>{new Date(groups[group][0]?.created_at).toLocaleDateString()}</div>
+                <div>{getFormattedDate(groups[group][0]?.created_at)}</div>
               </Col>
               {isSelected ? (
                 <Col xs={1} className='right-align px-4'>

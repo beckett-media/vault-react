@@ -10,3 +10,5 @@ export const hasRequiredProperties = (obj, requiredProperties) => {
     return obj[key] === '' || obj[key] === undefined || obj[key] === null;
   });
 };
+
+export const getFormattedDate = (s) => new Date(s*1000).toLocaleDateString()
