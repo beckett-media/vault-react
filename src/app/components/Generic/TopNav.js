@@ -59,7 +59,7 @@ const TopNav = () => {
             <div className='nav_end-wrapper'>
               {authContext.isSignedIn ? (
                 <Link to='/submission'>
-                  <div className='nav_button'>Add Item</div>
+                  <div className='nav_button'>Submit an Item</div>
                 </Link>
               ) : (
                 <>
@@ -131,7 +131,7 @@ const TopNav = () => {
                   </NavLink>
                   <Link to='/submission'>
                     <div className='nav_button' onClick={() => toggleCheckbox(false)}>
-                      Add Item
+                      Submit an Item
                     </div>
                   </Link>
                   <NavLink

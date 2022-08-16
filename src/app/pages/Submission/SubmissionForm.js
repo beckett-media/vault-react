@@ -41,7 +41,7 @@ const SubmissionForm = ({ onAdd, removeItem, items }) => {
   return (
     <Container>
       <Row className='justify-content-md-center'>
-        <div>{items.length ? 'Items to Vault' : 'Add Items to Vault'}</div>
+        <div>{items.length ? 'Items to Vault' : 'Submit Items to Vault'}</div>
       </Row>
       <Form>
         {displayItems}

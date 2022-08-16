@@ -30,7 +30,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
 
   return (
     <div className='w-100'>
-      <div className='submission_heading'>Add Items to Vault</div>
+      <div className='submission_heading'>Submit Items to Vault</div>
       <Form onSubmit={submitAddItemFormSubmit} className='submission_form'>
         <Row className='submission_form-section'>
           <Col xs={12}>

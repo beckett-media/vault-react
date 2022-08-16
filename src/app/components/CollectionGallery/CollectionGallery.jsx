@@ -162,7 +162,7 @@ const CollectionGallery = ({ data }) => {
                   <div className='collection-gallery_empty-body'>Add an item to get started:</div>
                 </div>
                 <Link to='/submission'>
-                  <div className='nav_button'>Add Item</div>
+                  <div className='nav_button'>Submit an Item</div>
                 </Link>
               </div>
             </div>
