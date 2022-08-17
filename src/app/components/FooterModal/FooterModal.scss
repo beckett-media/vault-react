@@ -16,7 +16,7 @@ a {
   text-decoration: underline;
 }
 
-.modal-body {
+.footer-modal-body {
   height: 80vh;
   overflow-y: scroll;
 }
@@ -74,4 +74,14 @@ a {
     color: black;
     font-weight: bold;
   }
+}
+.bold {
+  font-weight: bold;
+}
+.underline {
+  text-decoration: underline;
+}
+
+.italic {
+  font-style: italic;
 }
