@@ -53,8 +53,6 @@ export const RedirectHome = () => {
     return <Loading />;
   }
 
-  // If authorized, return an outlet that will render child elements
-  // If not, return element that will navigate to login page
   return isAdmin ? <Navigate to='/admin' replace={true} /> : <Navigate to='/my-collection' replace={true} />;
 };
 
