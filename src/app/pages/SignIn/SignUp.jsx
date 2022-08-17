@@ -18,7 +18,8 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   const formatPhoneNumber = (phone) => {
-    if(phone.slice(0,2) !== '+1'){
+    const phoneHasPrefix = phone.slice(0,2) === '+1'
+    if(!phoneHasPrefix){
       if(validPhone.test(phone)){
         return '+1' + phone
       }
@@ -39,7 +40,6 @@ const SignUp = () => {
     } else {
       submitNewUser({...newUser, phone: phone}, authContext)
         .then((res) => {
-          console.log('what is it?',res?.user?.username)
           if(res?.user?.username){ 
             navigate('/signin', { msg: 'Check your email to verify your account, then login' })
           }
