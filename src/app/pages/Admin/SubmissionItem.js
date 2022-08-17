@@ -38,7 +38,11 @@ function SubmissionItem({ onApprove, onReject, onConfimReceipt, item }) {
         <SubmitButton func={() => onReject()} title='Reject' bg='danger' disabled={!shouldEnableRejectButton} />
         &nbsp;
         <SubmitButton func={() => navigate(`/admin/submission/edit/${item.id}`)} title='Edit' bg='link' />
-        <SubmitButton func={() => navigate(`/admin/submission/vaulting/${item.id}`)} title='Vaulting' bg='link' />
+        {
+          item.status !== SUBMISSION_STATUS.Vaulted ? (
+            <SubmitButton func={() => navigate(`/admin/submission/vaulting/${item.id}`)} title='Vaulting' bg='link' />
+          ) : null
+        }
       </div>
     </div>
   );
