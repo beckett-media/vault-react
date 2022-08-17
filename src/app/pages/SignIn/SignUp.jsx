@@ -1,12 +1,12 @@
+
 import React, { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { PasswordField } from '../../components/PasswordField/PasswordField';
-import { NewPasswordField } from '../../components/NewPasswordField/NewPasswordField';
-import { ReactComponent as SigninBg } from '../../assets/bg-sphere--large.svg';
 import { Button, FormControl, Input } from '@chakra-ui/react';
-import { defaultNewUser, requiredNewUserProperties } from '../../services/user';
+import { useNavigate } from 'react-router-dom';
+import { ReactComponent as SigninBg } from '../../assets/bg-sphere--large.svg';
+import { NewPasswordField } from '../../components/NewPasswordField/NewPasswordField';
+import { PasswordField } from '../../components/PasswordField/PasswordField';
+import { defaultNewUser, requiredNewUserProperties, submitNewUser } from '../../services/user';
 import { hasRequiredProperties } from '../../utils/objects';
-import { submitNewUser } from '../../services/user';
 import './SignIn.scss';
 import { AuthContext } from '../../contexts/auth';
 import { validPhone } from '../../utils/validationRegex';
@@ -55,7 +55,7 @@ const SignUp = () => {
             <Input
               id='email'
               type='email'
-              placeholder='Email Address*'
+              placeholder='Email *'
               h={12}
               value={newUser.email}
               onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
@@ -63,7 +63,7 @@ const SignUp = () => {
             <Input
               id='userName'
               type='userName'
-              placeholder='UserName*'
+              placeholder='Username *'
               h={12}
               value={newUser.userName}
               onChange={(e) => setNewUser({ ...newUser, userName: e.target.value })}
@@ -71,7 +71,7 @@ const SignUp = () => {
             <Input
               id='phone'
               type='phone'
-              placeholder='phone*'
+              placeholder='Phone number *'
               h={12}
               value={newUser.phone}
               onChange={(e) => setNewUser({ ...newUser, phone: e.target.value })}
@@ -79,7 +79,7 @@ const SignUp = () => {
             <Input
               id='firstName'
               type='firstName'
-              placeholder='firstName*'
+              placeholder='First name *'
               h={12}
               value={newUser.firstName}
               onChange={(e) => setNewUser({ ...newUser, firstName: e.target.value })}
@@ -87,7 +87,7 @@ const SignUp = () => {
             <Input
               id='lastName'
               type='lastName'
-              placeholder='lastName*'
+              placeholder='Last name *'
               h={12}
               value={newUser.lastName}
               onChange={(e) => setNewUser({ ...newUser, lastName: e.target.value })}
