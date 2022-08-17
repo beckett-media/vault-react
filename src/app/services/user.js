@@ -77,5 +77,4 @@ export const submitNewUser = async (newUser, authContext) => {
       newUser.lastName,
     )
     .then((res) => res)
-    .catch((err) => err);
 };
