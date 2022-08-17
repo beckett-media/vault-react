@@ -1,61 +1,114 @@
-import React from 'react';
-import { Col, Row } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Button, Col, Row } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
+import SubmitButton from '../../components/Generic/SubmitButton';
+import { getFormattedDate } from '../../utils/date';
 import './History.scss';
 
-export const itemsHistory = ({ sortedItems, selected, setSelected, historyItemDetails }) => {
-  const toggleIsSelected = (entity, entity_type_desc) =>
-    selected.split('-')[0] === entity ? setSelected('') : setSelected(`${entity}-${entity_type_desc}`);
-  const mapHistoryComponents = (items) =>
-    items?.map((item) => {
-      const isSelected = historyItemDetails.id === Number(item.entity);
-      return (
-        <div key={item.id} id={item.id} onClick={() => toggleIsSelected(item.entity, item.entity_type_desc)}>
-          <Row className='py-3 border'>
-            <Col xs={8} className='fw-bold'>
-              <div>
-                {item.type_desc} - {item.id}
-              </div>
-            </Col>
-            <Col xs={3}>
-              <div>{new Date(item.created_at).toLocaleDateString()}</div>
-            </Col>
-            {isSelected ? (
-              <Col xs={1} className='right-align px-4'>
-                &and;
-              </Col>
-            ) : (
-              <Col xs={1} className='right-align px-4'>
-                &or;
-              </Col>
-            )}
-          </Row>
-          {isSelected && (
-            <Row className='py-3 px-5 border'>
-              <Col lg={2}>
-                <div>
-                  {'Status: '}
-                  <br />
-                  <span className='fw-bold'>{historyItemDetails.status_desc}</span>
-                </div>
-              </Col>
-              <Col lg={2}>
-                <div>
-                  {`${item.entity_type_desc} ID: `}
-                  <br />
-                  <span className='fw-bold'>{historyItemDetails.id}</span>
-                </div>
-              </Col>
-              <Col lg={8}>
-                <div>
-                  {'Item: '}
-                  <br />
-                  <span className='fw-bold'>{historyItemDetails.title}</span>
-                </div>
-              </Col>
-            </Row>
-          )}
-        </div>
-      );
+const ItemsHistory = ({ sortedItems, listings, submissions, vaulting }) => {
+  const [selected, setSelected] = useState('');
+  const [groups, setGroups] = useState({});
+  const navigate = useNavigate();
+  useEffect(() => {
+    const groupings = {};
+    sortedItems?.map((item) => {
+      const extra = JSON.parse(item.extra);
+      if (Object.keys(groupings).includes(extra.uuid)) {
+        groupings[`${extra.uuid}`].push({ ...item, ...extra });
+      } else if (extra.uuid !== undefined && extra.uuid !== '') {
+        groupings[`${extra.uuid}`] = [{ ...item, ...extra }];
+      }
     });
-  return sortedItems && mapHistoryComponents(sortedItems);
+    setGroups(groupings);
+  }, [sortedItems]);
+
+  useEffect(() => {
+    const items = submissions.filter(
+      (submission) => selected && groups[selected].map((select) => select.entity).includes(String(submission.item_id)),
+    );
+    const updatedArr = [];
+    selected &&
+      groups[selected].map((item, i) =>
+        items.map((a) =>
+          item.entity === String(a.item_id)
+            ? updatedArr.push({ ...item, status_desc: a.status_desc, order_id: a.order_id })
+            : console.log('Not Found'),
+        ),
+      );
+    setGroups({ ...groups, [selected]: updatedArr });
+  }, [selected]);
+  const rowClicked = (identifier, item) => {
+    if (identifier.indexOf('btn') === -1) {
+      !selected.length || selected !== item ? setSelected(item) : setSelected('');
+    }
+  };
+  const printDetails = (group) => {
+    let order_id;
+    if (groups[group][0].order_id === undefined) {
+      const items = submissions.filter((submission) =>
+        groups[group].map((select) => select.entity).includes(String(submission.item_id)),
+      );
+      items.map((a) => {
+        if (groups[group][0].entity === String(a.item_id)) {
+          order_id = a.order_id;
+        }
+      });
+    }
+    else order_id = groups[group][0].order_id
+    navigate(`/order-details/${order_id}`);
+  };
+  return (
+    <>
+      {Object.keys(groups)?.map((group) => {
+        const isSelected = group === selected;
+        return (
+          <>
+            <Row className='py-3 px-5 border' onClick={(e) => rowClicked(e.target.className, group)}>
+              <Col xs={8}>
+                <div>{`${groups[group][0]?.type_desc}:`}</div>
+                <div className='fw-bold'>{group}</div>
+              </Col>
+              <Col xs={1}>
+                <Button onClick={() => printDetails(group)}>Print</Button>
+              </Col>
+              <Col xs={2}>
+                <div>{getFormattedDate(groups[group][0]?.created_at)}</div>
+              </Col>
+              {isSelected ? (
+                <Col xs={1} className='right-align px-4'>
+                  &and;
+                </Col>
+              ) : (
+                <Col xs={1} className='right-align px-4'>
+                  &or;
+                </Col>
+              )}
+            </Row>
+            {isSelected &&
+              groups[group].map((item) => (
+                <Row className='py-3 px-5 border'>
+                  <Col lg={4}>
+                    <div>
+                      {'Status: '}
+                      <br />
+                      <span className='fw-bold'>{item.status_desc}</span>
+                    </div>
+                  </Col>
+                  <Col lg={6}>
+                    <div>
+                      {'Item: '}
+                      <br />
+                      <span className='fw-bold'>
+                        {item.title.length ? item.title : `${item.year} ${item.manufacturer} ${item.player}`}
+                      </span>
+                    </div>
+                  </Col>
+                </Row>
+              ))}
+          </>
+        );
+      })}
+    </>
+  );
 };
+export default ItemsHistory;

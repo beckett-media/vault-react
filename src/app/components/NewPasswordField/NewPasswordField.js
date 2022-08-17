@@ -1,12 +1,9 @@
 import {
-  Button,
   FormControl,
   FormLabel,
-  HStack,
   IconButton,
   Input,
   InputGroup,
-  InputProps,
   InputRightElement,
   useDisclosure,
   useMergeRefs,
@@ -50,7 +47,7 @@ export const NewPasswordField = React.forwardRef((props, ref) => {
           required
           value={props.value}
           onChange={props.onChange}
-          placeholder='Confirm Password*'
+          placeholder='Confirm password *'
           {...props}
         />
       </InputGroup>

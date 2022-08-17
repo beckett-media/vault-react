@@ -91,6 +91,7 @@ main {
     flex-wrap: wrap;
     background-color: #fff;
     font-size: 14px;
+    width: 100%;
     border: 1px solid #c5c5c5;
     box-shadow: 0px 1px 3px rgb(16 24 40 / 10%), 0px 1px 2px rgb(16 24 40 / 6%);
     border-radius: 4px;
@@ -114,10 +115,14 @@ main {
   }
 
   &layout {
-    display: grid;
-    grid-column-gap: 16px;
-    grid-template-columns: 50px 4fr 1fr;
-    justify-content: space-between;
+    display: flex;
+    width: 100%;
+    gap: 6px;
     align-items: center;
+    justify-items: flex-start;
+  }
+
+  &item {
+    width: max-content !important;
   }
 }

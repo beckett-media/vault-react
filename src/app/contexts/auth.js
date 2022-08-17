@@ -46,6 +46,16 @@ export const AdminRoute = () => {
   return isAdmin ? <Outlet /> : <Navigate to='/signin' replace={true} />;
 };
 
+export const RedirectHome = () => {
+  const { isAdmin, authStatus } = useContext(AuthContext);
+
+  if (authStatus === AuthStatus.Loading) {
+    return <Loading />;
+  }
+
+  return isAdmin ? <Navigate to='/admin' replace={true} /> : <Navigate to='/my-collection' replace={true} />;
+};
+
 export const OnlyUnathenticated = () => {
   const { authStatus } = useContext(AuthContext);
   if (authStatus === AuthStatus.Loading) {
