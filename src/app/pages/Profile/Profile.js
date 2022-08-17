@@ -32,9 +32,9 @@ const Profile = () => {
     if (isShippingSame) {
       syncSubmissionAddresses();
     }
-    if(userState.phone){
-      const phone = formatPhoneNumber(userState.phone)
-      return await authContext.setAttributes(mapUserToCognito({...userState, phone: phone}));
+    if (userState.phone) {
+      const phone = formatPhoneNumber(userState.phone);
+      return await authContext.setAttributes(mapUserToCognito({ ...userState, phone: phone }));
     }
     // TODO: on error?
     await authContext.setAttributes(mapUserToCognito(userState));

@@ -12,27 +12,25 @@ import { validPhone } from '../../utils/validationRegex';
 import { formatPhoneNumber } from '../../utils/phone';
 
 const SignUp = () => {
-  const authContext = useContext(AuthContext)
+  const authContext = useContext(AuthContext);
   const [newUser, setNewUser] = useState(defaultNewUser);
   const [confirmPassword, setConfirmPassword] = React.useState('');
   const [error, setError] = React.useState(undefined);
   const navigate = useNavigate();
-  
+
   const submitSignUpForm = () => {
-    const phone = formatPhoneNumber(newUser.phone)
+    const phone = formatPhoneNumber(newUser.phone);
     setError('');
     if (newUser.password != confirmPassword) {
       setError('Passwords must match');
     } else if (!hasRequiredProperties(newUser, requiredNewUserProperties)) {
       setError('all Fields are required');
     } else {
-      submitNewUser({...newUser, phone: phone}, authContext)
-        .then((res) => {
-          if(res?.user?.username){ 
-            navigate('/signin', { msg: 'Check your email to verify your account, then login' })
-          }
-          else setError(res)
-        })
+      submitNewUser({ ...newUser, phone: phone }, authContext).then((res) => {
+        if (res?.user?.username) {
+          navigate('/signin', { msg: 'Check your email to verify your account, then login' });
+        } else setError(res);
+      });
     }
   };
   return (

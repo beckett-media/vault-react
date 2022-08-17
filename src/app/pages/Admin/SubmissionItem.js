@@ -20,8 +20,10 @@ function SubmissionItem({ onApprove, onReject, onConfimReceipt, item }) {
       <Row className='mt-4 mb-2'>
         <ItemCard item={item} shouldLink={false} belongsToUser={false} />
         <p>
-          Submission ID: <b>{item.id}</b><br/>
-          Order ID: <b>{item.order_id}</b><br/>
+          Submission ID: <b>{item.id}</b>
+          <br />
+          Order ID: <b>{item.order_id}</b>
+          <br />
           Status: <b>{item.status_desc}</b>
         </p>
       </Row>
@@ -38,11 +40,9 @@ function SubmissionItem({ onApprove, onReject, onConfimReceipt, item }) {
         <SubmitButton func={() => onReject()} title='Reject' bg='danger' disabled={!shouldEnableRejectButton} />
         &nbsp;
         <SubmitButton func={() => navigate(`/admin/submission/edit/${item.id}`)} title='Edit' bg='link' />
-        {
-          item.status !== SUBMISSION_STATUS.Vaulted ? (
-            <SubmitButton func={() => navigate(`/admin/submission/vaulting/${item.id}`)} title='Vaulting' bg='link' />
-          ) : null
-        }
+        {item.status !== SUBMISSION_STATUS.Vaulted ? (
+          <SubmitButton func={() => navigate(`/admin/submission/vaulting/${item.id}`)} title='Vaulting' bg='link' />
+        ) : null}
       </div>
     </div>
   );

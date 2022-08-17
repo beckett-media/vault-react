@@ -67,7 +67,15 @@ export const getAdminUserGroups = (token) => {
 
 export const submitNewUser = async (newUser, authContext) => {
   return await authContext
-    .signUpUser(newUser.userName, newUser.password, newUser.userName, newUser.email, newUser.phone, newUser.firstName, newUser.lastName)
+    .signUpUser(
+      newUser.userName,
+      newUser.password,
+      newUser.userName,
+      newUser.email,
+      newUser.phone,
+      newUser.firstName,
+      newUser.lastName,
+    )
     .then((res) => res)
     .catch((err) => err);
 };

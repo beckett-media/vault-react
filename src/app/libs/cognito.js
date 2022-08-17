@@ -157,7 +157,7 @@ export async function signInWithEmail(username, password, setPassword) {
     throw err;
   });
 }
-console.log(currentUser)
+console.log(currentUser);
 
 export function signOut() {
   if (currentUser) {
