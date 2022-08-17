@@ -51,9 +51,9 @@
   }
 }
 
-// .flip-card_component:hover .flip-card_inner {
-//   transform: rotateY(180deg);
-// }
+.flip-card_component:hover .flip-card_inner {
+  transform: rotateY(180deg);
+}
 
 .bg-transparent.btn.btn-primary {
   margin-top: 20px;
