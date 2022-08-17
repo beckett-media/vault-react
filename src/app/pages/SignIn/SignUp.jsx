@@ -1,5 +1,5 @@
+import React, { useContext, useState } from 'react';
 import { Button, FormControl, Input } from '@chakra-ui/react';
-import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ReactComponent as SigninBg } from '../../assets/bg-sphere--large.svg';
 import { NewPasswordField } from '../../components/NewPasswordField/NewPasswordField';
@@ -7,29 +7,36 @@ import { PasswordField } from '../../components/PasswordField/PasswordField';
 import { defaultNewUser, requiredNewUserProperties, submitNewUser } from '../../services/user';
 import { hasRequiredProperties } from '../../utils/objects';
 import './SignIn.scss';
+import { AuthContext } from '../../contexts/auth';
+import { validPhone } from '../../utils/validationRegex';
+import { formatPhoneNumber } from '../../utils/phone';
 
 const SignUp = () => {
+  const authContext = useContext(AuthContext);
   const [newUser, setNewUser] = useState(defaultNewUser);
   const [confirmPassword, setConfirmPassword] = React.useState('');
   const [error, setError] = React.useState(undefined);
   const navigate = useNavigate();
-  const submitSignUpForm = async () => {
+
+  const submitSignUpForm = () => {
+    const phone = formatPhoneNumber(newUser.phone);
     setError('');
     if (newUser.password != confirmPassword) {
       setError('Passwords must match');
     } else if (!hasRequiredProperties(newUser, requiredNewUserProperties)) {
       setError('all Fields are required');
     } else {
-      submitNewUser(newUser)
-        .then(navigate('/signin', { msg: 'Check your email to verify your account, then login' }))
-        .catch((err) => setError(err));
+      submitNewUser({ ...newUser, phone: phone }, authContext).then((res) => {
+        if (res?.user?.username) {
+          navigate('/signin', { msg: 'Check your email to verify your account, then login' });
+        } else setError(res);
+      });
     }
   };
-
   return (
     <div className='page-wrapper vh-100'>
       <section className='section_signin section_signup'>
-        {error && <div className='signin_error'>{error}</div>}
+        {error && <div className='signin_error'>{error.message}</div>}
         <SigninBg className='signin_bg'></SigninBg>
         <div className='signin_modal'>
           <div className='signin_heading'>Sign Up</div>

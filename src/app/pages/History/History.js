@@ -27,7 +27,7 @@ const History = () => {
   const userState = mapCognitoToUser(authContext.attrInfo);
   useEffect(() => {
     getHistory(userState.sub).then((res) => {
-      if(res.status === 200){
+      if (res.status === 200) {
         setHistoryItems(res.data);
         setSortedItems(res.data);
         setFilteredItems(res.data);
@@ -111,7 +111,9 @@ const History = () => {
         </Col>
         <Col xs={1} />
       </Row>
-      {sortedItems?.length !== 0 && <ItemsHistory sortedItems={sortedItems} listings={listings} submissions={submissions} vaulting={vaulting} />}
+      {sortedItems?.length !== 0 && (
+        <ItemsHistory sortedItems={sortedItems} listings={listings} submissions={submissions} vaulting={vaulting} />
+      )}
       {sortedItems?.length === 0 && <div>No items in History</div>}
     </Container>
   );

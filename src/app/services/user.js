@@ -1,5 +1,7 @@
 import { axiosClient } from './index';
 import { swapObjectKeyValue } from '../utils/strings';
+import { AuthContext } from '../contexts/auth';
+import { useContext } from 'react';
 
 const nonMutableAttributes = new Set(['sub', 'email_verified']);
 const cognitoToUser = {
@@ -63,9 +65,16 @@ export const getAdminUserGroups = (token) => {
     .then((res) => res.data);
 };
 
-export const submitNewUser = async (newUser) => {
-  await authContext
-    .signUpUser(newUser.userName, newUser.password, newUser.userName, newUser.email, newUser.phone, newUser.firstName, newUser.lastName)
-    .then((res) => console.log(res))
-    .catch((err) => console.log(err));
+export const submitNewUser = async (newUser, authContext) => {
+  return await authContext
+    .signUpUser(
+      newUser.userName,
+      newUser.password,
+      newUser.userName,
+      newUser.email,
+      newUser.phone,
+      newUser.firstName,
+      newUser.lastName,
+    )
+    .then((res) => res)
 };

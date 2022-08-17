@@ -9,7 +9,7 @@ export const getHistory = async (userName) => {
         return res;
       })
       .catch((err) => {
-        return err
+        return err;
       })
   );
 };

@@ -17,13 +17,11 @@ const ItemCard = ({ item, shouldLink = true, belongsToUser }, props) => {
       <div className='item-card_layout'>
         <Link to={link}>
           <div className='item-card_image-wrapper'>
-            {
-              imageUrl ? (
-                <img className='item-card_image' src={imageUrl} alt='' />
-              ) : (
-                <span className='item-card_no_image'>No image</span>
-              )
-            }
+            {imageUrl ? (
+              <img className='item-card_image' src={imageUrl} alt='' />
+            ) : (
+              <span className='item-card_no_image'>No image</span>
+            )}
           </div>
           <div className='item-card_content-wrapper'>
             <div className='item-card_category'>{formatPrice(+price)}</div>

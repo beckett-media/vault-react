@@ -107,7 +107,7 @@ function AdminCreateVaultingPage() {
                     });
                   }
                 }}
-                heading="Please upload an image here"
+                heading='Please upload an image here'
               />
             </Col>
             <Col className='col-md-6 col-sm-12'>
