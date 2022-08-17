@@ -29,7 +29,7 @@ const OrderPrint = () => {
       });
   }, [orderId]);
 
-  const sumObject = (property) => { };
+  const sumObject = (property) => {};
 
   return (
     <div>
@@ -78,8 +78,9 @@ const OrderPrint = () => {
           </div>
           {order.submissions.map((item, index) => (
             <div key={`ordeer-items_${index}`}>
-              ----- <br/>
-              Submission ID: {item.id}<br/>
+              ----- <br />
+              Submission ID: {item.id}
+              <br />
               {item.year} {item.title || item.player}
             </div>
           ))}

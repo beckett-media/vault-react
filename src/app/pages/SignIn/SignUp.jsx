@@ -12,40 +12,36 @@ import { AuthContext } from '../../contexts/auth';
 import { validPhone } from '../../utils/validationRegex';
 
 const SignUp = () => {
-  const authContext = useContext(AuthContext)
+  const authContext = useContext(AuthContext);
   const [newUser, setNewUser] = useState(defaultNewUser);
   const [confirmPassword, setConfirmPassword] = React.useState('');
   const [error, setError] = React.useState(undefined);
   const navigate = useNavigate();
 
   const formatPhoneNumber = (phone) => {
-    if(phone.slice(0,2) !== '+1'){
-      if(validPhone.test(phone)){
-        return '+1' + phone
+    if (phone.slice(0, 2) !== '+1') {
+      if (validPhone.test(phone)) {
+        return '+1' + phone;
       }
-    }
-    else if(!validPhone.test(newUser.phone.slice(2))){
-      setError({message: 'Invalid phone number format.'})
-    }
-    else return phone
-  }
-  
+    } else if (!validPhone.test(newUser.phone.slice(2))) {
+      setError({ message: 'Invalid phone number format.' });
+    } else return phone;
+  };
+
   const submitSignUpForm = () => {
-    const phone = formatPhoneNumber(newUser.phone)
+    const phone = formatPhoneNumber(newUser.phone);
     setError('');
     if (newUser.password != confirmPassword) {
       setError('Passwords must match');
     } else if (!hasRequiredProperties(newUser, requiredNewUserProperties)) {
       setError('all Fields are required');
     } else {
-      submitNewUser({...newUser, phone: phone}, authContext)
-        .then((res) => {
-          console.log('what is it?',res?.user?.username)
-          if(res?.user?.username){ 
-            navigate('/signin', { msg: 'Check your email to verify your account, then login' })
-          }
-          else setError(res)
-        })
+      submitNewUser({ ...newUser, phone: phone }, authContext).then((res) => {
+        console.log('what is it?', res?.user?.username);
+        if (res?.user?.username) {
+          navigate('/signin', { msg: 'Check your email to verify your account, then login' });
+        } else setError(res);
+      });
     }
   };
   return (

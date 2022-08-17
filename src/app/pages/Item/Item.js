@@ -50,37 +50,36 @@ const Item = () => {
   const imageUrl = getImageAssetUrl(item.image_url);
   const imageRevUrl = getImageAssetUrl(item.image_rev_url);
 
-  return (
-    Object.keys(item).length > 0 ? (
-      <div className='page-wrapper'>
-        <div className='section_item-details'>
-          <div className='page-padding'>
-            <div className='container-large'>
-              <div className='item-details_layout'>
-                <div className='item-details_content-wrapper'>
-                  <div className='item-details_image-wrapper'>
-                    <div className='flip-card_component'>
-                      <div className='flip-card_inner'>
-                        <img src={imageUrl} className='flip-card_front' alt={item.title} />
-                        {/* <img src={imageRevUrl} className='flip-card_back' alt={item.title} /> */}
-                      </div>
+  return Object.keys(item).length > 0 ? (
+    <div className='page-wrapper'>
+      <div className='section_item-details'>
+        <div className='page-padding'>
+          <div className='container-large'>
+            <div className='item-details_layout'>
+              <div className='item-details_content-wrapper'>
+                <div className='item-details_image-wrapper'>
+                  <div className='flip-card_component'>
+                    <div className='flip-card_inner'>
+                      <img src={imageUrl} className='flip-card_front' alt={item.title} />
+                      {/* <img src={imageRevUrl} className='flip-card_back' alt={item.title} /> */}
                     </div>
                   </div>
-                  <div className='item-details_divider' />
-                  <div className='item-details_text-wrapper'>
-                    <div className='item-details_heading'>Details</div>
-                    <div className='item-details_description'>{item.description}</div>
-                  </div>
                 </div>
-                <div className='item-details_actions-wrapper'>
-                  <ProductInfo item={item} isOwner={isOwner} addToCart={addToCart} />
-                  {/* <SuggestedPurchases data={relatedItems} isOwner={isOwner} addToCart={addToCart} /> */}
+                <div className='item-details_divider' />
+                <div className='item-details_text-wrapper'>
+                  <div className='item-details_heading'>Details</div>
+                  <div className='item-details_description'>{item.description}</div>
                 </div>
+              </div>
+              <div className='item-details_actions-wrapper'>
+                <ProductInfo item={item} isOwner={isOwner} addToCart={addToCart} />
+                {/* <SuggestedPurchases data={relatedItems} isOwner={isOwner} addToCart={addToCart} /> */}
               </div>
             </div>
           </div>
         </div>
-        {/* {!isOwner && (
+      </div>
+      {/* {!isOwner && (
           <div className='section_item-related'>
             <div className='page-padding'>
               <div className='container-large'>
@@ -92,9 +91,8 @@ const Item = () => {
             </div>
           </div>
         )} */}
-      </div>
-    ) : null
-  );
+    </div>
+  ) : null;
 };
 
 export default Item;

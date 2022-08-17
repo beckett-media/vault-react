@@ -53,8 +53,7 @@ const ItemsHistory = ({ sortedItems, listings, submissions, vaulting }) => {
           order_id = a.order_id;
         }
       });
-    }
-    else order_id = groups[group][0].order_id
+    } else order_id = groups[group][0].order_id;
     navigate(`/order-details/${order_id}`);
   };
   return (
