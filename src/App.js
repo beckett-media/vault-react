@@ -25,7 +25,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import './index.scss';
 import Department from './app/pages/Department/Department';
-import AuthProvider, { PrivateRoute, OnlyUnathenticated, AdminRoute } from './app/contexts/auth';
+import AuthProvider, { PrivateRoute, OnlyUnathenticated, AdminRoute, RedirectHome } from './app/contexts/auth';
 import History from './app/pages/History/History';
 import CartProvider from './app/contexts/cart';
 // import ComingSoon from './app/components/Generic/ComingSoon';
@@ -45,8 +45,8 @@ const emptyChakraTheme = extendTheme({
   },
 });
 function App() {
-  const [showFooterModal, setShowFooterModal] = useState('')
-  const dismissModal = () => setShowFooterModal('')
+  const [showFooterModal, setShowFooterModal] = useState('');
+  const dismissModal = () => setShowFooterModal('');
   return (
     <>
       <AuthProvider>
@@ -72,7 +72,7 @@ function App() {
                   <Route path='/history' element={<History />} />
                   <Route path='/support' element={<Support />} />
                   {/* <Route path='/' element={<Homepage />} /> */}
-                  <Route path='/' element={<Navigate to='/my-collection' />} />
+                  <Route path='/' element={<RedirectHome />} />
                 </Route>
                 <Route path='/admin' element={<AdminRoute />}>
                   <Route exact path='' element={<AdminPage />} />
@@ -93,8 +93,12 @@ function App() {
                 <Route path='/*' element={<Navigate to='/' replace={true} />} />
               </Routes>
             </main>
-            <Footer setShowFooterModal={setShowFooterModal}/>
-            <FooterModal showFooterModal={showFooterModal} openModal={showFooterModal.length} dismissModal={dismissModal}/>
+            <Footer setShowFooterModal={setShowFooterModal} />
+            <FooterModal
+              showFooterModal={showFooterModal}
+              openModal={showFooterModal.length}
+              dismissModal={dismissModal}
+            />
           </ChakraProvider>
         </CartProvider>
       </AuthProvider>
