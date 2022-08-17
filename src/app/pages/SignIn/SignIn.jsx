@@ -9,6 +9,8 @@ import { AuthContext, AuthStatus } from '../../contexts/auth';
 import { PasswordField } from '../../components/PasswordField/PasswordField';
 import { NewPasswordField } from '../../components/NewPasswordField/NewPasswordField';
 import { ReactComponent as SigninBg } from '../../assets/bg-sphere--large.svg';
+import { forgotPassword } from '../../libs/cognito';
+import { Modal } from 'react-bootstrap';
 
 export const useValidEmail = (initialValue) => {
   const [email, setEmail] = useState(initialValue);
@@ -130,6 +132,8 @@ const SignIn = () => {
   const [error, setError] = useState('');
   const { msg } = useLocation();
   const [message, setMessage] = useState(msg);
+  const [forgotPassword, toggleForgotPassword] = useState(false)
+  
   const isValid = !emailIsValid || email.length === 0 || !passwordIsValid || password.length === 0;
 
   const navigate = useNavigate();
@@ -234,11 +238,14 @@ const SignIn = () => {
             fontSize='14px'
             _focus={{ boxShadow: 'none' }}
             onClick={() => {
-              console.log('success!');
+              toggleForgotPassword(true);
             }}
           >
             Forgot Password
           </Button>
+          <Modal show={forgotPassword}>
+            <div></div>
+          </Modal>
           <div>
             <Link to='/signup' className='signin_link'>
               Sign Up
