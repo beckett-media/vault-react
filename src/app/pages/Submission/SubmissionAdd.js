@@ -57,7 +57,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                 <Row>
                   <Col sm={12} lg={6}>
                     <Form.Group>
-                      <Form.Label>Year</Form.Label>
+                      <Form.Label>Year*</Form.Label>
                       <Form.Control
                         type='number'
                         min={1900}
@@ -68,7 +68,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                   </Col>
                   <Col sm={12} lg={6}>
                     <Form.Group>
-                      <Form.Label>Player</Form.Label>
+                      <Form.Label>Player*</Form.Label>
                       <Form.Control type='text' onChange={(e) => updateItem({ player: e.target.value })} />
                     </Form.Group>
                   </Col>
@@ -82,7 +82,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                   </Col>
                   <Col sm={12} lg={6}>
                     <Form.Group>
-                      <Form.Label>Set name</Form.Label>
+                      <Form.Label>Set name*</Form.Label>
                       <Form.Control type='text' onChange={(e) => updateItem({ setName: e.target.value })} />
                     </Form.Group>
                   </Col>
@@ -123,10 +123,10 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                   </Col>
                   <Col sm={12} lg={6}>
                     <Form.Group>
-                      <Form.Label>Declared value</Form.Label>
+                      <Form.Label>Declared value* (must be $750 or greater)</Form.Label>
                       <Form.Control
                         type='number'
-                        min={1}
+                        min={750}
                         onChange={(e) => updateItem({ estimatedValue: Number(e.target.value) })}
                       />
                     </Form.Group>
@@ -138,7 +138,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                 <Row>
                   <Col sm={12} lg={6}>
                     <Form.Group>
-                      <Form.Label>Year</Form.Label>
+                      <Form.Label>Year*</Form.Label>
                       <Form.Control
                         type='number'
                         min={1900}
@@ -149,7 +149,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                   </Col>
                   <Col sm={12} lg={6}>
                     <Form.Group>
-                      <Form.Label>Title</Form.Label>
+                      <Form.Label>Title*</Form.Label>
                       <Form.Control type='text' onChange={(e) => updateItem({ title: e.target.value })} />
                     </Form.Group>
                   </Col>
@@ -163,7 +163,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                   </Col>
                   <Col sm={12} lg={6}>
                     <Form.Group>
-                      <Form.Label>Publisher</Form.Label>
+                      <Form.Label>Publisher*</Form.Label>
                       <Form.Control type='text' onChange={(e) => updateItem({ publisher: e.target.value })} />
                     </Form.Group>
                   </Col>
@@ -198,10 +198,10 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                   </Col>
                   <Col sm={12} lg={6}>
                     <Form.Group>
-                      <Form.Label>Declared value</Form.Label>
+                      <Form.Label>Declared value* (must be $750 or greater)</Form.Label>
                       <Form.Control
                         type='number'
-                        min={1}
+                        min={750}
                         onChange={(e) => updateItem({ estimatedValue: Number(e.target.value) })}
                       />
                     </Form.Group>
