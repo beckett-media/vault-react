@@ -231,6 +231,7 @@ export async function forgotPassword(username, code, password) {
       },
       onFailure: function (err) {
         reject(err);
+        return err
       },
     });
   });
