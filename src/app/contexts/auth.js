@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
 import * as cognito from '../libs/cognito';
+import { updateAxiosClient } from '../services';
 import { getAdminUserGroups } from '../services/user';
 
 export const AuthStatus = {
@@ -91,6 +92,8 @@ const AuthProvider = ({ children }) => {
       window.localStorage.setItem('accessToken', `${session.accessToken.jwtToken}`);
       window.localStorage.setItem('refreshToken', `${session.refreshToken.token}`);
 
+      updateAxiosClient(session.accessToken.jwtToken);
+
       const attr = await getAttributes();
       setAttrInfo(attr);
 
@@ -149,6 +152,9 @@ const AuthProvider = ({ children }) => {
     setAuthStatus(AuthStatus.SignedOut);
     setAdminGroups([]);
     setSessionInfo({});
+    window.localStorage.removeItem('accessToken');
+    window.localStorage.removeItem('refreshToken');
+    updateAxiosClient();
   }
 
   async function verifyCode(username, code) {
