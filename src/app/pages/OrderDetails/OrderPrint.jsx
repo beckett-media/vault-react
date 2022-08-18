@@ -77,11 +77,11 @@ const OrderPrint = () => {
             <b>Card details:</b>
           </div>
           {order.submissions.map((item, index) => (
-            <div key={`ordeer-items_${index}`}>
+            <div key={`order-items_${index}`}>
               ----- <br />
               Submission ID: {item.id}
               <br />
-              {item.title || item.year + item.manufacturer + item.card_number + item.player }
+              {item.title || item.year +' '+ item.manufacturer +' '+ item.card_number +' '+ item.player }
             </div>
           ))}
         </>
