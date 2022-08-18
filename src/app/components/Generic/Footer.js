@@ -15,17 +15,11 @@ const Footer = ({ setShowFooterModal }) => {
               </Link>
             </div>
             <div className='footer_links-wrapper'>
-              <div className='footer_link-wrapper'>
-                <OverlayTrigger
-                  delay={{ hide: 450, show: 300 }}
-                  overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
-                  placement='top'
-                >
-                  {/* to='/terms' */}
-                  <Link to='#'>
-                    <div className='footer_link'>Terms of Service</div>
-                  </Link>
-                </OverlayTrigger>
+              <div className='footer_link-wrapper' onClick={() => setShowFooterModal('terms')}>
+                {/* to='/privacy' */}
+                <div className='footer_link-div'>
+                  <div className='footer_link'>Terms of Service</div>
+                </div>
               </div>
               <div className='footer_link-wrapper' onClick={() => setShowFooterModal('privacy')}>
                 {/* to='/privacy' */}

@@ -1,7 +1,5 @@
-import { axiosClient } from './index';
+ import { axiosClient } from './index';
 import { swapObjectKeyValue } from '../utils/strings';
-import { AuthContext } from '../contexts/auth';
-import { useContext } from 'react';
 
 const nonMutableAttributes = new Set(['sub', 'email_verified']);
 const cognitoToUser = {
