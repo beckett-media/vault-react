@@ -95,7 +95,7 @@ const Submission = () => {
                         <div className='submission_container mt-4'>
                           <div className='submission_heading'>My Items to Submit</div>
                         </div>
-                        <div className='submission_items'>
+                        <div className='submission_items submission_container'>
                           {items.map((item, index) => (
                             <div key={`submission_${index}`} className='submission-item_component'>
                               <div className='submission-item_layout'>
