@@ -93,7 +93,7 @@ const Submission = () => {
                     {items.length !== 0 && (
                       <>
                         <div className='submission_container mt-4'>
-                          <div className='submission_heading'>My items to submit</div>
+                          <div className='submission_heading'>My Items to Submit</div>
                         </div>
                         <div className='submission_items'>
                           {items.map((item, index) => (
@@ -123,15 +123,6 @@ const Submission = () => {
                             </div>
                           ))}
                         </div>
-                      </>
-                    )}
-
-                    <div className='submission_container my-4'>
-                      <SubmissionAdd submitAddedItem={submitAddedItem} />
-                    </div>
-
-                    {items.length !== 0 && (
-                      <>
                         <Row className='m-2'>
                           <Col xs={3}>
                             <Button onClick={() => setShowModal(true)}>Submit</Button>
@@ -139,6 +130,10 @@ const Submission = () => {
                         </Row>
                       </>
                     )}
+
+                    <div className='submission_container my-4'>
+                      <SubmissionAdd submitAddedItem={submitAddedItem} />
+                    </div>
                   </>
                 )}
               </div>
