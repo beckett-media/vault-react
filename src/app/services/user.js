@@ -1,4 +1,4 @@
- import { axiosClient } from './index';
+import { axiosClient } from './index';
 import { swapObjectKeyValue } from '../utils/strings';
 
 const nonMutableAttributes = new Set(['sub', 'email_verified']);
@@ -74,5 +74,5 @@ export const submitNewUser = async (newUser, authContext) => {
       newUser.firstName,
       newUser.lastName,
     )
-    .then((res) => res)
+    .then((res) => res);
 };

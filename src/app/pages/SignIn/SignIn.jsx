@@ -132,10 +132,10 @@ const SignIn = () => {
   const [error, setError] = useState('');
   const { msg } = useLocation();
   const [message, setMessage] = useState(msg);
-  const [showForgotPassword, toggleForgotPassword] = useState(false)
-  const dismissModal = () => toggleForgotPassword(false)
-  const [codeSent, setCodeSent] = useState(false)
-  const [code, setCode] = useState('')
+  const [showForgotPassword, toggleForgotPassword] = useState(false);
+  const dismissModal = () => toggleForgotPassword(false);
+  const [codeSent, setCodeSent] = useState(false);
+  const [code, setCode] = useState('');
 
   const isValid = !emailIsValid || email.length === 0 || !passwordIsValid || password.length === 0;
 
@@ -148,11 +148,10 @@ const SignIn = () => {
     try {
       await authContext.signInWithEmail(email, password);
     } catch (err) {
-      if (err.code === 'NotAuthorizedException'){
-        setError('Verify username/password or check confirmation email')
-      }
-      else if (err.code === 'UserNotConfirmedException') {
-        setError('Check email for verification.')
+      if (err.code === 'NotAuthorizedException') {
+        setError('Verify username/password or check confirmation email');
+      } else if (err.code === 'UserNotConfirmedException') {
+        setError('Check email for verification.');
       } else {
         setError(err.message);
       }
@@ -174,18 +173,20 @@ const SignIn = () => {
   };
 
   const submitForgotPassword = async () => {
-    await forgotPassword(email, code, confirmPassword).then(res => {
-      setMessage('Success!')
-    }).catch(err => {
-      if(err.code === 'ExpiredCodeException'){
-        setError('Expired Validation Code - try again.')
-      } 
-      else if (err.code === 'LimitExceededException' ){
-        setError('Request Limit Exceeded - Try again later')
-      }
-      else {setError('Error occurred.')}
-    })
-  }
+    await forgotPassword(email, code, confirmPassword)
+      .then((res) => {
+        setMessage('Success!');
+      })
+      .catch((err) => {
+        if (err.code === 'ExpiredCodeException') {
+          setError('Expired Validation Code - try again.');
+        } else if (err.code === 'LimitExceededException') {
+          setError('Request Limit Exceeded - Try again later');
+        } else {
+          setError('Error occurred.');
+        }
+      });
+  };
 
   return (
     <div className='page-wrapper vh-100'>
@@ -223,34 +224,37 @@ const SignIn = () => {
               <NewPasswordField value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
             </>
           )}
-          {codeSent &&
-          <>
-            <FormControl>
-              <Input
-                id='email'
-                type='email'
-                placeholder='Email Address*'
-                h={12}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </FormControl>
-            <Input
-                  id='code'
-                  type='code'
-                  placeholder='Code'
+          {codeSent && (
+            <>
+              <FormControl>
+                <Input
+                  id='email'
+                  type='email'
+                  placeholder='Email Address*'
                   h={12}
-                  value={code}
-                  onChange={(e) => setCode(e.target.value)}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
-            <PasswordField value={confirmPassword} placeholder='New Password**' onChange={(e) => setConfirmPassword(e.target.value)} />
-            {error && <div className='signin_error'>{error}</div>}
-            <div onClick={()=>submitForgotPassword()} className='signin_button'>
-              Continue
-            </div>
-          </>
-
-          }
+              </FormControl>
+              <Input
+                id='code'
+                type='code'
+                placeholder='Code'
+                h={12}
+                value={code}
+                onChange={(e) => setCode(e.target.value)}
+              />
+              <PasswordField
+                value={confirmPassword}
+                placeholder='New Password**'
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+              {error && <div className='signin_error'>{error}</div>}
+              <div onClick={() => submitForgotPassword()} className='signin_button'>
+                Continue
+              </div>
+            </>
+          )}
           {!(authContext.authStatus === AuthStatus.SetPassword) && !codeSent && (
             <div onClick={signInClicked} className='signin_button'>
               Continue
@@ -273,21 +277,28 @@ const SignIn = () => {
             >
               Create Password
             </Button>
-          )}{ !codeSent &&
-          <Button
-            className='signin_link'
-            variant='link'
-            color='#BDBDBD'
-            fontWeight='400'
-            fontSize='14px'
-            _focus={{ boxShadow: 'none' }}
-            onClick={() => {
-              toggleForgotPassword(true);
-            }}
-          >
-            Forgot Password
-          </Button>}
-          <ForgotPassword showForgotPWModal={showForgotPassword} dismissModal={dismissModal} codeSent={codeSent} setCodeSent={setCodeSent}/>
+          )}
+          {!codeSent && (
+            <Button
+              className='signin_link'
+              variant='link'
+              color='#BDBDBD'
+              fontWeight='400'
+              fontSize='14px'
+              _focus={{ boxShadow: 'none' }}
+              onClick={() => {
+                toggleForgotPassword(true);
+              }}
+            >
+              Forgot Password
+            </Button>
+          )}
+          <ForgotPassword
+            showForgotPWModal={showForgotPassword}
+            dismissModal={dismissModal}
+            codeSent={codeSent}
+            setCodeSent={setCodeSent}
+          />
           <div>
             <Link to='/signup' className='signin_link'>
               Sign Up
