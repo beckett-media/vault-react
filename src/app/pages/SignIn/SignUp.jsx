@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Button, FormControl, Input } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ReactComponent as SigninBg } from '../../assets/bg-sphere--large.svg';
 import { NewPasswordField } from '../../components/NewPasswordField/NewPasswordField';
 import { PasswordField } from '../../components/PasswordField/PasswordField';
@@ -36,7 +36,6 @@ const SignUp = () => {
   return (
     <div className='page-wrapper vh-100'>
       <section className='section_signin section_signup'>
-        {error && <div className='signin_error'>{error.message}</div>}
         <SigninBg className='signin_bg'></SigninBg>
         <div className='signin_modal'>
           <div className='signin_heading'>Sign Up</div>
@@ -103,6 +102,11 @@ const SignUp = () => {
           >
             Sign Up!
           </Button>
+          <div>
+            <Link to='/signin' className='signin_link'>
+              Back to Login
+            </Link>
+          </div>
         </div>
       </section>
     </div>

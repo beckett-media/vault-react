@@ -55,6 +55,7 @@
     font-family: 'Alliance', sans-serif;
     line-height: 120%;
     margin-bottom: 12px;
+    color: black;
   }
 
   &sub-heading {
@@ -100,4 +101,10 @@
   .confirm_password_label {
     display: none;
   }
+}
+.forgot-pw-modal-body {
+  color: black;
+}
+.code-sent {
+  color: black;
 }
