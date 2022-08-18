@@ -230,7 +230,6 @@ export async function forgotPassword(username, code, password) {
         resolve('password updated');
       },
       onFailure: function (err) {
-        console.log(err)
         reject(err);
         return err
       },

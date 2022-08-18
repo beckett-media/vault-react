@@ -148,7 +148,6 @@ const SignIn = () => {
     try {
       await authContext.signInWithEmail(email, password);
     } catch (err) {
-      console.log(err);
       if (err.code === 'NotAuthorizedException'){
         setError('Verify username/password or check confirmation email')
       }
@@ -182,7 +181,6 @@ const SignIn = () => {
         setError('Expired Validation Code - try again.')
       } 
       else if (err.code === 'LimitExceededException' ){
-        console.log(err.code)
         setError('Request Limit Exceeded - Try again later')
       }
       else {setError('Error occurred.')}
