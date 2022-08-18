@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col, Form, Button } from 'react-bootstrap';
 import SubmitButton from '../../components/Generic/SubmitButton';
 import { VAULTING_STATUS } from '../../services/items';
-import { getInventory, postInventory, updateInventory } from '../../services/inventory';
+import { getInventory, postInventory, putInventory } from '../../services/inventory';
 
 const zoneOptions = ["Cabinet 1",
   "Cabinet 2",
@@ -27,17 +27,58 @@ const zoneOptions = ["Cabinet 1",
   "Card Gallery Wall"]
 
 function VaultingItem({ onWithdraw, item }) {
-  const [inventory, setInventory] = useState({});
+  const [initialInventory, setInitialInventory] = useState({});
+  const [inventory, setInventory] = useState({ item_id: item.item_id });
   const shouldEnableWithdrawButton = item.status === VAULTING_STATUS.Minted;
 
-  console.log(item)
-  console.log(inventory)
+  // console.log(item)
+  // console.log(inventory)
+  // console.log(initialInventory)
+
+  const queryString = require('query-string');
+
+  const params = {
+    test1: 'test1',
+    test2: 'test2',
+    test3: 'test3',
+    test4: 'test4',
+  };
+
+  const listParams = (params) => {
+    console.log('1')
+    if (Object.values(params).length === 0) {
+      return '2'
+    } else {
+      return `?${Object.keys(params).toString().replaceAll(',', '&')}`
+    }
+  }
+
+  console.log(listParams(params))
 
   useEffect(() => {
-    getInventory({ user_uuid: item.user, item_id: item.item_id })
-      .then(data => setInventory(data))
+    const item_ids = [item.item_id];
+    console.log(item.item_id)
+    getInventory(item_ids)
+      .then(data => {
+        setInventory(data);
+        setInitialInventory(data);
+      })
       .catch(console.log('failed to retrieve inventory'))
   }, [])
+
+  const updateInventory = (tempInventory) => setInventory({ ...inventory, ...tempInventory });
+
+  const locationFormSubmit = (e) => {
+    e.preventDefault();
+
+    console.log(inventory)
+
+    if (initialInventory.length > 0) {
+      putInventory(item.item_id, inventory).then(resp => console.log('success!')).catch(e => console.log(e))
+    } else if (initialInventory.length === 0) {
+      postInventory(inventory).then(resp => console.log('success!')).catch(e => console.log(e))
+    }
+  }
 
   return (
     <div className='m-4'>
@@ -67,37 +108,86 @@ function VaultingItem({ onWithdraw, item }) {
         <p><span className='fw-bold'>Item uuid:</span> {item.item_uuid}</p>
       </Row>
       <Row className='mt-2'>
-        <Form>
+        <div><span className='fw-bold'>Vault location: </span>{initialInventory.length > 0 ? initialInventory[0].label : "No inventory location set"}</div>
+        <Form onSubmit={(e) => locationFormSubmit(e)}>
           <Row>
             <Col lg={4}>
               <Form.Group>
                 <Form.Label>Vault</Form.Label>
-                <Form.Select defaultValue={'select'}>
-                  <option>Dallas</option>
-                  <option>Delaware</option>
+                <Form.Select onChange={(e) => updateInventory({ vault: e.target.value })}>
+                  <option> - Select -</option>
+                  <option value={'dallas'}>Dallas</option>
+                  <option value={'delaware'}>Delaware</option>
                 </Form.Select>
               </Form.Group>
             </Col>
             <Col lg={4}>
               <Form.Group>
                 <Form.Label>Zone</Form.Label>
-                <Form.Select value={'test'}>
+                <Form.Select onChange={(e) => updateInventory({ zone: e.target.value })}>
+                  <option>- Select -</option>
                   {zoneOptions.map((item, index) => (
-                    <option key={`zone-area_${index}`}>{item}</option>
+                    <option key={`zone-area_${index}`} value={item.toLowerCase()}>{item}</option>
                   ))}
                 </Form.Select>
               </Form.Group>
             </Col>
-            <Col lg={4}>
-              <Form.Group>
-                <Form.Label>Test</Form.Label>
-                <Form.Control />
-              </Form.Group>
-            </Col>
-          </Row>
-          <Button type="submit">Submit</Button>
-        </Form>
-      </Row>
+          </Row >
+          {
+            (inventory?.zone?.toLowerCase().startsWith('credenza') || inventory?.zone?.toLowerCase().startsWith('cabinet')) && (<Row>
+              <Col lg={4}>
+                <Form.Group>
+                  <Form.Label>Shelf</Form.Label>
+                  <Form.Select onChange={(e) => updateInventory({ shelf: e.target.value })}>
+                    <option>- Select -</option>
+                    <option value='1'>Shelf 1</option>
+                    <option value='2'>Shelf 2</option>
+                    <option value='3'>Shelf 3</option>
+                    <option value='4'>Shelf 4</option>
+                    <option value='5'>Shelf 5</option>
+                    <option value='6'>Shelf 6</option>
+                  </Form.Select>
+                </Form.Group>
+              </Col >
+              <Col lg={4}>
+                <Form.Group>
+                  <Form.Label>Box</Form.Label>
+                  <Form.Control onChange={(e) => updateInventory({ box: e.target.value })} />
+                </Form.Group>
+              </Col>
+              <Col lg={4}>
+                <Form.Group>
+                  <Form.Label>Slot</Form.Label>
+                  <Form.Control onChange={(e) => updateInventory({ slot: e.target.value })} />
+                </Form.Group>
+              </Col>
+            </Row >)
+          }
+          {
+            inventory?.zone?.toLowerCase().endsWith('gallery wall') && (
+              <Row>
+                <Col lg={4}>
+                  <Form.Group>
+                    <Form.Label>Row</Form.Label>
+                    <Form.Select onChange={(e) => updateInventory({ row: e.target.value })}>
+                      <option>- Select -</option>
+                      <option value='1'>Row 1</option>
+                      <option value='2'>Row 2</option>
+                      <option value='3'>Row 3</option>
+                    </Form.Select>
+                  </Form.Group>
+                </Col >
+                <Col lg={4}>
+                  <Form.Group>
+                    <Form.Label>Slot</Form.Label>
+                    <Form.Control onChange={(e) => updateInventory({ slot: e.target.value })} />
+                  </Form.Group>
+                </Col>
+              </Row >)
+          }
+          <Button type="submit" className='mt-4'>Submit</Button>
+        </Form >
+      </Row >
       <div className='mt-4'>
         <SubmitButton
           func={() => onWithdraw(item.id)}
@@ -106,7 +196,7 @@ function VaultingItem({ onWithdraw, item }) {
           disabled={!shouldEnableWithdrawButton}
         />
       </div>
-    </div>
+    </div >
   );
 }
 
