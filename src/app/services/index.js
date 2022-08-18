@@ -1,10 +1,20 @@
 import axios from 'axios';
 import config from '../../config';
 
-export const axiosClient = axios.create({
+export let axiosClient = axios.create({
   baseURL: config.BASE_URL,
   headers: {
     Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
     Accpet: 'application/json',
   },
 });
+
+export const updateAxiosClient = (token) => {
+  axiosClient = axios.create({
+    baseURL: config.BASE_URL,
+    headers: {
+      Authorization: token ? `Bearer ${token}` : undefined,
+      Accpet: 'application/json',
+    },
+  });
+};
