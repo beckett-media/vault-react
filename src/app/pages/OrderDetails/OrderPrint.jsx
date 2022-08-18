@@ -81,7 +81,7 @@ const OrderPrint = () => {
               ----- <br />
               Submission ID: {item.id}
               <br />
-              {item.year} {item.title || item.player}
+              {item.title || item.year + item.manufacturer + item.card_number + item.player }
             </div>
           ))}
         </>
