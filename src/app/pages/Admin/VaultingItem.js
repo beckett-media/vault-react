@@ -49,7 +49,7 @@ function VaultingItem({ onWithdraw, item }) {
     if (Object.values(params).length === 0) {
       return '2'
     } else {
-      return `?${Object.keys(params).toString().replaceAll(',', '&')}`
+      return
     }
   }
 
