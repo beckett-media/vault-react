@@ -174,6 +174,21 @@ const SignIn = () => {
     }
   };
 
+  const submitForgotPassword = async () => {
+    await forgotPassword(email, code, confirmPassword).then(res => {
+      setMessage('Success!')
+    }).catch(err => {
+      if(err.code === 'ExpiredCodeException'){
+        setError('Expired Validation Code - try again.')
+      } 
+      else if (err.code === 'LimitExceededException' ){
+        console.log(err.code)
+        setError('Request Limit Exceeded - Try again later')
+      }
+      else {setError('Error occurred.')}
+    })
+  }
+
   return (
     <div className='page-wrapper vh-100'>
       <section className='section_signin'>
@@ -210,7 +225,6 @@ const SignIn = () => {
               <NewPasswordField value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
             </>
           )}
-          {console.log(codeSent)}
           {codeSent &&
           <>
             <FormControl>
@@ -232,7 +246,8 @@ const SignIn = () => {
                   onChange={(e) => setCode(e.target.value)}
                 />
             <PasswordField value={confirmPassword} placeholder='New Password**' onChange={(e) => setConfirmPassword(e.target.value)} />
-            <div onClick={()=>forgotPassword(email, code, confirmPassword)} className='signin_button'>
+            {error && <div className='signin_error'>{error}</div>}
+            <div onClick={()=>submitForgotPassword()} className='signin_button'>
               Continue
             </div>
           </>
