@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { CloseButton, Modal } from 'react-bootstrap';
 import { faq } from '../../assets/static-content/faq';
 import { privacyPolicy } from '../../assets/static-content/privacy-policy';
+import { support } from '../../assets/static-content/support';
 import { termsOfService } from '../../assets/static-content/terms-of-service';
 import './FooterModal.scss';
 
@@ -16,6 +17,7 @@ const FooterModal = ({ showFooterModal, openModal, dismissModal }) => {
   } else if (isFaq) {
     form = { ...faq };
   }
+  else form = { ...support }
   const { sectionContent, sectionTitles, title } = form;
 
   return (
