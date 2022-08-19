@@ -42,7 +42,7 @@ function VaultingItem({ onWithdraw, item }) {
 
   // console.log(item);
   console.log(inventory);
-  // console.log(initialInventory);
+  console.log(initialInventory);
 
   useEffect(() => {
     getInventory({ item_ids: [item.item_id] })
@@ -52,7 +52,7 @@ function VaultingItem({ onWithdraw, item }) {
         setInitialInventory(...data);
       })
       .catch(console.log('failed to retrieve inventory'));
-  }, [initialInventory]);
+  }, []);
 
   const updateInventory = (tempInventory) => setInventory({ ...inventory, ...tempInventory });
 
