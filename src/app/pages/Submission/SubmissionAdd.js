@@ -177,9 +177,8 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                           updateItem({ gradingCompany: e.target.value });
                         }}
                       >
-                        <option value='bgs'>BGS</option>
-                        <option value='psa'>PSA</option>
-                        <option value='sgc'>SGC</option>
+                        <option value='cbcs'>CBCS</option>
+                        <option value='cgc'>CGC</option>
                         <option value='other'>Other</option>
                       </Form.Select>
                     </Form.Group>
