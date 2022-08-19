@@ -29,8 +29,6 @@ const Submission = () => {
 
   console.log(submissionResponse);
 
-  // useEffect(), [submissionResponse]
-
   const navigate = useNavigate();
 
   const submitAddedItem = (item) => {
@@ -126,7 +124,7 @@ const Submission = () => {
                         </div>
                         <Row className='m-2'>
                           <Col xs={3} className='flex'>
-                            <Button 
+                            <Button
                               className='submit-button'
                               onClick={() => setShowModal(true)}
                             >Submit</Button>

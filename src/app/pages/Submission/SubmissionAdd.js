@@ -15,8 +15,6 @@ const SubmissionAdd = ({ submitAddedItem }) => {
   const [type, setType] = useState(1);
   const [item, setItem] = useState({ type: 1, gradingCompany: 'bgs' });
 
-  console.log(item);
-
   const submitAddItemFormSubmit = (e) => {
     e.preventDefault();
     {
