@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Col, Form, Row, Button } from 'react-bootstrap';
-import { Navigate, useParams } from 'react-router-dom';
+import { Navigate, useParams, useNavigate } from 'react-router-dom';
 import { getSingleSubmission } from '../../services/submission';
 import './CreateVaultingPage.scss';
 import { updateSubmission } from '../../services/submission';
@@ -10,6 +10,7 @@ function AdminEditSubmissionPage() {
   const { submissionId } = useParams();
   const [submission, setSubmission] = React.useState({});
   const [item, setItem] = useState({});
+  const navigate = useNavigate();
   const isValidId = submissionId && !isNaN(Number(submissionId));
 
   React.useEffect(() => {
@@ -45,7 +46,11 @@ function AdminEditSubmissionPage() {
 
     console.log('update submission payload', payload);
     updateSubmission(submission.id, payload)
-      .then((res) => console.log('update submission success', res))
+      .then((res) => {
+        console.log('update submission success', res);
+        alert('Updated successfully');
+        navigate('/admin/submission');
+      })
       .catch((err) => {
         console.error('update submission failed', err);
         alert(err);
@@ -226,7 +231,10 @@ function AdminEditSubmissionPage() {
         <div className='submission_divider'></div>
         <Row className='submission_form-section'>
           <div className='submission_form-button-wrapper'>
-            <Button type='reset' bg='transparent' variant='outline-primary' onClick={() => setItem(submission)}>
+            <Button type='reset' bg='transparent' variant='outline-primary' onClick={() => {
+              setItem(submission);
+              navigate('/admin/submission');
+            }}>
               Cancel
             </Button>
             <Button type='submit'>Update</Button>
