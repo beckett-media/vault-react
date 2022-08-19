@@ -5,18 +5,20 @@ import SubmitButton from '../../components/Generic/SubmitButton';
 import { getFormattedDate } from '../../utils/date';
 import './History.scss';
 
-const ItemsHistory = ({ sortedItems, listings, submissions, vaulting }) => {
+const ItemsHistory = ({ sortedItems, listings, submissions, vaulting, setSortedItems }) => {
   const [selected, setSelected] = useState('');
   const [groups, setGroups] = useState({});
   const navigate = useNavigate();
   useEffect(() => {
     const groupings = {};
     sortedItems?.map((item) => {
-      const extra = JSON.parse(item.extra);
-      if (Object.keys(groupings).includes(extra.uuid)) {
-        groupings[`${extra.uuid}`].push({ ...item, ...extra });
-      } else if (extra.uuid !== undefined && extra.uuid !== '') {
-        groupings[`${extra.uuid}`] = [{ ...item, ...extra }];
+      if (item.extra.length) {
+        const extra = item.extra.length && JSON.parse(item.extra);
+        if (Object.keys(groupings).includes(extra.uuid)) {
+          groupings[`${extra.uuid}`].push({ ...item, ...extra });
+        } else if (extra.uuid !== undefined && extra.uuid !== '') {
+          groupings[`${extra.uuid}`] = [{ ...item, ...extra }];
+        }
       }
     });
     setGroups(groupings);
