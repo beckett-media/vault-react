@@ -3,12 +3,12 @@ import { Button, Form } from 'react-bootstrap';
 
 import './ProductInfo.scss';
 
-import { formatPrice } from '../../utils/strings';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
+import { AuthContext } from '../../contexts/auth';
 import { createItemListing, updateItemDetails } from '../../services/items';
 import { mapCognitoToUser } from '../../services/user';
-import Tooltip from 'react-bootstrap/Tooltip';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import { AuthContext } from '../../contexts/auth';
+import { formatPrice } from '../../utils/strings';
 
 const ProductInfo = ({ isOwner, item, addToCart }) => {
   const [listItemInitiated, setlistItemInitiated] = useState(false);
@@ -46,7 +46,7 @@ const ProductInfo = ({ isOwner, item, addToCart }) => {
           {/* <Form.Group>
             <Form.Label>Add Tag</Form.Label>
             <Form.Control onChange={e => setNewTag(e.target.value)}/>
-          </Form.Group> 
+          </Form.Group>
           <div className='product-info_tags-wrapper'>
             {item.tags.map((tag, index) => (
               <div className='tag_component' key={index}>
@@ -76,7 +76,7 @@ const ProductInfo = ({ isOwner, item, addToCart }) => {
             <div>{formatPrice(price)}</div>
           </div>
           <div className='product-info_stats'>
-            <div>Grade: {item.grade ? item.grade : 'No grade'}</div>
+            <div>Grade: {item.overall_grade ? item.overall_grade : 'No grade'}</div>
           </div>
           {item.tags && (
             <div className='product-info_tags-wrapper'>

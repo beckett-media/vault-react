@@ -82,6 +82,8 @@ function AdminCreateVaultingPage() {
             <Col>
               <h1>{submission.id}</h1>
               <p>{`Item Id: ${submission.item_id}, User: ${submission.user}`}</p>
+              <p>{`Player: ${submission.player}, Year: ${submission.year}`}</p>
+              <p>{`Set name: ${submission.set_name}, Card number: ${submission.card_number}`}</p>
             </Col>
             <Col className='right-align'>
               {isExisting ? <p className='existing-error'>Existing already</p> : null}
