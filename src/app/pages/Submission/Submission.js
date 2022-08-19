@@ -124,32 +124,27 @@ const Submission = () => {
                             </div>
                           ))}
                         </div>
-                        <Row className='m-2 d-flex flex-column align-items-center'>
-                          <Col xs={3} className='flex'>
-                            <Button
-                              className='submit-button'
-                              onClick={() => setShowModal(true)}
-                            >Submit</Button>
-                            <Button
-                              className='signin_link'
-                              variant='link'
-                              color='black'
-                              fontWeight='400'
-                              fontSize='14px'
-                              _focus={{ boxShadow: 'none' }}
-                              onClick={() => {
-                                setShowFooterModal('terms');
-                              }}
-                            >
-                              Terms of Service
-                            </Button>
-                          </Col>
+                        <div className='my-2 d-flex flex-column align-items-center'>
+                          <Button onClick={() => setShowModal(true)}>Submit</Button>
+                          <Button
+                            className='signin_link'
+                            variant='link'
+                            color='black'
+                            fontWeight='400'
+                            fontSize='14px'
+                            _focus={{ boxShadow: 'none' }}
+                            onClick={() => {
+                              setShowTOS('terms');
+                            }}
+                          >
+                            Terms of Service
+                          </Button>
                           <FooterModal
                             showFooterModal={showTOS}
                             openModal={showTOS.length}
                             dismissModal={dismissModal}
                           />
-                        </Row>
+                        </div>
                       </>
                     )}
 
