@@ -10,9 +10,9 @@
     "REACT_APP_CLIENT_ID": "rpopj2sqf6s8mvhsdbjc6d3gd"
   },
   "prod": {
-    "BASE_URL": "https://vault.beckett.com",
-    "REACT_APP_USERPOOL_ID": "us-west-1_a6tXyUAld",
-    "REACT_APP_CLIENT_ID": "5kavtmkklfj406esvhbbi03soa"
+    "BASE_URL": "https://vault-api.beckett.com",
+    "REACT_APP_USERPOOL_ID": "us-west-1_ElMUH3zGV",
+    "REACT_APP_CLIENT_ID": "58jpn0mv4gmgl1ntg3ku622l1e"
   },
   "general": {}
 }
