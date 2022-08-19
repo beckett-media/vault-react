@@ -100,7 +100,8 @@ const ItemsHistory = ({ sortedItems, listings, submissions, vaulting, setSortedI
                       {'Item: '}
                       <br />
                       <span className='fw-bold'>
-                        {item.title.length ? item.title : `${item.year} ${item.manufacturer} ${item.player}`}
+                        {console.log(item.card_number)}
+                        {item.title.length ? item.title : `${item.year} ${item.manufacturer} ${item.card_number} ${item.player}`}
                       </span>
                     </div>
                   </Col>
