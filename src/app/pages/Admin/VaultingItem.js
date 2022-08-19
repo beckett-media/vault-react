@@ -52,7 +52,7 @@ function VaultingItem({ onWithdraw, item }) {
         setInitialInventory(...data);
       })
       .catch(console.log('failed to retrieve inventory'));
-  }, []);
+  }, [initialInventory]);
 
   const updateInventory = (tempInventory) => setInventory({ ...inventory, ...tempInventory });
 
@@ -64,11 +64,13 @@ function VaultingItem({ onWithdraw, item }) {
       putInventory(initialInventory.id, inventory)
         .then((resp) => console.log('success!'))
         .catch((e) => console.log(e));
+      setInitialInventory({});
     } else {
       inventory.item_id = item.item_id;
       postInventory(inventory)
         .then((resp) => console.log('success!'))
         .catch((e) => console.log(e));
+      setInitialInventory({});
     }
   };
 
