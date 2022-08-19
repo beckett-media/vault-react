@@ -496,9 +496,7 @@ export const getVaulting = async ({ user, status, offset, limit, order } = {}) =
 };
 
 export const getSingleVaulting = (id) => {
-  return axiosClient
-    .get(`/marketplace/vaulting/${id}`)
-    .then((res) => res.data);
+  return axiosClient.get(`/marketplace/vaulting/${id}`).then((res) => res.data);
 };
 
 export const fetchItemBySubmission = (submissionId) => {

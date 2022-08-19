@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Accordion, Container, Form, Row } from 'react-bootstrap';
-import { states } from '../Assets/states';
+import { states } from '../../const/states';
 import SubmitButton from '../../components/Generic/SubmitButton';
 
 const Settings = () => {

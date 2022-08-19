@@ -1,36 +1,41 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { PasswordField } from '../../components/PasswordField/PasswordField';
-import { NewPasswordField } from '../../components/NewPasswordField/NewPasswordField';
-import { ReactComponent as SigninBg } from '../../assets/bg-sphere--large.svg';
+import React, { useContext, useState } from 'react';
 import { Button, FormControl, Input } from '@chakra-ui/react';
-import { defaultNewUser, requiredNewUserProperties } from '../../services/user';
+import { Link, useNavigate } from 'react-router-dom';
+import { ReactComponent as SigninBg } from '../../assets/bg-sphere--large.svg';
+import { NewPasswordField } from '../../components/NewPasswordField/NewPasswordField';
+import { PasswordField } from '../../components/PasswordField/PasswordField';
+import { defaultNewUser, requiredNewUserProperties, submitNewUser } from '../../services/user';
 import { hasRequiredProperties } from '../../utils/objects';
-import { submitNewUser } from '../../services/user';
 import './SignIn.scss';
+import { AuthContext } from '../../contexts/auth';
+import { validPhone } from '../../utils/validationRegex';
+import { formatPhoneNumber } from '../../utils/phone';
 
 const SignUp = () => {
+  const authContext = useContext(AuthContext);
   const [newUser, setNewUser] = useState(defaultNewUser);
   const [confirmPassword, setConfirmPassword] = React.useState('');
   const [error, setError] = React.useState(undefined);
   const navigate = useNavigate();
-  const submitSignUpForm = async () => {
+
+  const submitSignUpForm = () => {
+    const phone = formatPhoneNumber(newUser.phone);
     setError('');
     if (newUser.password != confirmPassword) {
       setError('Passwords must match');
     } else if (!hasRequiredProperties(newUser, requiredNewUserProperties)) {
       setError('all Fields are required');
     } else {
-      submitNewUser(newUser)
-        .then(navigate('/signin', { msg: 'Check your email to verify your account, then login' }))
-        .catch((err) => setError(err));
+      submitNewUser({ ...newUser, phone: phone }, authContext).then((res) => {
+        if (res?.user?.username) {
+          navigate('/signin', { msg: 'Check your email to verify your account, then login' });
+        } else setError(res);
+      });
     }
   };
-
   return (
     <div className='page-wrapper vh-100'>
       <section className='section_signin section_signup'>
-        {error && <div className='signin_error'>{error}</div>}
         <SigninBg className='signin_bg'></SigninBg>
         <div className='signin_modal'>
           <div className='signin_heading'>Sign Up</div>
@@ -38,7 +43,7 @@ const SignUp = () => {
             <Input
               id='email'
               type='email'
-              placeholder='Email Address*'
+              placeholder='Email *'
               h={12}
               value={newUser.email}
               onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
@@ -46,7 +51,7 @@ const SignUp = () => {
             <Input
               id='userName'
               type='userName'
-              placeholder='UserName*'
+              placeholder='Username *'
               h={12}
               value={newUser.userName}
               onChange={(e) => setNewUser({ ...newUser, userName: e.target.value })}
@@ -54,7 +59,7 @@ const SignUp = () => {
             <Input
               id='phone'
               type='phone'
-              placeholder='phone*'
+              placeholder='Phone number *'
               h={12}
               value={newUser.phone}
               onChange={(e) => setNewUser({ ...newUser, phone: e.target.value })}
@@ -62,7 +67,7 @@ const SignUp = () => {
             <Input
               id='firstName'
               type='firstName'
-              placeholder='firstName*'
+              placeholder='First name *'
               h={12}
               value={newUser.firstName}
               onChange={(e) => setNewUser({ ...newUser, firstName: e.target.value })}
@@ -70,7 +75,7 @@ const SignUp = () => {
             <Input
               id='lastName'
               type='lastName'
-              placeholder='lastName*'
+              placeholder='Last name *'
               h={12}
               value={newUser.lastName}
               onChange={(e) => setNewUser({ ...newUser, lastName: e.target.value })}
@@ -97,6 +102,11 @@ const SignUp = () => {
           >
             Sign Up!
           </Button>
+          <div>
+            <Link to='/signin' className='signin_link'>
+              Back to Login
+            </Link>
+          </div>
         </div>
       </section>
     </div>

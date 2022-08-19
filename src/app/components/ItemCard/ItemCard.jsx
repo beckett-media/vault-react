@@ -17,16 +17,16 @@ const ItemCard = ({ item, shouldLink = true, belongsToUser }, props) => {
       <div className='item-card_layout'>
         <Link to={link}>
           <div className='item-card_image-wrapper'>
-            {
-              imageUrl ? (
-                <img className='item-card_image' src={imageUrl} alt='' />
-              ) : (
-                <span className='item-card_no_image'>No image</span>
-              )
-            }
+            {imageUrl ? (
+              <img className='item-card_image' src={imageUrl} alt='' />
+            ) : (
+              <span className='item-card_no_image'>No image</span>
+            )}
           </div>
           <div className='item-card_content-wrapper'>
-            <div className='item-card_category'>{formatPrice(+price)}</div>
+            <div className='item-card_category'>              
+              {item.title || item.year +' '+ item.manufacturer +' '+ item.card_number +' '+ item.player }
+            </div>
             {!belongsToUser && <div className='item-card_price'>{formatPrice(+price)}</div>}
             <div className='item-card_title ellipses_wrapper'>
               <span className='ellipses_child'>{item.title}</span>

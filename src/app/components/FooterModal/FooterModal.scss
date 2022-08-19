@@ -1,5 +1,5 @@
 h2 {
-  color: teal
+  color: teal;
 }
 h4 {
   color: teal;
@@ -16,9 +16,23 @@ a {
   text-decoration: underline;
 }
 
-.modal-body {
-  height: 80vh;
-  overflow-y: scroll;
+.footer-modal_{
+  &header{
+    font-size: 36px;
+    font-family: 'Alliance', sans-serif;
+    line-height: 120%;
+    margin-bottom: 12px;
+    color: black;  
+  }
+
+  &body {
+    height: 80vh;
+    overflow-y: scroll;
+  }
+
+  &subheader {
+    color: teal;
+  }
 }
 
 .u-list_ {
@@ -74,4 +88,17 @@ a {
     color: black;
     font-weight: bold;
   }
+}
+.bold {
+  font-weight: bold;
+}
+.underline {
+  text-decoration: underline;
+}
+
+.italic {
+  font-style: italic;
+}
+.faq-modal {
+  cursor: pointer
 }

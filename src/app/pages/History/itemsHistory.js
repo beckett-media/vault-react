@@ -2,20 +2,23 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import SubmitButton from '../../components/Generic/SubmitButton';
+import { getFormattedDate } from '../../utils/date';
 import './History.scss';
 
-const ItemsHistory = ({ sortedItems, listings, submissions, vaulting }) => {
+const ItemsHistory = ({ sortedItems, listings, submissions, vaulting, setSortedItems }) => {
   const [selected, setSelected] = useState('');
   const [groups, setGroups] = useState({});
   const navigate = useNavigate();
   useEffect(() => {
     const groupings = {};
-    sortedItems.map((item) => {
-      const extra = JSON.parse(item.extra);
-      if (Object.keys(groupings).includes(extra.uuid)) {
-        groupings[`${extra.uuid}`].push({ ...item, ...extra });
-      } else if (extra.uuid !== undefined && extra.uuid !== '') {
-        groupings[`${extra.uuid}`] = [{ ...item, ...extra }];
+    sortedItems?.map((item) => {
+      if (item.extra.length) {
+        const extra = item.extra.length && JSON.parse(item.extra);
+        if (Object.keys(groupings).includes(extra.uuid)) {
+          groupings[`${extra.uuid}`].push({ ...item, ...extra });
+        } else if (extra.uuid !== undefined && extra.uuid !== '') {
+          groupings[`${extra.uuid}`] = [{ ...item, ...extra }];
+        }
       }
     });
     setGroups(groupings);
@@ -52,8 +55,7 @@ const ItemsHistory = ({ sortedItems, listings, submissions, vaulting }) => {
           order_id = a.order_id;
         }
       });
-    }
-    else order_id = groups[group][0].order_id
+    } else order_id = groups[group][0].order_id;
     navigate(`/order-details/${order_id}`);
   };
   return (
@@ -71,7 +73,7 @@ const ItemsHistory = ({ sortedItems, listings, submissions, vaulting }) => {
                 <Button onClick={() => printDetails(group)}>Print</Button>
               </Col>
               <Col xs={2}>
-                <div>{new Date(groups[group][0]?.created_at).toLocaleDateString()}</div>
+                <div>{getFormattedDate(groups[group][0]?.created_at)}</div>
               </Col>
               {isSelected ? (
                 <Col xs={1} className='right-align px-4'>
@@ -98,7 +100,8 @@ const ItemsHistory = ({ sortedItems, listings, submissions, vaulting }) => {
                       {'Item: '}
                       <br />
                       <span className='fw-bold'>
-                        {item.title.length ? item.title : `${item.year} ${item.manufacturer} ${item.player}`}
+                        {console.log(item.card_number)}
+                        {item.title.length ? item.title : `${item.year} ${item.manufacturer} ${item.card_number} ${item.player}`}
                       </span>
                     </div>
                   </Col>

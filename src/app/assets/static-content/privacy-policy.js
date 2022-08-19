@@ -8,19 +8,19 @@ export const privacyPolicy = {
         `Sets the privacy policy for the beckett.com website. Beckett 
         ("us", "we", or "our") operates the beckett.com website (hereinafter 
         referred to as the "Service").`,
-        <br/>,
-        <br/>,
+        <br />,
+        <br />,
         `This page informs you of our policies regarding the collection, use 
         and disclosure of personal data when you use our Service and the 
         choices you have associated with that data.`,
-        <br/>,
-        <br/>,
+        <br />,
+        <br />,
         `We use your data to provide and improve the Service. By using the 
         Service, you agree to the collection and use of information in 
         accordance with this policy. Unless otherwise defined in this Privacy 
         Policy, the terms used in this Privacy Policy have the same meanings 
         as in our Terms and Conditions, accessible from `,
-        <a href="https://beckettvault.com">BeckettVault.com</a>,
+        <a href='https://beckettvault.com'>BeckettVault.com</a>,
         `. For certain commercial services offered by Beckett, we may collect 
         business information such as account contact name, business phone 
         numbers, and business email addresses. To the extent business 
@@ -30,8 +30,8 @@ export const privacyPolicy = {
         Beckett may use such information as it sees fit for its business 
         purposes and such information will not be subject to the terms of 
         this privacy policy.`,
-        <br/>,
-        <br/>
+        <br />,
+        <br />,
       ],
     },
     {
@@ -329,28 +329,24 @@ export const privacyPolicy = {
           text: `The right to know. You have the right to request to know`,
         },
         {
-          level: '2'
-,
+          level: '2',
           label: '(i)',
           text: `the specific pieces of Personal Information we have about you;`,
         },
         {
-          level: '2'
-,
+          level: '2',
           label: '(ii)',
           text: `the categories of Personal Information we have collected about you 
             in the last 12 months;`,
         },
         {
-          level: '2'
-,
+          level: '2',
           label: '(iii)',
           text: `the categories of sources from which that Personal Information was 
             collected;`,
         },
         {
-          level: '2'
-,
+          level: '2',
           label: '(iv)',
           text: `the categories of your Personal Information that we sold or disclosed 
             in the last 12 months;`,

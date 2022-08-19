@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
 import * as cognito from '../libs/cognito';
+import { updateAxiosClient } from '../services';
 import { getAdminUserGroups } from '../services/user';
 
 export const AuthStatus = {
@@ -46,6 +47,16 @@ export const AdminRoute = () => {
   return isAdmin ? <Outlet /> : <Navigate to='/signin' replace={true} />;
 };
 
+export const RedirectHome = () => {
+  const { isAdmin, authStatus } = useContext(AuthContext);
+
+  if (authStatus === AuthStatus.Loading) {
+    return <Loading />;
+  }
+
+  return isAdmin ? <Navigate to='/admin' replace={true} /> : <Navigate to='/my-collection' replace={true} />;
+};
+
 export const OnlyUnathenticated = () => {
   const { authStatus } = useContext(AuthContext);
   if (authStatus === AuthStatus.Loading) {
@@ -80,6 +91,8 @@ const AuthProvider = ({ children }) => {
       });
       window.localStorage.setItem('accessToken', `${session.accessToken.jwtToken}`);
       window.localStorage.setItem('refreshToken', `${session.refreshToken.token}`);
+
+      updateAxiosClient(session.accessToken.jwtToken);
 
       const attr = await getAttributes();
       setAttrInfo(attr);
@@ -120,7 +133,15 @@ const AuthProvider = ({ children }) => {
 
   async function signUpUser(username, password, preferred_username, email, phone_number, given_name, family_name) {
     try {
-      await cognito.signUpUser(username, password, preferred_username, email, phone_number, given_name, family_name);
+      return await cognito.signUpUser(
+        username,
+        password,
+        preferred_username,
+        email,
+        phone_number,
+        given_name,
+        family_name,
+      );
     } catch (err) {
       throw err;
     }
@@ -131,6 +152,9 @@ const AuthProvider = ({ children }) => {
     setAuthStatus(AuthStatus.SignedOut);
     setAdminGroups([]);
     setSessionInfo({});
+    window.localStorage.removeItem('accessToken');
+    window.localStorage.removeItem('refreshToken');
+    updateAxiosClient();
   }
 
   async function verifyCode(username, code) {

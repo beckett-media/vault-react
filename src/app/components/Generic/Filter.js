@@ -2,15 +2,22 @@ import React from 'react';
 import { Col, Row, Form } from 'react-bootstrap';
 
 const Filter = ({ searchVal, setSearchVal, setSortBy, sortOptions, setFilterBy, filterOptions }) => {
+  const base = () => {
+    if (searchVal && sortOptions && filterOptions) { 
+      return 3
+    } else if (!filterOptions && !sortOptions) {
+      return 6
+    } else return 4
+  }
   // add onSearch, onSort props.
   return (
     <Row className='row'>
       {searchVal !== undefined && (
-        <Col sm='4'>
+        <Col md={2*base()}>
           <Form.Control
             type='search'
             placeholder='Search'
-            size='sm'
+            size='md'
             className='rounded-pill'
             value={searchVal}
             onChange={(e) => setSearchVal(e.target.value)}
@@ -18,8 +25,8 @@ const Filter = ({ searchVal, setSearchVal, setSortBy, sortOptions, setFilterBy, 
         </Col>
       )}
       {sortOptions && (
-        <Col sm='4'>
-          <Form.Select size='sm' className='rounded-pill' onChange={(e) => setSortBy(e.target.value)}>
+        <Col md={base()}>
+          <Form.Select size='md' className='rounded-pill' onChange={(e) => setSortBy(e.target.value)}>
             <option selected>Sort</option>
             {sortOptions.map((option) => (
               <option value={option.value} key={option.value}>
@@ -30,8 +37,8 @@ const Filter = ({ searchVal, setSearchVal, setSortBy, sortOptions, setFilterBy, 
         </Col>
       )}
       {filterOptions && (
-        <Col sm='4'>
-          <Form.Select size='sm' className='rounded-pill' onChange={(e) => setFilterBy(e.target.value)}>
+        <Col md={base()}>
+          <Form.Select size='md' className='rounded-pill' onChange={(e) => setFilterBy(e.target.value)}>
             <option selected>Filter</option>
             {filterOptions.map((option) => (
               <option value={option.value} key={option.value}>

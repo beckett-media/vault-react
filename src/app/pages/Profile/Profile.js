@@ -4,6 +4,7 @@ import { mapCognitoToUser, mapUserToCognito } from '../../services/user';
 import './Profile.scss';
 import UserBanner from '../../components/UserBanner/UserBanner';
 import { AuthContext } from '../../contexts/auth';
+import { formatPhoneNumber } from '../../utils/phone';
 
 const Profile = () => {
   const authContext = useContext(AuthContext);
@@ -31,7 +32,10 @@ const Profile = () => {
     if (isShippingSame) {
       syncSubmissionAddresses();
     }
-
+    if (userState.phone) {
+      const phone = formatPhoneNumber(userState.phone);
+      return await authContext.setAttributes(mapUserToCognito({ ...userState, phone: phone }));
+    }
     // TODO: on error?
     await authContext.setAttributes(mapUserToCognito(userState));
   };
