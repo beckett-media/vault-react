@@ -30,17 +30,10 @@ const Footer = ({ setShowFooterModal }) => {
                   <div className='footer_link'>FAQ</div>
                 </div>
               </div>
-              <div className='footer_link-wrapper'>
-                <OverlayTrigger
-                  delay={{ hide: 450, show: 300 }}
-                  overlay={(props) => <Tooltip {...props}>Coming Soon!</Tooltip>}
-                  placement='top'
-                >
-                  {/* to='/support' */}
-                  <Link to='#'>
-                    <div className='footer_link'>Support</div>
-                  </Link>
-                </OverlayTrigger>
+              <div className='footer_link-wrapper' onClick={() => setShowFooterModal('support')}>
+                <div className='footer_link-div'>
+                  <div className='footer_link'>Support</div>
+                </div>
               </div>
             </div>
             <div className='footer_end'>© 2022 Beckett Collectibles, LLC</div>
