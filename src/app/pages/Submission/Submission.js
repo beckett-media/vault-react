@@ -110,11 +110,7 @@ const Submission = () => {
                                   <div className='ellipses_child'>{item.cardNumber || item.publisher}</div>
                                 </div>
                                 <div className='ellipses_wrapper submission-item_item'>
-<<<<<<< HEAD
                                   <div className='ellipses_child'>{item.player || item.year}</div>
-=======
-                                  <div className='ellipses_child'>{item.player || item.issue}</div>
->>>>>>> b8f65be496c6831b6ab6117248bd060efc37319f
                                 </div>
                                 <Button
                                   className='ms-auto'
