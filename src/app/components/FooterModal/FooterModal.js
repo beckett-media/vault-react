@@ -1,36 +1,55 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CloseButton, Modal } from 'react-bootstrap';
+import { faq } from '../../assets/static-content/faq';
 import { privacyPolicy } from '../../assets/static-content/privacy-policy';
 import { termsOfService } from '../../assets/static-content/terms-of-service';
 import './FooterModal.scss';
 
 const FooterModal = ({ showFooterModal, openModal, dismissModal }) => {
+  const [faqSection, setFaqSection] = useState(0)
+  const isFaq = showFooterModal === 'faq'
   let form = {};
   if (showFooterModal === 'privacy') {
     form = { ...privacyPolicy };
   } else if (showFooterModal === 'terms') {
     form = { ...termsOfService };
+  } else if (isFaq) {
+    form = { ...faq };
   }
   const { sectionContent, sectionTitles, title } = form;
 
-  console.log(sectionTitles);
   return (
     <Modal show={openModal} dismiss={dismissModal}>
-      <Modal.Header className='modal-header'>
-        <h2>{title}</h2>
+      <Modal.Header className='footer-modal'>
+        <div className='footer-modal_header'>{title}</div>
         <CloseButton onClick={() => dismissModal()} />
       </Modal.Header>
-      <Modal.Body className='footer-modal-body'>
+      <Modal.Body className='footer-modal_body'>
         {sectionTitles?.map((section, i) => {
           const sectionType = sectionContent[i].type;
           return (
-            <div key={section}>
-              <h4>{section}</h4>
+            <div 
+              key={section}
+              className={isFaq && 'faq-modal footer-modal_subheader'}
+            >
+              <div 
+                className='footer-modal_subheader'
+                onClick={()=> isFaq && setFaqSection(i)}>{section}</div>
               {section.length && <hr />}
               {section.length && <br />}
               {sectionType == 'p' &&
                 sectionContent[i].content.map((content, j) => {
-                  return (
+                  if(isFaq && faqSection === i){
+                    return (
+                      <span key={section + String(j) + String(i)} className='paragraph'>
+                        {content}
+                      </span>
+                    );
+                  } 
+                  else if (isFaq && faqSection !== i){
+                    return <></>
+                  }
+                  else return (
                     <span key={section + String(j) + String(i)} className='paragraph'>
                       {content}
                     </span>
