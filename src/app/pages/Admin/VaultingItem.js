@@ -2,6 +2,7 @@ import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 import SubmitButton from '../../components/Generic/SubmitButton';
 import { VAULTING_STATUS } from '../../services/items';
+import './VaultingItem.scss';
 
 function VaultingItem({ onWithdraw, item }) {
   const shouldEnableWithdrawButton = item.status === VAULTING_STATUS.Minted;
@@ -17,7 +18,7 @@ function VaultingItem({ onWithdraw, item }) {
         <Col className='right-align'>{item.manufacturer}</Col>
       </Row>
       <Row className='mt-4 mb-2'>
-        <img src={item.image_url} alt='item' className='img-fluid' />
+        <img src={item.image_url} alt='item' className='admin-vaulting_item' />
         <p>
           Status: <b>{item.status_desc}</b>
         </p>
