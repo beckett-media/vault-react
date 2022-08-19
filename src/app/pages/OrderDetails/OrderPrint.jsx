@@ -6,7 +6,7 @@ import { getSingleOrder } from '../../services/order';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 
 import { AuthContext } from '../../contexts/auth';
-import { mapCognitoToUser } from '../../services/user';
+import { mapCognitoToUser, getUserName } from '../../services/user';
 import { formatPrice } from '../../utils/strings';
 
 const OrderPrint = () => {
@@ -54,6 +54,9 @@ const OrderPrint = () => {
             <b>Order date:</b> {Date(order.created_at).toLocaleString()}
           </div>
           <div>
+            <b>Name:</b> {getUserName(user)}
+          </div>
+          <div>
             <b>Email address:</b> {user.email}
           </div>
           {user.phone && (
@@ -62,7 +65,7 @@ const OrderPrint = () => {
             </div>
           )}
           <div>
-            <b>Number of cards:</b> {order.submissions.length}
+            <b>Number of items:</b> {order.submissions.length}
           </div>
           <div>
             <b>Declared value:</b>
@@ -74,14 +77,14 @@ const OrderPrint = () => {
               )}
           </div>
           <div>
-            <b>Card details:</b>
+            <b>Item details:</b>
           </div>
           {order.submissions.map((item, index) => (
             <div key={`order-items_${index}`}>
               ----- <br />
               Submission ID: {item.id}
               <br />
-              {item.title || item.year +' '+ item.manufacturer +' '+ item.card_number +' '+ item.player }
+              {item.title || item.year + ' ' + item.manufacturer + ' ' + item.card_number + ' ' + item.player}
             </div>
           ))}
         </>
