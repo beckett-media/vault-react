@@ -107,10 +107,10 @@ const Submission = () => {
                                   <div className='ellipses_child'>{item.setName || item.title}</div>
                                 </div>
                                 <div className='ellipses_wrapper submission-item_item'>
-                                  <div className='ellipses_child'>{item.player || item.issue}</div>
+                                  <div className='ellipses_child'>{item.cardNumber || item.publisher}</div>
                                 </div>
                                 <div className='ellipses_wrapper submission-item_item'>
-                                  <div className='ellipses_child'>{item.cardNumber || item.publisher}</div>
+                                  <div className='ellipses_child'>{item.player || item.issue}</div>
                                 </div>
                                 <Button
                                   className='ms-auto'
