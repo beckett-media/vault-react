@@ -112,7 +112,7 @@ const History = () => {
         <Col xs={1} />
       </Row>
       {sortedItems?.length !== 0 && (
-        <ItemsHistory sortedItems={sortedItems} listings={listings} submissions={submissions} vaulting={vaulting} />
+        <ItemsHistory sortedItems={sortedItems} listings={listings} submissions={submissions} vaulting={vaulting} setSortedItems={setSortedItems} />
       )}
       {sortedItems?.length === 0 && <div>No items in History</div>}
     </Container>
