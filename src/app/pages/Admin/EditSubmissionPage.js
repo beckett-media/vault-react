@@ -103,6 +103,8 @@ function AdminEditSubmissionPage() {
                   <Form.Label>Year</Form.Label>
                   <Form.Control
                     type='number'
+                    min={1900}
+                    max={2050}
                     onChange={(e) => updateItem({ year: Number(e.target.value) })}
                     value={item.year}
                   />

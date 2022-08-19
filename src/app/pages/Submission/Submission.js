@@ -10,7 +10,7 @@ import './Submission.scss';
 import SubmissionResponse from './SubmissionResponse';
 import SubmissionAdd from './SubmissionAdd';
 import UserBanner from '../../components/UserBanner/UserBanner';
-import { Button } from '@chakra-ui/react';
+import { Button } from 'react-bootstrap';
 
 import { postSubmission } from '../../services/submission';
 import { formatSubmissionItem } from '../../utils/submissions';
@@ -105,13 +105,15 @@ const Submission = () => {
                                   <div className='ellipses_child'>{item.setName || item.title}</div>
                                 </div>
                                 <div className='ellipses_wrapper submission-item_item'>
-                                  <div className='ellipses_child'>{item.player || item.issue}</div>
+                                  <div className='ellipses_child'>{item.cardNumber || item.publisher}</div>
                                 </div>
                                 <div className='ellipses_wrapper submission-item_item'>
-                                  <div className='ellipses_child'>{item.cardNumber || item.publisher}</div>
+                                  <div className='ellipses_child'>{item.player || item.issue}</div>
                                 </div>
                                 <Button
                                   className='ms-auto'
+                                  bg='transparent'
+                                  variant='outline-primary'
                                   onClick={() => {
                                     setItems(items.filter((item, i) => i !== index));
                                   }}
@@ -122,7 +124,7 @@ const Submission = () => {
                             </div>
                           ))}
                         </div>
-                        <Row className='m-2'>
+                        <Row className='m-2 d-flex flex-column align-items-center'>
                           <Col xs={3} className='flex'>
                             <Button
                               className='submit-button'
