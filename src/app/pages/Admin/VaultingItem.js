@@ -30,38 +30,15 @@ const zoneOptions = [
 
 function VaultingItem({ onWithdraw, item }) {
   const [initialInventory, setInitialInventory] = useState({});
-  const [inventory, setInventory] = useState({ item_id: item.item_id });
+  const [inventory, setInventory] = useState();
   const shouldEnableWithdrawButton = item.status === VAULTING_STATUS.Minted;
 
   console.log(item);
   console.log(inventory);
   console.log(initialInventory);
 
-  // const queryString = require('query-string');
-  // console.log(queryString);
-
-  // const params = {
-  //   test1: ['a', 'b'],
-  //   test2: 'test2',
-  //   test3: 'test3',
-  //   test4: 'test4',
-  // };
-
-  // const listParams = (params) => {
-  //   console.log('1');
-  //   if (Object.values(params).length === 0) {
-  //     return '2';
-  //   } else {
-  //     return queryString.stringify(params, { arrayFormat: 'separator', arrayFormatSeparator: '%' });
-  //   }
-  // };
-
-  // console.log(listParams(params));
-
   useEffect(() => {
-    const item_ids = [item.item_id];
-    console.log(item.item_id);
-    getInventory(item_ids)
+    getInventory({ item_ids: [item.item_id] })
       .then((data) => {
         setInventory(data);
         setInitialInventory(data);
@@ -73,11 +50,11 @@ function VaultingItem({ onWithdraw, item }) {
 
   const locationFormSubmit = (e) => {
     e.preventDefault();
-
+    inventory.item_id = item.item_id;
     console.log(inventory);
 
     if (initialInventory.length > 0) {
-      putInventory(item.item_id, inventory)
+      putInventory(inventory)
         .then((resp) => console.log('success!'))
         .catch((e) => console.log(e));
     } else if (initialInventory.length === 0) {

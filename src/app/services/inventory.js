@@ -2,6 +2,7 @@ import { axiosClient } from './index';
 
 export const getInventory = async ({ item_ids, vault, zone, box, slot, row, offset, limit, order } = {}) => {
   const queryString = require('query-string');
+  console.log(item_ids);
   const params = {
     item_ids,
     vault,
@@ -18,11 +19,17 @@ export const getInventory = async ({ item_ids, vault, zone, box, slot, row, offs
     if (Object.values(params).length === 0) {
       return;
     } else {
-      return queryString.stringify(params, { arrayFormat: 'separator', arrayFormatSeparator: '%' });
+      return queryString.stringify(params, {
+        arrayFormat: 'separator',
+        arrayFormatSeparator: '%',
+        skipEmptyString: true,
+      });
     }
   };
+  console.log(params);
+  console.log(`/inventory${'?' + listParams(params)}`);
 
-  return axiosClient.get(`/inventory${params.item_ids.length > 0 && `?${listParams(params)}`}`).then((res) => {
+  return axiosClient.get(`/inventory${'?' + listParams(params)}`).then((res) => {
     return res.data;
   });
 };
