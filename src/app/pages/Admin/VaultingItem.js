@@ -33,15 +33,16 @@ function VaultingItem({ onWithdraw, item }) {
   const [inventory, setInventory] = useState();
   const shouldEnableWithdrawButton = item.status === VAULTING_STATUS.Minted;
 
-  console.log(item);
-  console.log(inventory);
-  console.log(initialInventory);
+  // console.log(item);
+  // console.log(inventory);
+  // console.log(initialInventory);
 
   useEffect(() => {
     getInventory({ item_ids: [item.item_id] })
       .then((data) => {
-        setInventory(data);
-        setInitialInventory(data);
+        console.log(...data);
+        setInventory(...data);
+        setInitialInventory(...data);
       })
       .catch(console.log('failed to retrieve inventory'));
   }, []);
@@ -50,14 +51,14 @@ function VaultingItem({ onWithdraw, item }) {
 
   const locationFormSubmit = (e) => {
     e.preventDefault();
-    inventory.item_id = item.item_id;
     console.log(inventory);
 
-    if (initialInventory.length > 0) {
-      putInventory(inventory)
+    if (initialInventory) {
+      putInventory(item.item_id, inventory)
         .then((resp) => console.log('success!'))
         .catch((e) => console.log(e));
-    } else if (initialInventory.length === 0) {
+    } else {
+      inventory.item_id = item.item_id;
       postInventory(inventory)
         .then((resp) => console.log('success!'))
         .catch((e) => console.log(e));
@@ -109,12 +110,12 @@ function VaultingItem({ onWithdraw, item }) {
           <span className='fw-bold'>Item uuid:</span> {item.item_uuid}
         </p>
       </Row>
-      <Row className='mt-2'>
+      <Row className='mt-4'>
         <div>
           <span className='fw-bold'>Vault location: </span>
-          {initialInventory.length > 0 ? initialInventory[0].label : 'No inventory location set'}
+          {initialInventory ? initialInventory.label : 'No inventory location set'}
         </div>
-        <Form onSubmit={(e) => locationFormSubmit(e)}>
+        <Form onSubmit={(e) => locationFormSubmit(e)} className='mt-2 mb-4'>
           <Row>
             <Col lg={4}>
               <Form.Group>
@@ -193,7 +194,7 @@ function VaultingItem({ onWithdraw, item }) {
             </Row>
           )}
           <Button type='submit' className='mt-4'>
-            Submit
+            {initialInventory ? 'Update Location' : 'Add Location'}
           </Button>
         </Form>
       </Row>

@@ -26,8 +26,8 @@ export const getInventory = async ({ item_ids, vault, zone, box, slot, row, offs
       });
     }
   };
-  console.log(params);
-  console.log(`/inventory${'?' + listParams(params)}`);
+  // console.log(params);
+  // console.log(`/inventory${'?' + listParams(params)}`);
 
   return axiosClient.get(`/inventory${'?' + listParams(params)}`).then((res) => {
     return res.data;
@@ -41,9 +41,9 @@ export const postInventory = async (item) => {
   });
 };
 
-export const putInventory = async (id, item) => {
+export const putInventory = async (inventory_id, item) => {
   // TODO: validate item
-  return axiosClient.put(`/inventory/${id}`, item).then((res) => {
+  return axiosClient.put(`/inventory/${inventory_id}`, item).then((res) => {
     return res;
   });
 };
