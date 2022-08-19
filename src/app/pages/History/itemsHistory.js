@@ -58,7 +58,6 @@ const ItemsHistory = ({ sortedItems, listings, submissions, vaulting, setSortedI
     } else order_id = groups[group][0].order_id;
     navigate(`/order-details/${order_id}`);
   };
-  console.log(Object.keys(groups))
   return (
     <>
       {Object.keys(groups)?.map((group) => {
