@@ -49,7 +49,6 @@ const Submission = () => {
 
   const handleSubmitForm = () => {
     const uuid = uuidv4();
-    console.log(uuid);
     Promise.all(
       items.map((item) =>
         postSubmission({
