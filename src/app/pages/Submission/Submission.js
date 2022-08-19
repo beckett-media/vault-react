@@ -10,7 +10,7 @@ import './Submission.scss';
 import SubmissionResponse from './SubmissionResponse';
 import SubmissionAdd from './SubmissionAdd';
 import UserBanner from '../../components/UserBanner/UserBanner';
-import { Button } from '@chakra-ui/react';
+import { Button } from 'react-bootstrap';
 
 import { postSubmission } from '../../services/submission';
 import { formatSubmissionItem } from '../../utils/submissions';
@@ -110,10 +110,16 @@ const Submission = () => {
                                   <div className='ellipses_child'>{item.cardNumber || item.publisher}</div>
                                 </div>
                                 <div className='ellipses_wrapper submission-item_item'>
+<<<<<<< HEAD
                                   <div className='ellipses_child'>{item.player || item.year}</div>
+=======
+                                  <div className='ellipses_child'>{item.player || item.issue}</div>
+>>>>>>> b8f65be496c6831b6ab6117248bd060efc37319f
                                 </div>
                                 <Button
                                   className='ms-auto'
+                                  bg='transparent'
+                                  variant='outline-primary'
                                   onClick={() => {
                                     setItems(items.filter((item, i) => i !== index));
                                   }}
@@ -124,32 +130,28 @@ const Submission = () => {
                             </div>
                           ))}
                         </div>
-                        <Row className='m-2'>
-                          <Col xs={3} className='flex'>
-                            <Button 
-                              className='submit-button'
-                              onClick={() => setShowModal(true)}
-                            >Submit</Button>
-                            <Button
-                              className='signin_link'
-                              variant='link'
-                              color='black'
-                              fontWeight='400'
-                              fontSize='14px'
-                              _focus={{ boxShadow: 'none' }}
-                              onClick={() => {
-                                setShowFooterModal('terms');
-                              }}
-                            >
-                              Terms of Service
-                            </Button>
-                          </Col>
+                        <div className='m-2 d-flex flex-column align-items-center'>
+                          <Button className='' onClick={() => setShowModal(true)}>
+                            Submit
+                          </Button>
+                          <Button
+                            variant='link'
+                            color='black'
+                            fontWeight='400'
+                            fontSize='14px'
+                            _focus={{ boxShadow: 'none' }}
+                            onClick={() => {
+                              setShowFooterModal('terms');
+                            }}
+                          >
+                            Terms of Service
+                          </Button>
                           <FooterModal
                             showFooterModal={showTOS}
                             openModal={showTOS.length}
                             dismissModal={dismissModal}
                           />
-                        </Row>
+                        </div>
                       </>
                     )}
 
