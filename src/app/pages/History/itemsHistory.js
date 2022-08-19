@@ -12,7 +12,7 @@ const ItemsHistory = ({ sortedItems, listings, submissions, vaulting, setSortedI
   useEffect(() => {
     const groupings = {};
     sortedItems?.map((item) => {
-      if(item.extra.length){
+      if (item.extra.length) {
         const extra = item.extra.length && JSON.parse(item.extra);
         if (Object.keys(groupings).includes(extra.uuid)) {
           groupings[`${extra.uuid}`].push({ ...item, ...extra });
