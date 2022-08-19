@@ -30,18 +30,25 @@ const zoneOptions = [
 
 function VaultingItem({ onWithdraw, item }) {
   const [initialInventory, setInitialInventory] = useState({});
-  const [inventory, setInventory] = useState();
+  const [inventory, setInventory] = useState({
+    vault: '',
+    zone: '',
+    shelf: '',
+    row: '',
+    box: '',
+    slot: '',
+  });
   const shouldEnableWithdrawButton = item.status === VAULTING_STATUS.Minted;
 
   // console.log(item);
-  // console.log(inventory);
+  console.log(inventory);
   // console.log(initialInventory);
 
   useEffect(() => {
     getInventory({ item_ids: [item.item_id] })
       .then((data) => {
-        console.log(...data);
-        setInventory(...data);
+        // console.log(...data);
+        // setInventory(...data);
         setInitialInventory(...data);
       })
       .catch(console.log('failed to retrieve inventory'));
@@ -54,7 +61,7 @@ function VaultingItem({ onWithdraw, item }) {
     console.log(inventory);
 
     if (initialInventory) {
-      putInventory(item.item_id, inventory)
+      putInventory(initialInventory.id, inventory)
         .then((resp) => console.log('success!'))
         .catch((e) => console.log(e));
     } else {
