@@ -29,8 +29,6 @@ const Submission = () => {
 
   console.log(submissionResponse);
 
-  // useEffect(), [submissionResponse]
-
   const navigate = useNavigate();
 
   const submitAddedItem = (item) => {
@@ -126,28 +124,32 @@ const Submission = () => {
                             </div>
                           ))}
                         </div>
-                        <div className='m-2 d-flex flex-column align-items-center'>
-                          <Button className='' onClick={() => setShowModal(true)}>
-                            Submit
-                          </Button>
-                          <Button
-                            variant='link'
-                            color='black'
-                            fontWeight='400'
-                            fontSize='14px'
-                            _focus={{ boxShadow: 'none' }}
-                            onClick={() => {
-                              setShowFooterModal('terms');
-                            }}
-                          >
-                            Terms of Service
-                          </Button>
+                        <Row className='m-2 d-flex flex-column align-items-center'>
+                          <Col xs={3} className='flex'>
+                            <Button
+                              className='submit-button'
+                              onClick={() => setShowModal(true)}
+                            >Submit</Button>
+                            <Button
+                              className='signin_link'
+                              variant='link'
+                              color='black'
+                              fontWeight='400'
+                              fontSize='14px'
+                              _focus={{ boxShadow: 'none' }}
+                              onClick={() => {
+                                setShowFooterModal('terms');
+                              }}
+                            >
+                              Terms of Service
+                            </Button>
+                          </Col>
                           <FooterModal
                             showFooterModal={showTOS}
                             openModal={showTOS.length}
                             dismissModal={dismissModal}
                           />
-                        </div>
+                        </Row>
                       </>
                     )}
 
