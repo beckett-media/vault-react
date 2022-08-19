@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Col, Row, Button, Modal } from 'react-bootstrap';
+import { Col, Row, Modal } from 'react-bootstrap';
 import { AuthContext } from '../../contexts/auth';
 import { mapCognitoToUser } from '../../services/user';
 import { v4 as uuidv4 } from 'uuid';
@@ -9,13 +9,12 @@ import './Submission.scss';
 
 import SubmissionResponse from './SubmissionResponse';
 import SubmissionAdd from './SubmissionAdd';
-import SubmitButton from '../../components/Generic/SubmitButton';
-import SubmissionConfirmModal from './SubmissionConfirmModal';
 import UserBanner from '../../components/UserBanner/UserBanner';
-import ListItem from '../../components/ListItem/ListItem';
+import { Button } from '@chakra-ui/react';
 
 import { postSubmission } from '../../services/submission';
 import { formatSubmissionItem } from '../../utils/submissions';
+import FooterModal from '../../components/FooterModal/FooterModal';
 
 const Submission = () => {
   const authContext = useContext(AuthContext);
@@ -24,6 +23,9 @@ const Submission = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [submissionResponse, setSubmissionResponse] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [showTOS, setShowTOS] = useState('');
+
+  const dismissModal = () => setShowTOS('');
 
   console.log(submissionResponse);
 
@@ -47,7 +49,6 @@ const Submission = () => {
 
   const handleSubmitForm = () => {
     const uuid = uuidv4();
-
     Promise.all(
       items.map((item) =>
         postSubmission({
@@ -124,9 +125,30 @@ const Submission = () => {
                           ))}
                         </div>
                         <Row className='m-2'>
-                          <Col xs={3}>
-                            <Button onClick={() => setShowModal(true)}>Submit</Button>
+                          <Col xs={3} className='flex'>
+                            <Button 
+                              className='submit-button'
+                              onClick={() => setShowModal(true)}
+                            >Submit</Button>
+                            <Button
+                              className='signin_link'
+                              variant='link'
+                              color='black'
+                              fontWeight='400'
+                              fontSize='14px'
+                              _focus={{ boxShadow: 'none' }}
+                              onClick={() => {
+                                setShowFooterModal('terms');
+                              }}
+                            >
+                              Terms of Service
+                            </Button>
                           </Col>
+                          <FooterModal
+                            showFooterModal={showTOS}
+                            openModal={showTOS.length}
+                            dismissModal={dismissModal}
+                          />
                         </Row>
                       </>
                     )}
