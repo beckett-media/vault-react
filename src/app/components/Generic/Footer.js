@@ -16,19 +16,16 @@ const Footer = ({ setShowFooterModal }) => {
             </div>
             <div className='footer_links-wrapper'>
               <div className='footer_link-wrapper' onClick={() => setShowFooterModal('terms')}>
-                {/* to='/privacy' */}
                 <div className='footer_link-div'>
                   <div className='footer_link'>Terms of Service</div>
                 </div>
               </div>
               <div className='footer_link-wrapper' onClick={() => setShowFooterModal('privacy')}>
-                {/* to='/privacy' */}
                 <div className='footer_link-div'>
                   <div className='footer_link'>Privacy Policy</div>
                 </div>
               </div>
               <div className='footer_link-wrapper' onClick={() => setShowFooterModal('faq')}>
-                {/* to='/privacy' */}
                 <div className='footer_link-div'>
                   <div className='footer_link'>FAQ</div>
                 </div>
@@ -46,7 +43,6 @@ const Footer = ({ setShowFooterModal }) => {
                 </OverlayTrigger>
               </div>
             </div>
-            {/** TODO: Verify this should be 2021 */}
             <div className='footer_end'>© 2022 Beckett Collectibles, LLC</div>
           </div>
         </div>
