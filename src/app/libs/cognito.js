@@ -120,6 +120,22 @@ export async function verifyCode(username, code) {
   });
 }
 
+export async function resendConfirmationCode(username) {
+  return new Promise(function (resolve, reject) {
+    const cognitoUser = getCognitoUser(username);
+
+    cognitoUser.resendConfirmationCode(function (err, result) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  }).catch((err) => {
+    throw err;
+  });
+}
+
 export async function signInWithEmail(username, password, setPassword) {
   return new Promise(function (resolve, reject) {
     const authenticationData = {
