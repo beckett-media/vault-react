@@ -9,9 +9,9 @@ import './SignIn.scss';
 const ForgotPassword = ({ showForgotPWModal, dismissModal, codeSent, setCodeSent }) => {
   const { email, setEmail, emailIsValid } = useValidEmail('');
   const [error, setError] = useState('');
-  const submitPasswordResetForm = () => {
+  const submitPasswordResetForm =  async () => {
     if (emailIsValid) {
-      sendCode('email');
+      await sendCode(email);
       setCodeSent(true);
     } else setError('Email is Invalid');
   };
@@ -38,7 +38,7 @@ const ForgotPassword = ({ showForgotPWModal, dismissModal, codeSent, setCodeSent
             />
           </FormControl>
           {error && <div className='signin_error'>{error}</div>}
-          <div onClick={() => submitPasswordResetForm()} className='signin_button'>
+          <div onClick={submitPasswordResetForm} className='signin_button'>
             Send Code
           </div>
           <div className='signin_modal'>
