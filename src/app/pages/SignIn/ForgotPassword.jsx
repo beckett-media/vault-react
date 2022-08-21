@@ -31,7 +31,7 @@ const ForgotPassword = ({ showForgotPWModal, dismissModal, codeSent, setCodeSent
             <Input
               id='email'
               type='email'
-              placeholder='Email Address*'
+              placeholder='Email Address or Username*'
               h={12}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
