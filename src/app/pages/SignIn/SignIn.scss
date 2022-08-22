@@ -44,7 +44,7 @@
     }
 
     input {
-      margin: 3px;
+      margin: 3px 0;
       border-radius: 2px;
       border-color: #c5c5c5;
     }
@@ -95,6 +95,7 @@
       box-shadow: 0 0 30px -5px #ab8dff;
     }
   }
+
   &muted {
     margin-top: 24px;
     margin-bottom: 18px;
@@ -108,9 +109,11 @@
     border-radius: 4px;
     transition: all 0.5s ease-in-out;
   }
+
   &reverify {
     text-decoration: underline;
-    &:hover{
+
+    &:hover {
       cursor: pointer
     }
   }
@@ -121,9 +124,11 @@
     display: none;
   }
 }
+
 .forgot-pw-modal-body {
   color: black;
 }
+
 .code-sent {
   color: black;
 }
