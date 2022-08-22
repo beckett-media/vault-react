@@ -149,6 +149,7 @@ const SignIn = () => {
     try {
       await authContext.signInWithEmail(email, password);
     } catch (err) {
+      setMessage('')
       if (err.code === 'NotAuthorizedException') {
         setError('Verify username/password or check confirmation email');
       } else if (err.code === 'UserNotConfirmedException') {
@@ -289,7 +290,7 @@ const SignIn = () => {
                 <CloseButton onClick={() => dismissPasswordReset()} />
               </Modal.Header>
               <Modal.Body>
-                <div className='code-sent'>Code sent to {email}</div>
+                <div className='code-sent'>Password reset successful!</div>
               </Modal.Body>
             </Modal>
           )}
