@@ -124,9 +124,8 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                     <Form.Group>
                       <Form.Label>Declared value* (must be $750 or greater)</Form.Label>
                       <Form.Control
-                        type='number'
-                        min={750}
-                        onChange={(e) => updateItem({ estimatedValue: Number(e.target.value) })}
+                        value={item?.estimatedValue?.toLocaleString()}
+                        onChange={(e) => updateItem({ estimatedValue: Number(e.target.value.replaceAll(',','')) })}
                         required
                       />
                     </Form.Group>
@@ -200,9 +199,8 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                     <Form.Group>
                       <Form.Label>Declared value* (must be $750 or greater)</Form.Label>
                       <Form.Control
-                        type='number'
-                        min={750}
-                        onChange={(e) => updateItem({ estimatedValue: Number(e.target.value) })}
+                        value={item?.estimatedValue?.toLocaleString()}
+                        onChange={(e) => updateItem({ estimatedValue: Number(e.target.value.replaceAll(',','')) })}
                         required
                       />
                     </Form.Group>
