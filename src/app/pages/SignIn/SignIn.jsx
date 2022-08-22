@@ -10,8 +10,8 @@ import { PasswordField } from '../../components/PasswordField/PasswordField';
 import { NewPasswordField } from '../../components/NewPasswordField/NewPasswordField';
 import { ReactComponent as SigninBg } from '../../assets/bg-sphere--large.svg';
 import ForgotPassword from './ForgotPassword';
-import { CloseButton, Modal } from 'react-bootstrap';
-import { forgotPassword, resendConfirmationCode, sendCode } from '../../libs/cognito';
+import { CloseButton, Modal, Spinner } from 'react-bootstrap';
+import { forgotPassword, resendConfirmationCode } from '../../libs/cognito';
 
 export const useValidEmail = (initialValue) => {
   const [email, setEmail] = useState(initialValue);
@@ -145,7 +145,7 @@ const SignIn = () => {
   const authContext = useContext(AuthContext);
 
   const signInClicked = async () => {
-    setMessage('');
+    setMessage('Loading');
     try {
       await authContext.signInWithEmail(email, password);
     } catch (err) {
@@ -224,6 +224,7 @@ const SignIn = () => {
                 <div className='signin_error'>{error}</div>
                 <div className='signin_reverify' onClick={()=>resendConfirmationCode(email) }>Resend Validation Email</div>
               </>}
+              {message === 'Loading' && <><Spinner animation="border" role="status"/><span>Loading...</span></>}
               <Checkbox marginTop='12px' alignSelf='start' size='sm' colorScheme='gray' className='signin_checkbox'>
                 Remember me
               </Checkbox>
