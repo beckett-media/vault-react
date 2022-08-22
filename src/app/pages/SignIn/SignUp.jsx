@@ -18,19 +18,32 @@ const SignUp = () => {
   const [error, setError] = React.useState(undefined);
   const navigate = useNavigate();
 
+  const formatErrMessageFromBackend = (message) => {
+    if (message.includes("PreSignUp failed with error")) {
+      return message.slice("PreSignUp failed with error".length)
+    }
+    return message
+  }
+
   const submitSignUpForm = () => {
-    const phone = formatPhoneNumber(newUser.phone);
     setError('');
-    if (newUser.password != confirmPassword) {
-      setError('Passwords must match');
-    } else if (!hasRequiredProperties(newUser, requiredNewUserProperties)) {
-      setError('all Fields are required');
-    } else {
-      submitNewUser({ ...newUser, phone: phone }, authContext).then((res) => {
-        if (res?.user?.username) {
-          navigate('/signin', { msg: 'Check your email to verify your account, then login' });
-        } else setError(res);
-      });
+    try {
+      const phone = formatPhoneNumber(newUser.phone);
+      if (newUser.password != confirmPassword) {
+        setError('Passwords must match');
+      } else if (!hasRequiredProperties(newUser, requiredNewUserProperties)) {
+        setError('all Fields are required');
+      } else {
+        submitNewUser({ ...newUser, phone: phone }, authContext).then((res) => {
+          if (res?.user?.username) {
+            navigate('/signin', { msg: 'Check your email to verify your account, then login' });
+          } else setError(res);
+        }, (err) => {
+          setError(formatErrMessageFromBackend(err.message))
+        });
+      }
+    } catch (err) {
+      setError(err.message);
     }
   };
   return (
@@ -40,6 +53,7 @@ const SignUp = () => {
         <div className='signin_modal'>
           <div className='signin_heading'>Sign Up</div>
           <FormControl>
+            {error && <div className='signin_error'>{error}</div>}
             <Input
               id='email'
               type='email'

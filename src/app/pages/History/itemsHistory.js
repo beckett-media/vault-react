@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
-import SubmitButton from '../../components/Generic/SubmitButton';
+import { useNavigate } from 'react-router-dom';
 import { getFormattedDate } from '../../utils/date';
 import './History.scss';
 
@@ -37,7 +36,7 @@ const ItemsHistory = ({ sortedItems, listings, submissions, vaulting, setSortedI
             : console.log('Not Found'),
         ),
       );
-    setGroups({ ...groups, [selected]: updatedArr });
+    selected && setGroups({ ...groups, [selected]: updatedArr });
   }, [selected]);
   const rowClicked = (identifier, item) => {
     if (identifier.indexOf('btn') === -1) {
@@ -100,7 +99,6 @@ const ItemsHistory = ({ sortedItems, listings, submissions, vaulting, setSortedI
                       {'Item: '}
                       <br />
                       <span className='fw-bold'>
-                        {console.log(item.card_number)}
                         {item.title.length ? item.title : `${item.year} ${item.manufacturer} ${item.card_number} ${item.player}`}
                       </span>
                     </div>

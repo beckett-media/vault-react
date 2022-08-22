@@ -1,5 +1,5 @@
 export const support = {
-  title: 'Privacy Policy',
+  title: 'Support',
   sectionTitles: ['Email','Address'],
   sectionContent: [
     {
@@ -14,8 +14,11 @@ export const support = {
       type: 'p',
       content: [
         'Beckett Collectibles',
+        <br/>,
         'C/O Beckett Vault',
+        <br/>,
         '2700 Summit Ave, Ste 100',
+        <br/>,
         'Plano, TX 75074',
       ]
     }

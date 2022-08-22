@@ -13,7 +13,7 @@ const UserBanner = ({ vaultedItems = 0, vaultedValue = 0 }) => {
 
   const bannerDetails = vaultedItems ? (
     <div className='user-banner_content-layout'>
-      <div className='user-banner_heading user-banner_grid-1'>{getUserName(userState)}</div>
+      <div className='user-banner_heading user-banner_grid-1'>{userState.preferred_username}</div>
       <div className='user-banner_body user-banner_grid-2'>Vaulted Items</div>
       <div className='user-banner_body user-banner_grid-3'>Vaulted Value</div>
       {/* Todo: add dynamic date-joined field */}
@@ -24,7 +24,7 @@ const UserBanner = ({ vaultedItems = 0, vaultedValue = 0 }) => {
     </div>
   ) : (
     <div className='user-banner_content-layout'>
-      <div className='user-banner_heading user-banner_grid-1'>{getUserName(userState)}</div>
+      <div className='user-banner_heading user-banner_grid-1'>{userState.preferred_username}</div>
       {/* Todo: add dynamic date-joined field */}
       <div></div>
       <div></div>

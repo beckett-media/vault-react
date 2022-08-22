@@ -97,18 +97,19 @@ const Submission = () => {
                         <div className='submission_items submission_container'>
                           {items.map((item, index) => (
                             <div key={`submission_${index}`} className='submission-item_component'>
+                              {console.log(item)}
                               <div className='submission-item_layout'>
                                 <div className='ellipses_wrapper submission-item_item'>
-                                  <div className='ellipses_child'>{item.year}</div>
+                                  <div className='ellipses_child'>{item.player && item.year || item.title}</div>
                                 </div>
                                 <div className='ellipses_wrapper submission-item_item'>
-                                  <div className='ellipses_child'>{item.setName || item.title}</div>
+                                  <div className='ellipses_child'>{item.player && item.setName || item.issue}</div>
                                 </div>
                                 <div className='ellipses_wrapper submission-item_item'>
-                                  <div className='ellipses_child'>{item.cardNumber || item.publisher}</div>
+                                  <div className='ellipses_child'>{item.player && item.cardNumber || item.publisher}</div>
                                 </div>
                                 <div className='ellipses_wrapper submission-item_item'>
-                                  <div className='ellipses_child'>{item.player || item.issue}</div>
+                                  <div className='ellipses_child'>{item.player || item.year}</div>
                                 </div>
                                 <Button
                                   className='ms-auto'
@@ -124,32 +125,27 @@ const Submission = () => {
                             </div>
                           ))}
                         </div>
-                        <Row className='m-2 d-flex flex-column align-items-center'>
-                          <Col xs={3} className='flex'>
-                            <Button
-                              className='submit-button'
-                              onClick={() => setShowModal(true)}
-                            >Submit</Button>
-                            <Button
-                              className='signin_link'
-                              variant='link'
-                              color='black'
-                              fontWeight='400'
-                              fontSize='14px'
-                              _focus={{ boxShadow: 'none' }}
-                              onClick={() => {
-                                setShowFooterModal('terms');
-                              }}
-                            >
-                              Terms of Service
-                            </Button>
-                          </Col>
+                        <div className='my-2 d-flex flex-column align-items-center'>
+                          <Button onClick={() => setShowModal(true)}>Submit</Button>
+                          <Button
+                            className='signin_link'
+                            variant='link'
+                            color='black'
+                            fontWeight='400'
+                            fontSize='14px'
+                            _focus={{ boxShadow: 'none' }}
+                            onClick={() => {
+                              setShowTOS('terms');
+                            }}
+                          >
+                            Terms of Service
+                          </Button>
                           <FooterModal
                             showFooterModal={showTOS}
                             openModal={showTOS.length}
                             dismissModal={dismissModal}
                           />
-                        </Row>
+                        </div>
                       </>
                     )}
 

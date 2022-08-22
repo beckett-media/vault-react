@@ -187,6 +187,12 @@ const SignIn = () => {
         }
       });
   };
+  const confirmPasswordMatch = (pw) => {
+    if(pw !== password){
+      setError("Passwords don't match")
+    } else setError('')
+    setConfirmPassword(pw)
+  }
 
   return (
     <div className='page-wrapper vh-100'>
@@ -236,23 +242,31 @@ const SignIn = () => {
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </FormControl>
-              <Input
-                id='code'
-                type='code'
-                placeholder='Code'
-                h={12}
-                value={code}
-                onChange={(e) => setCode(e.target.value)}
-              />
+              <FormControl>
+                <Input
+                  id='code'
+                  type='code'
+                  placeholder='Code'
+                  h={12}
+                  value={code}
+                  onChange={(e) => setCode(e.target.value)}
+                />
+              </FormControl>
               <PasswordField
-                value={confirmPassword}
+                value={password}
                 placeholder='New Password**'
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
+              /> <FormControl>
+              <PasswordField
+                placeholder='Confirm Password**'
+                value={confirmPassword}
+                onChange={(e) => confirmPasswordMatch(e.target.value)}
               />
-              {error && <div className='signin_error'>{error}</div>}
-              <div onClick={() => submitForgotPassword()} className='signin_button'>
-                Continue
-              </div>
+            </FormControl>
+            {error && <div className='signin_error'>{error}</div>}
+            <div onClick={() => submitForgotPassword()} className='signin_button'>
+              Continue
+            </div>
             </>
           )}
           {!(authContext.authStatus === AuthStatus.SetPassword) && !codeSent && (

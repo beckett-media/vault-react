@@ -102,7 +102,7 @@ const History = () => {
         setFilterBy={setFilterBy}
         filterOptions={filterOptions}
       />
-      <Row>
+      <Row className='mt-4 mb-2'>
         <Col xs={9}>
           <h3 className='fs-4'>Title</h3>
         </Col>
