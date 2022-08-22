@@ -24,14 +24,16 @@ const OrderDetails = () => {
             </div>
           </div>
           <div className='mt-4 w-100 d-flex flex-column align-items-center'>
-            <Col lg={9} className='text-center mb-2'>
+            <Col lg={6} className='text-center mb-2'>
               To send your order to Beckett Vault, please click the button below to print your order confirmation and
-              <strong> include it in your shipping box.</strong>
+              include it in your shipping box.
             </Col>
             <Col lg={6} sm={12} className='text-center mb-4'>
               <strong>Ship orders to:</strong>
-              <div>Beckett Vault</div>
-              <div>2700 Summit Ave, Suite 100, Plano TX, 75074</div>
+              <div>Beckett Collectibles</div>
+              <div>C/O Beckett Vault</div>
+              <div>2700 Summit Ave, Ste 100</div>
+              <div>Plano, TX 75074</div>
             </Col>
             <Button className='mb-4' onClick={() => printSection('print-area')}>
               Print order form
