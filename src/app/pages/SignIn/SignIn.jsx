@@ -275,7 +275,7 @@ const SignIn = () => {
               />
             </FormControl>
             {error && <div className='signin_error'>{error}</div>}
-           {error ?
+           {error === 'Passwords do not match!' ?
             <div className='signin_muted'>
               Continue
             </div> :
