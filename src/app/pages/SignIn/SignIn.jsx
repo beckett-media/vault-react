@@ -290,7 +290,7 @@ const SignIn = () => {
                 <CloseButton onClick={() => dismissPasswordReset()} />
               </Modal.Header>
               <Modal.Body>
-                <div className='code-sent'>Code sent to {email}</div>
+                <div className='code-sent'>Password reset successful!</div>
               </Modal.Body>
             </Modal>
           )}
