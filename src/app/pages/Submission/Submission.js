@@ -137,7 +137,7 @@ const Submission = () => {
                             fontSize='14px'
                             _focus={{ boxShadow: 'none' }}
                             onClick={() => {
-                              setShowFooterModal('terms');
+                              setShowTOS('terms');
                             }}
                           >
                             Terms of Service
