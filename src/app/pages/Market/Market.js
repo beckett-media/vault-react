@@ -25,7 +25,7 @@ const Market = () => {
 
   return (
     <div className='page-wrapper'>
-      <DepartmentFilter />
+      {/* <DepartmentFilter /> */}
       <div className='section_market-hero'>
         <div className='page-padding'>
           <div className='container-large'>
