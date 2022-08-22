@@ -149,6 +149,7 @@ const SignIn = () => {
     try {
       await authContext.signInWithEmail(email, password);
     } catch (err) {
+      setMessage('')
       if (err.code === 'NotAuthorizedException') {
         setError('Verify username/password or check confirmation email');
       } else if (err.code === 'UserNotConfirmedException') {
