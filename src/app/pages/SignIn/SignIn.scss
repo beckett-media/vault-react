@@ -95,6 +95,12 @@
       box-shadow: 0 0 30px -5px #ab8dff;
     }
   }
+  &reverify {
+    text-decoration: underline;
+    &:hover{
+      cursor: pointer
+    }
+  }
 }
 
 .section_signup {

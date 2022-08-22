@@ -10,7 +10,7 @@ import { PasswordField } from '../../components/PasswordField/PasswordField';
 import { NewPasswordField } from '../../components/NewPasswordField/NewPasswordField';
 import { ReactComponent as SigninBg } from '../../assets/bg-sphere--large.svg';
 import ForgotPassword from './ForgotPassword';
-import { forgotPassword, sendCode } from '../../libs/cognito';
+import { forgotPassword, resendConfirmationCode, sendCode } from '../../libs/cognito';
 
 export const useValidEmail = (initialValue) => {
   const [email, setEmail] = useState(initialValue);
@@ -214,7 +214,10 @@ const SignIn = () => {
                 />
               </FormControl>
               <PasswordField value={password} onChange={(e) => setPassword(e.target.value)} />
-              {error && <div className='signin_error'>{error}</div>}
+              {error && <>
+                <div className='signin_error'>{error}</div>
+                <div className='signin_reverify' onClick={()=>resendConfirmationCode(email) }>Resend Validation Email</div>
+              </>}
               <Checkbox marginTop='12px' alignSelf='start' size='sm' colorScheme='gray' className='signin_checkbox'>
                 Remember me
               </Checkbox>
