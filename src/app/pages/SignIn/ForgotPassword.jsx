@@ -1,7 +1,6 @@
 import { Input, FormControl, Button } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { CloseButton, Modal } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import { sendCode } from '../../libs/cognito';
 import { useValidEmail } from './SignIn';
 import './SignIn.scss';
