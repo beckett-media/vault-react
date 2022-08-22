@@ -256,7 +256,8 @@ const SignIn = () => {
               <FormControl>
                 <Input
                   id='code'
-                  type='code'
+                  type='text'
+                  autoComplete='off'
                   placeholder='Code'
                   h={12}
                   value={code}

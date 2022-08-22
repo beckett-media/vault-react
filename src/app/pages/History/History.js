@@ -92,7 +92,7 @@ const History = () => {
   return (
     <Container className='py-2 sub-box'>
       <h2 className='fs-3 pb-3'>History</h2>
-      <Filter
+      {/* <Filter
         searchVal={searchVal}
         setSearchVal={setSearchVal}
         sortBy={sortBy}
@@ -101,7 +101,7 @@ const History = () => {
         filterBy={filterBy}
         setFilterBy={setFilterBy}
         filterOptions={filterOptions}
-      />
+      /> */}
       <Row className='mt-4 mb-2'>
         <Col xs={9}>
           <h3 className='fs-4'>Title</h3>
