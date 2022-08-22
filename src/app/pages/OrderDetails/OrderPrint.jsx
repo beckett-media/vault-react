@@ -32,7 +32,7 @@ const OrderPrint = () => {
   const sumObject = (property) => {};
 
   return (
-    <div>
+    <div className='order-details_print'>
       {isLoading && (
         <div className='d-flex flex-column align-items-center'>
           <LoadingSpinner />
@@ -47,6 +47,14 @@ const OrderPrint = () => {
       )}
       {!!order && (
         <>
+          <div>
+            <strong>Ship orders to:</strong>
+            <div>Beckett Collectibles</div>
+            <div>C/O Beckett Vault</div>
+            <div>2700 Summit Ave, Ste 100</div>
+            <div>Plano, TX 75074</div>
+          </div>
+          <div>----</div>
           <div>
             <b>Order ID:</b> {order.id}
           </div>
