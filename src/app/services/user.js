@@ -37,7 +37,7 @@ export const mapCognitoToUser = (cognitoUser) => {
 };
 
 export const getUserName = (user) => {
-  return `${user.familyName || ''} ${user.givenName || ''}`;
+  return `${user.familyName || ''}, ${user.givenName || ''}`;
 };
 
 export const mapUserToCognito = (user) => {
