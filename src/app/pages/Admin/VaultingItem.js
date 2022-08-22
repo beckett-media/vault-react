@@ -3,6 +3,7 @@ import { Row, Col, Form, Button } from 'react-bootstrap';
 import SubmitButton from '../../components/Generic/SubmitButton';
 import { VAULTING_STATUS } from '../../services/items';
 import { getInventory, postInventory, putInventory } from '../../services/inventory';
+import './VaultingItem.scss';
 
 const zoneOptions = [
   'Cabinet 1',
@@ -85,7 +86,7 @@ function VaultingItem({ onWithdraw, item }) {
         <Col className='right-align'>{item.manufacturer}</Col>
       </Row>
       <Row className='mt-4 mb-2'>
-        <img src={item.image_url} alt='item' className='img-fluid' />
+        <img src={item.image_url} alt='item' className='img-fluid admin-vaulting_item' />
         <p className='mt-2'>
           <span className='fw-bold'>Status:</span> {item.status_desc}
         </p>

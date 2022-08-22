@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Col, Form, Row, Button } from 'react-bootstrap';
-import { Navigate, useParams } from 'react-router-dom';
+import { Navigate, useParams, useNavigate } from 'react-router-dom';
 import { getSingleSubmission } from '../../services/submission';
 import './CreateVaultingPage.scss';
 import { updateSubmission } from '../../services/submission';
@@ -10,6 +10,7 @@ function AdminEditSubmissionPage() {
   const { submissionId } = useParams();
   const [submission, setSubmission] = React.useState({});
   const [item, setItem] = useState({});
+  const navigate = useNavigate();
   const isValidId = submissionId && !isNaN(Number(submissionId));
 
   React.useEffect(() => {
@@ -45,7 +46,11 @@ function AdminEditSubmissionPage() {
 
     console.log('update submission payload', payload);
     updateSubmission(submission.id, payload)
-      .then((res) => console.log('update submission success', res))
+      .then((res) => {
+        console.log('update submission success', res);
+        alert('Updated successfully');
+        navigate('/admin/submission');
+      })
       .catch((err) => {
         console.error('update submission failed', err);
         alert(err);
@@ -85,21 +90,45 @@ function AdminEditSubmissionPage() {
             <Row>
               <Col sm={12} lg={6}>
                 <Form.Group>
-                  <Form.Label>Subject</Form.Label>
+                  <Form.Label>Player</Form.Label>
                   <Form.Control
                     type='text'
-                    onChange={(e) => updateItem({ subject: e.target.value })}
-                    value={item.subject}
+                    onChange={(e) => updateItem({ player: e.target.value })}
+                    value={item.player}
                   />
                 </Form.Group>
               </Col>
               <Col sm={12} lg={6}>
                 <Form.Group>
-                  <Form.Label>Genre</Form.Label>
+                  <Form.Label>Year</Form.Label>
+                  <Form.Control
+                    type='number'
+                    min={1900}
+                    max={2050}
+                    onChange={(e) => updateItem({ year: Number(e.target.value) })}
+                    value={item.year}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col sm={12} lg={6}>
+                <Form.Group>
+                  <Form.Label>Set name</Form.Label>
                   <Form.Control
                     type='text'
-                    onChange={(e) => updateItem({ genre: e.target.value })}
-                    value={item.genre}
+                    onChange={(e) => updateItem({ set_name: e.target.value })}
+                    value={item.set_name}
+                  />
+                </Form.Group>
+              </Col>
+              <Col sm={12} lg={6}>
+                <Form.Group>
+                  <Form.Label>Sport</Form.Label>
+                  <Form.Control
+                    type='text'
+                    onChange={(e) => updateItem({ sport: e.target.value })}
+                    value={item.sport}
                   />
                 </Form.Group>
               </Col>
@@ -139,21 +168,32 @@ function AdminEditSubmissionPage() {
               </Col>
               <Col sm={12} lg={6}>
                 <Form.Group>
-                  <Form.Label>Manufacturer</Form.Label>
-                  <Form.Control
-                    type='text'
-                    onChange={(e) => updateItem({ manufacturer: e.target.value })}
-                    value={item.manufacturer}
-                  />
-                </Form.Group>
-              </Col>
-              <Col sm={12} lg={6}>
-                <Form.Group>
                   <Form.Label>Grading Company</Form.Label>
                   <Form.Control
                     type='text'
                     onChange={(e) => updateItem({ grading_company: e.target.value })}
                     value={item.grading_company}
+                  />
+                </Form.Group>
+              </Col>
+              <Col sm={12} lg={6}>
+                <Form.Group>
+                  <Form.Label>Estimated value</Form.Label>
+                  <Form.Control
+                    type='number'
+                    min={1}
+                    value={item.est_value}
+                    onChange={(e) => updateItem({ est_value: Number(e.target.value) })}
+                  />
+                </Form.Group>
+              </Col>
+              <Col sm={12} lg={6}>
+                <Form.Group>
+                  <Form.Label>Card Number</Form.Label>
+                  <Form.Control
+                    type='text'
+                    onChange={(e) => updateItem({ card_number: e.target.value })}
+                    value={item.card_number}
                   />
                 </Form.Group>
               </Col>
@@ -169,27 +209,15 @@ function AdminEditSubmissionPage() {
               </Col>
               <Col sm={12} lg={6}>
                 <Form.Group>
-                  <Form.Label>Year</Form.Label>
+                  <Form.Label>Genre</Form.Label>
                   <Form.Control
-                    type='number'
-                    min={1900}
-                    max={2050}
-                    value={item.year}
-                    onChange={(e) => updateItem({ year: Number(e.target.value) })}
+                    type='text'
+                    value={item.genre}
+                    onChange={(e) => updateItem({ genre: Number(e.target.value) })}
                   />
                 </Form.Group>
               </Col>
-              <Col sm={12} lg={6}>
-                <Form.Group>
-                  <Form.Label>Estimated value</Form.Label>
-                  <Form.Control
-                    type='number'
-                    min={1}
-                    value={item.est_value}
-                    onChange={(e) => updateItem({ est_value: Number(e.target.value) })}
-                  />
-                </Form.Group>
-              </Col>
+              
               <Col sm={12} lg={6}>
                 <Form.Group>
                   <Form.Label>Auto graph</Form.Label>
@@ -226,7 +254,10 @@ function AdminEditSubmissionPage() {
         <div className='submission_divider'></div>
         <Row className='submission_form-section'>
           <div className='submission_form-button-wrapper'>
-            <Button type='reset' bg='transparent' variant='outline-primary' onClick={() => setItem(submission)}>
+            <Button type='reset' bg='transparent' variant='outline-primary' onClick={() => {
+              setItem(submission);
+              navigate('/admin/submission');
+            }}>
               Cancel
             </Button>
             <Button type='submit'>Update</Button>

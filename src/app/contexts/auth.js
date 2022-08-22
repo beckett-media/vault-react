@@ -123,6 +123,14 @@ const AuthProvider = ({ children }) => {
     }
   }
 
+  async function resendConfirmationCode(username) {
+    try {
+      await cognito.resendConfirmationCode(username);
+    } catch (err) {
+      throw err;
+    }
+  }
+
   async function signUpWithEmail(username, email, password) {
     try {
       await cognito.signUpUserWithEmail(username, email, password);
@@ -227,6 +235,7 @@ const AuthProvider = ({ children }) => {
     attrInfo,
     isSignedIn: authStatus === AuthStatus.SignedIn,
     isAdmin: (adminGroups || []).includes('admin'),
+    resendConfirmationCode,
     signUpUser,
     signUpWithEmail,
     signInWithEmail,
