@@ -96,9 +96,10 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                 <Row>
                   <Col sm={12} lg={6}>
                     <Form.Group>
-                      <Form.Label>Card number</Form.Label>
+                      <Form.Label>Card number*</Form.Label>
                       <Form.Control
                         type='text'
+                        required
                         onChange={(e) => updateItem({ cardNumber: e.target.value.replace(/#/g, '') })}
                       />
                     </Form.Group>
@@ -172,7 +173,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                 <Row>
                   <Col sm={12} lg={6}>
                     <Form.Group>
-                      <Form.Label>Issue #</Form.Label>
+                      <Form.Label>Issue #*</Form.Label>
                       <Form.Control
                         type='text'
                         onChange={(e) => updateItem({ issue: e.target.value.replace(/#/g, '') })}
