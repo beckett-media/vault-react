@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Col, Form, Row, Button } from 'react-bootstrap';
-import './Submission.scss'
+import { Link } from 'react-router-dom';
+import './Submission.scss';
 
 const AddBeckettItem = (props) => {
   return (
@@ -26,12 +27,12 @@ const SubmissionAdd = ({ submitAddedItem }) => {
     e.target.reset();
   };
   const updateItem = (tempItem) => setItem({ ...item, ...tempItem });
-  const setEstVal = value => {
-    const val = Number(value.replaceAll(',',''))
-    updateItem({ 
-      estimatedValue: isNaN(val) ? item.estimatedValue : val
-    })
-  }
+  const setEstVal = (value) => {
+    const val = Number(value.replaceAll(',', ''));
+    updateItem({
+      estimatedValue: isNaN(val) ? item.estimatedValue : val,
+    });
+  };
   return (
     <div className='w-100'>
       <div className='submission_heading'>Submit Items to Vault</div>
@@ -128,9 +129,11 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                   </Col>
                   <Col sm={12} lg={6}>
                     <Form.Group>
-                      <Form.Label 
+                      <Form.Label
                         className={item.estimatedValue && item.estimatedValue < 750 ? 'alert-est-val' : 'set-est-val'}
-                        >Declared value* (must be $750 or greater)</Form.Label>
+                      >
+                        Declared value* (must be $750 or greater)
+                      </Form.Label>
                       <Form.Control
                         value={item?.estimatedValue?.toLocaleString()}
                         onChange={(e) => setEstVal(e.target.value)}
@@ -207,7 +210,9 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                     <Form.Group>
                       <Form.Label
                         className={item.estimatedValue && item.estimatedValue < 750 ? 'alert-est-val' : 'set-est-val'}
-                      >Declared value* (must be $750 or greater)</Form.Label>
+                      >
+                        Declared value* (must be $750 or greater)
+                      </Form.Label>
                       <Form.Control
                         value={item?.estimatedValue?.toLocaleString()}
                         onChange={(e) => setEstVal(e.target.value)}
@@ -223,10 +228,17 @@ const SubmissionAdd = ({ submitAddedItem }) => {
         <div className='submission_divider'></div>
         <Row className='submission_form-section'>
           <div className='submission_form-button-wrapper'>
+            <Link to='/my-collection'>
+              <Button type='reset' bg='transparent' variant='outline-primary'>
+                Cancel
+              </Button>
+            </Link>
             <Button type='reset' bg='transparent' variant='outline-primary' onClick={() => setItem({})}>
-              Cancel
+              Clear
             </Button>
-            <Button type='submit' disabled = {item.estimatedValue < 750}>Add</Button>
+            <Button type='submit' disabled={item.estimatedValue < 750}>
+              Add
+            </Button>
           </div>
         </Row>
       </Form>
