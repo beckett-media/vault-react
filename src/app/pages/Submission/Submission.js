@@ -105,7 +105,7 @@ const Submission = () => {
                                 </div>
                                 <div className='ellipses_wrapper submission-item_item'>
                                   <div className='ellipses_child'>
-                                    {(!item.publisher && item.setName) || item.issue}
+                                    {(!item.publisher && item.setName) || '#' + item.issue}
                                   </div>
                                 </div>
                                 <div className='ellipses_wrapper submission-item_item'>

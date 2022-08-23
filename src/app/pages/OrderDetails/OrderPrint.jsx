@@ -18,6 +18,8 @@ const OrderPrint = () => {
 
   const { orderId } = useParams();
 
+  console.log(order);
+
   useEffect(() => {
     setIsLoading(true);
     getSingleOrder(orderId)
@@ -92,7 +94,8 @@ const OrderPrint = () => {
               ----- <br />
               Submission ID: {item.id}
               <br />
-              {item.title || item.year + ' ' + item.manufacturer + ' ' + item.card_number + ' ' + item.player}
+              {item.type === 1 && item.year + ' ' + item.set_name + ' ' + item.card_number + ' ' + item.player}
+              {item.type === 2 && item.title + ' ' + item.issue + ' ' + item.publisher + ' ' + item.year}
             </div>
           ))}
         </>
