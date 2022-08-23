@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card, Form, Button, Modal, Spinner } from 'react-bootstrap';
 import { mapCognitoToUser, mapUserToCognito } from '../../services/user';
 import './Profile.scss';
 import UserBanner from '../../components/UserBanner/UserBanner';
@@ -11,7 +11,7 @@ const Profile = () => {
   const user = mapCognitoToUser(authContext.attrInfo);
   const [userState, setUserState] = useState(user);
   const [isShippingSame, setIsShippingSame] = useState(false);
-
+  const [loading, setLoading] = useState(false)
   const updateUserState = (tempItem) => setUserState({ ...userState, ...tempItem });
 
   const syncSubmissionAddresses = () => {
@@ -29,20 +29,27 @@ const Profile = () => {
 
   const submitUpdateUser = async (submission) => {
     submission.preventDefault();
+    let updatedUser;
+    setLoading(true)
     if (isShippingSame) {
       syncSubmissionAddresses();
     }
     if (userState.phone) {
       const phone = formatPhoneNumber(userState.phone);
-      return await authContext.setAttributes(mapUserToCognito({ ...userState, phone: phone }));
+      updatedUser = await authContext.setAttributes(mapUserToCognito({ ...userState, phone: phone }));
     }
     // TODO: on error?
-    await authContext.setAttributes(mapUserToCognito(userState));
+    updatedUser = await authContext.setAttributes(mapUserToCognito(userState));
+    updatedUser && setLoading(false)
   };
 
   return (
     <div className='page-wrapper'>
       <UserBanner />
+      <Modal className='loading-modal' show={loading}>
+        <Modal.Header><span className='loading-header'>Updating Profile</span><Spinner animation="border" role="status" variant='dark'/></Modal.Header>
+      </Modal>
+      {!loading && 
       <Form noValidate onSubmit={submitUpdateUser}>
         <Row className='justify-content-center m-2'>
           <Col>
@@ -227,7 +234,7 @@ const Profile = () => {
             </Row>
           </Col>
         </Row>
-      </Form>
+      </Form>}
     </div>
   );
 };
