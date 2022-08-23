@@ -175,6 +175,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                       <Form.Label>Issue #</Form.Label>
                       <Form.Control
                         type='text'
+                        required
                         onChange={(e) => updateItem({ issue: e.target.value.replace(/#/g, '') })}
                       />
                     </Form.Group>
