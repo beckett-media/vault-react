@@ -70,6 +70,6 @@ jobs:
       - name: Create Cloudfront Invalidation
         run: |
           
-          aws cloudfront create-invalidation --distribution-id ${{ inputs.CF_DISTRIBUTION_ID }} --paths /*
+          aws cloudfront create-invalidation --distribution-id ${{ inputs.CF_DISTRIBUTION_ID }} --paths '/*'
         working-directory: ${{ inputs.BUILD_DIR }}
       
