@@ -101,13 +101,17 @@ const Submission = () => {
                             <div key={`submission_${index}`} className='submission-item_component'>
                               <div className='submission-item_layout'>
                                 <div className='ellipses_wrapper submission-item_item'>
-                                  <div className='ellipses_child'>{!item.publisher && item.year || item.title}</div>
+                                  <div className='ellipses_child'>{(!item.publisher && item.year) || item.title}</div>
                                 </div>
                                 <div className='ellipses_wrapper submission-item_item'>
-                                  <div className='ellipses_child'>{!item.publisher && item.setName || item.issue}</div>
+                                  <div className='ellipses_child'>
+                                    {(!item.publisher && item.setName) || '#' + item.issue}
+                                  </div>
                                 </div>
                                 <div className='ellipses_wrapper submission-item_item'>
-                                  <div className='ellipses_child'>{!item.publisher && item.cardNumber || item.publisher}</div>
+                                  <div className='ellipses_child'>
+                                    {(!item.publisher && '#' + item.cardNumber) || item.publisher}
+                                  </div>
                                 </div>
                                 <div className='ellipses_wrapper submission-item_item'>
                                   <div className='ellipses_child'>{item.player || item.year}</div>

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Col, Form, Row, Button } from 'react-bootstrap';
-import './Submission.scss'
+import { Link } from 'react-router-dom';
+import './Submission.scss';
 
 const AddBeckettItem = (props) => {
   return (
@@ -14,24 +15,26 @@ const AddBeckettItem = (props) => {
 
 const SubmissionAdd = ({ submitAddedItem }) => {
   const [type, setType] = useState(1);
-  const [item, setItem] = useState({ type: 1, gradingCompany: 'bgs' });
+  const [item, setItem] = useState({ type: 1 });
 
   const submitAddItemFormSubmit = (e) => {
     e.preventDefault();
     {
       Object.keys(item).length > 2 && submitAddedItem(item);
     }
-    setItem({ type: 1, gradingCompany: 'bgs' });
+    setItem({ type: 1 });
     setType(1);
     e.target.reset();
   };
+
   const updateItem = (tempItem) => setItem({ ...item, ...tempItem });
-  const setEstVal = value => {
-    const val = Number(value.replaceAll(',',''))
-    updateItem({ 
-      estimatedValue: isNaN(val) ? item.estimatedValue : val
-    })
-  }
+
+  const setEstVal = (value) => {
+    const val = Number(value.replaceAll(',', ''));
+    updateItem({
+      estimatedValue: isNaN(val) ? item.estimatedValue : val,
+    });
+  };
   return (
     <div className='w-100'>
       <div className='submission_heading'>Submit Items to Vault</div>
@@ -44,10 +47,8 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                   <Form.Label>Type</Form.Label>
                   <Form.Select
                     onChange={(e) => {
-                      console.log(e.target.value - 0);
-                      setItem({});
                       setType(e.target.value - 0);
-                      updateItem({ type: e.target.value - 0 });
+                      setItem({ type: e.target.value - 0 });
                     }}
                   >
                     <option value='1'>Trading Card</option>
@@ -96,7 +97,10 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                   <Col sm={12} lg={6}>
                     <Form.Group>
                       <Form.Label>Card number</Form.Label>
-                      <Form.Control type='text' onChange={(e) => updateItem({ cardNumber: e.target.value })} />
+                      <Form.Control
+                        type='text'
+                        onChange={(e) => updateItem({ cardNumber: e.target.value.replace(/#/g, '') })}
+                      />
                     </Form.Group>
                   </Col>
                   <Col sm={12} lg={6}>
@@ -107,6 +111,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                           updateItem({ gradingCompany: e.target.value });
                         }}
                       >
+                        <option value=''>- Select -</option>
                         <option value='bgs'>BGS</option>
                         <option value='psa'>PSA</option>
                         <option value='sgc'>SGC</option>
@@ -128,9 +133,11 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                   </Col>
                   <Col sm={12} lg={6}>
                     <Form.Group>
-                      <Form.Label 
+                      <Form.Label
                         className={item.estimatedValue && item.estimatedValue < 750 ? 'alert-est-val' : 'set-est-val'}
-                        >Declared value* (must be $750 or greater)</Form.Label>
+                      >
+                        Declared value* (must be $750 or greater)
+                      </Form.Label>
                       <Form.Control
                         value={item?.estimatedValue?.toLocaleString()}
                         onChange={(e) => setEstVal(e.target.value)}
@@ -166,7 +173,10 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                   <Col sm={12} lg={6}>
                     <Form.Group>
                       <Form.Label>Issue #</Form.Label>
-                      <Form.Control type='text' onChange={(e) => updateItem({ issue: e.target.value })} />
+                      <Form.Control
+                        type='text'
+                        onChange={(e) => updateItem({ issue: e.target.value.replace(/#/g, '') })}
+                      />
                     </Form.Group>
                   </Col>
                   <Col sm={12} lg={6}>
@@ -185,6 +195,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                           updateItem({ gradingCompany: e.target.value });
                         }}
                       >
+                        <option value=''>- Select -</option>
                         <option value='cbcs'>CBCS</option>
                         <option value='cgc'>CGC</option>
                         <option value='other'>Other</option>
@@ -207,7 +218,9 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                     <Form.Group>
                       <Form.Label
                         className={item.estimatedValue && item.estimatedValue < 750 ? 'alert-est-val' : 'set-est-val'}
-                      >Declared value* (must be $750 or greater)</Form.Label>
+                      >
+                        Declared value* (must be $750 or greater)
+                      </Form.Label>
                       <Form.Control
                         value={item?.estimatedValue?.toLocaleString()}
                         onChange={(e) => setEstVal(e.target.value)}
@@ -223,10 +236,17 @@ const SubmissionAdd = ({ submitAddedItem }) => {
         <div className='submission_divider'></div>
         <Row className='submission_form-section'>
           <div className='submission_form-button-wrapper'>
+            <Link to='/my-collection'>
+              <Button bg='transparent' variant='outline-primary'>
+                Cancel
+              </Button>
+            </Link>
             <Button type='reset' bg='transparent' variant='outline-primary' onClick={() => setItem({})}>
-              Cancel
+              Clear
             </Button>
-            <Button type='submit' disabled = {item.estimatedValue < 750}>Add</Button>
+            <Button type='submit' disabled={item.estimatedValue < 750}>
+              Add
+            </Button>
           </div>
         </Row>
       </Form>
