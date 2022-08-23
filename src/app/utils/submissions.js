@@ -24,10 +24,23 @@ const defaultSub = {
   image_rev_format: 'img/png',
 };
 
+export const getSubmissionTitle = (item) => {
+  const cardNumber = item.card_number || item.cardNumber;
+  const setName = item.set_name || item.setName;
+
+  if (item.type === 1) {
+    return `${item.year} ${setName || ''} ${cardNumber ? '#' + cardNumber : ''} ${item.player}`;
+  }
+
+  if (item.type === 2) {
+    return `${item.issue ? '#' + item.issue : ''} ${item.publisher} ${item.year}`;
+  }
+
+  return '';
+};
+
 export const formatSubmissionItem = (item, uuid) => {
-  const compositedTitle =
-    item.type === 1 ? `${item.year} ${item.setName || ''} #${item.cardNumber || ''} ${item.player}` :
-    item.type === 2 ? `#${item.issue} ${item.publisher} ${item.year}` : '';
+  const compositedTitle = getSubmissionTitle(item);
 
   return {
     uuid,
