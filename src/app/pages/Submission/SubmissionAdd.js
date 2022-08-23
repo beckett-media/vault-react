@@ -15,18 +15,20 @@ const AddBeckettItem = (props) => {
 
 const SubmissionAdd = ({ submitAddedItem }) => {
   const [type, setType] = useState(1);
-  const [item, setItem] = useState({ type: 1, gradingCompany: 'bgs' });
+  const [item, setItem] = useState({ type: 1 });
 
   const submitAddItemFormSubmit = (e) => {
     e.preventDefault();
     {
       Object.keys(item).length > 2 && submitAddedItem(item);
     }
-    setItem({ type: 1, gradingCompany: 'bgs' });
+    setItem({ type: 1 });
     setType(1);
     e.target.reset();
   };
+
   const updateItem = (tempItem) => setItem({ ...item, ...tempItem });
+
   const setEstVal = (value) => {
     const val = Number(value.replaceAll(',', ''));
     updateItem({
@@ -45,10 +47,8 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                   <Form.Label>Type</Form.Label>
                   <Form.Select
                     onChange={(e) => {
-                      console.log(e.target.value - 0);
-                      setItem({});
                       setType(e.target.value - 0);
-                      updateItem({ type: e.target.value - 0 });
+                      setItem({ type: e.target.value - 0 });
                     }}
                   >
                     <option value='1'>Trading Card</option>
@@ -111,6 +111,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                           updateItem({ gradingCompany: e.target.value });
                         }}
                       >
+                        <option value=''>- Select -</option>
                         <option value='bgs'>BGS</option>
                         <option value='psa'>PSA</option>
                         <option value='sgc'>SGC</option>
@@ -194,6 +195,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                           updateItem({ gradingCompany: e.target.value });
                         }}
                       >
+                        <option value=''>- Select -</option>
                         <option value='cbcs'>CBCS</option>
                         <option value='cgc'>CGC</option>
                         <option value='other'>Other</option>
@@ -235,7 +237,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
         <Row className='submission_form-section'>
           <div className='submission_form-button-wrapper'>
             <Link to='/my-collection'>
-              <Button type='reset' bg='transparent' variant='outline-primary'>
+              <Button bg='transparent' variant='outline-primary'>
                 Cancel
               </Button>
             </Link>
