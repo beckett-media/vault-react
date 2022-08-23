@@ -26,7 +26,7 @@ const defaultSub = {
 
 export const formatSubmissionItem = (item, uuid) => {
   const compositedTitle =
-    item.type === 1 ? `${item.year} ${item.player} #${item.cardNumber || ''} ${item.setName || ''}` :
+    item.type === 1 ? `${item.year} ${item.setName || ''} #${item.cardNumber || ''} ${item.player}` :
     item.type === 2 ? `#${item.issue} ${item.publisher} ${item.year}` : '';
 
   return {
