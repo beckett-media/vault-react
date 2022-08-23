@@ -25,6 +25,10 @@ const defaultSub = {
 };
 
 export const formatSubmissionItem = (item, uuid) => {
+  const compositedTitle =
+    item.type === 1 ? `${item.year} ${item.setName || ''} #${item.cardNumber || ''} ${item.player}` :
+    item.type === 2 ? `#${item.issue} ${item.publisher} ${item.year}` : '';
+
   return {
     uuid,
     order_uuid: uuid,
@@ -37,7 +41,7 @@ export const formatSubmissionItem = (item, uuid) => {
     set_name: item.setName || defaultSub.set_name,
     grading_company: item.gradingCompany || defaultSub.grading_company,
     serial_number: item.serialNumber || defaultSub.serial_number,
-    title: item.title || `${item.year} ${item.player} #${item.cardNumber || ''} ${item.setName || ''}`,
+    title: item.title || compositedTitle,
     description: item.description || defaultSub.description,
     genre: item.genre || defaultSub.genre,
     manufacturer: item.manufacturer || defaultSub.manufacturer,
