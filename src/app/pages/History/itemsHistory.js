@@ -95,7 +95,6 @@ const ItemsHistory = ({ sortedItems, listings, submissions, vaulting, setSortedI
             {isSelected &&
               groups[group].map((item) => (
                 <Row className='py-3 px-5 border'>
-                  {console.log(item)}
                   <Col lg={2}>
                     <div>
                       {'Status: '}
