@@ -64,13 +64,12 @@ const Submission = () => {
         console.log('success');
         console.log(resp[0].data.order_id);
         navigate(`/order-details/${resp[0].data.order_id}`);
-        setIsLoading(false);
       })
       .catch((e) => {
         setSubmissionResponse(e);
         setShowModal(false);
-        setIsLoading(false);
-      });
+      })
+      .finally(() => setIsLoading(false));
   };
 
   const submitFinalForm = async () => {
