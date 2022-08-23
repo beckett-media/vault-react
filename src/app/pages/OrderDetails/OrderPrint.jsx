@@ -18,8 +18,6 @@ const OrderPrint = () => {
 
   const { orderId } = useParams();
 
-  console.log(order);
-
   useEffect(() => {
     setIsLoading(true);
     getSingleOrder(orderId)
