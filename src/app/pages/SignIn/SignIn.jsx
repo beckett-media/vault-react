@@ -248,6 +248,7 @@ const SignIn = () => {
                   id='email'
                   type='email'
                   placeholder='Email Address*'
+                  autoComplete='username'
                   h={12}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}

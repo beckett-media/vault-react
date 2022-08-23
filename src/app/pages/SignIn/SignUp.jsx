@@ -52,19 +52,23 @@ const SignUp = () => {
         <SigninBg className='signin_bg'></SigninBg>
         <div className='signin_modal'>
           <div className='signin_heading'>Sign Up</div>
-          <FormControl>
+          <FormControl autoComplete='off'>
             {error && <div className='signin_error'>{error}</div>}
+            {/* Chrome attempts to input username and password. I set email to 
+            username, assuming that most users will sign in with email, and therefore
+            chrome will assign email to username. */}
             <Input
               id='email'
               type='email'
               placeholder='Email *'
+              autoComplete='username'
               h={12}
               value={newUser.email}
               onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
             />
             <Input
               id='userName'
-              type='userName'
+              type='text'
               placeholder='Username *'
               h={12}
               value={newUser.userName}
@@ -72,7 +76,7 @@ const SignUp = () => {
             />
             <Input
               id='phone'
-              type='phone'
+              type='text'
               placeholder='Phone number *'
               h={12}
               value={newUser.phone}
@@ -80,7 +84,7 @@ const SignUp = () => {
             />
             <Input
               id='firstName'
-              type='firstName'
+              type='text'
               placeholder='First name *'
               h={12}
               value={newUser.firstName}
@@ -88,8 +92,9 @@ const SignUp = () => {
             />
             <Input
               id='lastName'
-              type='lastName'
+              type='text'
               placeholder='Last name *'
+              autoComplete='off'
               h={12}
               value={newUser.lastName}
               onChange={(e) => setNewUser({ ...newUser, lastName: e.target.value })}

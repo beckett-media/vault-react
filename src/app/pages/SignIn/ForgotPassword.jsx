@@ -31,6 +31,7 @@ const ForgotPassword = ({ showForgotPWModal, dismissModal, codeSent, setCodeSent
               id='email'
               type='email'
               placeholder='Email Address or Username*'
+              autocomplete='username'
               h={12}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
