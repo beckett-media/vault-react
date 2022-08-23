@@ -24,6 +24,7 @@ const Submission = () => {
   const [submissionResponse, setSubmissionResponse] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [showTOS, setShowTOS] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const dismissModal = () => setShowTOS('');
 
@@ -48,6 +49,7 @@ const Submission = () => {
   };
 
   const handleSubmitForm = () => {
+    setIsLoading(true);
     const uuid = uuidv4();
     Promise.all(
       items.map((item) =>
@@ -62,10 +64,12 @@ const Submission = () => {
         console.log('success');
         console.log(resp[0].data.order_id);
         navigate(`/order-details/${resp[0].data.order_id}`);
+        setIsLoading(false);
       })
       .catch((e) => {
         setSubmissionResponse(e);
         setShowModal(false);
+        setIsLoading(false);
       });
   };
 
@@ -179,8 +183,9 @@ const Submission = () => {
               onClick={() => {
                 submitFinalForm();
               }}
+              disabled={isLoading}
             >
-              Confirm submit
+              {isLoading ? 'Loading' : 'Confirm submit'}
             </Button>
           </Modal.Footer>
         </Modal>
