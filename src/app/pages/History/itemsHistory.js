@@ -7,7 +7,9 @@ import './History.scss';
 const ItemsHistory = ({ sortedItems, listings, submissions, vaulting, setSortedItems }) => {
   const [selected, setSelected] = useState('');
   const [groups, setGroups] = useState({});
+  const [groupsReady, setGroupsReady] = useState(false)
   const navigate = useNavigate();
+
   useEffect(() => {
     const groupings = {};
     sortedItems?.map((item) => {
@@ -18,9 +20,15 @@ const ItemsHistory = ({ sortedItems, listings, submissions, vaulting, setSortedI
         } else if (extra.uuid !== undefined && extra.uuid !== '') {
           groupings[`${extra.uuid}`] = [{ ...item, ...extra }];
         }
+      } 
+    });
+    groupings && Object.keys(groupings).forEach((group) =>{
+      const submission = submissions.filter((sub) => sub.item_id === Number(groupings[`${group}`][0].entity))
+      if(submission[0]) {
+        groupings[`${group}`][0]['order_id'] = submission[0].order_id
       }
     });
-    setGroups(groupings);
+    setGroups({...groupings});
   }, [sortedItems]);
 
   useEffect(() => {
@@ -32,7 +40,7 @@ const ItemsHistory = ({ sortedItems, listings, submissions, vaulting, setSortedI
       groups[selected].map((item, i) =>
         items.map((a) =>
           item.entity === String(a.item_id)
-            ? updatedArr.push({ ...item, status_desc: a.status_desc, order_id: a.order_id })
+            ? updatedArr.push({ ...item, status_desc: a.status_desc })
             : console.log('Not Found'),
         ),
       );
@@ -66,7 +74,7 @@ const ItemsHistory = ({ sortedItems, listings, submissions, vaulting, setSortedI
             <Row className='py-3 px-5 border' onClick={(e) => rowClicked(e.target.className, group)}>
               <Col xs={8}>
                 <div>{`${groups[group][0]?.type_desc}:`}</div>
-                <div className='fw-bold'>{group}</div>
+                <div className='fw-bold'>{groups[group][0]?.order_id}</div>
               </Col>
               <Col xs={1}>
                 <Button onClick={() => printDetails(group)}>Print</Button>
