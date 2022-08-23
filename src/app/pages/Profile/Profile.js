@@ -1,16 +1,19 @@
 import React, { useState, useContext } from 'react';
-import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card, Form, Button, Modal, Spinner, CloseButton } from 'react-bootstrap';
 import { mapCognitoToUser, mapUserToCognito } from '../../services/user';
 import './Profile.scss';
 import UserBanner from '../../components/UserBanner/UserBanner';
 import { AuthContext } from '../../contexts/auth';
 import { formatPhoneNumber } from '../../utils/phone';
+import SubmitButton from '../../components/Generic/SubmitButton'
 
 const Profile = () => {
   const authContext = useContext(AuthContext);
   const user = mapCognitoToUser(authContext.attrInfo);
   const [userState, setUserState] = useState(user);
   const [isShippingSame, setIsShippingSame] = useState(false);
+  const [loading, setLoading] = useState(false)
+  const [confirmUpdateUser, setConfirmUpdateUser] = useState(false)
 
   const updateUserState = (tempItem) => setUserState({ ...userState, ...tempItem });
 
@@ -27,23 +30,37 @@ const Profile = () => {
     updateUserState(syncedAddresses);
   };
 
-  const submitUpdateUser = async (submission) => {
-    submission.preventDefault();
+  const submitUpdateUser = async () => {
+    let updatedUser;
+    setLoading(true)
     if (isShippingSame) {
       syncSubmissionAddresses();
     }
     if (userState.phone) {
       const phone = formatPhoneNumber(userState.phone);
-      return await authContext.setAttributes(mapUserToCognito({ ...userState, phone: phone }));
+      updatedUser = await authContext.setAttributes(mapUserToCognito({ ...userState, phone: phone }));
     }
     // TODO: on error?
-    await authContext.setAttributes(mapUserToCognito(userState));
+    updatedUser = await authContext.setAttributes(mapUserToCognito(userState));
+    updatedUser && setLoading(false)
   };
 
   return (
     <div className='page-wrapper'>
       <UserBanner />
-      <Form noValidate onSubmit={submitUpdateUser}>
+      <Modal className='loading-modal' show={loading}>
+        <Modal.Header><span className='loading-header'>Updating Profile</span><Spinner animation="border" role="status" variant='dark'/></Modal.Header>
+      </Modal>
+      <Modal className='confirm-modal' show={confirmUpdateUser}>
+        <Modal.Header>
+          <span className='confirm-header'>Update Profile Details?</span>
+          <CloseButton onClick={()=>setConfirmUpdateUser(false)}/>
+        </Modal.Header>
+        <Modal.Body className='confirm-text'><span>Click Confirm to continue.</span></Modal.Body>
+        <Modal.Footer><Button onClick={()=>{submitUpdateUser(),setConfirmUpdateUser(false)}}>Confirm</Button></Modal.Footer>
+      </Modal>
+      {!loading && 
+      <Form noValidate >
         <Row className='justify-content-center m-2'>
           <Col>
             <Row>
@@ -219,7 +236,7 @@ const Profile = () => {
                   )}
                   <Row className='mb-2'>
                     <Col>
-                      <Button type='submit'>Save</Button>
+                      <Button type='button' onClick={()=> setConfirmUpdateUser(true)}>Save</Button>
                     </Col>
                   </Row>
                 </Card.Body>
@@ -227,7 +244,7 @@ const Profile = () => {
             </Row>
           </Col>
         </Row>
-      </Form>
+      </Form>}
     </div>
   );
 };
