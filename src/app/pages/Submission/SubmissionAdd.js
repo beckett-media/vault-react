@@ -126,11 +126,11 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                       <Form.Control type='text' onChange={(e) => updateItem({ serialNumber: e.target.value })} />
                     </Form.Group>
                   </Col>
-                  <Col sm={12} lg={6}
-                    className={item.estimatedValue && item.estimatedValue < 750 ? 'alert-est-val' : 'set-est-val'}
-                  >
+                  <Col sm={12} lg={6}>
                     <Form.Group>
-                      <Form.Label>Declared value* (must be $750 or greater)</Form.Label>
+                      <Form.Label 
+                        className={item.estimatedValue && item.estimatedValue < 750 ? 'alert-est-val' : 'set-est-val'}
+                        >Declared value* (must be $750 or greater)</Form.Label>
                       <Form.Control
                         value={item?.estimatedValue?.toLocaleString()}
                         onChange={(e) => setEstVal(e.target.value)}
@@ -203,11 +203,11 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                       <Form.Control type='text' onChange={(e) => updateItem({ serialNumber: e.target.value })} />
                     </Form.Group>
                   </Col>
-                  <Col sm={12} lg={6}
-                    className={item.estimatedValue && item.estimatedValue < 750 ? 'alert-est-val' : 'set-est-val'}
-                  >
+                  <Col sm={12} lg={6}>
                     <Form.Group>
-                      <Form.Label>Declared value* (must be $750 or greater)</Form.Label>
+                      <Form.Label
+                        className={item.estimatedValue && item.estimatedValue < 750 ? 'alert-est-val' : 'set-est-val'}
+                      >Declared value* (must be $750 or greater)</Form.Label>
                       <Form.Control
                         value={item?.estimatedValue?.toLocaleString()}
                         onChange={(e) => setEstVal(e.target.value)}
