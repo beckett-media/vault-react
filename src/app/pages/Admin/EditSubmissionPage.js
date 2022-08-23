@@ -76,7 +76,13 @@ function AdminEditSubmissionPage() {
         <Row className='submission_form-section'>
           <Col xs={12}>
             <Row>
-              <Col sm={12} lg={12}>
+              <Col sm={12} lg={6}>
+                <Form.Group>
+                  <Form.Label>Type</Form.Label>
+                  <Form.Control type='text' disabled value={item.type === 1 ? 'Trading Card' : 'Comic'} />
+                </Form.Group>
+              </Col>
+              <Col sm={12} lg={6}>
                 <Form.Group>
                   <Form.Label>Title</Form.Label>
                   <Form.Control
@@ -90,16 +96,6 @@ function AdminEditSubmissionPage() {
             <Row>
               <Col sm={12} lg={6}>
                 <Form.Group>
-                  <Form.Label>Player</Form.Label>
-                  <Form.Control
-                    type='text'
-                    onChange={(e) => updateItem({ player: e.target.value })}
-                    value={item.player}
-                  />
-                </Form.Group>
-              </Col>
-              <Col sm={12} lg={6}>
-                <Form.Group>
                   <Form.Label>Year</Form.Label>
                   <Form.Control
                     type='number'
@@ -110,27 +106,61 @@ function AdminEditSubmissionPage() {
                   />
                 </Form.Group>
               </Col>
+              <Col sm={12} lg={6}>
+                {item.type === 1 ? (
+                  <Form.Group>
+                    <Form.Label>Player</Form.Label>
+                    <Form.Control
+                      type='text'
+                      onChange={(e) => updateItem({ player: e.target.value })}
+                      value={item.player}
+                    />
+                  </Form.Group>
+                ) : (
+                  <Form.Group>
+                    <Form.Label>Issue #</Form.Label>
+                    <Form.Control
+                      type='text'
+                      onChange={(e) => updateItem({ issue: e.target.value })}
+                      value={item.issue}
+                    />
+                  </Form.Group>
+                )}
+              </Col>
             </Row>
             <Row>
               <Col sm={12} lg={6}>
-                <Form.Group>
-                  <Form.Label>Set name</Form.Label>
-                  <Form.Control
-                    type='text'
-                    onChange={(e) => updateItem({ set_name: e.target.value })}
-                    value={item.set_name}
-                  />
-                </Form.Group>
+                {item.type === 1 ? (
+                  <Form.Group>
+                    <Form.Label>Set name</Form.Label>
+                    <Form.Control
+                      type='text'
+                      onChange={(e) => updateItem({ set_name: e.target.value })}
+                      value={item.set_name}
+                    />
+                  </Form.Group>
+                ) : (
+                  <Form.Group>
+                    <Form.Label>Publisher</Form.Label>
+                    <Form.Control
+                      type='text'
+                      onChange={(e) => updateItem({ publisher: e.target.value })}
+                      value={item.publisher}
+                    />
+                  </Form.Group>
+                )}
               </Col>
               <Col sm={12} lg={6}>
-                <Form.Group>
-                  <Form.Label>Sport</Form.Label>
-                  <Form.Control
-                    type='text'
-                    onChange={(e) => updateItem({ sport: e.target.value })}
-                    value={item.sport}
-                  />
-                </Form.Group>
+                {item.type === 1 ? (
+                  <Form.Group>
+                    <Form.Label>Sport</Form.Label>
+                    <Form.Control
+                      type='text'
+                      onChange={(e) => updateItem({ sport: e.target.value })}
+                      value={item.sport}
+                    />
+                  </Form.Group>
+                ) : null}
               </Col>
             </Row>
             <Row>
@@ -207,7 +237,7 @@ function AdminEditSubmissionPage() {
                   />
                 </Form.Group>
               </Col>
-              <Col sm={12} lg={6}>
+              {/* <Col sm={12} lg={6}>
                 <Form.Group>
                   <Form.Label>Genre</Form.Label>
                   <Form.Control
@@ -217,7 +247,6 @@ function AdminEditSubmissionPage() {
                   />
                 </Form.Group>
               </Col>
-              
               <Col sm={12} lg={6}>
                 <Form.Group>
                   <Form.Label>Auto graph</Form.Label>
@@ -227,7 +256,7 @@ function AdminEditSubmissionPage() {
                     value={item.autograph}
                   />
                 </Form.Group>
-              </Col>
+              </Col> */}
               <Col sm={12} lg={6}>
                 <Form.Group>
                   <Form.Label>Front image URL</Form.Label>
@@ -254,10 +283,15 @@ function AdminEditSubmissionPage() {
         <div className='submission_divider'></div>
         <Row className='submission_form-section'>
           <div className='submission_form-button-wrapper'>
-            <Button type='reset' bg='transparent' variant='outline-primary' onClick={() => {
-              setItem(submission);
-              navigate('/admin/submission');
-            }}>
+            <Button
+              type='reset'
+              bg='transparent'
+              variant='outline-primary'
+              onClick={() => {
+                setItem(submission);
+                navigate('/admin/submission');
+              }}
+            >
               Cancel
             </Button>
             <Button type='submit'>Update</Button>
