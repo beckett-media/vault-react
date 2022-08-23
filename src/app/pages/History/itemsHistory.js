@@ -73,8 +73,8 @@ const ItemsHistory = ({ sortedItems, listings, submissions, vaulting, setSortedI
           <>
             <Row className='py-3 px-5 border' onClick={(e) => rowClicked(e.target.className, group)}>
               <Col xs={8}>
-                <div>{`${groups[group][0]?.type_desc}:`}</div>
-                <div className='fw-bold'>{groups[group][0]?.order_id}</div>
+                <div>{groups[group][0]?.type_desc}</div>
+                <div className='fw-bold'>{`Order ID: ${groups[group][0]?.order_id}`}</div>
               </Col>
               <Col xs={1}>
                 <Button onClick={() => printDetails(group)}>Print</Button>
@@ -95,11 +95,21 @@ const ItemsHistory = ({ sortedItems, listings, submissions, vaulting, setSortedI
             {isSelected &&
               groups[group].map((item) => (
                 <Row className='py-3 px-5 border'>
-                  <Col lg={4}>
+                  {console.log(item)}
+                  <Col lg={2}>
                     <div>
                       {'Status: '}
                       <br />
                       <span className='fw-bold'>{item.status_desc}</span>
+                    </div>
+                  </Col>
+                  <Col lg={2}>
+                    <div>
+                      {'ID: '}
+                      <br />
+                      <span className='fw-bold'>
+                        {item.id}
+                      </span>
                     </div>
                   </Col>
                   <Col lg={6}>
