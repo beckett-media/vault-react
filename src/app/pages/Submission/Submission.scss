@@ -52,7 +52,7 @@ main {
     &-button-wrapper {
       width: 100%;
       display: flex;
-      gap: 28px;
+      gap: 16px;
       justify-content: end;
     }
 
@@ -81,8 +81,7 @@ main {
       margin-bottom: 16px;
     }
 
-    &-image {
-    }
+    &-image {}
   }
 
   &items {
@@ -129,4 +128,12 @@ main {
 
 .submit-button {
   margin-left: 13px;
+}
+
+.alert-est-val {
+  background: #ffcccc;
+}
+
+.set-est-val {
+  background: none;
 }

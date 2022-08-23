@@ -6,7 +6,7 @@ import { getSingleOrder } from '../../services/order';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 
 import { AuthContext } from '../../contexts/auth';
-import { mapCognitoToUser } from '../../services/user';
+import { mapCognitoToUser, getUserName } from '../../services/user';
 import { formatPrice } from '../../utils/strings';
 
 const OrderPrint = () => {
@@ -32,7 +32,7 @@ const OrderPrint = () => {
   const sumObject = (property) => {};
 
   return (
-    <div>
+    <div className='order-details_print'>
       {isLoading && (
         <div className='d-flex flex-column align-items-center'>
           <LoadingSpinner />
@@ -48,10 +48,21 @@ const OrderPrint = () => {
       {!!order && (
         <>
           <div>
+            <strong>Ship orders to:</strong>
+            <div>Beckett Collectibles</div>
+            <div>C/O Beckett Vault</div>
+            <div>2700 Summit Ave, Ste 100</div>
+            <div>Plano, TX 75074</div>
+          </div>
+          <div>----</div>
+          <div>
             <b>Order ID:</b> {order.id}
           </div>
           <div>
             <b>Order date:</b> {Date(order.created_at).toLocaleString()}
+          </div>
+          <div>
+            <b>Name:</b> {getUserName(user)}
           </div>
           <div>
             <b>Email address:</b> {user.email}
@@ -62,7 +73,7 @@ const OrderPrint = () => {
             </div>
           )}
           <div>
-            <b>Number of cards:</b> {order.submissions.length}
+            <b>Number of items:</b> {order.submissions.length}
           </div>
           <div>
             <b>Declared value:</b>
@@ -74,14 +85,15 @@ const OrderPrint = () => {
               )}
           </div>
           <div>
-            <b>Card details:</b>
+            <b>Item details:</b>
           </div>
           {order.submissions.map((item, index) => (
             <div key={`order-items_${index}`}>
               ----- <br />
               Submission ID: {item.id}
               <br />
-              {item.title || item.year +' '+ item.manufacturer +' '+ item.card_number +' '+ item.player }
+              {item.type === 1 && item.year + ' ' + item.set_name + ' ' + item.card_number + ' ' + item.player}
+              {item.type === 2 && item.title + ' ' + item.issue + ' ' + item.publisher + ' ' + item.year}
             </div>
           ))}
         </>

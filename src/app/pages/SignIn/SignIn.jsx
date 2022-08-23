@@ -10,7 +10,8 @@ import { PasswordField } from '../../components/PasswordField/PasswordField';
 import { NewPasswordField } from '../../components/NewPasswordField/NewPasswordField';
 import { ReactComponent as SigninBg } from '../../assets/bg-sphere--large.svg';
 import ForgotPassword from './ForgotPassword';
-import { forgotPassword, sendCode } from '../../libs/cognito';
+import { CloseButton, Modal, Spinner } from 'react-bootstrap';
+import { forgotPassword, resendConfirmationCode } from '../../libs/cognito';
 
 export const useValidEmail = (initialValue) => {
   const [email, setEmail] = useState(initialValue);
@@ -144,10 +145,11 @@ const SignIn = () => {
   const authContext = useContext(AuthContext);
 
   const signInClicked = async () => {
-    setMessage('');
+    setMessage('Loading');
     try {
       await authContext.signInWithEmail(email, password);
     } catch (err) {
+      setMessage('')
       if (err.code === 'NotAuthorizedException') {
         setError('Verify username/password or check confirmation email');
       } else if (err.code === 'UserNotConfirmedException') {
@@ -175,7 +177,9 @@ const SignIn = () => {
   const submitForgotPassword = async () => {
     await forgotPassword(email, code, confirmPassword)
       .then((res) => {
-        setMessage('Success!');
+        if(res === 'password updated'){
+          setMessage('Password reset success!');
+        }
       })
       .catch((err) => {
         if (err.code === 'ExpiredCodeException') {
@@ -193,11 +197,14 @@ const SignIn = () => {
     } else setError('')
     setConfirmPassword(pw)
   }
+  const dismissPasswordReset = () => {
+    setMessage('')
+    setCodeSent(false)
+  }
 
   return (
     <div className='page-wrapper vh-100'>
       <section className='section_signin'>
-        {message && <div className='signin_message'>{message}</div>}
         <SigninBg className='signin_bg'></SigninBg>
         <div className='signin_modal'>
           <div className='signin_heading'>Login</div>
@@ -214,7 +221,11 @@ const SignIn = () => {
                 />
               </FormControl>
               <PasswordField value={password} onChange={(e) => setPassword(e.target.value)} />
-              {error && <div className='signin_error'>{error}</div>}
+              {error && <>
+                <div className='signin_error'>{error}</div>
+                <div className='signin_reverify' onClick={()=>resendConfirmationCode(email) }>Resend Validation Email</div>
+              </>}
+              {message === 'Loading' && <><Spinner animation="border" role="status"/><span>Loading...</span></>}
               <Checkbox marginTop='12px' alignSelf='start' size='sm' colorScheme='gray' className='signin_checkbox'>
                 Remember me
               </Checkbox>
@@ -245,7 +256,8 @@ const SignIn = () => {
               <FormControl>
                 <Input
                   id='code'
-                  type='code'
+                  type='text'
+                  autoComplete='off'
                   placeholder='Code'
                   h={12}
                   value={code}
@@ -264,10 +276,24 @@ const SignIn = () => {
               />
             </FormControl>
             {error && <div className='signin_error'>{error}</div>}
+           {error === 'Passwords do not match!' ?
+            <div className='signin_muted'>
+              Continue
+            </div> :
             <div onClick={() => submitForgotPassword()} className='signin_button'>
               Continue
-            </div>
+            </div>}
             </>
+          )}
+          {codeSent && (
+            <Modal show={message === 'Password reset success!'}>
+              <Modal.Header>
+                <CloseButton onClick={() => dismissPasswordReset()} />
+              </Modal.Header>
+              <Modal.Body>
+                <div className='code-sent'>Password reset successful!</div>
+              </Modal.Body>
+            </Modal>
           )}
           {!(authContext.authStatus === AuthStatus.SetPassword) && !codeSent && (
             <div onClick={signInClicked} className='signin_button'>
