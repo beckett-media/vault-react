@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ButtonGroup, Pagination, ToggleButton, Button } from 'react-bootstrap';
+import { ButtonGroup, Pagination, ToggleButton, Button, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { BsGrid3X2GapFill, BsList, BsCheck } from 'react-icons/bs';
 
@@ -26,16 +26,17 @@ const CollectionGallery = ({ data }) => {
 
   const searchValRegex = new RegExp(searchVal.toLowerCase(), 'g');
 
-  const filteredItems = data.filter((item) => searchValRegex.test(item.title.toLowerCase()));
+  const typeFilteredItems = !!filterBy ? data.filter((item) => item.item_type === filterBy - 0) : data;
+  const searchFilteredItems = typeFilteredItems.filter((item) => searchValRegex.test(item.title.toLowerCase()));
   const sortedItems = sortBy
-    ? filteredItems.sort(sortByAttribute(sortBy.split('-')[0], sortBy.split('-').length > 1 ? DESC : ASC))
-    : filteredItems;
+    ? searchFilteredItems.sort(sortByAttribute(sortBy.split('-')[0], sortBy.split('-').length > 1 ? DESC : ASC))
+    : searchFilteredItems;
 
   // MULTISELECT
   const { selectedItemIds, isSelected, handleItemSelection, clearSelections } = useMultiSelect();
 
   //  LIST VIEW TOGGLE
-  const { isToggled: isListVisible, toggle: listToggleHandler } = useToggle();
+  const { isToggled: isListVisible, toggle: listToggleHandler, setIsToggled: setIsListVisible } = useToggle();
 
   //  PAGINATION
   const { activePage, paginationItems, updatePage } = usePagination(sortedItems);
@@ -50,7 +51,7 @@ const CollectionGallery = ({ data }) => {
 
   const filterOptions = [
     { value: '', title: 'All' },
-    { value: 1, title: 'Card' },
+    { value: 1, title: 'Cards' },
     { value: 2, title: 'Comics' },
   ];
 
@@ -60,20 +61,7 @@ const CollectionGallery = ({ data }) => {
         <div className='page-padding'>
           <div className='container-large'>
             <div className='gallery-filter_layout'>
-              <div className='gallery-filter_toggle-wrapper'>
-                <ButtonGroup size='lg'>
-                  <SubmitButton
-                    func={listToggleHandler}
-                    title={<BsGrid3X2GapFill />}
-                    bg={isListVisible ? 'dark border border-dark' : 'primary'}
-                  />
-                  <SubmitButton
-                    func={listToggleHandler}
-                    title={<BsList />}
-                    bg={!isListVisible ? 'dark border border-dark' : 'primary'}
-                  />
-                </ButtonGroup>
-              </div>
+              <div className='gallery-filter_utility-div'></div>
               <SearchBar
                 searchVal={searchVal}
                 setSearchVal={setSearchVal}
@@ -81,7 +69,38 @@ const CollectionGallery = ({ data }) => {
                 setFilterBy={setFilterBy}
                 filterOptions={filterOptions}
               />
-              <div className='d-flex gap-4'>
+              <div className='d-flex gap-3'>
+                <div className='gallery-filter_toggle-wrapper'>
+                  <ButtonGroup size='lg'>
+                    <SubmitButton
+                      func={listToggleHandler}
+                      title={<BsGrid3X2GapFill />}
+                      bg={isListVisible ? 'dark border border-dark' : 'primary'}
+                    />
+                    <SubmitButton
+                      func={listToggleHandler}
+                      title={<BsList />}
+                      bg={!isListVisible ? 'dark border border-dark' : 'primary'}
+                    />
+                  </ButtonGroup>
+                </div>
+                <Form.Select
+                  className='gallery-filter_grid-select'
+                  onChange={(e) => setIsListVisible(!!e.target.value)}
+                >
+                  <option value=''>Grid view</option>
+                  <option value='truthy'>List view</option>
+                </Form.Select>
+                <Form.Select onChange={(e) => setSortBy(e.target.value)}>
+                  <option selected>Sort by</option>
+                  {sortOptions.map((option) => (
+                    <option value={option.value} key={option.value}>
+                      {option.title}
+                    </option>
+                  ))}
+                </Form.Select>
+              </div>
+              <div className='d-flex gap-4 d-none'>
                 <Filter
                   searchVal={searchVal}
                   setSearchVal={setSearchVal}
@@ -89,14 +108,6 @@ const CollectionGallery = ({ data }) => {
                   setSortBy={setSortBy}
                   sortOptions={sortOptions}
                 />
-                {selectedItemIds.length > 0 && (
-                  <div className='d-flex align-items-center'>
-                    <div className='me-2'>{selectedItemIds.length} item(s) selected</div>
-                    <SubmitButton func={clearSelections} title='Clear' />
-                    &nbsp;
-                    <SubmitButton id='withdraw' func={() => console.log('success!')} title='Withdraw' />
-                  </div>
-                )}
               </div>
             </div>
           </div>
@@ -105,7 +116,21 @@ const CollectionGallery = ({ data }) => {
       <div className='collection-gallery_gallery'>
         <div className='page-padding'>
           <div className='container-large'>
-            {data.length > 0 && <div className='collection-gallery_heading'>My Collection</div>}
+            <div className='d-flex gap-2 align-items-center'>
+              {data.length > 0 && <div className='collection-gallery_heading'>My Collection</div>}{' '}
+              {selectedItemIds.length > 0 && (
+                <div className={`gallery-filter_multiselect d-flex align-items-center`}>
+                  <div className='me-2'>{selectedItemIds.length} item(s) selected</div>
+                  <Button variant='outline-primary' onClick={() => clearSelections()}>
+                    Clear
+                  </Button>
+                  &nbsp;
+                  <Button id='withdraw' onClick={() => console.log('success!')}>
+                    Withdraw
+                  </Button>
+                </div>
+              )}
+            </div>
             {data.length > 0 && (
               <div
                 className={`collection-gallery_layout ${
