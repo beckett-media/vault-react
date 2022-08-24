@@ -1,27 +1,22 @@
 export const support = {
   title: 'Support',
-  sectionTitles: ['Email','Address'],
+  sectionTitles: ['Email', 'Address'],
   sectionContent: [
     {
       type: 'p',
-      content: [
-        <a href='mailto:Vaultconcierge@Beckett.com'>Vaultconcierge@Beckett.com</a>,
-        <br/>,
-        <br/>
-      ]
+      content: [<a href='mailto:Vaultconcierge@Beckett.com'>Vaultconcierge@Beckett.com</a>, <br />, <br />],
     },
     {
       type: 'p',
       content: [
         'Beckett Collectibles',
-        <br/>,
+        <br />,
         'C/O Beckett Vault',
-        <br/>,
+        <br />,
         '2700 Summit Ave, Ste 100',
-        <br/>,
+        <br />,
         'Plano, TX 75074',
-      ]
-    }
-  ]
-}
-    
+      ],
+    },
+  ],
+};

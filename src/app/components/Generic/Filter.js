@@ -3,17 +3,17 @@ import { Col, Row, Form } from 'react-bootstrap';
 
 const Filter = ({ searchVal, setSearchVal, setSortBy, sortOptions, setFilterBy, filterOptions }) => {
   const base = () => {
-    if (searchVal && sortOptions && filterOptions) { 
-      return 3
+    if (searchVal && sortOptions && filterOptions) {
+      return 3;
     } else if (!filterOptions && !sortOptions) {
-      return 6
-    } else return 4
-  }
+      return 6;
+    } else return 4;
+  };
   // add onSearch, onSort props.
   return (
     <Row className='row'>
       {searchVal !== undefined && (
-        <Col md={2*base()}>
+        <Col md={2 * base()}>
           <Form.Control
             type='search'
             placeholder='Search'
