@@ -44,6 +44,7 @@ const Profile = () => {
     }
     if (userState.phone) {
       const phone = formatPhoneNumber(userState.phone);
+
       try {
         updatedUser = await authContext.setAttributes(mapUserToCognito({ ...userState, phone: phone }));
         updatedUser && navigate('/my-collection');
