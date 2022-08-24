@@ -1,15 +1,14 @@
-import React, { useContext, useState } from 'react';
 import { Button, FormControl, Input } from '@chakra-ui/react';
+import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ReactComponent as SigninBg } from '../../assets/bg-sphere--large.svg';
 import { NewPasswordField } from '../../components/NewPasswordField/NewPasswordField';
 import { PasswordField } from '../../components/PasswordField/PasswordField';
+import { AuthContext } from '../../contexts/auth';
 import { defaultNewUser, requiredNewUserProperties, submitNewUser } from '../../services/user';
 import { hasRequiredProperties } from '../../utils/objects';
-import './SignIn.scss';
-import { AuthContext } from '../../contexts/auth';
-import { validPhone } from '../../utils/validationRegex';
 import { formatPhoneNumber } from '../../utils/phone';
+import './SignIn.scss';
 
 const SignUp = () => {
   const authContext = useContext(AuthContext);
@@ -19,11 +18,11 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   const formatErrMessageFromBackend = (message) => {
-    if (message.includes("PreSignUp failed with error")) {
-      return message.slice("PreSignUp failed with error".length)
+    if (message.includes('PreSignUp failed with error')) {
+      return message.slice('PreSignUp failed with error'.length);
     }
-    return message
-  }
+    return message;
+  };
 
   const submitSignUpForm = () => {
     setError('');
@@ -34,13 +33,16 @@ const SignUp = () => {
       } else if (!hasRequiredProperties(newUser, requiredNewUserProperties)) {
         setError('all Fields are required');
       } else {
-        submitNewUser({ ...newUser, phone: phone }, authContext).then((res) => {
-          if (res?.user?.username) {
-            navigate('/signin', { msg: 'Check your email to verify your account, then login' });
-          } else setError(res);
-        }, (err) => {
-          setError(formatErrMessageFromBackend(err.message))
-        });
+        submitNewUser({ ...newUser, phone: phone }, authContext).then(
+          (res) => {
+            if (res?.user?.username) {
+              navigate('/signin', { msg: 'Check your email to verify your account, then login' });
+            } else setError(res);
+          },
+          (err) => {
+            setError(formatErrMessageFromBackend(err.message));
+          },
+        );
       }
     } catch (err) {
       setError(err.message);
@@ -52,19 +54,23 @@ const SignUp = () => {
         <SigninBg className='signin_bg'></SigninBg>
         <div className='signin_modal'>
           <div className='signin_heading'>Sign Up</div>
-          <FormControl>
+          <FormControl autoComplete='off'>
             {error && <div className='signin_error'>{error}</div>}
+            {/* Chrome attempts to input username and password. I set email to 
+            username, assuming that most users will sign in with email, and therefore
+            chrome will assign email to username. */}
             <Input
               id='email'
               type='email'
               placeholder='Email *'
+              autoComplete='username'
               h={12}
               value={newUser.email}
               onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
             />
             <Input
               id='userName'
-              type='userName'
+              type='text'
               placeholder='Username *'
               h={12}
               value={newUser.userName}
@@ -72,7 +78,7 @@ const SignUp = () => {
             />
             <Input
               id='phone'
-              type='phone'
+              type='text'
               placeholder='Phone number *'
               h={12}
               value={newUser.phone}
@@ -80,7 +86,7 @@ const SignUp = () => {
             />
             <Input
               id='firstName'
-              type='firstName'
+              type='text'
               placeholder='First name *'
               h={12}
               value={newUser.firstName}
@@ -88,8 +94,9 @@ const SignUp = () => {
             />
             <Input
               id='lastName'
-              type='lastName'
+              type='text'
               placeholder='Last name *'
+              autoComplete='off'
               h={12}
               value={newUser.lastName}
               onChange={(e) => setNewUser({ ...newUser, lastName: e.target.value })}
