@@ -6,6 +6,7 @@ import UserBanner from '../../components/UserBanner/UserBanner';
 import { AuthContext } from '../../contexts/auth';
 import { formatPhoneNumber } from '../../utils/phone';
 import SubmitButton from '../../components/Generic/SubmitButton'
+import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
   const authContext = useContext(AuthContext);
@@ -14,6 +15,8 @@ const Profile = () => {
   const [isShippingSame, setIsShippingSame] = useState(false);
   const [loadingModal, setLoadingModal] = useState(false)
   const [confirmModal, setConfirmModal] = useState(false)
+  const [updateError, setUpdateError] = useState('')
+  const navigate = useNavigate()
 
   const updateUserState = (tempItem) => setUserState({ ...userState, ...tempItem });
 
@@ -36,13 +39,40 @@ const Profile = () => {
     if (isShippingSame) {
       syncSubmissionAddresses();
     }
+    if (!userState.phone.length){
+      return setUpdateError('Phone number is required.')
+    }
     if (userState.phone) {
       const phone = formatPhoneNumber(userState.phone);
-      updatedUser = await authContext.setAttributes(mapUserToCognito({ ...userState, phone: phone }));
+      try {
+        updatedUser = await authContext.setAttributes(mapUserToCognito({ ...userState, phone: phone }));
+        updatedUser && navigate('/my-collection')
+      } catch (err) {
+        if(err.name === 'InvalidParameterException'){
+          const paramArr = err.message.split(':')
+          const message = paramArr[1].split('attribute')
+          setUpdateError(message[0] + paramArr[0].split('.')[1].replace('_',' ') + message[1])
+        }
+        else {
+          setUpdateError('An error has occurred.')
+        }
+      }
     }
     // TODO: on error?
-    updatedUser = await authContext.setAttributes(mapUserToCognito(userState));
-    updatedUser && setLoadingModal(false)
+    
+    try {
+      updatedUser = await authContext.setAttributes(mapUserToCognito(userState));
+      updatedUser && navigate('/my-collection')
+    } catch (err) {
+      if(err.name === 'InvalidParameterException'){
+        const paramArr = err.message.split(':')
+        const message = paramArr[1].split('attribute')
+        setUpdateError(message[0] + paramArr[0].split('.')[1].replace('_',' ') + message[1])
+      }
+      else {
+        setUpdateError('An error has occurred.')
+      }
+    }
   };
 
   return (
@@ -50,6 +80,14 @@ const Profile = () => {
       <UserBanner />
       <Modal className='loading-modal' show={loadingModal}>
         <Modal.Header><span className='loading-header'>Updating Profile</span><Spinner animation="border" role="status" variant='dark'/></Modal.Header>
+      </Modal>
+      <Modal className='update-error_modal' show={updateError.length}>
+        <Modal.Header>
+          <span className='update-error_header'>Error occurred updating profile</span>
+          <CloseButton onClick={()=>{setUpdateError(''),setLoadingModal(false)}}/>
+        </Modal.Header>
+        <Modal.Body className='update-error_text'><span>***{updateError}</span></Modal.Body>
+        <Modal.Footer><Button onClick={()=>{setUpdateError(''),setLoadingModal(false)}} variant='dark'>OK</Button></Modal.Footer>
       </Modal>
       <Modal className='confirm-modal' show={confirmModal}>
         <Modal.Header>
