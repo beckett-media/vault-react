@@ -9,6 +9,7 @@ import ItemCard from '../ItemCard/ItemCard';
 import ListItem from '../ListItem/ListItem';
 import SubmitButton from '../Generic/SubmitButton';
 import Filter from '../Generic/Filter';
+import SearchBar from '../SearchBar/SearchBar';
 
 import { useToggle } from '../../hooks/useToggle';
 import { useMultiSelect } from '../../hooks/useMultiSelect';
@@ -20,6 +21,7 @@ import { ReactComponent as EmptyCard } from '../../assets/beckett-card-placehold
 const CollectionGallery = ({ data }) => {
   //  SEARCH & FILTRATION
   const [sortBy, setSortBy] = useState(SUBJECT);
+  const [filterBy, setFilterBy] = useState('');
   const [searchVal, setSearchVal] = useState('');
 
   const searchValRegex = new RegExp(searchVal.toLowerCase(), 'g');
@@ -45,6 +47,13 @@ const CollectionGallery = ({ data }) => {
     { value: EST_VALUE_REVERSE, title: 'Most Expensive' },
     { value: EST_VALUE, title: 'Least Expensive' },
   ];
+
+  const filterOptions = [
+    { value: '', title: 'All' },
+    { value: 1, title: 'Card' },
+    { value: 2, title: 'Comics' },
+  ];
+
   return (
     <div className='collection-gallery_component w-100'>
       <div className='gallery-filter_component'>
@@ -65,6 +74,13 @@ const CollectionGallery = ({ data }) => {
                   />
                 </ButtonGroup>
               </div>
+              <SearchBar
+                searchVal={searchVal}
+                setSearchVal={setSearchVal}
+                sortBy={sortBy}
+                setFilterBy={setFilterBy}
+                filterOptions={filterOptions}
+              />
               <div className='d-flex gap-4'>
                 <Filter
                   searchVal={searchVal}
