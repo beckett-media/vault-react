@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ButtonGroup, Pagination, ToggleButton } from 'react-bootstrap';
+import { ButtonGroup, Pagination, ToggleButton, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { BsGrid3X2GapFill, BsList, BsCheck } from 'react-icons/bs';
 
@@ -89,7 +89,7 @@ const CollectionGallery = ({ data }) => {
       <div className='collection-gallery_gallery'>
         <div className='page-padding'>
           <div className='container-large'>
-            <div className='collection-gallery_heading'>My Collection</div>
+            {data.length > 0 && <div className='collection-gallery_heading'>My Collection</div>}
             {data.length > 0 && (
               <div
                 className={`collection-gallery_layout ${
@@ -156,13 +156,15 @@ const CollectionGallery = ({ data }) => {
           <div className='page-padding mt-4'>
             <div className='container-large'>
               <div className='collection-gallery_empty'>
-                <EmptyCard />
-                <div className='collection-gallery_empty-content my-2'>
-                  <div className='collection-gallery_empty-heading'>Looks like your collection is empty!</div>
-                  <div className='collection-gallery_empty-body'>Add an item to get started:</div>
+                <div className='collection-gallery_empty-content'>
+                  <div className='collection-gallery_empty-heading'>Welcome to Beckett Vault</div>
+                  <div className='collection-gallery_empty-body'>
+                    Get started by submitting your items to our concierge by clicking the “Submit Item” button. Complete
+                    the form, include the packing list with your items, and send them to Beckett.
+                  </div>
                 </div>
                 <Link to='/submission'>
-                  <div className='nav_button'>Submit an Item</div>
+                  <Button>Submit an Item</Button>
                 </Link>
               </div>
             </div>
