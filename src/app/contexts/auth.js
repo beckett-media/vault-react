@@ -198,6 +198,7 @@ const AuthProvider = ({ children }) => {
   async function setAttributes(attrs) {
     try {
       const res = await cognito.setAttributes(attrs);
+      setAttrInfo(attrs);
       return res;
     } catch (err) {
       throw err;
