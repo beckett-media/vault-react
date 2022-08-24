@@ -13,8 +13,8 @@ const Profile = () => {
   const user = mapCognitoToUser(authContext.attrInfo);
   const [userState, setUserState] = useState(user);
   const [isShippingSame, setIsShippingSame] = useState(false);
-  const [loading, setLoading] = useState(false)
-  const [confirmUpdateUser, setConfirmUpdateUser] = useState(false)
+  const [loadingModal, setLoadingModal] = useState(false)
+  const [confirmModal, setConfirmModal] = useState(false)
   const [updateError, setUpdateError] = useState('')
   const navigate = useNavigate()
 
@@ -35,7 +35,7 @@ const Profile = () => {
 
   const submitUpdateUser = async () => {
     let updatedUser;
-    setLoading(true)
+    setLoadingModal(true)
     if (isShippingSame) {
       syncSubmissionAddresses();
     }
@@ -78,26 +78,26 @@ const Profile = () => {
   return (
     <div className='page-wrapper'>
       <UserBanner />
-      <Modal className='loading-modal' show={loading}>
+      <Modal className='loading-modal' show={loadingModal}>
         <Modal.Header><span className='loading-header'>Updating Profile</span><Spinner animation="border" role="status" variant='dark'/></Modal.Header>
       </Modal>
       <Modal className='update-error_modal' show={updateError.length}>
         <Modal.Header>
           <span className='update-error_header'>Error occurred updating profile</span>
-          <CloseButton onClick={()=>{setUpdateError(''),setLoading(false)}}/>
+          <CloseButton onClick={()=>{setUpdateError(''),setLoadingModal(false)}}/>
         </Modal.Header>
         <Modal.Body className='update-error_text'><span>***{updateError}</span></Modal.Body>
-        <Modal.Footer><Button onClick={()=>{setUpdateError(''),setLoading(false)}} variant='dark'>OK</Button></Modal.Footer>
+        <Modal.Footer><Button onClick={()=>{setUpdateError(''),setLoadingModal(false)}} variant='dark'>OK</Button></Modal.Footer>
       </Modal>
-      <Modal className='confirm-modal' show={confirmUpdateUser}>
+      <Modal className='confirm-modal' show={confirmModal}>
         <Modal.Header>
           <span className='confirm-header'>Update Profile Details?</span>
-          <CloseButton onClick={()=>setConfirmUpdateUser(false)}/>
+          <CloseButton onClick={()=>setConfirmModal(false)}/>
         </Modal.Header>
         <Modal.Body className='confirm-text'><span>Click Confirm to continue.</span></Modal.Body>
-        <Modal.Footer><Button onClick={()=>{submitUpdateUser(),setConfirmUpdateUser(false)}}>Confirm</Button></Modal.Footer>
+        <Modal.Footer><Button onClick={()=>{submitUpdateUser(),setConfirmModal(false)}}>Confirm</Button></Modal.Footer>
       </Modal>
-      {!loading && 
+      {!loadingModal && 
       <Form noValidate >
         <Row className='justify-content-center m-2'>
           <Col>
@@ -274,7 +274,7 @@ const Profile = () => {
                   )}
                   <Row className='mb-2'>
                     <Col>
-                      <Button type='button' onClick={()=> setConfirmUpdateUser(true)}>Save</Button>
+                      <Button type='button' onClick={()=> setConfirmModal(true)}>Save</Button>
                     </Col>
                   </Row>
                 </Card.Body>
