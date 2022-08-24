@@ -8,7 +8,6 @@ import './CollectionGallery.scss';
 import ItemCard from '../ItemCard/ItemCard';
 import ListItem from '../ListItem/ListItem';
 import SubmitButton from '../Generic/SubmitButton';
-import Filter from '../Generic/Filter';
 import SearchBar from '../SearchBar/SearchBar';
 
 import { useToggle } from '../../hooks/useToggle';
@@ -16,7 +15,6 @@ import { useMultiSelect } from '../../hooks/useMultiSelect';
 import { usePagination } from '../../hooks/usePagination';
 import { DATE, DATE_REVERSE, EST_VALUE, EST_VALUE_REVERSE, SUBJECT, SUBJECT_REVERSE } from '../../const/FiltersEnums';
 import { ASC, DESC, sortByAttribute } from '../../utils/sort';
-import { ReactComponent as EmptyCard } from '../../assets/beckett-card-placeholder.svg';
 
 const CollectionGallery = ({ data }) => {
   //  SEARCH & FILTRATION
@@ -99,15 +97,6 @@ const CollectionGallery = ({ data }) => {
                     </option>
                   ))}
                 </Form.Select>
-              </div>
-              <div className='d-flex gap-4 d-none'>
-                <Filter
-                  searchVal={searchVal}
-                  setSearchVal={setSearchVal}
-                  sortBy={sortBy}
-                  setSortBy={setSortBy}
-                  sortOptions={sortOptions}
-                />
               </div>
             </div>
           </div>
