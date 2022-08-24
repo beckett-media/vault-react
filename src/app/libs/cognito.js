@@ -200,6 +200,7 @@ export async function setAttributes(attributes) {
 
     currentUser.updateAttributes(attributeList, (err, res) => {
       if (err) {
+        console.log(err)
         reject(err);
       } else {
         resolve(res);
