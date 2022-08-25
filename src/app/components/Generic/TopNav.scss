@@ -109,12 +109,14 @@
 
     &-list {
       visibility: hidden;
+      padding: 8px 16px;
       margin-top: 8px;
+      box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
       opacity: 0;
       position: absolute;
       background-color: black;
       color: white;
-      outline: rgba(#fff, 0.3) 1px solid;
+      outline: rgba(#fff, 0.2) 1px solid;
       display: flex;
       flex-direction: column;
       right: 0px;
@@ -128,10 +130,15 @@
       padding: 4px 24px;
       cursor: pointer;
       transition: all 0.2s ease-in-out;
+      border-radius: 6px;
+
+      &--highlight {
+        background: var(--primary-900);
+      }
 
       &:hover {
-        background: var(--primary);
-        color: white;
+        background: var(--primary-900);
+        color: var(--gray-200);
       }
     }
   }
