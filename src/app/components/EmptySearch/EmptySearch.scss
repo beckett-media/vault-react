@@ -1,0 +1,32 @@
+.empty-search_ {
+  &component {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  &icon {
+    margin-bottom: 20px;
+  }
+
+  &heading {
+    color: var(--gray-900);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 155%;
+    margin-bottom: 8px;
+  }
+
+  &body {
+    color: var(--gray-500);
+    font-size: 14px;
+    line-height: 140%;
+    margin-bottom: 32px;
+  }
+
+  &button-wrapper {
+    display: flex;
+    gap: 12px;
+  }
+}
