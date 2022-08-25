@@ -89,7 +89,9 @@ const CollectionGallery = ({ data }) => {
         <div className='page-padding'>
           <div className='container-large'>
             <div className='d-flex gap-2 align-items-center'>
-              {data.length > 0 && <div className='collection-gallery_heading'>My Collection</div>}{' '}
+              {data.length > 0 && sortedItems.length > 0 && (
+                <div className='collection-gallery_heading'>My Collection</div>
+              )}{' '}
               {selectedItemIds.length > 0 && (
                 <div className={`gallery-filter_multiselect d-flex align-items-center`}>
                   <div className='me-2'>{selectedItemIds.length} item(s) selected</div>
@@ -103,12 +105,12 @@ const CollectionGallery = ({ data }) => {
                 </div>
               )}
             </div>
-            {searchVal && sortedItems.length === 0 && (
+            {searchVal && sortedItems.length === 0 && data.length > 0 && (
               <div className='w-100 d-flex justify-content-center my-4'>
-                <EmptySearch searchTerm={searchVal} />
+                <EmptySearch searchTerm={searchVal} clearFunction={() => setSearchVal('')} />
               </div>
             )}
-            {data.length > 0 && (
+            {data.length > 0 && sortedItems.length > 0 && (
               <div
                 className={`collection-gallery_layout ${
                   isListVisible ? 'collection-gallery_layout-list' : 'collection-gallery_layout-grid'
@@ -161,7 +163,7 @@ const CollectionGallery = ({ data }) => {
           </div>
         </div>
 
-        {data.length > 0 && (
+        {data.length > 0 && sortedItems.length > 0 && (
           <div className='collection_pagination'>
             <Pagination>
               <Pagination.Prev />
