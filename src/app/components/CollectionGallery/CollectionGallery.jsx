@@ -107,8 +107,9 @@ const CollectionGallery = ({ data }) => {
                 )}
                 {(searchVal ? sortedItems : updatePage(sortedItems, activePage))?.map((item, index) => (
                   <div key={'collection-gallery_' + index}>
-                    {isListVisible && <ListItem item={item} />}
-                    {!isListVisible && (
+                    {isListVisible ? (
+                      <ListItem item={item} />
+                    ) : (
                       <div
                         className={`collection-gallery_card-wrapper ${
                           isSelected(item.id) && 'collection-gallery_card-selected'
