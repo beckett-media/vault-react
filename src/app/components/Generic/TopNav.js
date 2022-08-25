@@ -84,7 +84,7 @@ const TopNav = () => {
                       History
                     </Link>
                     <div
-                      className='nav_user-dropdown-item nav_user-dropdown-item--highlight'
+                      className='nav_user-dropdown-item'
                       onClick={async () => {
                         authContext.signOut();
                         navigate('/');

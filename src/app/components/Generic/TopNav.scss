@@ -109,7 +109,7 @@
 
     &-list {
       visibility: hidden;
-      padding: 8px 16px;
+      padding: 12px 10px;
       margin-top: 8px;
       box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
       opacity: 0;
@@ -121,16 +121,16 @@
       flex-direction: column;
       right: 0px;
       border-radius: 4px;
-      transition: all 0.2s ease-in-out;
+      transition: all 0.15s ease-in-out;
       overflow: hidden;
       transform: translateY(-5px);
     }
 
     &-item {
-      padding: 4px 24px;
+      padding: 8px 32px;
       cursor: pointer;
-      transition: all 0.2s ease-in-out;
       border-radius: 6px;
+      transition: all 0.1s ease-in-out;
 
       &--highlight {
         background: var(--primary-900);
