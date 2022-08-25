@@ -7,7 +7,7 @@ import './History.scss';
 const ItemsHistory = ({ sortedItems, listings, submissions, vaulting, setSortedItems }) => {
   const [selected, setSelected] = useState('');
   const [groups, setGroups] = useState({});
-  const [groupsReady, setGroupsReady] = useState(false)
+  const [groupsReady, setGroupsReady] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,15 +20,16 @@ const ItemsHistory = ({ sortedItems, listings, submissions, vaulting, setSortedI
         } else if (extra.uuid !== undefined && extra.uuid !== '') {
           groupings[`${extra.uuid}`] = [{ ...item, ...extra }];
         }
-      } 
-    });
-    groupings && Object.keys(groupings).forEach((group) =>{
-      const submission = submissions.filter((sub) => sub.item_id === Number(groupings[`${group}`][0].entity))
-      if(submission[0]) {
-        groupings[`${group}`][0]['order_id'] = submission[0].order_id
       }
     });
-    setGroups({...groupings});
+    groupings &&
+      Object.keys(groupings).forEach((group) => {
+        const submission = submissions.filter((sub) => sub.item_id === Number(groupings[`${group}`][0].entity));
+        if (submission[0]) {
+          groupings[`${group}`][0]['order_id'] = submission[0].order_id;
+        }
+      });
+    setGroups({ ...groupings });
   }, [sortedItems]);
 
   useEffect(() => {
@@ -106,9 +107,7 @@ const ItemsHistory = ({ sortedItems, listings, submissions, vaulting, setSortedI
                     <div>
                       {'ID: '}
                       <br />
-                      <span className='fw-bold'>
-                        {item.id}
-                      </span>
+                      <span className='fw-bold'>{item.id}</span>
                     </div>
                   </Col>
                   <Col lg={6}>
@@ -116,7 +115,9 @@ const ItemsHistory = ({ sortedItems, listings, submissions, vaulting, setSortedI
                       {'Item: '}
                       <br />
                       <span className='fw-bold'>
-                        {item.title.length ? item.title : `${item.year} ${item.manufacturer} ${item.card_number} ${item.player}`}
+                        {item.title.length
+                          ? item.title
+                          : `${item.year} ${item.manufacturer} ${item.card_number} ${item.player}`}
                       </span>
                     </div>
                   </Col>
