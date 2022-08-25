@@ -16,34 +16,6 @@
   }
 }
 
-.gallery-filter_ {
-  &component {
-    position: sticky;
-    top: 54px;
-    z-index: 9;
-    background-color: #fff;
-    color: #000;
-  }
-
-  &divider {
-    width: 100%;
-    height: 1px;
-    background-color: #fff;
-  }
-
-  &layout {
-    padding: 16px 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  &filter-wrapper {
-    width: fit-content;
-    display: flex;
-  }
-}
-
 .gallery_wrapper {
   display: flex;
   justify-content: center;
