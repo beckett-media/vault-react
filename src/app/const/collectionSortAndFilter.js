@@ -1,3 +1,5 @@
+import { DATE, DATE_REVERSE, EST_VALUE, EST_VALUE_REVERSE, SUBJECT, SUBJECT_REVERSE } from './FiltersEnums';
+
 export const sortOptions = [
   { value: SUBJECT, title: 'Name A-Z' },
   { value: SUBJECT_REVERSE, title: 'Name Z-A' },

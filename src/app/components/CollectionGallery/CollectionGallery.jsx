@@ -13,7 +13,7 @@ import SearchBar from '../SearchBar/SearchBar';
 import { useToggle } from '../../hooks/useToggle';
 import { useMultiSelect } from '../../hooks/useMultiSelect';
 import { usePagination } from '../../hooks/usePagination';
-import { DATE, DATE_REVERSE, EST_VALUE, EST_VALUE_REVERSE, SUBJECT, SUBJECT_REVERSE } from '../../const/FiltersEnums';
+import { SUBJECT } from '../../const/FiltersEnums';
 import { ASC, DESC, sortByAttribute } from '../../utils/sort';
 import { filterOptions, sortOptions } from '../../const/collectionSortAndFilter';
 
