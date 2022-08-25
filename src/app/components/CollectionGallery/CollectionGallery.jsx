@@ -23,6 +23,10 @@ const CollectionGallery = ({ data }) => {
   const [filterBy, setFilterBy] = useState('');
   const [searchVal, setSearchVal] = useState('');
 
+  const { selectedItemIds, isSelected, handleItemSelection, clearSelections } = useMultiSelect();
+  const { isToggled: isListVisible, toggle: listToggleHandler, setIsToggled: setIsListVisible } = useToggle();
+  const { activePage, paginationItems, updatePage } = usePagination(sortedItems);
+
   const searchValRegex = new RegExp(searchVal.toLowerCase(), 'g');
 
   const typeFilteredItems = !!filterBy ? data.filter((item) => item.item_type === filterBy - 0) : data;
@@ -30,15 +34,6 @@ const CollectionGallery = ({ data }) => {
   const sortedItems = sortBy
     ? searchFilteredItems.sort(sortByAttribute(sortBy.split('-')[0], sortBy.split('-').length > 1 ? DESC : ASC))
     : searchFilteredItems;
-
-  // MULTISELECT
-  const { selectedItemIds, isSelected, handleItemSelection, clearSelections } = useMultiSelect();
-
-  //  LIST VIEW TOGGLE
-  const { isToggled: isListVisible, toggle: listToggleHandler, setIsToggled: setIsListVisible } = useToggle();
-
-  //  PAGINATION
-  const { activePage, paginationItems, updatePage } = usePagination(sortedItems);
 
   return (
     <div className='collection-gallery_component w-100'>
