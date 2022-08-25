@@ -18,7 +18,7 @@ const Filter = ({ searchVal, setSearchVal, setSortBy, sortOptions, setFilterBy, 
             type='search'
             placeholder='Search'
             size='md'
-            className='rounded-pill'
+            className='rounded-pill mb-0'
             value={searchVal}
             onChange={(e) => setSearchVal(e.target.value)}
           />
@@ -26,7 +26,7 @@ const Filter = ({ searchVal, setSearchVal, setSortBy, sortOptions, setFilterBy, 
       )}
       {sortOptions && (
         <Col md={base()}>
-          <Form.Select size='md' className='rounded-pill' onChange={(e) => setSortBy(e.target.value)}>
+          <Form.Select size='md' className='rounded-pill mb-0' onChange={(e) => setSortBy(e.target.value)}>
             <option selected>Sort</option>
             {sortOptions.map((option) => (
               <option value={option.value} key={option.value}>
@@ -38,7 +38,7 @@ const Filter = ({ searchVal, setSearchVal, setSortBy, sortOptions, setFilterBy, 
       )}
       {filterOptions && (
         <Col md={base()}>
-          <Form.Select size='md' className='rounded-pill' onChange={(e) => setFilterBy(e.target.value)}>
+          <Form.Select size='md' className='rounded-pill mb-0' onChange={(e) => setFilterBy(e.target.value)}>
             <option selected>Filter</option>
             {filterOptions.map((option) => (
               <option value={option.value} key={option.value}>
