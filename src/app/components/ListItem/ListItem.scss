@@ -5,6 +5,10 @@
     flex-direction: row;
     width: 100%;
     border-top: 1px solid #c5c5c5;
+
+    @media only screen and (max-width:800px) {
+      border-top: none;
+    }
   }
 
   &layout {
@@ -17,5 +21,8 @@
 
   &image {
     width: 50px;
+    height: 80px;
+    box-shadow: 0 0 30px -5px rgba(#000, 0.1);
   }
+
 }

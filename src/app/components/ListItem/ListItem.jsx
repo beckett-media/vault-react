@@ -6,6 +6,7 @@ import './ListItem.scss';
 
 import { formatPrice, trimString } from '../../utils/strings';
 import { getImageAssetUrl } from '../../utils/image';
+import { ReactComponent as EmptyCollection } from '../../assets/beckett-card-placeholder.svg';
 
 const images = requireContext('../../assets/Images', true);
 
@@ -16,11 +17,15 @@ const ListItem = ({ item }, props) => {
     <div className='list-item_component'>
       <Link to={`/my-collection/item/${item.id}`} className='w-100'>
         <div className='list-item_layout'>
-          <img className='list-item_image' src={imageUrl} alt='' />
+          {item.image_url ? (
+            <img className='list-item_image' src={imageUrl} alt='' />
+          ) : (
+            <EmptyCollection className='list-item_image' />
+          )}
           <div className='ellipses_wrapper'>
             <div className='ellipses_child'>{item.title}</div>
           </div>
-          <div className='ellipses_wrapper'>
+          <div className='ellipses_wrapper list-item_description'>
             <div className='ellipses_child'>{item.description}</div>
           </div>
 
