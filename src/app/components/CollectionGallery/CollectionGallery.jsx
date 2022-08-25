@@ -9,6 +9,7 @@ import ItemCard from '../ItemCard/ItemCard';
 import ListItem from '../ListItem/ListItem';
 import SubmitButton from '../Generic/SubmitButton';
 import SearchBar from '../SearchBar/SearchBar';
+import EmptySearch from '../EmptySearch/EmptySearch';
 
 import { useToggle } from '../../hooks/useToggle';
 import { useMultiSelect } from '../../hooks/useMultiSelect';
@@ -31,13 +32,8 @@ const CollectionGallery = ({ data }) => {
     ? searchFilteredItems.sort(sortByAttribute(sortBy.split('-')[0], sortBy.split('-').length > 1 ? DESC : ASC))
     : searchFilteredItems;
 
-  // MULTISELECT
   const { selectedItemIds, isSelected, handleItemSelection, clearSelections } = useMultiSelect();
-
-  //  LIST VIEW TOGGLE
   const { isToggled: isListVisible, toggle: listToggleHandler, setIsToggled: setIsListVisible } = useToggle();
-
-  //  PAGINATION
   const { activePage, paginationItems, updatePage } = usePagination(sortedItems);
 
   return (
@@ -93,7 +89,9 @@ const CollectionGallery = ({ data }) => {
         <div className='page-padding'>
           <div className='container-large'>
             <div className='d-flex gap-2 align-items-center'>
-              {data.length > 0 && <div className='collection-gallery_heading'>My Collection</div>}{' '}
+              {data.length > 0 && sortedItems.length > 0 && (
+                <div className='collection-gallery_heading'>My Collection</div>
+              )}{' '}
               {selectedItemIds.length > 0 && (
                 <div className={`gallery-filter_multiselect d-flex align-items-center`}>
                   <div className='me-2'>{selectedItemIds.length} item(s) selected</div>
@@ -107,7 +105,12 @@ const CollectionGallery = ({ data }) => {
                 </div>
               )}
             </div>
-            {data.length > 0 && (
+            {searchVal && sortedItems.length === 0 && data.length > 0 && (
+              <div className='w-100 d-flex justify-content-center my-4'>
+                <EmptySearch searchTerm={searchVal} clearFunction={() => setSearchVal('')} />
+              </div>
+            )}
+            {data.length > 0 && sortedItems.length > 0 && (
               <div
                 className={`collection-gallery_layout ${
                   isListVisible ? 'collection-gallery_layout-list' : 'collection-gallery_layout-grid'
@@ -124,8 +127,9 @@ const CollectionGallery = ({ data }) => {
                 )}
                 {(searchVal ? sortedItems : updatePage(sortedItems, activePage))?.map((item, index) => (
                   <div key={'collection-gallery_' + index}>
-                    {isListVisible && <ListItem item={item} />}
-                    {!isListVisible && (
+                    {isListVisible ? (
+                      <ListItem item={item} />
+                    ) : (
                       <div
                         className={`collection-gallery_card-wrapper ${
                           isSelected(item.id) && 'collection-gallery_card-selected'
@@ -159,7 +163,7 @@ const CollectionGallery = ({ data }) => {
           </div>
         </div>
 
-        {data.length > 0 && (
+        {data.length > 0 && sortedItems.length > 0 && (
           <div className='collection_pagination'>
             <Pagination>
               <Pagination.Prev />
