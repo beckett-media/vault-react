@@ -26,7 +26,7 @@
       border: 1px solid #c5c5c5;
       box-shadow: 0px 1px 3px rgb(16 24 40 / 10%), 0px 1px 2px rgb(16 24 40 / 6%);
       border-radius: 4px;
-      overflow: hidden;
+      overflow: scroll;
     }
 
     &-grid {
@@ -213,7 +213,7 @@
 
   &grid-select {
     @media only screen and (max-width:800px) {
-      display: none;
+      display: none !important;
     }
   }
 
