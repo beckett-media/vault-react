@@ -5,6 +5,7 @@ import './ItemCard.scss';
 
 import { getImageAssetUrl } from '../../utils/image';
 import { formatPrice } from '../../utils/strings';
+import { ReactComponent as EmptyImage } from '../../assets/beckett-card-placeholder--gray.svg';
 
 const ItemCard = ({ item, shouldLink = true, belongsToUser }, props) => {
   const link = shouldLink ? `/my-collection/item/${item.id}` : '';
@@ -20,7 +21,7 @@ const ItemCard = ({ item, shouldLink = true, belongsToUser }, props) => {
             {imageUrl ? (
               <img className='item-card_image' src={imageUrl} alt='' />
             ) : (
-              <span className='item-card_no_image'>No image</span>
+              <EmptyImage className='item-card_image' />
             )}
           </div>
           <div className='item-card_content-wrapper'>
