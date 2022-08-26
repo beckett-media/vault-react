@@ -6,6 +6,7 @@
 
   &gallery {
     padding: 24px 0 80px 0;
+    min-height: 500px;
   }
 
   &heading {
@@ -75,7 +76,8 @@
     transition: all 0.2s ease-in-out;
   }
 
-  &card-wrapper {}
+  &card-wrapper {
+  }
 
   &card-selected {
     outline: 5px solid #54c4c8;
@@ -139,7 +141,7 @@
     &-body {
       font-size: 16px;
       line-height: 160%;
-      color: #2E2E2E;
+      color: #2e2e2e;
       margin-bottom: 24px;
     }
   }
