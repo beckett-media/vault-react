@@ -1,8 +1,12 @@
 import React, { useState, useContext } from 'react';
 import { Row, Col, Card, Form, Button, Modal, Spinner, CloseButton } from 'react-bootstrap';
 import { mapCognitoToUser, mapUserToCognito } from '../../services/user';
+
 import './Profile.scss';
+
 import UserBanner from '../../components/UserBanner/UserBanner';
+import ImageUploader from '../../components/ImageUpload/ImageUploader';
+
 import { AuthContext } from '../../contexts/auth';
 import { formatPhoneNumber } from '../../utils/phone';
 import { useNavigate } from 'react-router-dom';
