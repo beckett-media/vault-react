@@ -29,16 +29,19 @@ const zoneOptions = [
   'Card Gallery Wall',
 ];
 
+const blankLocation = {
+  vault: '',
+  zone: '',
+  shelf: '',
+  row: '',
+  box: '',
+  slot: '',
+};
+
 function VaultingItem({ onWithdraw, item }) {
+  const [apiRetrigger, setApiRetrigger] = useState({});
   const [initialInventory, setInitialInventory] = useState({});
-  const [inventory, setInventory] = useState({
-    vault: '',
-    zone: '',
-    shelf: '',
-    row: '',
-    box: '',
-    slot: '',
-  });
+  const [inventory, setInventory] = useState(blankLocation);
   const shouldEnableWithdrawButton = item.status === VAULTING_STATUS.Minted;
 
   // console.log(item);
@@ -53,7 +56,7 @@ function VaultingItem({ onWithdraw, item }) {
         setInitialInventory(...data);
       })
       .catch(console.log('failed to retrieve inventory'));
-  }, []);
+  }, [apiRetrigger]);
 
   const updateInventory = (tempInventory) => setInventory({ ...inventory, ...tempInventory });
 
@@ -65,13 +68,13 @@ function VaultingItem({ onWithdraw, item }) {
       putInventory(initialInventory.id, inventory)
         .then((resp) => console.log('success!'))
         .catch((e) => console.log(e));
-      setInitialInventory({});
+      setApiRetrigger({});
     } else {
       inventory.item_id = item.item_id;
       postInventory(inventory)
         .then((resp) => console.log('success!'))
         .catch((e) => console.log(e));
-      setInitialInventory({});
+      setApiRetrigger({});
     }
   };
 
