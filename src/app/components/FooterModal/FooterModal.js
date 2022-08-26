@@ -7,8 +7,8 @@ import { termsOfService } from '../../assets/static-content/terms-of-service';
 import './FooterModal.scss';
 
 const FooterModal = ({ showFooterModal, openModal, dismissModal }) => {
-  const [faqSection, setFaqSection] = useState(0)
-  const isFaq = showFooterModal === 'faq'
+  const [faqSection, setFaqSection] = useState(0);
+  const isFaq = showFooterModal === 'faq';
   let form = {};
   if (showFooterModal === 'privacy') {
     form = { ...privacyPolicy };
@@ -16,8 +16,7 @@ const FooterModal = ({ showFooterModal, openModal, dismissModal }) => {
     form = { ...termsOfService };
   } else if (isFaq) {
     form = { ...faq };
-  }
-  else form = { ...support }
+  } else form = { ...support };
   const { sectionContent, sectionTitles, title } = form;
 
   return (
@@ -30,32 +29,29 @@ const FooterModal = ({ showFooterModal, openModal, dismissModal }) => {
         {sectionTitles?.map((section, i) => {
           const sectionType = sectionContent[i].type;
           return (
-            <div 
-              key={section}
-              className={isFaq && 'faq-modal footer-modal_subheader'}
-            >
-              <div 
-                className='footer-modal_subheader'
-                onClick={()=> isFaq && setFaqSection(i)}>{section}</div>
+            <div key={section} className={isFaq && 'faq-modal footer-modal_subheader'}>
+              <div className='footer-modal_subheader' onClick={() => isFaq && setFaqSection(i)}>
+                {section}
+              </div>
               {section.length && <hr />}
               {section.length && <br />}
               {sectionType == 'p' &&
                 sectionContent[i].content.map((content, j) => {
-                  if(isFaq && faqSection === i){
+                  if (isFaq && faqSection === i) {
                     return (
                       <span key={section + String(j) + String(i)} className='paragraph'>
                         {content}
                       </span>
                     );
-                  } 
-                  else if (isFaq && faqSection !== i){
-                    return <></>
+                  } else if (isFaq && faqSection !== i) {
+                    return <></>;
+                  } else {
+                    return (
+                      <span key={section + String(j) + String(i)} className='paragraph'>
+                        {content}
+                      </span>
+                    );
                   }
-                  else return (
-                    <span key={section + String(j) + String(i)} className='paragraph'>
-                      {content}
-                    </span>
-                  );
                 })}
               {sectionType == 'ul' && (
                 <ul>

@@ -1,3 +1,5 @@
+import React from 'react';
+
 export const faq = {
   title: 'Beckett Vault FAQ',
   sectionTitles: [
@@ -16,7 +18,11 @@ export const faq = {
       type: 'p',
       content: [
         `Security of your assets, Digital Enjoyment of your collection, and Seamless
-        Marketplace Transactions`, <><br/><br/></>
+        Marketplace Transactions`,
+        <>
+          <br />
+          <br />
+        </>,
       ],
     },
     {
@@ -26,14 +32,22 @@ export const faq = {
     services and a museum quality experience. Our vault concierge is available 24/7 
     to answer any questions you may have and make your vaulting experience as 
     smooth as possible. Your items are displayed beautifully alongside some of the 
-    most prestigious collectibles in the market. `, <><br/><br/></>
+    most prestigious collectibles in the market. `,
+        <>
+          <br />
+          <br />
+        </>,
       ],
     },
     {
       type: 'p',
       content: [
         `Beckett Vault is accepting graded Cards and Comics with a value of $750+. We 
-    will be adding additional collectible categories in the future.`, <><br/><br/></>
+    will be adding additional collectible categories in the future.`,
+        <>
+          <br />
+          <br />
+        </>,
       ],
     },
     {
@@ -46,7 +60,11 @@ export const faq = {
     office, 2700 Summit Ave, Ste 100 Plano, TX, 75074. Once received, our concierge 
     will review your submission. After the reviewal process your card or comic will 
     go to our digital studio for hi-resolution photographs before being safely placed 
-    in our vault. `, <><br/><br/></>
+    in our vault. `,
+        <>
+          <br />
+          <br />
+        </>,
       ],
     },
     {
@@ -54,14 +72,22 @@ export const faq = {
       content: [
         `Simply click withdraw item via your My Collection portal and our concierge will 
     remove your item(s) from the vault and send it to you. Owner is responsible for 
-    any associated shipping costs.`, <><br/><br/></>
+    any associated shipping costs.`,
+        <>
+          <br />
+          <br />
+        </>,
       ],
     },
     {
       type: 'p',
       content: [
         `Vaulted assets are tradeable in the Beckett Vault Marketplace which will launch 
-    in September 2022.`, <><br/><br/></>
+    in September 2022.`,
+        <>
+          <br />
+          <br />
+        </>,
       ],
     },
     {
@@ -70,7 +96,11 @@ export const faq = {
         `Our vault is built by industry leaders to ensure state-of-the-art protection 
     of your assets. Security  features include biometric access control, climate 
     control, water and fireproof storage, armed guards and 24/7 monitoring by 
-    security experts. All items are insured.`, <><br/><br/></>
+    security experts. All items are insured.`,
+        <>
+          <br />
+          <br />
+        </>,
       ],
     },
     {
@@ -79,14 +109,22 @@ export const faq = {
         `Vaulted items will be digitally displayed in My Collection with hi-resolution 
     images for your enjoyment. Even though your items are not within arms reach 
     doesn’t mean you are saying goodbye forever, you can schedule in person visits 
-    with our concierge to view your items in person.`, <><br/><br/></>
+    with our concierge to view your items in person.`,
+        <>
+          <br />
+          <br />
+        </>,
       ],
     },
     {
       type: 'p',
       content: [
         `It is 100% free to vault with us! Beckett takes a 5% handling fee for any 
-    items sold via the Vault Marketplace.`, <><br/><br/></>
+    items sold via the Vault Marketplace.`,
+        <>
+          <br />
+          <br />
+        </>,
       ],
     },
   ],

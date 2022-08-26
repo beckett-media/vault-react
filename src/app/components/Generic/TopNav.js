@@ -83,7 +83,6 @@ const TopNav = () => {
                     <Link className='nav_user-dropdown-item' to='/history'>
                       History
                     </Link>
-                    <hr />
                     <div
                       className='nav_user-dropdown-item'
                       onClick={async () => {

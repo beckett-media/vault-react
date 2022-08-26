@@ -16,13 +16,13 @@ a {
   text-decoration: underline;
 }
 
-.footer-modal_{
-  &header{
+.footer-modal_ {
+  &header {
     font-size: 36px;
     font-family: 'Alliance', sans-serif;
     line-height: 120%;
     margin-bottom: 12px;
-    color: black;  
+    color: black;
   }
 
   &body {
@@ -100,5 +100,5 @@ a {
   font-style: italic;
 }
 .faq-modal {
-  cursor: pointer
+  cursor: pointer;
 }
