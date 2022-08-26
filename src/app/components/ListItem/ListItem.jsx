@@ -26,10 +26,10 @@ const ListItem = ({ item }, props) => {
             <div className='ellipses_child'>{item.title}</div>
           </div>
           <div className='ellipses_wrapper list-item_description'>
-            <div className='ellipses_child'>{item.description}</div>
+            <div className='ellipses_child'>{item.description?.length && item.description}</div>
           </div>
 
-          <div>{item.grade}</div>
+          <div>{item.grade?.length && !isNaN(item.grade) && item.grade}</div>
           <div>{formatPrice(+item.est_value)}</div>
         </div>
       </Link>
