@@ -11,17 +11,19 @@ const ItemsHistory = ({ sortedItems, listings, submissions, vaulting, setSortedI
 
   useEffect(() => {
     const groupings = {};
-    submissions.length && sortedItems.length && sortedItems?.map((item) => {
-      if (item.extra.length) {
-        const extra = item.extra.length && JSON.parse(item.extra);
-        if (Object.keys(groupings).includes(extra.uuid)) {
-          groupings[`${extra.uuid}`].push({ ...item, ...extra });
-        } else if (extra.uuid !== undefined && extra.uuid !== '') {
-          groupings[`${extra.uuid}`] = [{ ...item, ...extra }];
+    submissions.length &&
+      sortedItems.length &&
+      sortedItems?.map((item) => {
+        if (item.extra.length) {
+          const extra = item.extra.length && JSON.parse(item.extra);
+          if (Object.keys(groupings).includes(extra.uuid)) {
+            groupings[`${extra.uuid}`].push({ ...item, ...extra });
+          } else if (extra.uuid !== undefined && extra.uuid !== '') {
+            groupings[`${extra.uuid}`] = [{ ...item, ...extra }];
+          }
         }
-      }
-    });
-    groupings  &&
+      });
+    groupings &&
       Object.keys(groupings).forEach((group) => {
         const submission = submissions.filter((sub) => sub.item_id === Number(groupings[`${group}`][0].entity));
         if (submission[0]?.order_id) {
