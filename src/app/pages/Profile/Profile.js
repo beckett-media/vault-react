@@ -84,7 +84,7 @@ const Profile = () => {
       {!loadingModal && (
         <FormSection title={'Contact Info'}>
           <>
-            <ImageUploader heading='Update profile image' />
+            {/* <ImageUploader heading='Update profile image' /> */}
             <Form className='profile_form' noValidate>
               <Card bg='Light' text='dark'>
                 <Card.Body>
