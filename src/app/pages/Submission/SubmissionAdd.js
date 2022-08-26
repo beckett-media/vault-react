@@ -35,7 +35,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
       estimatedValue: isNaN(val) ? item.estimatedValue : val,
     });
   };
-  useEffect(() => setItem({ type: type }), [type]);
+  useEffect(() => setItem({ type }), [type]);
   return (
     <div className='w-100'>
       <div className='submission_heading'>Submit Items to Vault</div>
