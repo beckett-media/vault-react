@@ -45,12 +45,13 @@ const FooterModal = ({ showFooterModal, openModal, dismissModal }) => {
                     );
                   } else if (isFaq && faqSection !== i) {
                     return <></>;
-                  } else
+                  } else {
                     return (
                       <span key={section + String(j) + String(i)} className='paragraph'>
                         {content}
                       </span>
                     );
+                  }
                 })}
               {sectionType == 'ul' && (
                 <ul>
