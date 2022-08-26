@@ -16,7 +16,6 @@ const VaultingPage = () => {
     fetch();
   }, []);
 
-
   const handleWithdrawClick = (id) => {
     withdrawItem(id)
       .then((data) => {
