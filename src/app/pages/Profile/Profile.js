@@ -1,11 +1,10 @@
 import React, { useState, useContext } from 'react';
-import { Container, Row, Col, Card, Form, Button, Modal, Spinner, CloseButton } from 'react-bootstrap';
+import { Row, Col, Card, Form, Button, Modal, Spinner, CloseButton } from 'react-bootstrap';
 import { mapCognitoToUser, mapUserToCognito } from '../../services/user';
 import './Profile.scss';
 import UserBanner from '../../components/UserBanner/UserBanner';
 import { AuthContext } from '../../contexts/auth';
 import { formatPhoneNumber } from '../../utils/phone';
-import SubmitButton from '../../components/Generic/SubmitButton';
 import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {

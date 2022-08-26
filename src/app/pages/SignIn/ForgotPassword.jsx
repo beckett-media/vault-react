@@ -8,7 +8,7 @@ import './SignIn.scss';
 const ForgotPassword = ({ showForgotPWModal, dismissModal, codeSent, setCodeSent }) => {
   const { email, setEmail, emailIsValid } = useValidEmail('');
   const [error, setError] = useState('');
-  const submitPasswordResetForm =  async () => {
+  const submitPasswordResetForm = async () => {
     if (emailIsValid) {
       await sendCode(email);
       setCodeSent(true);
