@@ -10,7 +10,7 @@ import { ReactComponent as EmptyCollection } from '../../assets/beckett-card-pla
 
 const images = requireContext('../../assets/Images', true);
 
-const ListItem = ({ item }, props) => {
+const ListItem = ({ item }) => {
   const imageUrl = getImageAssetUrl(item.image_url);
 
   return (
