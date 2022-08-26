@@ -80,7 +80,7 @@ const Profile = () => {
 
   return (
     <div className='page-wrapper'>
-      <UserBanner />
+      <UserBanner canEditImage={true} />
       {!loadingModal && (
         <FormSection title={'Contact Info'}>
           <>
