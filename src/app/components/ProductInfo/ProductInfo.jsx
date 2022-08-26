@@ -76,7 +76,7 @@ const ProductInfo = ({ isOwner, item, addToCart }) => {
             <div>{formatPrice(price)}</div>
           </div>
           <div className='product-info_stats'>
-            <div>{item.overall_grade  && `Grade: ,${item.overall_grade}`}</div>
+            <div>{item.overall_grade  && `Grade: ${item.overall_grade}`}</div>
           </div>
           {item.tags && (
             <div className='product-info_tags-wrapper'>
