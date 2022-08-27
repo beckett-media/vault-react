@@ -19,7 +19,7 @@ const ChangePassword = ({ showModal, dismissModal, setShowModal}) => {
     console.log(error, pwIsValid)
     if(!error?.message && pwIsValid) {
       try{
-        await authContext.changePassword(oldPassword, newPassword)
+        await authContext.changePassword(oldPassword, 'badpassword')
         navigate('/my-collection')
       } catch(err) {
         if(err.name === 'LimitExceededException'){
@@ -62,13 +62,14 @@ const ChangePassword = ({ showModal, dismissModal, setShowModal}) => {
   return (
     <Modal show={showModal} dismiss={dismissModal}>
       <Modal.Header>
-        <div className='signin_header'>Change Password</div>
+        <div className='signin_heading'>Change Password</div>
         <CloseButton onClick={() => dismiss()} />
       </Modal.Header>
         <Modal.Body className='signin_body'>
           <>
             <PasswordField
               label='Old Password'
+              color='black'
               value={oldPassword}
               onChange={(e) => updateOldPassword(e.target.value)}
             />
