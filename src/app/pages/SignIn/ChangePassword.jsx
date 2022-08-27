@@ -16,7 +16,6 @@ const ChangePassword = ({ showModal, dismissModal, setShowModal}) => {
 
   const navigate = useNavigate()
   const submitChangePasswordForm = async () => {
-    console.log(error, pwIsValid)
     if(!error?.message && pwIsValid) {
       try{
         await authContext.changePassword(oldPassword, 'badpassword')
@@ -44,7 +43,6 @@ const ChangePassword = ({ showModal, dismissModal, setShowModal}) => {
     setNewPassword(tempPW)
     const pwFormat = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/
     const validate = pwFormat.test(tempPW)
-    console.log(tempPW, validate)
     setPWIsValid(validate)
   }
   const checkConfirmNewPassword = (tempPW) => {
