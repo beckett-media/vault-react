@@ -17,8 +17,8 @@ const Profile = () => {
   const [loadingModal, setLoadingModal] = useState(false);
   const [confirmModal, setConfirmModal] = useState(false);
   const [updateError, setUpdateError] = useState('');
-  const [showChangePasswordModal, setShowChangePasswordModal] = useState(false)
-  const launchChangePasswordModal = () => setShowChangePasswordModal(true)
+  const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
+  const launchChangePasswordModal = () => setShowChangePasswordModal(true);
 
   const navigate = useNavigate();
 
@@ -55,10 +55,10 @@ const Profile = () => {
       } catch (err) {
         if (err.name === 'InvalidParameterException') {
           const paramArr = err.message.split(':');
-          if(paramArr.length > 1 ){
+          if (paramArr.length > 1) {
             const message = paramArr[1].split('attribute');
             setUpdateError(message[0] + paramArr[0].split('.')[1].replace('_', ' ') + message[1]);
-          } else setUpdateError(err.message)
+          } else setUpdateError(err.message);
         } else {
           setUpdateError('An error has occurred.');
         }
@@ -324,8 +324,8 @@ const Profile = () => {
                         </Button>
                       </Col>
                     </Row>
-                    <ChangePassword showModal = {showChangePasswordModal} setShowModal = {setShowChangePasswordModal}/>
-                    <SubmitButton func={launchChangePasswordModal} title='Change Password' bg='link'/>
+                    <ChangePassword showModal={showChangePasswordModal} setShowModal={setShowChangePasswordModal} />
+                    <SubmitButton func={launchChangePasswordModal} title='Change Password' bg='link' />
                   </Card.Body>
                 </Card>
               </Row>

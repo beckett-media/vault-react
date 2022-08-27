@@ -106,7 +106,11 @@ const SignUp = () => {
             value={newUser.password}
             onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
           />
-          <NewPasswordField label='Confirm Password' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+          <NewPasswordField
+            label='Confirm Password'
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
           {/* TODO: move the CSS below into the style sheet */}
           <Button
             onClick={() => {
