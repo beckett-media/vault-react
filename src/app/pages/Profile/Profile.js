@@ -232,6 +232,18 @@ const Profile = () => {
                         </Form.Group>
                       </Col>
                     </Row>
+                    <Row>
+                      <Col>
+                        <Form.Group>
+                          <Form.Label>Email</Form.Label>
+                          <Form.Control
+                            type='text'
+                            value={userState.email}
+                            onChange={(e) => updateUserState({ email: e.target.value })}
+                          />
+                        </Form.Group>
+                      </Col>
+                    </Row>
                     <Row className='my-4'>
                       <Col>
                         <Form.Check
