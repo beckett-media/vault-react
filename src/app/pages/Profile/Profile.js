@@ -6,6 +6,8 @@ import UserBanner from '../../components/UserBanner/UserBanner';
 import { AuthContext } from '../../contexts/auth';
 import { formatPhoneNumber } from '../../utils/phone';
 import { useNavigate } from 'react-router-dom';
+import ChangePassword from '../SignIn/ChangePassword';
+import SubmitButton from '../../components/Generic/SubmitButton';
 
 const Profile = () => {
   const authContext = useContext(AuthContext);
@@ -15,6 +17,9 @@ const Profile = () => {
   const [loadingModal, setLoadingModal] = useState(false);
   const [confirmModal, setConfirmModal] = useState(false);
   const [updateError, setUpdateError] = useState('');
+  const [showChangePasswordModal, setShowChangePasswordModal] = useState(false)
+  const launchChangePasswordModal = () => setShowChangePasswordModal(true)
+
   const navigate = useNavigate();
 
   const updateUserState = (tempItem) => setUserState({ ...userState, ...tempItem });
@@ -305,6 +310,8 @@ const Profile = () => {
                         </Button>
                       </Col>
                     </Row>
+                    <ChangePassword showModal = {showChangePasswordModal} setShowModal = {setShowChangePasswordModal}/>
+                    <SubmitButton func={launchChangePasswordModal} title='Change Password' bg='link'/>
                   </Card.Body>
                 </Card>
               </Row>
