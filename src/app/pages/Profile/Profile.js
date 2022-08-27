@@ -55,8 +55,10 @@ const Profile = () => {
       } catch (err) {
         if (err.name === 'InvalidParameterException') {
           const paramArr = err.message.split(':');
-          const message = paramArr[1].split('attribute');
-          setUpdateError(message[0] + paramArr[0].split('.')[1].replace('_', ' ') + message[1]);
+          if(paramArr.length > 1 ){
+            const message = paramArr[1].split('attribute');
+            setUpdateError(message[0] + paramArr[0].split('.')[1].replace('_', ' ') + message[1]);
+          } else setUpdateError(err.message)
         } else {
           setUpdateError('An error has occurred.');
         }
