@@ -5,7 +5,6 @@ import { mapCognitoToUser, mapUserToCognito } from '../../services/user';
 import './Profile.scss';
 
 import UserBanner from '../../components/UserBanner/UserBanner';
-import ImageUploader from '../../components/ImageUpload/ImageUploader';
 import FormSection from '../../components/Layout/FormSection/FormSection';
 
 import { AuthContext } from '../../contexts/auth';
@@ -84,7 +83,6 @@ const Profile = () => {
       {!loadingModal && (
         <FormSection title={'Contact Info'}>
           <>
-            {/* <ImageUploader heading='Update profile image' /> */}
             <Form className='profile_form' noValidate>
               <Card bg='Light' text='dark'>
                 <Card.Body>
