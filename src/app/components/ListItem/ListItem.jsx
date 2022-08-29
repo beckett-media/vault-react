@@ -10,7 +10,7 @@ import { ReactComponent as EmptyCollection } from '../../assets/beckett-card-pla
 
 const images = requireContext('../../assets/Images', true);
 
-const ListItem = ({ item }, props) => {
+const ListItem = ({ item }) => {
   const imageUrl = getImageAssetUrl(item.image_url);
 
   return (
@@ -26,10 +26,10 @@ const ListItem = ({ item }, props) => {
             <div className='ellipses_child'>{item.title}</div>
           </div>
           <div className='ellipses_wrapper list-item_description'>
-            <div className='ellipses_child'>{item.description}</div>
+            <div className='ellipses_child'>{item.description?.length && item.description}</div>
           </div>
 
-          <div>{item.grade}</div>
+          <div>{!isNaN(item.grade) ? item.grade : ''}</div>
           <div>{formatPrice(+item.est_value)}</div>
         </div>
       </Link>
