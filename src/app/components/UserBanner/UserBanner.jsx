@@ -19,13 +19,26 @@ const UserBanner = ({ vaultedItems = 0, vaultedValue = 0, canEditImage = false }
 
   const onDrop = useCallback((acceptedFiles) => {
     setIsLoading(true);
+    acceptedFiles.forEach((file) => {
+      const reader = new FileReader();
+
+      reader.onabort = () => console.log('file reading was aborted');
+      reader.onerror = () => console.log('file reading has failed');
+      reader.onload = () => {
+        // Do whatever you want with the file contents
+        const binaryStr = reader.result;
+        console.log(binaryStr);
+      };
+      reader.readAsArrayBuffer(file);
+    });
     setTimeout(() => {
+      console.log(acceptedFiles);
       console.log('success!');
       setIsLoading(false);
     }, 2000);
   }, []);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, maxFiles: 1 });
 
   const bannerDetails = vaultedItems ? (
     <div className='user-banner_content-layout'>
