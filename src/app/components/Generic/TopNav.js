@@ -64,10 +64,10 @@ const TopNav = () => {
                 </Link>
               ) : (
                 <>
-                  <NavLink to='/signin' className='nav_link'>
+                  <NavLink to='/signin' onClick={() => navigate('/signin')} className='nav_link'>
                     <Button variant='outline-primary'>Log In</Button>
                   </NavLink>
-                  <NavLink to='/signup' className='nav_link'>
+                  <NavLink to='/signup' onClick={() => navigate('/signup')} className='nav_link'>
                     <Button variant='outline-primary'>Sign Up</Button>
                   </NavLink>
                 </>
