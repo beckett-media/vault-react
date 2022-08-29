@@ -92,8 +92,18 @@ const OrderPrint = () => {
               ----- <br />
               Submission ID: {item.id}
               <br />
-              {item.type === 1 && item.year + ' ' + item.set_name + ' ' + item.card_number + ' ' + item.player}
-              {item.type === 2 && item.title + ' ' + item.issue + ' ' + item.publisher + ' ' + item.year}
+              {item.type === 1 &&
+                item.year?.length(item.year + ' ') +
+                  item.set_name?.length(item.set_name + ' ') +
+                  item.card_number?.length(item.card_number + ' ') +
+                  item.player?.length &&
+                item.player}
+              {item.type === 2 &&
+                item.title?.length &&
+                item.title + ' ' + item.issure?.length &&
+                item.issue + ' ' + item.puplisher?.length &&
+                item.publisher + ' ' + item.year?.length &&
+                item.year}
             </div>
           ))}
         </>
