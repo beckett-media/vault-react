@@ -10,6 +10,7 @@ import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
 import { ReactComponent as BgSphere } from '../../assets/bg-sphere.svg';
 import { formatPrice } from '../../utils/strings';
+import { blobToBase64 } from '../../utils/image';
 
 const UserBanner = ({ vaultedItems = 0, vaultedValue = 0, canEditImage = false }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -17,8 +18,14 @@ const UserBanner = ({ vaultedItems = 0, vaultedValue = 0, canEditImage = false }
   const authContext = useContext(AuthContext);
   const userState = mapCognitoToUser(authContext.attrInfo);
 
-  const onDrop = useCallback((acceptedFiles) => {
+  const onDrop = useCallback(async (acceptedFiles) => {
     setIsLoading(true);
+    const image = {
+      imageFormat: acceptedFiles[0].type,
+      previewUrl: acceptedFiles[0].path,
+      imageBase64: await blobToBase64(acceptedFiles[0].path),
+    };
+    console.log(image);
     acceptedFiles.forEach((file) => {
       const reader = new FileReader();
 
@@ -38,7 +45,11 @@ const UserBanner = ({ vaultedItems = 0, vaultedValue = 0, canEditImage = false }
     }, 2000);
   }, []);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, maxFiles: 1 });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    maxFiles: 1,
+    accept: { 'image/jpeg': [], 'image/png': [], 'image/jpg': [] },
+  });
 
   const bannerDetails = vaultedItems ? (
     <div className='user-banner_content-layout'>
@@ -70,7 +81,7 @@ const UserBanner = ({ vaultedItems = 0, vaultedValue = 0, canEditImage = false }
           <div className='user-banner_layout'>
             <div className='user-banner_image-wrapper'>
               {canEditImage && (
-                <div className='user-banner_image-upload' {...getRootProps()}>
+                <div {...getRootProps({ className: 'user-banner_image-upload' })}>
                   {isLoading ? (
                     <LoadingSpinner />
                   ) : (
