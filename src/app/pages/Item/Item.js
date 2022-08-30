@@ -67,7 +67,7 @@ const Item = () => {
                 </div>
                 <div className='item-details_divider' />
                 <div className='item-details_text-wrapper'>
-                  <div className='item-details_heading'>Details</div>
+                  <div className='item-details_heading'>{item.description?.length !== 0 && 'Details'}</div>
                   <div className='item-details_description'>{item.description}</div>
                 </div>
               </div>

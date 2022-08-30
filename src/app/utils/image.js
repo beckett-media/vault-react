@@ -26,7 +26,12 @@ export const getImageAssetUrl = (url) => {
     return '';
   }
 
-  return url.startsWith('http://') || url.startsWith('https://') ? url : images(`./${url}`);
+  try {
+    return url.startsWith('http://') || url.startsWith('https://') ? url : images(`./${url}`);
+  } catch (e) {
+    console.error('getImageAssetUrl error', e);
+    return url;
+  }
 };
 
 export const urlToFile = async (url) => {

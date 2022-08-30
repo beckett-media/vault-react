@@ -2,7 +2,7 @@ import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { getSingleSubmission, SUBMISSION_STATUS } from '../../services/submission';
-import ImageUploader from '../../components/Generic/ImageUploader';
+import ImageUploader from '../../components/ImageUpload/ImageUploader';
 import './CreateVaultingPage.scss';
 import SubmitButton from '../../components/Generic/SubmitButton';
 import { createVaulting, fetchItemBySubmission } from '../../services/items';
