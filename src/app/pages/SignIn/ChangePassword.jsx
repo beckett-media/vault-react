@@ -4,18 +4,19 @@ import { useNavigate } from 'react-router-dom';
 import { NewPasswordField } from '../../components/NewPasswordField/NewPasswordField';
 import { PasswordField } from '../../components/PasswordField/PasswordField';
 import { AuthContext } from '../../contexts/auth';
+import { passwordFormat } from '../../utils/validationRegex';
 
 const ChangePassword = ({ showModal, dismissModal, setShowModal }) => {
   const [oldPassword, setOldPassword] = useState(undefined);
   const [newPassword, setNewPassword] = useState(undefined);
   const [confirmNewPassword, setConfirmNewPassword] = useState(undefined);
-  const [pwIsValid, setPWIsValid] = useState(undefined);
+  const [passwordIsValid, setPWIsValid] = useState(undefined);
   const [error, setError] = useState(undefined);
   const authContext = useContext(AuthContext);
 
   const navigate = useNavigate();
   const submitChangePasswordForm = async () => {
-    if (!error?.message && pwIsValid) {
+    if (!error?.message && passwordIsValid) {
       try {
         await authContext.changePassword(oldPassword, 'badpassword');
         navigate('/my-collection');
@@ -23,7 +24,7 @@ const ChangePassword = ({ showModal, dismissModal, setShowModal }) => {
         if (err.name === 'LimitExceededException') {
           setError({ name: err.name, message: 'Please try again later.' });
         } else if (err.name === 'NotAuthorizedException') {
-          setError({ name: err.name, message: 'You entered your old password incorreclty. Try again.' });
+          setError({ name: err.name, message: 'You entered your old password incorrectly. Try again.' });
         }
       }
     }
@@ -39,8 +40,7 @@ const ChangePassword = ({ showModal, dismissModal, setShowModal }) => {
 
   const validateNewPassword = (tempPW) => {
     setNewPassword(tempPW);
-    const pwFormat = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/;
-    const validate = pwFormat.test(tempPW);
+    const validate = passwordFormat.test(tempPW);
     setPWIsValid(validate);
   };
   const checkConfirmNewPassword = (tempPW) => {
@@ -75,7 +75,7 @@ const ChangePassword = ({ showModal, dismissModal, setShowModal }) => {
             value={newPassword}
             onChange={(e) => validateNewPassword(e.target.value)}
           />
-          {!pwIsValid && pwIsValid !== undefined && (
+          {!passwordIsValid && passwordIsValid !== undefined && (
             <div className='signin_error'>
               Password must be a combination of at least 8 letters, numbers, and special characters.
             </div>
@@ -85,12 +85,14 @@ const ChangePassword = ({ showModal, dismissModal, setShowModal }) => {
             dark
             value={confirmNewPassword}
             onChange={(e) => checkConfirmNewPassword(e.target.value)}
-            disabled={!pwIsValid}
+            disabled={!passwordIsValid}
           />
           {error?.message && <div className='signin_error'>{error?.message}</div>}
           <div
             onClick={submitChangePasswordForm}
-            className={pwIsValid && !error?.message.length && error !== undefined ? 'signin_button' : 'signin_muted'}
+            className={
+              passwordIsValid && !error?.message.length && error !== undefined ? 'signin_button' : 'signin_muted'
+            }
           >
             Update Password
           </div>
