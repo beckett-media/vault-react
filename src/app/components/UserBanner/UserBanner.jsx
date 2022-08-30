@@ -1,7 +1,6 @@
 import React, { useContext, useState, useCallback } from 'react';
 import { AuthContext } from '../../contexts/auth';
 import { getUserName, mapCognitoToUser } from '../../services/user';
-import { useDropzone } from 'react-dropzone';
 import Dropzone from 'react-dropzone-uploader';
 import { BsCamera } from 'react-icons/bs';
 
@@ -48,44 +47,44 @@ const UserBanner = ({ vaultedItems = 0, vaultedValue = 0, canEditImage = false }
     }
   };
 
-  const onDrop = useCallback(async (acceptedFiles) => {
-    setIsLoading(true);
-    const imageFormat = acceptedFiles[0].type;
-    const previewUrl = acceptedFiles[0].path;
-    const imageBase64 = await blobToBase64(acceptedFiles[0].path);
+  // const onDrop = useCallback(async (acceptedFiles) => {
+  //   setIsLoading(true);
+  //   const imageFormat = acceptedFiles[0].type;
+  //   const previewUrl = acceptedFiles[0].path;
+  //   const imageBase64 = await blobToBase64(acceptedFiles[0].path);
 
-    console.log(imageBase64);
+  //   console.log(imageBase64);
 
-    const image = {
-      image_format: imageFormat.split('/')[1] || 'png',
-      image_base64: imageBase64?.split(`data:${imageFormat};base64,`)[1] || '',
-    };
+  //   const image = {
+  //     image_format: imageFormat.split('/')[1] || 'png',
+  //     image_base64: imageBase64?.split(`data:${imageFormat};base64,`)[1] || '',
+  //   };
 
-    console.log(image);
-    acceptedFiles.forEach((file) => {
-      const reader = new FileReader();
+  //   console.log(image);
+  //   acceptedFiles.forEach((file) => {
+  //     const reader = new FileReader();
 
-      reader.onabort = () => console.log('file reading was aborted');
-      reader.onerror = () => console.log('file reading has failed');
-      reader.onload = () => {
-        // Do whatever you want with the file contents
-        const binaryStr = reader.result;
-        console.log(binaryStr);
-      };
-      reader.readAsArrayBuffer(file);
-    });
-    setTimeout(() => {
-      console.log(acceptedFiles);
-      console.log('success!');
-      setIsLoading(false);
-    }, 2000);
-  }, []);
+  //     reader.onabort = () => console.log('file reading was aborted');
+  //     reader.onerror = () => console.log('file reading has failed');
+  //     reader.onload = () => {
+  //       // Do whatever you want with the file contents
+  //       const binaryStr = reader.result;
+  //       console.log(binaryStr);
+  //     };
+  //     reader.readAsArrayBuffer(file);
+  //   });
+  //   setTimeout(() => {
+  //     console.log(acceptedFiles);
+  //     console.log('success!');
+  //     setIsLoading(false);
+  //   }, 2000);
+  // }, []);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
-    maxFiles: 1,
-    accept: { 'image/jpeg': [], 'image/png': [], 'image/jpg': [] },
-  });
+  // const { getRootProps, getInputProps, isDragActive } = useDropzone({
+  //   onDrop,
+  //   maxFiles: 1,
+  //   accept: { 'image/jpeg': [], 'image/png': [], 'image/jpg': [] },
+  // });
 
   const bannerDetails = vaultedItems ? (
     <div className='user-banner_content-layout'>
