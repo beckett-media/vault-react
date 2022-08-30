@@ -1,0 +1,27 @@
+.status-tracker_ {
+  &component {
+    display: flex;
+  }
+
+  &active {
+    background-color: var(--primary);
+  }
+
+  &element {
+    width: 57px;
+    height: 12px;
+    background-color: rgba(#fff, 0.4);
+    clip-path: polygon(90% 0, 100% 50%, 90% 100%, 0% 100%, 10% 50%, 0% 0%);
+  }
+
+  &beginning {
+    background-color: var(--primary);
+    clip-path: polygon(90% 0, 100% 50%, 90% 100%, 0% 100%, 0% 0%);
+    border-radius: 6px 0 0 6px;
+  }
+
+  &end {
+    clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 10% 50%, 0% 0%);
+    border-radius: 0 6px 6px 0;
+  }
+}
