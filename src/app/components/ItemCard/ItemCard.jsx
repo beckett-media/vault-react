@@ -30,6 +30,10 @@ const ItemCard = ({ item, shouldLink = true, belongsToUser }, props) => {
       return 3;
     } else if (status === 5) {
       return 4;
+    } else if (status === 3) {
+      return 0;
+    } else {
+      return null;
     }
   };
 
@@ -40,7 +44,7 @@ const ItemCard = ({ item, shouldLink = true, belongsToUser }, props) => {
           <div className='item-card_image-wrapper'>
             {!isVaulted && (
               <div className='item-card_pending-overlay'>
-                <div className='mb-1'>Status: {item.status_desc}</div>
+                <div className='mb-1'>Status: {item.status_desc ? item.status_desc : 'Error retrieving status'}</div>
                 <StatusTracker totalSteps={4} currentStep={convertStatusToSteps(item.status)}></StatusTracker>
               </div>
             )}
