@@ -24,4 +24,8 @@
   &active {
     background-color: var(--primary);
   }
+
+  &error-icon>* {
+    stroke: var(--primary);
+  }
 }
