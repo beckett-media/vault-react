@@ -19,6 +19,8 @@ const ItemCard = ({ item, shouldLink = true, belongsToUser }, props) => {
 
   const isVaulted = item.status === 5;
 
+  // To do: create status conversion system
+
   return (
     <div className={`item-card_component`}>
       <div className='item-card_layout'>
@@ -27,7 +29,7 @@ const ItemCard = ({ item, shouldLink = true, belongsToUser }, props) => {
             {!isVaulted && (
               <div className='item-card_pending-overlay'>
                 <div className='mb-1'>Status: {item.status_desc}</div>
-                <StatusTracker length={4}></StatusTracker>
+                <StatusTracker totalSteps={4} currentStep={3}></StatusTracker>
               </div>
             )}
             {imageUrl ? (
