@@ -247,7 +247,11 @@ const SignIn = () => {
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
               />
-              <NewPasswordField value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+              <NewPasswordField
+                label='Confirm Password'
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
             </>
           )}
           {codeSent && (
