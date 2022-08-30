@@ -3,10 +3,6 @@
     display: flex;
   }
 
-  &active {
-    background-color: var(--primary);
-  }
-
   &element {
     width: 57px;
     height: 12px;
@@ -23,5 +19,9 @@
   &end {
     clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 10% 50%, 0% 0%);
     border-radius: 0 6px 6px 0;
+  }
+
+  &active {
+    background-color: var(--primary);
   }
 }
