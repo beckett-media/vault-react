@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 
 import './ItemCard.scss';
 
+import StatusTracker from '../StatusTracker/StatusTracker';
+
 import { getImageAssetUrl } from '../../utils/image';
 import { formatPrice } from '../../utils/strings';
 import { ReactComponent as EmptyImage } from '../../assets/beckett-card-placeholder--gray.svg';
@@ -13,11 +15,21 @@ const ItemCard = ({ item, shouldLink = true, belongsToUser }, props) => {
 
   const imageUrl = getImageAssetUrl(item.image_url);
 
+  console.log(item);
+
+  const isVaulted = item.status === 5;
+
   return (
     <div className={`item-card_component`}>
       <div className='item-card_layout'>
-        <Link to={link}>
+        <Link to={isVaulted ? link : '/my-collection'}>
           <div className='item-card_image-wrapper'>
+            {!isVaulted && (
+              <div className='item-card_pending-overlay'>
+                <div className='mb-1'>Status: {item.status_desc}</div>
+                <StatusTracker length={4}></StatusTracker>
+              </div>
+            )}
             {imageUrl ? (
               <img className='item-card_image' src={imageUrl} alt='' />
             ) : (
