@@ -21,6 +21,18 @@ const ItemCard = ({ item, shouldLink = true, belongsToUser }, props) => {
 
   // To do: create status conversion system
 
+  const convertStatusToSteps = (status) => {
+    if (status === 1) {
+      return 1;
+    } else if (status === 2) {
+      return 2;
+    } else if (status === 4) {
+      return 3;
+    } else if (status === 5) {
+      return 4;
+    }
+  };
+
   return (
     <div className={`item-card_component`}>
       <div className='item-card_layout'>
@@ -29,7 +41,7 @@ const ItemCard = ({ item, shouldLink = true, belongsToUser }, props) => {
             {!isVaulted && (
               <div className='item-card_pending-overlay'>
                 <div className='mb-1'>Status: {item.status_desc}</div>
-                <StatusTracker totalSteps={4} currentStep={3}></StatusTracker>
+                <StatusTracker totalSteps={4} currentStep={convertStatusToSteps(item.status)}></StatusTracker>
               </div>
             )}
             {imageUrl ? (
