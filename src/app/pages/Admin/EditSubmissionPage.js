@@ -5,6 +5,7 @@ import { getSingleSubmission } from '../../services/submission';
 import './CreateVaultingPage.scss';
 import { updateSubmission } from '../../services/submission';
 import { extractUpdatedParts } from '../../utils/submissions';
+import { validURL } from '../../utils/validationRegex';
 
 function AdminEditSubmissionPage() {
   const { submissionId } = useParams();
@@ -40,8 +41,16 @@ function AdminEditSubmissionPage() {
   const updateItemFormSubmit = (e) => {
     e.preventDefault();
 
-    const payload = extractUpdatedParts(submission, item);
+    if (item.image_path && !validURL.test(item.image_path)) {
+      alert('Front image URL is not valid');
+      return;
+    }
+    if (item.image_rev_path && !validURL.test(item.image_rev_path)) {
+      alert('Back image URL is not valid');
+      return;
+    }
 
+    const payload = extractUpdatedParts(submission, item);
     payload.type = submission.type;
 
     console.log('update submission payload', payload);
