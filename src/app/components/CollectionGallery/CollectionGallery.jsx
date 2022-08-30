@@ -137,22 +137,24 @@ const CollectionGallery = ({ data }) => {
                         key={'collection-gallery_' + index}
                       >
                         <div className='collection-gallery_card-overlay'></div>
-                        <div
-                          className={`collection-gallery_overlay-button ${
-                            isSelected(item.id) && 'collection-gallery_overlay-button-selected'
-                          }`}
-                        >
-                          <BsCheck size={40} />
-                          <ToggleButton
-                            className='collection-gallery_overlay-toggle'
-                            id={`toggled-${item.id}`}
-                            type='checkbox'
-                            variant='outline-primary'
-                            checked={isSelected(item.id)}
-                            value='1'
-                            onChange={(e) => handleItemSelection(e.currentTarget.checked, item.id)}
-                          />
-                        </div>
+                        {item.status === 5 && (
+                          <div
+                            className={`collection-gallery_overlay-button ${
+                              isSelected(item.id) && 'collection-gallery_overlay-button-selected'
+                            }`}
+                          >
+                            <BsCheck size={40} />
+                            <ToggleButton
+                              className='collection-gallery_overlay-toggle'
+                              id={`toggled-${item.id}`}
+                              type='checkbox'
+                              variant='outline-primary'
+                              checked={isSelected(item.id)}
+                              value='1'
+                              onChange={(e) => handleItemSelection(e.currentTarget.checked, item.id)}
+                            />
+                          </div>
+                        )}
                         <ItemCard item={item} belongsToUser={true} />
                       </div>
                     )}

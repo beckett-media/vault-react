@@ -11,16 +11,24 @@ import UserBanner from '../../components/UserBanner/UserBanner';
 import './MyCollection.scss';
 
 import { getVaulting } from '../../services/items';
+import { getSubmissions } from '../../services/submission';
 
 const Gallery = () => {
   const authContext = useContext(AuthContext);
   const userState = mapCognitoToUser(authContext.attrInfo);
   //  FETCH PAST vaultings
   const [vaultings, setVaultings] = useState([]);
+  const [submissions, setSubmissions] = useState([]);
 
   useEffect(() => {
     getVaulting({ user: userState.sub }).then((data) => {
       setVaultings(Array.isArray(data) ? data : []);
+    });
+  }, [userState.sub]);
+
+  useEffect(() => {
+    getSubmissions({ user: userState.sub }).then((data) => {
+      setSubmissions(Array.isArray(data) ? data : []);
     });
   }, [userState.sub]);
 
@@ -84,7 +92,7 @@ const Gallery = () => {
           )}
 
           <div className='section-collection'>
-            <CollectionGallery data={vaultings} />
+            <CollectionGallery data={submissions} />
           </div>
         </>
       )}
