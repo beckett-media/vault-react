@@ -26,7 +26,8 @@ const ItemCard = ({ item, shouldLink = true, belongsToUser }, props) => {
           </div>
           <div className='item-card_content-wrapper'>
             <div className='item-card_category'>
-              {item.title || item.year + ' ' + item.manufacturer + ' ' + item.card_number + ' ' + item.player}
+              {item.type === 1 && item.year + ' ' + item.set_name + ' ' + item.card_number + ' ' + item.player}
+              {item.type === 2 && item.title + ' ' + item.issue + ' ' + item.publisher + ' ' + item.year}
             </div>
             {!belongsToUser && <div className='item-card_price'>{formatPrice(+price)}</div>}
             {/* <div className='item-card_title ellipses_wrapper'>
