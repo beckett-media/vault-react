@@ -3,7 +3,6 @@ import React from 'react';
 import './StatusTracker.scss';
 
 import { ReactComponent as CrossIcon } from '../../assets/beckett-circle-cross.svg';
-import { ReactComponent as WarningIcon } from '../../assets/beckett-cirlce-warning.svg';
 
 const StatusTracker = ({ totalSteps = 2, currentStep = 1 }) => {
   if (totalSteps < 2) {
@@ -23,11 +22,6 @@ const StatusTracker = ({ totalSteps = 2, currentStep = 1 }) => {
     middleStepsArray[index] = 1;
   }
 
-  // 1. Create mapping array for all middle steps
-  // 2. For all items between the first and the active step, update the value to 1
-
-  console.log(middleStepsArray);
-  console.log(middleStepsArray.totalSteps);
   return (
     <div className='status-tracker_component'>
       {!!currentStep ? (

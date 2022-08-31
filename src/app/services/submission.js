@@ -1,13 +1,13 @@
 import { axiosClient } from './index';
 
-export const SUBMISSION_STATUS = {
+export const SUBMISSION_STATUS = Object.freeze({
   Failed: 0,
   Submitted: 1,
   Received: 2,
   Rejected: 3,
   Approved: 4,
   Vaulted: 5,
-};
+});
 
 export const postSubmission = async (item) => {
   // TODO: validate item

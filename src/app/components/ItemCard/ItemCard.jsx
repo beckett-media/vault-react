@@ -8,6 +8,7 @@ import StatusTracker from '../StatusTracker/StatusTracker';
 import { getImageAssetUrl } from '../../utils/image';
 import { formatPrice } from '../../utils/strings';
 import { ReactComponent as EmptyImage } from '../../assets/beckett-card-placeholder--gray.svg';
+import { SUBMISSION_STATUS } from '../../services/submission';
 
 const ItemCard = ({ item, shouldLink = true, belongsToUser }, props) => {
   const link = shouldLink ? `/my-collection/item/${item.id}` : '';
@@ -15,11 +16,7 @@ const ItemCard = ({ item, shouldLink = true, belongsToUser }, props) => {
 
   const imageUrl = getImageAssetUrl(item.image_url);
 
-  console.log(item);
-
-  const isVaulted = item.status === 5;
-
-  // To do: create status conversion system
+  const isVaulted = item.status === SUBMISSION_STATUS.Vaulted;
 
   const convertStatusToSteps = (status) => {
     if (status === 1) {
