@@ -32,6 +32,7 @@ import CartProvider from './app/contexts/cart';
 import InterestForm from './app/pages/InterestForm/InterestForm';
 import ComingSoon from './app/pages/ComingSoon/ComingSoon';
 import FooterModal from './app/components/FooterModal/FooterModal';
+import AdminCreateAccount from './app/pages/Admin/CreateAccountPage';
 
 // chakra uses a default theme, this will remove it.
 const emptyChakraTheme = extendTheme({
@@ -80,6 +81,7 @@ function App() {
                   <Route exact path='submission/vaulting/:submissionId' element={<AdminCreateVaultingPage />} />
                   <Route exact path='submission' element={<AdminSubmissionPage />} />
                   <Route exact path='vaulting' element={<AdminVaultingPage />} />
+                  <Route exact path='create-account' element={<AdminCreateAccount />} />
                 </Route>
                 <Route exact path='/signin' element={<OnlyUnathenticated />}>
                   <Route path='' element={<SignIn />} />
