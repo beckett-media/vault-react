@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { getSubmissions, approveRejectSubmissions, confirmSubmissionReceipt } from '../../services/submission';
-import { getOrders, getSingleOrder } from '../../services/order';
 import SubmissionItem from './SubmissionItem';
 import Form from 'react-bootstrap/Form';
 
