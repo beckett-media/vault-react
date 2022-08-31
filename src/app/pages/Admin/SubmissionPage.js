@@ -53,6 +53,14 @@ const SubmissionPage = () => {
       });
   };
 
+  const filteredSubmissions = submissions.filter(
+    (submission, index) =>
+      (String(submission.order_id) === orderId || orderId === '') &&
+      (String(submission.id) === submissionId || submissionId === ''),
+  );
+
+  const mdSpan = filteredSubmissions.length === 1 ? 12 : filteredSubmissions.length === 2 ? 6 : 4;
+
   return (
     <div className='page-wrapper'>
       <Row>
@@ -89,19 +97,16 @@ const SubmissionPage = () => {
         <span>No submissions</span>
       ) : submissions.length > 0 ? (
         <Row>
-          {submissions.map((submission, index) =>
-            (String(submission.order_id) === orderId || orderId === '') &&
-            (String(submission.id) === submissionId || submissionId === '') ? (
-              <Col key={'submissions_' + index} className='col-sm-12 col-md-4'>
-                <SubmissionItem
-                  item={submission}
-                  onConfimReceipt={() => handleConfirmReceiptClick(submission.id, submission.type)}
-                  onApprove={() => handleApproveOrRejectClick(submission.id, submission.type, true)}
-                  onReject={() => handleApproveOrRejectClick(submission.id, submission.type, false)}
-                />
-              </Col>
-            ) : null,
-          )}
+          {filteredSubmissions.map((submission, index) => (
+            <Col key={'submissions_' + index} className={`col-sm-12 col-md-${mdSpan}`}>
+              <SubmissionItem
+                item={submission}
+                onConfimReceipt={() => handleConfirmReceiptClick(submission.id, submission.type)}
+                onApprove={() => handleApproveOrRejectClick(submission.id, submission.type, true)}
+                onReject={() => handleApproveOrRejectClick(submission.id, submission.type, false)}
+              />
+            </Col>
+          ))}
         </Row>
       ) : null}
       <Row className='py-4'>
