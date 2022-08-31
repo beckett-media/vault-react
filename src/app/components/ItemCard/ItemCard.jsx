@@ -13,8 +13,10 @@ const ItemCard = ({ item, shouldLink = true, belongsToUser }, props) => {
 
   const imageUrl = getImageAssetUrl(item.image_url);
 
+  const cardNumber = item.card_number ? '#' + item.card_number : '';
   return (
     <div className={`item-card_component`}>
+      {console.log(item)}
       <div className='item-card_layout'>
         <Link to={link}>
           <div className='item-card_image-wrapper'>
@@ -26,7 +28,8 @@ const ItemCard = ({ item, shouldLink = true, belongsToUser }, props) => {
           </div>
           <div className='item-card_content-wrapper'>
             <div className='item-card_category'>
-              {item.title || item.year + ' ' + item.manufacturer + ' ' + item.card_number + ' ' + item.player}
+              {item.item_type === 1 && item.year + ' ' + item.set_name + ' ' + cardNumber + ' ' + item.player}
+              {item.item_type === 2 && item.title + ' ' + item.issue + ' ' + item.publisher + ' ' + item.year}
             </div>
             {!belongsToUser && <div className='item-card_price'>{formatPrice(+price)}</div>}
             {/* <div className='item-card_title ellipses_wrapper'>
