@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Spinner } from 'react-bootstrap';
 
 import './ItemCard.scss';
 
@@ -8,6 +9,7 @@ import { formatPrice } from '../../utils/strings';
 import { ReactComponent as EmptyImage } from '../../assets/beckett-card-placeholder--gray.svg';
 
 const ItemCard = ({ item, shouldLink = true, belongsToUser }, props) => {
+  const [isImageLoading, setIsImageLoading] = useState(true);
   const link = shouldLink ? `/my-collection/item/${item.id}` : '';
   const price = item.est_value || item.price;
 
@@ -21,7 +23,21 @@ const ItemCard = ({ item, shouldLink = true, belongsToUser }, props) => {
         <Link to={link}>
           <div className='item-card_image-wrapper'>
             {imageUrl ? (
-              <img className='item-card_image' src={imageUrl} alt='' />
+              <>
+                <Spinner
+                  animation='border'
+                  role='status'
+                  className={`item-card_spinner ${!isImageLoading && 'd-none'}`}
+                >
+                  <span className='visually-hidden'>Loading...</span>
+                </Spinner>
+                <img
+                  className={`item-card_image ${isImageLoading && 'd-none'}`}
+                  src={imageUrl}
+                  alt=''
+                  onLoad={() => setIsImageLoading(false)}
+                />
+              </>
             ) : (
               <EmptyImage className='item-card_image' />
             )}
