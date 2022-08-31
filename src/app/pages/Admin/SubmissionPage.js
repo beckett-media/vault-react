@@ -1,24 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { getSubmissions, approveRejectSubmissions, confirmSubmissionReceipt } from '../../services/submission';
-import { getOrders, getSingleOrder } from '../../services/order';
+import AdminPagination from './AdminPagination';
 import SubmissionItem from './SubmissionItem';
+import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 import Form from 'react-bootstrap/Form';
+
+const pageSize = 15;
 
 const SubmissionPage = () => {
   const [submissions, setSubmissions] = useState([]);
   const [submissionId, setSubmissionId] = useState('');
   const [orderId, setOrderId] = useState('');
+  const [pageNumber, setPageNumber] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetch = () => {
-      getSubmissions().then((data) => {
-        setSubmissions(data);
-      });
+      setIsLoading(true);
+
+      getSubmissions({ limit: pageSize, offset: (pageNumber - 1) * pageSize })
+        .then((data) => {
+          setSubmissions(data);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     };
 
     fetch();
-  }, []);
+  }, [pageNumber]);
 
   const handleApproveOrRejectClick = (subId, type, approve) => {
     approveRejectSubmissions(subId, type, approve)
@@ -72,20 +83,29 @@ const SubmissionPage = () => {
           </Form.Text>
         </Col>
       </Row>
-      <Row>
-        {submissions?.map((submission, index) =>
-          (String(submission.order_id) === orderId || orderId === '') &&
-          (String(submission.id) === submissionId || submissionId === '') ? (
-            <Col key={'submissions_' + index} className='col-sm-12 col-md-4'>
-              <SubmissionItem
-                item={submission}
-                onConfimReceipt={() => handleConfirmReceiptClick(submission.id, submission.type)}
-                onApprove={() => handleApproveOrRejectClick(submission.id, submission.type, true)}
-                onReject={() => handleApproveOrRejectClick(submission.id, submission.type, false)}
-              />
-            </Col>
-          ) : null,
-        )}
+      {isLoading ? (
+        <LoadingSpinner />
+      ) : !isLoading && submissions.length === 0 ? (
+        <span>No submissions</span>
+      ) : submissions.length > 0 ? (
+        <Row>
+          {submissions.map((submission, index) =>
+            (String(submission.order_id) === orderId || orderId === '') &&
+            (String(submission.id) === submissionId || submissionId === '') ? (
+              <Col key={'submissions_' + index} className='col-sm-12 col-md-4'>
+                <SubmissionItem
+                  item={submission}
+                  onConfimReceipt={() => handleConfirmReceiptClick(submission.id, submission.type)}
+                  onApprove={() => handleApproveOrRejectClick(submission.id, submission.type, true)}
+                  onReject={() => handleApproveOrRejectClick(submission.id, submission.type, false)}
+                />
+              </Col>
+            ) : null,
+          )}
+        </Row>
+      ) : null}
+      <Row className='py-4'>
+        <AdminPagination onPageSelect={setPageNumber} currentPage={pageNumber} minPage={1} maxPage={20} />
       </Row>
     </div>
   );
