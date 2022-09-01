@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
-import LoadingSpinner from '../components/LoadingSpinner/LoadingSpinner';
+import { Loading } from '../pages/Loading/LoadingPage';
 
 import * as cognito from '../libs/cognito';
 import { updateAxiosClient } from '../services';
@@ -22,12 +22,6 @@ const defaultState = {
 };
 
 export const AuthContext = React.createContext(defaultState);
-
-export const Loading = () => (
-  <div className='w-100 vh-100 d-flex justify-content-center align-items-center'>
-    <LoadingSpinner></LoadingSpinner>
-  </div>
-);
 
 export const PrivateRoute = () => {
   const { authStatus } = useContext(AuthContext);
