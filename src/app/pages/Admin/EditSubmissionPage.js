@@ -53,10 +53,8 @@ function AdminEditSubmissionPage() {
     const payload = extractUpdatedParts(submission, item);
     payload.type = submission.type;
 
-    console.log('update submission payload', payload);
     updateSubmission(submission.id, payload)
       .then((res) => {
-        console.log('update submission success', res);
         alert('Updated successfully');
         navigate('/admin/submission');
       })

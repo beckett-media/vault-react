@@ -16,7 +16,6 @@ const ItemCard = ({ item, shouldLink = true, belongsToUser }, props) => {
   const cardNumber = item.card_number ? '#' + item.card_number : '';
   return (
     <div className={`item-card_component`}>
-      {console.log(item)}
       <div className='item-card_layout'>
         <Link to={link}>
           <div className='item-card_image-wrapper'>

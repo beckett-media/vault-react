@@ -42,7 +42,6 @@ const Submission = () => {
   const submitAddedItem = (item) => {
     const newItems = [...items, item];
     setItems(newItems);
-    console.log(items);
   };
 
   const removeItem = (removedItem) => {
@@ -65,9 +64,6 @@ const Submission = () => {
       ),
     )
       .then((resp) => {
-        console.log(resp);
-        console.log('success');
-        console.log(resp[0].data.order_id);
         navigate(`/order-details/${resp[0].data.order_id}`);
       })
       .catch((e) => {
