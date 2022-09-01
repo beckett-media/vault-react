@@ -26,7 +26,12 @@ export const getImageAssetUrl = (url) => {
     return '';
   }
 
-  return url.startsWith('http://') || url.startsWith('https://') ? url : images(`./${url}`);
+  try {
+    return url.startsWith('http://') || url.startsWith('https://') ? url : images(`./${url}`);
+  } catch (e) {
+    console.error('getImageAssetUrl error', e);
+    return url;
+  }
 };
 
 export const urlToFile = async (url) => {
@@ -34,17 +39,13 @@ export const urlToFile = async (url) => {
     mode: 'no-cors',
   });
 
-  console.log('ok', response.ok, response.type);
   // if (!response.ok) {
   //   throw new Error('Image URL is invalid');
   // }
 
   const blob = await response.blob();
   const type = response.headers.get('content-type') || 'image/jpeg';
-
   const file = new File([blob], url, { type });
-
-  console.log('urlToFile', blob, blob.type);
 
   return file;
 };

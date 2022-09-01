@@ -2,7 +2,7 @@ import React from 'react';
 import 'react-dropzone-uploader/dist/styles.css';
 import Dropzone from 'react-dropzone-uploader';
 import { blobToBase64 } from '../../utils/image';
-import { ReactComponent as ImageUpload } from '../../assets/image-upload-icon.svg';
+import { ReactComponent as UploadSvg } from '../../assets/image-upload-icon.svg';
 import './ImageUpload.scss';
 import { Row } from 'react-bootstrap';
 
@@ -30,7 +30,7 @@ const ImageUploader = ({ onFileChange, heading, subHeading, initialFiles }) => {
     <Row className='image-upload_component'>
       <div className='image-upload_overlay'>
         <div className='image-upload_content'>
-          <ImageUpload />
+          <UploadSvg />
           <div className='image-upload_text'>
             <span className='image-upload_text-highlight'>{heading}</span>
           </div>

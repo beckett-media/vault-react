@@ -16,8 +16,7 @@
     color: #54c4c8;
   }
 
-  &layout {
-  }
+  &layout {}
 
   &image-wrapper {
     height: 400px;
@@ -55,8 +54,7 @@
     color: #54c4c8;
   }
 
-  &price {
-  }
+  &price {}
 
   &select-wrapper {
     padding: 8px 16px;
@@ -70,6 +68,11 @@
 
   &noselect {
     outline: 5px solid transparent;
+  }
+
+  &spinner {
+    border: var(--bs-spinner-border-width) solid var(--primary) !important;
+    border-right-color: transparent !important;
   }
 }
 

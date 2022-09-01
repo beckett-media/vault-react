@@ -1,5 +1,6 @@
 import React, { useContext, createRef, useCallback } from 'react';
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 
 import './TopNav.scss';
 
@@ -63,11 +64,11 @@ const TopNav = () => {
                 </Link>
               ) : (
                 <>
-                  <NavLink to='/signin' className='nav_link'>
-                    Log In
+                  <NavLink to='/signin' onClick={() => navigate('/signin')} className='nav_link'>
+                    <Button variant='outline-primary'>Log In</Button>
                   </NavLink>
-                  <NavLink to='/signup' className='nav_link'>
-                    Sign Up
+                  <NavLink to='/signup' onClick={() => navigate('/signup')} className='nav_link'>
+                    <Button variant='outline-primary'>Sign Up</Button>
                   </NavLink>
                 </>
               )}

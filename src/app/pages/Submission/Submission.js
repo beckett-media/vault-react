@@ -15,6 +15,7 @@ import { Button } from 'react-bootstrap';
 import { postSubmission } from '../../services/submission';
 import { formatSubmissionItem } from '../../utils/submissions';
 import FooterModal from '../../components/FooterModal/FooterModal';
+import SubmissionConfirmModal from './SubmissionConfirmModal';
 
 const Submission = () => {
   const authContext = useContext(AuthContext);
@@ -22,13 +23,17 @@ const Submission = () => {
   const [items, setItems] = useState([]);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [submissionResponse, setSubmissionResponse] = useState(null);
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(true);
   const [showTOS, setShowTOS] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [userAddressConfirmed, setUserAddressConfirmed] = useState(false);
 
+  const dismissShowModal = () => setShowModal(false);
   const dismissModal = () => setShowTOS('');
-
-  console.log(submissionResponse);
+  const confirmUserAddress = () => {
+    setUserAddressConfirmed(true);
+    setShowModal(false);
+  };
 
   // useEffect(), [submissionResponse]
 
@@ -37,7 +42,6 @@ const Submission = () => {
   const submitAddedItem = (item) => {
     const newItems = [...items, item];
     setItems(newItems);
-    console.log(items);
   };
 
   const removeItem = (removedItem) => {
@@ -60,9 +64,6 @@ const Submission = () => {
       ),
     )
       .then((resp) => {
-        console.log(resp);
-        console.log('success');
-        console.log(resp[0].data.order_id);
         navigate(`/order-details/${resp[0].data.order_id}`);
       })
       .catch((e) => {
@@ -73,6 +74,7 @@ const Submission = () => {
   };
 
   const submitFinalForm = async () => {
+    setShowModal(false);
     await handleSubmitForm(items);
   };
 
@@ -167,27 +169,14 @@ const Submission = () => {
             </div>
           </div>
         </section>
-
-        <Modal className='text-body' show={showModal} onHide={() => setShowModal(false)}>
-          <Modal.Header closeButton>
-            <Modal.Title>Are you sure you'd like to submit?</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>Once submitted, your items will be staged for vaulting.</Modal.Body>
-          <Modal.Footer>
-            <Button variant='secondary' onClick={() => setShowModal(false)}>
-              Cancel
-            </Button>
-            <Button
-              variant='primary'
-              onClick={() => {
-                submitFinalForm();
-              }}
-              disabled={isLoading}
-            >
-              {isLoading ? 'Loading' : 'Confirm submit'}
-            </Button>
-          </Modal.Footer>
-        </Modal>
+        <SubmissionConfirmModal
+          show={showModal}
+          setConfirm={submitFinalForm}
+          cancel={dismissShowModal}
+          isLoading={isLoading}
+          userAddressConfirmed={userAddressConfirmed}
+          confirmUserAddress={confirmUserAddress}
+        />
       </div>
     </div>
   );
