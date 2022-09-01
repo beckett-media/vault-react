@@ -22,7 +22,7 @@ const SubmissionConfirmModal = (props) => {
       setError('Try again');
     }
   };
-  console.log(userState);
+
   return (
     <>
       {
