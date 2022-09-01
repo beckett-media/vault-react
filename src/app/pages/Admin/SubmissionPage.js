@@ -43,8 +43,8 @@ const SubmissionPage = () => {
 
   const filteredSubmissions = submissions.filter(
     (submission, index) =>
-      (String(submission.order_id) === orderId || orderId === '') &&
-      (String(submission.id) === submissionId || submissionId === ''),
+      (String(submission.order_id) === orderId || !orderId) &&
+      (String(submission.id) === submissionId || !submissionId),
   );
 
   const mdSpan = filteredSubmissions.length === 1 ? 12 : filteredSubmissions.length === 2 ? 6 : 4;
