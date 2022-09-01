@@ -6,6 +6,8 @@ import './CreateVaultingPage.scss';
 import { updateSubmission } from '../../services/submission';
 import { extractUpdatedParts } from '../../utils/submissions';
 import { validURL } from '../../utils/validationRegex';
+import { useInventoryLocation } from '../../hooks/useInventoryLocation';
+import InventoryLocationForm from '../../components/InventoryLocationForm/InventoryLocationForm';
 
 function AdminEditSubmissionPage() {
   const { submissionId } = useParams();
@@ -13,6 +15,15 @@ function AdminEditSubmissionPage() {
   const [item, setItem] = useState({});
   const navigate = useNavigate();
   const isValidId = submissionId && !isNaN(Number(submissionId));
+
+  console.log(submissionId);
+
+  // const { inventory, initialInventory, updateInventory, locationFormSubmit } = useInventoryLocation(submissionId);
+
+  // console.log(inventory);
+  // console.log(initialInventory);
+  // console.log(updateInventory);
+  // console.log(locationFormSubmit);
 
   React.useEffect(() => {
     const fetch = () => {
@@ -79,6 +90,7 @@ function AdminEditSubmissionPage() {
           <p>{`Item Id: ${submission.item_id}, User: ${submission.user}`}</p>
         </Col>
       </Row>
+      <InventoryLocationForm itemId={submissionId} />
       <Form onSubmit={updateItemFormSubmit} className='submission_form'>
         <Row className='submission_form-section'>
           <Col xs={12}>
