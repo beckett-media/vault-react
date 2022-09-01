@@ -39,20 +39,14 @@ const blankLocation = {
 };
 
 function VaultingItem({ onWithdraw, item }) {
+  const shouldEnableWithdrawButton = item.status === VAULTING_STATUS.Minted;
   const [apiRetrigger, setApiRetrigger] = useState({});
   const [initialInventory, setInitialInventory] = useState({});
   const [inventory, setInventory] = useState(blankLocation);
-  const shouldEnableWithdrawButton = item.status === VAULTING_STATUS.Minted;
-
-  // console.log(item);
-  console.log(inventory);
-  console.log(initialInventory);
 
   useEffect(() => {
     getInventory({ item_ids: [item.item_id] })
       .then((data) => {
-        // console.log(...data);
-        // setInventory(...data);
         setInitialInventory(...data);
       })
       .catch(console.log('failed to retrieve inventory'));

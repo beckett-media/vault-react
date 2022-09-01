@@ -26,8 +26,6 @@ export const getInventory = async ({ item_ids, vault, zone, box, slot, row, offs
       });
     }
   };
-  // console.log(params);
-  // console.log(`/inventory${'?' + listParams(params)}`);
 
   return axiosClient.get(`/inventory${'?' + listParams(params)}`).then((res) => {
     return res.data;
