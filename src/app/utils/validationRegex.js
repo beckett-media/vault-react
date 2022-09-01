@@ -8,4 +8,4 @@ export const validPhone = new RegExp(
 
 export const validURL =
   // eslint-disable-next-line max-len
-  /^((https?):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#]+\/?)*$/;
+  new RegExp('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?');
