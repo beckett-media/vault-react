@@ -33,19 +33,3 @@ export const getImageAssetUrl = (url) => {
     return url;
   }
 };
-
-export const urlToFile = async (url) => {
-  const response = await fetch(url, {
-    mode: 'no-cors',
-  });
-
-  // if (!response.ok) {
-  //   throw new Error('Image URL is invalid');
-  // }
-
-  const blob = await response.blob();
-  const type = response.headers.get('content-type') || 'image/jpeg';
-  const file = new File([blob], url, { type });
-
-  return file;
-};
