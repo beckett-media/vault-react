@@ -144,6 +144,8 @@ const SignIn = () => {
 
   const authContext = useContext(AuthContext);
 
+  const isLoading = message === 'Loading';
+
   const signInClicked = async () => {
     setMessage('Loading');
     try {
@@ -229,12 +231,6 @@ const SignIn = () => {
                   </div>
                 </>
               )}
-              {message === 'Loading' && (
-                <>
-                  <Spinner animation='border' role='status' />
-                  <span>Loading...</span>
-                </>
-              )}
               <Checkbox marginTop='12px' alignSelf='start' size='sm' colorScheme='gray' className='signin_checkbox'>
                 Remember me
               </Checkbox>
@@ -311,8 +307,8 @@ const SignIn = () => {
             </Modal>
           )}
           {!(authContext.authStatus === AuthStatus.SetPassword) && !codeSent && (
-            <div onClick={signInClicked} className='signin_button'>
-              Continue
+            <div onClick={signInClicked} className={`signin_button ${isLoading && 'signin_button--disabled'}`}>
+              {isLoading ? <Spinner animation='border' role='status' /> : 'Continue'}
             </div>
           )}
           {authContext.authStatus === AuthStatus.SetPassword && (

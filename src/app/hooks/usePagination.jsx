@@ -9,13 +9,15 @@ export const usePagination = (sortedItems) => {
   };
 
   const paginationItems = [];
+  const totalPages = findPaginationCount(sortedItems.length, 16);
 
-  for (let i = 1; i <= findPaginationCount(sortedItems.length, 16); i++) {
+  for (let i = 1; i <= totalPages; i++) {
     paginationItems.push(
       <Pagination.Item
         key={'pagination_' + i}
         active={i === activePage}
         onClick={(e) => setActivePage(e.target.text - 0)}
+        className={i === activePage && 'pe-none'}
       >
         {i}
       </Pagination.Item>,

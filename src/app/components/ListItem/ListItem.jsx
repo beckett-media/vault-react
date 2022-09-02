@@ -23,7 +23,10 @@ const ListItem = ({ item }) => {
             <EmptyCollection className='list-item_image' />
           )}
           <div className='ellipses_wrapper'>
-            <div className='ellipses_child'>{item.title}</div>
+            <div className='ellipses_child'>
+              {item.type === 1 && item.year + ' ' + item.set_name + ' ' + item.card_number + ' ' + item.player}
+              {item.type === 2 && item.title + ' ' + item.issue + ' ' + item.publisher + ' ' + item.year}
+            </div>
           </div>
           <div className='ellipses_wrapper list-item_description'>
             <div className='ellipses_child'>{item.description?.length && item.description}</div>

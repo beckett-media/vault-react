@@ -39,17 +39,13 @@ export const urlToFile = async (url) => {
     mode: 'no-cors',
   });
 
-  console.log('ok', response.ok, response.type);
   // if (!response.ok) {
   //   throw new Error('Image URL is invalid');
   // }
 
   const blob = await response.blob();
   const type = response.headers.get('content-type') || 'image/jpeg';
-
   const file = new File([blob], url, { type });
-
-  console.log('urlToFile', blob, blob.type);
 
   return file;
 };
