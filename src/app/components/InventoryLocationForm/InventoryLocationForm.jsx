@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Col, Form, Row, Button } from 'react-bootstrap';
+import { Col, Form, Row, Button, Spinner, ListGroup } from 'react-bootstrap';
+import { BsCheck } from 'react-icons/bs';
 
 import { getInventory, postInventory, putInventory } from '../../services/inventory';
 
@@ -42,15 +43,17 @@ const InventoryLocationForm = ({ itemId }) => {
   const [apiRetrigger, setApiRetrigger] = useState({});
   const [initialInventory, setInitialInventory] = useState({});
   const [inventory, setInventory] = useState(blankLocation);
+  const [isLoading, setIsLoading] = useState(false);
 
   console.log(itemId);
 
   useEffect(() => {
     getInventory({ item_ids: [itemId] })
       .then((data) => {
-        setInitialInventory(...data);
+        console.log(data);
+        // setInitialInventory(...data);
       })
-      .catch(console.log('test'));
+      .catch(console.log('failed to retrieve inventory'));
   }, [apiRetrigger]);
 
   console.log(initialInventory);
@@ -59,21 +62,32 @@ const InventoryLocationForm = ({ itemId }) => {
 
   const locationFormSubmit = (e) => {
     e.preventDefault();
+    setIsLoading(true);
     console.log(inventory);
 
-    if (!!initialInventory) {
-      putInventory(initialInventory.id, inventory)
-        .then((resp) => console.log('success!'))
-        .catch((e) => console.log(e));
-      setApiRetrigger({});
-    } else {
-      inventory.item_id = itemId - 0;
-      inventory.is_current = true;
-      postInventory(inventory)
-        .then((resp) => console.log('success!'))
-        .catch((e) => console.log(e));
-      setApiRetrigger({});
-    }
+    // if (!!initialInventory) {
+    //   putInventory(initialInventory.id, inventory)
+    //     .then((resp) => console.log(resp))
+    //     .catch((e) => console.log(e))
+    //     .finally(
+    //       setTimeout(() => {
+    //         setIsLoading(false);
+    //         setApiRetrigger({});
+    //       }, 1000),
+    //     );
+    // } else {
+    inventory.item_id = itemId - 0;
+    inventory.is_current = true;
+    postInventory(inventory)
+      .then((resp) => console.log('success!'))
+      .catch((e) => console.log(e))
+      .finally(
+        setTimeout(() => {
+          setIsLoading(false);
+          setApiRetrigger({});
+        }, 1000),
+      );
+    // }
   };
 
   return (
@@ -82,6 +96,13 @@ const InventoryLocationForm = ({ itemId }) => {
         <span className='fw-bold'>Vault location: </span>
         {initialInventory ? initialInventory.label : 'No inventory location set'}
       </div>
+      <Row>
+        <ListGroup>
+          <ListGroup.Item action>Test</ListGroup.Item>
+          <ListGroup.Item action>Test</ListGroup.Item>
+          <ListGroup.Item action>Test</ListGroup.Item>
+        </ListGroup>
+      </Row>
       <Form onSubmit={(e) => locationFormSubmit(e)} className='mt-2 mb-4'>
         <Row>
           <Col lg={4}>
@@ -160,8 +181,17 @@ const InventoryLocationForm = ({ itemId }) => {
             </Col>
           </Row>
         )}
-        <Button type='submit' className='mt-4'>
-          {initialInventory ? 'Update Location' : 'Add Location'}
+        <Button type='submit' className='mt-4' disabled={isLoading}>
+          {isLoading ? (
+            <>
+              <Spinner as='span' animation='border' role='status' aria-hidden='true' />
+              <span className='visually-hidden'>Loading...</span>
+            </>
+          ) : initialInventory ? (
+            'Update Location'
+          ) : (
+            'Add Location'
+          )}
         </Button>
       </Form>
     </>
