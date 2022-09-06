@@ -18,8 +18,6 @@ function SubmissionItem({ onApprove, onReject, onConfimReceipt, item }) {
 
   const { inventory, initialInventory } = useInventoryLocation(item.id);
 
-  console.log(inventory);
-
   return (
     <div className='m-4'>
       <Row className='mt-4 mb-2'>

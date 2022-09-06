@@ -27,17 +27,16 @@ export const useInventoryLocation = (itemId) => {
 
   const locationFormSubmit = (e) => {
     e.preventDefault();
-    console.log(inventory);
 
     if (!!initialInventory) {
       putInventory(itemId, inventory)
-        .then((resp) => console.log('success!'))
+        .then()
         .catch((e) => console.log(e));
       setApiRetrigger({});
     } else {
       inventory.item_id = item.item_id;
       postInventory(inventory)
-        .then((resp) => console.log('success!'))
+        .then()
         .catch((e) => console.log(e));
       setApiRetrigger({});
     }
