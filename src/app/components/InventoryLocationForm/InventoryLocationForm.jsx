@@ -76,6 +76,7 @@ const InventoryLocationForm = ({ itemId }) => {
         setTimeout(() => {
           setIsPostLoading(false);
           setApiRetrigger({});
+          setInventory(blankLocation);
         }, 1000),
       );
     // }
