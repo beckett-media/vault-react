@@ -10,7 +10,7 @@ const ChangePassword = ({ showModal, dismissModal, setShowModal }) => {
   const [oldPassword, setOldPassword] = useState(undefined);
   const [newPassword, setNewPassword] = useState(undefined);
   const [confirmNewPassword, setConfirmNewPassword] = useState(undefined);
-  const [passwordIsValid, setPWIsValid] = useState(undefined);
+  const [passwordIsValid, setPasswordIsValid] = useState(undefined);
   const [error, setError] = useState(undefined);
   const authContext = useContext(AuthContext);
 
@@ -41,7 +41,7 @@ const ChangePassword = ({ showModal, dismissModal, setShowModal }) => {
   const validateNewPassword = (tempPW) => {
     setNewPassword(tempPW);
     const validate = passwordFormat.test(tempPW);
-    setPWIsValid(validate);
+    setPasswordIsValid(validate);
   };
   const checkConfirmNewPassword = (tempPW) => {
     setConfirmNewPassword(tempPW);
