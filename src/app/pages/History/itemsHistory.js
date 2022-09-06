@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
 import { getFormattedDate } from '../../utils/date';
 import './History.scss';
 
@@ -8,6 +9,9 @@ const ItemsHistory = ({ sortedItems, listings, submissions, vaulting, setSortedI
   const [selected, setSelected] = useState('');
   const [groups, setGroups] = useState({});
   const navigate = useNavigate();
+  const isMobile = useMediaQuery({
+    query: '(max-width: 1100px)',
+  });
 
   useEffect(() => {
     const groupings = {};
@@ -67,36 +71,40 @@ const ItemsHistory = ({ sortedItems, listings, submissions, vaulting, setSortedI
     } else order_id = groups[group][0].order_id;
     navigate(`/order-details/${order_id}`);
   };
+
   return (
     <>
-      {Object.keys(groups)?.map((group) => {
+      {Object.keys(groups)?.map((group, index) => {
         const isSelected = group === selected;
         return (
-          <>
-            <Row className='py-3 px-5 border' onClick={(e) => rowClicked(e.target.className, group)}>
-              <Col xs={8}>
+          <div key={index}>
+            <Row
+              className={`py-3 px-${isMobile ? '3' : '5'} border`}
+              onClick={(e) => rowClicked(e.target.className, group)}
+            >
+              <Col xs={isMobile ? 6 : 8}>
                 <div>{groups[group][0]?.type_desc}</div>
                 <div className='fw-bold'>{`Order ID: ${groups[group][0]?.order_id}`}</div>
               </Col>
-              <Col xs={1}>
+              <Col xs={isMobile ? 2 : 1}>
                 <Button onClick={() => printDetails(group)}>Print</Button>
               </Col>
-              <Col xs={2}>
+              <Col xs={isMobile ? 3 : 2}>
                 <div>{getFormattedDate(groups[group][0]?.created_at)}</div>
               </Col>
               {isSelected ? (
-                <Col xs={1} className='right-align px-4'>
+                <Col xs={1} className={`right-align ${isMobile ? '' : 'px-4'}`}>
                   &and;
                 </Col>
               ) : (
-                <Col xs={1} className='right-align px-4'>
+                <Col xs={1} className={`right-align ${isMobile ? '' : 'px-4'}`}>
                   &or;
                 </Col>
               )}
             </Row>
             {isSelected &&
-              groups[group].map((item) => (
-                <Row className='py-3 px-5 border'>
+              groups[group].map((item, index) => (
+                <Row className={`py-3 px-${isMobile ? '3' : '5'} border`} key={index}>
                   <Col lg={2}>
                     <div>
                       {'Status: '}
@@ -124,7 +132,7 @@ const ItemsHistory = ({ sortedItems, listings, submissions, vaulting, setSortedI
                   </Col>
                 </Row>
               ))}
-          </>
+          </div>
         );
       })}
     </>
