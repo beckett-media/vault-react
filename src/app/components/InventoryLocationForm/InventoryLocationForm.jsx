@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Col, Form, Row, Button, Spinner, ListGroup } from 'react-bootstrap';
-import { BsCheck } from 'react-icons/bs';
+import { BsCheck, BsFillPlusCircleFill } from 'react-icons/bs';
 
 import { getInventory, postInventory, putInventory } from '../../services/inventory';
 
@@ -41,9 +41,12 @@ const blankLocation = {
 
 const InventoryLocationForm = ({ itemId }) => {
   const [apiRetrigger, setApiRetrigger] = useState({});
-  const [initialInventory, setInitialInventory] = useState({});
+  const [initialInventory, setInitialInventory] = useState([]);
   const [inventory, setInventory] = useState(blankLocation);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isPostLoading, setIsPostLoading] = useState(false);
+  const [isPutLoading, setIsPutLoading] = useState(false);
+  const [isAddingLocation, setIsAddingLocation] = useState(false);
+  const [newLocationId, setNewLocationId] = useState();
 
   console.log(itemId);
 
@@ -51,31 +54,24 @@ const InventoryLocationForm = ({ itemId }) => {
     getInventory({ item_ids: [itemId] })
       .then((data) => {
         console.log(data);
-        // setInitialInventory(...data);
+        setInitialInventory(data);
       })
       .catch(console.log('failed to retrieve inventory'));
   }, [apiRetrigger]);
 
+  const currentLocation = initialInventory.find((item) => item.status === 1);
+
   console.log(initialInventory);
+  console.log(currentLocation?.label);
+  console.log(newLocationId);
 
   const updateInventory = (tempInventory) => setInventory({ ...inventory, ...tempInventory });
 
-  const locationFormSubmit = (e) => {
+  const createNewLocation = (e) => {
     e.preventDefault();
-    setIsLoading(true);
+    setIsPostLoading(true);
     console.log(inventory);
 
-    // if (!!initialInventory) {
-    //   putInventory(initialInventory.id, inventory)
-    //     .then((resp) => console.log(resp))
-    //     .catch((e) => console.log(e))
-    //     .finally(
-    //       setTimeout(() => {
-    //         setIsLoading(false);
-    //         setApiRetrigger({});
-    //       }, 1000),
-    //     );
-    // } else {
     inventory.item_id = itemId - 0;
     inventory.is_current = true;
     postInventory(inventory)
@@ -83,118 +79,175 @@ const InventoryLocationForm = ({ itemId }) => {
       .catch((e) => console.log(e))
       .finally(
         setTimeout(() => {
-          setIsLoading(false);
+          setIsPostLoading(false);
           setApiRetrigger({});
         }, 1000),
       );
     // }
   };
 
+  const updateInventoryLocation = () => {
+    setIsPutLoading(true);
+    const putBody = { status: '1', note: 'updating location' };
+
+    putInventory(newLocationId, JSON.stringify(putBody))
+      .then((resp) => console.log(resp))
+      .catch((e) => console.log(e))
+      .finally(
+        setTimeout(() => {
+          setIsPutLoading(false);
+          setApiRetrigger({});
+        }, 1000),
+      );
+  };
+
   return (
-    <>
-      <div>
+    <div className='my-4'>
+      <div className='mb-2'>
         <span className='fw-bold'>Vault location: </span>
-        {initialInventory ? initialInventory.label : 'No inventory location set'}
+        {currentLocation ? currentLocation?.label : 'No inventory location set'}
       </div>
-      <Row>
-        <ListGroup>
-          <ListGroup.Item action>Test</ListGroup.Item>
-          <ListGroup.Item action>Test</ListGroup.Item>
-          <ListGroup.Item action>Test</ListGroup.Item>
-        </ListGroup>
-      </Row>
-      <Form onSubmit={(e) => locationFormSubmit(e)} className='mt-2 mb-4'>
-        <Row>
-          <Col lg={4}>
-            <Form.Group>
-              <Form.Label>Vault</Form.Label>
-              <Form.Select onChange={(e) => updateInventory({ vault: e.target.value })}>
-                <option> - Select -</option>
-                <option value={'dallas'}>Dallas</option>
-                <option value={'delaware'}>Delaware</option>
-              </Form.Select>
-            </Form.Group>
-          </Col>
-          <Col lg={4}>
-            <Form.Group>
-              <Form.Label>Zone</Form.Label>
-              <Form.Select onChange={(e) => updateInventory({ zone: e.target.value })}>
-                <option>- Select -</option>
-                {zoneOptions.map((item, index) => (
-                  <option key={`zone-area_${index}`} value={item.toLowerCase()}>
-                    {item}
-                  </option>
-                ))}
-              </Form.Select>
-            </Form.Group>
-          </Col>
-        </Row>
-        {(inventory?.zone?.toLowerCase().startsWith('credenza') ||
-          inventory?.zone?.toLowerCase().startsWith('cabinet')) && (
-          <Row>
-            <Col lg={4}>
-              <Form.Group>
-                <Form.Label>Shelf</Form.Label>
-                <Form.Select onChange={(e) => updateInventory({ shelf: e.target.value })}>
-                  <option>- Select -</option>
-                  <option value='1'>Shelf 1</option>
-                  <option value='2'>Shelf 2</option>
-                  <option value='3'>Shelf 3</option>
-                  <option value='4'>Shelf 4</option>
-                  <option value='5'>Shelf 5</option>
-                  <option value='6'>Shelf 6</option>
-                </Form.Select>
-              </Form.Group>
-            </Col>
-            <Col lg={4}>
-              <Form.Group>
-                <Form.Label>Box</Form.Label>
-                <Form.Control onChange={(e) => updateInventory({ box: e.target.value })} />
-              </Form.Group>
-            </Col>
-            <Col lg={4}>
-              <Form.Group>
-                <Form.Label>Slot</Form.Label>
-                <Form.Control onChange={(e) => updateInventory({ slot: e.target.value })} />
-              </Form.Group>
-            </Col>
-          </Row>
+      <div>
+        {initialInventory.length > 1 && (
+          <>
+            <span className='fw-bold'>Select another location: </span>
+            <ListGroup defaultActiveKey='#link0'>
+              {initialInventory?.map((item, index) => (
+                <ListGroup.Item
+                  action
+                  key={'inventory-location_' + index}
+                  href={'#link' + index}
+                  onClick={() => setNewLocationId(item.id)}
+                >
+                  <div className='d-flex justify-content-between'>
+                    <span>{item?.label}</span>
+                    <span className='fw-bold'>{item.status === 1 ? ' current' : ''}</span>
+                  </div>
+                </ListGroup.Item>
+              ))}
+            </ListGroup>
+          </>
         )}
-        {inventory?.zone?.toLowerCase().endsWith('gallery wall') && (
-          <Row>
-            <Col lg={4}>
-              <Form.Group>
-                <Form.Label>Row</Form.Label>
-                <Form.Select onChange={(e) => updateInventory({ row: e.target.value })}>
-                  <option>- Select -</option>
-                  <option value='1'>Row 1</option>
-                  <option value='2'>Row 2</option>
-                  <option value='3'>Row 3</option>
-                </Form.Select>
-              </Form.Group>
-            </Col>
-            <Col lg={4}>
-              <Form.Group>
-                <Form.Label>Slot</Form.Label>
-                <Form.Control onChange={(e) => updateInventory({ slot: e.target.value })} />
-              </Form.Group>
-            </Col>
-          </Row>
-        )}
-        <Button type='submit' className='mt-4' disabled={isLoading}>
-          {isLoading ? (
-            <>
-              <Spinner as='span' animation='border' role='status' aria-hidden='true' />
-              <span className='visually-hidden'>Loading...</span>
-            </>
-          ) : initialInventory ? (
-            'Update Location'
-          ) : (
-            'Add Location'
+        <div className='d-flex gap-2 mt-2'>
+          {initialInventory.length > 1 && (
+            <Button onClick={() => updateInventoryLocation()} disabled={isPutLoading}>
+              {isPutLoading ? (
+                <>
+                  <Spinner as='span' animation='border' role='status' aria-hidden='true' />
+                  <span className='visually-hidden'>Loading...</span>
+                </>
+              ) : (
+                'Update location'
+              )}
+            </Button>
           )}
-        </Button>
-      </Form>
-    </>
+          <Button
+            variant='outline-primary'
+            onClick={() => setIsAddingLocation(true)}
+            className='d-flex align-items-center gap-2'
+          >
+            <BsFillPlusCircleFill />
+            Add new location
+          </Button>
+        </div>
+      </div>
+      {isAddingLocation && (
+        <Form onSubmit={(e) => createNewLocation(e)} className='mt-2'>
+          <Row>
+            <Col lg={4}>
+              <Form.Group>
+                <Form.Label>Vault</Form.Label>
+                <Form.Select onChange={(e) => updateInventory({ vault: e.target.value })}>
+                  <option> - Select -</option>
+                  <option value={'dallas'}>Dallas</option>
+                  <option value={'delaware'}>Delaware</option>
+                </Form.Select>
+              </Form.Group>
+            </Col>
+            <Col lg={4}>
+              <Form.Group>
+                <Form.Label>Zone</Form.Label>
+                <Form.Select onChange={(e) => updateInventory({ zone: e.target.value })}>
+                  <option>- Select -</option>
+                  {zoneOptions.map((item, index) => (
+                    <option key={`zone-area_${index}`} value={item.toLowerCase()}>
+                      {item}
+                    </option>
+                  ))}
+                </Form.Select>
+              </Form.Group>
+            </Col>
+          </Row>
+          {(inventory?.zone?.toLowerCase().startsWith('credenza') ||
+            inventory?.zone?.toLowerCase().startsWith('cabinet')) && (
+            <Row>
+              <Col lg={4}>
+                <Form.Group>
+                  <Form.Label>Shelf</Form.Label>
+                  <Form.Select onChange={(e) => updateInventory({ shelf: e.target.value })}>
+                    <option>- Select -</option>
+                    <option value='1'>Shelf 1</option>
+                    <option value='2'>Shelf 2</option>
+                    <option value='3'>Shelf 3</option>
+                    <option value='4'>Shelf 4</option>
+                    <option value='5'>Shelf 5</option>
+                    <option value='6'>Shelf 6</option>
+                  </Form.Select>
+                </Form.Group>
+              </Col>
+              <Col lg={4}>
+                <Form.Group>
+                  <Form.Label>Box</Form.Label>
+                  <Form.Control onChange={(e) => updateInventory({ box: e.target.value })} />
+                </Form.Group>
+              </Col>
+              <Col lg={4}>
+                <Form.Group>
+                  <Form.Label>Slot</Form.Label>
+                  <Form.Control onChange={(e) => updateInventory({ slot: e.target.value })} />
+                </Form.Group>
+              </Col>
+            </Row>
+          )}
+          {inventory?.zone?.toLowerCase().endsWith('gallery wall') && (
+            <Row>
+              <Col lg={4}>
+                <Form.Group>
+                  <Form.Label>Row</Form.Label>
+                  <Form.Select onChange={(e) => updateInventory({ row: e.target.value })}>
+                    <option>- Select -</option>
+                    <option value='1'>Row 1</option>
+                    <option value='2'>Row 2</option>
+                    <option value='3'>Row 3</option>
+                  </Form.Select>
+                </Form.Group>
+              </Col>
+              <Col lg={4}>
+                <Form.Group>
+                  <Form.Label>Slot</Form.Label>
+                  <Form.Control onChange={(e) => updateInventory({ slot: e.target.value })} />
+                </Form.Group>
+              </Col>
+            </Row>
+          )}
+          <div className='d-flex gap-2 mt-2'>
+            <Button type='submit' disabled={isPostLoading}>
+              {isPostLoading ? (
+                <>
+                  <Spinner as='span' animation='border' role='status' aria-hidden='true' />
+                  <span className='visually-hidden'>Loading...</span>
+                </>
+              ) : (
+                'Add location'
+              )}
+            </Button>
+            <Button onClick={() => setIsAddingLocation(false)} variant='outline-primary'>
+              Cancel
+            </Button>
+          </div>
+        </Form>
+      )}
+    </div>
   );
 };
 
