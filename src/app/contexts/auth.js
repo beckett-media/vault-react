@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
+import { Loading } from '../pages/Loading/LoadingPage';
+
 import * as cognito from '../libs/cognito';
 import { updateAxiosClient } from '../services';
 import { getAdminUserGroups } from '../services/user';
@@ -20,8 +22,6 @@ const defaultState = {
 };
 
 export const AuthContext = React.createContext(defaultState);
-
-export const Loading = () => <div>Loading...</div>;
 
 export const PrivateRoute = () => {
   const { authStatus } = useContext(AuthContext);

@@ -90,6 +90,11 @@
     line-height: 150%;
     z-index: 100;
   }
+
+  &spinner {
+    border: var(--bs-spinner-border-width) solid var(--primary) !important;
+    border-right-color: transparent !important;
+  }
 }
 
 .item-card_component:hover .item-card_image {
