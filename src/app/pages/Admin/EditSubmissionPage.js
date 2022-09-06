@@ -41,22 +41,20 @@ function AdminEditSubmissionPage() {
   const updateItemFormSubmit = (e) => {
     e.preventDefault();
 
-    if (item.image_path && !validURL.test(item.image_path)) {
-      alert('Front image URL is not valid');
-      return;
-    }
-    if (item.image_rev_path && !validURL.test(item.image_rev_path)) {
-      alert('Back image URL is not valid');
-      return;
-    }
+    // if (item.image_path && !validURL.test(item.image_path)) {
+    //   alert('Front image URL is not valid');
+    //   return;
+    // }
+    // if (item.image_rev_path && !validURL.test(item.image_rev_path)) {
+    //   alert('Back image URL is not valid');
+    //   return;
+    // }
 
     const payload = extractUpdatedParts(submission, item);
     payload.type = submission.type;
 
-    console.log('update submission payload', payload);
     updateSubmission(submission.id, payload)
       .then((res) => {
-        console.log('update submission success', res);
         alert('Updated successfully');
         navigate('/admin/submission');
       })

@@ -310,7 +310,7 @@ const Profile = () => {
       </Modal>
       <Modal className='confirm-modal' show={confirmModal}>
         <Modal.Header>
-          <span className='confirm-header'>Update Profile Details?</span>
+          <Modal.Title className='confirm-header'>{`Are you sure you'd like to submit?`}</Modal.Title>
           <CloseButton onClick={() => setConfirmModal(false)} />
         </Modal.Header>
         <Modal.Body className='confirm-text'>
