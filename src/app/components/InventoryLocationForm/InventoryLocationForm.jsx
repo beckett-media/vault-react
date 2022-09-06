@@ -67,6 +67,7 @@ const InventoryLocationForm = ({ itemId }) => {
   console.log(initialInventory);
   console.log(currentLocation?.label);
   console.log(newLocationId);
+  console.log(findInventoryById(newLocationId));
 
   const updateInventory = (tempInventory) => setInventory({ ...inventory, ...tempInventory });
 
@@ -111,7 +112,7 @@ const InventoryLocationForm = ({ itemId }) => {
         {currentLocation ? currentLocation?.label : 'No inventory location set'}
       </div>
       <div>
-        {initialInventory.length > 1 && (
+        {initialInventory.length > 0 && (
           <>
             <span className='fw-bold'>Select another location: </span>
             <ListGroup defaultActiveKey='#current'>
@@ -132,7 +133,7 @@ const InventoryLocationForm = ({ itemId }) => {
           </>
         )}
         <div className='d-flex gap-2 mt-2'>
-          {initialInventory.length > 1 && (
+          {initialInventory.length > 0 && (
             <Button onClick={() => updateInventoryLocation()} disabled={isPutLoading}>
               {isPutLoading ? (
                 <>
@@ -140,7 +141,7 @@ const InventoryLocationForm = ({ itemId }) => {
                   <span className='visually-hidden'>Loading...</span>
                 </>
               ) : (
-                'Update location'
+                'Set location'
               )}
             </Button>
           )}
