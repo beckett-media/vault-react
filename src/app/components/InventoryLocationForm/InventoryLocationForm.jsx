@@ -91,9 +91,9 @@ const InventoryLocationForm = ({ itemId }) => {
 
   const updateInventoryLocation = () => {
     setIsPutLoading(true);
-    const putBody = { status: '1', note: 'updating location' };
+    const putBody = { status: 1, note: 'updating location' };
 
-    putInventory(newLocationId, JSON.stringify(putBody))
+    putInventory(newLocationId, putBody)
       .then((resp) => console.log(resp))
       .catch((e) => console.log(e))
       .finally(
