@@ -69,17 +69,19 @@ const InventoryLocationForm = ({ itemId }) => {
 
     inventory.item_id = itemId - 0;
     inventory.is_current = true;
-    postInventory(inventory)
-      .then()
-      .catch()
-      .finally(
-        setTimeout(() => {
-          setIsPostLoading(false);
-          setApiRetrigger({});
-          setInventory(blankLocation);
-        }, 1000),
-      );
-    // }
+    if (inventory.vault && inventory.zone) {
+      postInventory(inventory)
+        .then()
+        .catch()
+        .finally(
+          setTimeout(() => {
+            setIsPostLoading(false);
+            setApiRetrigger({});
+            setInventory(blankLocation);
+          }, 1000),
+        );
+    }
+    setIsPostLoading(false);
   };
 
   const updateInventoryLocation = () => {
@@ -154,7 +156,7 @@ const InventoryLocationForm = ({ itemId }) => {
               <Form.Group>
                 <Form.Label>Vault</Form.Label>
                 <Form.Select onChange={(e) => updateInventory({ vault: e.target.value })}>
-                  <option> - Select -</option>
+                  <option value=''> - Select -</option>
                   <option value={'dallas'}>Dallas</option>
                   <option value={'delaware'}>Delaware</option>
                 </Form.Select>
@@ -164,7 +166,7 @@ const InventoryLocationForm = ({ itemId }) => {
               <Form.Group>
                 <Form.Label>Zone</Form.Label>
                 <Form.Select onChange={(e) => updateInventory({ zone: e.target.value })}>
-                  <option>- Select -</option>
+                  <option value=''>- Select -</option>
                   {zoneOptions.map((item, index) => (
                     <option key={`zone-area_${index}`} value={item.toLowerCase()}>
                       {item}
@@ -181,7 +183,7 @@ const InventoryLocationForm = ({ itemId }) => {
                 <Form.Group>
                   <Form.Label>Shelf</Form.Label>
                   <Form.Select onChange={(e) => updateInventory({ shelf: e.target.value })}>
-                    <option>- Select -</option>
+                    <option value=''>- Select -</option>
                     <option value='1'>Shelf 1</option>
                     <option value='2'>Shelf 2</option>
                     <option value='3'>Shelf 3</option>
@@ -211,7 +213,7 @@ const InventoryLocationForm = ({ itemId }) => {
                 <Form.Group>
                   <Form.Label>Row</Form.Label>
                   <Form.Select onChange={(e) => updateInventory({ row: e.target.value })}>
-                    <option>- Select -</option>
+                    <option value=''>- Select -</option>
                     <option value='1'>Row 1</option>
                     <option value='2'>Row 2</option>
                     <option value='3'>Row 3</option>
