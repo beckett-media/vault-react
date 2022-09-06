@@ -60,6 +60,9 @@ const InventoryLocationForm = ({ itemId }) => {
   }, [apiRetrigger]);
 
   const currentLocation = initialInventory.find((item) => item.status === 1);
+  const findInventoryById = (id) => {
+    initialInventory.find((item) => item.id === id);
+  };
 
   console.log(initialInventory);
   console.log(currentLocation?.label);
@@ -111,12 +114,12 @@ const InventoryLocationForm = ({ itemId }) => {
         {initialInventory.length > 1 && (
           <>
             <span className='fw-bold'>Select another location: </span>
-            <ListGroup defaultActiveKey='#link0'>
+            <ListGroup defaultActiveKey='#current'>
               {initialInventory?.map((item, index) => (
                 <ListGroup.Item
                   action
                   key={'inventory-location_' + index}
-                  href={'#link' + index}
+                  href={item.status === 1 ? '#current' : '#link' + index}
                   onClick={() => setNewLocationId(item.id)}
                 >
                   <div className='d-flex justify-content-between'>
