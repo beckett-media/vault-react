@@ -2,7 +2,6 @@ import { axiosClient } from './index';
 
 export const getInventory = async ({ item_ids, vault, zone, box, slot, row, offset, limit, order } = {}) => {
   const queryString = require('query-string');
-  console.log(item_ids);
   const params = {
     item_ids,
     vault,

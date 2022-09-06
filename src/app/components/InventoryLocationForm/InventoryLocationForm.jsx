@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Col, Form, Row, Button, Spinner, ListGroup } from 'react-bootstrap';
-import { BsCheck, BsFillPlusCircleFill } from 'react-icons/bs';
+import { BsFillPlusCircleFill } from 'react-icons/bs';
 
 import { getInventory, postInventory, putInventory } from '../../services/inventory';
 
@@ -48,15 +48,12 @@ const InventoryLocationForm = ({ itemId }) => {
   const [isAddingLocation, setIsAddingLocation] = useState(false);
   const [newLocationId, setNewLocationId] = useState();
 
-  console.log(itemId);
-
   useEffect(() => {
     getInventory({ item_ids: [itemId] })
       .then((data) => {
-        console.log(data);
         setInitialInventory(data);
       })
-      .catch(console.log('failed to retrieve inventory'));
+      .catch();
   }, [apiRetrigger]);
 
   const currentLocation = initialInventory.find((item) => item.status === 1);
@@ -64,23 +61,17 @@ const InventoryLocationForm = ({ itemId }) => {
     initialInventory.find((item) => item.id === id);
   };
 
-  console.log(initialInventory);
-  console.log(currentLocation?.label);
-  console.log(newLocationId);
-  console.log(findInventoryById(newLocationId));
-
   const updateInventory = (tempInventory) => setInventory({ ...inventory, ...tempInventory });
 
   const createNewLocation = (e) => {
     e.preventDefault();
     setIsPostLoading(true);
-    console.log(inventory);
 
     inventory.item_id = itemId - 0;
     inventory.is_current = true;
     postInventory(inventory)
-      .then((resp) => console.log('success!'))
-      .catch((e) => console.log(e))
+      .then()
+      .catch()
       .finally(
         setTimeout(() => {
           setIsPostLoading(false);
@@ -95,8 +86,8 @@ const InventoryLocationForm = ({ itemId }) => {
     const putBody = { status: 1, note: 'updating location' };
 
     putInventory(newLocationId, putBody)
-      .then((resp) => console.log(resp))
-      .catch((e) => console.log(e))
+      .then()
+      .catch()
       .finally(
         setTimeout(() => {
           setIsPutLoading(false);
