@@ -80,7 +80,7 @@ const AddressEditModal = (props) => {
           onChange={(e) => setUserState({ ...userState, shipState: e.target.value })}
         >
           <option disabled selected>
-            Select state...
+            - Select -
           </option>
           {states.map((option) => (
             <option key={option} value={option}>
