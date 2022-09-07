@@ -21,6 +21,7 @@
     "framer-motion": "^6.3.16",
     "gsap": "^3.10.4",
     "moment": "^2.29.4",
+    "query-string": "^7.1.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-dropzone-uploader": "^2.11.0",
