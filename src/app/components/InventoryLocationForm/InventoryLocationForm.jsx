@@ -3,15 +3,7 @@ import { Col, Form, Row, Button, Spinner, ListGroup } from 'react-bootstrap';
 import { BsFillPlusCircleFill } from 'react-icons/bs';
 
 import { getInventory, postInventory, putInventory, getInventoryZoneOptions } from '../../services/inventory';
-
-const blankLocation = {
-  vault: '',
-  zone: '',
-  shelf: '',
-  row: '',
-  box: '',
-  slot: '',
-};
+import { blankLocation } from '../../const/inventory';
 
 // Use this component with the useInventoryLocation hook in the parent component
 
@@ -34,7 +26,8 @@ const InventoryLocationForm = ({ itemId }) => {
 
   const zoneOptions = getInventoryZoneOptions();
 
-  const currentLocation = initialInventory.find((item) => item.status === 1);
+  const currentLocation = initialInventory?.find((item) => item.status === 1);
+
   const findInventoryById = (id) => {
     initialInventory.find((item) => item.id === id);
   };
@@ -59,6 +52,7 @@ const InventoryLocationForm = ({ itemId }) => {
           }, 1000),
         );
     }
+    e.target.reset();
     setIsPostLoading(false);
   };
 
@@ -113,7 +107,7 @@ const InventoryLocationForm = ({ itemId }) => {
                   <span className='visually-hidden'>Loading...</span>
                 </>
               ) : (
-                'Set location'
+                'Update location'
               )}
             </Button>
           )}
@@ -133,7 +127,7 @@ const InventoryLocationForm = ({ itemId }) => {
             <Col lg={4}>
               <Form.Group>
                 <Form.Label>Vault</Form.Label>
-                <Form.Select onChange={(e) => updateInventory({ vault: e.target.value })}>
+                <Form.Select required onChange={(e) => updateInventory({ vault: e.target.value })}>
                   <option value=''> - Select -</option>
                   <option value={'dallas'}>Dallas</option>
                   <option value={'delaware'}>Delaware</option>
@@ -143,7 +137,7 @@ const InventoryLocationForm = ({ itemId }) => {
             <Col lg={4}>
               <Form.Group>
                 <Form.Label>Zone</Form.Label>
-                <Form.Select onChange={(e) => updateInventory({ zone: e.target.value })}>
+                <Form.Select required onChange={(e) => updateInventory({ zone: e.target.value })}>
                   <option value=''>- Select -</option>
                   {zoneOptions.map((item, index) => (
                     <option key={`zone-area_${index}`} value={item.toLowerCase()}>
@@ -160,7 +154,7 @@ const InventoryLocationForm = ({ itemId }) => {
               <Col lg={4}>
                 <Form.Group>
                   <Form.Label>Shelf</Form.Label>
-                  <Form.Select onChange={(e) => updateInventory({ shelf: e.target.value })}>
+                  <Form.Select required onChange={(e) => updateInventory({ shelf: e.target.value })}>
                     <option value=''>- Select -</option>
                     <option value='1'>Shelf 1</option>
                     <option value='2'>Shelf 2</option>
@@ -174,13 +168,13 @@ const InventoryLocationForm = ({ itemId }) => {
               <Col lg={4}>
                 <Form.Group>
                   <Form.Label>Box</Form.Label>
-                  <Form.Control onChange={(e) => updateInventory({ box: e.target.value })} />
+                  <Form.Control required onChange={(e) => updateInventory({ box: e.target.value })} />
                 </Form.Group>
               </Col>
               <Col lg={4}>
                 <Form.Group>
                   <Form.Label>Slot</Form.Label>
-                  <Form.Control onChange={(e) => updateInventory({ slot: e.target.value })} />
+                  <Form.Control required onChange={(e) => updateInventory({ slot: e.target.value })} />
                 </Form.Group>
               </Col>
             </Row>
@@ -190,7 +184,7 @@ const InventoryLocationForm = ({ itemId }) => {
               <Col lg={4}>
                 <Form.Group>
                   <Form.Label>Row</Form.Label>
-                  <Form.Select onChange={(e) => updateInventory({ row: e.target.value })}>
+                  <Form.Select required onChange={(e) => updateInventory({ row: e.target.value })}>
                     <option value=''>- Select -</option>
                     <option value='1'>Row 1</option>
                     <option value='2'>Row 2</option>
@@ -201,7 +195,7 @@ const InventoryLocationForm = ({ itemId }) => {
               <Col lg={4}>
                 <Form.Group>
                   <Form.Label>Slot</Form.Label>
-                  <Form.Control onChange={(e) => updateInventory({ slot: e.target.value })} />
+                  <Form.Control required onChange={(e) => updateInventory({ slot: e.target.value })} />
                 </Form.Group>
               </Col>
             </Row>
