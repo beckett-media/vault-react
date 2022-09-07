@@ -25,8 +25,8 @@ export const NewPasswordField = React.forwardRef((props, ref) => {
 
   return (
     <FormControl>
-      <FormLabel htmlFor='password' color={'white'} className='confirm_password_label'>
-        Confirm Password
+      <FormLabel htmlFor='password' color={props.dark ? 'black' : 'white'} className='confirm_password_label'>
+        {props.label}
       </FormLabel>
       <InputGroup>
         <InputRightElement>
@@ -40,14 +40,15 @@ export const NewPasswordField = React.forwardRef((props, ref) => {
         <Input
           h={12}
           id='newPassword'
+          color={props.dark ? 'black' : 'white'}
           ref={mergeRef}
           name='password'
           type={isOpen ? 'text' : 'password'}
-          autoComplete='current-password'
+          autoComplete='off'
           required
           value={props.value}
           onChange={props.onChange}
-          placeholder='Confirm password *'
+          placeholder={`${props.label} *`}
           {...props}
         />
       </InputGroup>

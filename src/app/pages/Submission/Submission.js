@@ -1,5 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { Col, Row, Modal } from 'react-bootstrap';
+import React, { useState, useContext } from 'react';
 import { AuthContext } from '../../contexts/auth';
 import { mapCognitoToUser } from '../../services/user';
 import { v4 as uuidv4 } from 'uuid';
@@ -15,48 +14,34 @@ import { Button } from 'react-bootstrap';
 import { postSubmission } from '../../services/submission';
 import { formatSubmissionItem } from '../../utils/submissions';
 import FooterModal from '../../components/FooterModal/FooterModal';
+import AddressEditModal from './AddressEditModal';
 import SubmissionConfirmModal from './SubmissionConfirmModal';
 
 const Submission = () => {
   const authContext = useContext(AuthContext);
+  const navigate = useNavigate();
   const userState = mapCognitoToUser(authContext.attrInfo);
   const [items, setItems] = useState([]);
-  const [formSubmitted, setFormSubmitted] = useState(false);
   const [submissionResponse, setSubmissionResponse] = useState(null);
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const [showTOS, setShowTOS] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [userAddressConfirmed, setUserAddressConfirmed] = useState(false);
+  const [openAddressModal, setOpenAddressModal] = useState(false);
 
   const dismissShowModal = () => setShowModal(false);
   const dismissModal = () => setShowTOS('');
-  const confirmUserAddress = () => {
-    setUserAddressConfirmed(true);
-    setShowModal(false);
-  };
-
-  // useEffect(), [submissionResponse]
-
-  const navigate = useNavigate();
 
   const submitAddedItem = (item) => {
     const newItems = [...items, item];
     setItems(newItems);
-    console.log(items);
-  };
-
-  const removeItem = (removedItem) => {
-    setItems(items.filter((item) => item != removedItem));
-  };
-
-  const submitForm = () => {
-    setFormSubmitted(true);
   };
 
   const handleSubmitForm = () => {
-    setIsLoading(true);
     const uuid = uuidv4();
-    Promise.all(
+
+    setIsLoading(true);
+
+    return Promise.all(
       items.map((item) =>
         postSubmission({
           ...formatSubmissionItem(item, uuid),
@@ -65,9 +50,6 @@ const Submission = () => {
       ),
     )
       .then((resp) => {
-        console.log(resp);
-        console.log('success');
-        console.log(resp[0].data.order_id);
         navigate(`/order-details/${resp[0].data.order_id}`);
       })
       .catch((e) => {
@@ -78,8 +60,8 @@ const Submission = () => {
   };
 
   const submitFinalForm = async () => {
-    setShowModal(false);
     await handleSubmitForm(items);
+    setShowModal(false);
   };
 
   return (
@@ -173,13 +155,14 @@ const Submission = () => {
             </div>
           </div>
         </section>
+
+        <AddressEditModal open={openAddressModal} onClose={() => setOpenAddressModal(false)} />
+
         <SubmissionConfirmModal
-          show={showModal}
-          setConfirm={submitFinalForm}
-          cancel={dismissShowModal}
+          open={showModal}
+          onConfirm={submitFinalForm}
+          onClose={dismissShowModal}
           isLoading={isLoading}
-          userAddressConfirmed={userAddressConfirmed}
-          confirmUserAddress={confirmUserAddress}
         />
       </div>
     </div>

@@ -1,11 +1,15 @@
-import React from 'react';
-import { Row, Col } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Row, Col, Form, Button } from 'react-bootstrap';
 import SubmitButton from '../../components/Generic/SubmitButton';
 import { VAULTING_STATUS } from '../../services/items';
+import { useInventoryLocation } from '../../hooks/useInventoryLocation';
+import { getInventory, postInventory, putInventory, getInventoryZoneOptions } from '../../services/inventory';
 import './VaultingItem.scss';
+import { blankLocation } from '../../const/inventory';
 
 function VaultingItem({ onWithdraw, item }) {
   const shouldEnableWithdrawButton = item.status === VAULTING_STATUS.Minted;
+  const { currentLocation } = useInventoryLocation(item.item_id);
 
   return (
     <div className='m-4'>
@@ -18,17 +22,45 @@ function VaultingItem({ onWithdraw, item }) {
         <Col className='right-align'>{item.manufacturer}</Col>
       </Row>
       <Row className='mt-4 mb-2'>
-        <img src={item.image_url} alt='item' className='admin-vaulting_item' />
-        <p>
-          Status: <b>{item.status_desc}</b>
+        <img src={item.image_url} alt='item' className='img-fluid admin-vaulting_item' />
+        <p className='mt-2'>
+          <span className='fw-bold'>Status:</span> {item.status_desc}
         </p>
       </Row>
       <Row>
-        <p>{item.description}</p>
-        <p>{`Company: ${item.grading_company}, Serial number: ${item.serial_number}`}</p>
-        <p>{`Year: ${item.year}, Estimated value: $${item.est_value}`}</p>
-        <p>{`Overall grade: ${item.overall_grade}, Sub grades: ${item.sub_grades}`}</p>
-        <p>{`Autograph: ${item.autograph}, Item uuid: ${item.item_uuid}`}</p>
+        <p>
+          <span className='fw-bold'>Description:</span> {item.description}
+        </p>
+        <p>
+          <span className='fw-bold'>Company:</span> {item.grading_company}
+        </p>
+        <p>
+          <span className='fw-bold'>Serial number:</span> {item.serial_number}
+        </p>
+        <p>
+          <span className='fw-bold'>Year:</span> {item.year}
+        </p>
+        <p>
+          <span className='fw-bold'>Estimated value:</span> ${item.est_value}
+        </p>
+        <p>
+          <span className='fw-bold'>Overall grade:</span> {item.overall_grade}
+        </p>
+        <p>
+          <span className='fw-bold'>Sub grades:</span> {item.sub_grades}
+        </p>
+        <p>
+          <span className='fw-bold'>Autograph:</span> {item.autograph}
+        </p>
+        <p>
+          <span className='fw-bold'>Item uuid:</span> {item.item_uuid}
+        </p>
+        <p>
+          <span className='fw-bold'>Item id:</span> {item.item_id}
+        </p>
+        <p>
+          <span className='fw-bold'>Vault location:</span> {currentLocation ? currentLocation.label : 'No location set'}
+        </p>
       </Row>
       <div className='mt-4'>
         <SubmitButton

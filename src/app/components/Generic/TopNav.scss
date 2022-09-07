@@ -18,7 +18,7 @@
     height: 100%;
     align-items: center;
 
-    @media only screen and (max-width: 800px) {
+    @media only screen and (max-width: 923px) {
       grid-template-columns: 1fr 40px;
     }
   }
@@ -28,7 +28,7 @@
     display: flex;
     gap: 30px;
 
-    @media only screen and (max-width: 800px) {
+    @media only screen and (max-width: 923px) {
       display: none;
     }
   }
@@ -39,7 +39,7 @@
     align-items: center;
     gap: 12px;
 
-    @media only screen and (max-width: 800px) {
+    @media only screen and (max-width: 923px) {
       display: none;
     }
   }
@@ -146,7 +146,7 @@
   &mobile {
     display: none;
 
-    @media only screen and (max-width: 800px) {
+    @media only screen and (max-width: 923px) {
       display: flex;
       height: 100%;
     }
@@ -214,7 +214,7 @@
         align-items: center;
         z-index: 1000;
 
-        @media only screen and (max-width: 800px) {
+        @media only screen and (max-width: 923px) {
           display: flex;
         }
       }
