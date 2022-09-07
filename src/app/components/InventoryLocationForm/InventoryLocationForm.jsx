@@ -2,31 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Col, Form, Row, Button, Spinner, ListGroup } from 'react-bootstrap';
 import { BsFillPlusCircleFill } from 'react-icons/bs';
 
-import { getInventory, postInventory, putInventory } from '../../services/inventory';
-
-const zoneOptions = [
-  'Cabinet 1',
-  'Cabinet 2',
-  'Cabinet 3',
-  'Cabinet 4',
-  'Cabinet 5',
-  'Cabinet 6',
-  'Cabinet 7',
-  'Cabinet 8',
-  'Credenza 1',
-  'Credenza 2',
-  'Credenza 3',
-  'Credenza 4',
-  'Credenza 5',
-  'Credenza 6',
-  'Credenza 7',
-  'Credenza 8',
-  'Main Display Case',
-  'Pedestal 1',
-  'Pedestal 2',
-  'Comics Gallery Wall',
-  'Card Gallery Wall',
-];
+import { getInventory, postInventory, putInventory, getInventoryZoneOptions } from '../../services/inventory';
 
 const blankLocation = {
   vault: '',
@@ -55,6 +31,8 @@ const InventoryLocationForm = ({ itemId }) => {
       })
       .catch();
   }, [apiRetrigger]);
+
+  const zoneOptions = getInventoryZoneOptions();
 
   const currentLocation = initialInventory.find((item) => item.status === 1);
   const findInventoryById = (id) => {

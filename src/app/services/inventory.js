@@ -44,3 +44,29 @@ export const putInventory = async (inventory_id, item) => {
     return res;
   });
 };
+
+export const getInventoryZoneOptions = () => {
+  return [
+    'Cabinet 1',
+    'Cabinet 2',
+    'Cabinet 3',
+    'Cabinet 4',
+    'Cabinet 5',
+    'Cabinet 6',
+    'Cabinet 7',
+    'Cabinet 8',
+    'Credenza 1',
+    'Credenza 2',
+    'Credenza 3',
+    'Credenza 4',
+    'Credenza 5',
+    'Credenza 6',
+    'Credenza 7',
+    'Credenza 8',
+    'Main Display Case',
+    'Pedestal 1',
+    'Pedestal 2',
+    'Comics Gallery Wall',
+    'Card Gallery Wall',
+  ];
+};
