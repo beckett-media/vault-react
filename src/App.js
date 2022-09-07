@@ -1,4 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { Modal, Button } from 'react-bootstrap';
+import { ChakraProvider, extendTheme } from '@chakra-ui/react';
+import TagManager from 'react-gtm-module';
+
+import './index.scss';
+
 import TopNav from './app/components/Generic/TopNav';
 import Footer from './app/components/Generic/Footer';
 import Faq from './app/components/Generic/Faq';
@@ -21,17 +28,19 @@ import Withdraw from './app/pages/Withdraw/Withdraw';
 import Market from './app/pages/Market/Market';
 import Profile from './app/pages/Profile/Profile';
 import Cart from './app/pages/Cart/Cart';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import { ChakraProvider, extendTheme } from '@chakra-ui/react';
-import './index.scss';
 import Department from './app/pages/Department/Department';
-import AuthProvider, { PrivateRoute, OnlyUnathenticated, AdminRoute, RedirectHome } from './app/contexts/auth';
 import History from './app/pages/History/History';
 import CartProvider from './app/contexts/cart';
 // import ComingSoon from './app/components/Generic/ComingSoon';
 import InterestForm from './app/pages/InterestForm/InterestForm';
 import ComingSoon from './app/pages/ComingSoon/ComingSoon';
 import FooterModal from './app/components/FooterModal/FooterModal';
+
+import AuthProvider, { PrivateRoute, OnlyUnathenticated, AdminRoute, RedirectHome } from './app/contexts/auth';
+
+const tagManagerArgs = {
+  gtmId: 'GTM-MKJ4MQF',
+};
 
 // chakra uses a default theme, this will remove it.
 const emptyChakraTheme = extendTheme({
@@ -47,6 +56,31 @@ const emptyChakraTheme = extendTheme({
 function App() {
   const [showFooterModal, setShowFooterModal] = useState('');
   const dismissModal = () => setShowFooterModal('');
+  const [isCookieAccepted, setIsCookieAccepted] = useState(false);
+  const [showCookieModal, setShowCookieModal] = useState(false);
+  const [isAcceptingCookies, setIsAcceptingCookies] = useState(false);
+
+  const localCookies = document.cookie.split(';');
+  const analyticsCookies = localCookies.filter((item) => item.includes('_ga'));
+  const refusalCookie = localCookies.find((item) => item.includes('isAnalyticsRefused=true'));
+
+  console.log(localCookies);
+  console.log(analyticsCookies);
+  console.log(refusalCookie);
+
+  const createCookie = (cname, cvalue, exdays) => {
+    const d = new Date();
+    d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+    const expires = 'expires=' + d.toUTCString();
+    document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
+  };
+
+  useEffect(() => {
+    isCookieAccepted && TagManager.initialize(tagManagerArgs);
+    analyticsCookies.length === 0 && setShowCookieModal(true);
+    refusalCookie && setShowCookieModal(false);
+  }, [isCookieAccepted]);
+
   return (
     <>
       <AuthProvider>
@@ -54,6 +88,36 @@ function App() {
           <ChakraProvider theme={emptyChakraTheme}>
             <TopNav />
             <main className='w-100 h-100'>
+              <Modal className='text-body' show={showCookieModal} onHide={() => setShowCookieModal(false)}>
+                <Modal.Header closeButton>
+                  <Modal.Title>Cookies</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Beckett uses cookies to improve your experience.</Modal.Body>
+                <Modal.Footer>
+                  <Button
+                    variant='secondary'
+                    onClick={() => {
+                      createCookie('isAnalyticsRefused', 'true', 365);
+                      setShowCookieModal(false);
+                    }}
+                  >
+                    Refuse all non-essential cookies
+                  </Button>
+                  <Button
+                    variant='primary'
+                    onClick={() => {
+                      setIsAcceptingCookies(true);
+                      setIsCookieAccepted(true);
+                      setTimeout(() => {
+                        setShowCookieModal(false);
+                        setIsAcceptingCookies(false);
+                      }, 1000);
+                    }}
+                  >
+                    {isAcceptingCookies ? 'Loading...' : 'Accept all cookies'}
+                  </Button>
+                </Modal.Footer>
+              </Modal>
               <Routes>
                 <Route exact path='/' element={<PrivateRoute />}>
                   <Route path='/submission' element={<Submission />} />
