@@ -1,14 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getInventory, postInventory, putInventory } from '../services/inventory';
-
-const blankLocation = {
-  vault: '',
-  zone: '',
-  shelf: '',
-  row: '',
-  box: '',
-  slot: '',
-};
+import { blankLocation } from '../const/inventory';
 
 export const useInventoryLocation = (itemId) => {
   const [apiRetrigger, setApiRetrigger] = useState({});
@@ -18,12 +10,14 @@ export const useInventoryLocation = (itemId) => {
   useEffect(() => {
     getInventory({ item_ids: [itemId] })
       .then((data) => {
-        setInitialInventory(...data);
+        setInitialInventory(data);
       })
       .catch(console.log('failed to retrieve inventory'));
   }, [apiRetrigger]);
 
   const updateInventory = (tempInventory) => setInventory({ ...inventory, ...tempInventory });
+
+  const currentLocation = initialInventory.length > 0 ? initialInventory?.find((item) => item.status === 1) : '';
 
   const locationFormSubmit = (e) => {
     e.preventDefault();
@@ -42,5 +36,5 @@ export const useInventoryLocation = (itemId) => {
     }
   };
 
-  return { inventory, initialInventory, updateInventory, locationFormSubmit };
+  return { currentLocation, inventory, initialInventory, updateInventory, locationFormSubmit };
 };
