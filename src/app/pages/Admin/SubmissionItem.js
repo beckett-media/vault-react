@@ -16,7 +16,7 @@ function SubmissionItem({ onApprove, onReject, onConfimReceipt, item }) {
     item.status === SUBMISSION_STATUS.Received || item.status === SUBMISSION_STATUS.Rejected;
   const shouldEnableRejectButton = item.status === SUBMISSION_STATUS.Approved;
 
-  const { inventory, initialInventory } = useInventoryLocation(item.id);
+  const { currentLocation } = useInventoryLocation(item.id);
 
   return (
     <div className='m-4'>
@@ -29,7 +29,7 @@ function SubmissionItem({ onApprove, onReject, onConfimReceipt, item }) {
           <br />
           Status: <b>{item.status_desc}</b>
           <br />
-          Vault location: <b>{initialInventory ? initialInventory.label : 'No inventory location set'}</b>
+          Vault location: <b>{currentLocation ? currentLocation.label : 'No inventory location set'}</b>
         </p>
       </Row>
       <div className='mt-4'>
