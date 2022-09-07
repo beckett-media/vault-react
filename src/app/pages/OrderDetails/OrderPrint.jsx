@@ -73,6 +73,15 @@ const OrderPrint = () => {
             </div>
           )}
           <div>
+            <b>Shipping address:</b>
+          </div>
+          <div>{user.shipAddressLine1 && user.shipAddressLine1}</div>
+          <div>{user.shipAddressLine2 && user.shipAddressLine2}</div>
+          <div>{user.shipCity && user.shipCity}</div>
+          <div>
+            {user.shipState && user.shipState}, {user.shipZipcode && user.shipZipcode}
+          </div>
+          <div>
             <b>Number of items:</b> {order.submissions.length}
           </div>
           <div>
