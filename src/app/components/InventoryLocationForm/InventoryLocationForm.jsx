@@ -2,7 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Col, Form, Row, Button, Spinner, ListGroup } from 'react-bootstrap';
 import { BsFillPlusCircleFill } from 'react-icons/bs';
 
-import { getInventory, postInventory, putInventory, getInventoryZoneOptions } from '../../services/inventory';
+import {
+  getInventory,
+  postInventory,
+  putInventory,
+  deleteInventory,
+  getInventoryZoneOptions,
+} from '../../services/inventory';
 import { blankLocation } from '../../const/inventory';
 
 // Use this component with the useInventoryLocation hook in the parent component
@@ -13,15 +19,18 @@ const InventoryLocationForm = ({ itemId }) => {
   const [inventory, setInventory] = useState(blankLocation);
   const [isPostLoading, setIsPostLoading] = useState(false);
   const [isPutLoading, setIsPutLoading] = useState(false);
+  const [isDeleteLoading, setIsDeleteLoading] = useState(false);
   const [isAddingLocation, setIsAddingLocation] = useState(false);
   const [newLocationId, setNewLocationId] = useState();
+
+  console.log(initialInventory);
 
   useEffect(() => {
     getInventory({ item_ids: [itemId] })
       .then((data) => {
         setInitialInventory(data);
       })
-      .catch();
+      .catch((e) => console.log(e));
   }, [apiRetrigger]);
 
   const zoneOptions = getInventoryZoneOptions();
@@ -43,7 +52,7 @@ const InventoryLocationForm = ({ itemId }) => {
     if (inventory.vault && inventory.zone) {
       postInventory(inventory)
         .then()
-        .catch()
+        .catch((e) => console.log(e))
         .finally(
           setTimeout(() => {
             setIsPostLoading(false);
@@ -62,13 +71,32 @@ const InventoryLocationForm = ({ itemId }) => {
 
     putInventory(newLocationId, putBody)
       .then()
-      .catch()
+      .catch((e) => console.log(e))
       .finally(
         setTimeout(() => {
           setIsPutLoading(false);
           setApiRetrigger({});
         }, 1000),
       );
+  };
+
+  const handleDeleteInventory = () => {
+    setIsDeleteLoading(true);
+    console.log(findInventoryById(newLocationId));
+
+    if (findInventoryById(newLocationId).status !== 1) {
+      deleteInventory(newLocationId)
+        .then()
+        .catch((e) => console.log(e))
+        .finally(
+          setTimeout(() => {
+            setIsDeleteLoading(false);
+            setApiRetrigger({});
+          }, 1000),
+        );
+    } else {
+      console.log('cannot delete');
+    }
   };
 
   return (
@@ -91,7 +119,10 @@ const InventoryLocationForm = ({ itemId }) => {
                 >
                   <div className='d-flex justify-content-between'>
                     <span>{item?.label}</span>
-                    <span className='fw-bold'>{item.status === 1 ? ' current' : ''}</span>
+                    <span className='fw-bold'>
+                      {item.status === 1 ? ' current' : ''}
+                      {item.status === 2 && ' deleted'}
+                    </span>
                   </div>
                 </ListGroup.Item>
               ))}
@@ -118,6 +149,20 @@ const InventoryLocationForm = ({ itemId }) => {
           >
             <BsFillPlusCircleFill />
             Add new location
+          </Button>
+          <Button
+            variant='outline-danger'
+            onClick={() => handleDeleteInventory()}
+            className='d-flex align-items-center gap-2'
+          >
+            {isDeleteLoading ? (
+              <>
+                <Spinner as='span' animation='border' role='status' aria-hidden='true' />
+                <span className='visually-hidden'>Loading...</span>
+              </>
+            ) : (
+              'Delete location'
+            )}
           </Button>
         </div>
       </div>

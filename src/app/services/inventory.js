@@ -45,6 +45,13 @@ export const putInventory = async (inventory_id, item) => {
   });
 };
 
+export const deleteInventory = async (inventory_id) => {
+  // TODO: validate item
+  return axiosClient.delete(`/inventory/${inventory_id}`).then((res) => {
+    return res;
+  });
+};
+
 export const getInventoryZoneOptions = () => {
   return [
     'Cabinet 1',

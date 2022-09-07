@@ -12,7 +12,7 @@ export const useInventoryLocation = (itemId) => {
       .then((data) => {
         setInitialInventory(data);
       })
-      .catch(console.log('failed to retrieve inventory'));
+      .catch((e) => console.log(e));
   }, [apiRetrigger]);
 
   const updateInventory = (tempInventory) => setInventory({ ...inventory, ...tempInventory });
