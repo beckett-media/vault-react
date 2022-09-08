@@ -13,7 +13,7 @@ const ListItem = ({ item }) => {
 
   return (
     <div className='list-item_component'>
-      <Link to={`/my-collection/item/${item.id}`} className='w-100'>
+      <Link to={`/my-collection/item/${item.id}`}>
         <div className='list-item_layout'>
           {item.image_url ? (
             <img className='list-item_image' src={imageUrl} alt='' />
