@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
-import { getSingleOrder } from '../../services/order';
 
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
+import { ITEM_TYPE } from '../../services/items';
+import { getSingleOrder } from '../../services/order';
+import { getUserName, mapCognitoToUser } from '../../services/user';
 
 import { AuthContext } from '../../contexts/auth';
-import { getUserName, mapCognitoToUser } from '../../services/user';
 import { formatPrice } from '../../utils/strings';
 
 const OrderPrint = () => {
@@ -101,8 +102,9 @@ const OrderPrint = () => {
               ----- <br />
               Submission ID: {item.id}
               <br />
-              {item.type === 1 && item.year + ' ' + item.set_name + ' ' + item.card_number + ' ' + item.player}
-              {item.type === 2 && item.title + ' ' + item.issue + ' ' + item.publisher + ' ' + item.year}
+              {item.type === ITEM_TYPE.TRADING_CARD &&
+                item.year + ' ' + item.set_name + ' ' + item.card_number + ' ' + item.player}
+              {item.type === ITEM_TYPE.COMIC && item.title + ' ' + item.issue + ' ' + item.publisher + ' ' + item.year}
             </div>
           ))}
         </>
