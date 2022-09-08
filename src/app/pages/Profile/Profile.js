@@ -1,6 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Row, Col, Card, Form, Button, Modal, Spinner, CloseButton } from 'react-bootstrap';
-import { mapCognitoToUser, mapUserToCognito } from '../../services/user';
+import { mapCognitoToUser, mapUserToCognito, validateShippingAddress } from '../../services/user';
 
 import './Profile.scss';
 
@@ -41,7 +41,11 @@ const Profile = () => {
 
     updateUserState(syncedAddresses);
   };
-
+  useEffect(() => {
+    if (updateError !== undefined) {
+      setLoadingModal(false);
+    }
+  }, [updateError]);
   const submitUpdateUser = async () => {
     let updatedUser;
     setLoadingModal(true);
@@ -50,6 +54,23 @@ const Profile = () => {
     }
     if (!userState.phone.length) {
       return setUpdateError('Phone number is required.');
+    }
+    try {
+      const res = await validateShippingAddress({
+        address1: userState.shipAddressLine1,
+        address2: userState.shipAddressLine2,
+        city: userState.shipCity,
+        state: userState.shipState,
+        zipcode: userState.shipZipcode,
+      });
+      var xmlParser = require('react-xml-parser');
+      const xml = new xmlParser().parseFromString(res.data);
+      if (xml.children[0].children[0].name === 'Error') {
+        return setUpdateError(xml.children[0].children[0].children[2].value);
+      }
+    } catch (err) {
+      console.error(err);
+      return setUpdateError(err);
     }
     if (userState.phone) {
       const phone = formatPhoneNumber(userState.phone);
