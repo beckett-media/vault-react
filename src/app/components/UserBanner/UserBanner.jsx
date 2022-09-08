@@ -1,6 +1,6 @@
-import React, { useContext, useState, useCallback } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { AuthContext } from '../../contexts/auth';
-import { getUserName, mapCognitoToUser } from '../../services/user';
+import { mapCognitoToUser } from '../../services/user';
 import Dropzone from 'react-dropzone-uploader';
 import { BsCamera } from 'react-icons/bs';
 
@@ -12,17 +12,23 @@ import { ReactComponent as BgSphere } from '../../assets/bg-sphere.svg';
 import { formatPrice } from '../../utils/strings';
 import { blobToBase64 } from '../../utils/image';
 import { uploadImageToS3 } from '../../services/user';
+import { mapUserToCognito } from '../../services/user';
 
 const UserBanner = ({ vaultedItems = 0, vaultedValue = 0, canEditImage = false }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [userId, setUserId] = useState();
 
   const authContext = useContext(AuthContext);
   const userState = mapCognitoToUser(authContext.attrInfo);
 
+  useEffect(() => {
+    setUserId(userState.sub);
+  }, []);
+
   const uploadImage = async (image) => {};
 
   const handleChangeStatus = async ({ meta, file }, status) => {
-    console.log('drop', status, meta, file);
+    setIsLoading(true);
 
     if (status === 'done') {
       const imageFormat = file.type;
@@ -33,58 +39,21 @@ const UserBanner = ({ vaultedItems = 0, vaultedValue = 0, canEditImage = false }
         image_format: imageFormat.split('/')[1] || 'png',
       };
 
-      console.log(image);
-
-      // 1. Upload image to S3 bucket
       try {
-        uploadImageToS3(image).then((resp) => console.log(resp));
-      } catch {}
-      // 2. Retrieve image url response after successful upload
-      // 3. Update user image url with the new S3 url
-      // 4. Refresh image data to pull new image
+        uploadImageToS3(userId, image).then((resp) => {
+          authContext.setAttributes(mapUserToCognito({ ...userState, profile: resp.data.image_url }));
+        });
+      } catch {
+        (e) => console.log(e);
+      } finally {
+      }
     } else if (status === 'removed') {
       onFileChange(null);
     }
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
   };
-
-  // const onDrop = useCallback(async (acceptedFiles) => {
-  //   setIsLoading(true);
-  //   const imageFormat = acceptedFiles[0].type;
-  //   const previewUrl = acceptedFiles[0].path;
-  //   const imageBase64 = await blobToBase64(acceptedFiles[0].path);
-
-  //   console.log(imageBase64);
-
-  //   const image = {
-  //     image_format: imageFormat.split('/')[1] || 'png',
-  //     image_base64: imageBase64?.split(`data:${imageFormat};base64,`)[1] || '',
-  //   };
-
-  //   console.log(image);
-  //   acceptedFiles.forEach((file) => {
-  //     const reader = new FileReader();
-
-  //     reader.onabort = () => console.log('file reading was aborted');
-  //     reader.onerror = () => console.log('file reading has failed');
-  //     reader.onload = () => {
-  //       // Do whatever you want with the file contents
-  //       const binaryStr = reader.result;
-  //       console.log(binaryStr);
-  //     };
-  //     reader.readAsArrayBuffer(file);
-  //   });
-  //   setTimeout(() => {
-  //     console.log(acceptedFiles);
-  //     console.log('success!');
-  //     setIsLoading(false);
-  //   }, 2000);
-  // }, []);
-
-  // const { getRootProps, getInputProps, isDragActive } = useDropzone({
-  //   onDrop,
-  //   maxFiles: 1,
-  //   accept: { 'image/jpeg': [], 'image/png': [], 'image/jpg': [] },
-  // });
 
   const bannerDetails = vaultedItems ? (
     <div className='user-banner_content-layout'>
@@ -121,6 +90,10 @@ const UserBanner = ({ vaultedItems = 0, vaultedValue = 0, canEditImage = false }
                     <LoadingSpinner />
                   ) : (
                     <>
+                      <div className='d-flex flex-column align-items-center'>
+                        <BsCamera className='user-banner_image-upload-icon' />
+                        <div>Update Image</div>
+                      </div>
                       <Dropzone
                         classNames={{ dropzone: 'user-banner_image-upload-dropzone' }}
                         onChangeStatus={handleChangeStatus}
@@ -131,26 +104,9 @@ const UserBanner = ({ vaultedItems = 0, vaultedValue = 0, canEditImage = false }
                         inputContent='Drag image or Click to Browse'
                         submitButtonDisabled
                       />
-                      <div className='d-flex flex-column align-items-center'>
-                        <BsCamera className='user-banner_image-upload-icon' />
-                        <div>Update Image</div>
-                      </div>
                     </>
                   )}
                 </div>
-                // <div {...getRootProps({ className: 'user-banner_image-upload' })}>
-                //   {isLoading ? (
-                //     <LoadingSpinner />
-                //   ) : (
-                //     <>
-                //       <input {...getInputProps()} />
-                //       <div className='d-flex flex-column align-items-center'>
-                //         <BsCamera className='user-banner_image-upload-icon' />
-                //         <div>Update Image</div>
-                //       </div>
-                //     </>
-                //   )}
-                // </div>
               )}
               <img className='user-banner_image' src={userState.profile || require('../../assets/stockImage.jpeg')} />
             </div>
