@@ -82,6 +82,8 @@ export const submitNewUser = async (newUser, authContext) => {
 };
 
 // To do: finish profile upload functions
-export const uploadImageToS3 = async (image) => {
-  return axiosClient.post('');
+export const uploadImageToS3 = async (uuid, image) => {
+  return axiosClient.post(`/user/${uuid}/image`, image).then((res) => {
+    return res;
+  });
 };
