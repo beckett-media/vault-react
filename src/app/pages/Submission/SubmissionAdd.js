@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Col, Form, Row, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { ITEM_TYPE } from '../../services/items';
 import './Submission.scss';
 
 const AddBeckettItem = (props) => {
@@ -14,16 +15,16 @@ const AddBeckettItem = (props) => {
 };
 
 const SubmissionAdd = ({ submitAddedItem }) => {
-  const [type, setType] = useState(1);
-  const [item, setItem] = useState({ type: 1 });
+  const [type, setType] = useState(ITEM_TYPE.TRADING_CARD);
+  const [item, setItem] = useState({ type: ITEM_TYPE.TRADING_CARD });
 
   const submitAddItemFormSubmit = (e) => {
     e.preventDefault();
     {
       Object.keys(item).length > 2 && submitAddedItem(item);
     }
-    setItem({ type: 1 });
-    setType(1);
+    setItem({ type: ITEM_TYPE.TRADING_CARD });
+    setType(ITEM_TYPE.TRADING_CARD);
     e.target.reset();
   };
 
@@ -58,7 +59,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                 </Form.Group>
               </Col>
             </Row>
-            {type === 1 ? (
+            {type === ITEM_TYPE.TRADING_CARD ? (
               <>
                 <Row>
                   <Col sm={12} lg={6}>
