@@ -3,7 +3,7 @@ import { Col, Form, Row, Button } from 'react-bootstrap';
 import { Navigate, useParams, useNavigate } from 'react-router-dom';
 import { getSingleSubmission } from '../../services/submission';
 import './CreateVaultingPage.scss';
-import { updateSubmission } from '../../services/submission';
+import { updateSubmission, SUBMISSION_TYPE } from '../../services/submission';
 import { extractUpdatedParts } from '../../utils/submissions';
 import { validURL } from '../../utils/validationRegex';
 import InventoryLocationForm from '../../components/InventoryLocationForm/InventoryLocationForm';
@@ -91,7 +91,11 @@ function AdminEditSubmissionPage() {
                 <Col sm={12} lg={6}>
                   <Form.Group>
                     <Form.Label>Type</Form.Label>
-                    <Form.Control type='text' disabled value={item.type === 1 ? 'Trading Card' : 'Comic'} />
+                    <Form.Control
+                      type='text'
+                      disabled
+                      value={item.type === SUBMISSION_TYPE.SPORTS_CARD ? 'Trading Card' : 'Comic'}
+                    />
                   </Form.Group>
                 </Col>
                 <Col sm={12} lg={6}>
@@ -119,7 +123,7 @@ function AdminEditSubmissionPage() {
                   </Form.Group>
                 </Col>
                 <Col sm={12} lg={6}>
-                  {item.type === 1 ? (
+                  {item.type === SUBMISSION_TYPE.SPORTS_CARD ? (
                     <Form.Group>
                       <Form.Label>Player</Form.Label>
                       <Form.Control
@@ -142,7 +146,7 @@ function AdminEditSubmissionPage() {
               </Row>
               <Row>
                 <Col sm={12} lg={6}>
-                  {item.type === 1 ? (
+                  {item.type === SUBMISSION_TYPE.SPORTS_CARD ? (
                     <Form.Group>
                       <Form.Label>Set name</Form.Label>
                       <Form.Control
@@ -163,7 +167,7 @@ function AdminEditSubmissionPage() {
                   )}
                 </Col>
                 <Col sm={12} lg={6}>
-                  {item.type === 1 ? (
+                  {item.type === SUBMISSION_TYPE.SPORTS_CARD ? (
                     <Form.Group>
                       <Form.Label>Sport</Form.Label>
                       <Form.Control

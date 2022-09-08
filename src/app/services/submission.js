@@ -9,6 +9,11 @@ export const SUBMISSION_STATUS = {
   Vaulted: 5,
 };
 
+export const SUBMISSION_TYPE = {
+  SPORTS_CARD: 1,
+  COMIC: 2,
+};
+
 export const postSubmission = async (item) => {
   // TODO: validate item
   return axiosClient.post(`/marketplace/submission`, item).then((res) => {
