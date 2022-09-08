@@ -42,13 +42,14 @@ export const PasswordField = React.forwardRef((props, ref) => {
         </InputRightElement>
         <Input
           h={12}
-          placeholder='Password*'
+          placeholder='Password *'
           id='password'
           ref={mergeRef}
           name='password'
           type={isOpen ? 'text' : 'password'}
           autoComplete='current-password'
           required
+          color={color}
           value={props.value}
           onChange={props.onChange}
         />

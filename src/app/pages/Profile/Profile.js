@@ -10,6 +10,8 @@ import FormSection from '../../components/Layout/FormSection/FormSection';
 import { AuthContext } from '../../contexts/auth';
 import { formatPhoneNumber } from '../../utils/phone';
 import { useNavigate } from 'react-router-dom';
+import ChangePassword from '../SignIn/ChangePassword';
+import SubmitButton from '../../components/Generic/SubmitButton';
 
 const Profile = () => {
   const authContext = useContext(AuthContext);
@@ -19,6 +21,9 @@ const Profile = () => {
   const [loadingModal, setLoadingModal] = useState(false);
   const [confirmModal, setConfirmModal] = useState(false);
   const [updateError, setUpdateError] = useState('');
+  const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
+  const launchChangePasswordModal = () => setShowChangePasswordModal(true);
+
   const navigate = useNavigate();
 
   const updateUserState = (tempItem) => setUserState({ ...userState, ...tempItem });
@@ -54,8 +59,10 @@ const Profile = () => {
       } catch (err) {
         if (err.name === 'InvalidParameterException') {
           const paramArr = err.message.split(':');
-          const message = paramArr[1].split('attribute');
-          setUpdateError(message[0] + paramArr[0].split('.')[1].replace('_', ' ') + message[1]);
+          if (paramArr.length > 1) {
+            const message = paramArr[1].split('attribute');
+            setUpdateError(message[0] + paramArr[0].split('.')[1].replace('_', ' ') + message[1]);
+          } else setUpdateError(err.message);
         } else {
           setUpdateError('An error has occurred.');
         }
@@ -301,7 +308,7 @@ const Profile = () => {
       </Modal>
       <Modal className='confirm-modal' show={confirmModal}>
         <Modal.Header>
-          <span className='confirm-header'>Update Profile Details?</span>
+          <Modal.Title className='confirm-header'>{`Are you sure you'd like to submit?`}</Modal.Title>
           <CloseButton onClick={() => setConfirmModal(false)} />
         </Modal.Header>
         <Modal.Body className='confirm-text'>
@@ -315,6 +322,8 @@ const Profile = () => {
           >
             Confirm
           </Button>
+          <ChangePassword showModal={showChangePasswordModal} setShowModal={setShowChangePasswordModal} />
+          <SubmitButton func={launchChangePasswordModal} title='Change Password' bg='link' />
         </Modal.Footer>
       </Modal>
     </div>

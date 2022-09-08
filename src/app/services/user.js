@@ -53,6 +53,10 @@ export const mapUserToCognito = (user) => {
     .filter((v) => v);
 };
 
+export const isIncompleteAddress = (user) => {
+  return !(user.shipAddressLine1 && user.shipCity && user.shipState && user.shipZipcode);
+};
+
 export const getAdminUserGroups = (token) => {
   return axiosClient
     .get(`/auth/admin`, {
