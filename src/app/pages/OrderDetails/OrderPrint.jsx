@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
 import { getSingleOrder } from '../../services/order';
 
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 
 import { AuthContext } from '../../contexts/auth';
-import { mapCognitoToUser, getUserName } from '../../services/user';
+import { getUserName, mapCognitoToUser } from '../../services/user';
 import { formatPrice } from '../../utils/strings';
 
 const OrderPrint = () => {
@@ -75,11 +75,11 @@ const OrderPrint = () => {
           <div>
             <b>Shipping address:</b>
           </div>
-          <div>{user.shipAddressLine1 && user.shipAddressLine1}</div>
-          <div>{user.shipAddressLine2 && user.shipAddressLine2}</div>
-          <div>{user.shipCity && user.shipCity}</div>
+          <div>{user.shipAddressLine1}</div>
+          <div>{user.shipAddressLine2}</div>
+          <div>{user.shipCity}</div>
           <div>
-            {user.shipState && user.shipState}, {user.shipZipcode && user.shipZipcode}
+            {user.shipState}, {user.shipZipcode}
           </div>
           <div>
             <b>Number of items:</b> {order.submissions.length}
