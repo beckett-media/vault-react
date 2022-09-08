@@ -10,7 +10,7 @@ import { getImageAssetUrl } from '../../utils/image';
 import { formatPrice } from '../../utils/strings';
 import { ReactComponent as EmptyImage } from '../../assets/beckett-card-placeholder--gray.svg';
 import { SUBMISSION_STATUS } from '../../services/submission';
-import { getVaultingTitle } from '../../utils/vaulting';
+import { getTitle } from '../../utils/vaulting';
 
 const ItemCard = ({ item, shouldLink = true, belongsToUser }, props) => {
   const [isImageLoading, setIsImageLoading] = useState(true);
@@ -70,7 +70,7 @@ const ItemCard = ({ item, shouldLink = true, belongsToUser }, props) => {
             )}
           </div>
           <div className='item-card_content-wrapper'>
-            <div className='item-card_category'>{getVaultingTitle(item)}</div>
+            <div className='item-card_category'>{getTitle(item, 'submission')}</div>
             {!belongsToUser && <div className='item-card_price'>{formatPrice(+price)}</div>}
             {/* <div className='item-card_title ellipses_wrapper'>
               <span className='ellipses_child'>{item.title}</span>
