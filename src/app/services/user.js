@@ -1,5 +1,6 @@
 import { axiosClient } from './index';
 import { swapObjectKeyValue } from '../utils/strings';
+import axios from 'axios';
 
 const nonMutableAttributes = new Set(['sub', 'email_verified']);
 const cognitoToUser = {
@@ -55,6 +56,25 @@ export const mapUserToCognito = (user) => {
 
 export const isIncompleteAddress = (user) => {
   return !(user.shipAddressLine1 && user.shipCity && user.shipState && user.shipZipcode);
+};
+
+export const validateShippingAddress = (address) => {
+  const xml = `
+    <AddressValidateRequest USERID="831BECKE1073">
+      <Address ID="0">
+        <Address1>${address.address1}</Address1>
+        ${address.address2 ? `<Address2>${address.address2}</Address2>` : '<Address2/>'}
+        <City>${address.city}</City>
+        <State>${address.state}</State>
+        <Zip5>${address.zipcode}</Zip5>
+        <Zip4/>
+      </Address>
+    </AddressValidateRequest>`;
+  return axios
+    .get('http://production.shippingapis.com/ShippingAPI.dll?API=Verify&XML=' + encodeURIComponent(xml), {
+      headers: { 'Content-Type': 'text/xml' },
+    })
+    .then((res) => res);
 };
 
 export const getAdminUserGroups = (token) => {
