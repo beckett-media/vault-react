@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Spinner } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 import './ItemCard.scss';
 
+import { ReactComponent as EmptyImage } from '../../assets/beckett-card-placeholder--gray.svg';
 import { getImageAssetUrl } from '../../utils/image';
 import { formatPrice } from '../../utils/strings';
-import { ReactComponent as EmptyImage } from '../../assets/beckett-card-placeholder--gray.svg';
+import { getVaultingTitle } from '../../utils/vaulting';
 
 const ItemCard = ({ item, shouldLink = true, belongsToUser }, props) => {
   const [isImageLoading, setIsImageLoading] = useState(true);
@@ -15,7 +16,6 @@ const ItemCard = ({ item, shouldLink = true, belongsToUser }, props) => {
 
   const imageUrl = getImageAssetUrl(item.image_url);
 
-  const cardNumber = item.card_number ? '#' + item.card_number : '';
   return (
     <div className={`item-card_component`}>
       <div className='item-card_layout'>
@@ -42,10 +42,7 @@ const ItemCard = ({ item, shouldLink = true, belongsToUser }, props) => {
             )}
           </div>
           <div className='item-card_content-wrapper'>
-            <div className='item-card_category'>
-              {item.item_type === 1 && item.year + ' ' + item.set_name + ' ' + cardNumber + ' ' + item.player}
-              {item.item_type === 2 && item.title + ' ' + item.issue + ' ' + item.publisher + ' ' + item.year}
-            </div>
+            <div className='item-card_category'>{getVaultingTitle(item)}</div>
             {!belongsToUser && <div className='item-card_price'>{formatPrice(+price)}</div>}
             {/* <div className='item-card_title ellipses_wrapper'>
               <span className='ellipses_child'>{item.title}</span>

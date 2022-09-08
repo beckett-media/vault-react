@@ -1,14 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import requireContext from 'require-context.macro';
 
 import './ListItem.scss';
 
-import { formatPrice, trimString } from '../../utils/strings';
-import { getImageAssetUrl } from '../../utils/image';
 import { ReactComponent as EmptyCollection } from '../../assets/beckett-card-placeholder.svg';
-
-const images = requireContext('../../assets/Images', true);
+import { getImageAssetUrl } from '../../utils/image';
+import { formatPrice } from '../../utils/strings';
+import { getVaultingTitle } from '../../utils/vaulting';
 
 const ListItem = ({ item }) => {
   const imageUrl = getImageAssetUrl(item.image_url);
@@ -23,10 +21,7 @@ const ListItem = ({ item }) => {
             <EmptyCollection className='list-item_image' />
           )}
           <div className='ellipses_wrapper'>
-            <div className='ellipses_child'>
-              {item.type === 1 && item.year + ' ' + item.set_name + ' ' + item.card_number + ' ' + item.player}
-              {item.type === 2 && item.title + ' ' + item.issue + ' ' + item.publisher + ' ' + item.year}
-            </div>
+            <div className='ellipses_child'>{getVaultingTitle(item)}</div>
           </div>
           <div className='ellipses_wrapper list-item_description'>
             <div className='ellipses_child'>{item.description?.length && item.description}</div>
