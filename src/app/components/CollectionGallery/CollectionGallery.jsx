@@ -17,6 +17,7 @@ import { useMultiSelect } from '../../hooks/useMultiSelect';
 import { usePagination } from '../../hooks/usePagination';
 import { useToggle } from '../../hooks/useToggle';
 import { ASC, DESC, sortByAttribute } from '../../utils/sort';
+import { SUBMISSION_STATUS } from '../../services/submission';
 
 const CollectionGallery = ({ data }) => {
   //  SEARCH & FILTRATION
@@ -136,32 +137,24 @@ const CollectionGallery = ({ data }) => {
                       key={'collection-gallery_' + index}
                     >
                       <div className='collection-gallery_card-overlay'></div>
-                      <div
-                        className={`collection-gallery_overlay-button ${
-                          isSelected(item.id) && 'collection-gallery_overlay-button-selected'
-                        }`}
-                      >
-                        <div className='collection-gallery_card-overlay'></div>
-                        {item.status === 5 && (
-                          <div
-                            className={`collection-gallery_overlay-button ${
-                              isSelected(item.id) && 'collection-gallery_overlay-button-selected'
-                            }`}
-                          >
-                            <BsCheck size={40} />
-                            <ToggleButton
-                              className='collection-gallery_overlay-toggle'
-                              id={`toggled-${item.id}`}
-                              type='checkbox'
-                              variant='outline-primary'
-                              checked={isSelected(item.id)}
-                              value='1'
-                              onChange={(e) => handleItemSelection(e.currentTarget.checked, item.id)}
-                            />
-                          </div>
-                        )}
-                        <ItemCard item={item} belongsToUser={true} />
-                      </div>
+                      {item.status === SUBMISSION_STATUS.vaulted && (
+                        <div
+                          className={`collection-gallery_overlay-button ${
+                            isSelected(item.id) && 'collection-gallery_overlay-button-selected'
+                          }`}
+                        >
+                          <BsCheck size={40} />
+                          <ToggleButton
+                            className='collection-gallery_overlay-toggle'
+                            id={`toggled-${item.id}`}
+                            type='checkbox'
+                            variant='outline-primary'
+                            checked={isSelected(item.id)}
+                            value='1'
+                            onChange={(e) => handleItemSelection(e.currentTarget.checked, item.id)}
+                          />
+                        </div>
+                      )}
                       <ItemCard item={item} belongsToUser={true} />
                     </div>
                   ),
