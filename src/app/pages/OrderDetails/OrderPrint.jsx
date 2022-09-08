@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
+
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 import { ITEM_TYPE } from '../../services/items';
 import { getSingleOrder } from '../../services/order';
@@ -72,6 +73,15 @@ const OrderPrint = () => {
               <b>Phone number:</b> {user.phone}
             </div>
           )}
+          <div>
+            <b>Shipping address:</b>
+          </div>
+          <div>{user.shipAddressLine1}</div>
+          <div>{user.shipAddressLine2}</div>
+          <div>{user.shipCity}</div>
+          <div>
+            {user.shipState}, {user.shipZipcode}
+          </div>
           <div>
             <b>Number of items:</b> {order.submissions.length}
           </div>
