@@ -94,7 +94,7 @@ function AdminEditSubmissionPage() {
                     <Form.Control
                       type='text'
                       disabled
-                      value={item.type === ITEM_TYPE.SPORTS_CARD ? 'Trading Card' : 'Comic'}
+                      value={item.type === ITEM_TYPE.TRADING_CARD ? 'Trading Card' : 'Comic'}
                     />
                   </Form.Group>
                 </Col>
@@ -123,7 +123,7 @@ function AdminEditSubmissionPage() {
                   </Form.Group>
                 </Col>
                 <Col sm={12} lg={6}>
-                  {item.type === ITEM_TYPE.SPORTS_CARD ? (
+                  {item.type === ITEM_TYPE.TRADING_CARD ? (
                     <Form.Group>
                       <Form.Label>Player</Form.Label>
                       <Form.Control
@@ -146,7 +146,7 @@ function AdminEditSubmissionPage() {
               </Row>
               <Row>
                 <Col sm={12} lg={6}>
-                  {item.type === ITEM_TYPE.SPORTS_CARD ? (
+                  {item.type === ITEM_TYPE.TRADING_CARD ? (
                     <Form.Group>
                       <Form.Label>Set name</Form.Label>
                       <Form.Control
@@ -167,7 +167,7 @@ function AdminEditSubmissionPage() {
                   )}
                 </Col>
                 <Col sm={12} lg={6}>
-                  {item.type === ITEM_TYPE.SPORTS_CARD ? (
+                  {item.type === ITEM_TYPE.TRADING_CARD ? (
                     <Form.Group>
                       <Form.Label>Sport</Form.Label>
                       <Form.Control

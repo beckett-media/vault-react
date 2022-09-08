@@ -30,7 +30,7 @@ export const getSubmissionTitle = (item) => {
   const cardNumber = item.card_number || item.cardNumber;
   const setName = item.set_name || item.setName;
 
-  if (item.type === ITEM_TYPE.SPORTS_CARD) {
+  if (item.type === ITEM_TYPE.TRADING_CARD) {
     return `${item.year} ${setName || ''} ${cardNumber ? '#' + cardNumber : ''} ${item.player}`;
   }
 

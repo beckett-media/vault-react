@@ -15,16 +15,16 @@ const AddBeckettItem = (props) => {
 };
 
 const SubmissionAdd = ({ submitAddedItem }) => {
-  const [type, setType] = useState(ITEM_TYPE.SPORTS_CARD);
-  const [item, setItem] = useState({ type: ITEM_TYPE.SPORTS_CARD });
+  const [type, setType] = useState(ITEM_TYPE.TRADING_CARD);
+  const [item, setItem] = useState({ type: ITEM_TYPE.TRADING_CARD });
 
   const submitAddItemFormSubmit = (e) => {
     e.preventDefault();
     {
       Object.keys(item).length > 2 && submitAddedItem(item);
     }
-    setItem({ type: ITEM_TYPE.SPORTS_CARD });
-    setType(ITEM_TYPE.SPORTS_CARD);
+    setItem({ type: ITEM_TYPE.TRADING_CARD });
+    setType(ITEM_TYPE.TRADING_CARD);
     e.target.reset();
   };
 
@@ -59,7 +59,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                 </Form.Group>
               </Col>
             </Row>
-            {type === ITEM_TYPE.SPORTS_CARD ? (
+            {type === ITEM_TYPE.TRADING_CARD ? (
               <>
                 <Row>
                   <Col sm={12} lg={6}>

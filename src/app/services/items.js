@@ -11,7 +11,7 @@ export const VAULTING_STATUS = {
 };
 
 export const ITEM_TYPE = {
-  SPORTS_CARD: 1,
+  TRADING_CARD: 1,
   COMIC: 2,
 };
 

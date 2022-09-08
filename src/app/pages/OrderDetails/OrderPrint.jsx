@@ -92,7 +92,7 @@ const OrderPrint = () => {
               ----- <br />
               Submission ID: {item.id}
               <br />
-              {item.type === ITEM_TYPE.SPORTS_CARD &&
+              {item.type === ITEM_TYPE.TRADING_CARD &&
                 item.year + ' ' + item.set_name + ' ' + item.card_number + ' ' + item.player}
               {item.type === ITEM_TYPE.COMIC && item.title + ' ' + item.issue + ' ' + item.publisher + ' ' + item.year}
             </div>
