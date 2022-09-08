@@ -1,4 +1,4 @@
-import { SUBMISSION_TYPE } from '../services/submission';
+import { ITEM_TYPE } from '../services/items';
 
 const defaultSub = {
   type: 1,
@@ -30,11 +30,11 @@ export const getSubmissionTitle = (item) => {
   const cardNumber = item.card_number || item.cardNumber;
   const setName = item.set_name || item.setName;
 
-  if (item.type === SUBMISSION_TYPE.SPORTS_CARD) {
+  if (item.type === ITEM_TYPE.SPORTS_CARD) {
     return `${item.year} ${setName || ''} ${cardNumber ? '#' + cardNumber : ''} ${item.player}`;
   }
 
-  if (item.type === SUBMISSION_TYPE.COMIC) {
+  if (item.type === ITEM_TYPE.COMIC) {
     return `${item.issue ? '#' + item.issue : ''} ${item.publisher} ${item.year}`;
   }
 

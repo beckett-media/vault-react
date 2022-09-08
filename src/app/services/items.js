@@ -9,6 +9,12 @@ export const VAULTING_STATUS = {
   Withdrawing: 5,
   Withdrawn: 6,
 };
+
+export const ITEM_TYPE = {
+  SPORTS_CARD: 1,
+  COMIC: 2,
+};
+
 const mockItems = [
   {
     id: 1,

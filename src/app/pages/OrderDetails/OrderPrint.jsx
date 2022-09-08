@@ -2,8 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
+import { ITEM_TYPE } from '../../services/items';
 import { getSingleOrder } from '../../services/order';
-import { SUBMISSION_TYPE } from '../../services/submission';
 import { getUserName, mapCognitoToUser } from '../../services/user';
 
 import { AuthContext } from '../../contexts/auth';
@@ -92,10 +92,9 @@ const OrderPrint = () => {
               ----- <br />
               Submission ID: {item.id}
               <br />
-              {item.type === SUBMISSION_TYPE.SPORTS_CARD &&
+              {item.type === ITEM_TYPE.SPORTS_CARD &&
                 item.year + ' ' + item.set_name + ' ' + item.card_number + ' ' + item.player}
-              {item.type === SUBMISSION_TYPE.COMIC &&
-                item.title + ' ' + item.issue + ' ' + item.publisher + ' ' + item.year}
+              {item.type === ITEM_TYPE.COMIC && item.title + ' ' + item.issue + ' ' + item.publisher + ' ' + item.year}
             </div>
           ))}
         </>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Col, Form, Row, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { SUBMISSION_TYPE } from '../../services/submission';
+import { ITEM_TYPE } from '../../services/items';
 import './Submission.scss';
 
 const AddBeckettItem = (props) => {
@@ -15,16 +15,16 @@ const AddBeckettItem = (props) => {
 };
 
 const SubmissionAdd = ({ submitAddedItem }) => {
-  const [type, setType] = useState(SUBMISSION_TYPE.SPORTS_CARD);
-  const [item, setItem] = useState({ type: SUBMISSION_TYPE.SPORTS_CARD });
+  const [type, setType] = useState(ITEM_TYPE.SPORTS_CARD);
+  const [item, setItem] = useState({ type: ITEM_TYPE.SPORTS_CARD });
 
   const submitAddItemFormSubmit = (e) => {
     e.preventDefault();
     {
       Object.keys(item).length > 2 && submitAddedItem(item);
     }
-    setItem({ type: SUBMISSION_TYPE.SPORTS_CARD });
-    setType(SUBMISSION_TYPE.SPORTS_CARD);
+    setItem({ type: ITEM_TYPE.SPORTS_CARD });
+    setType(ITEM_TYPE.SPORTS_CARD);
     e.target.reset();
   };
 
@@ -59,7 +59,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                 </Form.Group>
               </Col>
             </Row>
-            {type === SUBMISSION_TYPE.SPORTS_CARD ? (
+            {type === ITEM_TYPE.SPORTS_CARD ? (
               <>
                 <Row>
                   <Col sm={12} lg={6}>
