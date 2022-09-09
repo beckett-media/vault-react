@@ -22,15 +22,15 @@ const ItemCard = ({ item, shouldLink = true, belongsToUser }, props) => {
   const isVaulted = item.status === SUBMISSION_STATUS.Vaulted;
 
   const convertStatusToSteps = (status) => {
-    if (status === 1) {
+    if (status === SUBMISSION_STATUS.Submitted) {
       return 1;
-    } else if (status === 2) {
+    } else if (status === SUBMISSION_STATUS.Received) {
       return 2;
-    } else if (status === 4) {
+    } else if (status === SUBMISSION_STATUS.Approved) {
       return 3;
-    } else if (status === 5) {
+    } else if (status === SUBMISSION_STATUS.Vaulted) {
       return 4;
-    } else if (status === 3) {
+    } else if (status === SUBMISSION_STATUS.Rejected) {
       return 0;
     } else {
       return null;
