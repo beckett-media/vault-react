@@ -166,9 +166,9 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                         Declared value* (must be $750 or greater)
                       </Form.Label>
                       <Form.Control
-                        value={(Number(item?.estimatedValue) && item?.estimatedValue?.toLocaleString()) || '0'}
-                        onChange={(e) => setEstVal(e.target.value)}
                         required
+                        value={(Number(item?.estimatedValue) && item?.estimatedValue?.toLocaleString()) || ''}
+                        onChange={(e) => setEstVal(e.target.value)}
                       />
                     </Form.Group>
                   </Col>
@@ -270,7 +270,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                         Declared value* (must be $750 or greater)
                       </Form.Label>
                       <Form.Control
-                        value={(Number(item?.estimatedValue) && item?.estimatedValue?.toLocaleString()) || '0'}
+                        value={(Number(item?.estimatedValue) && item?.estimatedValue?.toLocaleString()) || ''}
                         onChange={(e) => setEstVal(e.target.value)}
                         required
                       />
