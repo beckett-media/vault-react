@@ -70,11 +70,9 @@ export const validateShippingAddress = (address) => {
         <Zip4/>
       </Address>
     </AddressValidateRequest>`;
-  return axios
-    .get('http://production.shippingapis.com/ShippingAPI.dll?API=Verify&XML=' + encodeURIComponent(xml), {
-      headers: { 'Content-Type': 'text/xml' },
-    })
-    .then((res) => res);
+  return axios.get('http://production.shippingapis.com/ShippingAPI.dll?API=Verify&XML=' + encodeURIComponent(xml), {
+    headers: { 'Content-Type': 'text/xml' },
+  });
 };
 
 export const getAdminUserGroups = (token) => {

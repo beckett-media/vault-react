@@ -18,7 +18,7 @@ const AddressEditModal = (props) => {
   useEffect(() => setError(undefined), [userState]);
   const [isEditing, setEditing] = useState(incompleteUserAddress);
   const [isLoading, setIsLoading] = useState(false);
-  console.log(error);
+
   const updateUserAddress = async () => {
     try {
       await validateShippingAddressUtil({
