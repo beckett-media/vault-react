@@ -13,6 +13,7 @@ import { formatPhoneNumber } from '../../utils/phone';
 import { useNavigate } from 'react-router-dom';
 import ChangePassword from '../SignIn/ChangePassword';
 import SubmitButton from '../../components/Generic/SubmitButton';
+import { validateShippingAddressUtil } from '../../utils/validateShippingAddressUtil';
 
 const Profile = () => {
   const authContext = useContext(AuthContext);
@@ -56,21 +57,15 @@ const Profile = () => {
       return setUpdateError('Phone number is required.');
     }
     try {
-      const res = await validateShippingAddress({
+      await validateShippingAddressUtil({
         address1: userState.shipAddressLine1,
         address2: userState.shipAddressLine2,
         city: userState.shipCity,
         state: userState.shipState,
         zipcode: userState.shipZipcode,
       });
-      var xmlParser = require('react-xml-parser');
-      const xml = new xmlParser().parseFromString(res.data);
-      if (xml.children[0].children[0].name === 'Error') {
-        return setUpdateError(xml.children[0].children[0].children[2].value);
-      }
     } catch (err) {
-      console.error(err);
-      return setUpdateError(err);
+      return setUpdateError(err.message);
     }
     if (userState.phone) {
       const phone = formatPhoneNumber(userState.phone);

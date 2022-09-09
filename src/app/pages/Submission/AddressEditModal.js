@@ -21,30 +21,26 @@ const AddressEditModal = (props) => {
   console.log(error);
   const updateUserAddress = async () => {
     try {
-      const res = await validateShippingAddress({
+      await validateShippingAddressUtil({
         address1: userState.shipAddressLine1,
         address2: userState.shipAddressLine2,
         city: userState.shipCity,
         state: userState.shipState,
         zipcode: userState.shipZipcode,
       });
-      var xmlParser = require('react-xml-parser');
-      const xml = new xmlParser().parseFromString(res.data);
-      if (xml.children[0].children[0].name === 'Error') {
-        setError(xml.children[0].children[0].children[2].value);
-      } else {
-        try {
-          setIsLoading(true);
-          await authContext.setAttributes(mapUserToCognito({ ...userState }));
-          onClose();
-        } catch (err) {
-          setError('Try again');
-        } finally {
-          setIsLoading(false);
-        }
+      try {
+        setIsLoading(true);
+        await authContext.setAttributes(mapUserToCognito({ ...userState }));
+        onClose();
+      } catch (err) {
+        // This is a cognito error.
+        setError('Try again');
+      } finally {
+        setIsLoading(false);
       }
     } catch (err) {
-      console.error(err);
+      // This is an address validation error from usps api.
+      setError(err.message);
     }
   };
 
