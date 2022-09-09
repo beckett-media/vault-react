@@ -1,5 +1,5 @@
 const config = {
-  collectCoverageFrom: ['./src/app/**/*.js', './src/*.js'],
+  collectCoverageFrom: ['./src/app/**/*.{js,jsx}', './src/*.{js,jsx}'],
   moduleNameMapper: {
     '^.+\\.(css|less|scss)$': '<rootDir>/config/CSSStub.js',
     '\\.(jpg|jpeg|png|svg)$': '<rootDir>/config/fileMock.js',
