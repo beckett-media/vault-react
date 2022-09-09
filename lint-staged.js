@@ -4,5 +4,5 @@ module.exports = {
   //     'react-scripts test --bail --watchAll=false --findRelatedTests --passWithNoTests',
   //     () => 'tsc-files --noEmit',
   //   ],
-  '*.{js,jsx,ts,tsx,json,css,js}': ['npm run format:write'],
+  '*.{js,jsx,ts,tsx,json,css,scss,js}': ['npm run format:write'],
 };
