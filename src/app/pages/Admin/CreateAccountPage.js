@@ -8,12 +8,14 @@ import { AuthContext } from '../../contexts/auth';
 import { defaultNewUser, requiredNewUserProperties, submitNewUser } from '../../services/user';
 import { hasRequiredProperties } from '../../utils/objects';
 import { formatPhoneNumber } from '../../utils/phone';
+import { Spinner } from 'react-bootstrap';
 
 const AdminCreateAccount = () => {
   const authContext = useContext(AuthContext);
   const [newUser, setNewUser] = useState(defaultNewUser);
   const [confirmPassword, setConfirmPassword] = React.useState('');
   const [error, setError] = React.useState(undefined);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const formatErrMessageFromBackend = (message) => {
@@ -24,6 +26,7 @@ const AdminCreateAccount = () => {
   };
 
   const submitSignUpForm = () => {
+    setIsLoading(true);
     setError('');
     try {
       const phone = formatPhoneNumber(newUser.phone);
@@ -45,6 +48,7 @@ const AdminCreateAccount = () => {
       }
     } catch (err) {
       setError(err.message);
+    } finally {
     }
   };
   return (
@@ -119,8 +123,15 @@ const AdminCreateAccount = () => {
             color={'black'}
             fontWeight={'bold'}
             _focus={{ boxShadow: 'none' }}
+            disabled={isLoading}
           >
-            Sign Up!
+            {isLoading ? (
+              <Spinner as='span' animation='border' role='status' aria-hidden='true'>
+                <span className='visually-hidden'>Loading...</span>
+              </Spinner>
+            ) : (
+              'Sign Up!'
+            )}
           </Button>
           <div>
             <Link to='/admin' className='signin_link'>
