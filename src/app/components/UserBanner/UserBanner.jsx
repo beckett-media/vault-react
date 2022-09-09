@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { Spinner } from 'react-bootstrap';
 import { AuthContext } from '../../contexts/auth';
 import { mapCognitoToUser } from '../../services/user';
 import Dropzone from 'react-dropzone-uploader';
@@ -17,6 +18,7 @@ import { mapUserToCognito } from '../../services/user';
 const UserBanner = ({ vaultedItems = 0, vaultedValue = 0, canEditImage = false }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [userId, setUserId] = useState();
+  const [isImageLoading, setIsImageLoading] = useState(true);
 
   const authContext = useContext(AuthContext);
   const userState = mapCognitoToUser(authContext.attrInfo);
@@ -24,8 +26,6 @@ const UserBanner = ({ vaultedItems = 0, vaultedValue = 0, canEditImage = false }
   useEffect(() => {
     setUserId(userState.sub);
   }, []);
-
-  const uploadImage = async (image) => {};
 
   const handleChangeStatus = async ({ meta, file }, status) => {
     setIsLoading(true);
@@ -40,19 +40,16 @@ const UserBanner = ({ vaultedItems = 0, vaultedValue = 0, canEditImage = false }
       };
 
       try {
-        uploadImageToS3(userId, image).then((resp) => {
-          authContext.setAttributes(mapUserToCognito({ ...userState, profile: resp.data.image_url }));
-        });
-      } catch {
-        (e) => console.log(e);
-      } finally {
+        const response = await uploadImageToS3(userId, image);
+        authContext.setAttributes(mapUserToCognito({ ...userState, profile: response.data.image_url }));
+        setIsLoading(false);
+      } catch (e) {
+        console.log(e);
+        setIsLoading(false);
       }
     } else if (status === 'removed') {
       onFileChange(null);
     }
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
   };
 
   const bannerDetails = vaultedItems ? (
@@ -108,7 +105,19 @@ const UserBanner = ({ vaultedItems = 0, vaultedValue = 0, canEditImage = false }
                   )}
                 </div>
               )}
-              <img className='user-banner_image' src={userState.profile || require('../../assets/stockImage.jpeg')} />
+
+              <img
+                onLoad={() => setIsImageLoading(false)}
+                className={`user-banner_image ${isImageLoading && 'd-none'}`}
+                src={userState.profile || require('../../assets/stockImage.jpeg')}
+              />
+              <Spinner
+                animation='border'
+                role='status'
+                className={`item-card_spinner w-100 h-100 ${!isImageLoading && 'd-none'}`}
+              >
+                <span className='visually-hidden'>Loading...</span>
+              </Spinner>
             </div>
             {bannerDetails}
           </div>
