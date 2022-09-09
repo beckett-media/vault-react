@@ -51,7 +51,8 @@
   &link {
     transition: all 0.2s ease-in-out;
 
-    & a:hover {}
+    & a:hover {
+    }
 
     &--active {
       color: var(--primary);
@@ -98,7 +99,8 @@
       height: 32px;
       border-radius: 100%;
 
-      &-icon {}
+      &-icon {
+      }
     }
 
     &:hover .nav_user-dropdown-list {
@@ -157,29 +159,28 @@
       display: none;
     }
 
-    &checkbox:checked~&bg {
+    &checkbox:checked ~ &bg {
       transform: scale(80);
     }
 
-    &checkbox:checked~&menu {
+    &checkbox:checked ~ &menu {
       visibility: visible;
       opacity: 1;
     }
 
-    &checkbox:checked+label &hamburger::before {
+    &checkbox:checked + label &hamburger::before {
       transform: rotate(43deg);
     }
 
-    &checkbox:checked+label &hamburger::after {
+    &checkbox:checked + label &hamburger::after {
       transform: rotate(-43deg);
     }
 
-    &checkbox:checked+label &hamburger {
+    &checkbox:checked + label &hamburger {
       background-color: transparent;
     }
 
     &hamburger {
-
       &,
       &::after,
       &::before {
