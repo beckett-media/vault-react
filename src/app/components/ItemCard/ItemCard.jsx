@@ -4,10 +4,13 @@ import { Link } from 'react-router-dom';
 
 import './ItemCard.scss';
 
-import { ReactComponent as EmptyImage } from '../../assets/beckett-card-placeholder--gray.svg';
+import StatusTracker from '../StatusTracker/StatusTracker';
+
 import { getImageAssetUrl } from '../../utils/image';
 import { formatPrice } from '../../utils/strings';
-import { getVaultingTitle } from '../../utils/vaulting';
+import { ReactComponent as EmptyImage } from '../../assets/beckett-card-placeholder--gray.svg';
+import { SUBMISSION_STATUS } from '../../services/submission';
+import { getTitle } from '../../utils/vaulting';
 
 const ItemCard = ({ item, shouldLink = true, belongsToUser }, props) => {
   const [isImageLoading, setIsImageLoading] = useState(true);
@@ -16,11 +19,36 @@ const ItemCard = ({ item, shouldLink = true, belongsToUser }, props) => {
 
   const imageUrl = getImageAssetUrl(item.image_url);
 
+  const isVaulted = item.status === SUBMISSION_STATUS.Vaulted;
+
+  const convertStatusToSteps = (status) => {
+    if (status === SUBMISSION_STATUS.Submitted) {
+      return 1;
+    } else if (status === SUBMISSION_STATUS.Received) {
+      return 2;
+    } else if (status === SUBMISSION_STATUS.Approved) {
+      return 3;
+    } else if (status === SUBMISSION_STATUS.Vaulted) {
+      return 4;
+    } else if (status === SUBMISSION_STATUS.Rejected) {
+      return 0;
+    } else {
+      return null;
+    }
+  };
+
+  const cardNumber = item.card_number ? '#' + item.card_number : '';
   return (
     <div className={`item-card_component`}>
       <div className='item-card_layout'>
-        <Link to={link}>
+        <Link to={isVaulted ? link : '/my-collection'}>
           <div className='item-card_image-wrapper'>
+            {!isVaulted && (
+              <div className='item-card_pending-overlay'>
+                <div className='mb-1'>Status: {item.status_desc ? item.status_desc : 'Error retrieving status'}</div>
+                <StatusTracker totalSteps={4} currentStep={convertStatusToSteps(item.status)}></StatusTracker>
+              </div>
+            )}
             {imageUrl ? (
               <>
                 <Spinner
@@ -42,7 +70,7 @@ const ItemCard = ({ item, shouldLink = true, belongsToUser }, props) => {
             )}
           </div>
           <div className='item-card_content-wrapper'>
-            <div className='item-card_category'>{getVaultingTitle(item)}</div>
+            <div className='item-card_category'>{getTitle(item, 'submission')}</div>
             {!belongsToUser && <div className='item-card_price'>{formatPrice(+price)}</div>}
             {/* <div className='item-card_title ellipses_wrapper'>
               <span className='ellipses_child'>{item.title}</span>
