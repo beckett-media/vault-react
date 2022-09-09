@@ -42,8 +42,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "format:check": "prettier --check 'src/**/*.{js,jsx,ts,tsx,json,yaml,yml,md}'",
-    "format:write": "prettier --write 'src/**/*.{js,jsx,ts,tsx,json,yaml,yml,md}'",
+    "format:check": "prettier --check 'src/**/*.{js,jsx,ts,tsx,json,yaml,yml,md,css,scss}'",
+    "format:write": "prettier --write 'src/**/*.{js,jsx,ts,tsx,json,yaml,yml,md,css,scss}'",
     "lint-staged": "lint-staged --config lint-staged.js",
     "prepare": "husky install",
     "jest": "jest --coverage --env=jsdom"
