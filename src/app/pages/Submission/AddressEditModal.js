@@ -86,12 +86,14 @@ const AddressEditModal = (props) => {
         />
         <Form.Label>State</Form.Label>
         <Form.Select
-          placeholder='State'
           required
           value={userState.shipState}
           className='state-select'
           onChange={(e) => setUserState({ ...userState, shipState: e.target.value })}
         >
+          <option disabled selected>
+            - Select -
+          </option>
           {states.map((option) => (
             <option key={option} value={option}>
               {option}

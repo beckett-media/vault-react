@@ -1,22 +1,23 @@
 import React, { useState } from 'react';
-import { ButtonGroup, Pagination, ToggleButton, Button, Form } from 'react-bootstrap';
+import { Button, ButtonGroup, Form, Pagination, ToggleButton } from 'react-bootstrap';
+import { BsCheck, BsGrid3X2GapFill, BsList } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
-import { BsGrid3X2GapFill, BsList, BsCheck } from 'react-icons/bs';
 
 import './CollectionGallery.scss';
 
+import EmptySearch from '../EmptySearch/EmptySearch';
+import SubmitButton from '../Generic/SubmitButton';
 import ItemCard from '../ItemCard/ItemCard';
 import ListItem from '../ListItem/ListItem';
-import SubmitButton from '../Generic/SubmitButton';
 import SearchBar from '../SearchBar/SearchBar';
-import EmptySearch from '../EmptySearch/EmptySearch';
 
-import { useToggle } from '../../hooks/useToggle';
+import { filterOptions, sortOptions } from '../../const/collectionSortAndFilter';
+import { SUBJECT } from '../../const/FiltersEnums';
 import { useMultiSelect } from '../../hooks/useMultiSelect';
 import { usePagination } from '../../hooks/usePagination';
-import { SUBJECT } from '../../const/FiltersEnums';
+import { useToggle } from '../../hooks/useToggle';
 import { ASC, DESC, sortByAttribute } from '../../utils/sort';
-import { filterOptions, sortOptions } from '../../const/collectionSortAndFilter';
+import { SUBMISSION_STATUS } from '../../services/submission';
 
 const CollectionGallery = ({ data }) => {
   //  SEARCH & FILTRATION
@@ -122,21 +123,21 @@ const CollectionGallery = ({ data }) => {
                     <div>Item</div>
                     <div>Details</div>
                     <div>Grade</div>
-                    <div>Price</div>
+                    <div className='collection_list-item-layout_right-heading'>Price</div>
                   </div>
                 )}
-                {(searchVal ? sortedItems : updatePage(sortedItems, activePage))?.map((item, index) => (
-                  <div key={'collection-gallery_' + index}>
-                    {isListVisible ? (
-                      <ListItem item={item} />
-                    ) : (
-                      <div
-                        className={`collection-gallery_card-wrapper ${
-                          isSelected(item.id) && 'collection-gallery_card-selected'
-                        }`}
-                        key={'collection-gallery_' + index}
-                      >
-                        <div className='collection-gallery_card-overlay'></div>
+                {(searchVal ? sortedItems : updatePage(sortedItems, activePage))?.map((item, index) =>
+                  isListVisible ? (
+                    <ListItem item={item} key={'collection-gallery_' + index} />
+                  ) : (
+                    <div
+                      className={`collection-gallery_card-wrapper ${
+                        isSelected(item.id) && 'collection-gallery_card-selected'
+                      }`}
+                      key={'collection-gallery_' + index}
+                    >
+                      <div className='collection-gallery_card-overlay'></div>
+                      {item.status === SUBMISSION_STATUS.vaulted && (
                         <div
                           className={`collection-gallery_overlay-button ${
                             isSelected(item.id) && 'collection-gallery_overlay-button-selected'
@@ -153,11 +154,11 @@ const CollectionGallery = ({ data }) => {
                             onChange={(e) => handleItemSelection(e.currentTarget.checked, item.id)}
                           />
                         </div>
-                        <ItemCard item={item} belongsToUser={true} />
-                      </div>
-                    )}
-                  </div>
-                ))}
+                      )}
+                      <ItemCard item={item} belongsToUser={true} />
+                    </div>
+                  ),
+                )}
               </div>
             )}
           </div>

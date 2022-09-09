@@ -5,7 +5,6 @@ import { mapCognitoToUser, mapUserToCognito, validateShippingAddress } from '../
 import './Profile.scss';
 
 import UserBanner from '../../components/UserBanner/UserBanner';
-import ImageUploader from '../../components/ImageUpload/ImageUploader';
 import FormSection from '../../components/Layout/FormSection/FormSection';
 
 import { AuthContext } from '../../contexts/auth';
@@ -103,11 +102,10 @@ const Profile = () => {
 
   return (
     <div className='page-wrapper'>
-      <UserBanner />
+      <UserBanner canEditImage={true} />
       {!loadingModal && (
         <FormSection title={'Contact Info'}>
           <>
-            {/* <ImageUploader heading='Update profile image' /> */}
             <Form className='profile_form' noValidate>
               <Card bg='Light' text='dark'>
                 <Card.Body>
