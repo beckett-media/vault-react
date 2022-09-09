@@ -1,3 +1,5 @@
+import React from 'react';
+
 export const privacyPolicy = {
   title: 'Privacy Policy',
   sectionTitles: ['I. Purpose', 'II. Definitions', 'III. Information Collection and Use'],
