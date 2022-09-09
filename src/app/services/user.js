@@ -53,6 +53,10 @@ export const mapUserToCognito = (user) => {
     .filter((v) => v);
 };
 
+export const isIncompleteAddress = (user) => {
+  return !(user.shipAddressLine1 && user.shipCity && user.shipState && user.shipZipcode);
+};
+
 export const getAdminUserGroups = (token) => {
   return axiosClient
     .get(`/auth/admin`, {
@@ -75,4 +79,11 @@ export const submitNewUser = async (newUser, authContext) => {
       newUser.lastName,
     )
     .then((res) => res);
+};
+
+// To do: finish profile upload functions
+export const uploadImageToS3 = async (uuid, body) => {
+  return axiosClient.post(`/user/${uuid}/image`, body).then((res) => {
+    return res;
+  });
 };

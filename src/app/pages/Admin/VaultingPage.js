@@ -5,6 +5,7 @@ import VaultingItem from './VaultingItem';
 
 const VaultingPage = () => {
   const [items, setItems] = useState([]);
+
   useEffect(() => {
     const fetch = () => {
       fetchItems().then((data) => {

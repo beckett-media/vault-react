@@ -23,7 +23,7 @@ const ProductInfo = ({ isOwner, item, addToCart }) => {
     if (item.name !== name) {
       updateItemDetails({ ...item, title: name });
     }
-    createItemListing({ vaulting_id: item.id, user: userState.sub, price: price }).then((res) => console.log(res.data));
+    createItemListing({ vaulting_id: item.id, user: userState.sub, price: price });
   };
 
   useEffect(() => {
