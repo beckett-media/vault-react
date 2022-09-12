@@ -1,0 +1,62 @@
+.admin-page_ {
+  &content {
+    padding: 42px 8px;
+    background-color: var(--gray-50);
+  }
+
+  &section- {
+    &search {
+      padding-bottom: 24px;
+    }
+
+    &table {
+    }
+  }
+
+  &search- {
+    &wrapper {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    &heading {
+      font-size: 28px;
+      line-height: 38px;
+      font-weight: 600;
+    }
+
+    &bar-wrapper {
+    }
+  }
+
+  &batch-actions- {
+    &wrapper {
+      display: flex;
+      margin-bottom: 12px;
+      gap: 12px;
+    }
+
+    &select {
+      width: fit-content;
+    }
+  }
+
+  &table- {
+    &wrapper {
+      font-size: 14px;
+    }
+
+    &row {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 16px 0.16fr 0.2fr 0.8fr 0.25fr 0.32fr 0.25fr;
+      align-items: center;
+
+      &--header {
+        font-weight: 500;
+      }
+    }
+  }
+}

@@ -33,6 +33,7 @@ import InterestForm from './app/pages/InterestForm/InterestForm';
 import ComingSoon from './app/pages/ComingSoon/ComingSoon';
 import FooterModal from './app/components/FooterModal/FooterModal';
 import ErrorBoundary from './ErrorBoundary';
+import NewAdmingPage from './app/pages/Admin/NewAdmingPage';
 
 // chakra uses a default theme, this will remove it.
 const emptyChakraTheme = extendTheme({
@@ -76,6 +77,8 @@ function App() {
                     {/* <Route path='/' element={<Homepage />} /> */}
                     <Route path='/' element={<RedirectHome />} />
                   </Route>
+
+                  <Route path='/new-admin' element={<NewAdmingPage />} />
                   <Route path='/admin' element={<AdminRoute />}>
                     <Route exact path='' element={<AdminPage />} />
                     <Route exact path='submission/edit/:submissionId' element={<AdminEditSubmissionPage />} />
