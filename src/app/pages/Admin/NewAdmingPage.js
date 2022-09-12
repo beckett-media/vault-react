@@ -1,7 +1,7 @@
 import React from 'react';
 import DefaultPage from '../../components/Layout/DefaultPage/DefaultPage';
 import { ListGroup, Button, Form } from 'react-bootstrap';
-import { BsPencil } from 'react-icons/bs';
+import { ReactComponent as PencilIcon } from '../../assets/pencil-icon.svg';
 
 import './AdminPage.scss';
 
@@ -46,19 +46,15 @@ const NewAdmingPage = () => {
                     <Form.Check></Form.Check>
                     <div className='d-flex gap-1 align-items-center'>
                       <span>img</span>
-                      <BsPencil />
+                      <PencilIcon />
                     </div>
                     <div className='d-flex gap-1 align-items-center'>
-                      <div className='ellipses_wrapper'>
-                        <div className='ellipses_child'>0123456789</div>
-                      </div>
-                      <BsPencil />
+                      0123456789
+                      <PencilIcon />
                     </div>
                     <div className='d-flex gap-1 align-items-center'>
-                      <div className='ellipses_wrapper'>
-                        <div className='ellipses_child'>1969 Topps #230 Tom Seaver Baseball BGS 9 $750</div>
-                      </div>
-                      <BsPencil />
+                      1969 Topps #230 Tom Seaver Baseball BGS 9 $750
+                      <PencilIcon />
                     </div>
                     <div>
                       <Form.Select>
@@ -66,17 +62,11 @@ const NewAdmingPage = () => {
                       </Form.Select>
                     </div>
                     <div className='d-flex gap-1 align-items-center'>
-                      <div className='ellipses_wrapper'>
-                        <div className='ellipses_child'>Unassigned</div>
-                      </div>
-                      <BsPencil />
+                      Unassigned
+                      <PencilIcon />
                     </div>
                     <div>
-                      <div className='ellipses_wrapper'>
-                        <div className='ellipses_child'>
-                          <Button className='w-100'>Assign</Button>
-                        </div>
-                      </div>
+                      <Button className='w-100'>Assign</Button>
                     </div>
                   </ListGroup.Item>
                 </ListGroup>
