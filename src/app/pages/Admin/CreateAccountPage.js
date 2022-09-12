@@ -111,7 +111,11 @@ const AdminCreateAccount = () => {
             value={newUser.password}
             onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
           />
-          <NewPasswordField value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+          <PasswordField
+            placeholder='Confirm password *'
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
           {/* TODO: move the CSS below into the style sheet */}
           <Button
             onClick={() => {

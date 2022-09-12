@@ -42,7 +42,7 @@ export const PasswordField = React.forwardRef((props, ref) => {
         </InputRightElement>
         <Input
           h={12}
-          placeholder='Password *'
+          placeholder={props.placeholder ? props.placeholder : 'Password *'}
           id='password'
           ref={mergeRef}
           name='password'
