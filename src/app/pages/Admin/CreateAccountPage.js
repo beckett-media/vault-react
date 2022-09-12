@@ -26,16 +26,16 @@ const AdminCreateAccount = () => {
   };
 
   const submitSignUpForm = () => {
-    setIsLoading(true);
     setError('');
-    try {
-      const phone = formatPhoneNumber(newUser.phone);
-      if (newUser.password != confirmPassword) {
-        setError('Passwords must match');
-      } else if (!hasRequiredProperties(newUser, requiredNewUserProperties)) {
-        setError('all Fields are required');
-      } else {
-        submitNewUser({ ...newUser, phone: phone }, authContext).then(
+    const phone = formatPhoneNumber(newUser.phone);
+    if (newUser.password != confirmPassword) {
+      setError('Passwords must match');
+    } else if (!hasRequiredProperties(newUser, requiredNewUserProperties)) {
+      setError('all Fields are required');
+    } else {
+      setIsLoading(true);
+      submitNewUser({ ...newUser, phone: phone }, authContext)
+        .then(
           (res) => {
             if (res?.user?.username) {
               navigate('/signin', { msg: 'Check your email to verify your account, then login' });
@@ -44,11 +44,13 @@ const AdminCreateAccount = () => {
           (err) => {
             setError(formatErrMessageFromBackend(err.message));
           },
-        );
-      }
-    } catch (err) {
-      setError(err.message);
-    } finally {
+        )
+        .catch((err) => {
+          setError(err.message);
+          console.log(err.message);
+          setIsLoading(false);
+        })
+        .finally(() => setIsLoading(false));
     }
   };
   return (
