@@ -60,7 +60,7 @@ export const isIncompleteAddress = (user) => {
 
 export const validateShippingAddress = (address) => {
   const xml = `
-    <AddressValidateRequest USERID="831BECKE1073">
+    <AddressValidateRequest USERID="${process.env.USPS_API_USERID}">
       <Address ID="0">
         <Address1>${address.address1}</Address1>
         ${address.address2 ? `<Address2>${address.address2}</Address2>` : '<Address2/>'}
