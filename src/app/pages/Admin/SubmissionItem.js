@@ -34,7 +34,6 @@ function SubmissionItem({ onApprove, onReject, onConfimReceipt, item }) {
         </p>
       </Row>
       <div className='mt-4'>
-        {console.log(item)}
         <SubmitButton
           func={() => onConfimReceipt()}
           title='Confirm receipt'
