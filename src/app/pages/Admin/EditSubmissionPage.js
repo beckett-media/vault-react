@@ -7,6 +7,7 @@ import { ITEM_TYPE } from '../../services/items';
 import { extractUpdatedParts } from '../../utils/submissions';
 import { validURL } from '../../utils/validationRegex';
 import InventoryLocationForm from '../../components/InventoryLocationForm/InventoryLocationForm';
+import EditImageRow from './EditImageRow';
 
 function AdminEditSubmissionPage() {
   const { submissionId } = useParams();
@@ -297,6 +298,7 @@ function AdminEditSubmissionPage() {
             </Col>
           </Row>
           <div className='submission_divider'></div>
+          <EditImageRow />
           <Row className='submission_form-section'>
             <div className='submission_form-button-wrapper'>
               <Button
