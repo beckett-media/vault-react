@@ -1,7 +1,7 @@
 import React from 'react';
 import { ListGroup, Button } from 'react-bootstrap';
 
-const AdminRowExpanded = ({ children, onCancel }) => {
+const AdminRowExpanded = ({ children, onCancel, onSave }) => {
   return (
     <ListGroup.Item className='admin-page_expanded-row'>
       <div className='admin-page_expanded-row-content'>{children}</div>
@@ -10,7 +10,7 @@ const AdminRowExpanded = ({ children, onCancel }) => {
         <Button variant='outline-primary' onClick={() => onCancel()}>
           Cancel
         </Button>
-        <Button>Save & Exit</Button>
+        <Button onClick={() => onSave()}>Save & Exit</Button>
       </div>
     </ListGroup.Item>
   );
