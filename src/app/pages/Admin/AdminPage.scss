@@ -59,4 +59,19 @@
       }
     }
   }
+
+  &expanded-row {
+    &-content {
+      padding: 8px 0;
+      padding-bottom: 16px;
+    }
+
+    &-buttons {
+      display: flex;
+      justify-content: end;
+      gap: 12px;
+      padding: 8px 0;
+      padding-top: 16px;
+    }
+  }
 }
