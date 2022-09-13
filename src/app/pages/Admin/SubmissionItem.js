@@ -11,7 +11,8 @@ function SubmissionItem({ onApprove, onReject, onConfimReceipt, item }) {
   const shouldDisableConfirmReceiptButton =
     item.status === SUBMISSION_STATUS.Received ||
     item.status === SUBMISSION_STATUS.Approved ||
-    item.status === SUBMISSION_STATUS.Rejected;
+    item.status === SUBMISSION_STATUS.Rejected ||
+    item.status === SUBMISSION_STATUS.Vaulted;
   const shouldEnableApproveButton =
     item.status === SUBMISSION_STATUS.Received || item.status === SUBMISSION_STATUS.Rejected;
   const shouldEnableRejectButton = item.status === SUBMISSION_STATUS.Approved;
