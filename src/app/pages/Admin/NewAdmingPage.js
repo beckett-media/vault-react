@@ -1,6 +1,10 @@
 import React from 'react';
 import DefaultPage from '../../components/Layout/DefaultPage/DefaultPage';
 import { ListGroup, Button, Form } from 'react-bootstrap';
+
+import InventoryLocationForm from '../../components/InventoryLocationForm/InventoryLocationForm';
+import AdminRow from './AdminRow';
+
 import { ReactComponent as PencilIcon } from '../../assets/pencil-icon.svg';
 
 import './AdminPage.scss';
@@ -69,6 +73,20 @@ const NewAdmingPage = () => {
                       <Button className='w-100'>Assign</Button>
                     </div>
                   </ListGroup.Item>
+                  <ListGroup.Item className='admin-page_expanded-row'>
+                    <div className='admin-page_expanded-row-content'>
+                      <InventoryLocationForm></InventoryLocationForm>
+                    </div>
+                    <div className='divider--grey'></div>
+                    <div className='admin-page_expanded-row-buttons'>
+                      <Button variant='outline-primary'>Cancel</Button>
+                      <Button>Save & Exit</Button>
+                    </div>
+                  </ListGroup.Item>
+                  <AdminRow />
+                  <AdminRow />
+                  <AdminRow />
+                  <AdminRow />
                 </ListGroup>
               </div>
             </div>
