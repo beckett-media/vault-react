@@ -231,7 +231,7 @@ const SignIn = () => {
                   </div>
                 </>
               )}
-              <Checkbox marginTop='12px' alignSelf='start' size='sm' colorScheme='gray' className='signin_checkbox'>
+              <Checkbox marginTop='9px' alignSelf='start' size='sm' colorScheme='gray' className='signin_checkbox'>
                 Remember me
               </Checkbox>
             </>

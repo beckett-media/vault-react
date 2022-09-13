@@ -106,8 +106,8 @@ const SignUp = () => {
             value={newUser.password}
             onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
           />
-          <NewPasswordField
-            label='Confirm Password'
+          <PasswordField
+            placeholder='Confirm password *'
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
