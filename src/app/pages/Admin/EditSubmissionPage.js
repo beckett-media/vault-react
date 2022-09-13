@@ -298,7 +298,6 @@ function AdminEditSubmissionPage() {
             </Col>
           </Row>
           <div className='submission_divider'></div>
-          <EditImageRow />
           <Row className='submission_form-section'>
             <div className='submission_form-button-wrapper'>
               <Button

@@ -3,7 +3,7 @@ import React from 'react';
 import { Image, Row } from 'react-bootstrap';
 import { TiDelete } from 'react-icons/ti';
 
-const EditImageRow = (img, imgRev) => {
+const EditImageRow = ({ img, imgRev }) => {
   return (
     <Row>
       <Column>
