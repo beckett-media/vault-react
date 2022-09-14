@@ -11,9 +11,13 @@ import { AdminPageContext } from '../../contexts/adminPage';
 const debounceLimit = 800; // 800ms
 
 const querySubmissionApi = (query) => {
-  return getSubmissions({
-    submissionOrderIds: [query],
-  });
+  return query
+    ? getSubmissions({
+        submissionOrderIds: [query],
+      })
+    : new Promise(function (resolve) {
+        resolve([]);
+      });
 };
 
 function SubmissionSearch() {
