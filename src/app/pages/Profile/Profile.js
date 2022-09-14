@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Row, Col, Card, Form, Button, Modal, Spinner, CloseButton } from 'react-bootstrap';
 import { mapCognitoToUser, mapUserToCognito } from '../../services/user';
 
@@ -12,6 +12,7 @@ import { formatPhoneNumber } from '../../utils/phone';
 import { useNavigate } from 'react-router-dom';
 import ChangePassword from '../SignIn/ChangePassword';
 import SubmitButton from '../../components/Generic/SubmitButton';
+import { validateAddress } from '../../utils/validateAddress';
 
 const Profile = () => {
   const authContext = useContext(AuthContext);
@@ -40,7 +41,11 @@ const Profile = () => {
 
     updateUserState(syncedAddresses);
   };
-
+  useEffect(() => {
+    if (updateError !== undefined) {
+      setLoadingModal(false);
+    }
+  }, [updateError]);
   const submitUpdateUser = async () => {
     let updatedUser;
     setLoadingModal(true);
@@ -49,6 +54,17 @@ const Profile = () => {
     }
     if (!userState.phone.length) {
       return setUpdateError('Phone number is required.');
+    }
+    try {
+      await validateAddress({
+        address1: userState.shipAddressLine1,
+        address2: userState.shipAddressLine2,
+        city: userState.shipCity,
+        state: userState.shipState,
+        zipcode: userState.shipZipcode,
+      });
+    } catch (err) {
+      return setUpdateError(err.message);
     }
     if (userState.phone) {
       const phone = formatPhoneNumber(userState.phone);
