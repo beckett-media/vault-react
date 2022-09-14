@@ -1,24 +1,21 @@
 import React from 'react';
-import { Row } from 'react-bootstrap';
-import { Outlet, useNavigate } from 'react-router-dom';
-import SubmitButton from '../../components/Generic/SubmitButton';
+import { Button } from 'react-bootstrap';
+import { Outlet, Link } from 'react-router-dom';
 
 const AdminPage = () => {
-  const navigate = useNavigate();
-  const handleOpenSubmissionsClick = () => {
-    navigate('/admin/submission');
-  };
-
-  const handleOpenVaultingClick = () => {
-    navigate('/admin/vaulting');
-  };
-
   return (
     <div className='page-wrapper'>
-      <Row>
-        <SubmitButton bg='link' func={handleOpenSubmissionsClick} title='Submissions' />
-        <SubmitButton bg='link' func={handleOpenVaultingClick} title='Vaulting' />
-      </Row>
+      <div className='d-flex flex-column align-items-center'>
+        <Link to='/admin/submission'>
+          <Button variant='link'>Submissions</Button>
+        </Link>
+        <Link to='/admin/vaulting'>
+          <Button variant='link'>Vaulting</Button>
+        </Link>
+        <Link to='/admin/create-account'>
+          <Button variant='link'>Create User Account</Button>
+        </Link>
+      </div>
       <div>
         <Outlet />
       </div>

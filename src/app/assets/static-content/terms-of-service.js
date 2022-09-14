@@ -1,3 +1,5 @@
+import React from 'react';
+
 export const termsOfService = {
   title: 'Terms of Service',
   sectionTitles: ['', ''],

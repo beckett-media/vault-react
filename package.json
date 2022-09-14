@@ -88,21 +88,6 @@
     "tsc-files": "^1.1.3"
   },
   "homepage": "/",
-  "jest": {
-    "collectCoverageFrom": [
-      "./src/app/**",
-      "./src/*.js"
-    ],
-    "moduleNameMapper": {
-      "^.+\\.(css|less|scss)$": "<rootDir>/config/CSSStub.js",
-      "\\.(jpg|jpeg|png|svg)$": "<rootDir>/config/fileMock.js"
-    },
-    "coverageThreshold": {
-      "global": {
-        "lines": 0
-      }
-    }
-  },
   "engines": {
     "node": "16.x"
   }
