@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Row, Col, Card, Form, Button, Modal, Spinner, CloseButton } from 'react-bootstrap';
-import { mapCognitoToUser, mapUserToCognito, validateShippingAddress } from '../../services/user';
+import { mapCognitoToUser, mapUserToCognito } from '../../services/user';
 
 import './Profile.scss';
 
@@ -12,7 +12,7 @@ import { formatPhoneNumber } from '../../utils/phone';
 import { useNavigate } from 'react-router-dom';
 import ChangePassword from '../SignIn/ChangePassword';
 import SubmitButton from '../../components/Generic/SubmitButton';
-import { validateShippingAddressUtil } from '../../utils/validateShippingAddressUtil';
+import { validateAddress } from '../../utils/validateAddress';
 
 const Profile = () => {
   const authContext = useContext(AuthContext);
@@ -56,7 +56,7 @@ const Profile = () => {
       return setUpdateError('Phone number is required.');
     }
     try {
-      await validateShippingAddressUtil({
+      await validateAddress({
         address1: userState.shipAddressLine1,
         address2: userState.shipAddressLine2,
         city: userState.shipCity,

@@ -58,23 +58,6 @@ export const isIncompleteAddress = (user) => {
   return !(user.shipAddressLine1 && user.shipCity && user.shipState && user.shipZipcode);
 };
 
-export const validateShippingAddress = (address) => {
-  const xml = `
-    <AddressValidateRequest USERID="${process.env.USPS_API_USERID}">
-      <Address ID="0">
-        <Address1>${address.address1}</Address1>
-        ${address.address2 ? `<Address2>${address.address2}</Address2>` : '<Address2/>'}
-        <City>${address.city}</City>
-        <State>${address.state}</State>
-        <Zip5>${address.zipcode}</Zip5>
-        <Zip4/>
-      </Address>
-    </AddressValidateRequest>`;
-  return axios.get('http://production.shippingapis.com/ShippingAPI.dll?API=Verify&XML=' + encodeURIComponent(xml), {
-    headers: { 'Content-Type': 'text/xml' },
-  });
-};
-
 export const getAdminUserGroups = (token) => {
   return axiosClient
     .get(`/auth/admin`, {

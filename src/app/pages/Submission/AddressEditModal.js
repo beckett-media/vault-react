@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { AuthContext } from '../../contexts/auth';
-import { isIncompleteAddress, mapCognitoToUser, mapUserToCognito, validateShippingAddress } from '../../services/user';
+import { isIncompleteAddress, mapCognitoToUser, mapUserToCognito } from '../../services/user';
 import { states } from '../../const/states';
 import './Submission.scss';
 import { useNavigate } from 'react-router-dom';
@@ -21,7 +21,7 @@ const AddressEditModal = (props) => {
 
   const updateUserAddress = async () => {
     try {
-      await validateShippingAddressUtil({
+      await validateAddress({
         address1: userState.shipAddressLine1,
         address2: userState.shipAddressLine2,
         city: userState.shipCity,
