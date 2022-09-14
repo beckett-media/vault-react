@@ -8,6 +8,10 @@ import { ReactComponent as PencilIcon } from '../../assets/pencil-icon.svg';
 
 const AdminRow = () => {
   const [isEditing, setIsEditing] = useState('');
+  const [locationSubmit, setLocationSubmit] = useState();
+  const [idSubmit, setIdSubmit] = useState();
+  const [imageSubmit, setImageSubmit] = useState();
+  const [detailsSubmit, setDetailsSubmit] = useState();
 
   const adminRowSection = {
     location: 'location',
@@ -20,7 +24,7 @@ const AdminRow = () => {
     console.log(editSection);
     switch (editSection) {
       case editSection === adminRowSection.location:
-        console.log('location');
+        locationSubmit();
       case editSection === adminRowSection.id:
         console.log('id');
       case editSection === adminRowSection.image:
@@ -65,7 +69,7 @@ const AdminRow = () => {
           onSave={() => returnSaveFunction(isEditing)}
           className='text-body'
         >
-          {isEditing === adminRowSection.location && <LocationRow />}
+          {isEditing === adminRowSection.location && <LocationRow returnLocationSubmit={setLocationSubmit} />}
           {isEditing === adminRowSection.id && <>Edit ID</>}
           {isEditing === adminRowSection.details && <>Edit details</>}
           {isEditing === adminRowSection.image && <>Edit image</>}
