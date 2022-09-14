@@ -17,6 +17,7 @@ const AdminRow = () => {
   };
 
   const returnSaveFunction = (editSection) => {
+    console.log(editSection);
     switch (editSection) {
       case editSection === adminRowSection.location:
         console.log('location');
