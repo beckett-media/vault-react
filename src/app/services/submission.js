@@ -23,14 +23,30 @@ export const updateSubmission = async (id, item) => {
   });
 };
 
-export const getSubmissions = async ({ user, status, offset, limit, order } = {}) => {
+export const getSubmissions = async ({
+  submissionIds,
+  submissionOrderIds,
+  userUuids,
+  status,
+  offset,
+  limit,
+  order,
+} = {}) => {
   const params = {
-    user,
+    user_uuids: (userUuids || []).join(','),
+    submission_ids: (submissionIds || []).join(','),
+    submission_order_ids: (submissionOrderIds || []).join(','),
     status,
     offset,
     limit,
     order,
   };
+
+  for (const key of Object.keys(params)) {
+    if (!params[key]) {
+      delete params[key];
+    }
+  }
 
   return axiosClient
     .get(`/marketplace/submission`, {

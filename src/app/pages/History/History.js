@@ -33,7 +33,7 @@ const History = () => {
         setFilteredItems(res.data);
       }
     });
-    getSubmissions({ user: userState.sub }).then((res) => {
+    getSubmissions({ userUuids: [userState.sub] }).then((res) => {
       setSubmissions(res);
     });
     getListings({ user: userState.sub }).then((res) => {
