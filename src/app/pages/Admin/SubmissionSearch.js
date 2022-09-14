@@ -24,7 +24,6 @@ function SubmissionSearch() {
 
   const handleInputChange = React.useCallback(
     (e) => {
-      e.persist(); // https://fb.me/react-event-pooling
       debouncedSearch(e.target.value);
     },
     [debouncedSearch],
