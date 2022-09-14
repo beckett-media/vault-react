@@ -19,7 +19,7 @@ const SearchBar = ({ searchVal, onChange, setFilterBy, filterOptions }) => {
         className='mb-0 search-bar_input'
         type='search'
         placeholder='Search'
-        // value={searchVal}
+        value={searchVal}
         onChange={onChange}
       ></Form.Control>
       <Button className='search-bar_button'>
