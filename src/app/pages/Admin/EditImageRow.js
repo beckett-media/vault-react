@@ -11,9 +11,11 @@ const EditImageRow = ({ img, imgRev }) => {
       <Col>
         <div>Front Image</div>
         <Input placeholder='- Front -' value={tempImg} onChange={(e) => setTempImg(e.target.value)} />
-        <div>
-          <TiDelete />
-        </div>
+        {img && (
+          <div>
+            <TiDelete />
+          </div>
+        )}
         <Image href={img} />
         <div>
           <span>{imgRev.split('/')[-1]}</span>
@@ -22,9 +24,11 @@ const EditImageRow = ({ img, imgRev }) => {
       <Col>
         <div>Back Image</div>
         <Input placeholder='- Reverse -' value={tempImgRev} onChange={(e) => setTempImgRev(e.target.value)} />
-        <div>
-          <TiDelete />
-        </div>
+        {imgRev && (
+          <div>
+            <TiDelete />
+          </div>
+        )}
         <Image href={imgRev} />
         <div>
           <span>{imgRev.split('/')[-1]}</span>

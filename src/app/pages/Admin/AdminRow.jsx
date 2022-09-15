@@ -30,9 +30,9 @@ const AdminRow = () => {
       case editSection === adminRowSection.id:
         console.log('id');
       case editSection === adminRowSection.image:
-        console.log('image');
+        imageSubmit();
       case editSection === adminRowSection.details:
-        console.log('details');
+        detailsSubmit();
     }
   };
 
@@ -76,7 +76,9 @@ const AdminRow = () => {
           {isEditing === adminRowSection.details && (
             <EditDetailsRow returnDetailsSubmit={setDetailsSubmit} item={{ fieldA: 'A', field2: '2' }} />
           )}
-          {isEditing === adminRowSection.image && <EditImageRow img={''} imgRev={''} />}
+          {isEditing === adminRowSection.image && (
+            <EditImageRow returnImageSubmit={setImageSubmit} img={''} imgRev={''} />
+          )}
         </AdminRowExpanded>
       )}
     </>
