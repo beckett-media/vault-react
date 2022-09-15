@@ -1,14 +1,16 @@
 import { Input } from '@chakra-ui/react';
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, Row } from 'react-bootstrap';
 import { TiDelete } from 'react-icons/ti';
 
 const EditImageRow = ({ img, imgRev }) => {
+  const [tempImg, setTempImg] = useState(img);
+  const [tempImgRev, setTempImgRev] = useState(imgRev);
   return (
     <Row>
       <Column>
         <div>Front Image</div>
-        <Input placeholder='- Front -' value={img} />
+        <Input placeholder='- Front -' value={tempImg} onChange={(e) => setTempImg(e.target.value)} />
         <div>
           <TiDelete />
         </div>
@@ -19,7 +21,7 @@ const EditImageRow = ({ img, imgRev }) => {
       </Column>
       <Column>
         <div>Back Image</div>
-        <Input placeholder='- Front -' value={imgRev} />
+        <Input placeholder='- Reverse -' value={tempImgRev} onChange={(e) => setTempImgRev(e.target.value)} />
         <div>
           <TiDelete />
         </div>
