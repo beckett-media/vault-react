@@ -527,9 +527,9 @@ export const getSingleVaulting = (id) => {
     .then((res) => res.data);
 };
 
-export const getSingleVaultingByItem = (itemId) => {
+export const getSingleSubmission = (itemId) => {
   return axiosClient
-    .get(`/marketplace/vaulting?item=${itemId}`, {
+    .get(`/marketplace/submission/${itemId}`, {
       headers: {
         Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
       },

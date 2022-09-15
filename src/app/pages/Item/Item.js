@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import ProductInfo from '../../components/ProductInfo/ProductInfo';
 
-import { getSingleVaultingByItem } from '../../services/items';
+import { getSingleSubmission } from '../../services/items';
 import { AuthContext } from '../../contexts/auth';
 import { mapCognitoToUser } from '../../services/user';
 import { useCartContext } from '../../contexts/cart';
@@ -20,7 +20,7 @@ const Item = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getSingleVaultingByItem(id)
+    getSingleSubmission(id)
       .then((data) => setItem(data))
       .catch((err) => console.log(err));
   }, [id]);
