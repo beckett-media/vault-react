@@ -49,7 +49,7 @@
     }
 
     &row {
-      display: grid;
+      display: grid !important;
       gap: 12px;
       grid-template-columns: 16px 0.16fr 0.2fr 0.8fr 0.25fr 0.32fr 0.25fr;
       align-items: center;
@@ -72,6 +72,20 @@
       gap: 12px;
       padding: 8px 0;
       padding-top: 16px;
+    }
+  }
+
+  &location- {
+    &switch {
+      &-wrapper {
+        align-self: end;
+        height: 50%;
+        display: flex;
+        align-items: center;
+        padding: 6px 12px;
+        border-radius: 4px;
+        background-color: var(--gray-50);
+      }
     }
   }
 }

@@ -47,6 +47,12 @@ $primary: #069697;
   margin-bottom: 16px;
 }
 
+.form-switch {
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
