@@ -34,7 +34,6 @@ import ComingSoon from './app/pages/ComingSoon/ComingSoon';
 import FooterModal from './app/components/FooterModal/FooterModal';
 import AdminCreateAccount from './app/pages/Admin/Legacy/CreateAccountPage';
 import ErrorBoundary from './ErrorBoundary';
-import NewAdmingPage from './app/pages/Admin/NewAdmingPage';
 import AdminPageProvider from './app/contexts/adminPage';
 
 // chakra uses a default theme, this will remove it.

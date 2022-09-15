@@ -4,6 +4,7 @@ import { ListGroup, Button, Form } from 'react-bootstrap';
 
 import InventoryLocationForm from '../../components/InventoryLocationForm/InventoryLocationForm';
 import AdminRow from './AdminRow';
+import SubmissionSearch from './SubmissionSearch';
 
 import { ReactComponent as PencilIcon } from '../../assets/pencil-icon.svg';
 
@@ -23,15 +24,7 @@ const NewAdmingPage = () => {
         <div className='container-large'>
           <div>status tracker component</div>
           <div className='admin-page_content'>
-            <div className='admin-page_section-search'>
-              <div className='admin-page_search-wrapper'>
-                <div className='admin-page_search-heading'>Look up submission</div>
-                <div className='admin-page_search-bar-wrapper'>
-                  <SearchBar></SearchBar>
-                  <Button variant='link'>I do not have a submission ID</Button>
-                </div>
-              </div>
-            </div>
+            <SubmissionSearch />
             <div className='admin-page_section-table'>
               <div className='admin-page_batch-actions-wrapper'>
                 <Form.Select className='admin-page_batch-actions-select'>
