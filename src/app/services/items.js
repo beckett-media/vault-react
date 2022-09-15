@@ -521,6 +521,10 @@ export const getSingleVaulting = (id) => {
   return axiosClient.get(`/marketplace/vaulting/${id}`).then((res) => res.data);
 };
 
+export const getSingleVaultingByItem = (ItemId) => {
+  return axiosClient.get(`/marketplace/vaulting/item=${ItemId}`).then((res) => res.data);
+};
+
 export const fetchItemBySubmission = (submissionId) => {
   return axiosClient
     .get(`/marketplace/vaulting/submission/${submissionId}`)
