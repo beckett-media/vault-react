@@ -7,6 +7,7 @@ import { ITEM_TYPE } from '../../services/items';
 import { extractUpdatedParts } from '../../utils/submissions';
 import { validURL } from '../../utils/validationRegex';
 import InventoryLocationForm from '../../components/InventoryLocationForm/InventoryLocationForm';
+import EditFields from './EditFields';
 
 function AdminEditSubmissionPage() {
   const { submissionId } = useParams();
