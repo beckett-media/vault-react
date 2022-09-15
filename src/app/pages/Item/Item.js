@@ -14,7 +14,6 @@ import { getImageAssetUrl } from '../../utils/image';
 const Item = () => {
   const cartContext = useCartContext();
   const { id } = useParams();
-  console.log('itemId', id);
   const [item, setItem] = useState({});
   const authContext = useContext(AuthContext);
   const userState = mapCognitoToUser(authContext.attrInfo);
