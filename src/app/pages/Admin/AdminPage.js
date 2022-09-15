@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import DefaultPage from '../../components/Layout/DefaultPage/DefaultPage';
 import { ListGroup, Button, Form } from 'react-bootstrap';
 
@@ -10,8 +10,13 @@ import { ReactComponent as PencilIcon } from '../../assets/pencil-icon.svg';
 import './AdminPage.scss';
 
 import SearchBar from '../../components/SearchBar/SearchBar';
+import { AdminPageContext } from '../../contexts/adminPage';
 
 const NewAdmingPage = () => {
+  const { submissions } = useContext(AdminPageContext);
+
+  console.log('submissions', submissions);
+
   return (
     <DefaultPage>
       <div className='page-padding'>

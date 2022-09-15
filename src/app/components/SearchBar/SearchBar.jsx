@@ -1,9 +1,9 @@
 import React from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { BsSearch } from 'react-icons/bs';
 import './SearchBar.scss';
 
-const SearchBar = ({ searchVal, setSearchVal, setFilterBy, filterOptions }) => {
+const SearchBar = ({ searchVal, onChange, setFilterBy, filterOptions }) => {
   return (
     <div className='d-flex w-100'>
       {!!filterOptions && (
@@ -20,7 +20,7 @@ const SearchBar = ({ searchVal, setSearchVal, setFilterBy, filterOptions }) => {
         type='search'
         placeholder='Search'
         value={searchVal}
-        onChange={(e) => setSearchVal(e.target.value)}
+        onChange={onChange}
       ></Form.Control>
       <Button className='search-bar_button'>
         <BsSearch />
