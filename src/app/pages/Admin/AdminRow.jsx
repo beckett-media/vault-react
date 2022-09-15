@@ -6,6 +6,7 @@ import LocationRow from './LocationRow';
 import EditDetailsRow from './EditDetailsRow';
 
 import { ReactComponent as PencilIcon } from '../../assets/pencil-icon.svg';
+import EditImageRow from './EditImageRow';
 
 const AdminRow = () => {
   const [isEditing, setIsEditing] = useState('');
@@ -75,7 +76,7 @@ const AdminRow = () => {
           {isEditing === adminRowSection.details && (
             <EditDetailsRow returnDetailsSubmit={setDetailsSubmit} item={{ fieldA: 'A', field2: '2' }} />
           )}
-          {isEditing === adminRowSection.image && <>Edit image</>}
+          {isEditing === adminRowSection.image && <EditImageRow img={''} imgRev={''} />}
         </AdminRowExpanded>
       )}
     </>
