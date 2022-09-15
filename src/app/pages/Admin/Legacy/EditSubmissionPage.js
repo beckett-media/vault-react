@@ -5,7 +5,6 @@ import { getSingleSubmission, updateSubmission } from '../../../services/submiss
 import './CreateVaultingPage.scss';
 import { ITEM_TYPE } from '../../../services/items';
 import { extractUpdatedParts } from '../../../utils/submissions';
-import { validURL } from '../../../utils/validationRegex';
 import InventoryLocationForm from '../../../components/InventoryLocationForm/InventoryLocationForm';
 
 function AdminEditSubmissionPage() {

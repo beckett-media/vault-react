@@ -3,6 +3,7 @@ import { ListGroup, Button, Form } from 'react-bootstrap';
 
 import AdminRowExpanded from './AdminRowExpanded';
 import LocationRow from './LocationRow';
+import EditDetailsRow from './EditDetailsRow';
 
 import { ReactComponent as PencilIcon } from '../../assets/pencil-icon.svg';
 
@@ -71,7 +72,9 @@ const AdminRow = () => {
         >
           {isEditing === adminRowSection.location && <LocationRow returnLocationSubmit={setLocationSubmit} />}
           {isEditing === adminRowSection.id && <>Edit ID</>}
-          {isEditing === adminRowSection.details && <>Edit details</>}
+          {isEditing === adminRowSection.details && (
+            <EditDetailsRow returnDetailsSubmit={setDetailsSubmit} item={{ fieldA: 'A', field2: '2' }} />
+          )}
           {isEditing === adminRowSection.image && <>Edit image</>}
         </AdminRowExpanded>
       )}
