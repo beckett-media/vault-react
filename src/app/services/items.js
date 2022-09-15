@@ -529,7 +529,7 @@ export const getSingleVaulting = (id) => {
 
 export const getSingleVaultingByItem = (itemId) => {
   return axiosClient
-    .get(`/marketplace/vaulting/?item=${itemId}`, {
+    .get(`/marketplace/vaulting?item=${itemId}`, {
       headers: {
         Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
       },
