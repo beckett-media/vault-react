@@ -13,17 +13,18 @@ import { getImageAssetUrl } from '../../utils/image';
 
 const Item = () => {
   const cartContext = useCartContext();
-  const { itemId } = useParams();
+  const { id } = useParams();
+  console.log('itemId', id);
   const [item, setItem] = useState({});
   const authContext = useContext(AuthContext);
   const userState = mapCognitoToUser(authContext.attrInfo);
   const navigate = useNavigate();
 
   useEffect(() => {
-    getSingleVaultingByItem(itemId)
+    getSingleVaultingByItem(id)
       .then((data) => setItem(data))
       .catch((err) => console.log(err));
-  }, [itemId]);
+  }, [id]);
 
   const addToCart = async () => {
     await cartContext.addItemToCart(item);
