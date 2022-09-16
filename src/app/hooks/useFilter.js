@@ -28,6 +28,7 @@ const createDataFetchReducer = () => (state, action) => {
 
 export default function useFilter(apiAction, initialParam, initialData) {
   const [param, setParam] = useState(initialParam);
+  const [apiRetrigger, setApiRetrigger] = useState();
   const [state, dispatch] = useReducer(createDataFetchReducer(), {
     isSearching: false,
     isError: false,
@@ -55,7 +56,7 @@ export default function useFilter(apiAction, initialParam, initialData) {
     return () => {
       didCancel = true;
     };
-  }, [param, apiAction]);
+  }, [param, apiAction, apiRetrigger]);
 
-  return [state, param, setParam];
+  return [state, param, setParam, setApiRetrigger];
 }
