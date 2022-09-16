@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import ProductInfo from '../../components/ProductInfo/ProductInfo';
 
-import { getSingleSubmission } from '../../services/items';
+import { getSingleSubmission } from '../../services/submission';
 import { AuthContext } from '../../contexts/auth';
 import { mapCognitoToUser } from '../../services/user';
 import { useCartContext } from '../../contexts/cart';
