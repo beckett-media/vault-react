@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { AuthContext } from '../../contexts/auth';
 import { isIncompleteAddress, mapCognitoToUser, mapUserToCognito } from '../../services/user';
@@ -15,20 +15,32 @@ const AddressEditModal = (props) => {
   const [error, setError] = useState(undefined);
 
   const incompleteUserAddress = isIncompleteAddress(user);
-
+  useEffect(() => setError(undefined), [userState]);
   const [isEditing, setEditing] = useState(incompleteUserAddress);
   const [isLoading, setIsLoading] = useState(false);
 
   const updateUserAddress = async () => {
     try {
-      setIsLoading(true);
-      await authContext.setAttributes(mapUserToCognito({ ...userState }));
-
-      onClose();
+      await validateAddress({
+        address1: userState.shipAddressLine1,
+        address2: userState.shipAddressLine2,
+        city: userState.shipCity,
+        state: userState.shipState,
+        zipcode: userState.shipZipcode,
+      });
+      try {
+        setIsLoading(true);
+        await authContext.setAttributes(mapUserToCognito({ ...userState }));
+        onClose();
+      } catch (err) {
+        // This is a cognito error.
+        setError('Try again');
+      } finally {
+        setIsLoading(false);
+      }
     } catch (err) {
-      setError('Try again');
-    } finally {
-      setIsLoading(false);
+      // This is an address validation error from usps api.
+      setError(err.message);
     }
   };
 
@@ -97,7 +109,7 @@ const AddressEditModal = (props) => {
         />
       </Modal.Body>
       <Modal.Footer>
-        {error?.length ? <div>{error}</div> : <></>}
+        {error?.length ? <div className='address-error'>{error}</div> : <></>}
         <Button variant='secondary' onClick={cancelCompleteAddress}>
           Cancel
         </Button>
@@ -119,14 +131,19 @@ const AddressEditModal = (props) => {
         <div>{`City: ${userState.shipCity || ''}`}</div>
         <div>{`State: ${userState.shipState || ''}`}</div>
         <div>{`Zipcode: ${userState.shipZipcode || ''}`}</div>
+        {error && <span className='address-error'>{error}</span>}
       </Modal.Body>
       <Modal.Footer>
         <Button variant='secondary' onClick={() => setEditing(true)}>
           Edit
         </Button>
-        <Button variant='primary' onClick={updateUserAddress} disabled={isLoading}>
-          {isLoading ? 'Loading' : 'Confirm'}
-        </Button>
+        {!error ? (
+          <Button variant='primary' onClick={updateUserAddress} disabled={isLoading}>
+            {isLoading ? 'Loading' : 'Confirm'}
+          </Button>
+        ) : (
+          <Button variant='dark'>Confirm</Button>
+        )}
       </Modal.Footer>
     </>
   );
