@@ -43,48 +43,9 @@ const NewAdmingPage = () => {
                     <div>Vault Location</div>
                     <div>Action</div>
                   </ListGroup.Item>
-                  {/* v Map goes over here v */}
-                  <ListGroup.Item className='admin-page_table-row'>
-                    <Form.Check></Form.Check>
-                    <div className='d-flex gap-1 align-items-center'>
-                      <span>img</span>
-                      <PencilIcon />
-                    </div>
-                    <div className='d-flex gap-1 align-items-center'>
-                      0123456789
-                      <PencilIcon />
-                    </div>
-                    <div className='d-flex gap-1 align-items-center'>
-                      1969 Topps #230 Tom Seaver Baseball BGS 9 $750
-                      <PencilIcon />
-                    </div>
-                    <div>
-                      <Form.Select>
-                        <option value=''>Status</option>
-                      </Form.Select>
-                    </div>
-                    <div className='d-flex gap-1 align-items-center'>
-                      Unassigned
-                      <PencilIcon />
-                    </div>
-                    <div>
-                      <Button className='w-100'>Assign</Button>
-                    </div>
-                  </ListGroup.Item>
-                  <ListGroup.Item className='admin-page_expanded-row'>
-                    <div className='admin-page_expanded-row-content'>
-                      <InventoryLocationForm></InventoryLocationForm>
-                    </div>
-                    <div className='divider--grey'></div>
-                    <div className='admin-page_expanded-row-buttons'>
-                      <Button variant='outline-primary'>Cancel</Button>
-                      <Button>Save & Exit</Button>
-                    </div>
-                  </ListGroup.Item>
-                  <AdminRow />
-                  <AdminRow />
-                  <AdminRow />
-                  <AdminRow />
+                  {submissions.map((item) => (
+                    <AdminRow key={item.item_id} itemId={item.item_id} />
+                  ))}
                 </ListGroup>
               </div>
             </div>
