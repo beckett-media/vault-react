@@ -42,15 +42,9 @@ export const getSubmissions = async ({ user, status, offset, limit, order } = {}
 };
 
 export const getSingleSubmission = async (submissionId) => {
-  return axiosClient
-    .get(`/marketplace/submission/${submissionId}`, {
-      headers: {
-        Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
-      },
-    })
-    .then((res) => {
-      return res.data;
-    });
+  return axiosClient.get(`/marketplace/submission/${submissionId}`).then((res) => {
+    return res.data;
+  });
 };
 
 export const approveRejectSubmissions = (subId, type, approve = true) => {
