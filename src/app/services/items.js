@@ -512,13 +512,7 @@ const modifyItems = (data) => {
 };
 
 export const getSingleVaulting = (id) => {
-  return axiosClient
-    .get(`/marketplace/vaulting/${id}`, {
-      headers: {
-        Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
-      },
-    })
-    .then((res) => res.data);
+  return axiosClient.get(`/marketplace/vaulting/${id}`).then((res) => res.data);
 };
 
 export const fetchItemBySubmission = (submissionId) => {
