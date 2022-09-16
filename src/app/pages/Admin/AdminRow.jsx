@@ -5,13 +5,43 @@ import AdminRowExpanded from './AdminRowExpanded';
 import LocationRow from './LocationRow';
 
 import { ReactComponent as PencilIcon } from '../../assets/pencil-icon.svg';
+import { useInventoryLocation } from '../../hooks/useInventoryLocation';
 
-const AdminRow = () => {
+const AdminRow = ({ itemId }) => {
   const [isEditing, setIsEditing] = useState('');
   const [locationSubmit, setLocationSubmit] = useState();
   const [idSubmit, setIdSubmit] = useState();
   const [imageSubmit, setImageSubmit] = useState();
   const [detailsSubmit, setDetailsSubmit] = useState();
+
+  const { initialInventory, inventory, currentLocation, postLocation, updateInventory } = useInventoryLocation(itemId);
+
+  console.log(itemId);
+  console.log(initialInventory, inventory);
+  console.log(currentLocation);
+
+  const returnLocationLabel = (locationObject) => {
+    const { row, shelf, box, slot, vault, zone } = locationObject;
+
+    const abbreviatedVault = vault === 'dallas' ? 'DAL' : 'DEL';
+
+    let abbreviatedZone;
+
+    if (zone.includes('cabinet')) {
+      abbreviatedZone = 'CAB' + zone.at(-1);
+    }
+    if (zone.includes('credenza')) {
+      abbreviatedZone = 'CRED';
+    }
+    if (zone.includes('gallery')) {
+      abbreviatedZone = 'GALLERY';
+    }
+    if (zone.includes('main')) {
+      abbreviatedZone = 'MAIN';
+    }
+
+    return `${abbreviatedVault}-${abbreviatedZone}-${shelf || ''}-${row || ''}-${box || ''}-${slot || ''}`;
+  };
 
   const adminRowSection = {
     location: 'location',
@@ -23,13 +53,14 @@ const AdminRow = () => {
   const returnSaveFunction = (editSection) => {
     console.log(editSection);
     switch (editSection) {
-      case editSection === adminRowSection.location:
-        locationSubmit();
-      case editSection === adminRowSection.id:
+      case adminRowSection.location:
+        console.log('running post');
+        postLocation();
+      case adminRowSection.id:
         console.log('id');
-      case editSection === adminRowSection.image:
+      case adminRowSection.image:
         console.log('image');
-      case editSection === adminRowSection.details:
+      case adminRowSection.details:
         console.log('details');
     }
   };
@@ -56,7 +87,7 @@ const AdminRow = () => {
           </Form.Select>
         </div>
         <div className='d-flex gap-1 align-items-center'>
-          Unassigned
+          {currentLocation ? returnLocationLabel(currentLocation) : 'Unassigned'}
           <PencilIcon onClick={() => setIsEditing(adminRowSection.location)} />
         </div>
         <div>
@@ -69,7 +100,9 @@ const AdminRow = () => {
           onSave={() => returnSaveFunction(isEditing)}
           className='text-body'
         >
-          {isEditing === adminRowSection.location && <LocationRow returnLocationSubmit={setLocationSubmit} />}
+          {isEditing === adminRowSection.location && (
+            <LocationRow updateInventory={updateInventory} inventory={inventory} />
+          )}
           {isEditing === adminRowSection.id && <>Edit ID</>}
           {isEditing === adminRowSection.details && <>Edit details</>}
           {isEditing === adminRowSection.image && <>Edit image</>}
