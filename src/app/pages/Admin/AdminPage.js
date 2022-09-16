@@ -10,7 +10,6 @@ import { ReactComponent as PencilIcon } from '../../assets/pencil-icon.svg';
 
 import './AdminPage.scss';
 
-import SearchBar from '../../components/SearchBar/SearchBar';
 import { AdminPageContext } from '../../contexts/adminPage';
 
 const NewAdmingPage = () => {
@@ -25,6 +24,7 @@ const NewAdmingPage = () => {
           <div>status tracker component</div>
           <div className='admin-page_content'>
             <SubmissionSearch />
+
             <div className='admin-page_section-table'>
               <div className='admin-page_batch-actions-wrapper'>
                 <Form.Select className='admin-page_batch-actions-select'>
