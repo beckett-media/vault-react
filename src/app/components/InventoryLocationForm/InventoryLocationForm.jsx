@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Col, Form, Row, Button, Spinner, ListGroup } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Button, Col, Form, ListGroup, Row, Spinner } from 'react-bootstrap';
 import { BsFillPlusCircleFill } from 'react-icons/bs';
 
-import { getInventory, postInventory, putInventory, getInventoryZoneOptions } from '../../services/inventory';
 import { blankLocation } from '../../const/inventory';
+import { getInventory, getInventoryZoneOptions, postInventory, putInventory } from '../../services/inventory';
 
 // Use this component with the useInventoryLocation hook in the parent component
 
@@ -151,7 +151,7 @@ const InventoryLocationForm = ({ itemId }) => {
           {(inventory?.zone?.toLowerCase().startsWith('credenza') ||
             inventory?.zone?.toLowerCase().startsWith('cabinet')) && (
             <Row>
-              <Col lg={4}>
+              <Col lg={3}>
                 <Form.Group>
                   <Form.Label>Shelf</Form.Label>
                   <Form.Select required onChange={(e) => updateInventory({ shelf: e.target.value })}>
@@ -165,13 +165,19 @@ const InventoryLocationForm = ({ itemId }) => {
                   </Form.Select>
                 </Form.Group>
               </Col>
-              <Col lg={4}>
+              <Col lg={3}>
+                <Form.Group>
+                  <Form.Label>Row</Form.Label>
+                  <Form.Control required onChange={(e) => updateInventory({ row: e.target.value })} />
+                </Form.Group>
+              </Col>
+              <Col lg={3}>
                 <Form.Group>
                   <Form.Label>Box</Form.Label>
                   <Form.Control required onChange={(e) => updateInventory({ box: e.target.value })} />
                 </Form.Group>
               </Col>
-              <Col lg={4}>
+              <Col lg={3}>
                 <Form.Group>
                   <Form.Label>Slot</Form.Label>
                   <Form.Control required onChange={(e) => updateInventory({ slot: e.target.value })} />
