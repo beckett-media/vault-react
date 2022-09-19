@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 
-const EditDetailsRow = ({ id, item }) => {
-  const [tempItem, updateTempItem] = useState(item);
+const EditDetailsRow = ({ tempState, setTempState }) => {
   const notUserEditable = (field) => {
     return (
       field.indexOf('_id') !== -1 ||
@@ -14,18 +13,19 @@ const EditDetailsRow = ({ id, item }) => {
       field === 'id'
     );
   };
-  const updateItemDetails = () => {};
   return (
     <Form>
-      {Object.keys(tempItem).map((field) => {
+      {Object.keys(tempState).map((field) => {
+        const fieldSplit = field.split('_').join(' ');
+        const fieldName = String(fieldSplit[0].toUpperCase()) + fieldSplit.slice(1);
         if (!notUserEditable(field)) {
           return (
             <Form.Group>
-              <Form.Label>{field}</Form.Label>
+              <Form.Label>{fieldName}</Form.Label>
               <Form.Control
-                placeholder={`- ${field} -`}
-                value={tempItem[field]}
-                onChange={(e) => updateTempItem({ ...tempItem, [field]: e.target.value })}
+                placeholder={`- ${fieldName} -`}
+                value={tempState[field]}
+                onChange={(e) => setTempState({ ...tempState, [field]: e.target.value })}
               />
             </Form.Group>
           );

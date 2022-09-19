@@ -42,30 +42,45 @@ const AdminRow = ({ submission, expanded, setExpanded }) => {
   const returnSaveFunction = (editSection) => {
     switch (editSection) {
       case editSection === adminRowSection.location:
-        locationSubmit();
+        console.log('1');
+        saveFunc = locationSubmit();
+        break;
       case editSection === adminRowSection.id:
         console.log('id');
-      case editSection === adminRowSection.image:
+        break;
+      case adminRowSection.image:
         updateImage();
-      case editSection === adminRowSection.details:
-        detailsSubmit();
+        break;
+      case adminRowSection.details:
+        updateDetails();
+        break;
     }
   };
 
-  const updateImage = (item = '', image_url = '', image_rev_url = '') => {
+  const updateImage = (itemVal = '') => {
     const payload = {};
-    if (item === 'del-image_url' || item === 'del-image_rev_url') {
-      payload[item.substring(4)] = '';
+    if (itemVal === 'del-image_url' || itemVal === 'del-image_rev_url') {
+      payload[itemVal.substring(4)] = '';
     } else {
-      if (image_url !== (tempState.img_url || '')) {
+      if (tempState.image_url !== item.img_url) {
         payload.image_url = tempState.image_url;
       }
-      if (image_rev_url !== (tempState.image_rev_url || '')) {
+      if (tempState.image_rev_url !== item.image_rev_url) {
         payload.image_rev_url = tempState.image_rev_url;
       }
     }
-    console.log(payload);
     updateSubmission(submission.item_id, payload)
+      .then((res) => {
+        return;
+      })
+      .catch((err) => {
+        setError(err.message);
+      });
+    return;
+  };
+
+  const updateDetails = () => {
+    updateSubmission(submission.item_id, tempState)
       .then((res) => {
         return;
       })
@@ -128,7 +143,7 @@ const AdminRow = ({ submission, expanded, setExpanded }) => {
           {isEditing === adminRowSection.location && <LocationRow returnLocationSubmit={setLocationSubmit} />}
           {isEditing === adminRowSection.id && <>Edit ID</>}
           {isEditing === adminRowSection.details && (
-            <EditDetailsRow returnDetailsSubmit={setDetailsSubmit} item={tempState} />
+            <EditDetailsRow tempState={tempState} setTempState={setTempState} />
           )}
           {isEditing === adminRowSection.image && (
             <EditImageRow
