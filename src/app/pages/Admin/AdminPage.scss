@@ -89,3 +89,35 @@
     }
   }
 }
+
+.error {
+  color: red;
+}
+
+.img {
+  &_image {
+    width: 100px;
+    height: 150px;
+    margin-top: 10px;
+  }
+  &_del_error {
+    margin-top: 150px;
+  }
+  &_delete {
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    margin-top: -150px;
+    margin-left: 85px;
+  }
+  &_delete-icon {
+    color: red;
+  }
+  &_thumbnail {
+    width: 30px;
+    height: 40px;
+  }
+  &_file-name {
+    margin-top: 150px;
+  }
+}
