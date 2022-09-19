@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import DefaultPage from '../../components/Layout/DefaultPage/DefaultPage';
 import { ListGroup, Button, Form } from 'react-bootstrap';
 
@@ -15,7 +15,7 @@ import { AdminPageContext } from '../../contexts/adminPage';
 
 const NewAdmingPage = () => {
   const { submissions } = useContext(AdminPageContext);
-
+  const [expanded, setExpanded] = useState('');
   console.log('submissions', submissions);
 
   return (
@@ -34,7 +34,7 @@ const NewAdmingPage = () => {
               </div>
               <div className='admin-page_table-wrapper'>
                 <ListGroup>
-                  <ListGroup.Item className='admin-page_table-row admin-page_table-row--header'>
+                  {/* <ListGroup.Item className='admin-page_table-row admin-page_table-row--header'>
                     <Form.Check></Form.Check>
                     <div className='text-muted text-sm'>Item Image</div>
                     <div>Item ID</div>
@@ -43,7 +43,6 @@ const NewAdmingPage = () => {
                     <div>Vault Location</div>
                     <div>Action</div>
                   </ListGroup.Item>
-                  {/* v Map goes over here v */}
                   <ListGroup.Item className='admin-page_table-row'>
                     <Form.Check></Form.Check>
                     <div className='d-flex gap-1 align-items-center'>
@@ -80,7 +79,10 @@ const NewAdmingPage = () => {
                       <Button variant='outline-primary'>Cancel</Button>
                       <Button>Save & Exit</Button>
                     </div>
-                  </ListGroup.Item>
+                  </ListGroup.Item> */}
+                  {submissions.map((sub) => (
+                    <AdminRow submission={sub} expanded={expanded} setExpanded={setExpanded} />
+                  ))}
                   <AdminRow />
                   <AdminRow />
                   <AdminRow />
