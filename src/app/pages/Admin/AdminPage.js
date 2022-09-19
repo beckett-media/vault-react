@@ -41,7 +41,7 @@ const NewAdmingPage = () => {
                     <div>Action</div>
                   </ListGroup.Item>
                   {submissions.map((item) => (
-                    <AdminRow key={item.item_id} itemId={item.item_id} />
+                    <AdminRow key={'admin_row-' + item.id} itemId={item.item_id} />
                   ))}
                 </ListGroup>
               </div>
