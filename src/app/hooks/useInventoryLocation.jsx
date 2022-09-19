@@ -21,7 +21,7 @@ export const useInventoryLocation = (itemId) => {
   const currentLocation = initialInventory?.find((item) => item.status === 1);
 
   const findInventoryById = (id) => {
-    initialInventory.find((item) => item.id === id);
+    return initialInventory.find((item) => item.id === id);
   };
 
   const updateInventory = (tempInventory) => setInventory({ ...inventory, ...tempInventory });
