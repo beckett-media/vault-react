@@ -19,8 +19,6 @@ const AdminRow = ({ item, expanded, setExpanded }) => {
     item.item_id,
   );
 
-  console.log(currentLocation);
-
   const returnLocationLabel = (locationObject) => {
     if (!locationObject) return 'Unassigned';
 
