@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import DefaultPage from '../../components/Layout/DefaultPage/DefaultPage';
 import { ListGroup, Button, Form } from 'react-bootstrap';
 
@@ -15,7 +15,7 @@ import { AdminPageContext } from '../../contexts/adminPage';
 
 const NewAdmingPage = () => {
   const { submissions } = useContext(AdminPageContext);
-
+  const [expanded, setExpanded] = useState('');
   console.log('submissions', submissions);
 
   return (
