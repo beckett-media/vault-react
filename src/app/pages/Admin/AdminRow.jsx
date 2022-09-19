@@ -35,11 +35,9 @@ const AdminRow = ({ itemId, submission, expanded, setExpanded }) => {
 
   const { initialInventory, inventory, currentLocation, postLocation, updateInventory } = useInventoryLocation(itemId);
 
-  // console.log(itemId);
-  // console.log(initialInventory, inventory);
-  // console.log(currentLocation);
-
   const returnLocationLabel = (locationObject) => {
+    if (!locationObject) return 'Unassigned';
+
     const { row, shelf, box, slot, vault, zone } = locationObject;
 
     const abbreviatedVault = vault === 'dallas' ? 'DAL' : 'DEL';
@@ -156,7 +154,7 @@ const AdminRow = ({ itemId, submission, expanded, setExpanded }) => {
           </Form.Select>
         </div>
         <div className='d-flex gap-1 align-items-center'>
-          {currentLocation ? returnLocationLabel(currentLocation) : 'Unassigned'}
+          {returnLocationLabel(currentLocation)}
           <PencilIcon onClick={() => setIsEditing(adminRowSection.location)} />
         </div>
         <div>
