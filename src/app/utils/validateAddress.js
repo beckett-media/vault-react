@@ -18,7 +18,7 @@ export const externalAddressValidation = (address) => {
     </AddressValidateRequest>`;
   return axios.get(
     `${
-      process.env.NODE_ENV === 'development' ? 'http' : 'https'
+      window.location.href.indexOf('localhost') === -1 ? 'https' : 'http'
     }://production.shippingapis.com/ShippingAPI.dll?API=Verify&XML=` + encodeURIComponent(xml),
     {
       headers: { 'Content-Type': 'text/xml' },
