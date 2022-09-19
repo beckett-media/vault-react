@@ -4,12 +4,13 @@ import { ListGroup, Button, Form, Image } from 'react-bootstrap';
 import AdminRowExpanded from './AdminRowExpanded';
 import LocationRow from './LocationRow';
 import EditDetailsRow from './EditDetailsRow';
+import EditImageRow from './EditImageRow';
 
 import { ReactComponent as PencilIcon } from '../../assets/pencil-icon.svg';
-import EditImageRow from './EditImageRow';
+import { useInventoryLocation } from '../../hooks/useInventoryLocation';
 import { getSingleSubmission, updateSubmission } from '../../services/submission';
 
-const AdminRow = ({ submission, expanded, setExpanded }) => {
+const AdminRow = ({ itemId, submission, expanded, setExpanded }) => {
   const [isEditing, setIsEditing] = useState('');
   const [locationSubmit, setLocationSubmit] = useState();
   const [idSubmit, setIdSubmit] = useState();
@@ -32,6 +33,33 @@ const AdminRow = ({ submission, expanded, setExpanded }) => {
       .catch((err) => setError(err.message));
   };
 
+  const { initialInventory, inventory, currentLocation, postLocation, updateInventory } = useInventoryLocation(itemId);
+
+  const returnLocationLabel = (locationObject) => {
+    if (!locationObject) return 'Unassigned';
+
+    const { row, shelf, box, slot, vault, zone } = locationObject;
+
+    const abbreviatedVault = vault === 'dallas' ? 'DAL' : 'DEL';
+
+    let abbreviatedZone;
+
+    if (zone.includes('cabinet')) {
+      abbreviatedZone = 'CAB' + zone.at(-1);
+    }
+    if (zone.includes('credenza')) {
+      abbreviatedZone = 'CRED';
+    }
+    if (zone.includes('gallery')) {
+      abbreviatedZone = 'GALLERY';
+    }
+    if (zone.includes('main')) {
+      abbreviatedZone = 'MAIN';
+    }
+
+    return `${abbreviatedVault}-${abbreviatedZone}-${shelf || ''}-${row || ''}-${box || ''}-${slot || ''}`;
+  };
+
   const adminRowSection = {
     location: 'location',
     id: 'id',
@@ -41,11 +69,10 @@ const AdminRow = ({ submission, expanded, setExpanded }) => {
 
   const returnSaveFunction = (editSection) => {
     switch (editSection) {
-      case editSection === adminRowSection.location:
-        console.log('1');
-        saveFunc = locationSubmit();
+      case adminRowSection.location:
+        postLocation();
         break;
-      case editSection === adminRowSection.id:
+      case adminRowSection.id:
         console.log('id');
         break;
       case adminRowSection.image:
@@ -127,7 +154,7 @@ const AdminRow = ({ submission, expanded, setExpanded }) => {
           </Form.Select>
         </div>
         <div className='d-flex gap-1 align-items-center'>
-          Unassigned
+          {returnLocationLabel(currentLocation)}
           <PencilIcon onClick={() => setIsEditing(adminRowSection.location)} />
         </div>
         <div>
@@ -140,7 +167,9 @@ const AdminRow = ({ submission, expanded, setExpanded }) => {
           onSave={() => returnSaveFunction(isEditing)}
           className='text-body'
         >
-          {isEditing === adminRowSection.location && <LocationRow returnLocationSubmit={setLocationSubmit} />}
+          {isEditing === adminRowSection.location && (
+            <LocationRow updateInventory={updateInventory} inventory={inventory} />
+          )}
           {isEditing === adminRowSection.id && <>Edit ID</>}
           {isEditing === adminRowSection.details && (
             <EditDetailsRow tempState={tempState} setTempState={setTempState} />

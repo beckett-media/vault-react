@@ -4,37 +4,74 @@ import { blankLocation } from '../const/inventory';
 
 export const useInventoryLocation = (itemId) => {
   const [apiRetrigger, setApiRetrigger] = useState({});
-  const [initialInventory, setInitialInventory] = useState({});
+  const [initialInventory, setInitialInventory] = useState([]);
   const [inventory, setInventory] = useState(blankLocation);
+  const [isPostLoading, setIsPostLoading] = useState(false);
+  const [isPutLoading, setIsPutLoading] = useState(false);
+  const [newLocationId, setNewLocationId] = useState();
 
   useEffect(() => {
     getInventory({ item_ids: [itemId] })
       .then((data) => {
         setInitialInventory(data);
       })
-      .catch(console.log('failed to retrieve inventory'));
+      .catch();
   }, [apiRetrigger]);
+
+  const currentLocation = initialInventory?.find((item) => item.status === 1);
+
+  const findInventoryById = (id) => {
+    initialInventory.find((item) => item.id === id);
+  };
 
   const updateInventory = (tempInventory) => setInventory({ ...inventory, ...tempInventory });
 
-  const currentLocation = initialInventory.length > 0 ? initialInventory?.find((item) => item.status === 1) : '';
+  const postLocation = () => {
+    console.log('posting...');
+    setIsPostLoading(true);
 
-  const locationFormSubmit = (e) => {
-    e.preventDefault();
-
-    if (!!initialInventory) {
-      putInventory(itemId, inventory)
-        .then()
-        .catch((e) => console.log(e));
-      setApiRetrigger({});
-    } else {
-      inventory.item_id = item.item_id;
+    inventory.item_id = itemId - 0;
+    inventory.is_current = true;
+    if (inventory.vault && inventory.zone) {
       postInventory(inventory)
         .then()
-        .catch((e) => console.log(e));
-      setApiRetrigger({});
+        .catch()
+        .finally(
+          setTimeout(() => {
+            setIsPostLoading(false);
+            setApiRetrigger({});
+            setInventory(blankLocation);
+          }, 1000),
+        );
     }
+    e.target.reset();
+    setIsPostLoading(false);
   };
 
-  return { currentLocation, inventory, initialInventory, updateInventory, locationFormSubmit };
+  const putLocation = () => {
+    setIsPutLoading(true);
+    const putBody = { status: 1, note: 'updating location' };
+
+    putInventory(newLocationId, putBody)
+      .then()
+      .catch()
+      .finally(
+        setTimeout(() => {
+          setIsPutLoading(false);
+          setApiRetrigger({});
+        }, 1000),
+      );
+  };
+
+  return {
+    currentLocation,
+    inventory,
+    initialInventory,
+    updateInventory,
+    putLocation,
+    postLocation,
+    setNewLocationId,
+    isPostLoading,
+    isPutLoading,
+  };
 };
