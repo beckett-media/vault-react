@@ -1,14 +1,11 @@
 import React, { useContext, useState } from 'react';
-import DefaultPage from '../../components/Layout/DefaultPage/DefaultPage';
 import { ListGroup, Button, Form } from 'react-bootstrap';
 
-import InventoryLocationForm from '../../components/InventoryLocationForm/InventoryLocationForm';
+import './AdminPage.scss';
+
+import DefaultPage from '../../components/Layout/DefaultPage/DefaultPage';
 import AdminRow from './AdminRow';
 import SubmissionSearch from './SubmissionSearch';
-
-import { ReactComponent as PencilIcon } from '../../assets/pencil-icon.svg';
-
-import './AdminPage.scss';
 
 import { AdminPageContext } from '../../contexts/adminPage';
 
