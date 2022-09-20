@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Col, Form, Row, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { ITEM_TYPE } from '../../services/items';
 import './Submission.scss';
 
 const AddBeckettItem = (props) => {
@@ -14,16 +15,16 @@ const AddBeckettItem = (props) => {
 };
 
 const SubmissionAdd = ({ submitAddedItem }) => {
-  const [type, setType] = useState(1);
-  const [item, setItem] = useState({ type: 1 });
+  const [type, setType] = useState(ITEM_TYPE.TRADING_CARD);
+  const [item, setItem] = useState({ type: ITEM_TYPE.TRADING_CARD });
 
   const submitAddItemFormSubmit = (e) => {
     e.preventDefault();
     {
       Object.keys(item).length > 2 && submitAddedItem(item);
     }
-    setItem({ type: 1 });
-    setType(1);
+    setItem({ type: ITEM_TYPE.TRADING_CARD });
+    setType(ITEM_TYPE.TRADING_CARD);
     e.target.reset();
   };
 
@@ -35,6 +36,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
       estimatedValue: isNaN(val) ? item.estimatedValue : val,
     });
   };
+  useEffect(() => setItem({ type }), [type]);
   return (
     <div className='w-100'>
       <div className='submission_heading'>Submit Items to Vault</div>
@@ -57,7 +59,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                 </Form.Group>
               </Col>
             </Row>
-            {type === 1 ? (
+            {type === ITEM_TYPE.TRADING_CARD ? (
               <>
                 <Row>
                   <Col sm={12} lg={6}>
@@ -67,6 +69,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                         type='number'
                         min={1900}
                         max={2050}
+                        value={item.year || ''}
                         onChange={(e) => updateItem({ year: Number(e.target.value) })}
                         required
                       />
@@ -75,7 +78,12 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                   <Col sm={12} lg={6}>
                     <Form.Group>
                       <Form.Label>Player*</Form.Label>
-                      <Form.Control type='text' onChange={(e) => updateItem({ player: e.target.value })} required />
+                      <Form.Control
+                        type='text'
+                        value={item.player || ''}
+                        onChange={(e) => updateItem({ player: e.target.value })}
+                        required
+                      />
                     </Form.Group>
                   </Col>
                 </Row>
@@ -83,13 +91,22 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                   <Col sm={12} lg={6}>
                     <Form.Group>
                       <Form.Label>Sport</Form.Label>
-                      <Form.Control type='text' onChange={(e) => updateItem({ sport: e.target.value })} />
+                      <Form.Control
+                        type='text'
+                        value={item.sport || ''}
+                        onChange={(e) => updateItem({ sport: e.target.value })}
+                      />
                     </Form.Group>
                   </Col>
                   <Col sm={12} lg={6}>
                     <Form.Group>
                       <Form.Label>Set name*</Form.Label>
-                      <Form.Control type='text' onChange={(e) => updateItem({ setName: e.target.value })} required />
+                      <Form.Control
+                        type='text'
+                        value={item.setName || ''}
+                        onChange={(e) => updateItem({ setName: e.target.value })}
+                        required
+                      />
                     </Form.Group>
                   </Col>
                 </Row>
@@ -100,6 +117,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                       <Form.Control
                         type='text'
                         required
+                        value={item.cardNumber || ''}
                         onChange={(e) => updateItem({ cardNumber: e.target.value.replace(/#/g, '') })}
                       />
                     </Form.Group>
@@ -123,13 +141,21 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                   <Col sm={12} lg={6}>
                     <Form.Group>
                       <Form.Label>Grade</Form.Label>
-                      <Form.Control type='text' onChange={(e) => updateItem({ grade: e.target.value })} />
+                      <Form.Control
+                        type='text'
+                        value={item.grade || ''}
+                        onChange={(e) => updateItem({ grade: e.target.value })}
+                      />
                     </Form.Group>
                   </Col>
                   <Col sm={12} lg={6}>
                     <Form.Group>
                       <Form.Label>Serial number</Form.Label>
-                      <Form.Control type='text' onChange={(e) => updateItem({ serialNumber: e.target.value })} />
+                      <Form.Control
+                        type='text'
+                        value={item.serialNumber || ''}
+                        onChange={(e) => updateItem({ serialNumber: e.target.value })}
+                      />
                     </Form.Group>
                   </Col>
                   <Col sm={12} lg={6}>
@@ -140,9 +166,9 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                         Declared value* (must be $750 or greater)
                       </Form.Label>
                       <Form.Control
-                        value={item?.estimatedValue?.toLocaleString()}
-                        onChange={(e) => setEstVal(e.target.value)}
                         required
+                        value={(Number(item?.estimatedValue) && item?.estimatedValue?.toLocaleString()) || ''}
+                        onChange={(e) => setEstVal(e.target.value)}
                       />
                     </Form.Group>
                   </Col>
@@ -158,6 +184,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                         type='number'
                         min={1900}
                         max={2050}
+                        value={item.year || ''}
                         onChange={(e) => updateItem({ year: Number(e.target.value) })}
                         required
                       />
@@ -166,7 +193,12 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                   <Col sm={12} lg={6}>
                     <Form.Group>
                       <Form.Label>Title*</Form.Label>
-                      <Form.Control type='text' onChange={(e) => updateItem({ title: e.target.value })} required />
+                      <Form.Control
+                        type='text'
+                        value={item.title || ''}
+                        onChange={(e) => updateItem({ title: e.target.value })}
+                        required
+                      />
                     </Form.Group>
                   </Col>
                 </Row>
@@ -177,6 +209,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                       <Form.Control
                         type='text'
                         required
+                        value={item.issue || ''}
                         onChange={(e) => updateItem({ issue: e.target.value.replace(/#/g, '') })}
                       />
                     </Form.Group>
@@ -184,7 +217,12 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                   <Col sm={12} lg={6}>
                     <Form.Group>
                       <Form.Label>Publisher*</Form.Label>
-                      <Form.Control type='text' onChange={(e) => updateItem({ publisher: e.target.value })} required />
+                      <Form.Control
+                        type='text'
+                        value={item.publisher || ''}
+                        onChange={(e) => updateItem({ publisher: e.target.value })}
+                        required
+                      />
                     </Form.Group>
                   </Col>
                 </Row>
@@ -207,13 +245,21 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                   <Col sm={12} lg={6}>
                     <Form.Group>
                       <Form.Label>Grade</Form.Label>
-                      <Form.Control type='text' onChange={(e) => updateItem({ grade: e.target.value })} />
+                      <Form.Control
+                        type='text'
+                        value={item.grade || ''}
+                        onChange={(e) => updateItem({ grade: e.target.value })}
+                      />
                     </Form.Group>
                   </Col>
                   <Col sm={12} lg={6}>
                     <Form.Group>
                       <Form.Label>Serial number</Form.Label>
-                      <Form.Control type='text' onChange={(e) => updateItem({ serialNumber: e.target.value })} />
+                      <Form.Control
+                        value={item.serialNumber || ''}
+                        type='text'
+                        onChange={(e) => updateItem({ serialNumber: e.target.value })}
+                      />
                     </Form.Group>
                   </Col>
                   <Col sm={12} lg={6}>
@@ -224,7 +270,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                         Declared value* (must be $750 or greater)
                       </Form.Label>
                       <Form.Control
-                        value={item?.estimatedValue?.toLocaleString()}
+                        value={(Number(item?.estimatedValue) && item?.estimatedValue?.toLocaleString()) || ''}
                         onChange={(e) => setEstVal(e.target.value)}
                         required
                       />

@@ -90,9 +90,16 @@
     text-align: center;
     border-radius: 4px;
     transition: all 0.5s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &:hover {
       box-shadow: 0 0 30px -5px #ab8dff;
+    }
+
+    &--disabled {
+      pointer-events: none;
     }
   }
 
@@ -114,7 +121,7 @@
     text-decoration: underline;
 
     &:hover {
-      cursor: pointer
+      cursor: pointer;
     }
   }
 }

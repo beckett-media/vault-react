@@ -18,7 +18,7 @@
     height: 100%;
     align-items: center;
 
-    @media only screen and (max-width: 800px) {
+    @media only screen and (max-width: 923px) {
       grid-template-columns: 1fr 40px;
     }
   }
@@ -28,7 +28,7 @@
     display: flex;
     gap: 30px;
 
-    @media only screen and (max-width: 800px) {
+    @media only screen and (max-width: 923px) {
       display: none;
     }
   }
@@ -39,7 +39,7 @@
     align-items: center;
     gap: 12px;
 
-    @media only screen and (max-width: 800px) {
+    @media only screen and (max-width: 923px) {
       display: none;
     }
   }
@@ -106,30 +106,40 @@
     &:hover .nav_user-dropdown-list {
       visibility: visible;
       opacity: 1;
+      transform: translateY(0px);
     }
 
     &-list {
       visibility: hidden;
+      padding: 12px 10px;
+      margin-top: 8px;
+      box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
       opacity: 0;
       position: absolute;
       background-color: black;
       color: white;
-      outline: rgba(#fff, 0.3) 1px solid;
+      outline: rgba(#fff, 0.2) 1px solid;
       display: flex;
       flex-direction: column;
       right: 0px;
       border-radius: 4px;
-      transition: all 0.2s ease-in-out;
+      transition: all 0.15s ease-in-out;
       overflow: hidden;
+      transform: translateY(-5px);
     }
 
     &-item {
-      padding: 4px 24px;
+      padding: 8px 32px;
       cursor: pointer;
-      transition: all 0.2s ease-in-out;
+      border-radius: 6px;
+      transition: all 0.1s ease-in-out;
+
+      &--highlight {
+        background: var(--primary-900);
+      }
 
       &:hover {
-        background: var(--primary);
+        background: var(--primary-900);
         color: white;
       }
     }
@@ -138,7 +148,7 @@
   &mobile {
     display: none;
 
-    @media only screen and (max-width: 800px) {
+    @media only screen and (max-width: 923px) {
       display: flex;
       height: 100%;
     }
@@ -205,7 +215,7 @@
         align-items: center;
         z-index: 1000;
 
-        @media only screen and (max-width: 800px) {
+        @media only screen and (max-width: 923px) {
           display: flex;
         }
       }

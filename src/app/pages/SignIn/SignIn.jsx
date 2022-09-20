@@ -144,12 +144,14 @@ const SignIn = () => {
 
   const authContext = useContext(AuthContext);
 
+  const isLoading = message === 'Loading';
+
   const signInClicked = async () => {
     setMessage('Loading');
     try {
       await authContext.signInWithEmail(email, password);
     } catch (err) {
-      setMessage('')
+      setMessage('');
       if (err.code === 'NotAuthorizedException') {
         setError('Verify username/password or check confirmation email');
       } else if (err.code === 'UserNotConfirmedException') {
@@ -177,7 +179,7 @@ const SignIn = () => {
   const submitForgotPassword = async () => {
     await forgotPassword(email, code, confirmPassword)
       .then((res) => {
-        if(res === 'password updated'){
+        if (res === 'password updated') {
           setMessage('Password reset success!');
         }
       })
@@ -192,15 +194,15 @@ const SignIn = () => {
       });
   };
   const confirmPasswordMatch = (pw) => {
-    if(pw !== password){
-      setError("Passwords don't match")
-    } else setError('')
-    setConfirmPassword(pw)
-  }
+    if (pw !== password) {
+      setError("Passwords don't match");
+    } else setError('');
+    setConfirmPassword(pw);
+  };
   const dismissPasswordReset = () => {
-    setMessage('')
-    setCodeSent(false)
-  }
+    setMessage('');
+    setCodeSent(false);
+  };
 
   return (
     <div className='page-wrapper vh-100'>
@@ -221,11 +223,14 @@ const SignIn = () => {
                 />
               </FormControl>
               <PasswordField value={password} onChange={(e) => setPassword(e.target.value)} />
-              {error && <>
-                <div className='signin_error'>{error}</div>
-                <div className='signin_reverify' onClick={()=>resendConfirmationCode(email) }>Resend Validation Email</div>
-              </>}
-              {message === 'Loading' && <><Spinner animation="border" role="status"/><span>Loading...</span></>}
+              {error && (
+                <>
+                  <div className='signin_error'>{error}</div>
+                  <div className='signin_reverify' onClick={() => resendConfirmationCode(email)}>
+                    Resend Validation Email
+                  </div>
+                </>
+              )}
               <Checkbox marginTop='12px' alignSelf='start' size='sm' colorScheme='gray' className='signin_checkbox'>
                 Remember me
               </Checkbox>
@@ -238,7 +243,11 @@ const SignIn = () => {
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
               />
-              <NewPasswordField value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+              <NewPasswordField
+                label='Confirm Password'
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
             </>
           )}
           {codeSent && (
@@ -269,21 +278,22 @@ const SignIn = () => {
                 value={password}
                 placeholder='New Password**'
                 onChange={(e) => setPassword(e.target.value)}
-              /> <FormControl>
-              <PasswordField
-                placeholder='Confirm Password**'
-                value={confirmPassword}
-                onChange={(e) => confirmPasswordMatch(e.target.value)}
-              />
-            </FormControl>
-            {error && <div className='signin_error'>{error}</div>}
-           {error === 'Passwords do not match!' ?
-            <div className='signin_muted'>
-              Continue
-            </div> :
-            <div onClick={() => submitForgotPassword()} className='signin_button'>
-              Continue
-            </div>}
+              />{' '}
+              <FormControl>
+                <PasswordField
+                  placeholder='Confirm Password**'
+                  value={confirmPassword}
+                  onChange={(e) => confirmPasswordMatch(e.target.value)}
+                />
+              </FormControl>
+              {error && <div className='signin_error'>{error}</div>}
+              {error === 'Passwords do not match!' ? (
+                <div className='signin_muted'>Continue</div>
+              ) : (
+                <div onClick={() => submitForgotPassword()} className='signin_button'>
+                  Continue
+                </div>
+              )}
             </>
           )}
           {codeSent && (
@@ -297,8 +307,8 @@ const SignIn = () => {
             </Modal>
           )}
           {!(authContext.authStatus === AuthStatus.SetPassword) && !codeSent && (
-            <div onClick={signInClicked} className='signin_button'>
-              Continue
+            <div onClick={signInClicked} className={`signin_button ${isLoading && 'signin_button--disabled'}`}>
+              {isLoading ? <Spinner animation='border' role='status' /> : 'Continue'}
             </div>
           )}
           {authContext.authStatus === AuthStatus.SetPassword && (

@@ -6,6 +6,7 @@
 
   &gallery {
     padding: 24px 0 80px 0;
+    min-height: 500px;
   }
 
   &heading {
@@ -26,7 +27,7 @@
       border: 1px solid #c5c5c5;
       box-shadow: 0px 1px 3px rgb(16 24 40 / 10%), 0px 1px 2px rgb(16 24 40 / 6%);
       border-radius: 4px;
-      overflow: hidden;
+      overflow: scroll;
     }
 
     &-grid {
@@ -115,24 +116,33 @@
   }
 
   &empty {
+    margin: 52px 0 130px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 
     &-content {
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
+      max-width: 700px;
     }
 
     &-heading {
-      font-size: 18px;
+      font-size: 32px;
       font-weight: 500;
+      line-height: 120%;
+      color: var(--primary-500);
+      margin-bottom: 20px;
     }
 
     &-body {
       font-size: 16px;
+      line-height: 160%;
+      color: #2e2e2e;
+      margin-bottom: 24px;
     }
   }
 }
@@ -151,5 +161,76 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 24px;
+
+    &_right-heading {
+      padding-right: 24px;
+    }
+  }
+}
+
+.gallery-filter_ {
+  &component {
+    position: sticky;
+    top: 54px;
+    z-index: 9;
+    background-color: #fff;
+    color: #000;
+  }
+
+  &utility-div {
+    @media only screen and (max-width: 1300px) {
+      display: none;
+    }
+  }
+
+  &layout {
+    padding: 16px 0;
+    display: grid;
+    grid-template-columns: 0.5fr 1fr 0.5fr;
+    gap: 48px;
+    align-items: center;
+    justify-content: space-between;
+
+    @media only screen and (max-width: 1300px) {
+      grid-template-columns: 2fr 1fr;
+    }
+
+    @media only screen and (max-width: 1200px) {
+      gap: 24px;
+    }
+
+    @media only screen and (max-width: 800px) {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 1fr;
+    }
+  }
+
+  &multiselect {
+    font-size: 14px;
+  }
+
+  &toggle-wrapper {
+    display: none;
+
+    @media only screen and (max-width: 800px) {
+      display: block;
+    }
+  }
+
+  &grid-select {
+    @media only screen and (max-width: 800px) {
+      display: none !important;
+    }
+  }
+
+  &divider {
+    width: 100%;
+    height: 1px;
+    background-color: #fff;
+  }
+
+  &filter-wrapper {
+    width: fit-content;
+    display: flex;
   }
 }

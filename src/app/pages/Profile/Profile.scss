@@ -1,10 +1,13 @@
-.loading-header, .confirm-header, .update-error_header{
+.loading-header,
+.update-error_header {
   font-size: 36px;
   font-family: 'Alliance', sans-serif;
   line-height: 120%;
   margin-bottom: 12px;
   color: black;
 }
+
+.confirm-header,
 .confirm-text {
   color: black;
 }
@@ -12,6 +15,11 @@
 .update-error_ {
   &text {
     color: red;
-    
+  }
+}
+
+.profile_ {
+  &form {
+    max-width: 640px;
   }
 }

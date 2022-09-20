@@ -1,30 +1,33 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import requireContext from 'require-context.macro';
 
 import './ListItem.scss';
 
-import { formatPrice, trimString } from '../../utils/strings';
+import { ReactComponent as EmptyCollection } from '../../assets/beckett-card-placeholder.svg';
 import { getImageAssetUrl } from '../../utils/image';
+import { formatPrice } from '../../utils/strings';
+import { getTitle } from '../../utils/vaulting';
 
-const images = requireContext('../../assets/Images', true);
-
-const ListItem = ({ item }, props) => {
+const ListItem = ({ item }) => {
   const imageUrl = getImageAssetUrl(item.image_url);
 
   return (
     <div className='list-item_component'>
-      <Link to={`/my-collection/item/${item.id}`} className='w-100'>
+      <Link to={`/my-collection/item/${item.id}`}>
         <div className='list-item_layout'>
-          <img className='list-item_image' src={imageUrl} alt='' />
+          {item.image_url ? (
+            <img className='list-item_image' src={imageUrl} alt='' />
+          ) : (
+            <EmptyCollection className='list-item_image' />
+          )}
           <div className='ellipses_wrapper'>
-            <div className='ellipses_child'>{item.title}</div>
+            <div className='ellipses_child'>{getTitle(item, 'submission')}</div>
           </div>
-          <div className='ellipses_wrapper'>
-            <div className='ellipses_child'>{item.description}</div>
+          <div className='ellipses_wrapper list-item_description'>
+            <div className='ellipses_child'>{item.description?.length && item.description}</div>
           </div>
 
-          <div>{item.grade}</div>
+          <div>{!isNaN(item.grade) ? item.grade : ''}</div>
           <div>{formatPrice(+item.est_value)}</div>
         </div>
       </Link>

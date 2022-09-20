@@ -5,5 +5,5 @@ export const useToggle = () => {
 
   const toggle = () => setIsToggled(!isToggled);
 
-  return { isToggled, toggle };
+  return { isToggled, toggle, setIsToggled };
 };

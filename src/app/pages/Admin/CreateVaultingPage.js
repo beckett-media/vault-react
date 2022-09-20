@@ -2,7 +2,6 @@ import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { getSingleSubmission, SUBMISSION_STATUS } from '../../services/submission';
-import ImageUploader from '../../components/Generic/ImageUploader';
 import './CreateVaultingPage.scss';
 import SubmitButton from '../../components/Generic/SubmitButton';
 import { createVaulting, fetchItemBySubmission } from '../../services/items';
@@ -11,7 +10,6 @@ function AdminCreateVaultingPage() {
   const { submissionId } = useParams();
   const navigate = useNavigate();
   const [submission, setSubmission] = React.useState({});
-  const [image, setImage] = React.useState({});
   const isValidId = submissionId && !isNaN(Number(submissionId));
   const [isExisting, setIsExisting] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
@@ -55,8 +53,6 @@ function AdminCreateVaultingPage() {
       item_id: submission.item_id,
       user: submission.user,
       submission_id: submission.id,
-      image_base64: image.imageBase64?.split(`data:${image.imageFormat};base64,`)[1] || '',
-      image_format: image.imageFormat.split('/')[1] || 'png',
     })
       .then((res) => {
         alert('Vaulting created');
@@ -94,28 +90,6 @@ function AdminCreateVaultingPage() {
                 func={handleCreateClick}
                 disabled={isExisting || isNotApproved}
               />
-            </Col>
-          </Row>
-          <Row className='mt-4'>
-            <Col className='col-md-6 col-sm-12'>
-              <ImageUploader
-                onFileChange={(obj) => {
-                  if (obj) {
-                    setImage(obj);
-                  } else {
-                    setImage({
-                      imageFormat: null,
-                      imageBase64: null,
-                    });
-                  }
-                }}
-                heading='Please upload an image here'
-              />
-            </Col>
-            <Col className='col-md-6 col-sm-12'>
-              {image.imageBase64 && image.previewUrl ? (
-                <img src={image.previewUrl} alt='Vaulting preview' width={400} />
-              ) : null}
             </Col>
           </Row>
         </>

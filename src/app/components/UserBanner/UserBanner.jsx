@@ -1,15 +1,56 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import { Spinner } from 'react-bootstrap';
 import { AuthContext } from '../../contexts/auth';
-import { getUserName, mapCognitoToUser } from '../../services/user';
+import { mapCognitoToUser } from '../../services/user';
+import Dropzone from 'react-dropzone-uploader';
+import { BsCamera } from 'react-icons/bs';
 
 import './UserBanner.scss';
 
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+
 import { ReactComponent as BgSphere } from '../../assets/bg-sphere.svg';
 import { formatPrice } from '../../utils/strings';
+import { blobToBase64 } from '../../utils/image';
+import { uploadImageToS3 } from '../../services/user';
+import { mapUserToCognito } from '../../services/user';
 
-const UserBanner = ({ vaultedItems = 0, vaultedValue = 0 }) => {
+const UserBanner = ({ vaultedItems = 0, vaultedValue = 0, canEditImage = false }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [userId, setUserId] = useState();
+  const [isImageLoading, setIsImageLoading] = useState(true);
+
   const authContext = useContext(AuthContext);
   const userState = mapCognitoToUser(authContext.attrInfo);
+
+  useEffect(() => {
+    setUserId(userState.sub);
+  }, []);
+
+  const handleChangeStatus = async ({ meta, file }, status) => {
+    setIsLoading(true);
+
+    if (status === 'done') {
+      const imageFormat = file.type;
+      const imageBase64 = await blobToBase64(meta.previewUrl);
+
+      const image = {
+        image_base64: imageBase64?.split(`data:${imageFormat};base64,`)[1] || '',
+        image_format: imageFormat.split('/')[1] || 'png',
+      };
+
+      try {
+        const response = await uploadImageToS3(userId, image);
+        authContext.setAttributes(mapUserToCognito({ ...userState, profile: response.data.image_url }));
+        setIsLoading(false);
+      } catch (e) {
+        console.log(e);
+        setIsLoading(false);
+      }
+    } else if (status === 'removed') {
+      onFileChange(null);
+    }
+  };
 
   const bannerDetails = vaultedItems ? (
     <div className='user-banner_content-layout'>
@@ -32,6 +73,7 @@ const UserBanner = ({ vaultedItems = 0, vaultedValue = 0 }) => {
       <div></div>
     </div>
   );
+
   return (
     <div className='user-banner_component'>
       <BgSphere className='user-banner_bg-sphere z-index-0' />
@@ -39,7 +81,43 @@ const UserBanner = ({ vaultedItems = 0, vaultedValue = 0 }) => {
         <div className='container-large'>
           <div className='user-banner_layout'>
             <div className='user-banner_image-wrapper'>
-              <img className='user-banner_image' src={userState.profile || require('../../assets/stockImage.jpeg')} />
+              {canEditImage && (
+                <div className='user-banner_image-upload'>
+                  {isLoading ? (
+                    <LoadingSpinner />
+                  ) : (
+                    <>
+                      <div className='d-flex flex-column align-items-center'>
+                        <BsCamera className='user-banner_image-upload-icon' />
+                        <div>Update Image</div>
+                      </div>
+                      <Dropzone
+                        classNames={{ dropzone: 'user-banner_image-upload-dropzone' }}
+                        onChangeStatus={handleChangeStatus}
+                        accept='image/*'
+                        maxFiles={1}
+                        multiple={false}
+                        canCancel={false}
+                        inputContent='Drag image or Click to Browse'
+                        submitButtonDisabled
+                      />
+                    </>
+                  )}
+                </div>
+              )}
+
+              <img
+                onLoad={() => setIsImageLoading(false)}
+                className={`user-banner_image ${isImageLoading && 'd-none'}`}
+                src={userState.profile || require('../../assets/stockImage.jpeg')}
+              />
+              <Spinner
+                animation='border'
+                role='status'
+                className={`item-card_spinner w-100 h-100 ${!isImageLoading && 'd-none'}`}
+              >
+                <span className='visually-hidden'>Loading...</span>
+              </Spinner>
             </div>
             {bannerDetails}
           </div>

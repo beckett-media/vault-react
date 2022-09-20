@@ -1,35 +1,41 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
 import { getFormattedDate } from '../../utils/date';
 import './History.scss';
 
 const ItemsHistory = ({ sortedItems, listings, submissions, vaulting, setSortedItems }) => {
   const [selected, setSelected] = useState('');
   const [groups, setGroups] = useState({});
-  const [groupsReady, setGroupsReady] = useState(false)
   const navigate = useNavigate();
+  const isMobile = useMediaQuery({
+    query: '(max-width: 1100px)',
+  });
 
   useEffect(() => {
     const groupings = {};
-    sortedItems?.map((item) => {
-      if (item.extra.length) {
-        const extra = item.extra.length && JSON.parse(item.extra);
-        if (Object.keys(groupings).includes(extra.uuid)) {
-          groupings[`${extra.uuid}`].push({ ...item, ...extra });
-        } else if (extra.uuid !== undefined && extra.uuid !== '') {
-          groupings[`${extra.uuid}`] = [{ ...item, ...extra }];
+    submissions.length &&
+      sortedItems.length &&
+      sortedItems?.map((item) => {
+        if (item.extra.length) {
+          const extra = item.extra.length && JSON.parse(item.extra);
+          if (Object.keys(groupings).includes(extra.uuid)) {
+            groupings[`${extra.uuid}`].push({ ...item, ...extra });
+          } else if (extra.uuid !== undefined && extra.uuid !== '') {
+            groupings[`${extra.uuid}`] = [{ ...item, ...extra }];
+          }
         }
-      } 
-    });
-    groupings && Object.keys(groupings).forEach((group) =>{
-      const submission = submissions.filter((sub) => sub.item_id === Number(groupings[`${group}`][0].entity))
-      if(submission[0]) {
-        groupings[`${group}`][0]['order_id'] = submission[0].order_id
-      }
-    });
-    setGroups({...groupings});
-  }, [sortedItems]);
+      });
+    groupings &&
+      Object.keys(groupings).forEach((group) => {
+        const submission = submissions.filter((sub) => sub.item_id === Number(groupings[`${group}`][0].entity));
+        if (submission[0]?.order_id) {
+          groupings[`${group}`][0]['order_id'] = submission[0].order_id;
+        }
+      });
+    setGroups({ ...groupings });
+  }, [sortedItems, submissions]);
 
   useEffect(() => {
     const items = submissions.filter(
@@ -65,36 +71,40 @@ const ItemsHistory = ({ sortedItems, listings, submissions, vaulting, setSortedI
     } else order_id = groups[group][0].order_id;
     navigate(`/order-details/${order_id}`);
   };
+
   return (
     <>
-      {Object.keys(groups)?.map((group) => {
+      {Object.keys(groups)?.map((group, index) => {
         const isSelected = group === selected;
         return (
-          <>
-            <Row className='py-3 px-5 border' onClick={(e) => rowClicked(e.target.className, group)}>
-              <Col xs={8}>
+          <div key={index}>
+            <Row
+              className={`py-3 px-${isMobile ? '3' : '5'} border`}
+              onClick={(e) => rowClicked(e.target.className, group)}
+            >
+              <Col xs={isMobile ? 6 : 8}>
                 <div>{groups[group][0]?.type_desc}</div>
                 <div className='fw-bold'>{`Order ID: ${groups[group][0]?.order_id}`}</div>
               </Col>
-              <Col xs={1}>
+              <Col xs={isMobile ? 2 : 1}>
                 <Button onClick={() => printDetails(group)}>Print</Button>
               </Col>
-              <Col xs={2}>
+              <Col xs={isMobile ? 3 : 2}>
                 <div>{getFormattedDate(groups[group][0]?.created_at)}</div>
               </Col>
               {isSelected ? (
-                <Col xs={1} className='right-align px-4'>
+                <Col xs={1} className={`right-align ${isMobile ? '' : 'px-4'}`}>
                   &and;
                 </Col>
               ) : (
-                <Col xs={1} className='right-align px-4'>
+                <Col xs={1} className={`right-align ${isMobile ? '' : 'px-4'}`}>
                   &or;
                 </Col>
               )}
             </Row>
             {isSelected &&
-              groups[group].map((item) => (
-                <Row className='py-3 px-5 border'>
+              groups[group].map((item, index) => (
+                <Row className={`py-3 px-${isMobile ? '3' : '5'} border`} key={index}>
                   <Col lg={2}>
                     <div>
                       {'Status: '}
@@ -106,9 +116,7 @@ const ItemsHistory = ({ sortedItems, listings, submissions, vaulting, setSortedI
                     <div>
                       {'ID: '}
                       <br />
-                      <span className='fw-bold'>
-                        {item.id}
-                      </span>
+                      <span className='fw-bold'>{item.id}</span>
                     </div>
                   </Col>
                   <Col lg={6}>
@@ -116,13 +124,15 @@ const ItemsHistory = ({ sortedItems, listings, submissions, vaulting, setSortedI
                       {'Item: '}
                       <br />
                       <span className='fw-bold'>
-                        {item.title.length ? item.title : `${item.year} ${item.manufacturer} ${item.card_number} ${item.player}`}
+                        {item.title.length
+                          ? item.title
+                          : `${item.year} ${item.manufacturer} ${item.card_number} ${item.player}`}
                       </span>
                     </div>
                   </Col>
                 </Row>
               ))}
-          </>
+          </div>
         );
       })}
     </>

@@ -32,6 +32,8 @@ import CartProvider from './app/contexts/cart';
 import InterestForm from './app/pages/InterestForm/InterestForm';
 import ComingSoon from './app/pages/ComingSoon/ComingSoon';
 import FooterModal from './app/components/FooterModal/FooterModal';
+import AdminCreateAccount from './app/pages/Admin/CreateAccountPage';
+import ErrorBoundary from './ErrorBoundary';
 
 // chakra uses a default theme, this will remove it.
 const emptyChakraTheme = extendTheme({
@@ -49,59 +51,62 @@ function App() {
   const dismissModal = () => setShowFooterModal('');
   return (
     <>
-      <AuthProvider>
-        <CartProvider>
-          <ChakraProvider theme={emptyChakraTheme}>
-            <TopNav />
-            <main className='w-100 h-100'>
-              <Routes>
-                <Route exact path='/' element={<PrivateRoute />}>
-                  <Route path='/submission' element={<Submission />} />
-                  <Route path='/order-details' element={<OrderDetails />}>
-                    <Route path='/order-details/:orderId' element={<OrderPrint />} />
-                  </Route>
-                  {/* <Route path='/about' element={<Homepage />} /> */}
-                  <Route path='/my-collection' element={<MyCollection />} />
-                  <Route path='/my-collection/item/:id' element={<Item />} />
-                  <Route path='/market' element={<Market />} />
-                  <Route path='/market/:department' element={<Department />} />
+      <ErrorBoundary>
+        <AuthProvider>
+          <CartProvider>
+            <ChakraProvider theme={emptyChakraTheme}>
+              <TopNav />
+              <main className='w-100 h-100'>
+                <Routes>
+                  <Route exact path='/' element={<PrivateRoute />}>
+                    <Route path='/submission' element={<Submission />} />
+                    <Route path='/order-details' element={<OrderDetails />}>
+                      <Route path='/order-details/:orderId' element={<OrderPrint />} />
+                    </Route>
+                    {/* <Route path='/about' element={<Homepage />} /> */}
+                    <Route path='/my-collection' element={<MyCollection />} />
+                    <Route path='/my-collection/item/:id' element={<Item />} />
+                    <Route path='/market' element={<Market />} />
+                    <Route path='/market/:department' element={<Department />} />
 
-                  <Route path='/withdraw' element={<Withdraw />} />
-                  <Route path='/cart' element={<Cart />} />
-                  <Route exact path='/profile' element={<Profile />} />
-                  <Route path='/history' element={<History />} />
-                  <Route path='/support' element={<Support />} />
-                  {/* <Route path='/' element={<Homepage />} /> */}
-                  <Route path='/' element={<RedirectHome />} />
-                </Route>
-                <Route path='/admin' element={<AdminRoute />}>
-                  <Route exact path='' element={<AdminPage />} />
-                  <Route exact path='submission/edit/:submissionId' element={<AdminEditSubmissionPage />} />
-                  <Route exact path='submission/vaulting/:submissionId' element={<AdminCreateVaultingPage />} />
-                  <Route exact path='submission' element={<AdminSubmissionPage />} />
-                  <Route exact path='vaulting' element={<AdminVaultingPage />} />
-                </Route>
-                <Route exact path='/signin' element={<OnlyUnathenticated />}>
-                  <Route path='' element={<SignIn />} />
-                </Route>
-                <Route path='/faq' element={<Faq />} />
-                <Route path='/privacy' element={<Privacy />} />
-                <Route path='/terms' element={<Terms />} />
-                <Route path='/beta-signup' element={<InterestForm />} />
-                <Route path='/coming-soon' element={<ComingSoon />} />
-                <Route path='/signup' element={<SignUp />} />
-                <Route path='/*' element={<Navigate to='/' replace={true} />} />
-              </Routes>
-            </main>
-            <Footer setShowFooterModal={setShowFooterModal} />
-            <FooterModal
-              showFooterModal={showFooterModal}
-              openModal={showFooterModal.length}
-              dismissModal={dismissModal}
-            />
-          </ChakraProvider>
-        </CartProvider>
-      </AuthProvider>
+                    <Route path='/withdraw' element={<Withdraw />} />
+                    <Route path='/cart' element={<Cart />} />
+                    <Route exact path='/profile' element={<Profile />} />
+                    <Route path='/history' element={<History />} />
+                    <Route path='/support' element={<Support />} />
+                    {/* <Route path='/' element={<Homepage />} /> */}
+                    <Route path='/' element={<RedirectHome />} />
+                  </Route>
+                  <Route path='/admin' element={<AdminRoute />}>
+                    <Route exact path='' element={<AdminPage />} />
+                    <Route exact path='submission/edit/:submissionId' element={<AdminEditSubmissionPage />} />
+                    <Route exact path='submission/vaulting/:submissionId' element={<AdminCreateVaultingPage />} />
+                    <Route exact path='submission' element={<AdminSubmissionPage />} />
+                    <Route exact path='vaulting' element={<AdminVaultingPage />} />
+                    <Route exact path='create-account' element={<AdminCreateAccount />} />
+                  </Route>
+                  <Route exact path='/signin' element={<OnlyUnathenticated />}>
+                    <Route path='' element={<SignIn />} />
+                  </Route>
+                  <Route path='/faq' element={<Faq />} />
+                  <Route path='/privacy' element={<Privacy />} />
+                  <Route path='/terms' element={<Terms />} />
+                  <Route path='/beta-signup' element={<InterestForm />} />
+                  <Route path='/coming-soon' element={<ComingSoon />} />
+                  <Route path='/signup' element={<SignUp />} />
+                  <Route path='/*' element={<Navigate to='/' replace={true} />} />
+                </Routes>
+              </main>
+              <Footer setShowFooterModal={setShowFooterModal} />
+              <FooterModal
+                showFooterModal={showFooterModal}
+                openModal={showFooterModal.length}
+                dismissModal={dismissModal}
+              />
+            </ChakraProvider>
+          </CartProvider>
+        </AuthProvider>
+      </ErrorBoundary>
     </>
   );
 }

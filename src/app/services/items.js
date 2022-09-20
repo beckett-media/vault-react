@@ -9,6 +9,12 @@ export const VAULTING_STATUS = {
   Withdrawing: 5,
   Withdrawn: 6,
 };
+
+export const ITEM_TYPE = {
+  TRADING_CARD: 1,
+  COMIC: 2,
+};
+
 const mockItems = [
   {
     id: 1,
@@ -466,15 +472,9 @@ export const getListings = async ({ user, status, offset, limit, order } = {}) =
 };
 
 export const getSingleListing = (id) => {
-  return axiosClient
-    .get(`/marketplace/listing/${id}`, {
-      headers: {
-        Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
-      },
-    })
-    .then((res) => {
-      res.data;
-    });
+  return axiosClient.get(`/marketplace/listing/${id}`).then((res) => {
+    res.data;
+  });
 };
 
 export const getVaulting = async ({ user, status, offset, limit, order } = {}) => {
@@ -491,8 +491,24 @@ export const getVaulting = async ({ user, status, offset, limit, order } = {}) =
       params: Object.keys(params).length > 0 ? params : undefined,
     })
     .then((res) => {
-      return res.data;
+      return modifyItems(res.data);
     });
+};
+
+const modifyItems = (data) => {
+  if (!Array.isArray(data)) return data;
+  return data.map((item) => {
+    const playerNames = item.player.split(' ');
+    let playerFirstName, playerLastName;
+    if (playerNames.length > 1) {
+      playerFirstName = playerNames.shift();
+      playerLastName = playerNames.join(' ');
+    } else {
+      playerFirstName = '';
+      playerLastName = playerNames[0];
+    }
+    return { ...item, playerFirstName, playerLastName };
+  });
 };
 
 export const getSingleVaulting = (id) => {

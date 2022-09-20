@@ -17,10 +17,19 @@ $primary: #54c4c8;
 
   &-primary {
     color: #fff !important;
+
+    &:hover {
+      background-color: var(--primary-700) !important;
+      border-color: var(--primary-700) !important;
+    }
   }
 
-  &-outline-primary:hover {
-    color: #fff !important;
+  &-outline-primary {
+    &:hover {
+      background-color: var(--primary-700) !important;
+      border-color: var(--primary-700) !important;
+      color: #fff !important;
+    }
   }
 }
 
@@ -29,6 +38,15 @@ $primary: #54c4c8;
   font-weight: 500;
 }
 
+.form-check-label {
+  font-size: 14px;
+  font-weight: 500;
+}
+
 .form-control {
   margin-bottom: 16px;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }

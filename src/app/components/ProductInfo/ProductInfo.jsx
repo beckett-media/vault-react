@@ -23,7 +23,7 @@ const ProductInfo = ({ isOwner, item, addToCart }) => {
     if (item.name !== name) {
       updateItemDetails({ ...item, title: name });
     }
-    createItemListing({ vaulting_id: item.id, user: userState.sub, price: price }).then((res) => console.log(res.data));
+    createItemListing({ vaulting_id: item.id, user: userState.sub, price: price });
   };
 
   useEffect(() => {
@@ -76,7 +76,7 @@ const ProductInfo = ({ isOwner, item, addToCart }) => {
             <div>{formatPrice(price)}</div>
           </div>
           <div className='product-info_stats'>
-            <div>Grade: {item.overall_grade ? item.overall_grade : 'No grade'}</div>
+            <div>{item.overall_grade && `Grade: ${item.overall_grade}`}</div>
           </div>
           {item.tags && (
             <div className='product-info_tags-wrapper'>

@@ -2,17 +2,20 @@
   "dev": {
     "BASE_URL": "https://dev.beckett.com:3300",
     "REACT_APP_USERPOOL_ID": "us-west-1_YLyATgtQd",
-    "REACT_APP_CLIENT_ID": "1fkbqcr55bega982jv61rl776o"
+    "REACT_APP_CLIENT_ID": "1fkbqcr55bega982jv61rl776o",
+    "USPS_API_USERID": "831BECKE1073"
   },
   "qa": {
     "BASE_URL": "https://dev.beckett.com:3300",
     "REACT_APP_USERPOOL_ID": "us-west-1_Gj8Gf2z4L",
-    "REACT_APP_CLIENT_ID": "rpopj2sqf6s8mvhsdbjc6d3gd"
+    "REACT_APP_CLIENT_ID": "rpopj2sqf6s8mvhsdbjc6d3gd",
+    "USPS_API_USERID": "831BECKE1073"
   },
   "prod": {
     "BASE_URL": "https://vault-api.beckett.com",
     "REACT_APP_USERPOOL_ID": "us-west-1_ElMUH3zGV",
-    "REACT_APP_CLIENT_ID": "58jpn0mv4gmgl1ntg3ku622l1e"
+    "REACT_APP_CLIENT_ID": "58jpn0mv4gmgl1ntg3ku622l1e",
+    "USPS_API_USERID": "831BECKE1073"
   },
   "general": {}
 }
