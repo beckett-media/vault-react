@@ -1,74 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { Col, Form, Row, Button, Spinner, ListGroup } from 'react-bootstrap';
-import { BsFillPlusCircleFill } from 'react-icons/bs';
+import React from 'react';
+import { Form } from 'react-bootstrap';
 
-import { getInventory, postInventory, putInventory, getInventoryZoneOptions } from '../../services/inventory';
-import { blankLocation } from '../../const/inventory';
-
-// Use this component with the useInventoryLocation hook in the parent component
+import { getInventoryZoneOptions } from '../../services/inventory';
 
 const InventoryLocationForm = ({ updateInventory, inventory }) => {
-  const [apiRetrigger, setApiRetrigger] = useState({});
-  const [initialInventory, setInitialInventory] = useState([]);
-  // const [inventory, setInventory] = useState(blankLocation);
-  const [isPostLoading, setIsPostLoading] = useState(false);
-  const [isPutLoading, setIsPutLoading] = useState(false);
-  const [newLocationId, setNewLocationId] = useState();
-
-  // useEffect(() => {
-  //   getInventory({ item_ids: [itemId] })
-  //     .then((data) => {
-  //       setInitialInventory(data);
-  //     })
-  //     .catch();
-  // }, [apiRetrigger]);
-
   const zoneOptions = getInventoryZoneOptions();
-
-  const currentLocation = initialInventory?.find((item) => item.status === 1);
-
-  const findInventoryById = (id) => {
-    initialInventory.find((item) => item.id === id);
-  };
-
-  // const updateInventory = (tempInventory) => setInventory({ ...inventory, ...tempInventory });
-
-  // const createNewLocation = (e) => {
-  //   e.preventDefault();
-  //   setIsPostLoading(true);
-
-  //   inventory.item_id = itemId - 0;
-  //   inventory.is_current = true;
-  //   if (inventory.vault && inventory.zone) {
-  //     postInventory(inventory)
-  //       .then()
-  //       .catch()
-  //       .finally(
-  //         setTimeout(() => {
-  //           setIsPostLoading(false);
-  //           setApiRetrigger({});
-  //           setInventory(blankLocation);
-  //         }, 1000),
-  //       );
-  //   }
-  //   e.target.reset();
-  //   setIsPostLoading(false);
-  // };
-
-  // const updateInventoryLocation = () => {
-  //   setIsPutLoading(true);
-  //   const putBody = { status: 1, note: 'updating location' };
-
-  //   putInventory(newLocationId, putBody)
-  //     .then()
-  //     .catch()
-  //     .finally(
-  //       setTimeout(() => {
-  //         setIsPutLoading(false);
-  //         setApiRetrigger({});
-  //       }, 1000),
-  //     );
-  // };
 
   return (
     <Form onSubmit={(e) => createNewLocation(e)} className='mt-2'>
@@ -150,21 +86,7 @@ const InventoryLocationForm = ({ updateInventory, inventory }) => {
           <Form.Check type='switch' id='custom-switch' label='Cascade' />
         </div>
       </div>
-      <div className='d-flex gap-2 mt-2'>
-        {/* <Button type='submit' disabled={isPostLoading}>
-          {isPostLoading ? (
-            <>
-              <Spinner as='span' animation='border' role='status' aria-hidden='true' />
-              <span className='visually-hidden'>Loading...</span>
-            </>
-          ) : (
-            'Add location'
-          )}
-        </Button>
-        <Button onClick={() => setIsAddingLocation(false)} variant='outline-primary'>
-          Cancel
-        </Button> */}
-      </div>
+      <div className='d-flex gap-2 mt-2'></div>
     </Form>
   );
 };
