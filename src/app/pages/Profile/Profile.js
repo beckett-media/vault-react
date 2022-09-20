@@ -24,7 +24,7 @@ const Profile = () => {
   const [updateError, setUpdateError] = useState('');
   const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
   const launchChangePasswordModal = () => setShowChangePasswordModal(true);
-  console.log(userState);
+
   const navigate = useNavigate();
 
   const updateUserState = (tempItem) => setUserState({ ...userState, ...tempItem });
