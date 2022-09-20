@@ -13,7 +13,7 @@ import { SUBMISSION_STATUS } from '../../services/submission';
 
 const AdminRow = ({ item }) => {
   const [isEditing, setIsEditing] = useState('');
-  const [tempState, setTempState] = useState({});
+  const [tempState, setTempState] = useState(item);
   const [error, setError] = useState('');
 
   const { initialInventory, inventory, currentLocation, postLocation, updateInventory } = useInventoryLocation(
