@@ -28,7 +28,7 @@ const Profile = () => {
   const navigate = useNavigate();
 
   const updateUserState = (tempItem) => setUserState({ ...userState, ...tempItem });
-  /** Proposal to remove temporary state and disable  */
+
   const syncSubmissionAddresses = () => {
     const syncedAddresses = {
       shipCountry: userState.country,
@@ -56,21 +56,26 @@ const Profile = () => {
       return setUpdateError('Phone number is required.');
     }
     try {
-      isShippingSame
-        ? await validateAddress({
-            address1: userState.addressLine1,
-            address2: userState.addressLine2,
-            city: userState.city,
-            state: userState.state,
-            zipcode: userState.zipcode,
-          })
-        : await validateAddress({
-            address1: userState.shipAddressLine1,
-            address2: userState.shipAddressLine2,
-            city: userState.shipCity,
-            state: userState.shipState,
-            zipcode: userState.shipZipcode,
-          });
+      const hasBillingAddress = userState.addressLine1 || userState.city || userState.state || userState.zipcode;
+      const hasShippingAddress =
+        userState.shipAddressLine1 || userState.shipCity || userState.shipState || userState.shipZipcode;
+      if (isShippingSame && hasBillingAddress) {
+        await validateAddress({
+          address1: userState.addressLine1,
+          address2: userState.addressLine2,
+          city: userState.city,
+          state: userState.state,
+          zipcode: userState.zipcode,
+        });
+      } else if (hasShippingAddress) {
+        await validateAddress({
+          address1: userState.shipAddressLine1,
+          address2: userState.shipAddressLine2,
+          city: userState.shipCity,
+          state: userState.shipState,
+          zipcode: userState.shipZipcode,
+        });
+      }
     } catch (err) {
       return setUpdateError(err.message);
     }
