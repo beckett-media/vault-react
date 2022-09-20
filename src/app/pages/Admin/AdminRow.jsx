@@ -10,30 +10,14 @@ import { ReactComponent as PencilIcon } from '../../assets/pencil-icon.svg';
 import { useInventoryLocation } from '../../hooks/useInventoryLocation';
 import { getSingleSubmission, updateSubmission } from '../../services/submission';
 
-const AdminRow = ({ itemId, submission, expanded, setExpanded }) => {
+const AdminRow = ({ item, expanded, setExpanded }) => {
   const [isEditing, setIsEditing] = useState('');
-  const [locationSubmit, setLocationSubmit] = useState();
-  const [idSubmit, setIdSubmit] = useState();
-  const [detailsSubmit, setDetailsSubmit] = useState();
-  const [imageSubmit, setImageSubmit] = useState();
   const [tempState, setTempState] = useState({});
   const [error, setError] = useState('');
-  const [item, setItem] = useState({});
 
-  useEffect(() => {
-    getItem();
-  }, []);
-
-  const getItem = async () => {
-    await getSingleSubmission(submission?.item_id)
-      .then((res) => {
-        setItem(res);
-        setTempState(res);
-      })
-      .catch((err) => setError(err.message));
-  };
-
-  const { initialInventory, inventory, currentLocation, postLocation, updateInventory } = useInventoryLocation(itemId);
+  const { initialInventory, inventory, currentLocation, postLocation, updateInventory } = useInventoryLocation(
+    item.item_id,
+  );
 
   const returnLocationLabel = (locationObject) => {
     if (!locationObject) return 'Unassigned';
@@ -96,7 +80,7 @@ const AdminRow = ({ itemId, submission, expanded, setExpanded }) => {
         payload.image_rev_url = tempState.image_rev_url;
       }
     }
-    updateSubmission(submission.item_id, payload)
+    updateSubmission(item.item_id, payload)
       .then((res) => {
         return;
       })
@@ -107,7 +91,7 @@ const AdminRow = ({ itemId, submission, expanded, setExpanded }) => {
   };
 
   const updateDetails = () => {
-    updateSubmission(submission.item_id, tempState)
+    updateSubmission(item.item_id, tempState)
       .then((res) => {
         return;
       })

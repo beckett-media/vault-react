@@ -14,18 +14,6 @@ const AdminPageProvider = ({ children }) => {
   const [submissionOrderFilter, setSubmissionOrderFilter] = useState();
   const [submissions, setSubmissions] = useState([]);
 
-  useEffect(() => {
-    getSubmissions();
-  }, []);
-  let response;
-  async function getSubmissions() {
-    try {
-      response = await getInventory();
-    } catch (error) {
-      throw new Error(error);
-    }
-    return setSubmissions(response);
-  }
   return (
     <AdminPageContext.Provider
       value={{
