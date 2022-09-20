@@ -72,7 +72,6 @@ const Profile = () => {
             zipcode: userState.shipZipcode,
           });
     } catch (err) {
-      setIsShippingSame(false);
       return setUpdateError(err.message);
     }
     if (userState.phone) {
