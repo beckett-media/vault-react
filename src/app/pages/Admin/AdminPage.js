@@ -1,17 +1,16 @@
 import React, { useContext, useState } from 'react';
 import { ListGroup, Button, Form } from 'react-bootstrap';
 
+import './AdminPage.scss';
+
 import DefaultPage from '../../components/Layout/DefaultPage/DefaultPage';
 import AdminRow from './AdminRow';
 import SubmissionSearch from './SubmissionSearch';
-
-import './AdminPage.scss';
 
 import { AdminPageContext } from '../../contexts/adminPage';
 
 const NewAdmingPage = () => {
   const { submissions } = useContext(AdminPageContext);
-  const [expanded, setExpanded] = useState('');
   console.log('submissions', submissions);
 
   return (
@@ -21,6 +20,7 @@ const NewAdmingPage = () => {
           <div>status tracker component</div>
           <div className='admin-page_content'>
             <SubmissionSearch />
+
             <div className='admin-page_section-table'>
               <div className='admin-page_batch-actions-wrapper'>
                 <Form.Select className='admin-page_batch-actions-select'>
@@ -40,7 +40,7 @@ const NewAdmingPage = () => {
                     <div>Action</div>
                   </ListGroup.Item>
                   {submissions.map((item) => (
-                    <AdminRow key={item.id} item={item} />
+                    <AdminRow key={'admin_row-' + item.id} item={item} />
                   ))}
                 </ListGroup>
               </div>
