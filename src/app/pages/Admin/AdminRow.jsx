@@ -9,8 +9,9 @@ import EditImageRow from './EditImageRow';
 import { ReactComponent as PencilIcon } from '../../assets/pencil-icon.svg';
 import { useInventoryLocation } from '../../hooks/useInventoryLocation';
 import { getSingleSubmission, updateSubmission } from '../../services/submission';
+import { SUBMISSION_STATUS } from '../../services/submission';
 
-const AdminRow = ({ item, expanded, setExpanded }) => {
+const AdminRow = ({ item }) => {
   const [isEditing, setIsEditing] = useState('');
   const [tempState, setTempState] = useState({});
   const [error, setError] = useState('');
@@ -101,51 +102,58 @@ const AdminRow = ({ item, expanded, setExpanded }) => {
     return;
   };
 
+  const isStatusPending = item.status === SUBMISSION_STATUS.Submitted;
+
   return (
     <>
       <ListGroup.Item className='admin-page_table-row'>
-        <Form.Check></Form.Check>
+        <div>{!isStatusPending && <Form.Check></Form.Check>}</div>
         <div className='d-flex gap-1 align-items-center'>
           <img className='img_thumbnail' src={item.image_url} />
-          <PencilIcon
-            onClick={() => {
-              setIsEditing(adminRowSection.image);
-              setExpanded(item.item_id);
-            }}
-          />
+          {!isStatusPending && (
+            <PencilIcon
+              onClick={() => {
+                setIsEditing(adminRowSection.image);
+              }}
+            />
+          )}
         </div>
         <div className='d-flex gap-1 align-items-center'>
           {item.item_id}
-          <PencilIcon
-            onClick={() => {
-              setIsEditing(adminRowSection.id);
-              setExpanded(item.item_id);
-            }}
-          />
+          {!isStatusPending && (
+            <PencilIcon
+              onClick={() => {
+                setIsEditing(adminRowSection.id);
+              }}
+            />
+          )}
         </div>
         <div className='d-flex gap-1 align-items-center'>
           1969 Topps #230 Tom Seaver Baseball BGS 9 $750
-          <PencilIcon
-            onClick={() => {
-              setIsEditing(adminRowSection.details);
-              setExpanded(item.item_id);
-            }}
-          />
+          {!isStatusPending && (
+            <PencilIcon
+              onClick={() => {
+                setIsEditing(adminRowSection.details);
+              }}
+            />
+          )}
         </div>
         <div>
-          <Form.Select>
-            <option value=''>Status</option>
+          <Form.Select aria-label='Status select dropdown'>
+            <option>{item.status_desc}</option>
           </Form.Select>
         </div>
         <div className='d-flex gap-1 align-items-center'>
           {returnLocationLabel(currentLocation)}
-          <PencilIcon onClick={() => setIsEditing(adminRowSection.location)} />
+          {!isStatusPending && <PencilIcon onClick={() => setIsEditing(adminRowSection.location)} />}
         </div>
         <div>
-          <Button className='w-100'>Assign</Button>
+          <Button className='w-100' disabled={isStatusPending}>
+            Assign
+          </Button>
         </div>
       </ListGroup.Item>
-      {!!isEditing && item.item_id === expanded && (
+      {!!isEditing && (
         <AdminRowExpanded
           onCancel={() => setIsEditing('')}
           onSave={() => returnSaveFunction(isEditing)}
