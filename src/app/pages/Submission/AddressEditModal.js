@@ -5,6 +5,7 @@ import { isIncompleteAddress, mapCognitoToUser, mapUserToCognito } from '../../s
 import { states } from '../../const/states';
 import './Submission.scss';
 import { useNavigate } from 'react-router-dom';
+import { validateAddress } from '../../utils/validateAddress';
 
 const AddressEditModal = (props) => {
   const { open, onClose } = props;
