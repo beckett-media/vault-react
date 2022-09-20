@@ -42,15 +42,13 @@ function SubmissionSearch() {
     }
   }, [results, isSearching]);
 
-  const markOrderReceived = () => {
+  const markOrderReceived = async () => {
     setIsHandlingReceipt(true);
-    submissions.forEach((item) => {
-      try {
+    Promise.all(
+      submissions.map((item) => {
         confirmSubmissionReceipt(item.item_id, item.type);
-      } catch (err) {
-        console.log(err);
-      }
-    });
+      }),
+    ).catch((e) => 'Error confirming receipt');
     setTimeout(() => {
       setApiRetrigger([]);
       setIsHandlingReceipt(false);
