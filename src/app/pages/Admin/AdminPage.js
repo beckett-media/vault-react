@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { ListGroup, Button, Form } from 'react-bootstrap';
+import { ListGroup, Button, Form, ListGroupItem } from 'react-bootstrap';
 
 import './AdminPage.scss';
 
@@ -8,10 +8,19 @@ import AdminRow from './AdminRow';
 import SubmissionSearch from './SubmissionSearch';
 
 import { AdminPageContext } from '../../contexts/adminPage';
+import { ITEM_TYPE } from '../../services/items';
 
 const NewAdmingPage = () => {
   const { submissions } = useContext(AdminPageContext);
   console.log('submissions', submissions);
+
+  const cards = submissions
+    .filter((item) => item.type === ITEM_TYPE.TRADING_CARD)
+    .sort((a, b) => a.item_id - b.item_id);
+  const comics = submissions.filter((item) => item.type === ITEM_TYPE.COMIC).sort((a, b) => a.item_id - b.item_id);
+
+  console.log(cards);
+  console.log(comics);
 
   return (
     <DefaultPage>
@@ -39,9 +48,26 @@ const NewAdmingPage = () => {
                     <div>Vault Location</div>
                     <div>Action</div>
                   </ListGroup.Item>
-                  {submissions.map((item) => (
-                    <AdminRow key={'admin_row-' + item.id} item={item} />
-                  ))}
+                  {cards.length > 0 && (
+                    <>
+                      <ListGroup.Item className='d-flex justify-content-center' variant='secondary'>
+                        --- Cards ---
+                      </ListGroup.Item>
+                      {cards.map((item) => (
+                        <AdminRow key={'admin_row-' + item.id} item={item} />
+                      ))}
+                    </>
+                  )}
+                  {comics.length > 0 && (
+                    <>
+                      <ListGroup.Item className='d-flex justify-content-center' variant='secondary'>
+                        --- Comics ---
+                      </ListGroup.Item>
+                      {comics.map((item) => (
+                        <AdminRow key={'admin_row-' + item.id} item={item} />
+                      ))}
+                    </>
+                  )}
                 </ListGroup>
               </div>
             </div>

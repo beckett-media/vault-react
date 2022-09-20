@@ -10,11 +10,13 @@ import { ReactComponent as PencilIcon } from '../../assets/pencil-icon.svg';
 import { useInventoryLocation } from '../../hooks/useInventoryLocation';
 import { getSingleSubmission, updateSubmission } from '../../services/submission';
 import { SUBMISSION_STATUS } from '../../services/submission';
+import { getSubmissionTitle } from '../../utils/submissions';
 
 const AdminRow = ({ item }) => {
   const [isEditing, setIsEditing] = useState('');
   const [tempState, setTempState] = useState({});
   const [error, setError] = useState('');
+  const [cascade, setCascade] = useState('');
 
   const { initialInventory, inventory, currentLocation, postLocation, updateInventory } = useInventoryLocation(
     item.item_id,
@@ -41,6 +43,9 @@ const AdminRow = ({ item }) => {
     if (zone.includes('main')) {
       abbreviatedZone = 'MAIN';
     }
+    if (zone.includes('pedestal')) {
+      abbreviatedZone = 'PED' + zone.at(-1);
+    }
 
     return `${abbreviatedVault}-${abbreviatedZone}-${shelf || ''}-${row || ''}-${box || ''}-${slot || ''}`;
   };
@@ -52,10 +57,21 @@ const AdminRow = ({ item }) => {
     image: 'image',
   };
 
+  const locationSaveHandler = () => {
+    const CASCADE_COMIC = 'comic';
+    const CASCADE_CARD = 'card';
+
+    if (cascade === CASCADE_CARD) {
+    } else if (cascade === CASCADE_COMIC) {
+    } else if (!cascade) {
+      postLocation();
+    }
+  };
+
   const returnSaveFunction = (editSection) => {
     switch (editSection) {
       case adminRowSection.location:
-        postLocation();
+        locationSaveHandler();
         break;
       case adminRowSection.id:
         console.log('id');
@@ -129,7 +145,7 @@ const AdminRow = ({ item }) => {
           )}
         </div>
         <div className='d-flex gap-1 align-items-center'>
-          1969 Topps #230 Tom Seaver Baseball BGS 9 $750
+          {getSubmissionTitle(item)}
           {!isStatusPending && (
             <PencilIcon
               onClick={() => {
@@ -158,6 +174,7 @@ const AdminRow = ({ item }) => {
           onCancel={() => setIsEditing('')}
           onSave={() => returnSaveFunction(isEditing)}
           className='text-body'
+          setCascade={setCascade}
         >
           {isEditing === adminRowSection.location && (
             <LocationRow updateInventory={updateInventory} inventory={inventory} />
