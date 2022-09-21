@@ -62,7 +62,7 @@ const NewAdmingPage = () => {
           </div>
           {submissions.length === 0 && (
             <div className='admin-page_content'>
-              <div className='w-100 d-flex justify-content-center align-items-center gap-3'>
+              <div className='w-100 d-flex justify-content-center align-items-center gap-4'>
                 <span className='admin-page_search-heading'>Or create a new user account</span>
                 <Link to='/admin/create-account'>
                   <Button>Create new account</Button>
