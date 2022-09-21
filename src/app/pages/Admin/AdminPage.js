@@ -18,7 +18,7 @@ const NewAdmingPage = () => {
   return (
     <DefaultPage>
       <div className='page-padding'>
-        <div className='container-large'>
+        <div className='container-large d-flex flex-column gap-2'>
           <AdminStatusTracker />
           <div className='admin-page_content'>
             <SubmissionSearch />
@@ -53,14 +53,16 @@ const NewAdmingPage = () => {
               )}
             </div>
           </div>
-          <div className='admin-page_content'>
-            <div className='w-100 d-flex justify-content-center align-items-center gap-3'>
-              <span>Or create a new user account</span>
-              <Link to='/admin/create-account'>
-                <Button>Create new account</Button>
-              </Link>
+          {submissions.length === 0 && (
+            <div className='admin-page_content'>
+              <div className='w-100 d-flex justify-content-center align-items-center gap-3'>
+                <span>Or create a new user account</span>
+                <Link to='/admin/create-account'>
+                  <Button>Create new account</Button>
+                </Link>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </DefaultPage>
