@@ -77,6 +77,7 @@ const Profile = () => {
         });
       }
     } catch (err) {
+      setIsShippingSame(false);
       return setUpdateError(err.message);
     }
     if (userState.phone) {
@@ -104,6 +105,7 @@ const Profile = () => {
             setUpdateError(message[0] + paramArr[0].split('.')[1].replace('_', ' ') + message[1]);
           } else setUpdateError(err.message);
         } else {
+          setIsShippingSame(false);
           setUpdateError('An error has occurred.');
         }
       }
@@ -131,6 +133,7 @@ const Profile = () => {
         const message = paramArr[1].split('attribute');
         setUpdateError(message[0] + paramArr[0].split('.')[1].replace('_', ' ') + message[1]);
       } else {
+        setIsShippingSame(false);
         setUpdateError('An error has occurred.');
       }
     }
