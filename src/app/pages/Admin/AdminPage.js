@@ -18,22 +18,23 @@ const NewAdmingPage = () => {
   return (
     <DefaultPage>
       <div className='page-padding'>
-        <div className='container-large d-flex flex-column gap-2'>
+        <div className='container-large d-flex flex-column gap-1 mt-4'>
           <AdminStatusTracker step={1} />
           <div className='admin-page_content'>
             <SubmissionSearch />
 
-            <div className='admin-page_section-table'>
-              <div className='admin-page_batch-actions-wrapper'>
-                <Form.Select disabled className='admin-page_batch-actions-select'>
-                  <option value=''>Batch Actions</option>
-                </Form.Select>
-                <Button disabled variant='outline-primary'>
-                  Apply
-                </Button>
-                <Badge>Coming soon</Badge>
-              </div>
-              {submissions.length !== 0 && (
+            {submissions.length !== 0 && (
+              <div className='admin-page_section-table'>
+                <div className='admin-page_batch-actions-wrapper'>
+                  <Form.Select disabled className='admin-page_batch-actions-select'>
+                    <option value=''>Batch Actions</option>
+                  </Form.Select>
+                  <Button disabled variant='outline-primary'>
+                    Apply
+                  </Button>
+                  <Badge bg='secondary'>Coming soon</Badge>
+                </div>
+
                 <div className='admin-page_table-wrapper'>
                   <ListGroup>
                     <ListGroup.Item className='admin-page_table-row admin-page_table-row--header'>
@@ -50,13 +51,13 @@ const NewAdmingPage = () => {
                     ))}
                   </ListGroup>
                 </div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
           {submissions.length === 0 && (
             <div className='admin-page_content'>
               <div className='w-100 d-flex justify-content-center align-items-center gap-3'>
-                <span>Or create a new user account</span>
+                <span className='admin-page_search-heading'>Or create a new user account</span>
                 <Link to='/admin/create-account'>
                   <Button>Create new account</Button>
                 </Link>
