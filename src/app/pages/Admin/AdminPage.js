@@ -19,7 +19,7 @@ const NewAdmingPage = () => {
     <DefaultPage>
       <div className='page-padding'>
         <div className='container-large d-flex flex-column gap-2'>
-          <AdminStatusTracker />
+          <AdminStatusTracker step={1} />
           <div className='admin-page_content'>
             <SubmissionSearch />
 
