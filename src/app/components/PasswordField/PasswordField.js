@@ -10,7 +10,6 @@ import {
 } from '@chakra-ui/react';
 import * as React from 'react';
 import { HiEye, HiEyeOff } from 'react-icons/hi';
-import { withTheme } from 'styled-components';
 
 export const PasswordField = React.forwardRef((props, ref) => {
   const { isOpen, onToggle } = useDisclosure();
