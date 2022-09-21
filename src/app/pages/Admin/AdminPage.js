@@ -64,7 +64,7 @@ const NewAdmingPage = () => {
                         --- Comics ---
                       </ListGroup.Item>
                       {comics.map((item) => (
-                        <AdminRow key={'admin_row-' + item.id} item={item} />
+                        <AdminRow key={'admin_row-' + item.id} item={item} cards={cards} comics={comics} />
                       ))}
                     </>
                   )}

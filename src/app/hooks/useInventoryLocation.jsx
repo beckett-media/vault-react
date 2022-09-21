@@ -67,6 +67,8 @@ export const useInventoryLocation = (itemId) => {
     currentLocation,
     inventory,
     initialInventory,
+    setInventory,
+    setApiRetrigger,
     updateInventory,
     putLocation,
     postLocation,

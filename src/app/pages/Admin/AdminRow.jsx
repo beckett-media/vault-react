@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { ListGroup, Button, Form, Image } from 'react-bootstrap';
 
 import AdminRowExpanded from './AdminRowExpanded';
@@ -11,15 +11,23 @@ import { useInventoryLocation } from '../../hooks/useInventoryLocation';
 import { getSingleSubmission, updateSubmission } from '../../services/submission';
 import { SUBMISSION_STATUS } from '../../services/submission';
 import { getSubmissionTitle } from '../../utils/submissions';
+import { useLocationCascade } from '../../hooks/useLocationCascade';
 
-const AdminRow = ({ item }) => {
+const AdminRow = ({ item, cards, comics }) => {
   const [isEditing, setIsEditing] = useState('');
   const [tempState, setTempState] = useState({});
   const [error, setError] = useState('');
-  const [cascade, setCascade] = useState('');
 
-  const { initialInventory, inventory, currentLocation, postLocation, updateInventory } = useInventoryLocation(
+  const { initialInventory, inventory, currentLocation, postLocation, updateInventory, setInventory, setApiRetrigger } =
+    useInventoryLocation(item.item_id);
+
+  const { cascade, setCascade } = useLocationCascade(
     item.item_id,
+    inventory,
+    cards,
+    comics,
+    setApiRetrigger,
+    setInventory,
   );
 
   const returnLocationLabel = (locationObject) => {
