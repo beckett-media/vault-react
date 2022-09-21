@@ -1,5 +1,5 @@
-import React, { useContext, useState } from 'react';
-import { ListGroup, Button, Form, Badge } from 'react-bootstrap';
+import React, { useContext } from 'react';
+import { ListGroup, Button, Form, Badge, Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import AdminStatusTracker from './AdminStatusTracker';
 
@@ -12,7 +12,7 @@ import SubmissionSearch from './SubmissionSearch';
 import { AdminPageContext } from '../../contexts/adminPage';
 
 const NewAdmingPage = () => {
-  const { submissions } = useContext(AdminPageContext);
+  const { submissions, isSubmissionsLoading } = useContext(AdminPageContext);
   console.log('submissions', submissions);
 
   return (
@@ -46,9 +46,15 @@ const NewAdmingPage = () => {
                       <div>Vault Location</div>
                       <div>Action</div>
                     </ListGroup.Item>
-                    {submissions.map((item) => (
-                      <AdminRow key={'admin_row-' + item.id} item={item} />
-                    ))}
+                    {isSubmissionsLoading && (
+                      <ListGroup.Item className='d-flex justify-content-center'>
+                        <Spinner variant='primary' as='span' animation='border' role='status' aria-hidden='true'>
+                          <span className='visually-hidden'>Loading...</span>
+                        </Spinner>
+                      </ListGroup.Item>
+                    )}
+                    {!isSubmissionsLoading &&
+                      submissions.map((item) => <AdminRow key={'admin_row-' + item.id} item={item} />)}
                   </ListGroup>
                 </div>
               </div>
