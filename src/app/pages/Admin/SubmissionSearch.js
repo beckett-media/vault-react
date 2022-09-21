@@ -67,7 +67,9 @@ function SubmissionSearch() {
         <div className='admin-page_search-heading'>Look up submission</div>
         <div className='admin-page_search-bar-wrapper'>
           <SearchBar onChange={handleInputChange} isLoading={isSubmissionsLoading}></SearchBar>
-          <Button variant='link'>I do not have a submission ID</Button>
+          <Button className='admin-page_search-info' variant='link'>
+            I do not have a submission ID
+          </Button>
         </div>
         {submissions.length > 0 && receivedItems.length === 0 && (
           <Button className='align-self-start' onClick={markOrderReceived}>
