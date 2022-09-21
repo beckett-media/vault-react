@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { ListGroup, Button, Form, Badge } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import AdminStatusTracker from './AdminStatusTracker';
 
 import './AdminPage.scss';
 
@@ -18,7 +19,7 @@ const NewAdmingPage = () => {
     <DefaultPage>
       <div className='page-padding'>
         <div className='container-large'>
-          <div>status tracker component</div>
+          <AdminStatusTracker />
           <div className='admin-page_content'>
             <SubmissionSearch />
 
