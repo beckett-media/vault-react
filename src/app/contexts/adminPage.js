@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { getInventory } from '../services/inventory';
+import React, { useState } from 'react';
 
 const defaultState = {
   submissionOrderFilter: undefined,
@@ -13,6 +12,7 @@ export const AdminPageContext = React.createContext(defaultState);
 const AdminPageProvider = ({ children }) => {
   const [submissionOrderFilter, setSubmissionOrderFilter] = useState();
   const [submissions, setSubmissions] = useState([]);
+  const [isSubmissionsLoading, setIsSubmissionsLoading] = useState(false);
 
   return (
     <AdminPageContext.Provider
@@ -21,6 +21,8 @@ const AdminPageProvider = ({ children }) => {
         setSubmissionOrderFilter,
         submissions,
         setSubmissions,
+        isSubmissionsLoading,
+        setIsSubmissionsLoading,
       }}
     >
       {children}

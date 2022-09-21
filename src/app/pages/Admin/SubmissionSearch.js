@@ -24,7 +24,7 @@ const querySubmissionApi = (query) => {
 
 function SubmissionSearch() {
   const [{ results, isSearching }, query, doFilter, setApiRetrigger] = useFilter(querySubmissionApi, null, []);
-  const { setSubmissions, submissions } = useContext(AdminPageContext);
+  const { setSubmissions, submissions, setIsSubmissionsLoading, isSubmissionsLoading } = useContext(AdminPageContext);
   const [isHandlingReceipt, setIsHandlingReceipt] = useState(false);
 
   const debouncedSearch = React.useMemo(() => debounce((value) => doFilter(value), debounceLimit), [doFilter]);
@@ -37,8 +37,12 @@ function SubmissionSearch() {
   );
 
   React.useEffect(() => {
+    if (isSearching) {
+      setIsSubmissionsLoading(true);
+    }
     if (!isSearching) {
       setSubmissions(results);
+      setIsSubmissionsLoading(false);
     }
   }, [results, isSearching]);
 
@@ -62,7 +66,7 @@ function SubmissionSearch() {
       <div className='admin-page_search-wrapper'>
         <div className='admin-page_search-heading'>Look up submission</div>
         <div className='admin-page_search-bar-wrapper'>
-          <SearchBar onChange={handleInputChange}></SearchBar>
+          <SearchBar onChange={handleInputChange} isLoading={isSubmissionsLoading}></SearchBar>
           <Button variant='link'>I do not have a submission ID</Button>
         </div>
         {submissions.length > 0 && receivedItems.length === 0 && (
