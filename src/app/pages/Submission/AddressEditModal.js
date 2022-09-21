@@ -56,14 +56,14 @@ const AddressEditModal = (props) => {
     if (!isIncompleteAddress(userState)) {
       setEditing(false);
     } else {
-      alert('Address is yet not complete');
+      alert('Shipping Address is yet not complete');
     }
   };
 
   const editModalContents = () => (
     <Form onSubmit={onEditDone}>
       <Modal.Header>
-        <Modal.Title id='contained-modal-title-vcenter'>Complete your address to continue</Modal.Title>
+        <Modal.Title id='contained-modal-title-vcenter'>Complete your shipping address to continue</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form.Label>Address</Form.Label>
