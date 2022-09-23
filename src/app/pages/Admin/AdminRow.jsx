@@ -92,7 +92,13 @@ const AdminRow = ({ item }) => {
   };
 
   const updateDetails = () => {
-    updateSubmission(item.item_id, tempState)
+    const payload = {};
+    Object.keys(tempState).map((itm) => {
+      if (tempState[itm] !== item[itm]) {
+        payload[itm] = tempState[itm];
+      }
+    });
+    updateSubmission(item.item_id, payload)
       .then((res) => {
         return;
       })
