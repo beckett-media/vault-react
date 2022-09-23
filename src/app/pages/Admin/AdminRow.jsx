@@ -1,15 +1,48 @@
-import React, { useEffect, useState } from 'react';
-import { ListGroup, Button, Form, Image } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Button, Form, ListGroup } from 'react-bootstrap';
 
 import AdminRowExpanded from './AdminRowExpanded';
-import LocationRow from './LocationRow';
 import EditDetailsRow from './EditDetailsRow';
 import EditImageRow from './EditImageRow';
+import LocationRow from './LocationRow';
 
 import { ReactComponent as PencilIcon } from '../../assets/pencil-icon.svg';
 import { useInventoryLocation } from '../../hooks/useInventoryLocation';
-import { getSingleSubmission, updateSubmission } from '../../services/submission';
-import { SUBMISSION_STATUS } from '../../services/submission';
+import { SUBMISSION_STATUS, updateSubmission } from '../../services/submission';
+
+const SubmissionStatusOptions = [
+  {
+    name: 'Failed',
+    value: SUBMISSION_STATUS.Failed,
+  },
+  {
+    name: 'Submitted',
+    value: SUBMISSION_STATUS.Submitted,
+  },
+  {
+    name: 'Received',
+    value: SUBMISSION_STATUS.Received,
+  },
+  {
+    name: 'Rejected',
+    value: SUBMISSION_STATUS.Rejected,
+  },
+  {
+    name: 'Approved',
+    value: SUBMISSION_STATUS.Approved,
+  },
+  {
+    name: 'Vaulted',
+    value: SUBMISSION_STATUS.Vaulted,
+  },
+];
+
+const adminRowSection = {
+  location: 'location',
+  id: 'id',
+  details: 'details',
+  image: 'image',
+};
 
 const AdminRow = ({ item }) => {
   const [isEditing, setIsEditing] = useState('');
@@ -43,13 +76,6 @@ const AdminRow = ({ item }) => {
     }
 
     return `${abbreviatedVault}-${abbreviatedZone}-${shelf || ''}-${row || ''}-${box || ''}-${slot || ''}`;
-  };
-
-  const adminRowSection = {
-    location: 'location',
-    id: 'id',
-    details: 'details',
-    image: 'image',
   };
 
   const returnSaveFunction = (editSection) => {
@@ -108,7 +134,18 @@ const AdminRow = ({ item }) => {
     return;
   };
 
+  const handleStatusSelectChange = (e) => {
+    const newState = e.target.value;
+
+    console.log('newState', newState);
+
+    // TODO: Approve or Reject submission based on the status
+  };
+
   const isStatusPending = item.status === SUBMISSION_STATUS.Submitted;
+  const isStatusSelectDisabled = item.status === SUBMISSION_STATUS.Failed || item.status >= SUBMISSION_STATUS.Vaulted;
+
+  console.log('AdminRow', item);
 
   return (
     <>
@@ -147,8 +184,18 @@ const AdminRow = ({ item }) => {
           )}
         </div>
         <div>
-          <Form.Select aria-label='Status select dropdown'>
+          <Form.Select
+            aria-label='Status select dropdown'
+            value={item.status}
+            onChange={handleStatusSelectChange}
+            disabled={isStatusSelectDisabled}
+          >
             <option>{item.status_desc}</option>
+            {SubmissionStatusOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.name}
+              </option>
+            ))}
           </Form.Select>
         </div>
         <div className='d-flex gap-1 align-items-center'>
