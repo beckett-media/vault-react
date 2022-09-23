@@ -1,9 +1,9 @@
 import React from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Spinner } from 'react-bootstrap';
 import { BsSearch } from 'react-icons/bs';
 import './SearchBar.scss';
 
-const SearchBar = ({ searchVal, onChange, setFilterBy, filterOptions }) => {
+const SearchBar = ({ searchVal, onChange, setFilterBy, filterOptions, isLoading }) => {
   return (
     <div className='d-flex w-100'>
       {!!filterOptions && (
@@ -23,7 +23,13 @@ const SearchBar = ({ searchVal, onChange, setFilterBy, filterOptions }) => {
         onChange={onChange}
       ></Form.Control>
       <Button className='search-bar_button'>
-        <BsSearch />
+        {isLoading ? (
+          <Spinner as='span' animation='border' size='sm' role='status' aria-hidden='true'>
+            <span className='visually-hidden'>Loading...</span>
+          </Spinner>
+        ) : (
+          <BsSearch />
+        )}
       </Button>
     </div>
   );
