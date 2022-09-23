@@ -72,7 +72,7 @@ const AdminRow = ({ item }) => {
   const updateImage = (itemVal = '') => {
     const payload = {};
     if (itemVal === 'del-image_path' || itemVal === 'del-image_rev_path') {
-      payload[itemVal.substring(4)] = '.';
+      payload[itemVal.substring(4)] = '../../assets/beckett-card-placeholder--gray.svg';
     } else {
       if (tempState.image_url !== item.img_url) {
         payload.image_path = tempState.image_url;
