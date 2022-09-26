@@ -203,10 +203,6 @@ const AdminRow = ({ item: _item }) => {
   const isActionDisabled =
     actionLabel === defaultAction || isStatusPending || (actionLabel === 'Vault' && !isValutEnabled);
 
-  console.log('AdminRow', item);
-  console.log('inventory', inventory);
-  console.log('currentLocation', currentLocation);
-
   return (
     <>
       <ListGroup.Item className='admin-page_table-row'>
