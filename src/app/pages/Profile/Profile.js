@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Row, Col, Card, Form, Button, Modal, Spinner, CloseButton } from 'react-bootstrap';
 import { mapCognitoToUser, mapUserToCognito } from '../../services/user';
 
@@ -12,6 +12,7 @@ import { formatPhoneNumber } from '../../utils/phone';
 import { useNavigate } from 'react-router-dom';
 import ChangePassword from '../SignIn/ChangePassword';
 import SubmitButton from '../../components/Generic/SubmitButton';
+import { validateAddress } from '../../utils/validateAddress';
 
 const Profile = () => {
   const authContext = useContext(AuthContext);
@@ -40,9 +41,16 @@ const Profile = () => {
 
     updateUserState(syncedAddresses);
   };
-
+  useEffect(() => {
+    if (updateError !== undefined) {
+      setLoadingModal(false);
+    }
+  }, [updateError]);
   const submitUpdateUser = async () => {
     let updatedUser;
+    const hasBillingAddress = userState.addressLine1 || userState.city || userState.state || userState.zipcode;
+    const hasShippingAddress =
+      userState.shipAddressLine1 || userState.shipCity || userState.shipState || userState.shipZipcode;
     setLoadingModal(true);
     if (isShippingSame) {
       syncSubmissionAddresses();
@@ -50,11 +58,43 @@ const Profile = () => {
     if (!userState.phone.length) {
       return setUpdateError('Phone number is required.');
     }
+    try {
+      if (isShippingSame && hasBillingAddress) {
+        await validateAddress({
+          address1: userState.addressLine1,
+          address2: userState.addressLine2,
+          city: userState.city,
+          state: userState.state,
+          zipcode: userState.zipcode,
+        });
+      } else if (hasShippingAddress) {
+        await validateAddress({
+          address1: userState.shipAddressLine1,
+          address2: userState.shipAddressLine2,
+          city: userState.shipCity,
+          state: userState.shipState,
+          zipcode: userState.shipZipcode,
+        });
+      }
+    } catch (err) {
+      return setUpdateError(err.message);
+    }
     if (userState.phone) {
       const phone = formatPhoneNumber(userState.phone);
-
+      const { addressLine1, addressLine2, city, state, country, zipcode } = userState;
+      const localUpdates = isShippingSame
+        ? {
+            phone: phone,
+            shipAddressLine1: addressLine1,
+            shipAddressLine2: addressLine2,
+            shipCity: city,
+            shipState: state,
+            shipCountry: country,
+            shipZipcode: zipcode,
+          }
+        : { phone: phone };
       try {
-        updatedUser = await authContext.setAttributes(mapUserToCognito({ ...userState, phone: phone }));
+        updatedUser = await authContext.setAttributes(mapUserToCognito({ ...userState, ...localUpdates }));
         updatedUser && navigate('/my-collection');
       } catch (err) {
         if (err.name === 'InvalidParameterException') {
@@ -71,7 +111,19 @@ const Profile = () => {
     // TODO: on error?
 
     try {
-      updatedUser = await authContext.setAttributes(mapUserToCognito(userState));
+      updatedUser = isShippingSame
+        ? await authContext.setAttributes(
+            mapUserToCognito({
+              ...userState,
+              shipAddressLine1: userState.addressLine1,
+              shipAddressLine2: userState.addressLine2,
+              shipCity: userState.city,
+              shipState: userState.state,
+              shipCountry: userState.country,
+              shipZipcode: userState.zipcode,
+            }),
+          )
+        : await authContext.setAttributes(mapUserToCognito(userState));
       updatedUser && navigate('/my-collection');
     } catch (err) {
       if (err.name === 'InvalidParameterException') {
