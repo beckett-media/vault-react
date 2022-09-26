@@ -8,7 +8,8 @@ import LocationRow from './LocationRow';
 
 import { ReactComponent as PencilIcon } from '../../assets/pencil-icon.svg';
 import { useInventoryLocation } from '../../hooks/useInventoryLocation';
-import { SUBMISSION_STATUS, updateSubmission } from '../../services/submission';
+import { createVaulting } from '../../services/items';
+import { approveRejectSubmissions, SUBMISSION_STATUS, updateSubmission } from '../../services/submission';
 
 const SubmissionStatusOptions = [
   {
@@ -23,10 +24,10 @@ const SubmissionStatusOptions = [
     name: 'Received',
     value: SUBMISSION_STATUS.Received,
   },
-  {
-    name: 'Rejected',
-    value: SUBMISSION_STATUS.Rejected,
-  },
+  // {
+  //   name: 'Rejected',
+  //   value: SUBMISSION_STATUS.Rejected,
+  // },
   {
     name: 'Approved',
     value: SUBMISSION_STATUS.Approved,
@@ -39,15 +40,25 @@ const SubmissionStatusOptions = [
 
 const adminRowSection = {
   location: 'location',
-  id: 'id',
   details: 'details',
   image: 'image',
 };
 
-const AdminRow = ({ item }) => {
+const defaultAction = 'Default';
+
+const AdminRow = ({ item: _item }) => {
   const [isEditing, setIsEditing] = useState('');
   const [tempState, setTempState] = useState({});
   const [error, setError] = useState('');
+  const [actionLabel, setActionLabel] = useState(defaultAction);
+  const [statusValue, setStatusValue] = useState(_item.status);
+  const [item, setItem] = useState(_item);
+
+  const initState = React.useCallback((itemData) => {
+    setStatusValue(itemData.status);
+    setItem(itemData);
+    setActionLabel(defaultAction);
+  }, []);
 
   const { initialInventory, inventory, currentLocation, postLocation, updateInventory } = useInventoryLocation(
     item.item_id,
@@ -108,8 +119,8 @@ const AdminRow = ({ item }) => {
       }
     }
     updateSubmission(item.item_id, payload)
-      .then((res) => {
-        return;
+      .then((data) => {
+        initState(data);
       })
       .catch((err) => {
         setError(err.message);
@@ -125,8 +136,8 @@ const AdminRow = ({ item }) => {
       }
     });
     updateSubmission(item.item_id, payload)
-      .then((res) => {
-        return;
+      .then((data) => {
+        initState(data);
       })
       .catch((err) => {
         setError(err.message);
@@ -135,17 +146,66 @@ const AdminRow = ({ item }) => {
   };
 
   const handleStatusSelectChange = (e) => {
-    const newState = e.target.value;
+    const newState = Number(e.target.value);
 
-    console.log('newState', newState);
+    setStatusValue(newState);
 
-    // TODO: Approve or Reject submission based on the status
+    if (newState === SUBMISSION_STATUS.Approved) {
+      if (item.status !== SUBMISSION_STATUS.Approved) {
+        return setActionLabel('Approve');
+      }
+    } else if (newState === SUBMISSION_STATUS.Rejected) {
+      if (item.status !== SUBMISSION_STATUS.Rejected) {
+        return setActionLabel('Reject');
+      }
+    } else if (newState === SUBMISSION_STATUS.Vaulted) {
+      if (item.status !== SUBMISSION_STATUS.Vaulted) {
+        return setActionLabel('Vault');
+      }
+    }
+
+    setActionLabel(defaultAction);
+  };
+
+  const handleActionClick = () => {
+    if (actionLabel === 'Approve' || actionLabel === 'Reject') {
+      approveRejectSubmissions(item.item_id, item.type, actionLabel === 'Approve')
+        .then((data) => {
+          initState(data);
+        })
+        .catch((err) => {
+          setError(err.message);
+        });
+    } else if (actionLabel === 'Vault') {
+      createVaulting({
+        item_id: item.item_id,
+        user: item.user,
+        submission_id: item.id,
+      })
+        .then((res) => {
+          console.log('vaulting result', res);
+          initState({
+            ...item,
+            status: SUBMISSION_STATUS.Vaulted,
+          });
+        })
+        .catch((err) => {
+          setError(err.message);
+        });
+    }
   };
 
   const isStatusPending = item.status === SUBMISSION_STATUS.Submitted;
   const isStatusSelectDisabled = item.status === SUBMISSION_STATUS.Failed || item.status >= SUBMISSION_STATUS.Vaulted;
+  const isValutEnabled =
+    !!currentLocation && item.status === SUBMISSION_STATUS.Approved && !!item.image_url && !!item.image_rev_url;
+
+  const isActionDisabled =
+    actionLabel === defaultAction || isStatusPending || (actionLabel === 'Vault' && !isValutEnabled);
 
   console.log('AdminRow', item);
+  console.log('inventory', inventory);
+  console.log('currentLocation', currentLocation);
 
   return (
     <>
@@ -162,16 +222,7 @@ const AdminRow = ({ item }) => {
             />
           )}
         </div>
-        <div className='d-flex gap-1 align-items-center'>
-          {item.item_id}
-          {!isStatusPending && (
-            <PencilIcon
-              onClick={() => {
-                setIsEditing(adminRowSection.id);
-              }}
-            />
-          )}
-        </div>
+        <div className='d-flex gap-1 align-items-center'>{item.item_id}</div>
         <div className='d-flex gap-1 align-items-center'>
           1969 Topps #230 Tom Seaver Baseball BGS 9 $750
           {!isStatusPending && (
@@ -186,11 +237,10 @@ const AdminRow = ({ item }) => {
         <div>
           <Form.Select
             aria-label='Status select dropdown'
-            value={item.status}
+            value={statusValue}
             onChange={handleStatusSelectChange}
             disabled={isStatusSelectDisabled}
           >
-            <option>{item.status_desc}</option>
             {SubmissionStatusOptions.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.name}
@@ -203,8 +253,8 @@ const AdminRow = ({ item }) => {
           {!isStatusPending && <PencilIcon onClick={() => setIsEditing(adminRowSection.location)} />}
         </div>
         <div>
-          <Button className='w-100' disabled={isStatusPending}>
-            Assign
+          <Button className='w-100' disabled={isActionDisabled} onClick={handleActionClick}>
+            {actionLabel}
           </Button>
         </div>
       </ListGroup.Item>
@@ -217,7 +267,6 @@ const AdminRow = ({ item }) => {
           {isEditing === adminRowSection.location && (
             <LocationRow updateInventory={updateInventory} inventory={inventory} />
           )}
-          {isEditing === adminRowSection.id && <>Edit ID</>}
           {isEditing === adminRowSection.details && (
             <EditDetailsRow tempState={tempState} setTempState={setTempState} />
           )}
