@@ -10,6 +10,7 @@ import { ReactComponent as PencilIcon } from '../../assets/pencil-icon.svg';
 import { useInventoryLocation } from '../../hooks/useInventoryLocation';
 import { createVaulting } from '../../services/items';
 import { approveRejectSubmissions, SUBMISSION_STATUS, updateSubmission } from '../../services/submission';
+import { getSubmissionTitle } from '../../utils/submissions';
 
 const SubmissionStatusOptions = [
   {
@@ -220,7 +221,7 @@ const AdminRow = ({ item: _item }) => {
         </div>
         <div className='d-flex gap-1 align-items-center'>{item.item_id}</div>
         <div className='d-flex gap-1 align-items-center'>
-          1969 Topps #230 Tom Seaver Baseball BGS 9 $750
+          {getSubmissionTitle(item)}
           {!isStatusPending && (
             <PencilIcon
               onClick={() => {
