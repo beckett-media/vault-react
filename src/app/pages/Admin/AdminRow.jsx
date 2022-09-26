@@ -19,16 +19,16 @@ const AdminRow = ({ item, cards, comics }) => {
   const [tempState, setTempState] = useState({});
   const [error, setError] = useState('');
 
-  const { initialInventory, inventory, currentLocation, postLocation, updateInventory, setCascade, cascade } =
-    useInventoryLocation(item.item_id, comics, cards);
-
-  // const { cascade, setCascade, postCascade } = useLocationCascade(
-  //   inventory,
-  //   cards,
-  //   comics,
-  //   setApiRetrigger,
-  //   setInventory,
-  // );
+  const {
+    initialInventory,
+    inventory,
+    currentLocation,
+    postLocation,
+    isPostLoading,
+    updateInventory,
+    setCascade,
+    cascade,
+  } = useInventoryLocation(item.item_id, comics, cards);
 
   const returnLocationLabel = (locationObject) => {
     if (!locationObject) return 'Unassigned';
@@ -78,6 +78,22 @@ const AdminRow = ({ item, cards, comics }) => {
         break;
       case adminRowSection.details:
         updateDetails();
+        break;
+    }
+  };
+
+  const returnLoadingState = (editSection) => {
+    switch (editSection) {
+      case adminRowSection.location:
+        return isPostLoading;
+      case adminRowSection.id:
+        // TODO
+        break;
+      case adminRowSection.image:
+        // TODO
+        break;
+      case adminRowSection.details:
+        // TODO
         break;
     }
   };
@@ -184,6 +200,7 @@ const AdminRow = ({ item, cards, comics }) => {
         <AdminRowExpanded
           onCancel={() => setIsEditing('')}
           onSave={() => returnSaveFunction(isEditing)}
+          isLoading={returnLoadingState(isEditing)}
           className='text-body'
           setCascade={setCascade}
         >

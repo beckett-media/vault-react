@@ -21,9 +21,6 @@ const NewAdmingPage = () => {
     .sort((a, b) => a.item_id - b.item_id);
   const comics = submissions.filter((item) => item.type === ITEM_TYPE.COMIC).sort((a, b) => a.item_id - b.item_id);
 
-  console.log(cards);
-  console.log(comics);
-
   return (
     <DefaultPage>
       <div className='page-padding'>
@@ -68,7 +65,9 @@ const NewAdmingPage = () => {
                           --- Cards ---
                         </ListGroup.Item>
                         {!isSubmissionsLoading &&
-                          cards.map((item) => <AdminRow key={'admin_row-' + item.id} item={item} />)}
+                          cards.map((item) => (
+                            <AdminRow key={'admin_row-' + item.id} item={item} cards={cards} comics={comics} />
+                          ))}
                       </>
                     )}
                     {!isSubmissionsLoading && comics.length > 0 && (

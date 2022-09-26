@@ -11,12 +11,15 @@ export const useInventoryLocation = (itemId, comics, cards) => {
   const [newLocationId, setNewLocationId] = useState();
   const [cascade, setCascade] = useState('');
 
-  const cascadeLocations = (cascade === 'comics' ? comics : cards)?.forEach((item) => {
-    // {...inventory}
-  });
+  let slot = inventory?.slot;
+  const cascadeLocations = [];
 
-  console.log(cascade);
-  console.log(cascadeLocations);
+  if (!!cascade) {
+    (cascade === 'comic' ? comics : cards)?.forEach((item, index) => {
+      cascadeLocations.push({ ...inventory, slot: slot.toString(), is_current: true, item_id: itemId + index });
+      slot++;
+    });
+  }
 
   useEffect(() => {
     getInventory({ item_ids: [itemId] })
@@ -35,28 +38,37 @@ export const useInventoryLocation = (itemId, comics, cards) => {
   const updateInventory = (tempInventory) => setInventory({ ...inventory, ...tempInventory });
 
   const postLocation = () => {
-    console.log('posting...');
     setIsPostLoading(true);
 
     inventory.item_id = itemId - 0;
     inventory.is_current = true;
     if (!cascade && inventory.vault && inventory.zone) {
-      console.log('no cascade');
-      // postInventory(inventory)
-      //   .then()
-      //   .catch()
-      //   .finally(
-      //     setTimeout(() => {
-      //       setIsPostLoading(false);
-      //       setApiRetrigger({});
-      //       setInventory(blankLocation);
-      //     }, 1000),
-      //   );
+      postInventory(inventory)
+        .then()
+        .catch()
+        .finally(
+          setTimeout(() => {
+            setIsPostLoading(false);
+            setApiRetrigger({});
+            setInventory(blankLocation);
+          }, 1000),
+        );
     } else if (!!cascade && inventory.vault && inventory.zone) {
-      console.log('cascade ' + cascade);
-      Promise.all(cascadeLocations.map((item) => postInventory(item)).catch((e) => console.log(e)));
+      Promise.all(
+        cascadeLocations.map((item) => {
+          postInventory(item)
+            .catch((e) => console.log(e))
+            .finally(
+              setTimeout(() => {
+                setIsPostLoading(false);
+                setApiRetrigger({});
+                setInventory(blankLocation);
+                cascadeLocations.forEach((item) => cascadeLocations.pop());
+              }, 1000),
+            );
+        }),
+      );
     }
-    setIsPostLoading(false);
   };
 
   const putLocation = () => {

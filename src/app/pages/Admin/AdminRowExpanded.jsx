@@ -1,7 +1,7 @@
 import React from 'react';
-import { ListGroup, Button } from 'react-bootstrap';
+import { ListGroup, Button, Spinner } from 'react-bootstrap';
 
-const AdminRowExpanded = ({ children, onCancel, onSave }) => {
+const AdminRowExpanded = ({ children, onCancel, onSave, isLoading }) => {
   return (
     <ListGroup.Item className='admin-page_expanded-row'>
       <div className='admin-page_expanded-row-content'>{children}</div>
@@ -10,7 +10,15 @@ const AdminRowExpanded = ({ children, onCancel, onSave }) => {
         <Button variant='outline-primary' onClick={() => onCancel()}>
           Cancel
         </Button>
-        <Button onClick={() => onSave()}>Save & Exit</Button>
+        <Button onClick={() => onSave()} disabled={isLoading}>
+          {isLoading ? (
+            <Spinner as='span' animation='border' size='sm' role='status' aria-hidden='true'>
+              <span className='visually-hidden'>Loading...</span>
+            </Spinner>
+          ) : (
+            'Save & Exit'
+          )}
+        </Button>
       </div>
     </ListGroup.Item>
   );
