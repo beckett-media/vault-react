@@ -11,7 +11,6 @@ import { useInventoryLocation } from '../../hooks/useInventoryLocation';
 import { getSingleSubmission, updateSubmission } from '../../services/submission';
 import { SUBMISSION_STATUS } from '../../services/submission';
 import { getSubmissionTitle } from '../../utils/submissions';
-import { useLocationCascade } from '../../hooks/useLocationCascade';
 import { ITEM_TYPE } from '../../services/items';
 
 const AdminRow = ({ item, cards, comics }) => {
