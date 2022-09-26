@@ -32,7 +32,7 @@ import CartProvider from './app/contexts/cart';
 import InterestForm from './app/pages/InterestForm/InterestForm';
 import ComingSoon from './app/pages/ComingSoon/ComingSoon';
 import FooterModal from './app/components/FooterModal/FooterModal';
-import AdminCreateAccount from './app/pages/Admin/Legacy/CreateAccountPage';
+import AdminCreateAccount from './app/pages/Admin/CreateAccountPage';
 import ErrorBoundary from './ErrorBoundary';
 import AdminPageProvider from './app/contexts/adminPage';
 

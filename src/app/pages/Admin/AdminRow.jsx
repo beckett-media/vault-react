@@ -84,14 +84,14 @@ const AdminRow = ({ item, cards, comics }) => {
 
   const updateImage = (itemVal = '') => {
     const payload = {};
-    if (itemVal === 'del-image_url' || itemVal === 'del-image_rev_url') {
-      payload[itemVal.substring(4)] = '';
+    if (itemVal === 'del-image_path' || itemVal === 'del-image_rev_path') {
+      payload[itemVal.substring(4)] = '.';
     } else {
       if (tempState.image_url !== item.img_url) {
-        payload.image_url = tempState.image_url;
+        payload.image_path = tempState.image_url;
       }
       if (tempState.image_rev_url !== item.image_rev_url) {
-        payload.image_rev_url = tempState.image_rev_url;
+        payload.image_rev_path = tempState.image_rev_url;
       }
     }
     updateSubmission(item.item_id, payload)
@@ -105,7 +105,13 @@ const AdminRow = ({ item, cards, comics }) => {
   };
 
   const updateDetails = () => {
-    updateSubmission(item.item_id, tempState)
+    const payload = {};
+    Object.keys(tempState).map((itm) => {
+      if (tempState[itm] !== item[itm]) {
+        payload[itm] = tempState[itm];
+      }
+    });
+    updateSubmission(item.item_id, payload)
       .then((res) => {
         return;
       })
@@ -132,6 +138,7 @@ const AdminRow = ({ item, cards, comics }) => {
           {!isStatusPending && (
             <PencilIcon
               onClick={() => {
+                setTempState({ image_url: item.image_url, image_rev_url: item.image_rev_url });
                 setIsEditing(adminRowSection.image);
               }}
             />
@@ -152,6 +159,7 @@ const AdminRow = ({ item, cards, comics }) => {
           {!isStatusPending && (
             <PencilIcon
               onClick={() => {
+                setTempState(item);
                 setIsEditing(adminRowSection.details);
               }}
             />

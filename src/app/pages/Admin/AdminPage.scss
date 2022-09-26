@@ -6,10 +6,10 @@
 
   &section- {
     &search {
-      padding-bottom: 24px;
     }
 
     &table {
+      padding-top: 24px;
     }
   }
 
@@ -29,13 +29,20 @@
 
     &bar-wrapper {
     }
+
+    &info {
+      font-size: 14px !important;
+      color: #475467 !important;
+    }
   }
 
   &batch-actions- {
     &wrapper {
       display: flex;
       margin-bottom: 12px;
+      align-items: center;
       gap: 12px;
+      width: fit-content;
     }
 
     &select {
