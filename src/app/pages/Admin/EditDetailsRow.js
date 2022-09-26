@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Form } from 'react-bootstrap';
+import React from 'react';
+import { Form, Row, Col } from 'react-bootstrap';
 
 const EditDetailsRow = ({ tempState, setTempState }) => {
   const notUserEditable = (field) => {
@@ -10,27 +10,33 @@ const EditDetailsRow = ({ tempState, setTempState }) => {
       field.indexOf('_desc') !== -1 ||
       field === 'item_uuid' ||
       field === 'user' ||
-      field === 'id'
+      field === 'id' ||
+      field === 'status' ||
+      field === 'type'
     );
   };
   return (
     <Form>
-      {Object.keys(tempState).map((field) => {
-        const fieldSplit = field.split('_').join(' ');
-        const fieldName = String(fieldSplit[0].toUpperCase()) + fieldSplit.slice(1);
-        if (!notUserEditable(field)) {
-          return (
-            <Form.Group>
-              <Form.Label>{fieldName}</Form.Label>
-              <Form.Control
-                placeholder={`- ${fieldName} -`}
-                value={tempState[field]}
-                onChange={(e) => setTempState({ ...tempState, [field]: e.target.value })}
-              />
-            </Form.Group>
-          );
-        }
-      })}
+      <Row>
+        {Object.keys(tempState).map((field) => {
+          const fieldSplit = field.split('_').join(' ');
+          const fieldName = String(fieldSplit[0].toUpperCase()) + fieldSplit.slice(1);
+          if (!notUserEditable(field)) {
+            return (
+              <Col className='col-md-4' key={field}>
+                <Form.Group>
+                  <Form.Label>{fieldName}</Form.Label>
+                  <Form.Control
+                    placeholder={`- ${fieldName} -`}
+                    value={tempState[field]}
+                    onChange={(e) => setTempState({ ...tempState, [field]: e.target.value })}
+                  />
+                </Form.Group>
+              </Col>
+            );
+          }
+        })}
+      </Row>
     </Form>
   );
 };

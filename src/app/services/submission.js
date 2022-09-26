@@ -19,7 +19,7 @@ export const postSubmission = async (item) => {
 export const updateSubmission = async (id, item) => {
   // TODO: validate item
   return axiosClient.put(`/marketplace/submission/${id}`, item).then((res) => {
-    return res;
+    return res.data;
   });
 };
 
