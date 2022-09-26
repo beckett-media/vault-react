@@ -2,13 +2,21 @@ import React, { useEffect, useState } from 'react';
 import { getInventory, postInventory, putInventory } from '../services/inventory';
 import { blankLocation } from '../const/inventory';
 
-export const useInventoryLocation = (itemId) => {
+export const useInventoryLocation = (itemId, comics, cards) => {
   const [apiRetrigger, setApiRetrigger] = useState({});
   const [initialInventory, setInitialInventory] = useState([]);
   const [inventory, setInventory] = useState(blankLocation);
   const [isPostLoading, setIsPostLoading] = useState(false);
   const [isPutLoading, setIsPutLoading] = useState(false);
   const [newLocationId, setNewLocationId] = useState();
+  const [cascade, setCascade] = useState('');
+
+  const cascadeLocations = (cascade === 'comics' ? comics : cards)?.forEach((item) => {
+    // {...inventory}
+  });
+
+  console.log(cascade);
+  console.log(cascadeLocations);
 
   useEffect(() => {
     getInventory({ item_ids: [itemId] })
@@ -32,19 +40,22 @@ export const useInventoryLocation = (itemId) => {
 
     inventory.item_id = itemId - 0;
     inventory.is_current = true;
-    if (inventory.vault && inventory.zone) {
-      postInventory(inventory)
-        .then()
-        .catch()
-        .finally(
-          setTimeout(() => {
-            setIsPostLoading(false);
-            setApiRetrigger({});
-            setInventory(blankLocation);
-          }, 1000),
-        );
+    if (!cascade && inventory.vault && inventory.zone) {
+      console.log('no cascade');
+      // postInventory(inventory)
+      //   .then()
+      //   .catch()
+      //   .finally(
+      //     setTimeout(() => {
+      //       setIsPostLoading(false);
+      //       setApiRetrigger({});
+      //       setInventory(blankLocation);
+      //     }, 1000),
+      //   );
+    } else if (!!cascade && inventory.vault && inventory.zone) {
+      console.log('cascade ' + cascade);
+      Promise.all(cascadeLocations.map((item) => postInventory(item)).catch((e) => console.log(e)));
     }
-    e.target.reset();
     setIsPostLoading(false);
   };
 
@@ -75,5 +86,7 @@ export const useInventoryLocation = (itemId) => {
     setNewLocationId,
     isPostLoading,
     isPutLoading,
+    setCascade,
+    cascade,
   };
 };

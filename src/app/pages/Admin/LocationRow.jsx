@@ -3,7 +3,7 @@ import { Form } from 'react-bootstrap';
 
 import { getInventoryZoneOptions } from '../../services/inventory';
 
-const InventoryLocationForm = ({ updateInventory, inventory }) => {
+const InventoryLocationForm = ({ updateInventory, inventory, cascadeToggleHanlder }) => {
   const zoneOptions = getInventoryZoneOptions();
 
   return (
@@ -83,7 +83,7 @@ const InventoryLocationForm = ({ updateInventory, inventory }) => {
           </div>
         )}
         <div className='admin-page_location-switch-wrapper'>
-          <Form.Check type='switch' id='custom-switch' label='Cascade' />
+          <Form.Check type='switch' id='custom-switch' label='Cascade' onChange={cascadeToggleHanlder} />
         </div>
       </div>
       <div className='d-flex gap-2 mt-2'></div>

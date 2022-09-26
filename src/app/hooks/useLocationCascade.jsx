@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { postInventory } from '../services/inventory';
 import { blankLocation } from '../const/inventory';
 
-export const useLocationCascade = ({ itemId, inventory, cards, comics, setApiRetrigger, setInventory }) => {
+export const useLocationCascade = ({ inventory, cards, comics, setApiRetrigger, setInventory }) => {
   const [cascade, setCascade] = useState('');
   const [isCascadeLoading, setIsCascadeLoading] = useState(false);
+
+  console.log(inventory);
 
   // Check if inventory can be cascaded
   const isLocationCascadable = (item) => {
@@ -18,43 +20,39 @@ export const useLocationCascade = ({ itemId, inventory, cards, comics, setApiRet
 
   //
 
-  const slot = inventory.slot;
+  const slot = inventory?.slot;
 
   const cascadeLocations = (cascade === 'comics' ? comics : cards)?.map((item) => {
-    // {...inventory, slot};
-    // slot++;
+    {
+      inventory, slot;
+    }
+    slot++;
   });
 
-  const postCascade = () => {
-    console.log('posting...');
-    setIsCascadeLoading(true);
+  console.log(cascadeLocations);
 
-    inventory.item_id = itemId - 0;
-    inventory.is_current = true;
-    if (inventory.vault && inventory.zone && isLocationCascadable(inventory)) {
-      Promise.all(cascadeLocations.map((item) => postInventory(item)))
-        .catch((e) => console.log(e))
-        .finally(
-          setTimeout(() => {
-            setIsCascadeLoading(false);
-            setApiRetrigger({});
-            setInventory(blankLocation);
-          }, 1000),
-        );
-      //   postInventory(inventory)
-      //     .then()
-      //     .catch()
-      //     .finally(
-      //   setTimeout(() => {
-      //     setIsCascadeLoading(false);
-      //     setApiRetrigger({});
-      //     setInventory(blankLocation);
-      //   }, 1000),
-      //     );
-    }
-    e.target.reset();
-    setIsCascadeLoading(false);
+  const postCascade = () => {
+    console.log(cascadeLocations);
+
+    // console.log('posting...');
+    // setIsCascadeLoading(true);
+
+    // inventory.item_id = itemId - 0;
+    // inventory.is_current = true;
+    // if (inventory.vault && inventory.zone && isLocationCascadable(inventory)) {
+    //   Promise.all(cascadeLocations.map((item) => postInventory(item)))
+    //     .catch((e) => console.log(e))
+    //     .finally(
+    //       setTimeout(() => {
+    //         setIsCascadeLoading(false);
+    //         setApiRetrigger({});
+    //         setInventory(blankLocation);
+    //       }, 1000),
+    //     );
+    // }
+    // e.target.reset();
+    // setIsCascadeLoading(false);
   };
 
-  return { cascade, setCascade, postCascade };
+  return { cascade, setCascade, postCascade, isCascadeLoading };
 };

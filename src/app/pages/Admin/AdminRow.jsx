@@ -12,23 +12,23 @@ import { getSingleSubmission, updateSubmission } from '../../services/submission
 import { SUBMISSION_STATUS } from '../../services/submission';
 import { getSubmissionTitle } from '../../utils/submissions';
 import { useLocationCascade } from '../../hooks/useLocationCascade';
+import { ITEM_TYPE } from '../../services/items';
 
 const AdminRow = ({ item, cards, comics }) => {
   const [isEditing, setIsEditing] = useState('');
   const [tempState, setTempState] = useState({});
   const [error, setError] = useState('');
 
-  const { initialInventory, inventory, currentLocation, postLocation, updateInventory, setInventory, setApiRetrigger } =
-    useInventoryLocation(item.item_id);
+  const { initialInventory, inventory, currentLocation, postLocation, updateInventory, setCascade, cascade } =
+    useInventoryLocation(item.item_id, comics, cards);
 
-  const { cascade, setCascade } = useLocationCascade(
-    item.item_id,
-    inventory,
-    cards,
-    comics,
-    setApiRetrigger,
-    setInventory,
-  );
+  // const { cascade, setCascade, postCascade } = useLocationCascade(
+  //   inventory,
+  //   cards,
+  //   comics,
+  //   setApiRetrigger,
+  //   setInventory,
+  // );
 
   const returnLocationLabel = (locationObject) => {
     if (!locationObject) return 'Unassigned';
@@ -65,21 +65,10 @@ const AdminRow = ({ item, cards, comics }) => {
     image: 'image',
   };
 
-  const locationSaveHandler = () => {
-    const CASCADE_COMIC = 'comic';
-    const CASCADE_CARD = 'card';
-
-    if (cascade === CASCADE_CARD) {
-    } else if (cascade === CASCADE_COMIC) {
-    } else if (!cascade) {
-      postLocation();
-    }
-  };
-
   const returnSaveFunction = (editSection) => {
     switch (editSection) {
       case adminRowSection.location:
-        locationSaveHandler();
+        postLocation();
         break;
       case adminRowSection.id:
         console.log('id');
@@ -124,6 +113,12 @@ const AdminRow = ({ item, cards, comics }) => {
         setError(err.message);
       });
     return;
+  };
+
+  const cascadeToggleHanlder = () => {
+    if (!!cascade) setCascade('');
+    else if (item.type === ITEM_TYPE.COMIC) setCascade('comic');
+    else if (item.type === ITEM_TYPE.TRADING_CARD) setCascade('card');
   };
 
   const isStatusPending = item.status === SUBMISSION_STATUS.Submitted;
@@ -185,7 +180,11 @@ const AdminRow = ({ item, cards, comics }) => {
           setCascade={setCascade}
         >
           {isEditing === adminRowSection.location && (
-            <LocationRow updateInventory={updateInventory} inventory={inventory} />
+            <LocationRow
+              updateInventory={updateInventory}
+              inventory={inventory}
+              cascadeToggleHanlder={cascadeToggleHanlder}
+            />
           )}
           {isEditing === adminRowSection.id && <>Edit ID</>}
           {isEditing === adminRowSection.details && (
