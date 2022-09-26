@@ -1,20 +1,65 @@
-import React, { useEffect, useState } from 'react';
-import { ListGroup, Button, Form, Image } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Button, Form, ListGroup } from 'react-bootstrap';
 
 import AdminRowExpanded from './AdminRowExpanded';
-import LocationRow from './LocationRow';
 import EditDetailsRow from './EditDetailsRow';
 import EditImageRow from './EditImageRow';
+import LocationRow from './LocationRow';
 
 import { ReactComponent as PencilIcon } from '../../assets/pencil-icon.svg';
 import { useInventoryLocation } from '../../hooks/useInventoryLocation';
-import { getSingleSubmission, updateSubmission } from '../../services/submission';
-import { SUBMISSION_STATUS } from '../../services/submission';
+import { createVaulting } from '../../services/items';
+import { approveRejectSubmissions, SUBMISSION_STATUS, updateSubmission } from '../../services/submission';
+import { getSubmissionTitle } from '../../utils/submissions';
 
-const AdminRow = ({ item }) => {
+const SubmissionStatusOptions = [
+  {
+    name: 'Failed',
+    value: SUBMISSION_STATUS.Failed,
+  },
+  {
+    name: 'Submitted',
+    value: SUBMISSION_STATUS.Submitted,
+  },
+  {
+    name: 'Received',
+    value: SUBMISSION_STATUS.Received,
+  },
+  // {
+  //   name: 'Rejected',
+  //   value: SUBMISSION_STATUS.Rejected,
+  // },
+  {
+    name: 'Approved',
+    value: SUBMISSION_STATUS.Approved,
+  },
+  {
+    name: 'Vaulted',
+    value: SUBMISSION_STATUS.Vaulted,
+  },
+];
+
+const adminRowSection = {
+  location: 'location',
+  details: 'details',
+  image: 'image',
+};
+
+const defaultAction = 'Default';
+
+const AdminRow = ({ item: _item }) => {
   const [isEditing, setIsEditing] = useState('');
   const [tempState, setTempState] = useState({});
   const [error, setError] = useState('');
+  const [actionLabel, setActionLabel] = useState(defaultAction);
+  const [statusValue, setStatusValue] = useState(_item.status);
+  const [item, setItem] = useState(_item);
+
+  const initState = React.useCallback((itemData) => {
+    setStatusValue(itemData.status);
+    setItem(itemData);
+    setActionLabel(defaultAction);
+  }, []);
 
   const { initialInventory, inventory, currentLocation, postLocation, updateInventory } = useInventoryLocation(
     item.item_id,
@@ -43,13 +88,6 @@ const AdminRow = ({ item }) => {
     }
 
     return `${abbreviatedVault}-${abbreviatedZone}-${shelf || ''}-${row || ''}-${box || ''}-${slot || ''}`;
-  };
-
-  const adminRowSection = {
-    location: 'location',
-    id: 'id',
-    details: 'details',
-    image: 'image',
   };
 
   const returnSaveFunction = (editSection) => {
@@ -82,8 +120,8 @@ const AdminRow = ({ item }) => {
       }
     }
     updateSubmission(item.item_id, payload)
-      .then((res) => {
-        return;
+      .then((data) => {
+        initState(data);
       })
       .catch((err) => {
         setError(err.message);
@@ -99,8 +137,8 @@ const AdminRow = ({ item }) => {
       }
     });
     updateSubmission(item.item_id, payload)
-      .then((res) => {
-        return;
+      .then((data) => {
+        initState(data);
       })
       .catch((err) => {
         setError(err.message);
@@ -108,7 +146,63 @@ const AdminRow = ({ item }) => {
     return;
   };
 
+  const handleStatusSelectChange = (e) => {
+    const newState = Number(e.target.value);
+
+    setStatusValue(newState);
+
+    if (newState === SUBMISSION_STATUS.Approved) {
+      if (item.status !== SUBMISSION_STATUS.Approved) {
+        return setActionLabel('Approve');
+      }
+    } else if (newState === SUBMISSION_STATUS.Rejected) {
+      if (item.status !== SUBMISSION_STATUS.Rejected) {
+        return setActionLabel('Reject');
+      }
+    } else if (newState === SUBMISSION_STATUS.Vaulted) {
+      if (item.status !== SUBMISSION_STATUS.Vaulted) {
+        return setActionLabel('Vault');
+      }
+    }
+
+    setActionLabel(defaultAction);
+  };
+
+  const handleActionClick = () => {
+    if (actionLabel === 'Approve' || actionLabel === 'Reject') {
+      approveRejectSubmissions(item.item_id, item.type, actionLabel === 'Approve')
+        .then((data) => {
+          initState(data);
+        })
+        .catch((err) => {
+          setError(err.message);
+        });
+    } else if (actionLabel === 'Vault') {
+      createVaulting({
+        item_id: item.item_id,
+        user: item.user,
+        submission_id: item.id,
+      })
+        .then((res) => {
+          console.log('vaulting result', res);
+          initState({
+            ...item,
+            status: SUBMISSION_STATUS.Vaulted,
+          });
+        })
+        .catch((err) => {
+          setError(err.message);
+        });
+    }
+  };
+
   const isStatusPending = item.status === SUBMISSION_STATUS.Submitted;
+  const isStatusSelectDisabled = item.status === SUBMISSION_STATUS.Failed || item.status >= SUBMISSION_STATUS.Vaulted;
+  const isValutEnabled =
+    !!currentLocation && item.status === SUBMISSION_STATUS.Approved && !!item.image_url && !!item.image_rev_url;
+
+  const isActionDisabled =
+    actionLabel === defaultAction || isStatusPending || (actionLabel === 'Vault' && !isValutEnabled);
 
   return (
     <>
@@ -125,18 +219,9 @@ const AdminRow = ({ item }) => {
             />
           )}
         </div>
+        <div className='d-flex gap-1 align-items-center'>{item.item_id}</div>
         <div className='d-flex gap-1 align-items-center'>
-          {item.item_id}
-          {!isStatusPending && (
-            <PencilIcon
-              onClick={() => {
-                setIsEditing(adminRowSection.id);
-              }}
-            />
-          )}
-        </div>
-        <div className='d-flex gap-1 align-items-center'>
-          1969 Topps #230 Tom Seaver Baseball BGS 9 $750
+          {getSubmissionTitle(item)}
           {!isStatusPending && (
             <PencilIcon
               onClick={() => {
@@ -147,8 +232,17 @@ const AdminRow = ({ item }) => {
           )}
         </div>
         <div>
-          <Form.Select aria-label='Status select dropdown'>
-            <option>{item.status_desc}</option>
+          <Form.Select
+            aria-label='Status select dropdown'
+            value={statusValue}
+            onChange={handleStatusSelectChange}
+            disabled={isStatusSelectDisabled}
+          >
+            {SubmissionStatusOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.name}
+              </option>
+            ))}
           </Form.Select>
         </div>
         <div className='d-flex gap-1 align-items-center'>
@@ -156,8 +250,8 @@ const AdminRow = ({ item }) => {
           {!isStatusPending && <PencilIcon onClick={() => setIsEditing(adminRowSection.location)} />}
         </div>
         <div>
-          <Button className='w-100' disabled={isStatusPending}>
-            Assign
+          <Button className='w-100' disabled={isActionDisabled} onClick={handleActionClick}>
+            {actionLabel}
           </Button>
         </div>
       </ListGroup.Item>
@@ -170,7 +264,6 @@ const AdminRow = ({ item }) => {
           {isEditing === adminRowSection.location && (
             <LocationRow updateInventory={updateInventory} inventory={inventory} />
           )}
-          {isEditing === adminRowSection.id && <>Edit ID</>}
           {isEditing === adminRowSection.details && (
             <EditDetailsRow tempState={tempState} setTempState={setTempState} />
           )}
