@@ -10,10 +10,16 @@ import AdminRow from './AdminRow';
 import SubmissionSearch from './SubmissionSearch';
 
 import { AdminPageContext } from '../../contexts/adminPage';
+import { ITEM_TYPE } from '../../services/items';
 
 const NewAdmingPage = () => {
   const { submissions, isSubmissionsLoading } = useContext(AdminPageContext);
   console.log('submissions', submissions);
+
+  const cards = submissions
+    .filter((item) => item.type === ITEM_TYPE.TRADING_CARD)
+    .sort((a, b) => a.item_id - b.item_id);
+  const comics = submissions.filter((item) => item.type === ITEM_TYPE.COMIC).sort((a, b) => a.item_id - b.item_id);
 
   return (
     <DefaultPage>
@@ -53,8 +59,27 @@ const NewAdmingPage = () => {
                         </Spinner>
                       </ListGroup.Item>
                     )}
-                    {!isSubmissionsLoading &&
-                      submissions.map((item) => <AdminRow key={'admin_row-' + item.id} item={item} />)}
+                    {cards.length > 0 && (
+                      <>
+                        <ListGroup.Item className='d-flex justify-content-center' variant='secondary'>
+                          --- Cards ---
+                        </ListGroup.Item>
+                        {!isSubmissionsLoading &&
+                          cards.map((item) => (
+                            <AdminRow key={'admin_row-' + item.id} item={item} cards={cards} comics={comics} />
+                          ))}
+                      </>
+                    )}
+                    {!isSubmissionsLoading && comics.length > 0 && (
+                      <>
+                        <ListGroup.Item className='d-flex justify-content-center' variant='secondary'>
+                          --- Comics ---
+                        </ListGroup.Item>
+                        {comics.map((item) => (
+                          <AdminRow key={'admin_row-' + item.id} item={item} cards={cards} comics={comics} />
+                        ))}
+                      </>
+                    )}
                   </ListGroup>
                 </div>
               </div>

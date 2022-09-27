@@ -8,9 +8,9 @@ import LocationRow from './LocationRow';
 
 import { ReactComponent as PencilIcon } from '../../assets/pencil-icon.svg';
 import { useInventoryLocation } from '../../hooks/useInventoryLocation';
-import { createVaulting } from '../../services/items';
-import { approveRejectSubmissions, SUBMISSION_STATUS, updateSubmission } from '../../services/submission';
 import { getSubmissionTitle } from '../../utils/submissions';
+import { ITEM_TYPE } from '../../services/items';
+import { approveRejectSubmissions, SUBMISSION_STATUS, updateSubmission } from '../../services/submission';
 
 const SubmissionStatusOptions = [
   {
@@ -47,7 +47,7 @@ const adminRowSection = {
 
 const defaultAction = 'Default';
 
-const AdminRow = ({ item: _item }) => {
+const AdminRow = ({ item: _item, cards, comics }) => {
   const [isEditing, setIsEditing] = useState('');
   const [tempState, setTempState] = useState({});
   const [error, setError] = useState('');
@@ -61,9 +61,16 @@ const AdminRow = ({ item: _item }) => {
     setActionLabel(defaultAction);
   }, []);
 
-  const { initialInventory, inventory, currentLocation, postLocation, updateInventory } = useInventoryLocation(
-    item.item_id,
-  );
+  const {
+    initialInventory,
+    inventory,
+    currentLocation,
+    postLocation,
+    isPostLoading,
+    updateInventory,
+    setCascade,
+    cascade,
+  } = useInventoryLocation(item.item_id, comics, cards);
 
   const returnLocationLabel = (locationObject) => {
     if (!locationObject) return 'Unassigned';
@@ -78,13 +85,16 @@ const AdminRow = ({ item: _item }) => {
       abbreviatedZone = 'CAB' + zone.at(-1);
     }
     if (zone.includes('credenza')) {
-      abbreviatedZone = 'CRED';
+      abbreviatedZone = 'CRED' + zone.at(-1);
     }
     if (zone.includes('gallery')) {
       abbreviatedZone = 'GALLERY';
     }
     if (zone.includes('main')) {
       abbreviatedZone = 'MAIN';
+    }
+    if (zone.includes('pedestal')) {
+      abbreviatedZone = 'PED' + zone.at(-1);
     }
 
     return `${abbreviatedVault}-${abbreviatedZone}-${shelf || ''}-${row || ''}-${box || ''}-${slot || ''}`;
@@ -103,6 +113,22 @@ const AdminRow = ({ item: _item }) => {
         break;
       case adminRowSection.details:
         updateDetails();
+        break;
+    }
+  };
+
+  const returnLoadingState = (editSection) => {
+    switch (editSection) {
+      case adminRowSection.location:
+        return isPostLoading;
+      case adminRowSection.id:
+        // TODO
+        break;
+      case adminRowSection.image:
+        // TODO
+        break;
+      case adminRowSection.details:
+        // TODO
         break;
     }
   };
@@ -144,6 +170,12 @@ const AdminRow = ({ item: _item }) => {
         setError(err.message);
       });
     return;
+  };
+
+  const cascadeToggleHanlder = () => {
+    if (!!cascade) setCascade('');
+    else if (item.type === ITEM_TYPE.COMIC) setCascade('comic');
+    else if (item.type === ITEM_TYPE.TRADING_CARD) setCascade('card');
   };
 
   const handleStatusSelectChange = (e) => {
@@ -259,10 +291,16 @@ const AdminRow = ({ item: _item }) => {
         <AdminRowExpanded
           onCancel={() => setIsEditing('')}
           onSave={() => returnSaveFunction(isEditing)}
+          isLoading={returnLoadingState(isEditing)}
           className='text-body'
+          setCascade={setCascade}
         >
           {isEditing === adminRowSection.location && (
-            <LocationRow updateInventory={updateInventory} inventory={inventory} />
+            <LocationRow
+              updateInventory={updateInventory}
+              inventory={inventory}
+              cascadeToggleHanlder={cascadeToggleHanlder}
+            />
           )}
           {isEditing === adminRowSection.details && (
             <EditDetailsRow tempState={tempState} setTempState={setTempState} />
