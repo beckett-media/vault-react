@@ -110,7 +110,7 @@ const AdminRow = ({ item: _item }) => {
   const updateImage = (itemVal = '') => {
     const payload = {};
     if (itemVal === 'del-image_path' || itemVal === 'del-image_rev_path') {
-      payload[itemVal.substring(4)] = '.';
+      payload[itemVal.substring(4)] = '../../assets/beckett-card-placeholder--gray.svg';
     } else {
       if (tempState.image_url !== item.img_url) {
         payload.image_path = tempState.image_url;
@@ -214,6 +214,7 @@ const AdminRow = ({ item: _item }) => {
             <PencilIcon
               onClick={() => {
                 setTempState({ image_url: item.image_url, image_rev_url: item.image_rev_url });
+                setError('');
                 setIsEditing(adminRowSection.image);
               }}
             />
@@ -226,6 +227,7 @@ const AdminRow = ({ item: _item }) => {
             <PencilIcon
               onClick={() => {
                 setTempState(item);
+                setError('');
                 setIsEditing(adminRowSection.details);
               }}
             />
