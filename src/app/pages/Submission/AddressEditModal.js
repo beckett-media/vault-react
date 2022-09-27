@@ -40,7 +40,12 @@ const AddressEditModal = (props) => {
       }
     } catch (err) {
       // This is an address validation error from usps api.
-      setError(err.message);
+      // setError(err.message);
+      alert(
+        'Warning: ' +
+          err.message +
+          ' However, the address has been updated, please verify that the address is correct.',
+      );
       await authContext.setAttributes(mapUserToCognito({ ...userState }));
     }
   };
