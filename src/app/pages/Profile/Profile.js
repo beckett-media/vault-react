@@ -48,9 +48,6 @@ const Profile = () => {
   }, [updateError]);
   const submitUpdateUser = async () => {
     let updatedUser;
-    const hasBillingAddress = userState.addressLine1 || userState.city || userState.state || userState.zipcode;
-    const hasShippingAddress =
-      userState.shipAddressLine1 || userState.shipCity || userState.shipState || userState.shipZipcode;
     setLoadingModal(true);
     if (isShippingSame) {
       syncSubmissionAddresses();
@@ -59,42 +56,26 @@ const Profile = () => {
       return setUpdateError('Phone number is required.');
     }
     try {
-      if (isShippingSame && hasBillingAddress) {
-        await validateAddress({
-          address1: userState.addressLine1,
-          address2: userState.addressLine2,
-          city: userState.city,
-          state: userState.state,
-          zipcode: userState.zipcode,
-        });
-      } else if (hasShippingAddress) {
-        await validateAddress({
-          address1: userState.shipAddressLine1,
-          address2: userState.shipAddressLine2,
-          city: userState.shipCity,
-          state: userState.shipState,
-          zipcode: userState.shipZipcode,
-        });
-      }
+      await validateAddress({
+        address1: userState.shipAddressLine1,
+        address2: userState.shipAddressLine2,
+        city: userState.shipCity,
+        state: userState.shipState,
+        zipcode: userState.shipZipcode,
+      });
     } catch (err) {
-      return setUpdateError(err.message);
+      // setUpdateError(err.message)
+      alert(
+        'Warning: ' +
+          err.message +
+          ' However, the address has been updated, please verify that the address is correct.',
+      );
     }
     if (userState.phone) {
       const phone = formatPhoneNumber(userState.phone);
-      const { addressLine1, addressLine2, city, state, country, zipcode } = userState;
-      const localUpdates = isShippingSame
-        ? {
-            phone: phone,
-            shipAddressLine1: addressLine1,
-            shipAddressLine2: addressLine2,
-            shipCity: city,
-            shipState: state,
-            shipCountry: country,
-            shipZipcode: zipcode,
-          }
-        : { phone: phone };
+
       try {
-        updatedUser = await authContext.setAttributes(mapUserToCognito({ ...userState, ...localUpdates }));
+        updatedUser = await authContext.setAttributes(mapUserToCognito({ ...userState, phone: phone }));
         updatedUser && navigate('/my-collection');
       } catch (err) {
         if (err.name === 'InvalidParameterException') {
@@ -111,19 +92,7 @@ const Profile = () => {
     // TODO: on error?
 
     try {
-      updatedUser = isShippingSame
-        ? await authContext.setAttributes(
-            mapUserToCognito({
-              ...userState,
-              shipAddressLine1: userState.addressLine1,
-              shipAddressLine2: userState.addressLine2,
-              shipCity: userState.city,
-              shipState: userState.state,
-              shipCountry: userState.country,
-              shipZipcode: userState.zipcode,
-            }),
-          )
-        : await authContext.setAttributes(mapUserToCognito(userState));
+      updatedUser = await authContext.setAttributes(mapUserToCognito(userState));
       updatedUser && navigate('/my-collection');
     } catch (err) {
       if (err.name === 'InvalidParameterException') {
