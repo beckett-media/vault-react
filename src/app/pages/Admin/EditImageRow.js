@@ -6,7 +6,6 @@ import { TiDelete } from 'react-icons/ti';
 const EditImageRow = ({ tempState, item, error, setTempState, updateImage }) => {
   const imageUrlLast = item?.image_url?.split('/').at(-1);
   const imageRevUrlLast = item?.image_rev_url?.split('/').at(-1);
-  console.log(tempState.image_url, item.image_url);
   return (
     <Row>
       <Col className='img_container'>
