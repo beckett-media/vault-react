@@ -5,7 +5,6 @@ import { isIncompleteAddress, mapCognitoToUser, mapUserToCognito } from '../../s
 import { states } from '../../const/states';
 import './Submission.scss';
 import { useNavigate } from 'react-router-dom';
-import { validateAddress } from '../../utils/validateAddress';
 
 const AddressEditModal = (props) => {
   const { open, onClose } = props;
@@ -41,7 +40,13 @@ const AddressEditModal = (props) => {
       }
     } catch (err) {
       // This is an address validation error from usps api.
-      setError(err.message);
+      // setError(err.message);
+      alert(
+        'Warning: ' +
+          err.message +
+          ' However, the address has been updated, please verify that the address is correct.',
+      );
+      await authContext.setAttributes(mapUserToCognito({ ...userState }));
     }
   };
 
@@ -56,14 +61,14 @@ const AddressEditModal = (props) => {
     if (!isIncompleteAddress(userState)) {
       setEditing(false);
     } else {
-      alert('Shipping Address is yet not complete');
+      alert('Address is yet not complete');
     }
   };
 
   const editModalContents = () => (
     <Form onSubmit={onEditDone}>
       <Modal.Header>
-        <Modal.Title id='contained-modal-title-vcenter'>Complete your shipping address to continue</Modal.Title>
+        <Modal.Title id='contained-modal-title-vcenter'>Complete your address to continue</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form.Label>Address</Form.Label>
