@@ -10,7 +10,6 @@ import {
 } from '@chakra-ui/react';
 import * as React from 'react';
 import { HiEye, HiEyeOff } from 'react-icons/hi';
-import { withTheme } from 'styled-components';
 
 export const PasswordField = React.forwardRef((props, ref) => {
   const { isOpen, onToggle } = useDisclosure();
@@ -28,9 +27,11 @@ export const PasswordField = React.forwardRef((props, ref) => {
 
   return (
     <FormControl>
-      <FormLabel htmlFor='password' color={color}>
-        {label}
-      </FormLabel>
+      {!!label && (
+        <FormLabel htmlFor='password' color={color}>
+          {label}
+        </FormLabel>
+      )}
       <InputGroup display='flex' alignItems='center'>
         <InputRightElement height='100%'>
           <IconButton

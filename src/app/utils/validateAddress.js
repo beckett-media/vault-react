@@ -16,9 +16,14 @@ export const externalAddressValidation = (address) => {
         <Zip4/>
       </Address>
     </AddressValidateRequest>`;
-  return axios.get('http://production.shippingapis.com/ShippingAPI.dll?API=Verify&XML=' + encodeURIComponent(xml), {
-    headers: { 'Content-Type': 'text/xml' },
-  });
+  return axios.get(
+    `${
+      window.location.href.indexOf('localhost') === -1 ? 'https' : 'http'
+    }://production.shippingapis.com/ShippingAPI.dll?API=Verify&XML=` + encodeURIComponent(xml),
+    {
+      headers: { 'Content-Type': 'text/xml' },
+    },
+  );
 };
 
 export const validateAddress = async ({ address1, address2, city, state, zipcode }) => {

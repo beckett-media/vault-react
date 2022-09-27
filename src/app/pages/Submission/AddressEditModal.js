@@ -5,6 +5,7 @@ import { isIncompleteAddress, mapCognitoToUser, mapUserToCognito } from '../../s
 import { states } from '../../const/states';
 import './Submission.scss';
 import { useNavigate } from 'react-router-dom';
+import { validateAddress } from '../../utils/validateAddress';
 
 const AddressEditModal = (props) => {
   const { open, onClose } = props;
@@ -55,14 +56,14 @@ const AddressEditModal = (props) => {
     if (!isIncompleteAddress(userState)) {
       setEditing(false);
     } else {
-      alert('Address is yet not complete');
+      alert('Shipping Address is yet not complete');
     }
   };
 
   const editModalContents = () => (
     <Form onSubmit={onEditDone}>
       <Modal.Header>
-        <Modal.Title id='contained-modal-title-vcenter'>Complete your address to continue</Modal.Title>
+        <Modal.Title id='contained-modal-title-vcenter'>Complete your shipping address to continue</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form.Label>Address</Form.Label>

@@ -1,5 +1,5 @@
-import { useContext, useState } from 'react';
-import { CloseButton, Form, Modal } from 'react-bootstrap';
+import React, { useContext, useState } from 'react';
+import { CloseButton, Modal } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { NewPasswordField } from '../../components/NewPasswordField/NewPasswordField';
 import { PasswordField } from '../../components/PasswordField/PasswordField';
