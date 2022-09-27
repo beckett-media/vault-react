@@ -246,6 +246,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
             <PencilIcon
               onClick={() => {
                 setTempState({ image_url: item.image_url, image_rev_url: item.image_rev_url });
+                setError('');
                 setIsEditing(adminRowSection.image);
               }}
             />
@@ -258,6 +259,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
             <PencilIcon
               onClick={() => {
                 setTempState(item);
+                setError('');
                 setIsEditing(adminRowSection.details);
               }}
             />
