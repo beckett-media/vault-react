@@ -8,7 +8,7 @@ const DefaultPage = ({ hasBannerStats, children }) => {
   return (
     <div className='w-100 h-100'>
       <UserBanner />
-      <div className='w-100 h-100 bg-light text-body default-page_content'>{children}</div>
+      <div className='w-100 h-100 bg-white text-body default-page_content'>{children}</div>
     </div>
   );
 };

@@ -11,6 +11,7 @@ import { useInventoryLocation } from '../../hooks/useInventoryLocation';
 import { getSubmissionTitle } from '../../utils/submissions';
 import { ITEM_TYPE } from '../../services/items';
 import { approveRejectSubmissions, SUBMISSION_STATUS, updateSubmission } from '../../services/submission';
+import { printSection } from '../../utils/print';
 
 const SubmissionStatusOptions = [
   {
@@ -225,6 +226,8 @@ const AdminRow = ({ item: _item, cards, comics }) => {
         .catch((err) => {
           setError(err.message);
         });
+    } else if (actionLabel === 'Print') {
+      printSection('print-area');
     }
   };
 
@@ -318,6 +321,12 @@ const AdminRow = ({ item: _item, cards, comics }) => {
           )}
         </AdminRowExpanded>
       )}
+      <div id='print-area' className='visually-hidden'>
+        <div>Order ID: {item.order_id}</div>
+        <div>Item ID: {item.item_id}</div>
+        <div>Description: {getSubmissionTitle(item)}</div>
+        <div>Vault location: {returnLocationLabel(currentLocation)}</div>
+      </div>
     </>
   );
 };
