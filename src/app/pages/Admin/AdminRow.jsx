@@ -8,10 +8,10 @@ import LocationRow from './LocationRow';
 
 import { ReactComponent as PencilIcon } from '../../assets/pencil-icon.svg';
 import { useInventoryLocation } from '../../hooks/useInventoryLocation';
-import { getSubmissionTitle } from '../../utils/submissions';
-import { ITEM_TYPE } from '../../services/items';
+import { createVaulting, ITEM_TYPE } from '../../services/items';
 import { approveRejectSubmissions, SUBMISSION_STATUS, updateSubmission } from '../../services/submission';
-import { printSection } from '../../utils/print';
+import { getSubmissionTitle } from '../../utils/submissions';
+import SubmissionPrint from './SubmissionPrint';
 
 const SubmissionStatusOptions = [
   {
@@ -26,12 +26,8 @@ const SubmissionStatusOptions = [
     name: 'Received',
     value: SUBMISSION_STATUS.Received,
   },
-  // {
-  //   name: 'Rejected',
-  //   value: SUBMISSION_STATUS.Rejected,
-  // },
   {
-    name: 'Approved',
+    name: 'Validated',
     value: SUBMISSION_STATUS.Approved,
   },
   {
@@ -46,24 +42,21 @@ const adminRowSection = {
   image: 'image',
 };
 
-const defaultAction = 'Default';
-
 const AdminRow = ({ item: _item, cards, comics }) => {
   const [isEditing, setIsEditing] = useState('');
   const [tempState, setTempState] = useState({});
   const [error, setError] = useState('');
-  const [actionLabel, setActionLabel] = useState(defaultAction);
   const [statusValue, setStatusValue] = useState(_item.status);
   const [item, setItem] = useState(_item);
+  const [showPrint, setShowPrint] = useState('init');
 
   const initState = React.useCallback((itemData) => {
     setStatusValue(itemData.status);
     setItem(itemData);
-    setActionLabel(defaultAction);
   }, []);
 
   const {
-    initialInventory,
+    // initialInventory,
     inventory,
     currentLocation,
     postLocation,
@@ -183,34 +176,20 @@ const AdminRow = ({ item: _item, cards, comics }) => {
     const newState = Number(e.target.value);
 
     setStatusValue(newState);
-
-    if (newState === SUBMISSION_STATUS.Approved) {
-      if (item.status !== SUBMISSION_STATUS.Approved) {
-        return setActionLabel('Approve');
-      }
-    } else if (newState === SUBMISSION_STATUS.Rejected) {
-      if (item.status !== SUBMISSION_STATUS.Rejected) {
-        return setActionLabel('Reject');
-      }
-    } else if (newState === SUBMISSION_STATUS.Vaulted) {
-      if (item.status !== SUBMISSION_STATUS.Vaulted) {
-        return setActionLabel('Vault');
-      }
-    }
-
-    setActionLabel(defaultAction);
   };
 
-  const handleActionClick = () => {
-    if (actionLabel === 'Approve' || actionLabel === 'Reject') {
-      approveRejectSubmissions(item.item_id, item.type, actionLabel === 'Approve')
+  const handleActionClick = (e) => {
+    const action = e.target.innerText;
+
+    if (action === 'Validate') {
+      approveRejectSubmissions(item.item_id, item.type, true)
         .then((data) => {
           initState(data);
         })
         .catch((err) => {
           setError(err.message);
         });
-    } else if (actionLabel === 'Vault') {
+    } else if (action === 'Vault') {
       createVaulting({
         item_id: item.item_id,
         user: item.user,
@@ -226,18 +205,59 @@ const AdminRow = ({ item: _item, cards, comics }) => {
         .catch((err) => {
           setError(err.message);
         });
-    } else if (actionLabel === 'Print') {
-      printSection('print-area');
+    } else if (action === 'Print Label') {
+      setShowPrint('open');
+    } else if (action === 'Link Images') {
+      handleImageEditClick();
+    } else if (action === 'Assign Vault') {
+      setIsEditing(adminRowSection.location);
     }
+  };
+
+  const handlePrintClose = React.useCallback(() => {
+    setShowPrint('closed');
+  }, []);
+
+  const getActionLabel = () => {
+    if (item.status === SUBMISSION_STATUS.Received) {
+      return 'Validate';
+    }
+    if (item.status === SUBMISSION_STATUS.Approved) {
+      if (!currentLocation) {
+        return 'Assign Vault';
+      }
+
+      if (showPrint === 'init' || showPrint === 'open') {
+        return 'Print Label';
+      }
+
+      if (!item.image_url || !item.image_rev_url) {
+        return 'Link Images';
+      }
+
+      return 'Vault';
+    }
+
+    return 'Done';
+  };
+
+  const handleImageEditClick = () => {
+    setTempState({ image_url: item.image_url, image_rev_url: item.image_rev_url });
+    setError('');
+    setIsEditing(adminRowSection.image);
+  };
+
+  const handleSubmissionEditClick = () => {
+    setTempState(item);
+    setError('');
+    setIsEditing(adminRowSection.details);
   };
 
   const isStatusPending = item.status === SUBMISSION_STATUS.Submitted;
   const isStatusSelectDisabled = item.status === SUBMISSION_STATUS.Failed || item.status >= SUBMISSION_STATUS.Vaulted;
-  const isValutEnabled =
-    !!currentLocation && item.status === SUBMISSION_STATUS.Approved && !!item.image_url && !!item.image_rev_url;
 
-  const isActionDisabled =
-    actionLabel === defaultAction || isStatusPending || (actionLabel === 'Vault' && !isValutEnabled);
+  const actionLabel = getActionLabel();
+  const isActionDisabled = actionLabel === 'Done';
 
   return (
     <>
@@ -245,28 +265,12 @@ const AdminRow = ({ item: _item, cards, comics }) => {
         <div>{!isStatusPending && <Form.Check></Form.Check>}</div>
         <div className='d-flex gap-1 align-items-center'>
           <img className='img_thumbnail' src={item.image_url} />
-          {!isStatusPending && (
-            <PencilIcon
-              onClick={() => {
-                setTempState({ image_url: item.image_url, image_rev_url: item.image_rev_url });
-                setError('');
-                setIsEditing(adminRowSection.image);
-              }}
-            />
-          )}
+          {!isStatusPending && <PencilIcon onClick={handleImageEditClick} />}
         </div>
         <div className='d-flex gap-1 align-items-center'>{item.item_id}</div>
         <div className='d-flex gap-1 align-items-center'>
           {getSubmissionTitle(item)}
-          {!isStatusPending && (
-            <PencilIcon
-              onClick={() => {
-                setTempState(item);
-                setError('');
-                setIsEditing(adminRowSection.details);
-              }}
-            />
-          )}
+          {!isStatusPending && <PencilIcon onClick={handleSubmissionEditClick} />}
         </div>
         <div>
           <Form.Select
@@ -287,7 +291,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
           {!isStatusPending && <PencilIcon onClick={() => setIsEditing(adminRowSection.location)} />}
         </div>
         <div>
-          <Button className='w-100' disabled={isActionDisabled} onClick={handleActionClick}>
+          <Button className={`w-100 print-status-${showPrint}`} disabled={isActionDisabled} onClick={handleActionClick}>
             {actionLabel}
           </Button>
         </div>
@@ -321,12 +325,10 @@ const AdminRow = ({ item: _item, cards, comics }) => {
           )}
         </AdminRowExpanded>
       )}
-      <div id='print-area' className='visually-hidden'>
-        <div>Order ID: {item.order_id}</div>
-        <div>Item ID: {item.item_id}</div>
-        <div>Description: {getSubmissionTitle(item)}</div>
-        <div>Vault location: {returnLocationLabel(currentLocation)}</div>
-      </div>
+
+      {showPrint === 'open' && (
+        <SubmissionPrint item={item} locationLabel={returnLocationLabel(currentLocation)} onClose={handlePrintClose} />
+      )}
     </>
   );
 };

@@ -12,7 +12,7 @@ import SubmissionSearch from './SubmissionSearch';
 import { AdminPageContext } from '../../contexts/adminPage';
 import { ITEM_TYPE } from '../../services/items';
 
-const NewAdmingPage = () => {
+const AdminPage = () => {
   const { submissions, isSubmissionsLoading } = useContext(AdminPageContext);
   console.log('submissions', submissions);
 
@@ -101,4 +101,4 @@ const NewAdmingPage = () => {
   );
 };
 
-export default NewAdmingPage;
+export default AdminPage;
