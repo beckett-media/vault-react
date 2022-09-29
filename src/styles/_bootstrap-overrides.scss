@@ -4,7 +4,7 @@ anything in here will override the bootstrap varaibles.
 
 */
 
-$primary: #54c4c8;
+$primary: #069697;
 
 .carousel-indicators button {
   width: 16px !important;
@@ -45,6 +45,12 @@ $primary: #54c4c8;
 
 .form-control {
   margin-bottom: 16px;
+}
+
+.form-switch {
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
 }
 
 .cursor-pointer {

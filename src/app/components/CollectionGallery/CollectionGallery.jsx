@@ -16,8 +16,8 @@ import { SUBJECT } from '../../const/FiltersEnums';
 import { useMultiSelect } from '../../hooks/useMultiSelect';
 import { usePagination } from '../../hooks/usePagination';
 import { useToggle } from '../../hooks/useToggle';
-import { ASC, DESC, sortByAttribute } from '../../utils/sort';
 import { SUBMISSION_STATUS } from '../../services/submission';
+import { ASC, DESC, sortByAttribute } from '../../utils/sort';
 
 const CollectionGallery = ({ data }) => {
   //  SEARCH & FILTRATION
@@ -46,7 +46,7 @@ const CollectionGallery = ({ data }) => {
               <div className='gallery-filter_utility-div'></div>
               <SearchBar
                 searchVal={searchVal}
-                setSearchVal={setSearchVal}
+                onChange={(e) => setSearchVal(e.target.value)}
                 sortBy={sortBy}
                 setFilterBy={setFilterBy}
                 filterOptions={filterOptions}

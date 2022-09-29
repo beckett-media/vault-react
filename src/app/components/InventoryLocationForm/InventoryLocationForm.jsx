@@ -72,8 +72,8 @@ const InventoryLocationForm = ({ itemId }) => {
   };
 
   return (
-    <div className='my-4'>
-      <div className='mb-2'>
+    <div>
+      <div>
         <span className='fw-bold'>Vault location: </span>
         {currentLocation ? currentLocation?.label : 'No inventory location set'}
       </div>

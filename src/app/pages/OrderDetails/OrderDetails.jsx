@@ -4,15 +4,9 @@ import { Outlet } from 'react-router-dom';
 
 import './OrderDetails.scss';
 
-const OrderDetails = () => {
-  const printSection = (elementId) => {
-    const printwin = window.open('');
-    printwin.document.write(document.getElementById(elementId).innerHTML);
-    printwin.stop();
-    printwin.print();
-    printwin.close();
-  };
+import { printSection } from '../../utils/print';
 
+const OrderDetails = () => {
   return (
     <div className='page-wrapper'>
       <div className='page-padding'>

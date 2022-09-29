@@ -2,7 +2,6 @@ import { Button, FormControl, Input } from '@chakra-ui/react';
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ReactComponent as SigninBg } from '../../assets/bg-sphere--large.svg';
-import { NewPasswordField } from '../../components/NewPasswordField/NewPasswordField';
 import { PasswordField } from '../../components/PasswordField/PasswordField';
 import { AuthContext } from '../../contexts/auth';
 import { defaultNewUser, requiredNewUserProperties, submitNewUser } from '../../services/user';
