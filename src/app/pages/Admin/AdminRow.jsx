@@ -11,36 +11,8 @@ import { CASCADE_TYPE, useInventoryLocation } from '../../hooks/useInventoryLoca
 import { createVaulting, ITEM_TYPE } from '../../services/items';
 import { approveRejectSubmissions, SUBMISSION_STATUS, updateSubmission } from '../../services/submission';
 import { getSubmissionTitle } from '../../utils/submissions';
+import { ACTION_LABEL, ADMIN_ROW_SECTION, SubmissionStatusOptions } from './const';
 import SubmissionPrint from './SubmissionPrint';
-
-const SubmissionStatusOptions = [
-  {
-    name: 'Failed',
-    value: SUBMISSION_STATUS.Failed,
-  },
-  {
-    name: 'Submitted',
-    value: SUBMISSION_STATUS.Submitted,
-  },
-  {
-    name: 'Received',
-    value: SUBMISSION_STATUS.Received,
-  },
-  {
-    name: 'Validated',
-    value: SUBMISSION_STATUS.Approved,
-  },
-  {
-    name: 'Vaulted',
-    value: SUBMISSION_STATUS.Vaulted,
-  },
-];
-
-const adminRowSection = {
-  location: 'location',
-  details: 'details',
-  image: 'image',
-};
 
 const AdminRow = ({ item: _item, cards, comics }) => {
   const [isEditing, setIsEditing] = useState('');
@@ -98,13 +70,13 @@ const AdminRow = ({ item: _item, cards, comics }) => {
 
   const returnSaveFunction = (editSection) => {
     switch (editSection) {
-      case adminRowSection.location:
+      case ADMIN_ROW_SECTION.LOCATION:
         postLocation(() => setIsEditing(''));
         break;
-      case adminRowSection.image:
+      case ADMIN_ROW_SECTION.IMAGE:
         updateImage();
         break;
-      case adminRowSection.details:
+      case ADMIN_ROW_SECTION.DETAILS:
         updateDetails();
         break;
     }
@@ -112,12 +84,12 @@ const AdminRow = ({ item: _item, cards, comics }) => {
 
   const returnLoadingState = (editSection) => {
     switch (editSection) {
-      case adminRowSection.location:
+      case ADMIN_ROW_SECTION.LOCATION:
         return isPostLoading;
-      case adminRowSection.image:
+      case ADMIN_ROW_SECTION.IMAGE:
         // TODO
         break;
-      case adminRowSection.details:
+      case ADMIN_ROW_SECTION.DETAILS:
         // TODO
         break;
     }
@@ -179,7 +151,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
   const handleActionClick = (e) => {
     const action = e.target.innerText;
 
-    if (action === 'Validate') {
+    if (action === ACTION_LABEL.VALIDATE) {
       setIsActionLoading(true);
       approveRejectSubmissions(item.item_id, item.type, true)
         .then((data) => {
@@ -191,7 +163,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
         .finally(() => {
           setIsActionLoading(false);
         });
-    } else if (action === 'Vault') {
+    } else if (action === ACTION_LABEL.VAULT) {
       setIsActionLoading(true);
       createVaulting({
         item_id: item.item_id,
@@ -211,12 +183,12 @@ const AdminRow = ({ item: _item, cards, comics }) => {
         .finally(() => {
           setIsActionLoading(false);
         });
-    } else if (action === 'Print Label') {
+    } else if (action === ACTION_LABEL.PRINT_LABEL) {
       setShowPrint('open');
-    } else if (action === 'Link Images') {
+    } else if (action === ACTION_LABEL.LINK_IMAGES) {
       handleImageEditClick();
-    } else if (action === 'Assign Vault') {
-      setIsEditing(adminRowSection.location);
+    } else if (action === ACTION_LABEL.ASSIGN_VAULT) {
+      setIsEditing(ADMIN_ROW_SECTION.LOCATION);
     }
   };
 
@@ -226,44 +198,44 @@ const AdminRow = ({ item: _item, cards, comics }) => {
 
   const getActionLabel = () => {
     if (item.status === SUBMISSION_STATUS.Received) {
-      return 'Validate';
+      return ACTION_LABEL.VALIDATE;
     }
     if (item.status === SUBMISSION_STATUS.Approved) {
       if (!currentLocation) {
-        return 'Assign Vault';
+        return ACTION_LABEL.ASSIGN_VAULT;
       }
 
       if (showPrint === 'init' || showPrint === 'open') {
-        return 'Print Label';
+        return ACTION_LABEL.PRINT_LABEL;
       }
 
       if (!item.image_url || !item.image_rev_url) {
-        return 'Link Images';
+        return ACTION_LABEL.LINK_IMAGES;
       }
 
-      return 'Vault';
+      return ACTION_LABEL.VAULT;
     }
 
-    return 'Done';
+    return ACTION_LABEL.DONE;
   };
 
   const handleImageEditClick = () => {
     setTempState({ image_url: item.image_url, image_rev_url: item.image_rev_url });
     setError('');
-    setIsEditing(adminRowSection.image);
+    setIsEditing(ADMIN_ROW_SECTION.IMAGE);
   };
 
   const handleSubmissionEditClick = () => {
     setTempState(item);
     setError('');
-    setIsEditing(adminRowSection.details);
+    setIsEditing(ADMIN_ROW_SECTION.DETAILS);
   };
 
   const isStatusPending = item.status === SUBMISSION_STATUS.Submitted;
   const isStatusSelectDisabled = item.status === SUBMISSION_STATUS.Failed || item.status >= SUBMISSION_STATUS.Vaulted;
 
   const actionLabel = getActionLabel();
-  const isActionDisabled = actionLabel === 'Done';
+  const isActionDisabled = actionLabel === ACTION_LABEL.DONE;
 
   return (
     <>
@@ -294,7 +266,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
         </div>
         <div className='d-flex gap-1 align-items-center'>
           {returnLocationLabel(currentLocation)}
-          {!isStatusPending && <PencilIcon onClick={() => setIsEditing(adminRowSection.location)} />}
+          {!isStatusPending && <PencilIcon onClick={() => setIsEditing(ADMIN_ROW_SECTION.LOCATION)} />}
         </div>
         <div>
           <Button className={`w-100 print-status-${showPrint}`} disabled={isActionDisabled} onClick={handleActionClick}>
@@ -316,17 +288,17 @@ const AdminRow = ({ item: _item, cards, comics }) => {
           className='text-body'
           setCascade={setCascade}
         >
-          {isEditing === adminRowSection.location && (
+          {isEditing === ADMIN_ROW_SECTION.LOCATION && (
             <LocationRow
               updateInventory={updateInventory}
               inventory={inventory}
               cascadeToggleHanlder={cascadeToggleHanlder}
             />
           )}
-          {isEditing === adminRowSection.details && (
+          {isEditing === ADMIN_ROW_SECTION.DETAILS && (
             <EditDetailsRow tempState={tempState} setTempState={setTempState} />
           )}
-          {isEditing === adminRowSection.image && (
+          {isEditing === ADMIN_ROW_SECTION.IMAGE && (
             <EditImageRow
               tempState={tempState}
               item={item}
