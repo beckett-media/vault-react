@@ -14,7 +14,6 @@ import { ITEM_TYPE } from '../../services/items';
 
 const AdminPage = () => {
   const { submissions, isSubmissionsLoading } = useContext(AdminPageContext);
-  console.log('submissions', submissions);
 
   const cards = submissions
     .filter((item) => item.type === ITEM_TYPE.TRADING_CARD)
