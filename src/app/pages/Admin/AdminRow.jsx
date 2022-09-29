@@ -7,7 +7,7 @@ import EditImageRow from './EditImageRow';
 import LocationRow from './LocationRow';
 
 import { ReactComponent as PencilIcon } from '../../assets/pencil-icon.svg';
-import { useInventoryLocation } from '../../hooks/useInventoryLocation';
+import { CASCADE_TYPE, useInventoryLocation } from '../../hooks/useInventoryLocation';
 import { createVaulting, ITEM_TYPE } from '../../services/items';
 import { approveRejectSubmissions, SUBMISSION_STATUS, updateSubmission } from '../../services/submission';
 import { getSubmissionTitle } from '../../utils/submissions';
@@ -166,8 +166,8 @@ const AdminRow = ({ item: _item, cards, comics }) => {
 
   const cascadeToggleHanlder = () => {
     if (!!cascade) setCascade('');
-    else if (item.type === ITEM_TYPE.COMIC) setCascade('comic');
-    else if (item.type === ITEM_TYPE.TRADING_CARD) setCascade('card');
+    else if (item.type === ITEM_TYPE.COMIC) setCascade(CASCADE_TYPE.COMIC);
+    else if (item.type === ITEM_TYPE.TRADING_CARD) setCascade(CASCADE_TYPE.CARD);
   };
 
   const handleStatusSelectChange = (e) => {

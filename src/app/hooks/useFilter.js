@@ -1,21 +1,27 @@
 import { useState, useReducer, useEffect } from 'react';
 
+const FETCH_STATUS = {
+  INIT: 'FETCH_INIT',
+  SUCCESS: 'FETCH_SUCCESS',
+  FAILURE: 'FETCH_FAILURE',
+};
+
 const createDataFetchReducer = () => (state, action) => {
   switch (action.type) {
-    case 'FETCH_INIT':
+    case FETCH_STATUS.INIT:
       return {
         ...state,
         isSearching: true,
         isError: false,
       };
-    case 'FETCH_SUCCESS':
+    case FETCH_STATUS.SUCCESS:
       return {
         ...state,
         isSearching: false,
         isError: false,
         results: action.payload,
       };
-    case 'FETCH_FAILURE':
+    case FETCH_STATUS.FAILURE:
       return {
         ...state,
         isSearching: false,
@@ -38,15 +44,15 @@ export default function useFilter(apiAction, initialParam, initialData) {
   useEffect(() => {
     let didCancel = false;
     const fetchData = async () => {
-      dispatch({ type: 'FETCH_INIT' });
+      dispatch({ type: FETCH_STATUS.INIT });
       try {
         const data = await apiAction(param);
         if (!didCancel) {
-          dispatch({ type: 'FETCH_SUCCESS', payload: data });
+          dispatch({ type: FETCH_STATUS.SUCCESS, payload: data });
         }
       } catch (error) {
         if (!didCancel) {
-          dispatch({ type: 'FETCH_FAILURE' });
+          dispatch({ type: FETCH_STATUS.FAILURE });
         }
       }
     };

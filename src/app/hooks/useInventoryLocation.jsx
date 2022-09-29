@@ -2,6 +2,11 @@ import { useEffect, useState } from 'react';
 import { blankLocation } from '../const/inventory';
 import { getInventory, postInventory, putInventory } from '../services/inventory';
 
+export const CASCADE_TYPE = {
+  COMIC: 'comic',
+  CARD: 'card',
+};
+
 export const useInventoryLocation = (itemId, comics, cards) => {
   const [apiRetrigger, setApiRetrigger] = useState({});
   const [initialInventory, setInitialInventory] = useState([]);
@@ -16,7 +21,7 @@ export const useInventoryLocation = (itemId, comics, cards) => {
   const cascadeLocations = [];
 
   if (!!cascade) {
-    (cascade === 'comic' ? comics : cards)?.forEach((item, index) => {
+    (cascade === CASCADE_TYPE.COMIC ? comics : cards)?.forEach((item, index) => {
       cascadeLocations.push({ ...inventory, slot: slot.toString(), is_current: true, item_id: itemId + index });
       slot++;
     });
@@ -50,7 +55,6 @@ export const useInventoryLocation = (itemId, comics, cards) => {
             onSuccess();
           }
         })
-        .catch()
         .finally(
           setTimeout(() => {
             setIsPostLoading(false);
@@ -85,15 +89,12 @@ export const useInventoryLocation = (itemId, comics, cards) => {
     setIsPutLoading(true);
     const putBody = { status: 1, note: 'updating location' };
 
-    putInventory(newLocationId, putBody)
-      .then()
-      .catch()
-      .finally(
-        setTimeout(() => {
-          setIsPutLoading(false);
-          setApiRetrigger({});
-        }, 1000),
-      );
+    putInventory(newLocationId, putBody).finally(
+      setTimeout(() => {
+        setIsPutLoading(false);
+        setApiRetrigger({});
+      }, 1000),
+    );
   };
 
   return {

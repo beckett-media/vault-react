@@ -4,7 +4,7 @@ import './DefaultPage.scss';
 
 import UserBanner from '../../UserBanner/UserBanner';
 
-const DefaultPage = ({ hasBannerStats, children }) => {
+const DefaultPage = ({ children }) => {
   return (
     <div className='w-100 h-100'>
       <UserBanner />
