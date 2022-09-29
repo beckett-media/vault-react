@@ -99,7 +99,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
   const returnSaveFunction = (editSection) => {
     switch (editSection) {
       case adminRowSection.location:
-        postLocation();
+        postLocation(() => setIsEditing(''));
         break;
       case adminRowSection.image:
         updateImage();
@@ -114,9 +114,6 @@ const AdminRow = ({ item: _item, cards, comics }) => {
     switch (editSection) {
       case adminRowSection.location:
         return isPostLoading;
-      case adminRowSection.id:
-        // TODO
-        break;
       case adminRowSection.image:
         // TODO
         break;
@@ -141,6 +138,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
     updateSubmission(item.item_id, payload)
       .then((data) => {
         initState(data);
+        setIsEditing('');
       })
       .catch((err) => {
         setError(err.message);
@@ -158,6 +156,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
     updateSubmission(item.item_id, payload)
       .then((data) => {
         initState(data);
+        setIsEditing('');
       })
       .catch((err) => {
         setError(err.message);

@@ -38,14 +38,18 @@ export const useInventoryLocation = (itemId, comics, cards) => {
 
   const updateInventory = (tempInventory) => setInventory({ ...inventory, ...tempInventory });
 
-  const postLocation = () => {
+  const postLocation = (onSuccess) => {
     setIsPostLoading(true);
 
     inventory.item_id = itemId - 0;
     inventory.is_current = true;
     if (!cascade && inventory.vault && inventory.zone) {
       postInventory(inventory)
-        .then()
+        .then(() => {
+          if (onSuccess) {
+            onSuccess();
+          }
+        })
         .catch()
         .finally(
           setTimeout(() => {
@@ -58,6 +62,11 @@ export const useInventoryLocation = (itemId, comics, cards) => {
       Promise.all(
         cascadeLocations.map((item) => {
           postInventory(item)
+            .then(() => {
+              if (onSuccess) {
+                onSuccess();
+              }
+            })
             .catch((e) => console.log(e))
             .finally(
               setTimeout(() => {
