@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Form, ListGroup } from 'react-bootstrap';
+import { Button, Form, ListGroup, Spinner } from 'react-bootstrap';
 
 import AdminRowExpanded from './AdminRowExpanded';
 import EditDetailsRow from './EditDetailsRow';
@@ -44,6 +44,7 @@ const adminRowSection = {
 
 const AdminRow = ({ item: _item, cards, comics }) => {
   const [isEditing, setIsEditing] = useState('');
+  const [isActionLoading, setIsActionLoading] = useState(false);
   const [tempState, setTempState] = useState({});
   const [error, setError] = useState('');
   const [statusValue, setStatusValue] = useState(_item.status);
@@ -61,6 +62,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
     currentLocation,
     postLocation,
     isPostLoading,
+    isGetLoading,
     updateInventory,
     setCascade,
     cascade,
@@ -98,9 +100,6 @@ const AdminRow = ({ item: _item, cards, comics }) => {
     switch (editSection) {
       case adminRowSection.location:
         postLocation();
-        break;
-      case adminRowSection.id:
-        console.log('id');
         break;
       case adminRowSection.image:
         updateImage();
@@ -182,14 +181,19 @@ const AdminRow = ({ item: _item, cards, comics }) => {
     const action = e.target.innerText;
 
     if (action === 'Validate') {
+      setIsActionLoading(true);
       approveRejectSubmissions(item.item_id, item.type, true)
         .then((data) => {
           initState(data);
         })
         .catch((err) => {
           setError(err.message);
+        })
+        .finally(() => {
+          setIsActionLoading(false);
         });
     } else if (action === 'Vault') {
+      setIsActionLoading(true);
       createVaulting({
         item_id: item.item_id,
         user: item.user,
@@ -204,6 +208,9 @@ const AdminRow = ({ item: _item, cards, comics }) => {
         })
         .catch((err) => {
           setError(err.message);
+        })
+        .finally(() => {
+          setIsActionLoading(false);
         });
     } else if (action === 'Print Label') {
       setShowPrint('open');
@@ -292,7 +299,13 @@ const AdminRow = ({ item: _item, cards, comics }) => {
         </div>
         <div>
           <Button className={`w-100 print-status-${showPrint}`} disabled={isActionDisabled} onClick={handleActionClick}>
-            {actionLabel}
+            {isGetLoading || isActionLoading ? (
+              <Spinner as='span' animation='border' size='sm' role='status' aria-hidden='true'>
+                <span className='visually-hidden'>Loading...</span>
+              </Spinner>
+            ) : (
+              actionLabel
+            )}
           </Button>
         </div>
       </ListGroup.Item>
