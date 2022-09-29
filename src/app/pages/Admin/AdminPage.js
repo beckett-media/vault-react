@@ -12,9 +12,8 @@ import SubmissionSearch from './SubmissionSearch';
 import { AdminPageContext } from '../../contexts/adminPage';
 import { ITEM_TYPE } from '../../services/items';
 
-const NewAdmingPage = () => {
+const AdminPage = () => {
   const { submissions, isSubmissionsLoading } = useContext(AdminPageContext);
-  console.log('submissions', submissions);
 
   const cards = submissions
     .filter((item) => item.type === ITEM_TYPE.TRADING_CARD)
@@ -101,4 +100,4 @@ const NewAdmingPage = () => {
   );
 };
 
-export default NewAdmingPage;
+export default AdminPage;
