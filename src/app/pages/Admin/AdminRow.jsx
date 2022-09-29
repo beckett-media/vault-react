@@ -17,6 +17,7 @@ import SubmissionPrint from './SubmissionPrint';
 const AdminRow = ({ item: _item, cards, comics }) => {
   const [isEditing, setIsEditing] = useState('');
   const [isActionLoading, setIsActionLoading] = useState(false);
+  const [isUpdateLoading, setIsUpdateLoading] = useState(false);
   const [tempState, setTempState] = useState({});
   const [error, setError] = useState('');
   const [statusValue, setStatusValue] = useState(_item.status);
@@ -87,12 +88,10 @@ const AdminRow = ({ item: _item, cards, comics }) => {
       case ADMIN_ROW_SECTION.LOCATION:
         return isPostLoading;
       case ADMIN_ROW_SECTION.IMAGE:
-        // TODO
-        break;
       case ADMIN_ROW_SECTION.DETAILS:
-        // TODO
-        break;
+        return isUpdateLoading;
     }
+    return false;
   };
 
   const updateImage = (itemVal = '') => {
@@ -107,6 +106,8 @@ const AdminRow = ({ item: _item, cards, comics }) => {
         payload.image_rev_path = tempState.image_rev_url;
       }
     }
+
+    setIsUpdateLoading(true);
     updateSubmission(item.item_id, payload)
       .then((data) => {
         initState(data);
@@ -114,6 +115,9 @@ const AdminRow = ({ item: _item, cards, comics }) => {
       })
       .catch((err) => {
         setError(err.message);
+      })
+      .finally(() => {
+        setIsUpdateLoading(false);
       });
     return;
   };
@@ -125,6 +129,8 @@ const AdminRow = ({ item: _item, cards, comics }) => {
         payload[itm] = tempState[itm];
       }
     });
+
+    setIsUpdateLoading(true);
     updateSubmission(item.item_id, payload)
       .then((data) => {
         initState(data);
@@ -132,6 +138,9 @@ const AdminRow = ({ item: _item, cards, comics }) => {
       })
       .catch((err) => {
         setError(err.message);
+      })
+      .finally(() => {
+        setIsUpdateLoading(false);
       });
     return;
   };
