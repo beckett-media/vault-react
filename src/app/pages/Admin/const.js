@@ -30,6 +30,7 @@ export const ADMIN_ROW_SECTION = {
 };
 
 export const ACTION_LABEL = {
+  START: 'Start',
   VALIDATE: 'Validate',
   VAULT: 'Vault',
   PRINT_LABEL: 'Print Label',

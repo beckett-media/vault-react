@@ -206,9 +206,14 @@ const AdminRow = ({ item: _item, cards, comics }) => {
   }, []);
 
   const getActionLabel = () => {
+    if (item.status === SUBMISSION_STATUS.Submitted) {
+      return ACTION_LABEL.START;
+    }
+
     if (item.status === SUBMISSION_STATUS.Received) {
       return ACTION_LABEL.VALIDATE;
     }
+
     if (item.status === SUBMISSION_STATUS.Approved) {
       if (!currentLocation) {
         return ACTION_LABEL.ASSIGN_VAULT;
@@ -244,7 +249,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
   const isStatusSelectDisabled = item.status === SUBMISSION_STATUS.Failed || item.status >= SUBMISSION_STATUS.Vaulted;
 
   const actionLabel = getActionLabel();
-  const isActionDisabled = actionLabel === ACTION_LABEL.DONE;
+  const isActionDisabled = actionLabel === ACTION_LABEL.START || actionLabel === ACTION_LABEL.DONE;
 
   return (
     <>
