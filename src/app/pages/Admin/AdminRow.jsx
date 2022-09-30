@@ -298,8 +298,12 @@ const AdminRow = ({ item: _item, cards, comics }) => {
               </option>
             ))}
           </Form.Select>
+          {addRetryButton && (
+            <Button className='admin-row_retry-button' onClick={() => handleRetry()}>
+              Retry
+            </Button>
+          )}
         </div>
-        {addRetryButton && <Button onClick={() => handleRetry()}>Retry</Button>}
         <div className='d-flex gap-1 align-items-center'>
           {returnLocationLabel(currentLocation)}
           {!isStatusPending && <PencilIcon onClick={() => setIsEditing(ADMIN_ROW_SECTION.LOCATION)} />}
