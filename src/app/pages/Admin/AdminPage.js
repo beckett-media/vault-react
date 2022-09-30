@@ -24,7 +24,7 @@ const AdminPage = () => {
     <DefaultPage>
       <div className='page-padding'>
         <div className='container-large d-flex flex-column gap-1 mt-4'>
-          <AdminStatusTracker step={1} />
+          <AdminStatusTracker />
           <div className='admin-page_content'>
             <SubmissionSearch />
 
