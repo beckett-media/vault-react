@@ -23,7 +23,7 @@ const querySubmissionApi = (query) => {
 };
 
 function SubmissionSearch() {
-  const [{ results, isSearching }, doFilter, setApiRetrigger] = useFilter(querySubmissionApi, null, []);
+  const [{ results, isSearching }, , doFilter, setApiRetrigger] = useFilter(querySubmissionApi, null, []);
   const { setSubmissions, submissions, setIsSubmissionsLoading, isSubmissionsLoading } = useContext(AdminPageContext);
   const [isHandlingReceipt, setIsHandlingReceipt] = useState(false);
 
