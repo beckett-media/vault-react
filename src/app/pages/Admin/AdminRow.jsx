@@ -8,7 +8,7 @@ import LocationRow from './LocationRow';
 
 import { ReactComponent as PencilIcon } from '../../assets/pencil-icon.svg';
 import { CASCADE_TYPE, useInventoryLocation } from '../../hooks/useInventoryLocation';
-import { createVaulting, ITEM_TYPE } from '../../services/items';
+import { createVaulting, ITEM_TYPE, VAULTING_STATUS } from '../../services/items';
 import { approveRejectSubmissions, SUBMISSION_STATUS, updateSubmission } from '../../services/submission';
 import { getSubmissionTitle } from '../../utils/submissions';
 import { ACTION_LABEL, ADMIN_ROW_SECTION, SubmissionStatusOptions } from './const';
@@ -23,7 +23,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
   const [statusValue, setStatusValue] = useState(_item.status);
   const [item, setItem] = useState(_item);
   const [showPrint, setShowPrint] = useState('init');
-
+  const currentTime = new Date();
   const initState = React.useCallback((itemData) => {
     setStatusValue(itemData.status);
     setItem(itemData);
@@ -180,7 +180,6 @@ const AdminRow = ({ item: _item, cards, comics }) => {
         submission_id: item.id,
       })
         .then((res) => {
-          console.log('vaulting result', res);
           initState({
             ...item,
             status: SUBMISSION_STATUS.Vaulted,
@@ -251,6 +250,31 @@ const AdminRow = ({ item: _item, cards, comics }) => {
   const actionLabel = getActionLabel();
   const isActionDisabled = actionLabel === ACTION_LABEL.START || actionLabel === ACTION_LABEL.DONE;
 
+  const addRetryButton =
+    item.updated_at !== 0 &&
+    Date.parse(currentTime) / 1000 - item.updated_at > 300 &&
+    item.status_desc === VAULTING_STATUS.Minting;
+
+  const handleRetry = () => {
+    setIsActionLoading(true);
+    createVaulting({
+      item_id: item.item_id,
+      user: item.user,
+      submission_id: item.id,
+    })
+      .then((res) => {
+        initState({
+          ...item,
+          status: SUBMISSION_STATUS.Vaulted,
+        });
+      })
+      .catch((err) => {
+        setError(err.message);
+      })
+      .finally(() => {
+        setIsActionLoading(false);
+      });
+  };
   return (
     <>
       <ListGroup.Item className='admin-page_table-row'>
@@ -277,6 +301,11 @@ const AdminRow = ({ item: _item, cards, comics }) => {
               </option>
             ))}
           </Form.Select>
+          {addRetryButton && (
+            <Button className='admin-row_retry-button' onClick={() => handleRetry()}>
+              Retry
+            </Button>
+          )}
         </div>
         <div className='d-flex gap-1 align-items-center'>
           {returnLocationLabel(currentLocation)}
