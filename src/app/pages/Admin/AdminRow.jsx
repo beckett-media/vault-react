@@ -180,7 +180,6 @@ const AdminRow = ({ item: _item, cards, comics }) => {
         submission_id: item.id,
       })
         .then((res) => {
-          console.log('vaulting result', res);
           initState({
             ...item,
             status: SUBMISSION_STATUS.Vaulted,
@@ -249,7 +248,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
   const addRetryButton =
     item.updated_at !== 0 &&
     Date.parse(currentTime) / 1000 - item.updated_at > 300 &&
-    item.status_desc !== VAULTING_STATUS.Minted;
+    item.status_desc === VAULTING_STATUS.Minting;
 
   const handleRetry = () => {
     setIsActionLoading(true);
@@ -259,7 +258,6 @@ const AdminRow = ({ item: _item, cards, comics }) => {
       submission_id: item.id,
     })
       .then((res) => {
-        console.log('vaulting result', res);
         initState({
           ...item,
           status: SUBMISSION_STATUS.Vaulted,
