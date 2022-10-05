@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Col, Form, Row, Button } from 'react-bootstrap';
 import { Navigate, useParams, useNavigate } from 'react-router-dom';
-import { getSingleSubmission, updateSubmission } from '../../services/submission';
+import { getSingleSubmission, updateSubmission } from '../../../services/submission';
 import './CreateVaultingPage.scss';
-import { ITEM_TYPE } from '../../services/items';
-import { extractUpdatedParts } from '../../utils/submissions';
-import { validURL } from '../../utils/validationRegex';
-import InventoryLocationForm from '../../components/InventoryLocationForm/InventoryLocationForm';
+import { ITEM_TYPE } from '../../../services/items';
+import { extractUpdatedParts } from '../../../utils/submissions';
+import { validURL } from '../../../utils/validationRegex';
+import InventoryLocationForm from '../../../components/InventoryLocationForm/InventoryLocationForm';
+import EditImageRow from '../EditImageRow';
 
 function AdminEditSubmissionPage() {
   const { submissionId } = useParams();

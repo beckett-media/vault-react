@@ -1,0 +1,134 @@
+.admin-page_ {
+  &content {
+    padding: 42px 8px;
+    background-color: var(--gray-50);
+  }
+
+  &section- {
+    &search {
+    }
+
+    &table {
+      padding-top: 24px;
+    }
+  }
+
+  &search- {
+    &wrapper {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    &heading {
+      font-size: 28px;
+      line-height: 38px;
+      font-weight: 600;
+    }
+
+    &bar-wrapper {
+    }
+
+    &info {
+      font-size: 14px !important;
+      color: #475467 !important;
+    }
+  }
+
+  &batch-actions- {
+    &wrapper {
+      display: flex;
+      margin-bottom: 12px;
+      align-items: center;
+      gap: 12px;
+      width: fit-content;
+    }
+
+    &select {
+      width: fit-content;
+    }
+  }
+
+  &table- {
+    &wrapper {
+      font-size: 14px;
+    }
+
+    &row {
+      display: grid !important;
+      gap: 12px;
+      grid-template-columns: 16px 0.16fr 0.2fr 0.8fr 0.25fr 0.32fr 0.25fr;
+      align-items: center;
+
+      &--header {
+        font-weight: 500;
+      }
+    }
+  }
+
+  &expanded-row {
+    &-content {
+      padding: 8px 0;
+      padding-bottom: 16px;
+    }
+
+    &-buttons {
+      display: flex;
+      justify-content: end;
+      gap: 12px;
+      padding: 8px 0;
+      padding-top: 16px;
+    }
+  }
+
+  &location- {
+    &switch {
+      &-wrapper {
+        align-self: end;
+        height: 50%;
+        display: flex;
+        align-items: center;
+        padding: 6px 12px;
+        border-radius: 4px;
+        background-color: var(--gray-50);
+      }
+    }
+  }
+}
+
+.error {
+  color: red;
+}
+
+.img {
+  &_image {
+    width: 100px;
+    height: 150px;
+    margin-top: 10px;
+  }
+  &_del_error {
+    margin-top: 150px;
+  }
+  &_delete {
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    margin-top: -150px;
+    margin-left: 85px;
+  }
+  &_delete-icon {
+    color: red;
+  }
+  &_thumbnail {
+    width: 30px;
+    height: 40px;
+  }
+  &_file-name {
+    margin-top: 150px;
+  }
+}
+
+.admin-row_retry-button {
+  width: 100%;
+}

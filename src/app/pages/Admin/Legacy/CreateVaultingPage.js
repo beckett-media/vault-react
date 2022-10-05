@@ -1,10 +1,10 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
-import { getSingleSubmission, SUBMISSION_STATUS } from '../../services/submission';
+import { getSingleSubmission, SUBMISSION_STATUS } from '../../../services/submission';
 import './CreateVaultingPage.scss';
-import SubmitButton from '../../components/Generic/SubmitButton';
-import { createVaulting, fetchItemBySubmission } from '../../services/items';
+import SubmitButton from '../../../components/Generic/SubmitButton';
+import { createVaulting, fetchItemBySubmission } from '../../../services/items';
 
 function AdminCreateVaultingPage() {
   const { submissionId } = useParams();

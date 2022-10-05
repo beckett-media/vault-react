@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Form, Button } from 'react-bootstrap';
-import SubmitButton from '../../components/Generic/SubmitButton';
-import { VAULTING_STATUS } from '../../services/items';
-import { useInventoryLocation } from '../../hooks/useInventoryLocation';
-import { getInventory, postInventory, putInventory, getInventoryZoneOptions } from '../../services/inventory';
+import SubmitButton from '../../../components/Generic/SubmitButton';
+import { VAULTING_STATUS } from '../../../services/items';
+import { useInventoryLocation } from '../../../hooks/useInventoryLocation';
+import { getInventory, postInventory, putInventory, getInventoryZoneOptions } from '../../../services/inventory';
 import './VaultingItem.scss';
-import { blankLocation } from '../../const/inventory';
+import { blankLocation } from '../../../const/inventory';
 
 function VaultingItem({ onWithdraw, item }) {
   const shouldEnableWithdrawButton = item.status === VAULTING_STATUS.Minted;

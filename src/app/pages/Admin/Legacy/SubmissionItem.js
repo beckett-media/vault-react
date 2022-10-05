@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import SubmitButton from '../../components/Generic/SubmitButton';
-import ItemCard from '../../components/ItemCard/ItemCard';
-import { SUBMISSION_STATUS } from '../../services/submission';
-import { useInventoryLocation } from '../../hooks/useInventoryLocation';
+import SubmitButton from '../../../components/Generic/SubmitButton';
+import ItemCard from '../../../components/ItemCard/ItemCard';
+import { SUBMISSION_STATUS } from '../../../services/submission';
+import { useInventoryLocation } from '../../../hooks/useInventoryLocation';
 
 function SubmissionItem({ onApprove, onReject, onConfimReceipt, item }) {
   const navigate = useNavigate();

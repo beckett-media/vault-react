@@ -10,10 +10,10 @@ import SignIn from './app/pages/SignIn/SignIn';
 import OrderDetails from './app/pages/OrderDetails/OrderDetails';
 import OrderPrint from './app/pages/OrderDetails/OrderPrint';
 import AdminPage from './app/pages/Admin/AdminPage';
-import AdminSubmissionPage from './app/pages/Admin/SubmissionPage';
-import AdminVaultingPage from './app/pages/Admin/VaultingPage';
-import AdminCreateVaultingPage from './app/pages/Admin/CreateVaultingPage';
-import AdminEditSubmissionPage from './app/pages/Admin/EditSubmissionPage';
+import AdminSubmissionPage from './app/pages/Admin/Legacy/SubmissionPage';
+import AdminVaultingPage from './app/pages/Admin/Legacy/VaultingPage';
+import AdminCreateVaultingPage from './app/pages/Admin/Legacy/CreateVaultingPage';
+import AdminEditSubmissionPage from './app/pages/Admin/Legacy/EditSubmissionPage';
 import Submission from './app/pages/Submission/Submission';
 import MyCollection from './app/pages/MyCollection/MyCollection';
 import Item from './app/pages/Item/Item';
@@ -34,6 +34,7 @@ import ComingSoon from './app/pages/ComingSoon/ComingSoon';
 import FooterModal from './app/components/FooterModal/FooterModal';
 import AdminCreateAccount from './app/pages/Admin/CreateAccountPage';
 import ErrorBoundary from './ErrorBoundary';
+import AdminPageProvider from './app/contexts/adminPage';
 
 // chakra uses a default theme, this will remove it.
 const emptyChakraTheme = extendTheme({
@@ -77,8 +78,17 @@ function App() {
                     {/* <Route path='/' element={<Homepage />} /> */}
                     <Route path='/' element={<RedirectHome />} />
                   </Route>
+
                   <Route path='/admin' element={<AdminRoute />}>
-                    <Route exact path='' element={<AdminPage />} />
+                    <Route
+                      exact
+                      path=''
+                      element={
+                        <AdminPageProvider>
+                          <AdminPage />
+                        </AdminPageProvider>
+                      }
+                    />
                     <Route exact path='submission/edit/:submissionId' element={<AdminEditSubmissionPage />} />
                     <Route exact path='submission/vaulting/:submissionId' element={<AdminCreateVaultingPage />} />
                     <Route exact path='submission' element={<AdminSubmissionPage />} />
