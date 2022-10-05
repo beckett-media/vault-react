@@ -27,10 +27,10 @@ const SubmissionPrint = ({ item, locationLabel, onClose }) => {
 
   return (
     <div id={id} className='visually-hidden'>
-      <div>Order ID: {item.order_id}</div>
+      <div>Submission ID: {item.order_id}</div>
       <div>Item ID: {item.item_id}</div>
-      <div>Description: {getSubmissionTitle(item)}</div>
-      <div>Vault location: {locationLabel}</div>
+      <div>{getSubmissionTitle(item)}</div>
+      <div>{locationLabel}</div>
     </div>
   );
 };
