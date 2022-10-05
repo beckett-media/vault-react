@@ -17,6 +17,13 @@ export const swapObjectKeyValue = (obj) => {
   return ret;
 };
 
+export const toUpperCase = (str) => {
+  if (typeof str === 'string' || str instanceof String) {
+    return str.toUpperCase();
+  }
+  return str;
+};
+
 export const removeTrailingDashes = (str) => {
   if (!(typeof str === 'string' || str instanceof String)) return str;
   if (str.length <= 0 || str.charAt(str.length - 1) !== '-') return str;
