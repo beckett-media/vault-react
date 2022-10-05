@@ -55,7 +55,9 @@ const OrderPrint = () => {
             <div>2700 Summit Ave, Ste 100</div>
             <div>Plano, TX 75074</div>
           </div>
-          <div>----</div>
+          <div>
+            <br />
+          </div>
           <div>
             <b>Submission ID:</b> {order.id}
           </div>
@@ -96,16 +98,19 @@ const OrderPrint = () => {
               )}
           </div>
           <div>
+            <br />
             <b>Item details:</b>
           </div>
           {order.submissions.map((item, index) => (
             <div key={`order-items_${index}`}>
-              ----- <br />
               Item ID: {item.id}
               <br />
               {item.type === ITEM_TYPE.TRADING_CARD &&
-                item.year + ' ' + item.set_name + ' ' + item.card_number + ' ' + item.player}
-              {item.type === ITEM_TYPE.COMIC && item.title + ' ' + item.issue + ' ' + item.publisher + ' ' + item.year}
+                `${item.year} ${item.set_name} ${item.card_number} ${item.player} -$${item.est_value}`}
+              {item.type === ITEM_TYPE.COMIC &&
+                `${item.title} ${item.issue} ${item.publisher} ${item.year} -$${item.est_value}`}
+              <br />
+              <br />
             </div>
           ))}
         </>
