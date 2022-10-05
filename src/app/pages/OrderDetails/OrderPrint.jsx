@@ -37,12 +37,12 @@ const OrderPrint = () => {
       {isLoading && (
         <div className='d-flex flex-column align-items-center'>
           <LoadingSpinner />
-          <div>order loading</div>
+          <div>Submission loading</div>
         </div>
       )}
       {!!error && (
         <div className='d-flex flex-column align-items-center'>
-          <div>There was an error retrieving this order.</div>
+          <div>There was an error retrieving this Submission.</div>
           <Button onClick={() => setError(false)}>OK</Button>
         </div>
       )}
@@ -57,10 +57,10 @@ const OrderPrint = () => {
           </div>
           <div>----</div>
           <div>
-            <b>Order ID:</b> {order.id}
+            <b>Submission ID:</b> {order.id}
           </div>
           <div>
-            <b>Order date:</b> {Date(order.created_at).toLocaleString()}
+            <b>Submission date:</b> {Date(order.created_at).toLocaleString()}
           </div>
           <div>
             <b>Name:</b> {getUserName(user)}
@@ -83,6 +83,7 @@ const OrderPrint = () => {
             {user.shipState}, {user.shipZipcode}
           </div>
           <div>
+            <br />
             <b>Number of items:</b> {order.submissions.length}
           </div>
           <div>
@@ -100,7 +101,7 @@ const OrderPrint = () => {
           {order.submissions.map((item, index) => (
             <div key={`order-items_${index}`}>
               ----- <br />
-              Submission ID: {item.id}
+              Item ID: {item.id}
               <br />
               {item.type === ITEM_TYPE.TRADING_CARD &&
                 item.year + ' ' + item.set_name + ' ' + item.card_number + ' ' + item.player}

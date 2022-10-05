@@ -84,7 +84,7 @@ const ItemsHistory = ({ sortedItems, listings, submissions, vaulting, setSortedI
             >
               <Col xs={isMobile ? 6 : 8}>
                 <div>{groups[group][0]?.type_desc}</div>
-                <div className='fw-bold'>{`Order ID: ${groups[group][0]?.order_id}`}</div>
+                <div className='fw-bold'>{`Submission ID: ${groups[group][0]?.order_id}`}</div>
               </Col>
               <Col xs={isMobile ? 2 : 1}>
                 <Button onClick={() => printDetails(group)}>Print</Button>
