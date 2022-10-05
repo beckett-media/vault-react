@@ -13,6 +13,7 @@ import { approveRejectSubmissions, SUBMISSION_STATUS, updateSubmission } from '.
 import { getSubmissionTitle } from '../../utils/submissions';
 import { ACTION_LABEL, ADMIN_ROW_SECTION, SubmissionStatusOptions } from './const';
 import SubmissionPrint from './SubmissionPrint';
+import { removeTrailingDashes } from '../../utils/strings';
 
 const AdminRow = ({ item: _item, cards, comics }) => {
   const [isEditing, setIsEditing] = useState('');
@@ -66,7 +67,9 @@ const AdminRow = ({ item: _item, cards, comics }) => {
       abbreviatedZone = 'PED' + zone.at(-1);
     }
 
-    return `${abbreviatedVault}-${abbreviatedZone}-${shelf || ''}-${row || ''}-${box || ''}-${slot || ''}`;
+    return removeTrailingDashes(
+      `${abbreviatedVault}-${abbreviatedZone}-${shelf || ''}-${row || ''}-${box || ''}-${slot || ''}`,
+    );
   };
 
   const returnSaveFunction = (editSection) => {
