@@ -18,7 +18,7 @@ export const swapObjectKeyValue = (obj) => {
 };
 
 export const toUpperCase = (str) => {
-  if (typeof myVar === 'string' || myVar instanceof String) {
+  if (typeof str === 'string' || str instanceof String) {
     return str.toUpperCase();
   }
   return str;
