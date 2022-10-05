@@ -18,6 +18,7 @@ export const swapObjectKeyValue = (obj) => {
 };
 
 export const removeTrailingDashes = (str) => {
-  if (str.charAt(str.length - 1) !== '-') return str;
+  if (!(typeof str === 'string' || str instanceof String)) return str;
+  if (str.length <= 0 || str.charAt(str.length - 1) !== '-') return str;
   return removeTrailingDashes(str.slice(0, -1));
 };
