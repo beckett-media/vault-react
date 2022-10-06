@@ -24,7 +24,7 @@ const Gallery = () => {
   }, [userState.sub]);
 
   useEffect(() => {
-    getSubmissions({ userUuids: [userState.sub] }).then((data) => {
+    getSubmissions({ user: userState.sub }).then((data) => {
       setSubmissions(Array.isArray(data) ? data : []);
     });
   }, [userState.sub]);
