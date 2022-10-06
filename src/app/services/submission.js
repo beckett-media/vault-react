@@ -34,7 +34,7 @@ export const getSubmissions = async ({
   order,
 } = {}) => {
   const params = {
-    user: user || '',
+    user: user,
     user_uuids: (userUuids || []).join(','),
     submission_ids: (submissionIds || []).join(','),
     submission_order_ids: (submissionOrderIds || []).join(','),
