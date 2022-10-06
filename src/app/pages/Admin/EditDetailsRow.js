@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Row, Col } from 'react-bootstrap';
 import { ITEM_TYPE } from '../../services/items';
+import { toUpperCase } from '../../utils/strings';
 
 const EditDetailsRow = ({ tempState, setTempState }) => {
   const updateTempState = (subState) => {
@@ -135,8 +136,8 @@ const EditDetailsRow = ({ tempState, setTempState }) => {
             <Form.Label>Grading Company</Form.Label>
             <Form.Control
               type='text'
-              onChange={(e) => updateTempState({ grading_company: e.target.value })}
-              value={tempState.grading_company}
+              onChange={(e) => updateTempState({ grading_company: toUpperCase(e.target.value) })}
+              value={toUpperCase(tempState.grading_company)}
             />
           </Form.Group>
         </Col>

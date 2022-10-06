@@ -37,12 +37,12 @@ const OrderPrint = () => {
       {isLoading && (
         <div className='d-flex flex-column align-items-center'>
           <LoadingSpinner />
-          <div>order loading</div>
+          <div>Submission loading</div>
         </div>
       )}
       {!!error && (
         <div className='d-flex flex-column align-items-center'>
-          <div>There was an error retrieving this order.</div>
+          <div>There was an error retrieving this Submission.</div>
           <Button onClick={() => setError(false)}>OK</Button>
         </div>
       )}
@@ -55,12 +55,14 @@ const OrderPrint = () => {
             <div>2700 Summit Ave, Ste 100</div>
             <div>Plano, TX 75074</div>
           </div>
-          <div>----</div>
           <div>
-            <b>Order ID:</b> {order.id}
+            <br />
           </div>
           <div>
-            <b>Order date:</b> {Date(order.created_at).toLocaleString()}
+            <b>Submission ID:</b> {order.id}
+          </div>
+          <div>
+            <b>Submission date:</b> {Date(order.created_at).toLocaleString()}
           </div>
           <div>
             <b>Name:</b> {getUserName(user)}
@@ -83,6 +85,7 @@ const OrderPrint = () => {
             {user.shipState}, {user.shipZipcode}
           </div>
           <div>
+            <br />
             <b>Number of items:</b> {order.submissions.length}
           </div>
           <div>
@@ -95,16 +98,19 @@ const OrderPrint = () => {
               )}
           </div>
           <div>
+            <br />
             <b>Item details:</b>
           </div>
           {order.submissions.map((item, index) => (
             <div key={`order-items_${index}`}>
-              ----- <br />
-              Submission ID: {item.id}
+              Item ID: {item.id}
               <br />
               {item.type === ITEM_TYPE.TRADING_CARD &&
-                item.year + ' ' + item.set_name + ' ' + item.card_number + ' ' + item.player}
-              {item.type === ITEM_TYPE.COMIC && item.title + ' ' + item.issue + ' ' + item.publisher + ' ' + item.year}
+                `${item.year} ${item.set_name} ${item.card_number} ${item.player} -$${item.est_value}`}
+              {item.type === ITEM_TYPE.COMIC &&
+                `${item.title} ${item.issue} ${item.publisher} ${item.year} -$${item.est_value}`}
+              <br />
+              <br />
             </div>
           ))}
         </>

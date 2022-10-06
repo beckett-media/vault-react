@@ -32,7 +32,7 @@ const Submission = () => {
   const dismissModal = () => setShowTOS('');
 
   const submitAddedItem = (item) => {
-    const newItems = [...items, item];
+    const newItems = [item, ...items];
     setItems(newItems);
   };
 

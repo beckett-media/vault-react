@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Col, Form, Row, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+
 import { ITEM_TYPE } from '../../services/items';
+import { toUpperCase } from '../../utils/strings';
+
 import './Submission.scss';
 
 const AddBeckettItem = (props) => {
@@ -127,7 +130,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                       <Form.Label>Grading company</Form.Label>
                       <Form.Select
                         onChange={(e) => {
-                          updateItem({ gradingCompany: e.target.value });
+                          updateItem({ gradingCompany: toUpperCase(e.target.value) });
                         }}
                       >
                         <option value=''>- Select -</option>
@@ -232,7 +235,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                       <Form.Label>Grading company</Form.Label>
                       <Form.Select
                         onChange={(e) => {
-                          updateItem({ gradingCompany: e.target.value });
+                          updateItem({ gradingCompany: toUpperCase(e.target.value) });
                         }}
                       >
                         <option value=''>- Select -</option>
