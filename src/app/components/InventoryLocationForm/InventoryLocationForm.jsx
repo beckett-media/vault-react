@@ -25,7 +25,7 @@ const InventoryLocationForm = ({ itemId }) => {
   }, [apiRetrigger]);
 
   const zoneOptions = getInventoryZoneOptions();
-
+  console.log(zoneOptions);
   const currentLocation = initialInventory?.find((item) => item.status === 1);
 
   const findInventoryById = (id) => {
