@@ -1,10 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 
-import { getInventoryZoneOptions } from '../../services/inventory';
-
-const InventoryLocationForm = ({ updateInventory, inventory, cascadeToggleHanlder }) => {
+import { getInventory, getInventoryZoneOptions } from '../../services/inventory';
+import './AdminPage.scss';
+const InventoryLocationForm = ({ updateInventory, inventory, cascadeToggleHanlder, setSaveButtonIsDisabled }) => {
   const zoneOptions = getInventoryZoneOptions();
+  const [slotAvailable, setSlotAvailable] = useState(null);
+  const [slotClassName, setSlotClassName] = useState('mb-0');
+  const getAvailableSlotOptions = (e) => {
+    e.preventDefault();
+    getInventory().then((res) => {
+      const takenSlots = res.filter(
+        (vlt) =>
+          vlt.vault === inventory.vault &&
+          vlt.zone === inventory.zone &&
+          vlt.shelf === inventory.shelf &&
+          vlt.row === inventory.row &&
+          vlt.box === inventory.box &&
+          vlt.slot === String(e.target.value),
+      );
+      setSlotAvailable(!takenSlots.length);
+      setSaveButtonIsDisabled(takenSlots.length !== 0);
+    });
+    setSlotClassName(slotAvailable || e.target.value === '' ? 'mb-0' : 'slot-unavailable');
+  };
 
   return (
     <Form onSubmit={(e) => createNewLocation(e)} className='mt-2'>
@@ -57,7 +76,14 @@ const InventoryLocationForm = ({ updateInventory, inventory, cascadeToggleHanlde
             </Form.Group>
             <Form.Group>
               <Form.Label>Slot</Form.Label>
-              <Form.Control required onChange={(e) => updateInventory({ slot: e.target.value })} className='mb-0' />
+              <Form.Control
+                required
+                onChange={(e) => {
+                  updateInventory({ slot: e.target.value });
+                  getAvailableSlotOptions(e);
+                }}
+                className={slotClassName}
+              />
             </Form.Group>
           </div>
         )}
@@ -78,7 +104,11 @@ const InventoryLocationForm = ({ updateInventory, inventory, cascadeToggleHanlde
             </Form.Group>
             <Form.Group>
               <Form.Label>Slot</Form.Label>
-              <Form.Control required onChange={(e) => updateInventory({ slot: e.target.value })} className='mb-0' />
+              <Form.Control
+                required
+                onChange={(e) => updateInventory({ slot: e.target.value })}
+                className={slotClassName}
+              />
             </Form.Group>
           </div>
         )}

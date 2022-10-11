@@ -31,7 +31,9 @@ const InventoryLocationForm = ({ itemId }) => {
   const findInventoryById = (id) => {
     initialInventory.find((item) => item.id === id);
   };
-
+  const getAvailableZoneOptions = () => {
+    return inventory.forEach((inv) => console.log(inv));
+  };
   const updateInventory = (tempInventory) => setInventory({ ...inventory, ...tempInventory });
 
   const createNewLocation = (e) => {
@@ -127,7 +129,13 @@ const InventoryLocationForm = ({ itemId }) => {
             <Col lg={4}>
               <Form.Group>
                 <Form.Label>Vault</Form.Label>
-                <Form.Select required onChange={(e) => updateInventory({ vault: e.target.value })}>
+                <Form.Select
+                  required
+                  onChange={(e) => {
+                    updateInventory({ vault: e.target.value });
+                    getAvailableZoneOptions();
+                  }}
+                >
                   <option value=''> - Select -</option>
                   <option value={'dallas'}>Dallas</option>
                   <option value={'delaware'}>Delaware</option>
