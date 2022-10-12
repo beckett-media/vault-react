@@ -49,6 +49,7 @@ const AdminPage = () => {
                       <div>Item Description</div>
                       <div>Status</div>
                       <div>Vault Location</div>
+                      <div></div>
                       <div>Action</div>
                     </ListGroup.Item>
                     {isSubmissionsLoading && (

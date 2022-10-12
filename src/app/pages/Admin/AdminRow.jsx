@@ -25,7 +25,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
   const [statusValue, setStatusValue] = useState(_item.status);
   const [item, setItem] = useState(_item);
   const [showPrint, setShowPrint] = useState('init');
-  const [showPrintButton, setShowPrintButton] = useState(false);
+
   const currentTime = new Date();
   const initState = React.useCallback((itemData) => {
     setStatusValue(itemData.status);
@@ -208,9 +208,6 @@ const AdminRow = ({ item: _item, cards, comics }) => {
   }, []);
 
   const getActionLabel = () => {
-    setShowPrintButton(
-      item.status !== SUBMISSION_STATUS.Submitted && item.status !== SUBMISSION_STATUS.Received && !currentLocation,
-    );
     if (item.status === SUBMISSION_STATUS.Submitted) {
       return ACTION_LABEL.START;
     }
@@ -251,6 +248,11 @@ const AdminRow = ({ item: _item, cards, comics }) => {
 
   const actionLabel = getActionLabel();
   const isActionDisabled = actionLabel === ACTION_LABEL.START || actionLabel === ACTION_LABEL.DONE;
+  const showPrintButton =
+    item.status !== SUBMISSION_STATUS.Submitted &&
+    item.status !== SUBMISSION_STATUS.Received &&
+    currentLocation &&
+    actionLabel !== ACTION_LABEL.DONE;
 
   const addRetryButton =
     item.updated_at !== 0 &&
@@ -315,11 +317,17 @@ const AdminRow = ({ item: _item, cards, comics }) => {
         </div>
         <div>
           {showPrintButton && (
-            <Button className={`w-100 print-status-${showPrint}`} onClick={() => setShowPrint('open')}>
+            <Button className={`w-8 admin-row_print-button`} onClick={() => setShowPrint('open')}>
               <BsPrinter />
             </Button>
           )}
-          <Button className={`w-100 print-status-${showPrint}`} disabled={isActionDisabled} onClick={handleActionClick}>
+        </div>
+        <div>
+          <Button
+            className={`w-80 print-status-${showPrint} admin-row_action-button`}
+            disabled={isActionDisabled}
+            onClick={handleActionClick}
+          >
             {isGetLoading || isActionLoading ? (
               <Spinner as='span' animation='border' size='sm' role='status' aria-hidden='true'>
                 <span className='visually-hidden'>Loading...</span>
