@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Form, ListGroup, Spinner } from 'react-bootstrap';
+import { BsPrinter } from 'react-icons/bs';
 
 import AdminRowExpanded from './AdminRowExpanded';
 import EditDetailsRow from './EditDetailsRow';
@@ -24,6 +25,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
   const [statusValue, setStatusValue] = useState(_item.status);
   const [item, setItem] = useState(_item);
   const [showPrint, setShowPrint] = useState('init');
+  const [showPrintButton, setShowPrintButton] = useState(false);
   const currentTime = new Date();
   const initState = React.useCallback((itemData) => {
     setStatusValue(itemData.status);
@@ -194,8 +196,6 @@ const AdminRow = ({ item: _item, cards, comics }) => {
         .finally(() => {
           setIsActionLoading(false);
         });
-    } else if (action === ACTION_LABEL.PRINT_LABEL) {
-      setShowPrint('open');
     } else if (action === ACTION_LABEL.LINK_IMAGES) {
       handleImageEditClick();
     } else if (action === ACTION_LABEL.ASSIGN_VAULT) {
@@ -208,6 +208,9 @@ const AdminRow = ({ item: _item, cards, comics }) => {
   }, []);
 
   const getActionLabel = () => {
+    setShowPrintButton(
+      item.status !== SUBMISSION_STATUS.Submitted && item.status !== SUBMISSION_STATUS.Received && !currentLocation,
+    );
     if (item.status === SUBMISSION_STATUS.Submitted) {
       return ACTION_LABEL.START;
     }
@@ -219,10 +222,6 @@ const AdminRow = ({ item: _item, cards, comics }) => {
     if (item.status === SUBMISSION_STATUS.Approved) {
       if (!currentLocation) {
         return ACTION_LABEL.ASSIGN_VAULT;
-      }
-
-      if (showPrint === 'init' || showPrint === 'open') {
-        return ACTION_LABEL.PRINT_LABEL;
       }
 
       if (!item.image_url || !item.image_rev_url) {
@@ -315,6 +314,11 @@ const AdminRow = ({ item: _item, cards, comics }) => {
           {!isStatusPending && <PencilIcon onClick={() => setIsEditing(ADMIN_ROW_SECTION.LOCATION)} />}
         </div>
         <div>
+          {showPrintButton && (
+            <Button className={`w-100 print-status-${showPrint}`} onClick={() => setShowPrint('open')}>
+              <BsPrinter />
+            </Button>
+          )}
           <Button className={`w-100 print-status-${showPrint}`} disabled={isActionDisabled} onClick={handleActionClick}>
             {isGetLoading || isActionLoading ? (
               <Spinner as='span' animation='border' size='sm' role='status' aria-hidden='true'>
