@@ -69,7 +69,9 @@ const AdminRow = ({ item: _item, cards, comics }) => {
     }
 
     return removeTrailingDashes(
-      `${abbreviatedVault}-${abbreviatedZone}-${shelf || ''}-${row || ''}-${box || ''}-${slot || ''}`,
+      `${abbreviatedVault}-${abbreviatedZone}-${shelf || ''}-${row || ''}-${box || ''}-${
+        String(parseInt(slot) + 1) || ''
+      }`,
     );
   };
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form } from 'react-bootstrap';
 
 import { getInventory, getInventoryZoneOptions } from '../../services/inventory';
@@ -7,6 +7,7 @@ const InventoryLocationForm = ({ updateInventory, inventory, cascadeToggleHanlde
   const zoneOptions = getInventoryZoneOptions();
   const [slotAvailable, setSlotAvailable] = useState(null);
   const [slotClassName, setSlotClassName] = useState('mb-0');
+  useEffect(() => setSlotClassName(slotAvailable ? 'mb-0' : 'slot-unavailable'), [slotAvailable]);
   const getAvailableSlotOptions = (e) => {
     e.preventDefault();
     getInventory().then((res) => {
@@ -19,10 +20,10 @@ const InventoryLocationForm = ({ updateInventory, inventory, cascadeToggleHanlde
           vlt.box === inventory.box &&
           vlt.slot === String(e.target.value),
       );
-      setSlotAvailable(!takenSlots.length);
-      setSaveButtonIsDisabled(takenSlots.length !== 0);
+      let slotAvailable = takenSlots.length === 0;
+      setSlotAvailable(slotAvailable || e.target.value === '');
+      setSaveButtonIsDisabled(!slotAvailable || e.target.value === '');
     });
-    setSlotClassName(slotAvailable || e.target.value === '' ? 'mb-0' : 'slot-unavailable');
   };
 
   return (
