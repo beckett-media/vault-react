@@ -2,6 +2,7 @@ import { Input } from '@chakra-ui/react';
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { TiDelete } from 'react-icons/ti';
+import CardPlaceholder from '../../assets/CardPlaceholder';
 
 const EditImageColumn = ({ tempState, item, title, setTempState, field, updateImage }) => {
   const imageUrlLast = item?.[field].split('/').at(-1);
@@ -17,7 +18,13 @@ const EditImageColumn = ({ tempState, item, title, setTempState, field, updateIm
       />
       {item[field] === tempState[field] && (
         <>
-          <img className='img_image' src={item[field]} />
+          {item[field][0] === '.' ? (
+            <div className='img_image'>
+              <CardPlaceholder width={100} />
+            </div>
+          ) : (
+            <img className='img_image' src={item[field]} />
+          )}
           <div
             className='img_delete'
             onClick={() => {
@@ -34,7 +41,13 @@ const EditImageColumn = ({ tempState, item, title, setTempState, field, updateIm
       )}
       {tempImageChanged && (
         <>
-          <img className='img_image' src={tempState[field]} />
+          {tempState[field][0] === '.' ? (
+            <div className='img_image'>
+              <CardPlaceholder className='img_image' width={100} />
+            </div>
+          ) : (
+            <img className='img_image' src={tempState[field]} />
+          )}
           <div
             className='img_delete'
             onClick={() => {
