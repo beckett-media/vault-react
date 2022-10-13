@@ -5,7 +5,7 @@ export let axiosClient = axios.create({
   baseURL: config.BASE_URL,
   headers: {
     Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
-    Accpet: 'application/json',
+    Accept: 'application/json',
   },
 });
 
@@ -14,7 +14,7 @@ export const updateAxiosClient = (token) => {
     baseURL: config.BASE_URL,
     headers: {
       Authorization: token ? `Bearer ${token}` : undefined,
-      Accpet: 'application/json',
+      Accept: 'application/json',
     },
   });
 };

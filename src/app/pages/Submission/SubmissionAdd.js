@@ -295,9 +295,7 @@ const SubmissionAdd = ({ submitAddedItem }) => {
             <Button type='reset' bg='transparent' variant='outline-primary' onClick={() => setItem({})}>
               Clear
             </Button>
-            <Button type='submit' disabled={item.estimatedValue < 750}>
-              Add
-            </Button>
+            <Button type='submit'>Add</Button>
           </div>
         </Row>
       </Form>
