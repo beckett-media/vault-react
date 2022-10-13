@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { ListGroup, Button, Form, Badge, Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import AdminStatusTracker from './AdminStatusTracker';
@@ -14,6 +14,7 @@ import { ITEM_TYPE } from '../../services/items';
 
 const AdminPage = () => {
   const { submissions, isSubmissionsLoading } = useContext(AdminPageContext);
+  const [expandedRowId, setExpandedRowId] = useState('');
 
   const cards = submissions
     .filter((item) => item.type === ITEM_TYPE.TRADING_CARD)
@@ -66,7 +67,14 @@ const AdminPage = () => {
                         </ListGroup.Item>
                         {!isSubmissionsLoading &&
                           cards.map((item) => (
-                            <AdminRow key={'admin_row-' + item.id} item={item} cards={cards} comics={comics} />
+                            <AdminRow
+                              key={'admin_row-' + item.item_id}
+                              item={item}
+                              cards={cards}
+                              comics={comics}
+                              expandedRowId={expandedRowId}
+                              setExpandedRowId={setExpandedRowId}
+                            />
                           ))}
                       </>
                     )}
@@ -76,7 +84,14 @@ const AdminPage = () => {
                           --- Comics ---
                         </ListGroup.Item>
                         {comics.map((item) => (
-                          <AdminRow key={'admin_row-' + item.id} item={item} cards={cards} comics={comics} />
+                          <AdminRow
+                            key={'admin_row-' + item.item_id}
+                            item={item}
+                            cards={cards}
+                            comics={comics}
+                            expandedRowId={expandedRowId}
+                            setExpandedRowId={setExpandedRowId}
+                          />
                         ))}
                       </>
                     )}

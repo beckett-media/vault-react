@@ -16,7 +16,7 @@ import { ACTION_LABEL, ADMIN_ROW_SECTION, SubmissionStatusOptions } from './cons
 import SubmissionPrint from './SubmissionPrint';
 import { removeTrailingDashes } from '../../utils/strings';
 
-const AdminRow = ({ item: _item, cards, comics }) => {
+const AdminRow = ({ item: _item, cards, comics, expandedRowId, setExpandedRowId }) => {
   const [isEditing, setIsEditing] = useState('');
   const [isActionLoading, setIsActionLoading] = useState(false);
   const [isUpdateLoading, setIsUpdateLoading] = useState(false);
@@ -31,17 +31,19 @@ const AdminRow = ({ item: _item, cards, comics }) => {
     setStatusValue(itemData.status);
     setItem(itemData);
   }, []);
-
+  console.log(item);
   const {
     // initialInventory,
     inventory,
     currentLocation,
     postLocation,
+    putLocation,
     isPostLoading,
     isGetLoading,
     updateInventory,
     setCascade,
     cascade,
+    setNewLocationId,
   } = useInventoryLocation(item.item_id, comics, cards);
 
   const returnLocationLabel = (locationObject) => {
@@ -77,7 +79,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
   const returnSaveFunction = (editSection) => {
     switch (editSection) {
       case ADMIN_ROW_SECTION.LOCATION:
-        postLocation(() => setIsEditing(''));
+        item.slot === '' ? postLocation(() => setIsEditing('')) : putLocation(() => setIsEditing(''));
         break;
       case ADMIN_ROW_SECTION.IMAGE:
         updateImage();
@@ -235,12 +237,21 @@ const AdminRow = ({ item: _item, cards, comics }) => {
     setTempState({ image_url: item.image_url, image_rev_url: item.image_rev_url });
     setError('');
     setIsEditing(ADMIN_ROW_SECTION.IMAGE);
+    setExpandedRowId(item.item_id);
   };
 
   const handleSubmissionEditClick = () => {
     setTempState(item);
     setError('');
     setIsEditing(ADMIN_ROW_SECTION.DETAILS);
+    setExpandedRowId(item.item_id);
+  };
+  const handleLocationEditClick = () => {
+    setTempState(item);
+    setError('');
+    setIsEditing(ADMIN_ROW_SECTION.LOCATION);
+    setExpandedRowId(item.item_id);
+    setNewLocationId(item.item_id);
   };
 
   const isStatusPending = item.status === SUBMISSION_STATUS.Submitted;
@@ -313,7 +324,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
         </div>
         <div className='d-flex gap-1 align-items-center'>
           {returnLocationLabel(currentLocation)}
-          {!isStatusPending && <PencilIcon onClick={() => setIsEditing(ADMIN_ROW_SECTION.LOCATION)} />}
+          {!isStatusPending && <PencilIcon onClick={() => handleLocationEditClick()} />}
         </div>
         <div>
           {showPrintButton && (
@@ -338,7 +349,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
           </Button>
         </div>
       </ListGroup.Item>
-      {!!isEditing && (
+      {!!isEditing && expandedRowId === item.id && (
         <AdminRowExpanded
           onCancel={() => setIsEditing('')}
           onSave={() => returnSaveFunction(isEditing)}
