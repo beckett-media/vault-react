@@ -31,7 +31,7 @@ const AdminRow = ({ item: _item, cards, comics, expandedRowId, setExpandedRowId 
     setStatusValue(itemData.status);
     setItem(itemData);
   }, []);
-  console.log(item);
+
   const {
     // initialInventory,
     inventory,
@@ -44,7 +44,7 @@ const AdminRow = ({ item: _item, cards, comics, expandedRowId, setExpandedRowId 
     setCascade,
     cascade,
     setNewLocationId,
-  } = useInventoryLocation(item.item_id, comics, cards);
+  } = useInventoryLocation(item.id, comics, cards);
 
   const returnLocationLabel = (locationObject) => {
     if (!locationObject) return 'Unassigned';
@@ -75,11 +75,11 @@ const AdminRow = ({ item: _item, cards, comics, expandedRowId, setExpandedRowId 
       `${abbreviatedVault}-${abbreviatedZone}-${shelf || ''}-${row || ''}-${box || ''}-${slot || ''}`,
     );
   };
-
+  // console.log('item is ', currentLocation, item)
   const returnSaveFunction = (editSection) => {
     switch (editSection) {
       case ADMIN_ROW_SECTION.LOCATION:
-        item.slot === '' ? postLocation(() => setIsEditing('')) : putLocation(() => setIsEditing(''));
+        currentLocation === undefined ? postLocation(() => setIsEditing('')) : putLocation(() => setIsEditing(''));
         break;
       case ADMIN_ROW_SECTION.IMAGE:
         updateImage();
@@ -237,21 +237,21 @@ const AdminRow = ({ item: _item, cards, comics, expandedRowId, setExpandedRowId 
     setTempState({ image_url: item.image_url, image_rev_url: item.image_rev_url });
     setError('');
     setIsEditing(ADMIN_ROW_SECTION.IMAGE);
-    setExpandedRowId(item.item_id);
+    setExpandedRowId(item.id);
   };
 
   const handleSubmissionEditClick = () => {
     setTempState(item);
     setError('');
     setIsEditing(ADMIN_ROW_SECTION.DETAILS);
-    setExpandedRowId(item.item_id);
+    setExpandedRowId(item.id);
   };
   const handleLocationEditClick = () => {
     setTempState(item);
     setError('');
     setIsEditing(ADMIN_ROW_SECTION.LOCATION);
-    setExpandedRowId(item.item_id);
-    setNewLocationId(item.item_id);
+    setExpandedRowId(item.id);
+    setNewLocationId(item.id);
   };
 
   const isStatusPending = item.status === SUBMISSION_STATUS.Submitted;
@@ -275,7 +275,7 @@ const AdminRow = ({ item: _item, cards, comics, expandedRowId, setExpandedRowId 
     createVaulting({
       item_id: item.item_id,
       user: item.user,
-      submission_id: item.id,
+      submission_id: item.submission_id,
     })
       .then((res) => {
         initState({

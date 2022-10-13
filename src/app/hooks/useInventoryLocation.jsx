@@ -45,7 +45,7 @@ export const useInventoryLocation = (itemId, comics, cards) => {
 
   const postLocation = (onSuccess) => {
     setIsPostLoading(true);
-
+    console.log(inventory);
     inventory.item_id = itemId - 0;
     inventory.is_current = true;
     if (!cascade && inventory.vault && inventory.zone) {
@@ -87,8 +87,8 @@ export const useInventoryLocation = (itemId, comics, cards) => {
 
   const putLocation = () => {
     setIsPutLoading(true);
-    const putBody = { status: 1, note: 'updating location' };
-
+    const putBody = { status: 1, note: 'updating location', ...inventory };
+    console.log('putBody is ', putBody);
     putInventory(newLocationId, putBody).finally(
       setTimeout(() => {
         setIsPutLoading(false);
