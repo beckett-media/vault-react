@@ -25,7 +25,7 @@ const AdminRow = ({ item: _item, cards, comics, expandedRowId, setExpandedRowId 
   const [statusValue, setStatusValue] = useState(_item.status);
   const [item, setItem] = useState(_item);
   const [showPrint, setShowPrint] = useState('init');
-
+  const [saveButtonIsDisabled, setSaveButtonIsDisabled] = useState(false);
   const currentTime = new Date();
   const initState = React.useCallback((itemData) => {
     setStatusValue(itemData.status);
@@ -362,6 +362,7 @@ const AdminRow = ({ item: _item, cards, comics, expandedRowId, setExpandedRowId 
               updateInventory={updateInventory}
               inventory={inventory}
               cascadeToggleHanlder={cascadeToggleHanlder}
+              setSaveButtonIsDisabled={setSaveButtonIsDisabled}
             />
           )}
           {isEditing === ADMIN_ROW_SECTION.DETAILS && (

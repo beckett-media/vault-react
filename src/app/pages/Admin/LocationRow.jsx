@@ -2,15 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { Form } from 'react-bootstrap';
 
 import { getInventory, getInventoryZoneOptions } from '../../services/inventory';
+import './AdminPage.scss';
 
-const InventoryLocationForm = ({ updateInventory, inventory, cascadeToggleHanlder }) => {
+const InventoryLocationForm = ({ updateInventory, inventory, cascadeToggleHanlder, setSaveButtonIsDisabled }) => {
   const zoneOptions = getInventoryZoneOptions();
   const [slotAvailable, setSlotAvailable] = useState(null);
   const [slotClassName, setSlotClassName] = useState('mb-0');
+
   useEffect(() => {
     setSlotClassName(slotAvailable ? 'mb-0' : 'slot-unavailable');
   }, [slotAvailable]);
-  console.log(inventory, 'and', slotAvailable);
+
   const getAvailableSlotOptions = (e) => {
     e.preventDefault();
     getInventory().then((res) => {
@@ -24,7 +26,6 @@ const InventoryLocationForm = ({ updateInventory, inventory, cascadeToggleHanlde
           vlt.slot === String(e.target.value),
       );
       let slotAvailable = takenSlots.length === 0;
-      console.log();
       setSlotAvailable(slotAvailable || e.target.value === '');
       setSaveButtonIsDisabled(!slotAvailable || e.target.value === '');
       console.log(takenSlots);
