@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { ListGroup, Button, Form, Badge, Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import AdminStatusTracker from './AdminStatusTracker';
@@ -11,17 +11,11 @@ import SubmissionSearch from './SubmissionSearch';
 
 import { AdminPageContext } from '../../contexts/adminPage';
 import { ITEM_TYPE } from '../../services/items';
-import { getAllSubmissions } from '../../services/submission';
 
 const AdminPage = () => {
-  const { submissions, isSubmissionsLoading, setSubmissions } = useContext(AdminPageContext);
+  const { submissions, isSubmissionsLoading } = useContext(AdminPageContext);
   const [expandedRowId, setExpandedRowId] = useState('');
 
-  useEffect(() => {
-    getAllSubmissions().then((res) => {
-      setSubmissions(res.data);
-    });
-  }, []);
   const cards = submissions
     .filter((item) => item.type === ITEM_TYPE.TRADING_CARD)
     .sort((a, b) => a.item_id - b.item_id);
