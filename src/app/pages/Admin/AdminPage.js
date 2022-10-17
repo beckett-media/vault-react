@@ -14,7 +14,7 @@ import { ITEM_TYPE } from '../../services/items';
 import { getAllSubmissions } from '../../services/submission';
 
 const AdminPage = () => {
-  const { submissions, isSubmissionsLoading, submissionOrderFilter, setSubmissions } = useContext(AdminPageContext);
+  const { submissions, isSubmissionsLoading, setSubmissions } = useContext(AdminPageContext);
   const [expandedRowId, setExpandedRowId] = useState('');
 
   useEffect(() => {
