@@ -17,9 +17,7 @@ const querySubmissionApi = (query) => {
     ? getSubmissions({
         submissionOrderIds: [query],
       })
-    : new Promise(function (resolve) {
-        resolve([]);
-      });
+    : getAllSubmissions();
 };
 
 function SubmissionSearch() {

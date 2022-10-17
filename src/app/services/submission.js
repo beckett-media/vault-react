@@ -86,3 +86,10 @@ export const confirmSubmissionReceipt = (subId, type) => {
       return res.data;
     });
 };
+
+export const getAllSubmissions = () => {
+  return axiosClient.get(`/marketplace/submission`).then((res) => {
+    console.log(res.data);
+    return res.data;
+  });
+};
