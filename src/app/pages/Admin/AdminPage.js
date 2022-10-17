@@ -15,6 +15,12 @@ import { ITEM_TYPE } from '../../services/items';
 const AdminPage = () => {
   const { submissions, isSubmissionsLoading, setSubmissions } = useContext(AdminPageContext);
 
+  useEffect(() => {
+    getAllSubmissions().then((res) => {
+      setSubmissions(res.data);
+    });
+  }, []);
+
   const cards = submissions
     .filter((item) => item.type === ITEM_TYPE.TRADING_CARD)
     .sort((a, b) => a.item_id - b.item_id);
