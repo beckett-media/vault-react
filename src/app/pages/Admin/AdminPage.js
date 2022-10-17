@@ -13,7 +13,7 @@ import { AdminPageContext } from '../../contexts/adminPage';
 import { ITEM_TYPE } from '../../services/items';
 
 const AdminPage = () => {
-  const { submissions, isSubmissionsLoading } = useContext(AdminPageContext);
+  const { submissions, isSubmissionsLoading, setSubmissions } = useContext(AdminPageContext);
 
   const cards = submissions
     .filter((item) => item.type === ITEM_TYPE.TRADING_CARD)
