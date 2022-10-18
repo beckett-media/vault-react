@@ -285,7 +285,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
       <ListGroup.Item className='admin-page_table-row'>
         <div>{!isStatusPending && <Form.Check></Form.Check>}</div>
         <div className='d-flex gap-1 align-items-center'>
-          {item.image_url[0] === '.' ? (
+          {!item.image_url || item.image_url[0] === '.' ? (
             <div className='img_thumbnail'>
               <CardPlaceholder width={30} />
             </div>
