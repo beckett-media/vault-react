@@ -5,7 +5,7 @@ import debounce from '../../utils/debounce';
 import useFilter from '../../hooks/useFilter';
 
 import SearchBar from '../../components/SearchBar/SearchBar';
-import { getSubmissions } from '../../services/submission';
+import { getAllSubmissions, getSubmissions } from '../../services/submission';
 import { AdminPageContext } from '../../contexts/adminPage';
 import { SUBMISSION_STATUS } from '../../services/submission';
 import { confirmSubmissionReceipt } from '../../services/submission';
@@ -17,9 +17,7 @@ const querySubmissionApi = (query) => {
     ? getSubmissions({
         submissionOrderIds: [query],
       })
-    : new Promise(function (resolve) {
-        resolve([]);
-      });
+    : getAllSubmissions();
 };
 
 function SubmissionSearch() {
