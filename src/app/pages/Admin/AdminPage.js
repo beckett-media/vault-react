@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ListGroup, Button, Form, Badge, Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import AdminStatusTracker from './AdminStatusTracker';
@@ -10,17 +10,37 @@ import AdminRow from './AdminRow';
 import SubmissionSearch from './SubmissionSearch';
 
 import { AdminPageContext } from '../../contexts/adminPage';
-import { ITEM_TYPE } from '../../services/items';
-import { getAllSubmissions } from '../../services/submission';
+import { ITEM_TYPE, VAULTING_STATUS } from '../../services/items';
+import { getAllSubmissions, SUBMISSION_STATUS } from '../../services/submission';
+import Filter from '../../components/Generic/Filter';
 
 const AdminPage = () => {
   const { submissions, isSubmissionsLoading, setSubmissions } = useContext(AdminPageContext);
+  const [filteredSubmissions, setFilteredSubmissions] = useState([]);
+  const [filterBy, setFilterBy] = useState('Filter');
+  const [noFilterResults, setNoFilterResults] = useState(false);
 
   useEffect(() => {
     getAllSubmissions().then((res) => {
       setSubmissions(res);
+      setFilteredSubmissions(res);
     });
   }, []);
+
+  useEffect(() => {
+    const filterByNum = parseInt(filterBy);
+    const filteredSubmissions = submissions.filter((submission) => submission.status === filterByNum);
+    if (isNaN(filterByNum)) {
+      setNoFilterResults(false);
+      setFilteredSubmissions([...submissions]);
+    } else if (!filteredSubmissions.length) {
+      setNoFilterResults(true);
+      setFilteredSubmissions([...submissions]);
+    } else {
+      setNoFilterResults(false);
+      setFilteredSubmissions(filteredSubmissions);
+    }
+  }, [filterBy]);
 
   const cards = submissions
     .filter((item) => item.type === ITEM_TYPE.TRADING_CARD)
@@ -34,19 +54,28 @@ const AdminPage = () => {
           <AdminStatusTracker />
           <div className='admin-page_content'>
             <SubmissionSearch />
-
             {submissions.length !== 0 && (
               <div className='admin-page_section-table'>
                 <div className='admin-page_batch-actions-wrapper'>
                   <Form.Select disabled className='admin-page_batch-actions-select'>
                     <option value=''>Batch Actions</option>
                   </Form.Select>
+                  <Filter
+                    setFilterBy={setFilterBy}
+                    filterOptions={[
+                      { value: SUBMISSION_STATUS.Vaulted, title: 'Done' },
+                      { value: SUBMISSION_STATUS.Submitted, title: 'Not Started' },
+                      { value: SUBMISSION_STATUS.Received, title: 'Received' },
+                      { value: SUBMISSION_STATUS.Failed, title: 'Failed' },
+                    ]}
+                  />
                   <Button disabled variant='outline-primary'>
                     Apply
                   </Button>
                   <Badge bg='secondary'>Coming soon</Badge>
                 </div>
-
+                {noFilterResults && <div className='error'>No Filter Results</div>}
+                <div>{filteredSubmissions.length + ' of ' + filteredSubmissions.length} </div>
                 <div className='admin-page_table-wrapper'>
                   <ListGroup>
                     <ListGroup.Item className='admin-page_table-row admin-page_table-row--header'>
