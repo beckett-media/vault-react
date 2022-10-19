@@ -16,9 +16,9 @@ const EditImageColumn = ({ tempState, item, title, setTempState, field, updateIm
         value={tempState[field]}
         onChange={(e) => setTempState({ ...tempState, [field]: e.target.value })}
       />
-      {item[field] && item[field] === tempState[field] && (
+      {item[field] === tempState[field] && (
         <>
-          {item[field][0] === '.' ? (
+          {!tempState[field] && item[field][0] === '.' ? (
             <div className='img_image'>
               <CardPlaceholder width={100} />
             </div>
@@ -41,7 +41,7 @@ const EditImageColumn = ({ tempState, item, title, setTempState, field, updateIm
       )}
       {tempImageChanged && (
         <>
-          {tempState[field] && tempState[field][0] === '.' ? (
+          {!tempState[field] && tempState[field][0] === '.' ? (
             <div className='img_image'>
               <CardPlaceholder className='img_image' width={100} />
             </div>
