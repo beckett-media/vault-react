@@ -25,7 +25,7 @@ const AdminPage = () => {
   const cards = submissions
     .filter((item) => item.type === ITEM_TYPE.TRADING_CARD)
     .sort((a, b) => b.item_id - a.item_id);
-  const comics = submissions.filter((item) => item.type === ITEM_TYPE.COMIC).sort((a, b) => a.item_id - b.item_id);
+  const comics = submissions.filter((item) => item.type === ITEM_TYPE.COMIC).sort((a, b) => b.item_id - a.item_id);
 
   return (
     <DefaultPage>
