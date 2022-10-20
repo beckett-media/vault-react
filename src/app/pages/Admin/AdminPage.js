@@ -12,6 +12,7 @@ import SubmissionSearch from './SubmissionSearch';
 import { AdminPageContext } from '../../contexts/adminPage';
 import { ITEM_TYPE } from '../../services/items';
 import { getAllSubmissions } from '../../services/submission';
+import { sortByAttribute } from '../../utils/sort';
 
 const AdminPage = () => {
   const { submissions, isSubmissionsLoading, setSubmissions } = useContext(AdminPageContext);
@@ -24,8 +25,8 @@ const AdminPage = () => {
 
   const cards = submissions
     .filter((item) => item.type === ITEM_TYPE.TRADING_CARD)
-    .sort((a, b) => b.item_id - a.item_id);
-  const comics = submissions.filter((item) => item.type === ITEM_TYPE.COMIC).sort((a, b) => b.item_id - a.item_id);
+    .sort(sortByAttribute('item_id', 'desc'));
+  const comics = submissions.filter((item) => item.type === ITEM_TYPE.COMIC).sort(sortByAttribute('item_id', 'desc'));
 
   return (
     <DefaultPage>
