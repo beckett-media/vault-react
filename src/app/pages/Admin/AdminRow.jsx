@@ -280,6 +280,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
         setIsActionLoading(false);
       });
   };
+  console.log(item);
   return (
     <>
       <ListGroup.Item className='admin-page_table-row'>
@@ -295,6 +296,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
           {!isStatusPending && <PencilIcon onClick={handleImageEditClick} />}
         </div>
         <div className='d-flex gap-1 align-items-center'>{item.item_id}</div>
+        <div className='d-flex gap-1 align-items-center'>{item.order_id}</div>
         <div className='d-flex gap-1 align-items-center'>
           {getSubmissionTitle(item)}
           {!isStatusPending && <PencilIcon onClick={handleSubmissionEditClick} />}

@@ -54,6 +54,7 @@ const AdminPage = () => {
                       <Form.Check></Form.Check>
                       <div className='text-muted text-sm'>Item Image</div>
                       <div>Item ID</div>
+                      <div>Submission ID</div>
                       <div>Item Description</div>
                       <div>Status</div>
                       <div>Vault Location</div>
