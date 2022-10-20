@@ -15,6 +15,7 @@ import { getSubmissionTitle } from '../../utils/submissions';
 import { ACTION_LABEL, ADMIN_ROW_SECTION, SubmissionStatusOptions } from './const';
 import SubmissionPrint from './SubmissionPrint';
 import { removeTrailingDashes } from '../../utils/strings';
+import CardPlaceholder from '../../assets/CardPlaceholder';
 
 const AdminRow = ({ item: _item, cards, comics }) => {
   const [isEditing, setIsEditing] = useState('');
@@ -284,7 +285,13 @@ const AdminRow = ({ item: _item, cards, comics }) => {
       <ListGroup.Item className='admin-page_table-row'>
         <div>{!isStatusPending && <Form.Check></Form.Check>}</div>
         <div className='d-flex gap-1 align-items-center'>
-          <img className='img_thumbnail' src={item.image_url} />
+          {!item.image_url || item.image_url[0] === '.' ? (
+            <div className='img_thumbnail'>
+              <CardPlaceholder width={30} />
+            </div>
+          ) : (
+            <img className='img_thumbnail' src={item.image_url} />
+          )}
           {!isStatusPending && <PencilIcon onClick={handleImageEditClick} />}
         </div>
         <div className='d-flex gap-1 align-items-center'>{item.item_id}</div>
