@@ -280,7 +280,6 @@ const AdminRow = ({ item: _item, cards, comics }) => {
         setIsActionLoading(false);
       });
   };
-  console.log(item);
   return (
     <>
       <ListGroup.Item className='admin-page_table-row'>
