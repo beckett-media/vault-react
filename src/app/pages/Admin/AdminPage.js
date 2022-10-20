@@ -53,8 +53,9 @@ const AdminPage = () => {
                     <ListGroup.Item className='admin-page_table-row admin-page_table-row--header'>
                       <Form.Check></Form.Check>
                       <div className='text-muted text-sm'>Item Image</div>
-                      <div>Item ID</div>
                       <div>Submission ID</div>
+                      <div>Item ID</div>
+
                       <div>Item Description</div>
                       <div>Status</div>
                       <div>Vault Location</div>
