@@ -72,10 +72,9 @@ const AdminPage = () => {
                   <Filter
                     setFilterBy={setFilterBy}
                     filterOptions={[
+                      { value: SUBMISSION_STATUS.Submitted, title: 'New' },
+                      { value: SUBMISSION_STATUS.Received, title: 'In Progress' },
                       { value: SUBMISSION_STATUS.Vaulted, title: 'Done' },
-                      { value: SUBMISSION_STATUS.Submitted, title: 'Not Started' },
-                      { value: SUBMISSION_STATUS.Received, title: 'Received' },
-                      { value: SUBMISSION_STATUS.Failed, title: 'Failed' },
                     ]}
                   />
                 </div>
