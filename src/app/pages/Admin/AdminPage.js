@@ -83,7 +83,7 @@ const AdminPage = () => {
                 <div className='admin-page_table-wrapper'>
                   <ListGroup>
                     <ListGroup.Item className='admin-page_table-row admin-page_table-row--header'>
-                      <Form.Check></Form.Check>
+                      {/* <Form.Check></Form.Check> */}
                       <div className='text-muted text-sm'>Item Image</div>
                       <div>Submission ID</div>
                       <div>Item ID</div>
