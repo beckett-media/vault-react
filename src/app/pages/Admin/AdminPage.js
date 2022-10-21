@@ -31,11 +31,15 @@ const AdminPage = () => {
   useEffect(() => {
     const filteredSubmissions = submissions.filter((submission) => {
       if (filterBy === 'new') {
-        return submission.status === 1;
+        return submission.status === SUBMISSION_STATUS.Submitted;
       } else if (filterBy === 'in-progress') {
-        return submission.status === 2 || submission.status === 4;
+        return submission.status === SUBMISSION_STATUS.Received || submission.status === SUBMISSION_STATUS.Approved;
       } else if (filterBy === 'done') {
-        return submission.status === 0 || submission.status === 3 || submission.status === 5;
+        return (
+          submission.status === SUBMISSION_STATUS.Vaulted ||
+          submission.status === SUBMISSION_STATUS.Rejected ||
+          submission.status === SUBMISSION_STATUS.Failed
+        );
       }
     });
     if (filterBy === 'Filter') {
