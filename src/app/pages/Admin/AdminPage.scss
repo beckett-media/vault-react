@@ -36,6 +36,11 @@
     }
   }
 
+  &filter- {
+    &box {
+      width: 100px !important;
+    }
+  }
   &batch-actions- {
     &wrapper {
       display: flex;

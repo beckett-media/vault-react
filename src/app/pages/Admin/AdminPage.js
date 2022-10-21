@@ -39,14 +39,16 @@ const AdminPage = () => {
       setFilteredSubmissions([...submissions]);
     } else {
       setNoFilterResults(false);
-      setFilteredSubmissions(filteredSubmissions);
+      setFilteredSubmissions([...filteredSubmissions]);
     }
   }, [filterBy]);
 
-  const cards = submissions
+  const cards = filteredSubmissions
     .filter((item) => item.type === ITEM_TYPE.TRADING_CARD)
     .sort(sortByAttribute('item_id', 'desc'));
-  const comics = submissions.filter((item) => item.type === ITEM_TYPE.COMIC).sort(sortByAttribute('item_id', 'desc'));
+  const comics = filteredSubmissions
+    .filter((item) => item.type === ITEM_TYPE.COMIC)
+    .sort(sortByAttribute('item_id', 'desc'));
 
   return (
     <DefaultPage>
@@ -57,24 +59,25 @@ const AdminPage = () => {
             <SubmissionSearch />
             {submissions.length !== 0 && (
               <div className='admin-page_section-table'>
-                <div className='admin-page_batch-actions-wrapper'>
+                {/* <div className='admin-page_batch-actions-wrapper'>
                   <Form.Select disabled className='admin-page_batch-actions-select'>
                     <option value=''>Batch Actions</option>
                   </Form.Select>
-                  <Filter
-                    setFilterBy={setFilterBy}
-                    filterOptions={[
-                      { value: SUBMISSION_STATUS.Vaulted, title: 'Done' },
-                      { value: SUBMISSION_STATUS.Submitted, title: 'Not Started' },
-                      { value: SUBMISSION_STATUS.Received, title: 'Received' },
-                      { value: SUBMISSION_STATUS.Failed, title: 'Failed' },
-                    ]}
-                  />
                   <Button disabled variant='outline-primary'>
                     Apply
                   </Button>
                   <Badge bg='secondary'>Coming soon</Badge>
-                </div>
+                </div> */}
+                <Filter
+                  className='admin-page_filter-box'
+                  setFilterBy={setFilterBy}
+                  filterOptions={[
+                    { value: SUBMISSION_STATUS.Vaulted, title: 'Done' },
+                    { value: SUBMISSION_STATUS.Submitted, title: 'Not Started' },
+                    { value: SUBMISSION_STATUS.Received, title: 'Received' },
+                    { value: SUBMISSION_STATUS.Failed, title: 'Failed' },
+                  ]}
+                />
                 {noFilterResults && <div className='error'>No Filter Results</div>}
                 <div>{filteredSubmissions.length + ' of ' + filteredSubmissions.length} </div>
                 <div className='admin-page_table-wrapper'>
