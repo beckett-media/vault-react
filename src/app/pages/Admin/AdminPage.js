@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ListGroup, Button, Form, Badge, Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import AdminStatusTracker from './AdminStatusTracker';
@@ -10,23 +10,56 @@ import AdminRow from './AdminRow';
 import SubmissionSearch from './SubmissionSearch';
 
 import { AdminPageContext } from '../../contexts/adminPage';
-import { ITEM_TYPE } from '../../services/items';
-import { getAllSubmissions } from '../../services/submission';
+import { ITEM_TYPE, VAULTING_STATUS } from '../../services/items';
+import { getAllSubmissions, SUBMISSION_STATUS } from '../../services/submission';
+import Filter from '../../components/Generic/Filter';
 import { sortByAttribute } from '../../utils/sort';
 
 const AdminPage = () => {
   const { submissions, isSubmissionsLoading, setSubmissions } = useContext(AdminPageContext);
+  const [filteredSubmissions, setFilteredSubmissions] = useState([]);
+  const [filterBy, setFilterBy] = useState('Filter');
+  const [noFilterResults, setNoFilterResults] = useState(false);
 
   useEffect(() => {
     getAllSubmissions().then((res) => {
       setSubmissions(res);
+      setFilteredSubmissions(res);
     });
   }, []);
 
-  const cards = submissions
+  useEffect(() => {
+    const filteredSubmissions = submissions.filter((submission) => {
+      if (filterBy === 'new') {
+        return submission.status === SUBMISSION_STATUS.Submitted;
+      } else if (filterBy === 'in-progress') {
+        return submission.status === SUBMISSION_STATUS.Received || submission.status === SUBMISSION_STATUS.Approved;
+      } else if (filterBy === 'done') {
+        return (
+          submission.status === SUBMISSION_STATUS.Vaulted ||
+          submission.status === SUBMISSION_STATUS.Rejected ||
+          submission.status === SUBMISSION_STATUS.Failed
+        );
+      }
+    });
+    if (filterBy === 'Filter') {
+      setNoFilterResults(false);
+      setFilteredSubmissions([...submissions]);
+    } else if (!filteredSubmissions.length) {
+      setNoFilterResults(true);
+      setFilteredSubmissions([...submissions]);
+    } else {
+      setNoFilterResults(false);
+      setFilteredSubmissions([...filteredSubmissions]);
+    }
+  }, [filterBy]);
+
+  const cards = filteredSubmissions
     .filter((item) => item.type === ITEM_TYPE.TRADING_CARD)
     .sort(sortByAttribute('item_id', 'desc'));
-  const comics = submissions.filter((item) => item.type === ITEM_TYPE.COMIC).sort(sortByAttribute('item_id', 'desc'));
+  const comics = filteredSubmissions
+    .filter((item) => item.type === ITEM_TYPE.COMIC)
+    .sort(sortByAttribute('item_id', 'desc'));
 
   return (
     <DefaultPage>
@@ -35,7 +68,6 @@ const AdminPage = () => {
           <AdminStatusTracker />
           <div className='admin-page_content'>
             <SubmissionSearch />
-
             {submissions.length !== 0 && (
               <div className='admin-page_section-table'>
                 {/* <div className='admin-page_batch-actions-wrapper'>
@@ -47,11 +79,22 @@ const AdminPage = () => {
                   </Button>
                   <Badge bg='secondary'>Coming soon</Badge>
                 </div> */}
-
+                <div className='admin-page_filter-box'>
+                  <Filter
+                    setFilterBy={setFilterBy}
+                    filterOptions={[
+                      { value: 'new', title: 'New' },
+                      { value: 'in-progress', title: 'In Progress' },
+                      { value: 'done', title: 'Done' },
+                    ]}
+                  />
+                </div>
+                {noFilterResults && <div className='error'>No Filter Results</div>}
+                <div>{filteredSubmissions.length + ' of ' + filteredSubmissions.length} </div>
                 <div className='admin-page_table-wrapper'>
                   <ListGroup>
                     <ListGroup.Item className='admin-page_table-row admin-page_table-row--header'>
-                      <Form.Check></Form.Check>
+                      {/* <Form.Check></Form.Check> */}
                       <div className='text-muted text-sm'>Item Image</div>
                       <div>Submission ID</div>
                       <div>Item ID</div>
