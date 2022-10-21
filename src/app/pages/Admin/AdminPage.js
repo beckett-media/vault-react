@@ -29,9 +29,16 @@ const AdminPage = () => {
   }, []);
 
   useEffect(() => {
-    const filterByNum = parseInt(filterBy);
-    const filteredSubmissions = submissions.filter((submission) => submission.status === filterByNum);
-    if (isNaN(filterByNum)) {
+    const filteredSubmissions = submissions.filter((submission) => {
+      if (filterBy === 'new') {
+        return submission.status === 1;
+      } else if (filterBy === 'in-progress') {
+        return submission.status === 2 || submission.status === 4;
+      } else if (filterBy === 'done') {
+        return submission.status === 0 || submission.status === 3 || submission.status === 5;
+      }
+    });
+    if (filterBy === 'Filter') {
       setNoFilterResults(false);
       setFilteredSubmissions([...submissions]);
     } else if (!filteredSubmissions.length) {
@@ -72,9 +79,9 @@ const AdminPage = () => {
                   <Filter
                     setFilterBy={setFilterBy}
                     filterOptions={[
-                      { value: SUBMISSION_STATUS.Submitted, title: 'New' },
-                      { value: SUBMISSION_STATUS.Received, title: 'In Progress' },
-                      { value: SUBMISSION_STATUS.Vaulted, title: 'Done' },
+                      { value: 'new', title: 'New' },
+                      { value: 'in-progress', title: 'In Progress' },
+                      { value: 'done', title: 'Done' },
                     ]}
                   />
                 </div>
