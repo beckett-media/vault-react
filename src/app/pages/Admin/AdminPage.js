@@ -38,7 +38,7 @@ const AdminPage = () => {
 
             {submissions.length !== 0 && (
               <div className='admin-page_section-table'>
-                <div className='admin-page_batch-actions-wrapper'>
+                {/* <div className='admin-page_batch-actions-wrapper'>
                   <Form.Select disabled className='admin-page_batch-actions-select'>
                     <option value=''>Batch Actions</option>
                   </Form.Select>
@@ -46,7 +46,7 @@ const AdminPage = () => {
                     Apply
                   </Button>
                   <Badge bg='secondary'>Coming soon</Badge>
-                </div>
+                </div> */}
 
                 <div className='admin-page_table-wrapper'>
                   <ListGroup>
