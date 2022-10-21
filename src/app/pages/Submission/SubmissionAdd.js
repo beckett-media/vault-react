@@ -90,15 +90,21 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                     </Form.Group>
                   </Col>
                 </Row>
+                {console.log('add sports', item.sport)}
                 <Row>
                   <Col sm={12} lg={6}>
                     <Form.Group>
                       <Form.Label>Sport</Form.Label>
-                      <Form.Control
-                        type='text'
-                        value={item.sport || ''}
-                        onChange={(e) => updateItem({ sport: e.target.value })}
-                      />
+                      <Form.Select value={item.sport || ''} onChange={(e) => updateItem({ sport: e.target.value })}>
+                        <option value='' selected>
+                          None
+                        </option>
+                        <option value='baseball'>Baseball</option>
+                        <option value='basketball'>Basketball</option>
+                        <option value='football'>Football</option>
+                        <option value='hockey'>Hockey</option>
+                        <option value='soccer'>Soccer</option>
+                      </Form.Select>
                     </Form.Group>
                   </Col>
                   <Col sm={12} lg={6}>
