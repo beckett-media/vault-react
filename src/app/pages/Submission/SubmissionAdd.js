@@ -99,11 +99,12 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                         <option value='' selected>
                           None
                         </option>
-                        <option value='baseball'>Baseball</option>
-                        <option value='basketball'>Basketball</option>
-                        <option value='football'>Football</option>
-                        <option value='hockey'>Hockey</option>
-                        <option value='soccer'>Soccer</option>
+                        <option value='BASEBALL'>Baseball</option>
+                        <option value='BASKETBALL'>Basketball</option>
+                        <option value='FOOTBALL'>Football</option>
+                        <option value='HOCKEY'>Hockey</option>
+                        <option value='SOCCER'>Soccer</option>
+                        <option value='OTHER'>Other</option>
                       </Form.Select>
                     </Form.Group>
                   </Col>
