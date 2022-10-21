@@ -294,6 +294,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
           )}
           {!isStatusPending && <PencilIcon onClick={handleImageEditClick} />}
         </div>
+        <div className='d-flex gap-1 align-items-center'>{item.order_id}</div>
         <div className='d-flex gap-1 align-items-center'>{item.item_id}</div>
         <div className='d-flex gap-1 align-items-center'>
           {getSubmissionTitle(item)}
