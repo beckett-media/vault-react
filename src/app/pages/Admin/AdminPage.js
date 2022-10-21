@@ -13,6 +13,7 @@ import { AdminPageContext } from '../../contexts/adminPage';
 import { ITEM_TYPE, VAULTING_STATUS } from '../../services/items';
 import { getAllSubmissions, SUBMISSION_STATUS } from '../../services/submission';
 import Filter from '../../components/Generic/Filter';
+import { sortByAttribute } from '../../utils/sort';
 
 const AdminPage = () => {
   const { submissions, isSubmissionsLoading, setSubmissions } = useContext(AdminPageContext);
@@ -44,8 +45,8 @@ const AdminPage = () => {
 
   const cards = submissions
     .filter((item) => item.type === ITEM_TYPE.TRADING_CARD)
-    .sort((a, b) => a.item_id - b.item_id);
-  const comics = submissions.filter((item) => item.type === ITEM_TYPE.COMIC).sort((a, b) => a.item_id - b.item_id);
+    .sort(sortByAttribute('item_id', 'desc'));
+  const comics = submissions.filter((item) => item.type === ITEM_TYPE.COMIC).sort(sortByAttribute('item_id', 'desc'));
 
   return (
     <DefaultPage>
@@ -81,7 +82,9 @@ const AdminPage = () => {
                     <ListGroup.Item className='admin-page_table-row admin-page_table-row--header'>
                       <Form.Check></Form.Check>
                       <div className='text-muted text-sm'>Item Image</div>
+                      <div>Submission ID</div>
                       <div>Item ID</div>
+
                       <div>Item Description</div>
                       <div>Status</div>
                       <div>Vault Location</div>
