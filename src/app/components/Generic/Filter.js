@@ -37,7 +37,7 @@ const Filter = ({ searchVal, setSearchVal, setSortBy, sortOptions, setFilterBy, 
         </Col>
       )}
       {filterOptions && (
-        <Col md={base()}>
+        <Col sm={base()}>
           <Form.Select size='md' className='rounded-pill mb-0' onChange={(e) => setFilterBy(e.target.value)}>
             <option selected>Filter</option>
             {filterOptions.map((option) => (

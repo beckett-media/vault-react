@@ -68,16 +68,17 @@ const AdminPage = () => {
                   </Button>
                   <Badge bg='secondary'>Coming soon</Badge>
                 </div> */}
-                <Filter
-                  className='admin-page_filter-box'
-                  setFilterBy={setFilterBy}
-                  filterOptions={[
-                    { value: SUBMISSION_STATUS.Vaulted, title: 'Done' },
-                    { value: SUBMISSION_STATUS.Submitted, title: 'Not Started' },
-                    { value: SUBMISSION_STATUS.Received, title: 'Received' },
-                    { value: SUBMISSION_STATUS.Failed, title: 'Failed' },
-                  ]}
-                />
+                <div className='admin-page_filter-box'>
+                  <Filter
+                    setFilterBy={setFilterBy}
+                    filterOptions={[
+                      { value: SUBMISSION_STATUS.Vaulted, title: 'Done' },
+                      { value: SUBMISSION_STATUS.Submitted, title: 'Not Started' },
+                      { value: SUBMISSION_STATUS.Received, title: 'Received' },
+                      { value: SUBMISSION_STATUS.Failed, title: 'Failed' },
+                    ]}
+                  />
+                </div>
                 {noFilterResults && <div className='error'>No Filter Results</div>}
                 <div>{filteredSubmissions.length + ' of ' + filteredSubmissions.length} </div>
                 <div className='admin-page_table-wrapper'>
