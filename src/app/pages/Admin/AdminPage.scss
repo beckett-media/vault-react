@@ -63,7 +63,7 @@
     &row {
       display: grid !important;
       gap: 12px;
-      grid-template-columns: 16px /*0.16fr*/ 0.2fr 0.2fr 0.8fr 0.25fr 0.32fr 0.05fr 0.25fr;
+      grid-template-columns: /*16px*/ 0.16fr 0.2fr 0.2fr 0.8fr 0.25fr 0.32fr 0.05fr 0.25fr;
       align-items: center;
 
       &--header {
