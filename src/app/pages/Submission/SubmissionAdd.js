@@ -90,7 +90,6 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                     </Form.Group>
                   </Col>
                 </Row>
-                {console.log('add sports', item.sport)}
                 <Row>
                   <Col sm={12} lg={6}>
                     <Form.Group>
