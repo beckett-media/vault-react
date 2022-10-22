@@ -94,11 +94,17 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                   <Col sm={12} lg={6}>
                     <Form.Group>
                       <Form.Label>Sport</Form.Label>
-                      <Form.Control
-                        type='text'
-                        value={item.sport || ''}
-                        onChange={(e) => updateItem({ sport: e.target.value })}
-                      />
+                      <Form.Select value={item.sport || ''} onChange={(e) => updateItem({ sport: e.target.value })}>
+                        <option value='' selected>
+                          None
+                        </option>
+                        <option value='BASEBALL'>Baseball</option>
+                        <option value='BASKETBALL'>Basketball</option>
+                        <option value='FOOTBALL'>Football</option>
+                        <option value='HOCKEY'>Hockey</option>
+                        <option value='SOCCER'>Soccer</option>
+                        <option value='OTHER'>Other</option>
+                      </Form.Select>
                     </Form.Group>
                   </Col>
                   <Col sm={12} lg={6}>
