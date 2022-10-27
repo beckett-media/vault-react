@@ -103,6 +103,8 @@ const SubmissionAdd = ({ submitAddedItem }) => {
                         <option value='FOOTBALL'>Football</option>
                         <option value='HOCKEY'>Hockey</option>
                         <option value='SOCCER'>Soccer</option>
+                        <option value='GOLF'>Golf</option>
+                        <option value='RACING'>Racing</option>
                         <option value='OTHER'>Other</option>
                       </Form.Select>
                     </Form.Group>
