@@ -54,6 +54,13 @@ const AdminPage = () => {
     }
   }, [filterBy, submissions]);
 
+  useEffect(() => {
+    document.getElementsByClassName('search-bar_input')[0].value = '';
+    getAllSubmissions().then((res) => {
+      setSubmissions(res);
+      setFilteredSubmissions(res);
+    });
+  }, [filterBy]);
   const cards = filteredSubmissions
     .filter((item) => item.type === ITEM_TYPE.TRADING_CARD)
     .sort(sortByAttribute('item_id', 'desc'));
