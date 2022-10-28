@@ -52,7 +52,7 @@ const AdminPage = () => {
       setNoFilterResults(false);
       setFilteredSubmissions([...filteredSubmissions]);
     }
-  }, [filterBy]);
+  }, [filterBy, submissions]);
 
   const cards = filteredSubmissions
     .filter((item) => item.type === ITEM_TYPE.TRADING_CARD)
