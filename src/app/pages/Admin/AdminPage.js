@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { ListGroup, Button, Form, Badge, Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import AdminStatusTracker from './AdminStatusTracker';
@@ -34,6 +34,8 @@ const AdminPage = () => {
         return submission.status === SUBMISSION_STATUS.Submitted;
       } else if (filterBy === 'in-progress') {
         return submission.status === SUBMISSION_STATUS.Received || submission.status === SUBMISSION_STATUS.Approved;
+      } else if (filterBy === 'deleted') {
+        return submission.status === SUBMISSION_STATUS.Deleted;
       } else if (filterBy === 'done') {
         return (
           submission.status === SUBMISSION_STATUS.Vaulted ||

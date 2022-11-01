@@ -37,4 +37,5 @@ export const ACTION_LABEL = {
   LINK_IMAGES: 'Link Images',
   ASSIGN_VAULT: 'Assign Vault',
   DONE: 'Done',
+  UNDELETE: 'Undelete',
 };

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { Button, Form, ListGroup, Spinner } from 'react-bootstrap';
-import { BsPrinter } from 'react-icons/bs';
+import { BsPrinter, BsTrash } from 'react-icons/bs';
 
 import AdminRowExpanded from './AdminRowExpanded';
 import EditDetailsRow from './EditDetailsRow';
@@ -10,7 +10,12 @@ import LocationRow from './LocationRow';
 import { ReactComponent as PencilIcon } from '../../assets/pencil-icon.svg';
 import { CASCADE_TYPE, useInventoryLocation } from '../../hooks/useInventoryLocation';
 import { createVaulting, ITEM_TYPE, VAULTING_STATUS } from '../../services/items';
-import { approveRejectSubmissions, SUBMISSION_STATUS, updateSubmission } from '../../services/submission';
+import {
+  approveRejectSubmissions,
+  deleteSubmission,
+  SUBMISSION_STATUS,
+  updateSubmission,
+} from '../../services/submission';
 import { getSubmissionTitle } from '../../utils/submissions';
 import { ACTION_LABEL, ADMIN_ROW_SECTION, SubmissionStatusOptions } from './const';
 import SubmissionPrint from './SubmissionPrint';
@@ -44,6 +49,11 @@ const AdminRow = ({ item: _item, cards, comics }) => {
     setCascade,
     cascade,
   } = useInventoryLocation(item.item_id, comics, cards);
+
+  useLayoutEffect(() => {
+    const element = document.getElementById('del-' + item.item_id);
+    element.classList.remove('btn-primary');
+  });
 
   const returnLocationLabel = (locationObject) => {
     if (!locationObject) return 'Unassigned';
@@ -178,6 +188,18 @@ const AdminRow = ({ item: _item, cards, comics }) => {
         .finally(() => {
           setIsActionLoading(false);
         });
+    } else if (action === ACTION_LABEL.UNDELETE) {
+      setIsActionLoading(true);
+      undeleteSubmission(item.item_id)
+        .then((data) => {
+          initState(data);
+        })
+        .catch((err) => {
+          setError(err.message);
+        })
+        .finally(() => {
+          setIsActionLoading(false);
+        });
     } else if (action === ACTION_LABEL.VAULT) {
       setIsActionLoading(true);
       createVaulting({
@@ -215,6 +237,10 @@ const AdminRow = ({ item: _item, cards, comics }) => {
 
     if (item.status === SUBMISSION_STATUS.Received) {
       return ACTION_LABEL.VALIDATE;
+    }
+
+    if (item.status === SUBMISSION_STATUS.Deleted) {
+      return ACTION_LABEL.UNDELETE;
     }
 
     if (item.status === SUBMISSION_STATUS.Approved) {
@@ -343,6 +369,15 @@ const AdminRow = ({ item: _item, cards, comics }) => {
             ) : (
               actionLabel
             )}
+          </Button>
+        </div>
+        <div>
+          <Button
+            id={'del-' + item.id}
+            className={`w-8 admin-row_delete-button`}
+            onClick={() => deleteSubmission(item.item_id)}
+          >
+            <BsTrash />
           </Button>
         </div>
       </ListGroup.Item>

@@ -76,6 +76,26 @@ export const approveRejectSubmissions = (subId, type, approve = true) => {
     });
 };
 
+export const deleteSubmission = (subId) => {
+  return axiosClient
+    .put(`/marketplace/submission/${subId}`, {
+      deleted: true,
+    })
+    .then((res) => {
+      return res.data;
+    });
+};
+
+export const undeleteSubmission = (subId) => {
+  return axiosClient
+    .put(`/marketplace/submission/${subId}`, {
+      deleted: false,
+    })
+    .then((res) => {
+      return res.data;
+    });
+};
+
 export const confirmSubmissionReceipt = (subId, type) => {
   return axiosClient
     .put(`/marketplace/submission/${subId}`, {
