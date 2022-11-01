@@ -54,6 +54,20 @@ const AdminPage = () => {
     }
   }, [filterBy, submissions]);
 
+  useEffect(() => {
+    document.getElementsByClassName('search-bar_input')[0].value = '';
+    getAllSubmissions().then((res) => {
+      setSubmissions(res);
+      setFilteredSubmissions(res);
+    });
+  }, [filterBy]);
+
+  const searching = (e) => {
+    if (e.target.className === 'mb-0 search-bar_input form-control') {
+      document.getElementsByClassName('rounded-pill mb-0 form-select form-select-md')[0].value = 'Filter';
+      setFilterBy('Filter');
+    }
+  };
   const cards = filteredSubmissions
     .filter((item) => item.type === ITEM_TYPE.TRADING_CARD)
     .sort(sortByAttribute('item_id', 'desc'));
@@ -66,7 +80,7 @@ const AdminPage = () => {
       <div className='page-padding'>
         <div className='container-large d-flex flex-column gap-1 mt-4'>
           <AdminStatusTracker />
-          <div className='admin-page_content'>
+          <div className='admin-page_content' onClick={(e) => searching(e)}>
             <SubmissionSearch />
             {submissions.length !== 0 && (
               <div className='admin-page_section-table'>
