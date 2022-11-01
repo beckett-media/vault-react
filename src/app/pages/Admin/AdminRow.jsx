@@ -10,17 +10,13 @@ import LocationRow from './LocationRow';
 import { ReactComponent as PencilIcon } from '../../assets/pencil-icon.svg';
 import { CASCADE_TYPE, useInventoryLocation } from '../../hooks/useInventoryLocation';
 import { createVaulting, ITEM_TYPE, VAULTING_STATUS } from '../../services/items';
-import {
-  approveRejectSubmissions,
-  deleteSubmission,
-  SUBMISSION_STATUS,
-  updateSubmission,
-} from '../../services/submission';
+import { approveRejectSubmissions, SUBMISSION_STATUS, updateSubmission } from '../../services/submission';
 import { getSubmissionTitle } from '../../utils/submissions';
 import { ACTION_LABEL, ADMIN_ROW_SECTION, SubmissionStatusOptions } from './const';
 import SubmissionPrint from './SubmissionPrint';
 import { removeTrailingDashes } from '../../utils/strings';
 import CardPlaceholder from '../../assets/CardPlaceholder';
+import DeleteConfirmationModal from './DeleteConfirmationModal';
 
 const AdminRow = ({ item: _item, cards, comics }) => {
   const [isEditing, setIsEditing] = useState('');
@@ -31,7 +27,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
   const [statusValue, setStatusValue] = useState(_item.status);
   const [item, setItem] = useState(_item);
   const [showPrint, setShowPrint] = useState('init');
-
+  const [confirmDelete, setConfirmDelete] = useState(false);
   const currentTime = new Date();
   const initState = React.useCallback((itemData) => {
     setStatusValue(itemData.status);
@@ -375,11 +371,16 @@ const AdminRow = ({ item: _item, cards, comics }) => {
           <Button
             id={'del-' + item.id}
             className={`w-8 admin-row_delete-button`}
-            onClick={() => deleteSubmission(item.item_id)}
+            onClick={() => setConfirmDelete(true)}
           >
             <BsTrash />
           </Button>
         </div>
+        <DeleteConfirmationModal
+          confirmDelete={confirmDelete}
+          itemId={item.item_id}
+          setConfirmDelete={setConfirmDelete}
+        />
       </ListGroup.Item>
       {!!isEditing && (
         <AdminRowExpanded

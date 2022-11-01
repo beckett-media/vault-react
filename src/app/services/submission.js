@@ -76,10 +76,16 @@ export const approveRejectSubmissions = (subId, type, approve = true) => {
     });
 };
 
+export const deleteOrder = (subIds) => {
+  return axiosClient.put(`/marketplace/submission?submission_order_ids=${subIds}&is_active=false`).then((res) => {
+    return res.data;
+  });
+};
+
 export const deleteSubmission = (subId) => {
   return axiosClient
     .put(`/marketplace/submission/${subId}`, {
-      deleted: true,
+      is_active: false,
     })
     .then((res) => {
       return res.data;
