@@ -235,7 +235,7 @@ const AuthProvider = ({ children }) => {
     sessionInfo,
     attrInfo,
     isSignedIn: authStatus === AuthStatus.SignedIn,
-    isAdmin: window.location.host === 'localhost:3000' ? true : (adminGroups || []).includes('admin'),
+    isAdmin: (adminGroups || []).includes('admin'),
     resendConfirmationCode,
     signUpUser,
     signUpWithEmail,
