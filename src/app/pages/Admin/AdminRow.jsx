@@ -263,9 +263,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
     setError('');
     setIsEditing(ADMIN_ROW_SECTION.DETAILS);
   };
-  const handleNotesEditClick = (e) => {
-    console.log(String(e.target.id));
-  };
+
   const isStatusPending = item.status === SUBMISSION_STATUS.Submitted;
   const isStatusSelectDisabled = item.status === SUBMISSION_STATUS.Failed || item.status >= SUBMISSION_STATUS.Vaulted;
 
@@ -370,17 +368,16 @@ const AdminRow = ({ item: _item, cards, comics }) => {
         </div>
       </ListGroup.Item>
       {isEditing === ADMIN_ROW_SECTION.NOTES ? (
-        <span>Add notes &#9660;</span>
+        <span onClick={() => setIsEditing('')}>Add notes &#9660;</span>
       ) : (
         <span onClick={() => setIsEditing(ADMIN_ROW_SECTION.NOTES)}>Add notes &#9650;</span>
       )}
-      {console.log(item)}
       {isEditing === ADMIN_ROW_SECTION.NOTES && (
         <div className='admin-page_notes-edit-field'>
           <div>Notes:</div>
           <Form.Control
             value={tempState.notes}
-            onChange={(e) => setTempState({ ...tempState, notes: e.target.value })}
+            onChange={(e) => setTempState({ ...tempState, notes: e.target.value.substring(0, 255) })}
             as='textarea'
             rows={3}
           />
