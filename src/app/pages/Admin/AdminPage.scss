@@ -39,6 +39,17 @@
   &filter- {
     &box {
       max-width: 750px !important;
+      min-width: 700px !important;
+    }
+    &row {
+      display: flex;
+      flex-direction: row;
+    }
+    &stats {
+      width: 200px;
+      display: flex;
+      flex-direction: column;
+      text-align: right;
     }
   }
   &batch-actions- {
