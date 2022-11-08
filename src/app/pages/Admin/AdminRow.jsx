@@ -86,6 +86,8 @@ const AdminRow = ({ item: _item, cards, comics }) => {
       case ADMIN_ROW_SECTION.DETAILS:
         updateDetails();
         break;
+      case ADMIN_ROW_SECTION.NOTES:
+        updateNotes();
     }
   };
 
@@ -136,6 +138,24 @@ const AdminRow = ({ item: _item, cards, comics }) => {
       }
     });
 
+    setIsUpdateLoading(true);
+    updateSubmission(item.item_id, payload)
+      .then((data) => {
+        initState(data);
+        setIsEditing('');
+      })
+      .catch((err) => {
+        setError(err.message);
+      })
+      .finally(() => {
+        setIsUpdateLoading(false);
+      });
+    return;
+  };
+
+  const updateNotes = () => {
+    const payload = {};
+    payload.notes = tempState.notes;
     setIsUpdateLoading(true);
     updateSubmission(item.item_id, payload)
       .then((data) => {
@@ -243,7 +263,9 @@ const AdminRow = ({ item: _item, cards, comics }) => {
     setError('');
     setIsEditing(ADMIN_ROW_SECTION.DETAILS);
   };
-
+  const handleNotesEditClick = (e) => {
+    console.log(String(e.target.id));
+  };
   const isStatusPending = item.status === SUBMISSION_STATUS.Submitted;
   const isStatusSelectDisabled = item.status === SUBMISSION_STATUS.Failed || item.status >= SUBMISSION_STATUS.Vaulted;
 
@@ -280,6 +302,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
         setIsActionLoading(false);
       });
   };
+
   return (
     <>
       <ListGroup.Item className='admin-page_table-row'>
@@ -346,6 +369,23 @@ const AdminRow = ({ item: _item, cards, comics }) => {
           </Button>
         </div>
       </ListGroup.Item>
+      {isEditing === ADMIN_ROW_SECTION.NOTES ? (
+        <span>Add notes &#9660;</span>
+      ) : (
+        <span onClick={() => setIsEditing(ADMIN_ROW_SECTION.NOTES)}>Add notes &#9650;</span>
+      )}
+      {console.log(item)}
+      {isEditing === ADMIN_ROW_SECTION.NOTES && (
+        <div className='admin-page_notes-edit-field'>
+          <div>Notes:</div>
+          <Form.Control
+            value={tempState.notes}
+            onChange={(e) => setTempState({ ...tempState, notes: e.target.value })}
+            as='textarea'
+            rows={3}
+          />
+        </div>
+      )}{' '}
       {!!isEditing && (
         <AdminRowExpanded
           onCancel={() => setIsEditing('')}
@@ -375,7 +415,6 @@ const AdminRow = ({ item: _item, cards, comics }) => {
           )}
         </AdminRowExpanded>
       )}
-
       {showPrint === 'open' && (
         <SubmissionPrint item={item} locationLabel={returnLocationLabel(currentLocation)} onClose={handlePrintClose} />
       )}

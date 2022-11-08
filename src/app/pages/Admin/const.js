@@ -27,6 +27,7 @@ export const ADMIN_ROW_SECTION = {
   LOCATION: 'location',
   DETAILS: 'details',
   IMAGE: 'image',
+  NOTES: 'notes',
 };
 
 export const ACTION_LABEL = {

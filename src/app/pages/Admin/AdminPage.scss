@@ -72,6 +72,12 @@
     }
   }
 
+  &notes-edit-field {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
   &expanded-row {
     &-content {
       padding: 8px 0;
