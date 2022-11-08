@@ -2,7 +2,7 @@ import axios from 'axios';
 import config from '../../config';
 
 export let axiosClient = axios.create({
-  baseURL: config.BASE_URL,
+  baseURL: process.env.DEV_BASE_URL || config.BASE_URL,
   headers: {
     Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
     Accept: 'application/json',
