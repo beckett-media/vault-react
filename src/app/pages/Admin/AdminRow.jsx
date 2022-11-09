@@ -380,18 +380,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
             <BsFileEarmark size={25} onClick={handleChangeNotes} />
           </div>
         )}
-      </ListGroup.Item>
-      {isEditing === ADMIN_ROW_SECTION.NOTES && (
-        <div className='admin-page_notes-edit-field'>
-          <div>Notes:</div>
-          <Form.Control
-            value={tempState.notes}
-            onChange={(e) => setTempState({ ...tempState, notes: e.target.value.substring(0, 255) })}
-            as='textarea'
-            rows={3}
-          />
-        </div>
-      )}{' '}
+      </ListGroup.Item>{' '}
       {!!isEditing && (
         <AdminRowExpanded
           onCancel={() => setIsEditing('')}
@@ -400,6 +389,17 @@ const AdminRow = ({ item: _item, cards, comics }) => {
           className='text-body'
           setCascade={setCascade}
         >
+          {isEditing === ADMIN_ROW_SECTION.NOTES && (
+            <div className='admin-page_notes-edit-field'>
+              <div>Notes:</div>
+              <Form.Control
+                value={tempState.notes}
+                onChange={(e) => setTempState({ ...tempState, notes: e.target.value.substring(0, 255) })}
+                as='textarea'
+                rows={3}
+              />
+            </div>
+          )}
           {isEditing === ADMIN_ROW_SECTION.LOCATION && (
             <LocationRow
               updateInventory={updateInventory}
