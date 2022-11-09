@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Form, ListGroup, Spinner } from 'react-bootstrap';
-import { BsPrinter } from 'react-icons/bs';
+import { BsFileEarmarkFill, BsFileEarmark, BsPrinter } from 'react-icons/bs';
 
 import AdminRowExpanded from './AdminRowExpanded';
 import EditDetailsRow from './EditDetailsRow';
@@ -300,6 +300,11 @@ const AdminRow = ({ item: _item, cards, comics }) => {
         setIsActionLoading(false);
       });
   };
+  const handleChangeNotes = () => {
+    if (isEditing === ADMIN_ROW_SECTION.NOTES) {
+      setIsEditing('');
+    } else setIsEditing(ADMIN_ROW_SECTION.NOTES);
+  };
 
   return (
     <>
@@ -366,12 +371,16 @@ const AdminRow = ({ item: _item, cards, comics }) => {
             )}
           </Button>
         </div>
+        {item.notes ? (
+          <div>
+            <BsFileEarmarkFill size={25} onClick={handleChangeNotes} />
+          </div>
+        ) : (
+          <div>
+            <BsFileEarmark size={25} onClick={handleChangeNotes} />
+          </div>
+        )}
       </ListGroup.Item>
-      {isEditing === ADMIN_ROW_SECTION.NOTES ? (
-        <span onClick={() => setIsEditing('')}>Add notes &#9660;</span>
-      ) : (
-        <span onClick={() => setIsEditing(ADMIN_ROW_SECTION.NOTES)}>Add notes &#9650;</span>
-      )}
       {isEditing === ADMIN_ROW_SECTION.NOTES && (
         <div className='admin-page_notes-edit-field'>
           <div>Notes:</div>
