@@ -228,14 +228,14 @@ const AuthProvider = ({ children }) => {
       throw err;
     }
   }
-  console.log(window.location.hostname);
+
   const state = {
     authStatus,
     adminGroups,
     sessionInfo,
     attrInfo,
     isSignedIn: authStatus === AuthStatus.SignedIn,
-    isAdmin: window.location.hostname === 'localhost' ? true : (adminGroups || []).includes('admin'),
+    isAdmin: (adminGroups || []).includes('admin'),
     resendConfirmationCode,
     signUpUser,
     signUpWithEmail,
