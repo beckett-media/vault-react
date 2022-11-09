@@ -5,6 +5,12 @@
     "REACT_APP_CLIENT_ID": "1fkbqcr55bega982jv61rl776o",
     "USPS_API_USERID": "831BECKE1073"
   },
+  "local_dev": {
+    "BASE_URL": "https://dev.beckett.com:3300",
+    "REACT_APP_USERPOOL_ID": "us-west-1_YLyATgtQd",
+    "REACT_APP_CLIENT_ID": "1fkbqcr55bega982jv61rl776o",
+    "USPS_API_USERID": "831BECKE1073"
+  },
   "qa": {
     "BASE_URL": "https://dev.beckett.com:3300",
     "REACT_APP_USERPOOL_ID": "us-west-1_Gj8Gf2z4L",

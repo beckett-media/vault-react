@@ -172,6 +172,17 @@ const EditDetailsRow = ({ tempState, setTempState }) => {
             />
           </Form.Group>
         </Col>
+        <Col>
+          <Form.Group className='admin-page_notes-edit-field'>
+            <Form.Label>Notes:</Form.Label>
+            <Form.Control
+              value={tempState.notes}
+              onChange={(e) => setTempState({ ...tempState, notes: e.target.value.substring(0, 255) })}
+              as='textarea'
+              rows={3}
+            />
+          </Form.Group>
+        </Col>
       </Row>
     </Form>
   );
