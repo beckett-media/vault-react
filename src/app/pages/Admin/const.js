@@ -39,3 +39,8 @@ export const ACTION_LABEL = {
   DONE: 'Done',
   UNDELETE: 'Undelete',
 };
+
+export const ITEM_OR_ORDER = {
+  ITEM: 'item',
+  ORDER: 'order',
+};

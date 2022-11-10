@@ -1,14 +1,17 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { Button, Spinner } from 'react-bootstrap';
 import './AdminPage.scss';
 import debounce from '../../utils/debounce';
 import useFilter from '../../hooks/useFilter';
 
 import SearchBar from '../../components/SearchBar/SearchBar';
-import { getAllSubmissions, getSubmissions } from '../../services/submission';
+import { getAllSubmissions, getSubmissions, updateSubmission } from '../../services/submission';
 import { AdminPageContext } from '../../contexts/adminPage';
 import { SUBMISSION_STATUS } from '../../services/submission';
 import { confirmSubmissionReceipt } from '../../services/submission';
+import { BsTrash } from 'react-icons/bs';
+import DeleteConfirmationModal from './DeleteConfirmationModal';
+import { ITEM_OR_ORDER } from './const';
 
 const debounceLimit = 800; // 800ms
 
@@ -24,6 +27,18 @@ function SubmissionSearch() {
   const [{ results, isSearching }, , doFilter, setApiRetrigger] = useFilter(querySubmissionApi, null, []);
   const { setSubmissions, submissions, setIsSubmissionsLoading, isSubmissionsLoading } = useContext(AdminPageContext);
   const [isHandlingReceipt, setIsHandlingReceipt] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [allSubmissionsLength, setAllSubmissionsLength] = useState(0);
+  useLayoutEffect(() => {
+    const element = document.getElementById('delete-order-btn');
+    element.classList.remove('btn-primary');
+  });
+
+  useEffect(() => {
+    if (submissions.length > allSubmissionsLength) {
+      setAllSubmissionsLength(submissions.length);
+    }
+  }, [submissions]);
 
   const debouncedSearch = React.useMemo(() => debounce((value) => doFilter(value), debounceLimit), [doFilter]);
 
@@ -56,6 +71,19 @@ function SubmissionSearch() {
       setIsHandlingReceipt(false);
     }, 2000);
   };
+  console.log(isSearching, results, allSubmissionsLength);
+  const deleteOrder = async () => {
+    setConfirmDelete(false);
+    Promise.all(
+      submissions.map((item) => {
+        updateSubmission(item.item_id, { is_active: false });
+      }),
+    ).catch((e) => 'Error confirming receipt');
+    setTimeout(() => {
+      setApiRetrigger([]);
+      setIsHandlingReceipt(false);
+    }, 2000);
+  };
 
   const receivedItems = submissions.filter((item) => item.status >= SUBMISSION_STATUS.Received);
 
@@ -77,6 +105,24 @@ function SubmissionSearch() {
             )}
           </Button>
         )}
+        <DeleteConfirmationModal
+          itemOrOrder={ITEM_OR_ORDER.ORDER}
+          confirmDelete={confirmDelete}
+          id={results?.[0]?.order_id}
+          setConfirmDelete={setConfirmDelete}
+          deleteOrder={deleteOrder}
+        />
+        {
+          <div className={(!results.length || results.length === allSubmissionsLength) && 'hidden'}>
+            <Button
+              id={'delete-order-btn'}
+              className={`w-8 admin-row_delete-button`}
+              onClick={() => setConfirmDelete(true)}
+            >
+              <BsTrash />
+            </Button>
+          </div>
+        }
       </div>
     </div>
   );

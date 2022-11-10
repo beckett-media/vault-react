@@ -12,7 +12,7 @@ import { CASCADE_TYPE, useInventoryLocation } from '../../hooks/useInventoryLoca
 import { createVaulting, ITEM_TYPE, VAULTING_STATUS } from '../../services/items';
 import { approveRejectSubmissions, SUBMISSION_STATUS, updateSubmission } from '../../services/submission';
 import { getSubmissionTitle } from '../../utils/submissions';
-import { ACTION_LABEL, ADMIN_ROW_SECTION, SubmissionStatusOptions } from './const';
+import { ACTION_LABEL, ADMIN_ROW_SECTION, ITEM_OR_ORDER, SubmissionStatusOptions } from './const';
 import SubmissionPrint from './SubmissionPrint';
 import { removeTrailingDashes } from '../../utils/strings';
 import CardPlaceholder from '../../assets/CardPlaceholder';
@@ -377,6 +377,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
           </Button>
         </div>
         <DeleteConfirmationModal
+          itemOrOrder={ITEM_OR_ORDER.ITEM}
           confirmDelete={confirmDelete}
           itemId={item.item_id}
           setConfirmDelete={setConfirmDelete}
