@@ -29,6 +29,7 @@ function SubmissionSearch() {
   const [isHandlingReceipt, setIsHandlingReceipt] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [allSubmissionsLength, setAllSubmissionsLength] = useState(0);
+
   useLayoutEffect(() => {
     const element = document.getElementById('delete-order-btn');
     element.classList.remove('btn-primary');
@@ -73,7 +74,6 @@ function SubmissionSearch() {
   };
   console.log(isSearching, results, allSubmissionsLength);
   const deleteOrder = async () => {
-    setConfirmDelete(false);
     Promise.all(
       submissions.map((item) => {
         updateSubmission(item.item_id, { is_active: false });

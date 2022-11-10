@@ -23,8 +23,9 @@ const AdminPage = () => {
 
   useEffect(() => {
     getAllSubmissions().then((res) => {
-      setSubmissions(res);
-      setFilteredSubmissions(res);
+      const activeItems = res.filter((item) => item.is_active);
+      setSubmissions(activeItems);
+      setFilteredSubmissions(activeItems);
     });
   }, []);
 

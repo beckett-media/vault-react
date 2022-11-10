@@ -83,7 +83,6 @@ export const deleteOrder = (subIds) => {
 };
 
 export const deleteSubmission = (subId) => {
-  console.log('subId is: ', subId);
   return axiosClient
     .put(`/marketplace/submission/${subId}`, {
       is_active: false,

@@ -19,7 +19,13 @@ const DeleteConfirmationModal = ({ itemOrOrder, confirmDelete, id, setConfirmDel
         <Button variant='link' onClick={() => setConfirmDelete(false)}>
           Cancel
         </Button>
-        <Button className='btn-primary' onClick={() => deleteFunction(id)}>
+        <Button
+          className='btn-primary'
+          onClick={() => {
+            deleteFunction(id);
+            setConfirmDelete(false);
+          }}
+        >
           Delete
         </Button>
       </ModalFooter>

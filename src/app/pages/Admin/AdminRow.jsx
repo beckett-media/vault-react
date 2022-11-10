@@ -379,7 +379,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
         <DeleteConfirmationModal
           itemOrOrder={ITEM_OR_ORDER.ITEM}
           confirmDelete={confirmDelete}
-          itemId={item.item_id}
+          id={item.item_id}
           setConfirmDelete={setConfirmDelete}
         />
       </ListGroup.Item>
