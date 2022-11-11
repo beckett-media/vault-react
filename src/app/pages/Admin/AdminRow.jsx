@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Form, ListGroup, Spinner } from 'react-bootstrap';
-import { BsPrinter } from 'react-icons/bs';
+import { BsFileEarmarkFill, BsFileEarmark, BsPrinter } from 'react-icons/bs';
 
 import AdminRowExpanded from './AdminRowExpanded';
 import EditDetailsRow from './EditDetailsRow';
@@ -86,6 +86,8 @@ const AdminRow = ({ item: _item, cards, comics }) => {
       case ADMIN_ROW_SECTION.DETAILS:
         updateDetails();
         break;
+      case ADMIN_ROW_SECTION.NOTES:
+        updateNotes();
     }
   };
 
@@ -136,6 +138,24 @@ const AdminRow = ({ item: _item, cards, comics }) => {
       }
     });
 
+    setIsUpdateLoading(true);
+    updateSubmission(item.item_id, payload)
+      .then((data) => {
+        initState(data);
+        setIsEditing('');
+      })
+      .catch((err) => {
+        setError(err.message);
+      })
+      .finally(() => {
+        setIsUpdateLoading(false);
+      });
+    return;
+  };
+
+  const updateNotes = () => {
+    const payload = {};
+    payload.notes = tempState.notes;
     setIsUpdateLoading(true);
     updateSubmission(item.item_id, payload)
       .then((data) => {
@@ -280,6 +300,12 @@ const AdminRow = ({ item: _item, cards, comics }) => {
         setIsActionLoading(false);
       });
   };
+  const handleChangeNotes = () => {
+    if (isEditing === ADMIN_ROW_SECTION.NOTES) {
+      setIsEditing('');
+    } else setIsEditing(ADMIN_ROW_SECTION.NOTES);
+  };
+
   return (
     <>
       <ListGroup.Item className='admin-page_table-row'>
@@ -345,7 +371,16 @@ const AdminRow = ({ item: _item, cards, comics }) => {
             )}
           </Button>
         </div>
-      </ListGroup.Item>
+        {item.notes ? (
+          <div>
+            <BsFileEarmarkFill size={25} onClick={handleChangeNotes} />
+          </div>
+        ) : (
+          <div>
+            <BsFileEarmark size={25} onClick={handleChangeNotes} />
+          </div>
+        )}
+      </ListGroup.Item>{' '}
       {!!isEditing && (
         <AdminRowExpanded
           onCancel={() => setIsEditing('')}
@@ -354,6 +389,17 @@ const AdminRow = ({ item: _item, cards, comics }) => {
           className='text-body'
           setCascade={setCascade}
         >
+          {isEditing === ADMIN_ROW_SECTION.NOTES && (
+            <div className='admin-page_notes-edit-field'>
+              <div className='notes-pad'>Notes:</div>
+              <Form.Control
+                value={tempState.notes}
+                onChange={(e) => setTempState({ ...tempState, notes: e.target.value.substring(0, 255) })}
+                as='textarea'
+                rows={3}
+              />
+            </div>
+          )}
           {isEditing === ADMIN_ROW_SECTION.LOCATION && (
             <LocationRow
               updateInventory={updateInventory}
@@ -375,7 +421,6 @@ const AdminRow = ({ item: _item, cards, comics }) => {
           )}
         </AdminRowExpanded>
       )}
-
       {showPrint === 'open' && (
         <SubmissionPrint item={item} locationLabel={returnLocationLabel(currentLocation)} onClose={handlePrintClose} />
       )}
