@@ -53,8 +53,22 @@ const AdminPage = () => {
       setNoFilterResults(false);
       setFilteredSubmissions([...filteredSubmissions]);
     }
+  }, [filterBy, submissions]);
+
+  useEffect(() => {
+    document.getElementsByClassName('search-bar_input')[0].value = '';
+    getAllSubmissions().then((res) => {
+      setSubmissions(res);
+      setFilteredSubmissions(res);
+    });
   }, [filterBy]);
 
+  const searching = (e) => {
+    if (e.target.className === 'mb-0 search-bar_input form-control') {
+      document.getElementsByClassName('rounded-pill mb-0 form-select form-select-md')[0].value = 'Filter';
+      setFilterBy('Filter');
+    }
+  };
   const cards = filteredSubmissions
     .filter((item) => item.type === ITEM_TYPE.TRADING_CARD)
     .sort(sortByAttribute('item_id', 'desc'));
@@ -62,12 +76,20 @@ const AdminPage = () => {
     .filter((item) => item.type === ITEM_TYPE.COMIC)
     .sort(sortByAttribute('item_id', 'desc'));
 
+  const usersArr = [];
+  const numberOfVaulted = submissions.filter((item) => item.status === 5).length;
+  const numberOfPending = submissions.length - numberOfVaulted;
+  submissions.forEach((item) => {
+    return usersArr.includes(item.user) || usersArr.push(item.user);
+  });
+  const numberOfUsers = usersArr.length;
+
   return (
     <DefaultPage>
       <div className='page-padding'>
         <div className='container-large d-flex flex-column gap-1 mt-4'>
           <AdminStatusTracker />
-          <div className='admin-page_content'>
+          <div className='admin-page_content' onClick={(e) => searching(e)}>
             <SubmissionSearch />
             {submissions.length !== 0 && (
               <div className='admin-page_section-table'>
@@ -80,15 +102,22 @@ const AdminPage = () => {
                   </Button>
                   <Badge bg='secondary'>Coming soon</Badge>
                 </div> */}
-                <div className='admin-page_filter-box'>
-                  <Filter
-                    setFilterBy={setFilterBy}
-                    filterOptions={[
-                      { value: 'new', title: 'New' },
-                      { value: 'in-progress', title: 'In Progress' },
-                      { value: 'done', title: 'Done' },
-                    ]}
-                  />
+                <div className='admin-page_filter-row'>
+                  <div className='admin-page_filter-box'>
+                    <Filter
+                      setFilterBy={setFilterBy}
+                      filterOptions={[
+                        { value: 'new', title: 'New' },
+                        { value: 'in-progress', title: 'In Progress' },
+                        { value: 'done', title: 'Done' },
+                      ]}
+                    />
+                  </div>
+                  <div className='admin-page_filter-stats'>
+                    <div>Number of Users: {numberOfUsers}</div>
+                    <div>Number of Vaulted: {numberOfVaulted}</div>
+                    <div>Number of Pending: {numberOfPending}</div>
+                  </div>
                 </div>
                 {noFilterResults && <div className='error'>No Filter Results</div>}
                 <div>{filteredSubmissions.length + ' of ' + filteredSubmissions.length} </div>
