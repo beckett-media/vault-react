@@ -391,7 +391,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
         >
           {isEditing === ADMIN_ROW_SECTION.NOTES && (
             <div className='admin-page_notes-edit-field'>
-              <div>Notes:</div>
+              <div className='notes-pad'>Notes:</div>
               <Form.Control
                 value={tempState.notes}
                 onChange={(e) => setTempState({ ...tempState, notes: e.target.value.substring(0, 255) })}
