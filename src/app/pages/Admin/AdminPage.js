@@ -20,6 +20,7 @@ const AdminPage = () => {
   const [filteredSubmissions, setFilteredSubmissions] = useState([]);
   const [filterBy, setFilterBy] = useState('Filter');
   const [noFilterResults, setNoFilterResults] = useState(false);
+  const [expandedRowId, setExpandedRowId] = useState('');
 
   useEffect(() => {
     getAllSubmissions().then((res) => {
@@ -148,7 +149,14 @@ const AdminPage = () => {
                         </ListGroup.Item>
                         {!isSubmissionsLoading &&
                           cards.map((item) => (
-                            <AdminRow key={'admin_row-' + item.id} item={item} cards={cards} comics={comics} />
+                            <AdminRow
+                              key={'admin_row-' + item.item_id}
+                              item={item}
+                              cards={cards}
+                              comics={comics}
+                              expandedRowId={expandedRowId}
+                              setExpandedRowId={setExpandedRowId}
+                            />
                           ))}
                       </>
                     )}
@@ -158,7 +166,14 @@ const AdminPage = () => {
                           --- Comics ---
                         </ListGroup.Item>
                         {comics.map((item) => (
-                          <AdminRow key={'admin_row-' + item.id} item={item} cards={cards} comics={comics} />
+                          <AdminRow
+                            key={'admin_row-' + item.item_id}
+                            item={item}
+                            cards={cards}
+                            comics={comics}
+                            expandedRowId={expandedRowId}
+                            setExpandedRowId={setExpandedRowId}
+                          />
                         ))}
                       </>
                     )}

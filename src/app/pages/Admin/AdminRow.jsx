@@ -17,7 +17,7 @@ import SubmissionPrint from './SubmissionPrint';
 import { removeTrailingDashes } from '../../utils/strings';
 import CardPlaceholder from '../../assets/CardPlaceholder';
 
-const AdminRow = ({ item: _item, cards, comics }) => {
+const AdminRow = ({ item: _item, cards, comics, expandedRowId, setExpandedRowId }) => {
   const [isEditing, setIsEditing] = useState('');
   const [isActionLoading, setIsActionLoading] = useState(false);
   const [isUpdateLoading, setIsUpdateLoading] = useState(false);
@@ -26,7 +26,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
   const [statusValue, setStatusValue] = useState(_item.status);
   const [item, setItem] = useState(_item);
   const [showPrint, setShowPrint] = useState('init');
-
+  const [saveButtonIsDisabled, setSaveButtonIsDisabled] = useState(false);
   const currentTime = new Date();
   const initState = React.useCallback((itemData) => {
     setStatusValue(itemData.status);
@@ -38,12 +38,14 @@ const AdminRow = ({ item: _item, cards, comics }) => {
     inventory,
     currentLocation,
     postLocation,
+    putLocation,
     isPostLoading,
     isGetLoading,
     updateInventory,
     setCascade,
     cascade,
-  } = useInventoryLocation(item.item_id, comics, cards);
+    setNewLocationId,
+  } = useInventoryLocation(item.id, comics, cards);
 
   const returnLocationLabel = (locationObject) => {
     if (!locationObject) return 'Unassigned';
@@ -74,11 +76,11 @@ const AdminRow = ({ item: _item, cards, comics }) => {
       `${abbreviatedVault}-${abbreviatedZone}-${shelf || ''}-${row || ''}-${box || ''}-${slot || ''}`,
     );
   };
-
+  // console.log('item is ', currentLocation, item)
   const returnSaveFunction = (editSection) => {
     switch (editSection) {
       case ADMIN_ROW_SECTION.LOCATION:
-        postLocation(() => setIsEditing(''));
+        currentLocation === undefined ? postLocation(() => setIsEditing('')) : putLocation(() => setIsEditing(''));
         break;
       case ADMIN_ROW_SECTION.IMAGE:
         updateImage();
@@ -256,12 +258,21 @@ const AdminRow = ({ item: _item, cards, comics }) => {
     setTempState({ image_url: item.image_url, image_rev_url: item.image_rev_url });
     setError('');
     setIsEditing(ADMIN_ROW_SECTION.IMAGE);
+    setExpandedRowId(item.id);
   };
 
   const handleSubmissionEditClick = () => {
     setTempState(item);
     setError('');
     setIsEditing(ADMIN_ROW_SECTION.DETAILS);
+    setExpandedRowId(item.id);
+  };
+  const handleLocationEditClick = () => {
+    setTempState(item);
+    setError('');
+    setIsEditing(ADMIN_ROW_SECTION.LOCATION);
+    setExpandedRowId(item.id);
+    setNewLocationId(item.id);
   };
 
   const isStatusPending = item.status === SUBMISSION_STATUS.Submitted;
@@ -285,7 +296,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
     createVaulting({
       item_id: item.item_id,
       user: item.user,
-      submission_id: item.id,
+      submission_id: item.submission_id,
     })
       .then((res) => {
         initState({
@@ -347,7 +358,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
         </div>
         <div className='d-flex gap-1 align-items-center'>
           {returnLocationLabel(currentLocation)}
-          {!isStatusPending && <PencilIcon onClick={() => setIsEditing(ADMIN_ROW_SECTION.LOCATION)} />}
+          {!isStatusPending && <PencilIcon onClick={() => handleLocationEditClick()} />}
         </div>
         <div>
           {showPrintButton && (
@@ -405,6 +416,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
               updateInventory={updateInventory}
               inventory={inventory}
               cascadeToggleHanlder={cascadeToggleHanlder}
+              setSaveButtonIsDisabled={setSaveButtonIsDisabled}
             />
           )}
           {isEditing === ADMIN_ROW_SECTION.DETAILS && (

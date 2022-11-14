@@ -33,6 +33,7 @@ export const getInventory = async ({ item_ids, vault, zone, box, slot, row, offs
 
 export const postInventory = async (item) => {
   // TODO: validate item
+  console.log(item);
   return axiosClient.post(`/inventory`, item).then((res) => {
     return res;
   });
@@ -40,6 +41,7 @@ export const postInventory = async (item) => {
 
 export const putInventory = async (inventory_id, item) => {
   // TODO: validate item
+  console.log(inventory_id, item);
   return axiosClient.put(`/inventory/${inventory_id}`, item).then((res) => {
     return res;
   });
