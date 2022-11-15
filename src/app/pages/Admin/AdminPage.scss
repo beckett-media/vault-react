@@ -74,7 +74,7 @@
     &row {
       display: grid !important;
       gap: 12px;
-      grid-template-columns: /*16px*/ 0.16fr 0.2fr 0.2fr 0.8fr 0.25fr 0.32fr 0.05fr 0.25fr 20px;
+      grid-template-columns: /*16px*/ 0.16fr 0.2fr 0.2fr 0.8fr 0.25fr 0.32fr 0.05fr 0.25fr 20px 0.05fr;
       align-items: center;
 
       &--header {
@@ -151,8 +151,24 @@
   }
 }
 
-.admin-row_retry-button {
-  width: 100%;
+.admin-row {
+  &_retry-button {
+    width: 100%;
+  }
+  &_delete-button {
+    background-color: red !important;
+    color: white !important;
+    &:hover {
+      background-color: darkred !important;
+    }
+  }
+  &_delete-confirm-modal {
+    color: black;
+  }
+}
+
+.hidden {
+  display: none;
 }
 .notes-pad {
   padding-right: 5px;

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { ListGroup, Button, Form, Badge, Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import AdminStatusTracker from './AdminStatusTracker';
@@ -23,8 +23,9 @@ const AdminPage = () => {
 
   useEffect(() => {
     getAllSubmissions().then((res) => {
-      setSubmissions(res);
-      setFilteredSubmissions(res);
+      const activeItems = res.filter((item) => item.is_active);
+      setSubmissions([...activeItems]);
+      setFilteredSubmissions([...activeItems]);
     });
   }, []);
 
@@ -34,6 +35,8 @@ const AdminPage = () => {
         return submission.status === SUBMISSION_STATUS.Submitted;
       } else if (filterBy === 'in-progress') {
         return submission.status === SUBMISSION_STATUS.Received || submission.status === SUBMISSION_STATUS.Approved;
+      } else if (filterBy === 'deleted') {
+        return !submission.is_active;
       } else if (filterBy === 'done') {
         return (
           submission.status === SUBMISSION_STATUS.Vaulted ||
@@ -43,8 +46,13 @@ const AdminPage = () => {
       }
     });
     if (filterBy === 'Filter') {
+      const activeItems = submissions.filter((item) => item.is_active);
       setNoFilterResults(false);
-      setFilteredSubmissions([...submissions]);
+      setFilteredSubmissions([...activeItems]);
+    } else if (filterBy === 'deleted') {
+      const deletedItems = submissions.filter((item) => !item.is_active);
+      setNoFilterResults(false);
+      setFilteredSubmissions([...deletedItems]);
     } else if (!filteredSubmissions.length) {
       setNoFilterResults(true);
       setFilteredSubmissions([...submissions]);
@@ -109,6 +117,7 @@ const AdminPage = () => {
                         { value: 'new', title: 'New' },
                         { value: 'in-progress', title: 'In Progress' },
                         { value: 'done', title: 'Done' },
+                        { value: 'deleted', title: 'Deleted' },
                       ]}
                     />
                   </div>
@@ -148,7 +157,13 @@ const AdminPage = () => {
                         </ListGroup.Item>
                         {!isSubmissionsLoading &&
                           cards.map((item) => (
-                            <AdminRow key={'admin_row-' + item.id} item={item} cards={cards} comics={comics} />
+                            <AdminRow
+                              key={'admin_row-' + item.id}
+                              item={item}
+                              cards={cards}
+                              comics={comics}
+                              setFilterBy={setFilterBy}
+                            />
                           ))}
                       </>
                     )}
@@ -158,7 +173,13 @@ const AdminPage = () => {
                           --- Comics ---
                         </ListGroup.Item>
                         {comics.map((item) => (
-                          <AdminRow key={'admin_row-' + item.id} item={item} cards={cards} comics={comics} />
+                          <AdminRow
+                            key={'admin_row-' + item.id}
+                            item={item}
+                            cards={cards}
+                            comics={comics}
+                            setFilterBy={setFilterBy}
+                          />
                         ))}
                       </>
                     )}

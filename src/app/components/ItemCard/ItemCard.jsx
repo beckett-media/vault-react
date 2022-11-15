@@ -32,6 +32,8 @@ const ItemCard = ({ item, shouldLink = true, belongsToUser }, props) => {
       return 4;
     } else if (status === SUBMISSION_STATUS.Rejected) {
       return 0;
+    } else if (status === SUBMISSION_STATUS.Deleted) {
+      return 0;
     } else {
       return null;
     }
