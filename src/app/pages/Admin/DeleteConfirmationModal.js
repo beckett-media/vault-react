@@ -3,7 +3,7 @@ import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'react-bootst
 import { deleteSubmission } from '../../services/submission';
 import { ITEM_OR_ORDER } from './const';
 
-const DeleteConfirmationModal = ({ itemOrOrder, confirmDelete, id, setConfirmDelete, deleteOrder }) => {
+const DeleteConfirmationModal = ({ itemOrOrder, confirmDelete, id, setConfirmDelete, deleteOrder, setFilterBy }) => {
   const deleteFunction = itemOrOrder === ITEM_OR_ORDER.ITEM ? deleteSubmission : deleteOrder;
   return (
     <Modal className='admin-row_delete-confirm-modal' show={confirmDelete}>
@@ -23,6 +23,7 @@ const DeleteConfirmationModal = ({ itemOrOrder, confirmDelete, id, setConfirmDel
           className='btn-primary'
           onClick={() => {
             deleteFunction(id);
+            setFilterBy('deleted');
             setConfirmDelete(false);
           }}
         >

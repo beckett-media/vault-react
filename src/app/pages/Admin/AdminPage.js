@@ -157,7 +157,13 @@ const AdminPage = () => {
                         </ListGroup.Item>
                         {!isSubmissionsLoading &&
                           cards.map((item) => (
-                            <AdminRow key={'admin_row-' + item.id} item={item} cards={cards} comics={comics} />
+                            <AdminRow
+                              key={'admin_row-' + item.id}
+                              item={item}
+                              cards={cards}
+                              comics={comics}
+                              setFilterBy={setFilterBy}
+                            />
                           ))}
                       </>
                     )}
@@ -167,7 +173,13 @@ const AdminPage = () => {
                           --- Comics ---
                         </ListGroup.Item>
                         {comics.map((item) => (
-                          <AdminRow key={'admin_row-' + item.id} item={item} cards={cards} comics={comics} />
+                          <AdminRow
+                            key={'admin_row-' + item.id}
+                            item={item}
+                            cards={cards}
+                            comics={comics}
+                            setFilterBy={setFilterBy}
+                          />
                         ))}
                       </>
                     )}

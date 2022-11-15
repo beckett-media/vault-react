@@ -23,7 +23,7 @@ import { removeTrailingDashes } from '../../utils/strings';
 import CardPlaceholder from '../../assets/CardPlaceholder';
 import DeleteConfirmationModal from './DeleteConfirmationModal';
 
-const AdminRow = ({ item: _item, cards, comics }) => {
+const AdminRow = ({ item: _item, cards, comics, setFilterBy }) => {
   const [isEditing, setIsEditing] = useState('');
   const [isActionLoading, setIsActionLoading] = useState(false);
   const [isUpdateLoading, setIsUpdateLoading] = useState(false);
@@ -53,7 +53,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
 
   useLayoutEffect(() => {
     const element = document.getElementById('del-' + item.item_id);
-    element.classList.remove('btn-primary');
+    element?.classList.remove('btn-primary');
   });
 
   const returnLocationLabel = (locationObject) => {
@@ -220,6 +220,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
         })
         .finally(() => {
           setIsActionLoading(false);
+          setFilterBy('Filter');
         });
     } else if (action === ACTION_LABEL.VAULT) {
       setIsActionLoading(true);
@@ -407,21 +408,24 @@ const AdminRow = ({ item: _item, cards, comics }) => {
           </div>
         )}
 
-        <div>
-          <Button
-            id={'del-' + item.id}
-            className={`w-8 admin-row_delete-button`}
-            onClick={() => setConfirmDelete(true)}
-          >
-            <BsTrash />
-          </Button>
-        </div>
+        {item.is_active && (
+          <div>
+            <Button
+              id={'del-' + item.id}
+              className={`w-8 admin-row_delete-button`}
+              onClick={() => setConfirmDelete(true)}
+            >
+              <BsTrash />
+            </Button>
+          </div>
+        )}
 
         <DeleteConfirmationModal
           itemOrOrder={ITEM_OR_ORDER.ITEM}
           confirmDelete={confirmDelete}
           id={item.item_id}
           setConfirmDelete={setConfirmDelete}
+          setFilterBy={setFilterBy}
         />
       </ListGroup.Item>
       {!!isEditing && (
