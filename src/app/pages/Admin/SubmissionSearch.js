@@ -72,7 +72,6 @@ function SubmissionSearch() {
       setIsHandlingReceipt(false);
     }, 2000);
   };
-  console.log(isSearching, results, allSubmissionsLength);
   const deleteOrder = async () => {
     Promise.all(
       submissions.map((item) => {
