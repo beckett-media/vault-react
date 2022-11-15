@@ -95,7 +95,7 @@ export const deleteSubmission = (subId) => {
 export const undeleteSubmission = (subId) => {
   return axiosClient
     .put(`/marketplace/submission/${subId}`, {
-      deleted: false,
+      is_active: true,
     })
     .then((res) => {
       return res.data;

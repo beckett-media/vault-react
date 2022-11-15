@@ -24,8 +24,8 @@ const AdminPage = () => {
   useEffect(() => {
     getAllSubmissions().then((res) => {
       const activeItems = res.filter((item) => item.is_active);
-      setSubmissions(activeItems);
-      setFilteredSubmissions(activeItems);
+      setSubmissions([...activeItems]);
+      setFilteredSubmissions([...activeItems]);
     });
   }, []);
 
@@ -36,7 +36,7 @@ const AdminPage = () => {
       } else if (filterBy === 'in-progress') {
         return submission.status === SUBMISSION_STATUS.Received || submission.status === SUBMISSION_STATUS.Approved;
       } else if (filterBy === 'deleted') {
-        return submission.status === SUBMISSION_STATUS.Deleted;
+        return !submission.is_active;
       } else if (filterBy === 'done') {
         return (
           submission.status === SUBMISSION_STATUS.Vaulted ||
@@ -46,8 +46,13 @@ const AdminPage = () => {
       }
     });
     if (filterBy === 'Filter') {
+      const activeItems = submissions.filter((item) => item.is_active);
       setNoFilterResults(false);
-      setFilteredSubmissions([...submissions]);
+      setFilteredSubmissions([...activeItems]);
+    } else if (filterBy === 'deleted') {
+      const deletedItems = submissions.filter((item) => !item.is_active);
+      setNoFilterResults(false);
+      setFilteredSubmissions([...deletedItems]);
     } else if (!filteredSubmissions.length) {
       setNoFilterResults(true);
       setFilteredSubmissions([...submissions]);
@@ -112,6 +117,7 @@ const AdminPage = () => {
                         { value: 'new', title: 'New' },
                         { value: 'in-progress', title: 'In Progress' },
                         { value: 'done', title: 'Done' },
+                        { value: 'deleted', title: 'Deleted' },
                       ]}
                     />
                   </div>

@@ -10,7 +10,12 @@ import LocationRow from './LocationRow';
 import { ReactComponent as PencilIcon } from '../../assets/pencil-icon.svg';
 import { CASCADE_TYPE, useInventoryLocation } from '../../hooks/useInventoryLocation';
 import { createVaulting, ITEM_TYPE, VAULTING_STATUS } from '../../services/items';
-import { approveRejectSubmissions, SUBMISSION_STATUS, updateSubmission } from '../../services/submission';
+import {
+  approveRejectSubmissions,
+  SUBMISSION_STATUS,
+  undeleteSubmission,
+  updateSubmission,
+} from '../../services/submission';
 import { getSubmissionTitle } from '../../utils/submissions';
 import { ACTION_LABEL, ADMIN_ROW_SECTION, ITEM_OR_ORDER, SubmissionStatusOptions } from './const';
 import SubmissionPrint from './SubmissionPrint';
@@ -247,16 +252,14 @@ const AdminRow = ({ item: _item, cards, comics }) => {
   }, []);
 
   const getActionLabel = () => {
+    if (!item.is_active) {
+      return ACTION_LABEL.UNDELETE;
+    }
+
     if (item.status === SUBMISSION_STATUS.Submitted) {
       return ACTION_LABEL.START;
-    }
-
-    if (item.status === SUBMISSION_STATUS.Received) {
+    } else if (item.status === SUBMISSION_STATUS.Received) {
       return ACTION_LABEL.VALIDATE;
-    }
-
-    if (item.status === SUBMISSION_STATUS.Deleted) {
-      return ACTION_LABEL.UNDELETE;
     }
 
     if (item.status === SUBMISSION_STATUS.Approved) {
