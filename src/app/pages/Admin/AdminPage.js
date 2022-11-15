@@ -55,7 +55,7 @@ const AdminPage = () => {
       setFilteredSubmissions([...deletedItems]);
     } else if (!filteredSubmissions.length) {
       setNoFilterResults(true);
-      setFilteredSubmissions([...submissions]);
+      setFilteredSubmissions([]);
     } else {
       setNoFilterResults(false);
       setFilteredSubmissions([...filteredSubmissions]);
