@@ -55,10 +55,11 @@ const AdminPage = () => {
       setFilteredSubmissions([...deletedItems]);
     } else if (!filteredSubmissions.length) {
       setNoFilterResults(true);
-      setFilteredSubmissions([]);
-    } else {
-      setNoFilterResults(false);
       setFilteredSubmissions([...filteredSubmissions]);
+    } else {
+      const activeItems = filteredSubmissions.filter((item) => item.is_active);
+      setNoFilterResults(false);
+      setFilteredSubmissions([...activeItems]);
     }
   }, [filterBy, submissions]);
 
