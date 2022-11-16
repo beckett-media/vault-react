@@ -120,6 +120,7 @@ const AdminPage = () => {
                         { value: 'done', title: 'Done' },
                         { value: 'deleted', title: 'Deleted' },
                       ]}
+                      filterBy={filterBy}
                     />
                   </div>
                   <div className='admin-page_filter-stats'>
