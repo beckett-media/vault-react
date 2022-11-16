@@ -55,10 +55,11 @@ const AdminPage = () => {
       setFilteredSubmissions([...deletedItems]);
     } else if (!filteredSubmissions.length) {
       setNoFilterResults(true);
-      setFilteredSubmissions([...submissions]);
-    } else {
-      setNoFilterResults(false);
       setFilteredSubmissions([...filteredSubmissions]);
+    } else {
+      const activeItems = filteredSubmissions.filter((item) => item.is_active);
+      setNoFilterResults(false);
+      setFilteredSubmissions([...activeItems]);
     }
   }, [filterBy, submissions]);
 
@@ -119,6 +120,7 @@ const AdminPage = () => {
                         { value: 'done', title: 'Done' },
                         { value: 'deleted', title: 'Deleted' },
                       ]}
+                      filterBy={filterBy}
                     />
                   </div>
                   <div className='admin-page_filter-stats'>
