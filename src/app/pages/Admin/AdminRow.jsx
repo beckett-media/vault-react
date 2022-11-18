@@ -170,7 +170,6 @@ const AdminRow = ({ item: _item, cards, comics, setFilterBy }) => {
     ];
     const requiredFields = item['type_desc'] === 'Card' ? requiredCardFields : requiredcomicFields;
     Object.keys(item).map((itm) => {
-      console.log('item ', itm, !requiredFields.includes(itm), item[itm]);
       if (
         !requiredFields.includes(itm) ||
         (requiredFields.includes(itm) && tempState[itm] !== 0 && tempState[itm] !== '')
