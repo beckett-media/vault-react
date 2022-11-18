@@ -141,27 +141,74 @@ const AdminRow = ({ item: _item, cards, comics, setFilterBy }) => {
     return;
   };
 
-  const updateDetails = () => {
-    const payload = {};
-    Object.keys(tempState).map((itm) => {
-      if (tempState[itm] !== item[itm]) {
-        payload[itm] = tempState[itm];
+  const validateDetails = () => {
+    let payload = {};
+    const requiredCardFields = [
+      'player',
+      'sport',
+      'set_name',
+      'card_number',
+      'grading_company',
+      'serial_number',
+      'title',
+      'year',
+      'grade',
+      'sub_grades',
+      'est_value',
+    ];
+    const requiredcomicFields = [
+      'title',
+      'issue',
+      'publisher',
+      'grading_company',
+      'serial_number',
+      'title',
+      'year',
+      'grade',
+      'sub_grades',
+      'est_value',
+    ];
+    const requiredFields = item['type_desc'] === 'Card' ? requiredCardFields : requiredcomicFields;
+    Object.keys(item).map((itm) => {
+      console.log('item ', itm, !requiredFields.includes(itm), item[itm]);
+      if (
+        !requiredFields.includes(itm) ||
+        (requiredFields.includes(itm) && tempState[itm] !== 0 && tempState[itm] !== '')
+      ) {
+        if (tempState[itm] !== item[itm]) {
+          payload[itm] = tempState[itm];
+        }
+      } else {
+        const missingField = itm
+          .split('_')
+          .map((word) => word[0].toUpperCase() + word.substring(1))
+          .join(' ');
+        throw new Error(`Required field ${missingField} is missing.`);
       }
     });
-
-    setIsUpdateLoading(true);
-    updateSubmission(item.item_id, payload)
-      .then((data) => {
-        initState(data);
-        setIsEditing('');
-      })
-      .catch((err) => {
-        setError(err.message);
-      })
-      .finally(() => {
-        setIsUpdateLoading(false);
-      });
-    return;
+    return payload;
+  };
+  const updateDetails = async () => {
+    let payload = {};
+    try {
+      payload = await validateDetails();
+      setIsUpdateLoading(true);
+      updateSubmission(item.item_id, payload)
+        .then((data) => {
+          initState(data);
+          setIsEditing('');
+        })
+        .catch((err) => {
+          setError(err.message);
+        })
+        .finally(() => {
+          setIsUpdateLoading(false);
+        });
+      return;
+    } catch (err) {
+      console.error(err);
+      setError(err);
+    }
   };
 
   const updateNotes = () => {
@@ -465,6 +512,11 @@ const AdminRow = ({ item: _item, cards, comics, setFilterBy }) => {
               setTempState={setTempState}
               updateImage={updateImage}
             />
+          )}
+          {error && (
+            <div className='error-container'>
+              <div className='error'>{error.message}</div>
+            </div>
           )}
         </AdminRowExpanded>
       )}
