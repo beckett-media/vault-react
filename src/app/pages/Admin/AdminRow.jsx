@@ -411,7 +411,7 @@ const AdminRow = ({ item: _item, cards, comics, setFilterBy }) => {
         {item.is_active && (
           <div>
             <Button
-              id={'del-' + item.id}
+              id={'del-' + item.item_id}
               className={`w-8 admin-row_delete-button`}
               onClick={() => setConfirmDelete(true)}
             >
