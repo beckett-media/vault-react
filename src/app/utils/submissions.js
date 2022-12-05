@@ -35,7 +35,7 @@ export const getSubmissionTitle = (item) => {
   }
 
   if (item.type === ITEM_TYPE.COMIC) {
-    return `${item.issue ? '#' + item.issue : ''} ${item.publisher} ${item.year}`;
+    return `${item.issue ? '#' + item.issue : ''} ${item.title} ${item.year}`;
   }
 
   return '';
