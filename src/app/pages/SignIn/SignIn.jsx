@@ -131,6 +131,7 @@ const SignIn = () => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = React.useState('');
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const { msg } = useLocation();
   const [message, setMessage] = useState(msg);
   const [showForgotPassword, toggleForgotPassword] = useState(false);
@@ -210,16 +211,10 @@ const SignIn = () => {
     resendConfirmationCode(email)
       .then((res) => {
         if (res.CodeDeliveryDetails) {
-          setError('Successfully sent to ' + res.CodeDeliveryDetails.Destination + '!');
+          setSuccess('Successfully sent to ' + res.CodeDeliveryDetails.Destination + '!');
         } else throw new Error();
       })
       .catch((err) => setError(err.message));
-  };
-  const getErrorClassName = () => {
-    console.log(error.substring(0, 7));
-    if (error.substring(0, 7) === 'Success') {
-      return 'signin_reverify-success';
-    } else return 'signin_error';
   };
 
   return (
@@ -243,7 +238,7 @@ const SignIn = () => {
               <PasswordField value={password} onChange={(e) => setPassword(e.target.value)} />
               {error && (
                 <>
-                  <div className={getErrorClassName()}>{error}</div>
+                  <div className='signin_error'>{error}</div>
                   {error !== 'Request Limit Exceeded - Try again later' && (
                     <div className='signin_reverify' onClick={() => handleResendConfirmationEmail()}>
                       Resend Validation Email
@@ -251,6 +246,7 @@ const SignIn = () => {
                   )}
                 </>
               )}
+              {success && <div className='signin_reverify-success'>{success}</div>}
               <Checkbox marginTop='9px' alignSelf='start' size='sm' colorScheme='gray' className='signin_checkbox'>
                 Remember me
               </Checkbox>
