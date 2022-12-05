@@ -211,6 +211,7 @@ const SignIn = () => {
     resendConfirmationCode(email)
       .then((res) => {
         if (res.CodeDeliveryDetails) {
+          setError('');
           setSuccess('Successfully sent to ' + res.CodeDeliveryDetails.Destination + '!');
         } else throw new Error();
       })
