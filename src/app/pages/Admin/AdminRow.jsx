@@ -329,7 +329,11 @@ const AdminRow = ({ item: _item, cards, comics, setFilterBy }) => {
   const handleChangeNotes = () => {
     if (isEditing === ADMIN_ROW_SECTION.NOTES) {
       setIsEditing('');
-    } else setIsEditing(ADMIN_ROW_SECTION.NOTES);
+    } else {
+      setTempState(item);
+      setError('');
+      setIsEditing(ADMIN_ROW_SECTION.NOTES);
+    }
   };
 
   return (
