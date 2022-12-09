@@ -75,7 +75,7 @@ function SubmissionSearch({ filterApplied }) {
   const deleteOrder = async () => {
     Promise.all(
       submissions.map((item) => {
-        updateSubmission(item.item_id, { is_active: false });
+        updateSubmission(item.id, { is_active: false });
       }),
     ).catch((e) => 'Error confirming receipt');
     setTimeout(() => {
