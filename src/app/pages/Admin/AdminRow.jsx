@@ -52,7 +52,7 @@ const AdminRow = ({ item: _item, cards, comics, setFilterBy }) => {
   } = useInventoryLocation(item.item_id, comics, cards);
 
   useLayoutEffect(() => {
-    const element = document.getElementById('del-' + item.item_id);
+    const element = document.getElementById('del-' + item.id);
     element?.classList.remove('btn-primary');
   });
 
@@ -199,7 +199,7 @@ const AdminRow = ({ item: _item, cards, comics, setFilterBy }) => {
 
     if (action === ACTION_LABEL.VALIDATE) {
       setIsActionLoading(true);
-      approveRejectSubmissions(item.item_id, item.type, true)
+      approveRejectSubmissions(item.id, item.type, true)
         .then((data) => {
           initState(data);
         })
@@ -211,7 +211,7 @@ const AdminRow = ({ item: _item, cards, comics, setFilterBy }) => {
         });
     } else if (action === ACTION_LABEL.UNDELETE) {
       setIsActionLoading(true);
-      undeleteSubmission(item.item_id)
+      undeleteSubmission(item.id)
         .then((data) => {
           initState(data);
         })
@@ -415,7 +415,7 @@ const AdminRow = ({ item: _item, cards, comics, setFilterBy }) => {
         {item.is_active && (
           <div>
             <Button
-              id={'del-' + item.item_id}
+              id={'del-' + item.id}
               className={`w-8 admin-row_delete-button`}
               onClick={() => setConfirmDelete(true)}
             >
@@ -427,7 +427,8 @@ const AdminRow = ({ item: _item, cards, comics, setFilterBy }) => {
         <DeleteConfirmationModal
           itemOrOrder={ITEM_OR_ORDER.ITEM}
           confirmDelete={confirmDelete}
-          id={item.item_id}
+          id={item.id}
+          item_id={item.item_id}
           setConfirmDelete={setConfirmDelete}
           setFilterBy={setFilterBy}
         />
