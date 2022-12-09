@@ -46,12 +46,16 @@ const Profile = () => {
       setLoadingModal(false);
     }
   }, [updateError]);
-  const submitUpdateUser = async () => {
-    let updatedUser;
-    setLoadingModal(true);
+
+  useEffect(() => {
     if (isShippingSame) {
       syncSubmissionAddresses();
     }
+  }, [isShippingSame]);
+
+  const submitUpdateUser = async () => {
+    let updatedUser;
+    setLoadingModal(true);
     if (!userState.phone.length) {
       return setUpdateError('Phone number is required.');
     }

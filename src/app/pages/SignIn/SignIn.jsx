@@ -131,6 +131,7 @@ const SignIn = () => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = React.useState('');
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const { msg } = useLocation();
   const [message, setMessage] = useState(msg);
   const [showForgotPassword, toggleForgotPassword] = useState(false);
@@ -156,8 +157,10 @@ const SignIn = () => {
         setError('Verify username/password or check confirmation email');
       } else if (err.code === 'UserNotConfirmedException') {
         setError('Check email for verification.');
+      } else if (err.code === 'LimitExceededException') {
+        setError('Request Limit Exceeded - Try again later');
       } else {
-        setError(err.message);
+        setError('An error has occurred - Please try again later.');
       }
     }
   };
@@ -204,6 +207,17 @@ const SignIn = () => {
     setCodeSent(false);
   };
 
+  const handleResendConfirmationEmail = () => {
+    resendConfirmationCode(email)
+      .then((res) => {
+        if (res.CodeDeliveryDetails) {
+          setError('');
+          setSuccess('Successfully sent to ' + res.CodeDeliveryDetails.Destination + '!');
+        } else throw new Error();
+      })
+      .catch((err) => setError(err.message));
+  };
+
   return (
     <div className='page-wrapper vh-100'>
       <section className='section_signin'>
@@ -226,11 +240,14 @@ const SignIn = () => {
               {error && (
                 <>
                   <div className='signin_error'>{error}</div>
-                  <div className='signin_reverify' onClick={() => resendConfirmationCode(email)}>
-                    Resend Validation Email
-                  </div>
+                  {error !== 'Request Limit Exceeded - Try again later' && (
+                    <div className='signin_reverify' onClick={() => handleResendConfirmationEmail()}>
+                      Resend Validation Email
+                    </div>
+                  )}
                 </>
               )}
+              {success && <div className='signin_reverify-success'>{success}</div>}
               <Checkbox marginTop='9px' alignSelf='start' size='sm' colorScheme='gray' className='signin_checkbox'>
                 Remember me
               </Checkbox>
@@ -239,7 +256,7 @@ const SignIn = () => {
           {authContext.authStatus === AuthStatus.SetPassword && (
             <>
               <PasswordField
-                label={authContext.authStatus === AuthStatus.SetPassword ? 'New password' : 'password'}
+                label={authContext.authStatus === AuthStatus.SetPassword ? 'New password' : 'Password'}
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
               />

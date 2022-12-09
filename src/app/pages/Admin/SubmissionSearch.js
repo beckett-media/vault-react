@@ -23,7 +23,7 @@ const querySubmissionApi = (query) => {
     : getAllSubmissions();
 };
 
-function SubmissionSearch() {
+function SubmissionSearch({ filterApplied }) {
   const [{ results, isSearching }, , doFilter, setApiRetrigger] = useFilter(querySubmissionApi, null, []);
   const { setSubmissions, submissions, setIsSubmissionsLoading, isSubmissionsLoading } = useContext(AdminPageContext);
   const [isHandlingReceipt, setIsHandlingReceipt] = useState(false);
@@ -75,7 +75,7 @@ function SubmissionSearch() {
   const deleteOrder = async () => {
     Promise.all(
       submissions.map((item) => {
-        updateSubmission(item.item_id, { is_active: false });
+        updateSubmission(item.id, { is_active: false });
       }),
     ).catch((e) => 'Error confirming receipt');
     setTimeout(() => {
@@ -112,7 +112,7 @@ function SubmissionSearch() {
           deleteOrder={deleteOrder}
         />
         {
-          <div className={(!results.length || results.length === allSubmissionsLength) && 'hidden'}>
+          <div className={(!results.length || results.length === allSubmissionsLength || filterApplied) && 'hidden'}>
             <Button
               id={'delete-order-btn'}
               className={`w-8 admin-row_delete-button`}

@@ -98,7 +98,7 @@ const AdminPage = () => {
         <div className='container-large d-flex flex-column gap-1 mt-4'>
           <AdminStatusTracker />
           <div className='admin-page_content' onClick={(e) => searching(e)}>
-            <SubmissionSearch />
+            <SubmissionSearch filterApplied={filterBy !== 'Filter'} />
             {submissions.length !== 0 && (
               <div className='admin-page_section-table'>
                 {/* <div className='admin-page_batch-actions-wrapper'>
