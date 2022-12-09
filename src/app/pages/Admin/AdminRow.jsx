@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useState } from 'react';
 import { Button, Form, ListGroup, Spinner } from 'react-bootstrap';
-import { BsFileEarmarkFill, BsFileEarmark, BsPrinter, BsTrash } from 'react-icons/bs';
+import { BsFileEarmarkText, BsFileEarmark, BsPrinter, BsTrash } from 'react-icons/bs';
 
 import AdminRowExpanded from './AdminRowExpanded';
 import EditDetailsRow from './EditDetailsRow';
@@ -127,7 +127,7 @@ const AdminRow = ({ item: _item, cards, comics, setFilterBy }) => {
     }
 
     setIsUpdateLoading(true);
-    updateSubmission(item.item_id, payload)
+    updateSubmission(item.id, payload)
       .then((data) => {
         initState(data);
         setIsEditing('');
@@ -150,7 +150,7 @@ const AdminRow = ({ item: _item, cards, comics, setFilterBy }) => {
     });
 
     setIsUpdateLoading(true);
-    updateSubmission(item.item_id, payload)
+    updateSubmission(item.id, payload)
       .then((data) => {
         initState(data);
         setIsEditing('');
@@ -168,8 +168,9 @@ const AdminRow = ({ item: _item, cards, comics, setFilterBy }) => {
     const payload = {};
     payload.notes = tempState.notes;
     setIsUpdateLoading(true);
-    updateSubmission(item.item_id, payload)
+    updateSubmission(item.id, payload)
       .then((data) => {
+        console.log(data);
         initState(data);
         setIsEditing('');
       })
@@ -329,7 +330,11 @@ const AdminRow = ({ item: _item, cards, comics, setFilterBy }) => {
   const handleChangeNotes = () => {
     if (isEditing === ADMIN_ROW_SECTION.NOTES) {
       setIsEditing('');
-    } else setIsEditing(ADMIN_ROW_SECTION.NOTES);
+    } else {
+      setTempState(item);
+      setError('');
+      setIsEditing(ADMIN_ROW_SECTION.NOTES);
+    }
   };
 
   return (
@@ -400,7 +405,7 @@ const AdminRow = ({ item: _item, cards, comics, setFilterBy }) => {
 
         {item.notes ? (
           <div>
-            <BsFileEarmarkFill size={25} onClick={handleChangeNotes} />
+            <BsFileEarmarkText size={25} onClick={handleChangeNotes} />
           </div>
         ) : (
           <div>
