@@ -20,7 +20,7 @@ const Item = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getSingleSubmission(id)
+    getSingleSubmission(item.item_id)
       .then((data) => setItem(data))
       .catch((err) => console.log(err));
   }, [id]);

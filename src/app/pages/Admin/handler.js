@@ -14,13 +14,13 @@ export const Action = {
  * Process action. This is an unified action handler to
  * extract logic from UI component, and handles all possible actions in a single place.
  * @param {'ASSIGN_VAULT' | 'LINK_IMAGES' | 'VAULT' | 'VALIDATE'} action action type string
- * @param {string} id submission or inventory id. if `action` is 'VAULT', then this param will be ignored
+ * @param {string} item_id submission or inventory id. if `action` is 'VAULT', then this param will be ignored
  * @param {object} payload submission, inventory or vaulting data
  * @param {Function} setIsLoading loading status callback
  * @param {Function} setError error message callback
  * @return Promise
  */
-export const processAction = async (action, id, payload, setIsLoading, setError) => {
+export const processAction = async (action, item_id, payload, setIsLoading, setError) => {
   const updateLoadingStatus = (status) => {
     if (setIsLoading) {
       setIsLoading(status);
@@ -36,7 +36,7 @@ export const processAction = async (action, id, payload, setIsLoading, setError)
   updateLoadingStatus(true);
 
   if (action === Action.VALIDATE) {
-    return updateSubmission(id, payload)
+    return updateSubmission(item_id, payload)
       .catch((e) => {
         updateErrorMessage(e.message);
         return e;
@@ -45,7 +45,7 @@ export const processAction = async (action, id, payload, setIsLoading, setError)
   }
 
   if (action === Action.LINK_IMAGES) {
-    return updateSubmission(id, payload)
+    return updateSubmission(item_id, payload)
       .catch((e) => {
         updateErrorMessage(e.message);
         return e;
@@ -54,7 +54,7 @@ export const processAction = async (action, id, payload, setIsLoading, setError)
   }
 
   if (action === Action.ASSIGN_VAULT) {
-    return putInventory(id, payload)
+    return putInventory(item_id, payload)
       .catch((e) => {
         updateErrorMessage(e.message);
         return e;
