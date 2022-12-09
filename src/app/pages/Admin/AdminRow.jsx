@@ -170,7 +170,6 @@ const AdminRow = ({ item: _item, cards, comics, setFilterBy }) => {
     setIsUpdateLoading(true);
     updateSubmission(item.id, payload)
       .then((data) => {
-        console.log(data);
         initState(data);
         setIsEditing('');
       })
