@@ -27,6 +27,7 @@ export const ADMIN_ROW_SECTION = {
   LOCATION: 'location',
   DETAILS: 'details',
   IMAGE: 'image',
+  NOTES: 'notes',
 };
 
 export const ACTION_LABEL = {
@@ -37,4 +38,10 @@ export const ACTION_LABEL = {
   LINK_IMAGES: 'Link Images',
   ASSIGN_VAULT: 'Assign Vault',
   DONE: 'Done',
+  UNDELETE: 'Undelete',
+};
+
+export const ITEM_OR_ORDER = {
+  ITEM: 'item',
+  ORDER: 'order',
 };

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { Button, Form, ListGroup, Spinner } from 'react-bootstrap';
-import { BsPrinter } from 'react-icons/bs';
+import { BsFileEarmarkText, BsFileEarmark, BsPrinter, BsTrash } from 'react-icons/bs';
 
 import AdminRowExpanded from './AdminRowExpanded';
 import EditDetailsRow from './EditDetailsRow';
@@ -10,14 +10,20 @@ import LocationRow from './LocationRow';
 import { ReactComponent as PencilIcon } from '../../assets/pencil-icon.svg';
 import { CASCADE_TYPE, useInventoryLocation } from '../../hooks/useInventoryLocation';
 import { createVaulting, ITEM_TYPE, VAULTING_STATUS } from '../../services/items';
-import { approveRejectSubmissions, SUBMISSION_STATUS, updateSubmission } from '../../services/submission';
+import {
+  approveRejectSubmissions,
+  SUBMISSION_STATUS,
+  undeleteSubmission,
+  updateSubmission,
+} from '../../services/submission';
 import { getSubmissionTitle } from '../../utils/submissions';
-import { ACTION_LABEL, ADMIN_ROW_SECTION, SubmissionStatusOptions } from './const';
+import { ACTION_LABEL, ADMIN_ROW_SECTION, ITEM_OR_ORDER, SubmissionStatusOptions } from './const';
 import SubmissionPrint from './SubmissionPrint';
 import { removeTrailingDashes } from '../../utils/strings';
 import CardPlaceholder from '../../assets/CardPlaceholder';
+import DeleteConfirmationModal from './DeleteConfirmationModal';
 
-const AdminRow = ({ item: _item, cards, comics }) => {
+const AdminRow = ({ item: _item, cards, comics, setFilterBy }) => {
   const [isEditing, setIsEditing] = useState('');
   const [isActionLoading, setIsActionLoading] = useState(false);
   const [isUpdateLoading, setIsUpdateLoading] = useState(false);
@@ -26,7 +32,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
   const [statusValue, setStatusValue] = useState(_item.status);
   const [item, setItem] = useState(_item);
   const [showPrint, setShowPrint] = useState('init');
-
+  const [confirmDelete, setConfirmDelete] = useState(false);
   const currentTime = new Date();
   const initState = React.useCallback((itemData) => {
     setStatusValue(itemData.status);
@@ -44,6 +50,11 @@ const AdminRow = ({ item: _item, cards, comics }) => {
     setCascade,
     cascade,
   } = useInventoryLocation(item.item_id, comics, cards);
+
+  useLayoutEffect(() => {
+    const element = document.getElementById('del-' + item.id);
+    element?.classList.remove('btn-primary');
+  });
 
   const returnLocationLabel = (locationObject) => {
     if (!locationObject) return 'Unassigned';
@@ -86,6 +97,8 @@ const AdminRow = ({ item: _item, cards, comics }) => {
       case ADMIN_ROW_SECTION.DETAILS:
         updateDetails();
         break;
+      case ADMIN_ROW_SECTION.NOTES:
+        updateNotes();
     }
   };
 
@@ -114,7 +127,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
     }
 
     setIsUpdateLoading(true);
-    updateSubmission(item.item_id, payload)
+    updateSubmission(item.id, payload)
       .then((data) => {
         initState(data);
         setIsEditing('');
@@ -137,7 +150,25 @@ const AdminRow = ({ item: _item, cards, comics }) => {
     });
 
     setIsUpdateLoading(true);
-    updateSubmission(item.item_id, payload)
+    updateSubmission(item.id, payload)
+      .then((data) => {
+        initState(data);
+        setIsEditing('');
+      })
+      .catch((err) => {
+        setError(err.message);
+      })
+      .finally(() => {
+        setIsUpdateLoading(false);
+      });
+    return;
+  };
+
+  const updateNotes = () => {
+    const payload = {};
+    payload.notes = tempState.notes;
+    setIsUpdateLoading(true);
+    updateSubmission(item.id, payload)
       .then((data) => {
         initState(data);
         setIsEditing('');
@@ -168,7 +199,7 @@ const AdminRow = ({ item: _item, cards, comics }) => {
 
     if (action === ACTION_LABEL.VALIDATE) {
       setIsActionLoading(true);
-      approveRejectSubmissions(item.item_id, item.type, true)
+      approveRejectSubmissions(item.id, item.type, true)
         .then((data) => {
           initState(data);
         })
@@ -177,6 +208,19 @@ const AdminRow = ({ item: _item, cards, comics }) => {
         })
         .finally(() => {
           setIsActionLoading(false);
+        });
+    } else if (action === ACTION_LABEL.UNDELETE) {
+      setIsActionLoading(true);
+      undeleteSubmission(item.id)
+        .then((data) => {
+          initState(data);
+        })
+        .catch((err) => {
+          setError(err.message);
+        })
+        .finally(() => {
+          setIsActionLoading(false);
+          setFilterBy('Filter');
         });
     } else if (action === ACTION_LABEL.VAULT) {
       setIsActionLoading(true);
@@ -209,11 +253,13 @@ const AdminRow = ({ item: _item, cards, comics }) => {
   }, []);
 
   const getActionLabel = () => {
-    if (item.status === SUBMISSION_STATUS.Submitted) {
-      return ACTION_LABEL.START;
+    if (!item.is_active) {
+      return ACTION_LABEL.UNDELETE;
     }
 
-    if (item.status === SUBMISSION_STATUS.Received) {
+    if (item.status === SUBMISSION_STATUS.Submitted) {
+      return ACTION_LABEL.START;
+    } else if (item.status === SUBMISSION_STATUS.Received) {
       return ACTION_LABEL.VALIDATE;
     }
 
@@ -280,6 +326,16 @@ const AdminRow = ({ item: _item, cards, comics }) => {
         setIsActionLoading(false);
       });
   };
+  const handleChangeNotes = () => {
+    if (isEditing === ADMIN_ROW_SECTION.NOTES) {
+      setIsEditing('');
+    } else {
+      setTempState(item);
+      setError('');
+      setIsEditing(ADMIN_ROW_SECTION.NOTES);
+    }
+  };
+
   return (
     <>
       <ListGroup.Item className='admin-page_table-row'>
@@ -345,6 +401,37 @@ const AdminRow = ({ item: _item, cards, comics }) => {
             )}
           </Button>
         </div>
+
+        {item.notes ? (
+          <div>
+            <BsFileEarmarkText size={25} onClick={handleChangeNotes} />
+          </div>
+        ) : (
+          <div>
+            <BsFileEarmark size={25} onClick={handleChangeNotes} />
+          </div>
+        )}
+
+        {item.is_active && (
+          <div>
+            <Button
+              id={'del-' + item.id}
+              className={`w-8 admin-row_delete-button`}
+              onClick={() => setConfirmDelete(true)}
+            >
+              <BsTrash />
+            </Button>
+          </div>
+        )}
+
+        <DeleteConfirmationModal
+          itemOrOrder={ITEM_OR_ORDER.ITEM}
+          confirmDelete={confirmDelete}
+          id={item.id}
+          item_id={item.item_id}
+          setConfirmDelete={setConfirmDelete}
+          setFilterBy={setFilterBy}
+        />
       </ListGroup.Item>
       {!!isEditing && (
         <AdminRowExpanded
@@ -354,6 +441,17 @@ const AdminRow = ({ item: _item, cards, comics }) => {
           className='text-body'
           setCascade={setCascade}
         >
+          {isEditing === ADMIN_ROW_SECTION.NOTES && (
+            <div className='admin-page_notes-edit-field'>
+              <div className='notes-pad'>Notes:</div>
+              <Form.Control
+                value={tempState.notes}
+                onChange={(e) => setTempState({ ...tempState, notes: e.target.value.substring(0, 255) })}
+                as='textarea'
+                rows={3}
+              />
+            </div>
+          )}
           {isEditing === ADMIN_ROW_SECTION.LOCATION && (
             <LocationRow
               updateInventory={updateInventory}
@@ -375,7 +473,6 @@ const AdminRow = ({ item: _item, cards, comics }) => {
           )}
         </AdminRowExpanded>
       )}
-
       {showPrint === 'open' && (
         <SubmissionPrint item={item} locationLabel={returnLocationLabel(currentLocation)} onClose={handlePrintClose} />
       )}

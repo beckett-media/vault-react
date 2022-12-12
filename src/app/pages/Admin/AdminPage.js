@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { ListGroup, Button, Form, Badge, Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import AdminStatusTracker from './AdminStatusTracker';
@@ -23,8 +23,9 @@ const AdminPage = () => {
 
   useEffect(() => {
     getAllSubmissions().then((res) => {
-      setSubmissions(res);
-      setFilteredSubmissions(res);
+      const activeItems = res.filter((item) => item.is_active);
+      setSubmissions([...activeItems]);
+      setFilteredSubmissions([...activeItems]);
     });
   }, []);
 
@@ -34,6 +35,8 @@ const AdminPage = () => {
         return submission.status === SUBMISSION_STATUS.Submitted;
       } else if (filterBy === 'in-progress') {
         return submission.status === SUBMISSION_STATUS.Received || submission.status === SUBMISSION_STATUS.Approved;
+      } else if (filterBy === 'deleted') {
+        return !submission.is_active;
       } else if (filterBy === 'done') {
         return (
           submission.status === SUBMISSION_STATUS.Vaulted ||
@@ -43,17 +46,37 @@ const AdminPage = () => {
       }
     });
     if (filterBy === 'Filter') {
+      const activeItems = submissions.filter((item) => item.is_active);
       setNoFilterResults(false);
-      setFilteredSubmissions([...submissions]);
+      setFilteredSubmissions([...activeItems]);
+    } else if (filterBy === 'deleted') {
+      const deletedItems = submissions.filter((item) => !item.is_active);
+      setNoFilterResults(false);
+      setFilteredSubmissions([...deletedItems]);
     } else if (!filteredSubmissions.length) {
       setNoFilterResults(true);
-      setFilteredSubmissions([...submissions]);
-    } else {
-      setNoFilterResults(false);
       setFilteredSubmissions([...filteredSubmissions]);
+    } else {
+      const activeItems = filteredSubmissions.filter((item) => item.is_active);
+      setNoFilterResults(false);
+      setFilteredSubmissions([...activeItems]);
     }
+  }, [filterBy, submissions]);
+
+  useEffect(() => {
+    document.getElementsByClassName('search-bar_input')[0].value = '';
+    getAllSubmissions().then((res) => {
+      setSubmissions(res);
+      setFilteredSubmissions(res);
+    });
   }, [filterBy]);
 
+  const searching = (e) => {
+    if (e.target.className === 'mb-0 search-bar_input form-control') {
+      document.getElementsByClassName('rounded-pill mb-0 form-select form-select-md')[0].value = 'Filter';
+      setFilterBy('Filter');
+    }
+  };
   const cards = filteredSubmissions
     .filter((item) => item.type === ITEM_TYPE.TRADING_CARD)
     .sort(sortByAttribute('item_id', 'desc'));
@@ -61,13 +84,21 @@ const AdminPage = () => {
     .filter((item) => item.type === ITEM_TYPE.COMIC)
     .sort(sortByAttribute('item_id', 'desc'));
 
+  const usersArr = [];
+  const numberOfVaulted = submissions.filter((item) => item.status === 5).length;
+  const numberOfPending = submissions.length - numberOfVaulted;
+  submissions.forEach((item) => {
+    return usersArr.includes(item.user) || usersArr.push(item.user);
+  });
+  const numberOfUsers = usersArr.length;
+
   return (
     <DefaultPage>
       <div className='page-padding'>
         <div className='container-large d-flex flex-column gap-1 mt-4'>
           <AdminStatusTracker />
-          <div className='admin-page_content'>
-            <SubmissionSearch />
+          <div className='admin-page_content' onClick={(e) => searching(e)}>
+            <SubmissionSearch filterApplied={filterBy !== 'Filter'} />
             {submissions.length !== 0 && (
               <div className='admin-page_section-table'>
                 {/* <div className='admin-page_batch-actions-wrapper'>
@@ -79,15 +110,24 @@ const AdminPage = () => {
                   </Button>
                   <Badge bg='secondary'>Coming soon</Badge>
                 </div> */}
-                <div className='admin-page_filter-box'>
-                  <Filter
-                    setFilterBy={setFilterBy}
-                    filterOptions={[
-                      { value: 'new', title: 'New' },
-                      { value: 'in-progress', title: 'In Progress' },
-                      { value: 'done', title: 'Done' },
-                    ]}
-                  />
+                <div className='admin-page_filter-row'>
+                  <div className='admin-page_filter-box'>
+                    <Filter
+                      setFilterBy={setFilterBy}
+                      filterOptions={[
+                        { value: 'new', title: 'New' },
+                        { value: 'in-progress', title: 'In Progress' },
+                        { value: 'done', title: 'Done' },
+                        { value: 'deleted', title: 'Deleted' },
+                      ]}
+                      filterBy={filterBy}
+                    />
+                  </div>
+                  <div className='admin-page_filter-stats'>
+                    <div>Number of Users: {numberOfUsers}</div>
+                    <div>Number of Vaulted: {numberOfVaulted}</div>
+                    <div>Number of Pending: {numberOfPending}</div>
+                  </div>
                 </div>
                 {noFilterResults && <div className='error'>No Filter Results</div>}
                 <div>{filteredSubmissions.length + ' of ' + filteredSubmissions.length} </div>
@@ -119,7 +159,13 @@ const AdminPage = () => {
                         </ListGroup.Item>
                         {!isSubmissionsLoading &&
                           cards.map((item) => (
-                            <AdminRow key={'admin_row-' + item.id} item={item} cards={cards} comics={comics} />
+                            <AdminRow
+                              key={'admin_row-' + item.id}
+                              item={item}
+                              cards={cards}
+                              comics={comics}
+                              setFilterBy={setFilterBy}
+                            />
                           ))}
                       </>
                     )}
@@ -129,7 +175,13 @@ const AdminPage = () => {
                           --- Comics ---
                         </ListGroup.Item>
                         {comics.map((item) => (
-                          <AdminRow key={'admin_row-' + item.id} item={item} cards={cards} comics={comics} />
+                          <AdminRow
+                            key={'admin_row-' + item.id}
+                            item={item}
+                            cards={cards}
+                            comics={comics}
+                            setFilterBy={setFilterBy}
+                          />
                         ))}
                       </>
                     )}

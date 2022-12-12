@@ -6,6 +6,7 @@ import { Loading } from '../pages/Loading/LoadingPage';
 import * as cognito from '../libs/cognito';
 import { updateAxiosClient } from '../services';
 import { getAdminUserGroups } from '../services/user';
+import config from '../../config';
 
 export const AuthStatus = {
   Loading: 'Loading',
@@ -235,7 +236,7 @@ const AuthProvider = ({ children }) => {
     sessionInfo,
     attrInfo,
     isSignedIn: authStatus === AuthStatus.SignedIn,
-    isAdmin: (adminGroups || []).includes('admin'),
+    isAdmin: config.IS_LOCAL_DEV || (adminGroups || []).includes('admin'),
     resendConfirmationCode,
     signUpUser,
     signUpWithEmail,
